@@ -19,7 +19,7 @@ public class Question {
 	@Column(name="sequence")
 	private Integer sequence;
 	
-	@Column(name="option")
+	@Column(name="option_id")
 	private Boolean option;
 	
 	@Column(name="createdate")

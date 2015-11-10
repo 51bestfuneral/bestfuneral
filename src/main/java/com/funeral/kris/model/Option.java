@@ -22,7 +22,7 @@ public class Option {
 	@Column(name="option_desc")
 	private String optionDesc;
 
-	@Column(name="seq")
+	@Column(name="sequence")
 	private Integer sequence;
 
 	@Column(name="createdate")
