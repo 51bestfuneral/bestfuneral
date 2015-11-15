@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.OptionDAO;
 import com.funeral.kris.model.Option;
+import com.funeral.kris.model.Question;
+import com.funeral.kris.util.SqlHelper;
 
 @Service
 @Transactional
@@ -17,6 +23,8 @@ public class OptionServiceImpl implements OptionService {
 
 	@Autowired
 	private OptionDAO OptionDAO;
+	@Autowired
+	private EntityManager em;
 
 	public void addResource(Option option) {
 		OptionDAO.save(option);		
@@ -34,14 +42,16 @@ public class OptionServiceImpl implements OptionService {
 		OptionDAO.delete(id);
 	}
 
-	public List<Option> getResources() {
-		List<Option> optionList = new ArrayList<Option>();
-		Iterable<Option> optionIter = OptionDAO.findAll();
-		Iterator<Option> iter = optionIter.iterator();
-		while(iter.hasNext()) {
-			Option option = iter.next();
-			optionList.add(option);
+	public List<Option> getResources(HttpServletRequest request) {
+		String a = null;
+		try {
+		    a = SqlHelper.getSqlFromRequest("Option", request);
 		}
-		return optionList;
+		catch (Exception e) {
+			
+		}
+		Query query = em.createQuery(a);
+		List<Option> questionList = query.getResultList();
+		return questionList;
 	}
 }

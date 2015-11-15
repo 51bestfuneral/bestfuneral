@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -57,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		List<User> usrlist = new ArrayList<User>();
 		String queryCommand = String.format(verifySql, userName, pwd, userType);
 		usrlist = jdbcTemplate.query(queryCommand, new UserMapper());
+		System.out.println(queryCommand);
 		return usrlist;
 	}
 

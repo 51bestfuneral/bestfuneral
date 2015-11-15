@@ -59,6 +59,7 @@ public class User {
 	}
 
 	public void setUsrId(Integer usrId) {
+		System.out.print("chuan success");
 		this.usrId = usrId;
 	}
 
@@ -67,6 +68,7 @@ public class User {
 	}
 
 	public void setUserName(String userName) {
+		System.out.print("chuan success");
 		this.userName = userName;
 	}
 
@@ -75,6 +77,7 @@ public class User {
 	}
 
 	public void setUserType(String userType) {
+		System.out.print("chuan success");
 		this.userType = userType;
 	}
 
@@ -83,6 +86,7 @@ public class User {
 	}
 
 	public void setUserRef(String userRef) {
+		System.out.print("chuan success");
 		this.userRef = userRef;
 	}
 
@@ -91,6 +95,7 @@ public class User {
 	}
 
 	public void setEmail(String email) {
+		System.out.print("chuan success");
 		this.email = email;
 	}
 
@@ -99,6 +104,7 @@ public class User {
 	}
 
 	public void setAddress(String address) {
+		System.out.print("chuan success");
 		this.address = address;
 	}
 

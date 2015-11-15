@@ -11,16 +11,13 @@ import javax.persistence.Column;
 @Entity
 @Table(name="answers")
 public class Answer {
-	
+
 	@Id
 	@Column(name="answer_id")
 	private String answerId;
 
 	@Column(name="user_id")
 	private String userId;
-	
-	@Column(name="option_desc")
-	private String optionDesc;
 
 	@Column(name="ans_list_id")
 	private Integer ansListId;
@@ -33,7 +30,7 @@ public class Answer {
 
 	@Column(name="createdate")
 	private Date createDate;
-	
+
 	@Column(name="updateddate")
 	private Date updatedDate;
 
@@ -51,14 +48,6 @@ public class Answer {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getOptionDesc() {
-		return optionDesc;
-	}
-
-	public void setOptionDesc(String optionDesc) {
-		this.optionDesc = optionDesc;
 	}
 
 	public Integer getAnsListId() {

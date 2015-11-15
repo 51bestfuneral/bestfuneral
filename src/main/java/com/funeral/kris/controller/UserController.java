@@ -32,15 +32,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingUser(@ModelAttribute User user) {
-		
-		ModelAndView modelAndView = new ModelAndView("home");
+	public void addingUser(@ModelAttribute User user) {
+
 		userService.addResource(user);
-		
-		String message = "User was successfully added.";
-		modelAndView.addObject("message", message);
-		
-		return modelAndView;
 	}
 
 	@ResponseBody
@@ -74,7 +68,7 @@ public class UserController {
 		
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ModelAndView deleteUser(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("home");

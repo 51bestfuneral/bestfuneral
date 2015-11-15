@@ -21,6 +21,9 @@ public class Question {
 	
 	@Column(name="option_id")
 	private Boolean option;
+
+	@Column(name="question_content")
+	private String questionContent;
 	
 	@Column(name="createdate")
 	private Date createDate;
@@ -68,4 +71,15 @@ public class Question {
 		this.updatedDate = updatedDate;
 	}
 
+	public String getQuestionContent() {
+		return questionContent;
+	}
+
+	public void setQuestionContent(String questionContent) {
+		this.questionContent = questionContent;
+	}
+
+	public Integer getSequence() {
+		return sequence;
+	}
 }
