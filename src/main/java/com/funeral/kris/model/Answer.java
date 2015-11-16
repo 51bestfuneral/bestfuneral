@@ -1,6 +1,7 @@
 package com.funeral.kris.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,6 +14,7 @@ import javax.persistence.Column;
 public class Answer {
 
 	@Id
+	@GeneratedValue
 	@Column(name="answer_id")
 	private String answerId;
 
@@ -20,7 +22,7 @@ public class Answer {
 	private String userId;
 
 	@Column(name="ans_list_id")
-	private Integer ansListId;
+	private String ansListId;
 
 	@Column(name="question_id")
 	private Integer questionId;
@@ -50,11 +52,11 @@ public class Answer {
 		this.userId = userId;
 	}
 
-	public Integer getAnsListId() {
+	public String getAnsListId() {
 		return ansListId;
 	}
 
-	public void setAnsListId(Integer ansListId) {
+	public void setAnsListId(String ansListId) {
 		this.ansListId = ansListId;
 	}
 

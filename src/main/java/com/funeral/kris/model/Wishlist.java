@@ -26,7 +26,10 @@ public class Wishlist {
 	
 	@Column(name="comment")
 	private String comment;
-	
+
+	@Column(name="user_id")
+	private String userId;
+
 	@Column(name="status")
 	private String status;
 	
@@ -90,6 +93,14 @@ public class Wishlist {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 }

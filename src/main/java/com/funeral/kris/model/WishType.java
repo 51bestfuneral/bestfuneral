@@ -14,13 +14,13 @@ public class WishType {
 	
 	@Id
 	@Column(name="wish_type")
-	private String cemeteryId;
+	private String wishType;
 
 	@Column(name="wish_type_desc")
-	private String cemeteryName;
+	private String wishTypeDesc;
 	
 	@Column(name="necessary")
-	private boolean cemeteryDesc;
+	private boolean necessary;
 	
 	@Column(name="createdate")
 	private Date createDate;
@@ -28,28 +28,28 @@ public class WishType {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getCemeteryId() {
-		return cemeteryId;
+	public String getWishType() {
+		return wishType;
 	}
 
-	public void setCemeteryId(String cemeteryId) {
-		this.cemeteryId = cemeteryId;
+	public void setWishType(String wishType) {
+		this.wishType = wishType;
 	}
 
-	public String getCemeteryName() {
-		return cemeteryName;
+	public String getWishTypeDesc() {
+		return wishTypeDesc;
 	}
 
-	public void setCemeteryName(String cemeteryName) {
-		this.cemeteryName = cemeteryName;
+	public void setWishTypeDesc(String wishTypeDesc) {
+		this.wishTypeDesc = wishTypeDesc;
 	}
 
-	public boolean isCemeteryDesc() {
-		return cemeteryDesc;
+	public boolean isNecessary() {
+		return necessary;
 	}
 
-	public void setCemeteryDesc(boolean cemeteryDesc) {
-		this.cemeteryDesc = cemeteryDesc;
+	public void setNecessary(boolean necessary) {
+		this.necessary = necessary;
 	}
 
 	public Date getCreateDate() {

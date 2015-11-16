@@ -1,9 +1,10 @@
 package com.funeral.kris.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.model.Answer;
+import com.funeral.kris.model.Wish;
+import com.funeral.kris.model.WishType;
+import com.funeral.kris.model.Wishlist;
+import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.AnswerService;
+import com.funeral.kris.service.WishTypeService;
+import com.funeral.kris.service.WishlistDetailService;
+import com.funeral.kris.service.WishlistService;
 
 @Controller
 @RequestMapping(value="/answer")
@@ -24,6 +32,14 @@ public class AnswerController {
 	
 	@Autowired
 	private AnswerService answerService;
+	@Autowired
+	private WishlistService wishListService;
+	@Autowired
+	private WishTypeService wishTypeService;
+	@Autowired
+	private WishlistDetailService wishlistDetailService;
+	@Autowired
+	private EntityManager em;
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addAnswerPage() {
@@ -35,12 +51,14 @@ public class AnswerController {
 	@ResponseBody 
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public void addingAnswer(@RequestBody List<Answer> answers) {
-		int i = 1;
+		Date a = new Date();
+		String userId = answers.get(0).getUserId();
+		String ansListId = userId +"-"+ String.valueOf(a.getTime());
 		for (Answer answer : answers) {
-			i = i+1;
-			answer.setAnswerId(String.valueOf(i));
+			answer.setAnsListId(ansListId);
 		    answerService.addResource(answer);
 		}
+		generateWishList(userId, ansListId);
 	}
 
 	@ResponseBody
@@ -84,4 +102,42 @@ public class AnswerController {
 		return modelAndView;
 	}
 
+	private void generateWishList(String usrId, String ansListId) {
+		Wishlist wishList = new Wishlist();
+		wishList.setAnsListId(ansListId);
+		wishList.setWishlistId(ansListId);
+		wishList.setStatus("I");
+		wishList.setUserId(usrId);
+		wishList.setPrice(0d);
+		wishListService.addResource(wishList);
+		generateWishDetail(ansListId);
+	}
+	
+	private void generateWishDetail(String wishListId) {
+		List<WishType> wishTypeList = wishTypeService.getResources();
+		for (WishType wishType: wishTypeList) {
+			generateWishForType(wishType.getWishType(), wishListId);
+		}
+	}
+	
+	private void generateWishForType(String wishType, String wishListId) {
+		String querySQL = "select p from wishs p where wishType = '%s'";
+		Random random = new Random();
+		WishlistDetail detail = new WishlistDetail();
+		Wish randomWish = null;
+		int randomIndex = 0;
+		querySQL = String.format(querySQL, wishType);
+		List<Wish> wishs = em.createQuery(querySQL).getResultList();
+
+		if (wishs!=null && wishs.size() > 0) {
+			randomIndex = random.nextInt(wishs.size());
+			randomWish = wishs.get(randomIndex);
+			detail.setWishId(randomWish.getWishId());
+			detail.setPrice(randomWish.getPrice());
+			detail.setCount(1);
+			detail.setWishlistId(wishListId);
+			detail.setWishType(wishType);
+			wishlistDetailService.addResource(detail);
+		}
+	}
 }
