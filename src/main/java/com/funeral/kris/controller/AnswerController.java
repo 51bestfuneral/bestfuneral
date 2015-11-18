@@ -1,7 +1,9 @@
 package com.funeral.kris.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.model.Answer;
+import com.funeral.kris.model.Cemetery;
+import com.funeral.kris.model.OptionRule;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
 import com.funeral.kris.model.Wishlist;
@@ -40,6 +44,8 @@ public class AnswerController {
 	private WishlistDetailService wishlistDetailService;
 	@Autowired
 	private EntityManager em;
+
+	private Map<String, String> optionRuleMap = new HashMap<String, String>();
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addAnswerPage() {
@@ -57,6 +63,7 @@ public class AnswerController {
 		for (Answer answer : answers) {
 			answer.setAnsListId(ansListId);
 		    answerService.addResource(answer);
+		    generateOptionRule(answer.getAnswerDesc());
 		}
 		generateWishList(userId, ansListId);
 	}
@@ -92,7 +99,7 @@ public class AnswerController {
 		
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ModelAndView deleteAnswer(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("home");
@@ -112,32 +119,80 @@ public class AnswerController {
 		wishListService.addResource(wishList);
 		generateWishDetail(ansListId);
 	}
-	
+
 	private void generateWishDetail(String wishListId) {
 		List<WishType> wishTypeList = wishTypeService.getResources();
 		for (WishType wishType: wishTypeList) {
 			generateWishForType(wishType.getWishType(), wishListId);
 		}
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	private void generateWishForType(String wishType, String wishListId) {
-		String querySQL = "select p from wishs p where wishType = '%s'";
+		String querySQL = null;
+
+		if (wishType.equals("Cemetery")) {
+		    querySQL = "select p from Cemetery p ";
+		}
+		else {
+			querySQL = "select p from Wish p where wishType = '%s'";
+			querySQL = String.format(querySQL, wishType);
+		}
+		
+		if (optionRuleMap.containsKey(wishType)) {
+			querySQL = querySQL + " AND " + optionRuleMap.get(wishType);
+		}
 		Random random = new Random();
 		WishlistDetail detail = new WishlistDetail();
-		Wish randomWish = null;
 		int randomIndex = 0;
-		querySQL = String.format(querySQL, wishType);
-		List<Wish> wishs = em.createQuery(querySQL).getResultList();
 
-		if (wishs!=null && wishs.size() > 0) {
-			randomIndex = random.nextInt(wishs.size());
-			randomWish = wishs.get(randomIndex);
-			detail.setWishId(randomWish.getWishId());
-			detail.setPrice(randomWish.getPrice());
-			detail.setCount(1);
-			detail.setWishlistId(wishListId);
-			detail.setWishType(wishType);
-			wishlistDetailService.addResource(detail);
+		if (wishType.equals("Cemetery")) {
+			List<Cemetery> cemeterys = em.createQuery(querySQL).getResultList();
+			Cemetery randomWish = null;
+
+			if (cemeterys!=null && cemeterys.size() > 0) {
+				randomIndex = random.nextInt(cemeterys.size());
+				randomWish = cemeterys.get(randomIndex);
+				detail.setWishId(randomWish.getCemeteryId());
+				detail.setPrice(Double.valueOf(randomWish.getPrice()));
+				detail.setCount(1);
+				detail.setWishlistId(wishListId);
+				detail.setWishType(wishType);
+				wishlistDetailService.addResource(detail);
+			}
+		}
+		else {
+			List<Wish> wishs = em.createQuery(querySQL).getResultList();
+			Wish randomWish = null;
+
+			if (wishs!=null && wishs.size() > 0) {
+				randomIndex = random.nextInt(wishs.size());
+				randomWish = wishs.get(randomIndex);
+				detail.setWishId(randomWish.getWishId());
+				detail.setPrice(randomWish.getPrice());
+				detail.setCount(1);
+				detail.setWishlistId(wishListId);
+				detail.setWishType(wishType);
+				wishlistDetailService.addResource(detail);
+			}
+		}
+	}
+
+	private void generateOptionRule(String optionIdStr) {
+		String sql = "select p from OptionRule p where optionId = '%s'";
+		sql = String.format(sql, optionIdStr);
+		@SuppressWarnings("unchecked")
+		List<OptionRule> optionRuleList = em.createQuery(sql).getResultList();
+		for (OptionRule optionRule: optionRuleList) {
+
+			if (optionRuleMap.containsKey(optionRule.getRuleType())) {
+				optionRuleMap.put(optionRule.getRuleType(), optionRule.getRule());
+			}
+			else {
+				String combineRule = optionRuleMap.get(optionRule.getRuleType()) + " AND "
+			        + optionRule.getRule();
+				optionRuleMap.put(optionRule.getRuleType(), combineRule);
+			}
 		}
 	}
 }

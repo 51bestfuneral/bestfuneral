@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.persistence.Column;
 
 @Entity
-@Table(name="wish_types")
+@Table(name="cemeterys")
 public class Cemetery {
 	
 	@Id

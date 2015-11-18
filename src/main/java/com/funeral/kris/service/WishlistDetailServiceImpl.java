@@ -19,7 +19,7 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 	private WishlistDetailDAO WishlistDetailDAO;
 
 	public void addResource(WishlistDetail wishlistDetail) {
-		WishlistDetailDAO.save(wishlistDetail);		
+		WishlistDetailDAO.save(wishlistDetail);
 	}
 
 	public void updateResource(WishlistDetail wishlistDetail) {

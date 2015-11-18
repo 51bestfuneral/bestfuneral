@@ -22,7 +22,6 @@ public class WishlistDetail implements Serializable {
 	@Column(name="Wishlist_detail_id")
 	private String wishlistDetailId;
 
-	@Id
 	@Column(name="wishlist_id")
 	private String wishlistId;
 
