@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/Bootstrap/boot.js"></script>
+<link href="../js/Bootstrap/boot.css" rel="stylesheet">
+<link href="../js/kube.css" rel="stylesheet">
+<style>
+    #mainContent{
+	    width: 100%;
+		text-align:center;
+	}
+    #topMessage {
+	    width: 100%;
+		margin:0px auto;  
+		height:auto;
+	}
+	#myTabContent{
+	    height:auto;
+		margin-top: 30px;
+	}
+	li {
+	    margin-left: 5%;
+		width : 8%;
+		padding: 0;
+		border: 0;
+	}
+	.tabIcon {
+	    width:100px;
+		height:100px;
+		background-color:#E2E2E2;
+		border-radius:50px;
+	}
+	.tabIconText {
+	    height:100px;
+		line-height:100px;
+		display:block;
+		color:#6C6C6C;
+		text-align:center;
+		font-size:30px;
+	}
+	.leftImg {
+	    float:left;
+		width:45%;
+		margin-left: 5%;
+	}
+	.rightText {
+	    float:left;
+		width:45%;
+	}
+	.messageImg {
+	    width:100%;
+		height:100%;
+	}
+	#confuse {
+	    width: 76%;
+		margin:0px auto;  
+		height:auto;
+		overflow:auto;
+	}
+	.tab-pane {
+		overflow:auto;
+	}
+	.iconDiv {
+	    width: 25%;
+		float: left;
+	}
+	#whyChooseText {
+		position: absolute;
+		width:100%;
+	}
+	#textInImg {
+	    margin-top: 80px;
+		color: #fff;
+	}
+    #textInImg2 {
+	    margin-top: 40px;
+	}
+	#operation {
+	    width: 100%;
+		height: 500px;
+		background:url(../js/images/backDiv.jpg) repeat;
+	}
+	.halfIcon {
+	    width: 50%;
+		height: 80%;
+		float:left;
+	}
+    .halfLink {
+	    width: 50%;
+		height: 20%;
+		float:left;
+	}
+	.aButton {
+	    border: 2px solid;
+		padding: 10px 10px;
+		color: #CA42A5;
+	}
+	.halfIconImg {
+	    margin-top: 140px;
+	}
+	#taocan {
+	    width: 50%;
+		margin:0px auto;  
+		height:auto;
+		overflow:auto;
+		height: 250px;
+	}
+    .taocanIconDiv {
+	    width: 30%;
+		float: left;
+		box-shadow: 2px 3px 2px 2px rgba(0,0,0,.2);
+		margin: 10px;
+		margin-top: 40px;
+		height: 150px;
+		cursor:pointer;
+	}
+	.header {
+	    margin-top : 50px;
+	}
+	.headerText {
+	    margin-top : 50px;
+	}
+	#nextStep {
+	    margin: 20px;
+	}
+	#startButton {
+	    width : 200px;
+		height: 50px;
+	}
+	#startText {
+	    margin-top: 10px;
+	}
+	.choose {
+	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
+		background: #B5AFAF;
+	}
+</style>
+<body>
+    <IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
+<div id="mainContent">
+	<div id="topMessage">
+	    <h1>为什么要定制葬礼</h1>
+		<img></img>
+		<h2>传统的葬礼，它需要以下内容</h2>
+		<ul id="myTab" class="nav nav-tabs">
+			<li>
+				<a href="#tab1" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">送终</span>
+                </div>
+			    </a>
+            </li>
+            <li><a href="#tab2" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">报丧</span>
+                </div>
+			</a></li>
+            <li><a href="#tab3" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">入殓</span>
+                </div>
+			</a></li>
+			<li><a href="#tab4" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">吊唁</span>
+                </div>
+			</a></li>
+			<li><a href="#tab5" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">出殡</span>
+                </div>
+			</a></li>
+			<li><a href="#tab6" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">落葬</span>
+                </div>
+			</a></li>
+			<li><a href="#tab7" data-toggle="tab">
+			    <div class="tabIcon" >
+                    <span class="tabIconText">祭祀</span>
+                </div>
+			</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade in active" id="tab1">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>送终</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+            <div class="tab-pane fade" id="tab2">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>报丧</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+            <div class="tab-pane fade" id="tab3">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>入殓</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+            <div class="tab-pane fade" id="tab4">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>吊唁</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+			<div class="tab-pane fade" id="tab5">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>出殡</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+			<div class="tab-pane fade" id="tab6">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>落葬</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+			<div class="tab-pane fade" id="tab7">
+			    <div class="leftImg">
+			        <img src="../js/images/why.jpg" class="messageImg"></img>
+				</div>
+				<div class="rightText">
+				    <h4>祭祀</h4>
+				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				</div>
+            </div>
+        </div>
+	</div>
+	<div id="confuse">
+	    <h4>关于传统葬礼，或许您也有这样的困惑</h4>
+		<div class="iconDiv">
+		    <img src=""></img>
+			<h5>故人离去突然<br/>未做充分准备<h5>
+		</div>
+		<div class="iconDiv">
+		    <img src=""></img>
+			<h5>风俗礼数繁多<br/>令人无所适从<h5>
+		</div>
+		<div class="iconDiv">
+		    <img src=""></img>
+			<h5>仪式过多雷同<br/>无法表尽哀思<h5>
+		</div>
+		<div class="iconDiv">
+		    <img src=""></img>
+			<h5>花销大而不明<br/>让人难以承受<h5>
+		</div>
+	</div>
+	<div id="whyChoose" width=100%>
+	    <div id="whyChooseText">
+		    <h2 id="textInImg">我们为您设计了一个更贴心更智能的葬礼定制工具</h4>
+		</div>
+	    <img src="../js/images/why1.jpg" width="100%" height="100%"></img>
+	</div>
+	<div id="whyChoose2" width=100%>
+	    <img src="../js/images/why3.jpg" width="100%" height="100%"></img>
+	</div>
+	<div id="operation">
+	    <div id="whyChooseText">
+		    <h2 id="textInImg2">您可以获得更便捷的定制体验</h4>
+		</div>
+		<div class="halfIcon">
+		    <img src="../js/images/Icon.jpg" class="halfIconImg"></img>
+			<h4>在网站上完成<br/>整个定制流程</h3>
+		</div>
+		<div class="halfIcon">
+		    <img src="../js/images/Icon.jpg" class="halfIconImg"></img>
+			<h4>我们经验丰富的客<br/>服人员给您提供7天<br/>24小时不间断服务</h3>
+		</div>
+		<div class="halfLink">
+		    <a class="aButton">开始网上定制</a>
+		</div>
+		<div class="halfLink">
+		    <a class="aButton">现在跟我们联系</a>
+		</div>
+	</div>
+	<div>
+	    <div class="header">
+		    <h3>我们为您提供了更为灵活的基础定制方案</h3>
+		</div>
+		<div id="taocan">
+			<div class="taocanIconDiv">
+			    <h3 class="headerText">基础</h3>
+				<h5>￥6288 - ￥16288<h5>
+			</div>
+			<div class="taocanIconDiv">
+				<h3 class="headerText">精选</h3>
+				<h5>￥6288 - ￥16288<h5>
+			</div>
+			<div class="taocanIconDiv">
+				<h3 class="headerText">豪华</h3>
+				<h5>￥6288 - ￥16288<h5>
+			</div>
+	    </div>
+		<div class="footer">
+		    <p>我们是您放心明智之选，欲了解更多详情，您可以<a>点击这里</a></p>
+		</div>
+	</div>
+	<div>
+	    <h3 id="nextStep">下一步</h3>
+		<button id="startButton">开始定制</button>
+		<p id="startText">您将会通过我们的网上定制工具完成定制</p>
+	</div>
+</div>
+    <IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME> 
+</body>
+<script type="text/javascript">
+    $(".taocanIconDiv").click(function(){
+        window.location.href='designProposal.html';
+    });
+	$(".taocanIconDiv").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".taocanIconDiv").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+	$(".tabIcon").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".tabIcon").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+</script>
+</html>
