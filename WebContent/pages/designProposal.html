@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/Bootstrap/boot.js"></script>
+<style>
+    #mainContent{
+	    width: 100%;
+		text-align:center;
+	}
+	#taocan {
+	    width: 50%;
+		margin:0px auto;
+		height:auto;
+		overflow:auto;
+		height: 250px;
+	}
+	#compareForm {
+	    width: 100%;
+		margin:0px auto;
+		overflow:auto;
+		background-color: #ECE7E7;
+	}
+    .taocanIconDiv {
+	    width: 30%;
+		float: left;
+		box-shadow: 2px 3px 2px 2px rgba(0,0,0,.2);
+		margin: 10px;
+		margin-top: 40px;
+		height: 150px;
+		cursor:pointer;
+	}
+	.iconChild {
+	    width: 100%;
+		height: 100%;
+		padding:  10% 0;
+	}
+	.iconChild h4 {
+	    margin-bottom: 0;
+	}
+    .iconChild p {
+	    margin-bottom: 0;
+	}
+	.taocanIconDivInRow {
+	    width: 100%;
+		height : 100%;
+		cursor:pointer;
+		margin: 0px;
+		padding:  5% 0;
+	}
+    .choose {
+	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
+		background: #B5AFAF;
+	}
+	#headerMesText {
+	    line-height:100px;
+	}
+	.descRow {
+	    width: 25%;
+		float: left;
+		margin: 0;
+		padding: 0;
+	}
+	.descRow p {
+	    line-height: 100px;
+	}
+	.valueRow .headerLine {
+	    background-color: #BF1544;
+	}
+	.valueRow {
+	    width: 20%;
+		margin-left : 3.75%;
+		float: left;
+		padding: 0;
+	}
+	.valueRow .normalLine {
+	    background-color: #FBFBFB;
+	}
+	.headerLine {
+	    width: 100%;
+		height: 150px;
+		list-style-type:none;
+		margin-top: 20px;
+		padding: 0;
+		border-top: 1px solid #ECE7E7;
+	}
+	.normalLine {
+	    width: 100%;
+		height: 100px;
+		list-style-type:none;
+		border-top: 1px solid #ECE7E7;
+		padding:  5% 0;
+	}
+	.tickImg {
+	    vertical-align: middle;
+		margin: 0px;
+        padding: 0px;
+	}
+	.compareProposal {
+	    line-height:250px;
+	}
+	.imgDiv {
+		width : 100%;
+		height : 100%;
+	}
+	.fakeImg {
+	    width: 0;
+        height: 100%;
+		border: none;
+	}
+	.headerText {
+	    margin-top: 0;
+	}
+</style>
+<link href="../js/Bootstrap/boot.css" rel="stylesheet">
+<body>
+<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
+<div id="mainContent">
+    <div id="headerMessage">
+	    <h2 id="headerMesText">选择适合您的定制方案</h2>
+	</div>
+	<div id="taocan">
+        <div class="taocanIconDiv">
+			<h2 class="headerText">基础</h3>
+		    <h4>￥6288 - ￥16288<h5>
+		</div>
+		<div class="taocanIconDiv">
+			<h3 class="headerText">精选</h3>
+			<h5>￥6288 - ￥16288<h5>
+		</div>
+		<div class="taocanIconDiv">
+			<h3 class="headerText">豪华</h3>
+			<h5>￥6288 - ￥16288<h5>
+		</div>
+	</div>
+	<div id="compareForm">
+	    <ul class="descRow">
+		    <li class="headerLine">
+			    <h2 class="compareProposal">比较方案</h2>
+			</li>
+			<li class="normalLine">
+			</li>
+			<li class="normalLine">
+			    <p class="messageInRow">流程咨询</p>
+			</li>
+		</ul>
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+				    <div class="iconChild">
+			            <h2 class="headerText">基础</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalLine">
+			    <div class="iconChild">
+			        <p>最为经济合算的方案，<br/>比较低的成本定制专属葬礼。</p>
+				</div>
+			</li>
+			<li class="normalLine">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg"></img>
+				</div>
+			</li>
+		</ul>
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="headerText">精选</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalLine">
+			    <p>最受欢迎的方案，<br/>灵活的安排各项葬礼细节。</p>
+			</li>
+			<li class="normalLine">
+			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+		</ul>
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="headerText">豪华</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalLine">
+			    <p>最大气的方案，<br/>为您爱的人举办高规格的仪式。</p>
+			</li>
+			<li class="normalLine">
+			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+		</ul>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script type="text/javascript">
+    $(".taocanIconDiv").click(function(){
+        window.location.href='funeralDesignPage.html';
+    });
+	$(".taocanIconDiv").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".taocanIconDiv").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+</script>
+</html>
