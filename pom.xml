@@ -125,7 +125,7 @@
 	</repositories>
 
 	<build>
-		<finalName>funeral</finalName>
+		<finalName>bestfuneral</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
