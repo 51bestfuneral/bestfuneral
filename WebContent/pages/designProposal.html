@@ -12,39 +12,62 @@
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <script src="../js/Bootstrap/boot.js"></script>
 <style>
+    body {
+        margin：0px;
+    }
     #mainContent{
 	    width: 100%;
 		text-align:center;
+		margin-top: 0;
+	}
+	.topContent {
+	    width: 100%;
+		height:auto;
+		overflow:auto;
 	}
 	#taocan {
-	    width: 50%;
+	    width: 85%;
 		margin:0px auto;
 		height:auto;
 		overflow:auto;
-		height: 250px;
+	    margin-bottom: 3%;
+		padding-bottom: 1%;
 	}
 	#compareForm {
 	    width: 100%;
 		margin:0px auto;
 		overflow:auto;
 		background-color: #ECE7E7;
+		height:auto;
+		padding: 3%;
 	}
     .taocanIconDiv {
-	    width: 30%;
+	    width: 22%;
 		float: left;
-		box-shadow: 2px 3px 2px 2px rgba(0,0,0,.2);
-		margin: 10px;
-		margin-top: 40px;
-		height: 150px;
+		margin-right: 3%;	
+		height: 120px;
+		background-color: #ECE7E7;
+		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+	}
+	.taocanIconDiv h3 {
+	    line-height: 120px;
+		margin: 0;
 		cursor:pointer;
 	}
 	.iconChild {
 	    width: 100%;
 		height: 100%;
-		padding:  10% 0;
+	}
+	.iconChild h2 {
+	    line-height: 80px;
+		font-size: 20px;
+		margin-bottom: 0;
+		font-weight:bold;
 	}
 	.iconChild h4 {
 	    margin-bottom: 0;
+		margin-top: 0;
+		font-size: 10px;
 	}
     .iconChild p {
 	    margin-bottom: 0;
@@ -54,17 +77,25 @@
 		height : 100%;
 		cursor:pointer;
 		margin: 0px;
-		padding:  5% 0;
+		border-top :10px solid green;
 	}
     .choose {
-	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
 		background: #B5AFAF;
+		border: 1px solid black;
+	}
+	.select {
+	    background: #B5AFAF;
+		border: 2px solid #F7350A;
+	}
+	#headerMessage {
+	    padding-top: 40px;
 	}
 	#headerMesText {
 	    line-height:100px;
+		margin: 0;
 	}
 	.descRow {
-	    width: 25%;
+	    width: 100%;
 		float: left;
 		margin: 0;
 		padding: 0;
@@ -76,36 +107,56 @@
 	    background-color: #BF1544;
 	}
 	.valueRow {
-	    width: 20%;
-		margin-left : 3.75%;
+	    width: 100%;
 		float: left;
 		padding: 0;
+		margin-bottom: 0;
 	}
 	.valueRow .normalLine {
 	    background-color: #FBFBFB;
 	}
 	.headerLine {
 	    width: 100%;
-		height: 150px;
+		height: 120px;
 		list-style-type:none;
-		margin-top: 20px;
 		padding: 0;
 		border-top: 1px solid #ECE7E7;
 	}
-	.normalLine {
+    .normalHeaderLine {
 	    width: 100%;
 		height: 100px;
 		list-style-type:none;
 		border-top: 1px solid #ECE7E7;
-		padding:  5% 0;
+	}
+	.normalLine {
+	    width: 100%;
+		height: 60px;
+		list-style-type:none;
+		border-top: 1px solid #ECE7E7;
+	}
+	.normalLine p {
+	    line-height : 60px;
+		margin-bottom: 0;
+	}
+	.normalLineText {
+	    width : 100%;
+		padding: 0;
+		margin-top: 0;
+		height: 60px;
+		padding-top : 1px;
+	}
+	.normalLineText p {
+	    margin: 0;
+		font-size: 1px;
 	}
 	.tickImg {
 	    vertical-align: middle;
 		margin: 0px;
         padding: 0px;
 	}
-	.compareProposal {
-	    line-height:250px;
+	.doubleText {
+	    line-height:150px;
+		margin: 0;
 	}
 	.imgDiv {
 		width : 100%;
@@ -119,39 +170,90 @@
 	.headerText {
 	    margin-top: 0;
 	}
+	.includeDiv {
+	    width: 15%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		padding-bottom: 1%;
+		margin-top: 20px;
+	}
+	.includeDataDiv {
+	    width: 16%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		margin-bottom: 1%;
+		margin-left : 1%;
+		margin-top: 20px;
+		cursor:pointer;
+	}
+	#titleIconDiv {
+	    position: absolute;
+		left: 5%;
+		top: 10px;
+		width: 70px;
+		text-align: center;
+		border-radius: 35px;
+		border: 1px solid rgba(0,0,0,.2);
+		overflow: hidden;
+		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+		cursor:pointer;
+	}
+	.iconImg {
+	    margin-left: -7px;
+	}
 </style>
 <link href="../js/Bootstrap/boot.css" rel="stylesheet">
 <body>
-<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "73px"></IFRAME>
 <div id="mainContent">
+    <div class="topContent">
     <div id="headerMessage">
 	    <h2 id="headerMesText">选择适合您的定制方案</h2>
 	</div>
 	<div id="taocan">
         <div class="taocanIconDiv">
-			<h2 class="headerText">基础</h3>
-		    <h4>￥6288 - ￥16288<h5>
+			<h3>白事管家</h3>
 		</div>
 		<div class="taocanIconDiv">
-			<h3 class="headerText">精选</h3>
-			<h5>￥6288 - ￥16288<h5>
+			<h3>白事管家</h3>
 		</div>
 		<div class="taocanIconDiv">
-			<h3 class="headerText">豪华</h3>
-			<h5>￥6288 - ￥16288<h5>
+		    <h3>白事管家</h3>
+		</div>
+		<div class="taocanIconDiv">
+		    <h3>白事管家</h3>
 		</div>
 	</div>
+	</div>
 	<div id="compareForm">
+	    <div class= "includeDiv">
 	    <ul class="descRow">
 		    <li class="headerLine">
-			    <h2 class="compareProposal">比较方案</h2>
+			    <h2 class="doubleText">比较方案</h2>
 			</li>
-			<li class="normalLine">
+			<li class="normalHeaderLine">
+			    <p>概况</p>
 			</li>
 			<li class="normalLine">
 			    <p class="messageInRow">流程咨询</p>
 			</li>
 		</ul>
+		</div>
+		<div class= "includeDiv">
+		<ul class="descRow">
+		    <li class="headerLine">
+			</li>
+			<li class="normalHeaderLine">
+			    <p>概况</p>
+			</li>
+			<li class="normalLine">
+			    <p class="messageInRow">流程咨询</p>
+			</li>
+		</ul>
+		</div>
+		<div class= "includeDataDiv">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -161,10 +263,14 @@
 					</div>
 		        </div>
 			</li>
-			<li class="normalLine">
-			    <div class="iconChild">
-			        <p>最为经济合算的方案，<br/>比较低的成本定制专属葬礼。</p>
-				</div>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最为经济合算的方案，<br/>比较低的成本定制专属葬礼。</p>
+                        </td>
+　　                </tr>
+　　            </table>
 			</li>
 			<li class="normalLine">
 			    <div class="imgDiv">
@@ -173,6 +279,8 @@
 				</div>
 			</li>
 		</ul>
+		</div>
+		<div class= "includeDataDiv">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -182,14 +290,22 @@
 					</div>
 		        </div>
 			</li>
-			<li class="normalLine">
-			    <p>最受欢迎的方案，<br/>灵活的安排各项葬礼细节。</p>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最受欢迎的方案，<br/>灵活的安排各项葬礼细节。</p>
+                        </td>
+　　                </tr>
+　　            </table>
 			</li>
 			<li class="normalLine">
 			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
 			    <img src="../js/images/tick.jpg" class="tickImg"></img>
 			</li>
 		</ul>
+		</div>
+		<div class= "includeDataDiv">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -199,22 +315,54 @@
 					</div>
 		        </div>
 			</li>
-			<li class="normalLine">
-			    <p>最大气的方案，<br/>为您爱的人举办高规格的仪式。</p>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最大气的方案，<br/>为您爱的人举办高规格的仪式。</p>
+                        </td>
+　　                </tr>
+　　            </table>
 			</li>
 			<li class="normalLine">
 			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
 			    <img src="../js/images/tick.jpg" class="tickImg"></img>
 			</li>
 		</ul>
+		</div>
+		<div class= "includeDataDiv">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="headerText">顶级</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最奢侈的方案，<br/>举办无上规格的仪式。</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine">
+			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+		</ul>
+		</div>
 	</div>
+</div>
+<div id="titleIconDiv">
+    <img src="../js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
 <IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
-    $(".taocanIconDiv").click(function(){
-        window.location.href='funeralDesignPage.html';
-    });
 	$(".taocanIconDiv").hover(function () {
         var $this = $(this);
         $this.addClass("choose");
@@ -222,6 +370,38 @@
 	$(".taocanIconDiv").on("mouseleave", function () {
         var $this = $(this);
         $this.removeClass("choose");
+	});
+	$(".taocanIconDiv").on("click", function () {
+        var $this = $(this);
+
+        if ($this.hasClass("select")) {
+            $this.removeClass("select");
+		}
+		else {
+		    $this.addClass("select");
+		}
+	});
+	$(".includeDataDiv").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".includeDataDiv").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+    $(".includeDataDiv").on("click", function () {
+        var $this = $(this);
+		
+		$(".includeDataDiv").removeClass("select");
+		if ($this.hasClass("select")) {
+            $this.removeClass("select");
+		}
+		else {
+		    $this.addClass("select");
+		}
+	});
+	$("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
 	});
 </script>
 </html>
