@@ -1,14 +1,108 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script src="../../js/jquery-2.1.4.js"></script>
+<script src="../../js/jquery-ui.js"></script>
+<style>
+    body {
+	    margin: 0;
+	}
+    .topBar {
+	    width: 100%;
+		margin:0px auto;
+		height:70px;
+		border-bottom: 2px solid #ECE7E7;
+	}
+	.linkList {
+	    width: 40%;
+		margin:0px auto;
+		height:auto;
+		overflow:auto;
+	}
+	.linkList .includeLink {
+	    float: left;
+		width: 25%;
+		text-align: center;
+	}
+	#side {
+	    width: 10%;
+	    position: absolute;
+		right: 0px;
+		top: 0px;
+	}
+	.includeLink {
+		cursor:pointer;
+	}
+	.includeLink p {
+	    margin-top: 26px;
+		margin-bottom: 26px;
+	}
+	.choose {
+		background: #B5AFAF;
+	}
+	.select {
+	    background: #B5AFAF;
+		border-bottom: 2px solid #F7350A;
+	}
+	#leftSide {
+	    width: 25%;
+		float: left;
+		text-align: center;
+		margin-top: 18px;
+	}
+	#rightSide {
+	    width: 75%;
+		height: 100%;
+		float: left;
+	}
+    .tickImg {
+		margin: 0px;
+        padding: 0px;
+	}
+</style>
 <body>
 <div class = "topBar">
     <span class = "topBarLogo" background-image = "http://www.bleum.com/images/logo.aspx"></span>
-    <a calss = "topBarLink" href = "#">葬礼定制</a>
-	<a calss = "topBarLink" href = "#">产品及服务</a>
-	<a calss = "topBarLink" href = "#">墓地信息</a>
-	<a calss = "topBarLink" href = "#">关于我们</a>
-	<a calss = "topBarLinkRight" href = "#">联系我们</a>
+	<div class='linkList'>
+	    <div class="includeLink" id="design">
+	        <p>葬礼定制</p>
+		</div>
+		<div class="includeLink">
+		    <p>产品及服务</p>
+		</div>
+		<div class="includeLink">
+	        <p>墓地信息</p>
+		</div>
+		<div class="includeLink">
+		    <p>关于我们</p>
+		</div>
+	</div>
+	<div class="includeLink" id="side">
+	    <div id="leftSide">
+			<img src="../../js/images/contactUs.jpg" class="tickImg"></img>
+		</div>
+		<div id="rightSide">
+		    <p>联系我们</p>
+		</div>
+	</div>
 </div>
 </body>
+<script type="text/javascript">
+    var length = location.search.length,
+	type = location.search.substring(5, length);
+	$("#"+type).addClass("select");
+	$(".includeLink").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".includeLink").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+	$("#design").on("click", function () {
+	    if (type !== 'design') {
+            window.location.href='designProposal.html';
+		}
+	});
+</script>
 </html>
