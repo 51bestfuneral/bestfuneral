@@ -1,0 +1,9 @@
+
+
+.test{
+    background: url('../images/setBackground.png') no-repeat 0px 0px;
+    width: 100%;
+    background-size: cover;
+    min-height: 704px;
+    display: block;
+}
