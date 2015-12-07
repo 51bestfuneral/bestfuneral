@@ -12,7 +12,6 @@
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <script src="../js/Bootstrap/boot.js"></script>
 <link href="../js/Bootstrap/boot.css" rel="stylesheet">
-<link href="../js/kube.css" rel="stylesheet">
 <style>
     #mainContent{
 	    width: 100%;
@@ -22,10 +21,19 @@
 	    width: 100%;
 		margin:0px auto;  
 		height:auto;
+		overflowL auto;
+	}
+	#topMessage h1 {
+	    margin-top: 0;
+		line-height: 150px;
 	}
 	#myTabContent{
 	    height:auto;
-		margin-top: 30px;
+		padding-top: 30px;
+	}
+	h2{
+	    margin: 0;
+		line-height: 100px;
 	}
 	li {
 	    margin-left: 5%;
@@ -61,10 +69,12 @@
 		height:100%;
 	}
 	#confuse {
-	    width: 76%;
-		margin:0px auto;  
-		height:auto;
+	    width: 100%;
 		overflow:auto;
+		background: #F7F3EA;
+		padding-left:16%;
+		padding-right:16%;
+		padding-bottom: 3%;
 	}
 	.tab-pane {
 		overflow:auto;
@@ -80,9 +90,6 @@
 	#textInImg {
 	    margin-top: 80px;
 		color: #fff;
-	}
-    #textInImg2 {
-	    margin-top: 40px;
 	}
 	#operation {
 	    width: 100%;
@@ -124,7 +131,7 @@
 		cursor:pointer;
 	}
 	.header {
-	    margin-top : 50px;
+	    padding-top : 50px;
 	}
 	.headerText {
 	    margin-top : 50px;
@@ -143,54 +150,80 @@
 	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
 		background: #B5AFAF;
 	}
+	#titleIconDiv {
+	    position: absolute;
+		left: 5%;
+		top: 10px;
+		width: 70px;
+		text-align: center;
+		border-radius: 35px;
+		border: 1px solid rgba(0,0,0,.2);
+		overflow: hidden;
+		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+	}
+	.iconImg {
+	    margin-left: -7px;
+		max-width: none;
+	}
+	.tab-pane.fade {
+	    padding-top: 2%;
+	}
+	.nav-tabs a:hover {
+	    text-decoration:none;
+	}
+	#bottomMessage {
+	    padding-bottom: 3%;
+	}
 </style>
 <body>
-    <IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
+    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "73px"></IFRAME>
 <div id="mainContent">
 	<div id="topMessage">
-	    <h1>为什么要定制葬礼</h1>
-		<img></img>
-		<h2>传统的葬礼，它需要以下内容</h2>
-		<ul id="myTab" class="nav nav-tabs">
-			<li>
-				<a href="#tab1" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">送终</span>
-                </div>
-			    </a>
-            </li>
-            <li><a href="#tab2" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">报丧</span>
-                </div>
-			</a></li>
-            <li><a href="#tab3" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">入殓</span>
-                </div>
-			</a></li>
-			<li><a href="#tab4" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">吊唁</span>
-                </div>
-			</a></li>
-			<li><a href="#tab5" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">出殡</span>
-                </div>
-			</a></li>
-			<li><a href="#tab6" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">落葬</span>
-                </div>
-			</a></li>
-			<li><a href="#tab7" data-toggle="tab">
-			    <div class="tabIcon" >
-                    <span class="tabIconText">祭祀</span>
-                </div>
-			</a></li>
-        </ul>
-        <div id="myTabContent" class="tab-content">
+	    <div id="headerMessage">
+	        <h1>为什么要定制葬礼</h1>
+		    <img src="../js/images/Section-1-Image.png"></img>
+		</div>
+		<div id="myTabContent" class="tab-content">
+		    <h2>传统的葬礼，它需要以下内容</h2>
+			<ul id="myTab" class="nav nav-tabs">
+				<li>
+					<a href="#tab1" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">送终</span>
+					</div>
+					</a>
+				</li>
+				<li><a href="#tab2" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">报丧</span>
+					</div>
+				</a></li>
+				<li><a href="#tab3" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">入殓</span>
+					</div>
+				</a></li>
+				<li><a href="#tab4" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">吊唁</span>
+					</div>
+				</a></li>
+				<li><a href="#tab5" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">出殡</span>
+					</div>
+				</a></li>
+				<li><a href="#tab6" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">落葬</span>
+					</div>
+				</a></li>
+				<li><a href="#tab7" data-toggle="tab">
+					<div class="tabIcon" >
+						<span class="tabIconText">祭祀</span>
+					</div>
+				</a></li>
+			</ul>
 			<div class="tab-pane fade in active" id="tab1">
 			    <div class="leftImg">
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
@@ -257,22 +290,22 @@
         </div>
 	</div>
 	<div id="confuse">
-	    <h4>关于传统葬礼，或许您也有这样的困惑</h4>
+	    <h2>关于传统葬礼，或许您也有这样的困惑</h2>
 		<div class="iconDiv">
-		    <img src=""></img>
-			<h5>故人离去突然<br/>未做充分准备<h5>
+		    <img src="../js/images/Confuse1.jpg"></img>
+			<h3>故人离去突然<br/>未做充分准备<h5>
 		</div>
 		<div class="iconDiv">
-		    <img src=""></img>
-			<h5>风俗礼数繁多<br/>令人无所适从<h5>
+		    <img src="../js/images/Confuse1.jpg"></img>
+			<h3>风俗礼数繁多<br/>令人无所适从<h5>
 		</div>
 		<div class="iconDiv">
-		    <img src=""></img>
-			<h5>仪式过多雷同<br/>无法表尽哀思<h5>
+		    <img src="../js/images/Confuse1.jpg"></img>
+			<h3>仪式过多雷同<br/>无法表尽哀思<h5>
 		</div>
 		<div class="iconDiv">
-		    <img src=""></img>
-			<h5>花销大而不明<br/>让人难以承受<h5>
+		    <img src="../js/images/Confuse1.jpg"></img>
+			<h3>花销大而不明<br/>让人难以承受<h5>
 		</div>
 	</div>
 	<div id="whyChoose" width=100%>
@@ -289,11 +322,11 @@
 		    <h2 id="textInImg2">您可以获得更便捷的定制体验</h4>
 		</div>
 		<div class="halfIcon">
-		    <img src="../js/images/Icon.jpg" class="halfIconImg"></img>
+		    <img src="../js/images/Section-6-Online.png" class="halfIconImg"></img>
 			<h4>在网站上完成<br/>整个定制流程</h3>
 		</div>
 		<div class="halfIcon">
-		    <img src="../js/images/Icon.jpg" class="halfIconImg"></img>
+		    <img src="../js/images/Section-6-Call.png" class="halfIconImg"></img>
 			<h4>我们经验丰富的客<br/>服人员给您提供7天<br/>24小时不间断服务</h3>
 		</div>
 		<div class="halfLink">
@@ -303,7 +336,7 @@
 		    <a class="aButton">现在跟我们联系</a>
 		</div>
 	</div>
-	<div>
+	<div id="bottomMessage">
 	    <div class="header">
 		    <h3>我们为您提供了更为灵活的基础定制方案</h3>
 		</div>
@@ -330,6 +363,9 @@
 		<button id="startButton">开始定制</button>
 		<p id="startText">您将会通过我们的网上定制工具完成定制</p>
 	</div>
+</div>
+<div id="titleIconDiv">
+    <img src="../js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
     <IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME> 
 </body>
