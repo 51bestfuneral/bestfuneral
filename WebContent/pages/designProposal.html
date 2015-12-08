@@ -11,6 +11,48 @@
 <script src="../js/sliderx.js"></script>
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <script src="../js/Bootstrap/boot.js"></script>
+<script type="text/javascript">
+var app = angular.module('myApp', []);
+function buildObject(level) {
+    var levelOwnList = [];
+	for (i=0 ; i < level.length; i++) {
+	    var levelOwn;
+
+	    if (level[i] === "0") {
+		    levelOwn = {
+			    hidden: "hidden"
+			}
+		}
+		else {
+		    levelOwn = {
+			    hidden: ""
+			}
+		}
+		levelOwnList.push(levelOwn);
+	}
+    return levelOwnList;
+}
+app.controller('wishTypeLevels', function($scope, $http) {
+    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	    var level1 =[],
+		    level2 = [],
+			level3 = [],
+			level4 = [];
+		
+		level1 = response.level1.split(",");
+		level2 = response.level2.split(",");
+		level3 = response.level3.split(",");
+		level4 = response.level4.split(",");
+		$scope.level1 = buildObject(level1);
+		$scope.level2 = buildObject(level2);
+		$scope.level3 = buildObject(level3);
+		$scope.level4 = buildObject(level4);
+	});
+});
+</script>
 <style>
     body {
         margin£º0px;
@@ -190,18 +232,19 @@
 	}
 	#titleIconDiv {
 	    position: absolute;
-		left: 5%;
-		top: 10px;
-		width: 70px;
+		left: 64px;
+		top: 14px;
+		width: 68px;
+		height: 68px;
 		text-align: center;
-		border-radius: 35px;
-		border: 1px solid rgba(0,0,0,.2);
+		border-radius: 34px;
 		overflow: hidden;
-		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
-		cursor:pointer;
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
 	}
 	.iconImg {
-	    margin-left: -7px;
+	    margin-left: -5px;
+		margin-top: 2px;
+		max-width: none;
 	}
 </style>
 <link href="../js/Bootstrap/boot.css" rel="stylesheet">
@@ -227,7 +270,7 @@
 		</div>
 	</div>
 	</div>
-	<div id="compareForm">
+	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels">
 	    <div class= "includeDiv">
 	    <ul class="descRow">
 		    <li class="headerLine">
@@ -250,6 +293,9 @@
 			</li>
 			<li class="normalLine">
 			    <p class="messageInRow">Á÷³Ì×ÉÑ¯</p>
+			</li>
+			<li class="normalLine" ng-repeat="wishType in wishTypes">
+			    <p class="messageInRow">{{wishType.wishTypeDesc}}</p>
 			</li>
 		</ul>
 		</div>
@@ -278,6 +324,12 @@
 			        <img src="../js/images/tick.jpg" class="tickImg"></img>
 				</div>
 			</li>
+			<li class="normalLine" ng-repeat="levelWish1 in level1">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish1.hidden}}"></img>
+				</div>
+			</li>
 		</ul>
 		</div>
 		<div class= "includeDataDiv">
@@ -302,6 +354,12 @@
 			<li class="normalLine">
 			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
 			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+			<li class="normalLine" ng-repeat="levelWish2 in level2">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish2.hidden}}"></img>
+				</div>
 			</li>
 		</ul>
 		</div>
@@ -328,6 +386,12 @@
 			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
 			    <img src="../js/images/tick.jpg" class="tickImg"></img>
 			</li>
+			<li class="normalLine" ng-repeat="levelWish3 in level3">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish3.hidden}}"></img>
+				</div>
+			</li>
 		</ul>
 		</div>
 		<div class= "includeDataDiv">
@@ -352,6 +416,12 @@
 			<li class="normalLine">
 			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
 			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+			<li class="normalLine" ng-repeat="levelWish4 in level4">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish4.hidden}}"></img>
+				</div>
 			</li>
 		</ul>
 		</div>

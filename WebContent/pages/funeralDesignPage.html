@@ -21,15 +21,15 @@
 	    width: 100%;
 		margin:0px auto;  
 		height:auto;
-		overflowL auto;
 	}
 	#topMessage h1 {
 	    margin-top: 0;
 		line-height: 150px;
+		font-size: 52px;
+		margin-bottom: 0;
 	}
 	#myTabContent{
 	    height:auto;
-		padding-top: 30px;
 	}
 	h2{
 	    margin: 0;
@@ -40,6 +40,9 @@
 		width : 8%;
 		padding: 0;
 		border: 0;
+	}
+	li a{
+	    text-decoration: none;
 	}
 	.tabIcon {
 	    width:100px;
@@ -63,6 +66,14 @@
 	.rightText {
 	    float:left;
 		width:45%;
+		padding-left: 50px;
+		text-align: left;
+	}
+	.rightText h2 {
+	    font-size: 44px;
+	}
+	.rightText p {
+	    font-size: 26px;
 	}
 	.messageImg {
 	    width:100%;
@@ -71,9 +82,9 @@
 	#confuse {
 	    width: 100%;
 		overflow:auto;
-		background: #F7F3EA;
-		padding-left:16%;
-		padding-right:16%;
+		background: #F7F3EB;
+		padding-left:12%;
+		padding-right:12%;
 		padding-bottom: 3%;
 	}
 	.tab-pane {
@@ -93,23 +104,20 @@
 	}
 	#operation {
 	    width: 100%;
-		height: 500px;
-		background:url(../js/images/backDiv.jpg) repeat;
+		overflow: auto;
 	}
 	.halfIcon {
-	    width: 50%;
+	    width: 100%;
 		height: 80%;
-		float:left;
 	}
     .halfLink {
-	    width: 50%;
-		height: 20%;
-		float:left;
+	    width: 100%;
 	}
 	.aButton {
-	    border: 2px solid;
 		padding: 10px 10px;
-		color: #CA42A5;
+		color: #ff5274;
+		font-size: 36px;
+		text-decoration: none;
 	}
 	.halfIconImg {
 	    margin-top: 140px;
@@ -130,39 +138,80 @@
 		height: 150px;
 		cursor:pointer;
 	}
+	.taocanIconDiv #h5 {
+	    font-size: 13px;
+	}
 	.header {
 	    padding-top : 50px;
 	}
 	.headerText {
 	    margin-top : 50px;
+		font-size: 32px;
 	}
 	#nextStep {
-	    margin: 20px;
+	    padding: 40px;
+		font-size: 28px;
+		margin: 0;
 	}
 	#startButton {
-	    width : 200px;
-		height: 50px;
+	    width : 300px;
+		height: 82px;
+		background-color: #ff5274;
+		box-shadow: 0px 4px 0px 0px #e6385a;
+		margin:0px auto;
+		color: white;
+		cursor: pointer;
+	}
+	#startButton:hover {
+	    background-color: #B5AFAF;
+		color: #428BCA;
+		box-shadow: 0px 4px 0px 0px #B5AFAF;
+	}
+	#startButton p {
+	    font-size: 48px;
+		margin: 0px;
+		line-height: 82px;
 	}
 	#startText {
-	    margin-top: 10px;
+	    padding: 20px;
+		font-size: 16px;
+	}
+	#footer p {
+	    font-size: 16px;
+	}
+	a {
+	    text-decoration: underline;
+		color: #ff5274;
+		cursor: pointer;
+	}
+	a:hover {
+	    color: #428BCA;
 	}
 	.choose {
 	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
 		background: #B5AFAF;
+		border-bottom: 2px solid #B5AFAF;
+	}
+	.chooseTab {
+	    background: #ff5274;
+	}
+	.chooseTab .tabIconText {
+	    color: white;
 	}
 	#titleIconDiv {
 	    position: absolute;
-		left: 5%;
-		top: 10px;
-		width: 70px;
+		left: 64px;
+		top: 14px;
+		width: 68px;
+		height: 68px;
 		text-align: center;
-		border-radius: 35px;
-		border: 1px solid rgba(0,0,0,.2);
+		border-radius: 34px;
 		overflow: hidden;
-		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
 	}
 	.iconImg {
-	    margin-left: -7px;
+	    margin-left: -5px;
+		margin-top: 2px;
 		max-width: none;
 	}
 	.tab-pane.fade {
@@ -173,10 +222,58 @@
 	}
 	#bottomMessage {
 	    padding-bottom: 3%;
+		background-image: linear-gradient(90deg, #ebebeb, #c5c6c8, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5));
+	}
+	#bottomMessage h3 {
+	    font-size: 38px;
+	}
+	#headerMessage img {
+	    width: 440px;
+		height: 272px;
+	}
+	.triangle-down {
+	    width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 14px solid #ff5274;
+		margin-left: 43px;
+		margin-top: -2px;
+		display: none;
+	}
+	.chooseTab .triangle-down {
+	    display: block;
+	}
+	.chooseTab a {
+	    text-decoration:none;
+	}
+    .operationPanel {
+	    width: 50%;
+		overflow: auto;
+		float: left;
+		padding: 2%;
+		height: 100%;
+	}
+	.halfIcon h4 {
+	    font-size: 26px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	#whyChooseText h2 {
+	    font-size: 39px;
+	}
+	#leftPanel .halfLink {
+	    margin-top: 48px;
+	}
+	#rightPanel .halfLink {
+	    margin-top: 20px;
+	}
+	#endMessage {
+	    background-color: #eeeeee;
 	}
 </style>
 <body>
-    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "73px"></IFRAME>
+    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "68px"></IFRAME>
 <div id="mainContent">
 	<div id="topMessage">
 	    <div id="headerMessage">
@@ -190,37 +287,51 @@
 					<a href="#tab1" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">送终</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 					</a>
 				</li>
 				<li><a href="#tab2" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">报丧</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 				</a></li>
 				<li><a href="#tab3" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">入殓</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 				</a></li>
 				<li><a href="#tab4" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">吊唁</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 				</a></li>
 				<li><a href="#tab5" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">出殡</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 				</a></li>
 				<li><a href="#tab6" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">落葬</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 				</a></li>
 				<li><a href="#tab7" data-toggle="tab">
 					<div class="tabIcon" >
 						<span class="tabIconText">祭祀</span>
+						<div class="triangle-down">
+						</div>
 					</div>
 				</a></li>
 			</ul>
@@ -229,8 +340,8 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>送终</h4>
-				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
+				    <h2>送终</h2>
+				    <p>老人临终前都希望同后人见面，作最后的诀别，这种由儿女守着咽气叫“送终”。死者终前大都会出现“回光返照”现象，要吩咐叮嘱后事，如事业的继承，财产的处理和怎样为人处事等。有的事先还要到公证机关立书面遗嘱。</p>
 				</div>
             </div>
             <div class="tab-pane fade" id="tab2">
@@ -238,7 +349,7 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>报丧</h4>
+				    <h2>报丧</h2>
 				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
 				</div>
             </div>
@@ -247,7 +358,7 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>入殓</h4>
+				    <h2>入殓</h2>
 				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
 				</div>
             </div>
@@ -256,7 +367,7 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>吊唁</h4>
+				    <h2>吊唁</h2>
 				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
 				</div>
             </div>
@@ -265,7 +376,7 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>出殡</h4>
+				    <h2>出殡</h2>
 				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
 				</div>
             </div>
@@ -274,7 +385,7 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>落葬</h4>
+				    <h2>落葬</h2>
 				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
 				</div>
             </div>
@@ -283,7 +394,7 @@
 			        <img src="../js/images/why.jpg" class="messageImg"></img>
 				</div>
 				<div class="rightText">
-				    <h4>祭祀</h4>
+				    <h2>祭祀</h2>
 				    <p>老人临终前都希望与后人见面，作最后的诀别，这种由女儿</p>
 				</div>
             </div>
@@ -292,26 +403,23 @@
 	<div id="confuse">
 	    <h2>关于传统葬礼，或许您也有这样的困惑</h2>
 		<div class="iconDiv">
-		    <img src="../js/images/Confuse1.jpg"></img>
-			<h3>故人离去突然<br/>未做充分准备<h5>
+		    <img src="../js/images/Confuse1.png"></img>
+			<h3>故人离去突然<br/>未做充分准备<h3>
 		</div>
 		<div class="iconDiv">
-		    <img src="../js/images/Confuse1.jpg"></img>
-			<h3>风俗礼数繁多<br/>令人无所适从<h5>
+		    <img src="../js/images/Confuse2.png"></img>
+			<h3>风俗礼数繁多<br/>令人无所适从<h3>
 		</div>
 		<div class="iconDiv">
-		    <img src="../js/images/Confuse1.jpg"></img>
-			<h3>仪式过多雷同<br/>无法表尽哀思<h5>
+		    <img src="../js/images/Confuse3.png"></img>
+			<h3>仪式过多雷同<br/>无法表尽哀思<h3>
 		</div>
 		<div class="iconDiv">
-		    <img src="../js/images/Confuse1.jpg"></img>
-			<h3>花销大而不明<br/>让人难以承受<h5>
+		    <img src="../js/images/Confuse4.png"></img>
+			<h3>花销大而不明<br/>让人难以承受<h3>
 		</div>
 	</div>
 	<div id="whyChoose" width=100%>
-	    <div id="whyChooseText">
-		    <h2 id="textInImg">我们为您设计了一个更贴心更智能的葬礼定制工具</h4>
-		</div>
 	    <img src="../js/images/why1.jpg" width="100%" height="100%"></img>
 	</div>
 	<div id="whyChoose2" width=100%>
@@ -321,19 +429,23 @@
 	    <div id="whyChooseText">
 		    <h2 id="textInImg2">您可以获得更便捷的定制体验</h4>
 		</div>
-		<div class="halfIcon">
-		    <img src="../js/images/Section-6-Online.png" class="halfIconImg"></img>
-			<h4>在网站上完成<br/>整个定制流程</h3>
+		<div id="leftPanel" class="operationPanel">
+			<div class="halfIcon">
+				<img src="../js/images/Section-6-Online.png" class="halfIconImg"></img>
+				<h4>在网站上完成<br/>整个定制流程</h4>
+			</div>
+			<div class="halfLink">
+				<a class="aButton"><p>开始网上定制</p></a>
+			</div>
 		</div>
-		<div class="halfIcon">
-		    <img src="../js/images/Section-6-Call.png" class="halfIconImg"></img>
-			<h4>我们经验丰富的客<br/>服人员给您提供7天<br/>24小时不间断服务</h3>
-		</div>
-		<div class="halfLink">
-		    <a class="aButton">开始网上定制</a>
-		</div>
-		<div class="halfLink">
-		    <a class="aButton">现在跟我们联系</a>
+		<div id="rightPanel" class="operationPanel">
+			<div class="halfIcon">
+				<img src="../js/images/Section-6-Call.png" class="halfIconImg"></img>
+				<h4>我们经验丰富的客<br/>服人员给您提供7天<br/>24小时不间断服务</h4>
+			</div>
+			<div class="halfLink">
+				<a class="aButton"><p>现在跟我们联系<br/>13439284758</p></a>
+			</div>
 		</div>
 	</div>
 	<div id="bottomMessage">
@@ -358,9 +470,9 @@
 		    <p>我们是您放心明智之选，欲了解更多详情，您可以<a>点击这里</a></p>
 		</div>
 	</div>
-	<div>
+	<div id="endMessage">
 	    <h3 id="nextStep">下一步</h3>
-		<button id="startButton">开始定制</button>
+		<div id="startButton"><p>开始定制</p></div>
 		<p id="startText">您将会通过我们的网上定制工具完成定制</p>
 	</div>
 </div>
@@ -383,11 +495,24 @@
 	});
 	$(".tabIcon").hover(function () {
         var $this = $(this);
-        $this.addClass("choose");
+        $this.addClass("chooseTab");
 	});
 	$(".tabIcon").on("mouseleave", function () {
         var $this = $(this);
-        $this.removeClass("choose");
+
+		if (!$this.hasClass("select")) {
+            $this.removeClass("chooseTab");
+		}
+	});
+	$(".tabIcon").click(function() {
+	    var $this = $(this);
+
+		if (!$this.hasClass("select")) {
+		    $(".tabIcon").removeClass("select");
+			$(".tabIcon").removeClass("chooseTab");
+		    $this.addClass("select");
+			$this.addClass("chooseTab");
+	    }
 	});
 </script>
 </html>

@@ -1,27 +1,26 @@
 package com.funeral.kris.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
 @Entity
-@Table(name="wish_types")
-public class WishType {
+@Table(name="level_wish_types")
+public class LevelWishType implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@Column(name="wish_type")
 	private String wishType;
 
-	@Column(name="wish_type_desc")
-	private String wishTypeDesc;
+	@Id
+	@Column(name="wish_type_level")
+	private Integer wishTypeLevel;
 
-	@Column(name="necessary")
-	private boolean necessary;
-	
 	@Column(name="createdate")
 	private Date createDate;
 	
@@ -36,20 +35,12 @@ public class WishType {
 		this.wishType = wishType;
 	}
 
-	public String getWishTypeDesc() {
-		return wishTypeDesc;
+	public Integer getWishTypeLevel() {
+		return wishTypeLevel;
 	}
 
-	public void setWishTypeDesc(String wishTypeDesc) {
-		this.wishTypeDesc = wishTypeDesc;
-	}
-
-	public boolean isNecessary() {
-		return necessary;
-	}
-
-	public void setNecessary(boolean necessary) {
-		this.necessary = necessary;
+	public void setWishTypeLevel(Integer wishTypeLevel) {
+		this.wishTypeLevel = wishTypeLevel;
 	}
 
 	public Date getCreateDate() {
@@ -67,5 +58,4 @@ public class WishType {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
-
 }
