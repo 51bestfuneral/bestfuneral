@@ -53,201 +53,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 </script>
-<style>
-    body {
-        margin：0px;
-    }
-    #mainContent{
-	    width: 100%;
-		text-align:center;
-		margin-top: 0;
-	}
-	.topContent {
-	    width: 100%;
-		height:auto;
-		overflow:auto;
-	}
-	#taocan {
-	    width: 85%;
-		margin:0px auto;
-		height:auto;
-		overflow:auto;
-	    margin-bottom: 3%;
-		padding-bottom: 1%;
-	}
-	#compareForm {
-	    width: 100%;
-		margin:0px auto;
-		overflow:auto;
-		background-color: #ECE7E7;
-		height:auto;
-		padding: 3%;
-	}
-    .taocanIconDiv {
-	    width: 22%;
-		float: left;
-		margin-right: 3%;	
-		height: 120px;
-		background-color: #ECE7E7;
-		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
-	}
-	.taocanIconDiv h3 {
-	    line-height: 120px;
-		margin: 0;
-		cursor:pointer;
-	}
-	.iconChild {
-	    width: 100%;
-		height: 100%;
-	}
-	.iconChild h2 {
-	    line-height: 80px;
-		font-size: 20px;
-		margin-bottom: 0;
-		font-weight:bold;
-	}
-	.iconChild h4 {
-	    margin-bottom: 0;
-		margin-top: 0;
-		font-size: 10px;
-	}
-    .iconChild p {
-	    margin-bottom: 0;
-	}
-	.taocanIconDivInRow {
-	    width: 100%;
-		height : 100%;
-		cursor:pointer;
-		margin: 0px;
-		border-top :10px solid green;
-	}
-    .choose {
-		background: #B5AFAF;
-		border: 1px solid black;
-	}
-	.select {
-	    background: #B5AFAF;
-		border: 2px solid #FF5275;
-	}
-	#headerMessage {
-	    padding-top: 40px;
-	}
-	#headerMesText {
-	    line-height:100px;
-		margin: 0;
-	}
-	.descRow {
-	    width: 100%;
-		float: left;
-		margin: 0;
-		padding: 0;
-	}
-	.descRow p {
-	    line-height: 100px;
-	}
-	.valueRow .headerLine {
-	    background-color: #BF1544;
-	}
-	.valueRow {
-	    width: 100%;
-		float: left;
-		padding: 0;
-		margin-bottom: 0;
-	}
-	.valueRow .normalLine {
-	    background-color: #FBFBFB;
-	}
-	.headerLine {
-	    width: 100%;
-		height: 120px;
-		list-style-type:none;
-		padding: 0;
-		border-top: 1px solid #ECE7E7;
-	}
-    .normalHeaderLine {
-	    width: 100%;
-		height: 100px;
-		list-style-type:none;
-		border-top: 1px solid #ECE7E7;
-	}
-	.normalLine {
-	    width: 100%;
-		height: 60px;
-		list-style-type:none;
-		border-top: 1px solid #ECE7E7;
-	}
-	.normalLine p {
-	    line-height : 60px;
-		margin-bottom: 0;
-	}
-	.normalLineText {
-	    width : 100%;
-		padding: 0;
-		margin-top: 0;
-		height: 60px;
-		padding-top : 1px;
-	}
-	.normalLineText p {
-	    margin: 0;
-		font-size: 1px;
-	}
-	.tickImg {
-	    vertical-align: middle;
-		margin: 0px;
-        padding: 0px;
-	}
-	.doubleText {
-	    line-height:150px;
-		margin: 0;
-	}
-	.imgDiv {
-		width : 100%;
-		height : 100%;
-	}
-	.fakeImg {
-	    width: 0;
-        height: 100%;
-		border: none;
-	}
-	.headerText {
-	    margin-top: 0;
-	}
-	.includeDiv {
-	    width: 15%;
-		overflow:auto;
-		height: auto;
-		float: left;
-		padding-bottom: 1%;
-		margin-top: 20px;
-	}
-	.includeDataDiv {
-	    width: 16%;
-		overflow:auto;
-		height: auto;
-		float: left;
-		margin-bottom: 1%;
-		margin-left : 1%;
-		margin-top: 20px;
-		cursor:pointer;
-	}
-	#titleIconDiv {
-	    position: absolute;
-		left: 64px;
-		top: 14px;
-		width: 68px;
-		height: 68px;
-		text-align: center;
-		border-radius: 34px;
-		overflow: hidden;
-		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
-	}
-	.iconImg {
-	    margin-left: -5px;
-		margin-top: 2px;
-		max-width: none;
-	}
-</style>
-<link href="../js/Bootstrap/boot.css" rel="stylesheet">
+<link href="../js/personal.css" rel="stylesheet">
 <body>
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "73px"></IFRAME>
 <div id="mainContent">
@@ -255,17 +61,17 @@ app.controller('wishTypeLevels', function($scope, $http) {
     <div id="headerMessage">
 	    <h2 id="headerMesText">选择适合您的定制方案</h2>
 	</div>
-	<div id="taocan">
-        <div class="taocanIconDiv">
+	<div id="designTaocan">
+        <div class="designTaocanIconDiv">
 			<h3>白事管家</h3>
 		</div>
-		<div class="taocanIconDiv">
+		<div class="designTaocanIconDiv">
 			<h3>白事管家</h3>
 		</div>
-		<div class="taocanIconDiv">
+		<div class="designTaocanIconDiv">
 		    <h3>白事管家</h3>
 		</div>
-		<div class="taocanIconDiv">
+		<div class="designTaocanIconDiv">
 		    <h3>白事管家</h3>
 		</div>
 	</div>
@@ -304,7 +110,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 				    <div class="iconChild">
-			            <h2 class="headerText">基础</h3>
+			            <h2 class="designHeaderText">基础</h3>
 		                <h4>￥6288 - ￥16288<h5>
 					</div>
 		        </div>
@@ -337,7 +143,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="headerText">精选</h3>
+			            <h2 class="designHeaderText">精选</h3>
 		                <h4>￥6288 - ￥16288<h5>
 					</div>
 		        </div>
@@ -368,7 +174,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="headerText">豪华</h3>
+			            <h2 class="designHeaderText">豪华</h3>
 		                <h4>￥6288 - ￥16288<h5>
 					</div>
 		        </div>
@@ -399,7 +205,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="headerText">顶级</h3>
+			            <h2 class="designHeaderText">顶级</h3>
 		                <h4>￥6288 - ￥16288<h5>
 					</div>
 		        </div>
@@ -433,15 +239,15 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
-	$(".taocanIconDiv").hover(function () {
+	$(".designTaocanIconDiv").hover(function () {
         var $this = $(this);
         $this.addClass("choose");
 	});
-	$(".taocanIconDiv").on("mouseleave", function () {
+	$(".designTaocanIconDiv").on("mouseleave", function () {
         var $this = $(this);
         $this.removeClass("choose");
 	});
-	$(".taocanIconDiv").on("click", function () {
+	$(".designTaocanIconDiv").on("click", function () {
         var $this = $(this);
 
         if ($this.hasClass("select")) {
