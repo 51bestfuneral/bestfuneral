@@ -324,12 +324,6 @@ a {
   text-decoration: none;
 }
 
-a:hover,
-a:focus {
-  color: #2a6496;
-  text-decoration: underline;
-}
-
 a:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
@@ -397,10 +391,14 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Microsoft Yahei";
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
+}
+
+p {
+	font-family: "Microsoft Yahei";
 }
 
 h1 small,

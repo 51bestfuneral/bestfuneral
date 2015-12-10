@@ -1,6 +1,8 @@
 package com.funeral.kris.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,13 +44,16 @@ public class TeamController {
 
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<Team> listOfTeams() {
+	public Map<String, String> listOfTeams() {
 		ModelAndView modelAndView = new ModelAndView("list-of-teams");
 
 		List<Team> teams = teamService.getTeams();
 		modelAndView.addObject("teams", teams);
+		Map<String, String> krisMap = new HashMap<String, String>();
+		krisMap.put("kris", "good");
+		krisMap.put("kris1", "good");
 
-		return teams;
+		return krisMap;
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
