@@ -293,7 +293,7 @@ a:focus {
 }
 
 .span12 {
-    width: 940px;
+    width: 9400px;
 }
 
 .span11 {
@@ -632,9 +632,10 @@ a:focus {
 }
 
 .container-fluid {
-    padding-right: 20px;
+    padding-right: 200px;
     padding-left: 20px;
     *zoom: 1;
+    
 }
 
 .container-fluid:before,

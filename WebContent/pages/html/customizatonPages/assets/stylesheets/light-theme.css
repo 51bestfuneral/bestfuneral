@@ -1414,7 +1414,7 @@ header .navbar {
   margin: 0; }
   header .navbar .navbar-inner {
     padding: 0 10px;
-    background-color: #f34541;
+    background-color: white;
     background-image: none;
     border-bottom: none;
     border: none;
@@ -1432,10 +1432,10 @@ header .navbar {
     header .navbar .navbar-inner .toggle-nav {
       color: white;
       text-shadow: none;
-      background-color: #f34541;
+      background-color: white;
       border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25); }
       header .navbar .navbar-inner .toggle-nav:hover {
-        background-color: #f01611; }
+        background-color: #ffffff; }
     header .navbar .navbar-inner .navbar-search {
       margin: 5px 10px 0 0;
       position: relative; }
@@ -1456,7 +1456,7 @@ header .navbar {
         header .navbar .navbar-inner .navbar-search button:hover {
           color: #aa0e0b; }
       header .navbar .navbar-inner .navbar-search input {
-        border-color: #f01611;
+        border-color: #ffffff;
         padding-left: 7px;
         padding-right: 25px;
         color: #aa0e0b;
@@ -1467,31 +1467,31 @@ header .navbar {
         -o-transition: all 200ms ease;
         transition: all 200ms ease; }
         header .navbar .navbar-inner .navbar-search input:-moz-placeholder {
-          color: #f67471; }
+          color: #ffffff; }
         header .navbar .navbar-inner .navbar-search input:-ms-input-placeholder {
-          color: #f67471; }
+          color: #ffffff; }
         header .navbar .navbar-inner .navbar-search input::-webkit-input-placeholder {
-          color: #f67471; }
+          color: #ffffff; }
         header .navbar .navbar-inner .navbar-search input:hover, header .navbar .navbar-inner .navbar-search input:focus {
           opacity: 1;
           filter: alpha(opacity=100); }
         header .navbar .navbar-inner .navbar-search input:hover:-moz-placeholder {
-          color: #f9a3a1; }
+          color: #ffffff; }
         header .navbar .navbar-inner .navbar-search input:hover:-ms-input-placeholder {
-          color: #f9a3a1; }
+          color: #ffffff; }
         header .navbar .navbar-inner .navbar-search input:hover::-webkit-input-placeholder {
-          color: #f9a3a1; }
+          color: #ffffff; }
         header .navbar .navbar-inner .navbar-search input:focus {
           border-color: #c2100c;
           -webkit-box-shadow: none;
           -moz-box-shadow: none;
           box-shadow: none; }
           header .navbar .navbar-inner .navbar-search input:focus:-moz-placeholder {
-            color: #f88b89; }
+            color: #ffffff; }
           header .navbar .navbar-inner .navbar-search input:focus:-ms-input-placeholder {
-            color: #f88b89; }
+            color: #ffffff; }
           header .navbar .navbar-inner .navbar-search input:focus::-webkit-input-placeholder {
-            color: #f88b89; }
+            color: #ffffff; }
       header .navbar .navbar-inner .navbar-search:hover input {
         opacity: 1;
         filter: alpha(opacity=100); }
@@ -1503,21 +1503,21 @@ header .navbar {
           padding-left: 0;
           padding-right: 0; } }
     header .navbar .navbar-inner .light {
-      background: #da120e; }
+      background: #ffffff; }
       header .navbar .navbar-inner .light .label {
-        color: #da120e; }
+        color: #ffffff; }
       header .navbar .navbar-inner .light:hover > a, header .navbar .navbar-inner .light:active > a, header .navbar .navbar-inner .light:focus > a {
-        background-color: #c2100c; }
+        background-color: white; }
     header .navbar .navbar-inner .medium {
-      background: #c2100c; }
+      background: #ffffff; }
       header .navbar .navbar-inner .medium .label {
-        color: #aa0e0b; }
+        color: #ffffff; }
       header .navbar .navbar-inner .medium:hover > a, header .navbar .navbar-inner .medium:active > a, header .navbar .navbar-inner .medium:focus > a {
-        background-color: #aa0e0b; }
+        background-color: #ffffff; }
     header .navbar .navbar-inner .dark {
-      background: #aa0e0b; }
+      background: #ffffff; }
       header .navbar .navbar-inner .dark .label {
-        color: #aa0e0b; }
+        color: #ffffff; }
       header .navbar .navbar-inner .dark:hover > a, header .navbar .navbar-inner .dark:active > a, header .navbar .navbar-inner .dark:focus > a {
         background-color: #920c09; }
     header .navbar .navbar-inner .user-menu img {
@@ -1849,7 +1849,7 @@ header .navbar {
   @media (max-width: 768px) {
     .main-nav-closed #content .container-fluid {
       padding-left: 10px;
-      padding-right: 10px; } }
+      padding-right: 100px; } }
 
 html, body {
   height: 100%;
@@ -1875,23 +1875,28 @@ body {
   overflow: hidden; }
 
 #content {
+	     
+	
   margin-left: 251px;
-  background: #fbfbfb;
+  background: #00ff00;
   min-width: 276px;
-  background: #fbfbfb;
-  padding-bottom: 20px; }
+  background: #ffffff;
+  padding-bottom: 10px; }
   @media (max-width: 768px) {
     #content {
-      margin-left: 46px; }
+      margin-left: 46px; 
+      }
       #content .container-fluid {
-        padding-left: 10px;
+        padding-left: 100px;
         padding-right: 10px; }
       #content #content-wrapper {
         float: left; } }
 
 .box {
-  margin-bottom: 20px;
-  position: relative; }
+	
+  margin-bottom: 10px;
+  position: relative; 
+ }
   .box.box-collapsed .box-header .actions .box-collapse i:before {
     content: "\f078"; }
   .box.box-collapsed .box-content {
@@ -1903,6 +1908,7 @@ body {
     padding: 10px 15px;
     *zoom: 1; }
     .box .box-header:before, .box .box-header:after {
+    
       display: table;
       content: "";
       line-height: 0; }
@@ -2087,9 +2093,7 @@ body {
     border: 1px solid #dddddd;
     background: white;
     display: block;
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.055); }
+    }
     .box .box-content .box-toolbox {
       *zoom: 1;
       background-color: #f4f4f4;
@@ -5004,7 +5008,7 @@ div.jGrowl div.jGrowl-notification, div.jGrowl div.jGrowl-closer {
     .contrast-dark header .navbar .navbar-inner .navbar-search button:hover {
       color: black; }
   .contrast-dark header .navbar .navbar-inner .navbar-search input {
-    border-color: #131415;
+    border-color: #c0c0c0;
     color: black; }
     .contrast-dark header .navbar .navbar-inner .navbar-search input:-moz-placeholder {
       color: #43464b; }
