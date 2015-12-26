@@ -35,6 +35,10 @@
 		height:100px;
 		background-color:#E2E2E2;
 		border-radius:50px;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
 	}
 	.tabIconText {
 	    height:100px;
@@ -173,11 +177,6 @@
 	a:hover {
 	    color: #428BCA;
 	}
-	.choose {
-	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
-		background: #B5AFAF;
-		border-bottom: 2px solid #B5AFAF;
-	}
 	.chooseTab {
 	    background: #ff5274;
 	}
@@ -200,15 +199,15 @@
 		margin-top: 2px;
 		max-width: none;
 	}
-	.tab-pane.fade {
-	    padding-top: 2%;
-	}
+	ul#myTab {
+        padding-bottom: 3%;
+    }
 	.nav-tabs a:hover {
 	    text-decoration:none;
 	}
 	#bottomMessage {
 	    padding-bottom: 3%;
-		background-image: linear-gradient(90deg, #ebebeb, #c5c6c8, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5));
+		background-image: linear-gradient(-180deg, #EBEBEB 0%, #DCDDDF 48%, #C4C5C7 99%);
 	}
 	#bottomMessage h3 {
 	    font-size: 38px;
@@ -226,9 +225,6 @@
 		margin-left: 43px;
 		margin-top: -2px;
 		display: none;
-	}
-	.chooseTab .triangle-down {
-	    display: block;
 	}
 	.chooseTab a {
 	    text-decoration:none;
@@ -288,11 +284,21 @@
 		height: 120px;
 		background-color: #ECE7E7;
 		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+		border-radius: 10px;
 	}
 	.designTaocanIconDiv h3 {
 	    line-height: 120px;
 		margin: 0;
 		cursor:pointer;
+	}
+	.choose {
+	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
+		background-color: #B5AFAF;
+		border-bottom: 2px solid #B5AFAF;
 	}
 	.iconChild {
 	    width: 100%;
@@ -319,9 +325,10 @@
 		margin: 0px;
 		border-top :10px solid green;
 	}
-	.select {
+	.barSelect {
 	    background: #B5AFAF;
 		border: 2px solid #FF5275;
+		box-shadow: none;
 	}
 	#headerMessage {
 	    padding-top: 40px;

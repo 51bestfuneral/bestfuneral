@@ -1,5 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <head id="head">
 <meta http-equiv="Content-Type" content="text/html; charset=gbk">
 <title>
@@ -10,6 +12,10 @@
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/sliderx.js"></script>
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="../js/Bootstrap/boot.js"></script>
 <link href="../js/personal.css" rel="stylesheet">
 <body>
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "68px"></IFRAME>
@@ -235,20 +241,27 @@
 	$(".tabIcon").hover(function () {
         var $this = $(this);
         $this.addClass("chooseTab");
+		$this.find(".triangle-down").fadeIn(300);
 	});
 	$(".tabIcon").on("mouseleave", function () {
         var $this = $(this);
 
 		if (!$this.hasClass("select")) {
             $this.removeClass("chooseTab");
+			$this.find(".triangle-down").fadeOut(300);
 		}
 	});
 	$(".tabIcon").click(function() {
 	    var $this = $(this);
 
 		if (!$this.hasClass("select")) {
-		    $(".tabIcon").removeClass("select");
-			$(".tabIcon").removeClass("chooseTab");
+			$(".tabIcon").each(function() {
+			    if ($(this).hasClass("select")) {
+				    $(this).removeClass("select");
+			        $(this).removeClass("chooseTab");
+					$(this).find(".triangle-down").fadeOut(300);
+				}
+            });
 		    $this.addClass("select");
 			$this.addClass("chooseTab");
 	    }

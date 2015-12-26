@@ -1,8 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script src="../../js/jquery-2.1.4.js"></script>
 <script src="../../js/jquery-ui.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link href="../../js/Bootstrap/boot.css" rel="stylesheet">
 <style>
     body {
@@ -33,7 +38,11 @@
 	}
 	.includeLink {
 		cursor:pointer;
-		height: 63px;
+		height: 65px;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
 	}
 	.includeLink p {
 	    margin-top: 21px;
@@ -41,12 +50,11 @@
 	}
 	.choose {
 		background: #B5AFAF;
-		border-bottom: 2px solid #B5AFAF;
+		border-bottom: 3px solid #B5AFAF;
 	}
-	.select {
+	.barSelect {
 	    background: #B5AFAF;
-		border-bottom: 2px solid #ff5274;
-		font-family: Georgia;
+		border-bottom: 3px solid #ff5274;
 	}
 	#leftSide {
 	    width: 25%;
@@ -96,7 +104,7 @@
 <script type="text/javascript">
     var length = location.search.length,
 	type = location.search.substring(5, length);
-	$("#"+type).addClass("select");
+	$("#"+type).addClass("barSelect");
 	$(".includeLink").hover(function () {
         var $this = $(this);
         $this.addClass("choose");

@@ -16,12 +16,9 @@
 <script src="../js/sliderx.js"></script>
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <link rel="stylesheet" href="../js/css/slider.css">	
-<style> 
-.topBarLogo
-{
-    background-color:yellow;
-	display: inline-block;
-}
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<style>
 .banner { position: relative; overflow: auto; }
     .banner li { list-style: none; }
         .banner ul li { float: left; }
@@ -34,95 +31,230 @@ body {
 	padding-bottom: 3%;
 }
 #topHalfLevel h1 {
-    padding-top: 40px;
+    padding-top: 180px;
 	margin: 0;
 	color: white;
+	font-size: 59px;
 }
 #topHalfLevel h5 {
 	margin: 0;
 	color: white;
 	padding-bottom: 50px;
+	font-size: 25px;
+	margin-top: 60px;
 }
 #topHalfLevel h3 {
 	margin: 0;
 	color: white;
 }
 #howToHelp {
-    width: 200px;
+    width: 260px;
 	height: 40px;
 	margin:0px auto;
-	border-radius: 15px 0 0 15px;
+	border-radius: 5px 0 0 5px;
 }
 #message {
-    width: 160px;
-	background-color: #FF5275;
-	height: 40px;
-	border-radius: 15px 0 0 15px;
+    width: 220px;
+	background-color: #ff5274;
+	height: 50px;
+	border-radius: 5px 0 0 5px;
 	float: left;
-	text-align: right;
+	text-align: center;
+	cursor: pointer;
+	transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+    -webkit-transition:opacity 0.5s;
+    -o-transition:opacity 0.5s;
+}
+#message:hover {
+    opacity: 0.5;
+}
+#message p {
+    font-size: 20px;
+	margin: 0;
+	line-height: 50px;
+	color: white
 }
 #option {
     width: 40px;
-	background-color: #FF5275;
-	height: 40px;
-	border-radius: 0 15px 15px 0;
+	background-color: #ff5274;
+	height: 50px;
+	border-radius: 0 5px 5px 0;
 	float: left;
+	cursor: pointer;
+	transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+    -webkit-transition:opacity 0.5s;
+    -o-transition:opacity 0.5s;
 }
-#option p {
-    line-height: 40px;
-	margin: 0;
+#option:hover {
+    opacity: 0.5;
+}
+#option span {
+    width: 40px;
+	height: 40px;
 	color: white;
+	font-size: 21px;
+	line-height: 50px;
 }
 #howToHelp h4 {
     line-height: 40px;
 	color: white;
 	margin: 0;
 }
+.specialProduct {
+    margin: 0 auto;
+	width: 85%;
+}
+.singleProduct {
+    margin-left: 29px;
+	width: 30%;
+    height: 400px;
+	float: left;
+}
+.productImage {
+    width: 100%;
+	height: 230px;
+	background-color: #ececf1;
+}
+.productDesc {
+    width: 100%;
+	width: 170px;
+	background-color: #f7f8fa;
+}
+.carousel-control {
+    background-image: none!important;
+	width: 15px;
+	height: 54px;
+	width: 54px;
+    top: 100px;
+}
+.carousel-control.left {
+    left: -30px;
+}
+.carousel-control.right {
+    right: -30px;
+}
+.arrowCoat {
+	width: 54px;
+    height: 54px;
+    border-radius: 27px;
+	background-color: #f6f6f6;
+}
+.arrowCoat .headerArrow {
+	line-height: 45px;
+	color: #c6c6c6;
+	font-size: 50px;
+	margin: 0;
+}
+#specialProductCarousel .carousel-indicators li {
+	background-color: #b4b4b4;
+}
 #mainContent3 {
     width: 100%;
-	height: 759px;
-	background-image:url('../js/images/heroImage032.jpg');
+	overflow: auto;
 }
-#mainContent3 h2 {
-    margin: 0px;
+#subContentLeft {
+    width: 50%;
+	float:left;
+	height: 600px;
 }
 #subContentRight {
-    width: 35%;
-	float: right;
-	color: white;
-	height: 400px;
-	padding-top: 139px;
+    width: 50%;
+	float: left;
+	height: 600px;
+	padding-top: 80px;
 	text-align: left;
+	padding-left: 115px;
+	background-color: #f7f8fa;
+}
+#subContentRight h1,h2,h3,h4,h5,p {
+	margin: 0px;
+}
+#subContentRight h2,h4 {
+    color: #707070;
+}
+#subContentRight h2 {
+    font-size: 30px;
+}
+#subContentRight h4 {
+    font-size: 25px;
+}
+#subContentRight h5 {
+    color: #1c3653;
+	font-size: 13px;
+	line-height: 20px;
+	padding-bottom: 10px;
+}
+.singleTip {
+    width: 100%;
+	height: 600px;
+	background: -webkit-radial-gradient(#000000, #545454);
+    background: -o-radial-gradient(#000000, #545454);
+    background: -moz-radial-gradient(#000000, #545454);
+    background: radial-gradient(#000000, #545454);
+	padding-left: 160px;
+	text-align: left;
+}
+.singleTip h1 {
+    color: #ff5274;
+	font-family: "OpenSans-Semibold";
+	font-size: 224px;
+	margin: 0px;
+}
+.singleTip h2 {
+    font-size: 65px;
+	color: #FFFFFF;
+	padding-top: 115px;
+	margin: 0px;
+}
+.singleTip p {
+    font-size: 20px;
+	color: #FFFFFF;
+	margin: 0px;
+	margin-left: 8px;
 }
 .reason {
     height: 100px;
-	width: 100%;
-	border-bottom: 2px solid #ECE7E7;
-	padding-top: 20px;
+	border-bottom: 1px solid #e6e9ea;
+	padding-top: 10px;
+	padding-right: 20px;
+	width: 350px;
+}
+.reasonHeader {
+    width: 370px;
 }
 .imgContent {
     float: left;
 	width: 45px;
-	height: 42px;
+	height: 100%;
+	text-align: center;
 }
 .textContent {
     float: left;
-	padding-left: 10px;
+	padding-left: 23px;
+	width: 285px;
+	height: 100%;
 }
 .textContent h4 {
     margin: 0;
 }
 .textContent h5 {
     margin: 0;
+	margin-top: -10px;
 }
 #questionContent {
-    width: 100%;
-	height: 759px;
+    width: 920px;
+	height: 600px;
+	margin:0px auto;
 }
 #questionGroup {
-    width: 900px;
-	height: 759px;
-	margin:0px auto;
+    width: 100%;
+	height: 600px;
+    background: -webkit-radial-gradient(#ef8391, #db5f34);
+    background: -o-radial-gradient(#ef8391, #db5f34);
+    background: -moz-radial-gradient(#ef8391, #db5f34);
+    background: radial-gradient(#ef8391, #db5f34);
 }
 #questionGroupLeft {
     height: 400px;
@@ -130,114 +262,233 @@ body {
 	text-align: left;
 	float: left;
 	padding-top: 150px;
+	color: white;
+	margin-right: 20px;
+}
+#questionGroupLeft h3 {
+    font-size: 30px;
+}
+#questionGroupLeft h1 {
+    font-size: 65px;
+	margin-top: 55px;
 }
 .question {
     width: 550px;
-	height: 400px;
+	height: 300px;
 	float: left;
-	padding-top: 150px;
+	margin-top: 240px;
+	background-color: #FFFFFF;
+	box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.16);
 }
 .questionLeft {
     width: 60%;
 	height: 100%;
     text-align: left;
+	float:left;
+}
+.questionLeft h2 {
+    font-size: 23px;
+	line-height: 35px;
+	color: #474747;
+}
+.questionLeft p {
+    font-size: 10px;
+	color: #FF7892;
+	line-height: 33px;
+	margin: 0px;
 }
 .questionRight {
     width: 40%;
 	height: 100%;
+	float:left;
+}
+.optionButton {
+    width: 80px;
+	height: 33px;
+	border-radius: 33px;
+	border: 2px solid #ff5274;
+	background-color: white;
+	text-align: center;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.optionButton:hover {
+    background: #CCC;
 }
 .leftTop {
     width: 290px;
 	margin-left: 20px;
-	height: 100px;
+	height: 140px;
 	padding-top: 60px;
 }
 .leftBottom {
     width: 290px;
 	margin-left: 20px;
 	height: 100px;
-	padding-top: 50px;
-	border-top: 2px solid #ECE7E7;
+	padding-top: 20px;
+	border-top: 2px solid #3d3d3d;
 }
-.ck-slide { width: 700px; height: 320px; margin: 0 auto;}
-.ck-slide ul.ck-slide-wrapper { height: 320px;}
 </style>
 <body>
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "73px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>  
 <div id="topHalfLevel">
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
-		<h5 color="white">51BestFuneral提供综合全面，一站式的殡葬服务体验。告诉我们您的需求，我们帮助您定制<br/>最符合您的服务</h5></br>
-		<div id="howToHelp">
-		    <div id="message">
-		        <h4>我们可以如何帮助您</h3>
-			</div>
-			<div id="option">
-			    <p>&nabla;</p>
-			</div>
-		</div>
+		<h5 color="white">51BestFuneral提供综合全面，一站式的殡葬服务体验。告诉我们您的需<br/>求，我们帮助您定制最符合您的服务</h5></br>
 	</div>
+	<div id="howToHelp">
+	    <div id="message">
+			<p>我们可以如何帮助您</p>
+		</div>
+		<div id="option">
+			<span class="glyphicon glyphicon-chevron-down"></span>
+		</div>
 </div>
-<div class="ck-slide">
-	<ul class="ck-slide-wrapper">
-		<li>
-            <a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/1.jpg" alt=""></a>
-		</li>
-		<li style="display:none">
-			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/2.jpg" alt=""></a>
-		</li>
-		<li style="display:none">
-			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/3.jpg" alt=""></a>
-		</li>
-		<li style="display:none">
-			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/4.jpg" alt=""></a>
-		</li>
-		<li style="display:none">
-			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/5.jpg" alt=""></a>
-		</li>
-	</ul>
-	<a href="javascript:;" class="ctrl-slide ck-prev">上一张</a> <a href="javascript:;" class="ctrl-slide ck-next">下一张</a>
-	<div class="ck-slidebox">
-		<div class="slideWrap">
-			<ul class="dot-wrap">
-				<li class="current"><em>1</em></li>
-				<li><em>2</em></li>
-				<li><em>3</em></li>
-				<li><em>4</em></li>
-				<li><em>5</em></li>
-			</ul>
-		</div>
-	</div>
+</div>
+<div class="specialProduct">
+	<div class="carousel slide productCarousel" id="specialProductCarousel">
+	    <ol class="carousel-indicators">
+            <li data-target="#specialProductCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#specialProductCarousel" data-slide-to="1"></li>
+            <li data-target="#specialProductCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+			<div class="item active">
+	            <div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+				<div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+				<div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+            </div>
+			<div class="item">
+	            <div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+				<div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+				<div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+            </div>
+			<div class="item">
+	            <div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+				<div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+				<div class="singleProduct">
+				    <div class="productImage">
+					</div>
+					<div class="productDesc">
+					</div>
+				</div>
+            </div>
+        </div>
+        <a class="carousel-control left" href="#specialProductCarousel" 
+            data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
+        <a class="carousel-control right" href="#specialProductCarousel" 
+            data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
+    </div>
 </div>
 <div id = "mainContent3">
+    <div id="subContentLeft">
+	     <div>
+		    <div class="carousel slide productCarousel" id="tipsCarousel">
+	            <ol class="carousel-indicators">
+                    <li data-target="#tipsCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#tipsCarousel" data-slide-to="1"></li>
+                    <li data-target="#tipsCarousel" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+			        <div class="item active">
+				        <div class="singleTip">
+				            <h2>你知道</h2>
+							<h1>65%</h1>
+							<p>葬礼花费可以因为合理的安排的省去吗？</p>
+				        </div>
+                    </div>
+					<div class="item">
+				        <div class="singleTip">
+				            <h2>你知道</h2>
+							<h1>65%</h1>
+							<p>葬礼花费可以因为合理的安排的省去吗？</p>
+				        </div>
+                    </div>
+					<div class="item">
+				        <div class="singleTip">
+				            <h2>你知道</h2>
+							<h1>65%</h1>
+							<p>葬礼花费可以因为合理的安排的省去吗？</p>
+				        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
     <div id="subContentRight">
-        <h2>为什么选择我们</h1></br>
-	    <h5>因为我们是非常专业的团队</h5>
+	    <div class="reasonHeader">
+            <h2>为什么选择我们</h1></br>
+	        <h5>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</h5>
+		</div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="../js/images/reasonIcon.jpg"></img>
+			    <img src="../js/images/yizhan.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>一站式</h4><br/>
-	            <h5>最符合您的服务</h5></br>
+	            <h5>选择我们您就选择了简单轻松的处理后事等等内容。</h5>
 			</div>
         </div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="../js/images/reasonIcon.jpg"></img>
+			    <img src="../js/images/people.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>私人定制</h4><br/>
-	            <h5>最符合您的服务</h5></br>
+	            <h5>千篇一律的葬礼仪式已经一去不复返了。越来越多人开始考虑用更个性化的方式处理葬礼。</h5>
 			</div>
         </div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="../js/images/reasonIcon.jpg"></img>
+			    <img src="../js/images/bottle.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>性价比高</h4><br/>
-	            <h5>最符合您的服务</h5></br>
+	            <h5>用念念可以帮助您以最低廉的价格得到最尊贵的服务。</h5>
 			</div>
         </div>
 	</div>
@@ -251,20 +502,28 @@ body {
 	    <div class = "question" id="question1">
 		    <div class="questionLeft">
 			    <div class="leftTop">
-	                <label>你知道自己父母的生日吗?</label>
+	                <h2>你知道自己父母的生日吗?</label>
 				</div>
 				<div class="leftBottom">
-		            <button class = "optionButton">知道</button>
-		            <button class = "optionButton">不知道</button>
+		            <div class = "optionButton"><p>知道</p></div>
+		            <div class = "optionButton"><p>不知道</p></div>
 				</div>
 			</div>
 			<div class="questionRight">
 			</div>
 	    </div>
-	    <div class = "question" id="question2" hidden = "true">
-	        <label>你知道自己父母的血型吗?</label>
-		    <button class = "optionButton">知道</button>
-		    <button class = "optionButton">不知道</button>
+	    <div class = "question" id="question2">
+		    <div class="questionLeft">
+			    <div class="leftTop">
+	                <h2>你知道自己父母的血型吗?</label>
+				</div>
+				<div class="leftBottom">
+		            <div class = "optionButton"><p>知道</p></div>
+		            <div class = "optionButton"><p>不知道</p></div>
+				</div>
+			</div>
+			<div class="questionRight">
+			</div>
 	    </div>
 	</div>
 </div>
@@ -299,7 +558,7 @@ body {
 </div>
 <IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME> 
 </body>
-<script type="text/javascript">
+<script>
 $(function() {
     $('.ck-slide').ckSlide({
 				autoPlay: true,//默认为不自动播放，需要时请以此设置
