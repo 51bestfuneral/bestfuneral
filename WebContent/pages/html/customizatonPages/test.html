@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html >
+<style>
+table, th , td  {
+  border: 1px solid grey;
+  border-collapse: collapse;
+  padding: 5px;
+}
+table tr:nth-child(odd) {
+  background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+  background-color: #ffffff;
+}
+</style>
+
+
+
+
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('question', function($scope, $http) {
+   $http.get("http://localhost:8080/funeral/question/list?questionId=1")
+   .success(function (response) {
+   	$scope.curQuestion = response[0];
+   	});
+});
+
+
+app.controller('items', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/question/list?questionId=1").success(function(response) {
+	    
+	});
+});
+
+
+</script>
+
+
+<body>
+ 
+<div ng-app="myApp" ng-controller="question">
+ 
+<table>
+  
+    <td>{{ curQuestion.questionContent}}</td>
+    
+  </tr>
+</table>
+ 
+</div>
+ 
+
+ 
+</body>
+</html>
+			

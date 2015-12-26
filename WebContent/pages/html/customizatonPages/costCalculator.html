@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>计算页面</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UFT-8">
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+
+<header>
+  <ul id="nav"> 
+    <li><a href="signInPgae.html">葬礼定制</a></li>
+    <li><a href="signInPgae.html">产品及服务</a></li> 
+    <li><a href="signInPgae.html">墓地信息</a></li> 
+    <li><a href="signInPgae.html">关于我们</a></li>  
+</ul> 
+  
+</header>
+
+<body  ng-app="myApp" ng-controller="user" >
+
+ <ul id="box"> 
+    <li><a href="signInPgae.html">什么是葬礼定制</a></li>
+    <li><a href="signInPgae.html">怎样定制</a></li> 
+    <li><a href="signInPgae.html">定制计算器</a></li> 
+    <li><a href="signInPgae.html">定制套餐</a></li>  
+</ul> 
+<div id='introduction'>
+<p> 计算葬礼定制费用 </p>
+
+<p1> 请您回答以下问题，我们将给你一个初步费用预估 </p1>
+
+</div>
+
+
+<div id='item'>
+	
+	<p>您是否需要入殓服务?</p>
+<li><input type="radio" value= "1" id= "111" name="aaa" style="display:none"> <img id="aa"  src="../customizatonPages/assets/images/pass.jpg" onclick="onChecked(this.id)"> <p> 不需要</p></li>
+<li><input type="radio" value= "2" id= "222" name="aaa" style="display:none"> <img id="bb"  src="../customizatonPages/assets/images/sl1.jpg" onclick="onChecked(this.id)"> <p> 需要基本净身穿衣</p> </li>
+<li><input type="radio" value= "3" id= "333" name="aaa" style="display:none"> <img id="cc"  src="../customizatonPages/assets/images/sl2.jpg" onclick="onChecked(this.id)">  <p> 需要入殓师服务</p> </li>
+<li><input type="radio" value= "4" id= "444" name="aaa" style="display:none"> <img id="dd"  src="../customizatonPages/assets/images/sl3.jpg" onclick="onChecked(this.id)"> <p> 需要高级入殓师服务</p> </li>
+
+</div>
+
+<div id='item'>
+	
+	<p>您是否需要入殓服务?</p>
+<li><input type="radio" value= "1" id= "111" name="aaa" style="display:none"> <img id="aaa"  src="../customizatonPages/assets/images/pass.jpg" onclick="onChecked(this.id)"> <p> 不需要</p></li>
+<li><input type="radio" value= "2" id= "222" name="aaa" style="display:none"> <img id="bbb"  src="../customizatonPages/assets/images/sl1.jpg" onclick="onChecked(this.id)"> <p> 需要基本净身穿衣</p> </li>
+<li><input type="radio" value= "3" id= "333" name="aaa" style="display:none"> <img id="ccc"  src="../customizatonPages/assets/images/sl2.jpg" onclick="onChecked(this.id)">  <p> 需要入殓师服务</p> </li>
+<li><input type="radio" value= "4" id= "444" name="aaa" style="display:none"> <img id="ddd"  src="../customizatonPages/assets/images/sl3.jpg" onclick="onChecked(this.id)"> <p> 需要高级入殓师服务</p> </li>
+
+</div>
+
+<ul id='summary' >
+	
+	
+	 <table border="0" style="align:center; top:50%;" >
+	 		<tr>	
+	 			<td width="26%">
+	
+	
+&nbsp;
+	
+</td>
+ 			
+	 			</tr>
+	 			
+	 				<tr>	
+	 			<td width="26%">
+	
+	
+&nbsp;
+	
+</td>
+ 			
+	 			</tr>	<tr>	
+	 			<td width="26%">
+	
+&nbsp;
+	
+</td>
+ 			
+	 			</tr>
+	 	<tr>	
+	 			<td width="26%">
+	
+&nbsp;
+	
+</td>
+ 			
+	 			</tr><tr>	
+	 			<td width="26%">
+	
+&nbsp;
+	
+</td>
+ 			
+	 			</tr>
+	 	
+	 	<tr>
+	 	
+
+<td width="26%">
+	
+	
+<comments>费用总计：</comments>	<money>¥3,400</money>
+	
+</td>
+
+	 	
+  <td width="10%"><note>我们会根据你的选择在下一页给你推荐合适的套餐</note></td>	
+		 
+		 <td width="12%">
+		 	<button  class='nextButton'>开始定制</button> 
+		 	
+		 	</td>
+  
+</tr>
+  
+</table>  
+		    
+		       
+		
+       
+	
+
+  
+</div>
+
+
+</body>
+
+<style>
+
+
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+
+
+	
+	
+	
+ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
+ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
+ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
+ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
+
+.nextButton{
+	  background-color: #ffffff;
+		width : 150px;
+		height: 50.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:5px 5px 5px 5px;
+   } 
+
+
+
+#blank{
+	height:100px;
+	width:1000px;
+	border:0px
+  position:relative;
+  left:100px;
+  top:700px;
+  text-align:center;
+	}
+
+#introduction{
+		height:354px;
+	width:100%;
+	border:0px
+	solid #767676;
+	background:url(../customizatonPages/assets/images/rectangle-702.png) 
+	no-repeat 0px 0px;
+	text-align:center;
+  position:relative; left:0%; right:0%;
+	}
+
+#item{
+	height:334px;
+	width:65%;
+	border:0px
+	solid #767676;
+  background-color: #ffffff;
+    position:relative;
+
+ left:18%;
+  text-align:center;
+  box-shadow: 10px 10px 50px #d6d6d6;
+
+	}
+
+ #item li{float:left; height:100px;list-style-type:none;} 
+ #item  p{font-family : STHeitiSC-Light;
+font-size: 35px;
+color : #3d4351;
+} 
+
+#item li p{font-family : STHeitiSC-Light;
+font-size: 15px;
+color : #3d4351; line-height:25px; text-align:center;
+} 
+
+#introduction p{	
+font-family : STHeitiSC-Light;
+font-size: 60px;
+color : #4b4b4b;
+	}
+	
+#introduction p1{	
+font-family : STHeitiSC-Light;
+font-size: 35px;
+color : #4b4b4b;
+	}
+
+ul#box{
+	height:5px;
+  width:100%;	border:1px
+	solid #767676;
+	border-bottom:none;
+  border-left:none;
+  border-right:none;
+  text-align:center;
+   position:relative; 
+   left:0%; 
+   right:0%;
+	} 
+	
+	
+	ul#box li{display:inline; height:60px} 
+  ul#box li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#5b5b5b; face: "STHeitiSC-Medium"; font-size:20px;} 
+
+ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+
+
+  #buttonStyle {
+  	position ：relative;
+  	height: 6900.9px;
+    display:inline;
+		margin:0px auto;
+		color: white;
+		cursor: pointer;
+	}
+	#buttonStyle:hover {
+	  background-color: #e6385a;
+		color: #428BCA;
+	}
+	#buttonStyle back {
+   position:absolute;
+   top:450px;
+   left:350px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	
+	#buttonStyle skip {
+   position:absolute;
+   top:600px;
+   left:750px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+
+
+#buttonStyle next {
+   position:absolute;
+   top:600px;
+   left:950px;
+	  background-color: #ff5274;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	
+	
+	.backButton{
+	position:absolute;
+   top:380px;
+   left:50px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 28px;
+		margin: 0px;
+		line-height: 82px;
+		} 
+	
+	
+	.skipButton{position:absolute;
+   top:380px;
+   left:550px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 28px;
+		margin: 0px;
+		line-height: 82px;} 
+
+
+	</style>
+
+<script>
+	
+	var app = angular.module('myApp', []);
+app.controller('user', function($scope, $http) {
+//	$http.get("http://localhost:8080/funeral/user/list?usrId=1").success(function(response) {
+	   //     $scope.curUser = response[0];
+	        
+	    //    users=response[0];
+		//	})
+			
+	$("#saveButton").click(function() {
+		
+	    var datadata = JSON.stringify($scope.curUser);
+	    
+	    alert("  datadata ="+datadata);
+	    
+	    $http({
+            method: "POST",
+            url:"http://localhost:8080/funeral/user/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+            alert("chenggong");
+        });
+	});		
+			
+			
+});
+	
+	</script>
+	
+	
+	<script>
+  function onChecked(sId) {
+    var oImg = document.getElementsByTagName('img');
+
+    for (var i = 0; i < oImg.length; i++) {
+      if (oImg[i].id == sId) {
+        oImg[i].previousSibling.previousSibling.checked = true;
+        oImg[i].style.border = '1px solid #FF6600';
+      } else {
+        oImg[i].style.border = '0px solid #ffffff';
+
+      }
+    }
+  }
+</script>
+	
+	
+	
+</html>
