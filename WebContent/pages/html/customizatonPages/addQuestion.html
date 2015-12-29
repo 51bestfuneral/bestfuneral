@@ -8,10 +8,10 @@
 <body ng-app="myApp" ng-controller="questionManager">
 <header>
 <ul id="nav">
-	<li><a href="signInPgae.html">问题管理</a></li>
-	<li><a href="signInPgae.html">客户管理</a></li>
-	<li><a href="signInPgae.html">产品管理</a></li>
-	<li><a href="signInPgae.html">服务管理</a></li>
+		<li><a href="addQuestion.html">添加问题</a></li>
+	<li><a href="updateQuestion.html">修改问题</a></li>
+	<li><a href="deleteQuestion.html">删除问题</a></li>
+	<li><a href="updateQuestion.html">配置选项</a></li>
 </ul>
 </header>
 <script>
@@ -500,7 +500,11 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
             },
 			dataType:"json"
         }).success(function(){
-           window.location.reload("addQuestion.html");  
+          window.location.reload("addQuestion.html");  
+          
+        
+          
+          
         });
 	});	
 	

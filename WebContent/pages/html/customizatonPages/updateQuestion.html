@@ -8,10 +8,10 @@
 <body ng-app="myApp" ng-controller="questionManager">
 <header>
 <ul id="nav">
-	<li><a href="signInPgae.html">问题管理</a></li>
-	<li><a href="signInPgae.html">客户管理</a></li>
-	<li><a href="signInPgae.html">产品管理</a></li>
-	<li><a href="signInPgae.html">服务管理</a></li>
+	<li><a href="addQuestion.html">添加问题</a></li>
+	<li><a href="updateQuestion.html">修改问题</a></li>
+	<li><a href="deleteQuestion.html">删除问题</a></li>
+	<li><a href="updateQuestion.html">配置选项</a></li>
 </ul>
 </header>
 <script>
@@ -40,7 +40,10 @@
 	<tr>  <td>
 		
 		<label >所属模块</label>
-	<select   ng-model="question.moduleId">
+	<select ng-model="question.moduleId"> 
+		
+	<option value={{question.moduleId}} selected = "selected">{{currentQuestion.moduleId}}</option> 
+	
   <option value="1">墓地</option>
   <option value="2">寿衣</option>
   <option value="3">佛事</option>
@@ -51,6 +54,8 @@
 			
 			<label >优先级&nbsp;</label>
 	<select   ng-model="question.priorityId">
+			<option value={{question.priorityId}} selected = "selected">{{currentQuestion.priorityId}}</option> 
+
   <option value="1">高</option>
   <option value="2">中</option>
   <option value="3">低</option>
@@ -69,6 +74,8 @@
 				
 				<label >性别&nbsp;&nbsp;</label>
 	<select  ng-model="question.genderRange">
+					<option value={{question.genderRange}} selected = "selected">{{currentQuestion.genderRange}}</option> 
+
   <option  selected="selected" value="1"  selected="selected">男</option>
   <option value="2">女</option>
   <option value="3">男和女</option>
@@ -81,6 +88,8 @@
 					
 				<label >年龄区间</label>
 	<select  ng-model="question.ageRange">
+							<option value={{question.ageRange}} selected = "selected">{{currentQuestion.ageRange}}</option> 
+
   <option value="1">( 0-20]</option>
   <option value="2">(20-30]</option>
   <option value="3">(30-40]</option>
@@ -109,6 +118,7 @@
 		
 		<label >答案类型</label>
 	<select  ng-model="question.answerCate">
+<option value={{question.answerCate}} selected = "selected">{{currentQuestion.answerCate}}</option> 
   <option value="1">单选</option>
   <option value="2">多选</option>
   <option value="3">填空</option>
@@ -121,9 +131,7 @@
 			
 			<label >展示顺序</label>
 			
-			<input type="number" name="displayOrder" min="10" max="1000"  ng-model="question.displayOrder" />
-	
-			
+			<input type="number"  name="displayOrder" min="1" max="1000"  ng-model="question.displayOrder"  value={{currentQuestion.displayOrder}}>
 			
 			</td>
 		</tr>
@@ -135,6 +143,8 @@
 				
 				<label >展示形式</label>
 	<select  ng-model="question.displayForm" >
+											<option value={{question.displayForm}} selected = "selected">{{currentQuestion.displayForm}}</option> 
+
   <option value="1">文字</option>
   <option value="2">图片</option>
   <option value="3">音乐</option>
@@ -147,6 +157,8 @@
 					
 			<label >是否必答</label>
 	<select  ng-model="question.mandatoryFlag">
+													<option value={{question.mandatoryFlag}} selected = "selected">{{currentQuestion.mandatoryFlag}}</option> 
+
   <option value="1">是</option>
   <option value="2">不是</option>
   
@@ -163,7 +175,7 @@
 		
 		<label >选项个数</label>
 		
-					<input type="number" name="optionSize" min="1" max="100"  ng-model="question.optionSize" />
+					<input type="number" name="optionSize" min="1" max="100"  ng-model="question.optionSize" value={{currentQuestion.optionSize}}>
 
 		
 		</td>			 	<td>
@@ -171,6 +183,9 @@
 			
 				<label >答案形式</label>
 	<select  ng-model="question.optionForm" >
+		
+<option value={{question.optionForm}} selected = "selected">{{currentQuestion.optionForm}}</option> 
+
   <option value="1">文字</option>
   <option value="2">图片</option>
   <option value="3">音乐</option>
@@ -200,17 +215,17 @@
 			
 			<label >标题&nbsp;&nbsp;</label>
 	
-   <input  type='text'  ng-model="question.title"   maxlength="50"/>
+   <input  type='text'  ng-model="question.title"   maxlength="50"    value={{currentQuestion.title}}>
 			
 			</td><td >
 				
 				 <label style=' vertical-align: top;'>问题描述</label>
-	<textarea   rows="8" cols="50"   ng-model="question.questionContent"></textarea>
+	<textarea   rows="8" cols="50"   ng-model="question.questionContent"    value={{currentQuestion.questionContent}}></textarea>
 				
 				
 				</td>   </tr> 
 				
-				<tr> <td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">添加</button>   </td></tr>
+				<tr> <td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">保存</button>   </td></tr>
 	
 </table>
 		
@@ -240,7 +255,7 @@
 	<tr   ng-repeat="savedQuestion in questions">
 		
 		
-		<td  >  {{savedQuestion.qusetionId}} </td><td  >  <li><a href="signInPgae.html">{{savedQuestion.title}} </a></li> </td>	<td  >  {{savedQuestion.moduleId}} </td><td  > {{savedQuestion.priorityId}} </td>  <td  > {{savedQuestion.mandatoryFlag}} </td>
+		<td  >    <li>     <input type="radio" name="savedQuestion" value={{savedQuestion.qusetionId}}  ng-click="changeQuestion(savedQuestion.qusetionId)"/>     <label >    {{savedQuestion.title}} </label>  </li> </td>	<td  >  {{savedQuestion.moduleId}} </td><td  > {{savedQuestion.priorityId}} </td>  <td  > {{savedQuestion.mandatoryFlag}} </td>
 		
 		
 		
@@ -480,12 +495,23 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	
 	<script>
 	var app = angular.module('myApp', []);
+	
+	
  
 	 app.controller('questionManager', function($scope, $http) {
+	 	
+	 	
+	 	$scope.currentQuestion=null;
+	 	
 	 	
 	 	$http.get("http://localhost:8080/funeral/fQuestion/list").success(function(response) {
 	       $scope.questions = response;
 			})
+			
+			
+			
+			
+			
 	
 	
 	$("#saveButton").click(function() {
@@ -504,7 +530,27 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
         });
 	});	
 	
-	
+	 $scope.changeQuestion = function( id){
+	 	
+            
+   $http.get("http://localhost:8080/funeral/fQuestion/getQuestionById?id="+id).success(function(response) {
+	      
+	      	 
+	      
+	       $scope.currentQuestion = response;
+	       
+	       
+	          var datadata = JSON.stringify( $scope.currentQuestion );
+	    alert("  currentQuestion ="+datadata);
+	    
+	   
+	      
+	       
+			})     
+               
+               
+               
+             }
 	
 	
 		
