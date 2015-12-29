@@ -22,6 +22,24 @@ public class FQuestionController {
 
 	@Autowired
 	private FQuestionService fQuestionService;
+	@ResponseBody
+	@RequestMapping(value = "/getQuestionById{id}", method = RequestMethod.GET, produces = "application/json")
+	public TFQuestion getQuestionById( Long id) {
+		ModelAndView modelAndView = new ModelAndView("list-of-tFQuestion");
+
+		System.out.println(" questionId =" + id);
+		
+		if(id==null||"null".equals(id)){
+			
+			return new TFQuestion();
+		}
+
+		TFQuestion tFQuestion = fQuestionService.getResource(id);
+		
+		modelAndView.addObject("tFQuestion", tFQuestion);
+
+		return tFQuestion;
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
