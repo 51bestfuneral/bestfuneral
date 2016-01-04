@@ -461,11 +461,8 @@ app.controller('user', function($scope, $http) {
 		//	})
 			
 	$("#saveButton").click(function() {
-		
 	    var datadata = JSON.stringify($scope.curUser);
-	    
 	    alert("  datadata ="+datadata);
-	    
 	    $http({
             method: "POST",
             url:"http://localhost:8080/funeral/user/add",
