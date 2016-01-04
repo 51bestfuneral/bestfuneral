@@ -585,6 +585,35 @@ body {
 	min-width: 1000px;
   }
 }
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 60px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.closeCoverDiv:hover {
+	color: #ff5274;
+	border: 2px solid #ff5274;
+}
 </style>
 <body>
 <div class="container">
@@ -877,8 +906,9 @@ body {
 </div>
 <IFRAME NAME="content_frame" width=100% height=350 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
-<div id="krisTest" hidden>
-    <button id="krisTestButton">kris button</button>
+<div class="coverDiv" hidden>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
 </body>
 <script>
@@ -907,6 +937,8 @@ $(function() {
     });
 });
 $("#messageButton").click(function() {
+        var parentWidth = $(".coverDiv").width(),
+		    frameWidth = $(".detailFrame").width();
 	    $('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
             position: 'absolute',
             top: '0px',
@@ -920,10 +952,16 @@ $("#messageButton").click(function() {
 // 淡入淡出效果 
             $(this).fadeTo('slow', 0.5); 
         });
-		$("#krisTest").fadeIn();
+		$(".detailFrame").attr("src","component/productDetail.html")
+		$(".closeCoverDiv").css({
+            right: (parentWidth-frameWidth)/2,
+			left: 'auto',
+			top: 0-$(".closeCoverDiv").width()-4
+        });
+		$(".coverDiv").fadeIn();
 });
-$("#krisTestButton").click(function() {
-    $(this).hide();
+$(".closeCoverDiv").click(function() {
+    $(".coverDiv").fadeOut();
     $(".jquery_addmask").remove();
 });
 </script>
