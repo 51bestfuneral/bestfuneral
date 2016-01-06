@@ -9,13 +9,7 @@
 </head>
 <body ng-app="myApp" ng-controller="serviceCategoryDisplay">
 <header>
-<ul id="nav">
-	<li><a href="signInPgae.html">葬礼定制</a></li>
-	<li><a href="signInPgae.html">产品及服务</a></li>
-	<li><a href="signInPgae.html">墓地信息</a></li>
-	    <li><a href="/pages/html/aboutUs.html">关于我们</a></li> 
-
-</ul>
+<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
 </header>
 <script>
 	var serviceCategories;
@@ -170,12 +164,12 @@ spread: 0px;
 	}
 #item{
 	height:334px;
-	width:65%;
+	width:69%;
 	border:0px
 	solid #767676;
   background-color: #ffffff;
     position:relative;
- left:18%;
+ left:15%;
   text-align:center;
   box-shadow: 10px 10px 50px #d6d6d6;
 	}
@@ -336,7 +330,12 @@ $scope.totalCost =Number( $scope.totalCost) +Number(data);
 });
 	</script>
 	<script>
+		
+		
+		var i=0;
   function onChecked(sId,sName) {
+  	
+  
     var oImg = document.getElementsByName(sName);
     for (var i = 0; i < oImg.length; i++) { 	
       if (oImg[i].id == sId) {

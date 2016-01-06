@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>更新问题</title>
+<title>删除问题</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
@@ -40,8 +40,10 @@
 	<tr>  <td>
 		
 		<label >所属模块</label>
-	<select ng-model="currentQuestion.moduleId"     value={{currentQuestion.moduleId}} > 
+	<select ng-model="question.moduleId"  disabled="disabled"> 
 		
+	<option value={{question.moduleId}} selected = "selected">{{currentQuestion.moduleId}}</option> 
+	
   <option value="1">墓地</option>
   <option value="2">寿衣</option>
   <option value="3">佛事</option>
@@ -51,13 +53,14 @@
 		</td>  <td>
 			
 			<label >优先级&nbsp;</label>
-	<select   ng-model="currentQuestion.priorityId"   value={{currentQuestion.priorityId}} >
+	<select   ng-model="question.priorityId">
+			<option value={{question.priorityId}} selected = "selected">{{currentQuestion.priorityId}}</option> 
 
   <option value="1">高</option>
   <option value="2">中</option>
   <option value="3">低</option>
   <option value="4">无优先级</option>
-  <option value="5">其他</option>
+  <option value="4">其他</option>
 
   </select>
 			
@@ -70,9 +73,10 @@
 				
 				
 				<label >性别&nbsp;&nbsp;</label>
-	<select  ng-model="currentQuestion.genderRange" value={{currentQuestion.genderRange}}>
+	<select  ng-model="question.genderRange">
+					<option value={{question.genderRange}} selected = "selected">{{currentQuestion.genderRange}}</option> 
 
-  <option  value="1">男</option>
+  <option  selected="selected" value="1"  selected="selected">男</option>
   <option value="2">女</option>
   <option value="3">男和女</option>
   <option value="4">其他</option>
@@ -83,14 +87,19 @@
 					
 					
 				<label >年龄区间</label>
-	<select  ng-model="currentQuestion.ageRange"   value={{currentQuestion.ageRange}}  >
+	<select  ng-model="question.ageRange">
+							<option value={{question.ageRange}} selected = "selected">{{currentQuestion.ageRange}}</option> 
 
   <option value="1">( 0-20]</option>
-  <option value="2">(20-40]</option>
-  <option value="3">(40-70]</option>
-  <option value="4">(70-90]</option>
-  <option value="5">(90-90+]</option>
-  
+  <option value="2">(20-30]</option>
+  <option value="3">(30-40]</option>
+  <option value="4">(40-50]</option>
+  <option value="4">(50-60]</option>
+  <option value="4">(60-70]</option>
+  <option value="4">(70-80]</option>
+  <option value="4">(80-90]</option>
+  <option value="4">(90-100]</option>
+  <option value="4">(100-100+]</option>
 
   </select>	
 					
@@ -108,7 +117,8 @@
 		
 		
 		<label >答案类型</label>
-	<select  ng-model="currentQuestion.answerCate"  value={{currentQuestion.answerCate}}>
+	<select  ng-model="question.answerCate">
+<option value={{question.answerCate}} selected = "selected">{{currentQuestion.answerCate}}</option> 
   <option value="1">单选</option>
   <option value="2">多选</option>
   <option value="3">填空</option>
@@ -121,7 +131,7 @@
 			
 			<label >展示顺序</label>
 			
-			<input type="number"  name="displayOrder" min="1" max="1000"  ng-model="currentQuestion.displayOrder"  value={{currentQuestion.displayOrder}}>
+			<input type="number"  name="displayOrder" min="1" max="1000"  ng-model="question.displayOrder"  value={{currentQuestion.displayOrder}}>
 			
 			</td>
 		</tr>
@@ -132,7 +142,8 @@
 				
 				
 				<label >展示形式</label>
-	<select  ng-model="currentQuestion.displayForm" value={{currentQuestion.displayForm}}>
+	<select  ng-model="question.displayForm" >
+											<option value={{question.displayForm}} selected = "selected">{{currentQuestion.displayForm}}</option> 
 
   <option value="1">文字</option>
   <option value="2">图片</option>
@@ -145,7 +156,8 @@
 				</td> <td>
 					
 			<label >是否必答</label>
-	<select  ng-model="currentQuestion.mandatoryFlag"  value={{currentQuestion.mandatoryFlag}}>
+	<select  ng-model="question.mandatoryFlag">
+													<option value={{question.mandatoryFlag}} selected = "selected">{{currentQuestion.mandatoryFlag}}</option> 
 
   <option value="1">是</option>
   <option value="2">不是</option>
@@ -163,15 +175,17 @@
 		
 		<label >选项个数</label>
 		
-					<input type="number" name="optionSize" min="1" max="100"  ng-model="currentQuestion.optionSize" value={{currentQuestion.optionSize}}>
+					<input type="number" name="optionSize" min="1" max="100"  ng-model="question.optionSize" value={{currentQuestion.optionSize}}>
 
 		
 		</td>			 	<td>
 			
 			
 				<label >答案形式</label>
-	<select  ng-model="currentQuestion.optionForm"  value={{currentQuestion.optionForm}} >
+	<select  ng-model="question.optionForm" >
 		
+<option value={{question.optionForm}} selected = "selected">{{currentQuestion.optionForm}}</option> 
+
   <option value="1">文字</option>
   <option value="2">图片</option>
   <option value="3">音乐</option>
@@ -201,17 +215,17 @@
 			
 			<label >标题&nbsp;&nbsp;</label>
 	
-   <input  type='text'  ng-model="currentQuestion.title"   maxlength="50"    value={{currentQuestion.title}}>
+   <input  type='text'  ng-model="question.title"   maxlength="50"    value={{currentQuestion.title}}>
 			
 			</td><td >
 				
 				 <label style=' vertical-align: top;'>问题描述</label>
-	<textarea   rows="8" cols="50"   ng-model="currentQuestion.questionContent"    value={{currentQuestion.questionContent}}></textarea>
+	<textarea   rows="8" cols="50"   ng-model="question.questionContent"    value={{currentQuestion.questionContent}}></textarea>
 				
 				
 				</td>   </tr> 
 				
-				<tr> <td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">更新</button>   </td></tr>
+				<tr> <td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button  class="nextButton" ng-click="deleteQuestion(currentQuestion.questionId)"   >删除</button>   </td></tr>
 	
 </table>
 		
@@ -487,7 +501,6 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	 app.controller('questionManager', function($scope, $http) {
 	 	
 	 	
-	 	$scope.currentQuestion=null;
 	 	
 	 	
 	 	$http.get("http://localhost:8080/funeral/fQuestion/list").success(function(response) {
@@ -500,26 +513,7 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 			
 	
 	
-	$("#saveButton").click(function() {
-	    
-	    
-	    var datadata = JSON.stringify($scope.currentQuestion);
-	    	    alert("  vcurrentQuestion ="+datadata);
 
-	    
-	    $http({
-            method: "POST",
-            url:"http://localhost:8080/funeral/fQuestion/edit",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-           window.location.reload("updateQuestion.html");  
-        });
-	});	
-	
 	 $scope.changeQuestion = function( id){
 	 	
             
@@ -533,8 +527,7 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	          var datadata = JSON.stringify( $scope.currentQuestion );
 	    alert("  currentQuestion ="+datadata);
 	    
-	    
-	  
+	   
 	      
 	       
 			})     
@@ -542,6 +535,27 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
                
                
              }
+             
+        $scope.deleteQuestion = function( id){
+	 		    alert("  id ="+id);
+
+            
+   $http.get("http://localhost:8080/funeral/fQuestion/delete?id="+id).success(function(response) {
+	      
+	      	 
+	      
+	      
+	    
+	   
+	      
+	       
+			})     
+               
+               
+               
+             }      
+             
+             
 	
 	
 		

@@ -1,27 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
-<html xmlns="http://www.w3.org/1999/xhtml">  
-<head>  
-  <meta http-equiv="Content-Type" content="text/html; charset=UFT-8" /> 
-<title>取消选中已选择的radio的js方法|APIEYE.com</title>  
-<script type="text/javascript">  
-function clearradio(){                           //取消radio的选择  
-    var x=document.getElementsByName("brand");  //获取所有name=brand的元素  
-    for(var i=0;i<x.length;i++){ //对所有结果进行遍历，如果状态是被选中的，则将其选择取消  
-        if (x[i].checked==false)  
-        {  
-            x[i].checked=true;  
-        }  
-    }  
-}  
-</script>  
-</head>  
-<body>  
-   
-<input type="radio" name="brand" id="brand" value="1" /><br />  
-<input type="radio" name="brand" id="brand" value="2" /><br />  
-<input type="radio" name="brand" id="brand" value="3" /><br />  
-<br />  
-<input type="button" onclick="clearradio()" value="点击取消选择" />  
-<!--根据自己的需要，可以将button改成其他类型。-->  
-</body>  
-</html>   
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=gb2312" />
+<title>JS 实现放大与缩小网页</title>
+<script language="javascript">
+var i=0;
+document.onkeyup=function(){
+    var IEKey = event.keyCode;
+　　if (IEKey == 76) {
+    　　i++;
+    　　document.body.style.zoom=1+i/10;
+　　}
+　　if (IEKey == 83) {
+    　　i--;
+    　　document.body.style.zoom=1+i/10;
+　　}
+　　if (IEKey == 82) {
+    　　document.body.style.zoom=1;
+    　　i=1;
+　　}
+}
+
+
+function test(){
+	i++;
+	document.body.style.zoom=1+i/10;
+		}
+
+
+
+</SCRIPT>
+
+</head>
+<body>
+<img src="http://www.newxing.com/skins/NewXing/logo.gif" /><br /><br />
+JS 实现放大与缩小网页<br />
+按键盘S放大，按L缩小 ，R复原。
+
+<button onclick="test()">放大</button>
+</body>
+</html>
