@@ -22,20 +22,21 @@ public class FQuestionController {
 
 	@Autowired
 	private FQuestionService fQuestionService;
+
 	@ResponseBody
 	@RequestMapping(value = "/getQuestionById{id}", method = RequestMethod.GET, produces = "application/json")
-	public TFQuestion getQuestionById( Long id) {
+	public TFQuestion getQuestionById(Long id) {
 		ModelAndView modelAndView = new ModelAndView("list-of-tFQuestion");
 
 		System.out.println(" questionId =" + id);
-		
-		if(id==null||"null".equals(id)){
-			
+
+		if (id == null || "null".equals(id)) {
+
 			return new TFQuestion();
 		}
 
 		TFQuestion tFQuestion = fQuestionService.getResource(id);
-		
+
 		modelAndView.addObject("tFQuestion", tFQuestion);
 
 		return tFQuestion;
@@ -66,17 +67,13 @@ public class FQuestionController {
 
 		return questionList;
 	}
-
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView edit(TFQuestion tFQuestion, long id) {
-		ModelAndView modelAndView = new ModelAndView("home");
+	@ResponseBody
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public void edit(@RequestBody TFQuestion tFQuestion) {
+		System.out.println("----------tFQuestion=" + tFQuestion.getTitle() + " content =" + tFQuestion.getQuestionContent());
 
 		fQuestionService.updateResource(tFQuestion);
 
-		String message = "question was successfully updated!";
-		modelAndView.addObject("message", message);
-
-		return modelAndView;
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
