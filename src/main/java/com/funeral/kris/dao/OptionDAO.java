@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.funeral.kris.model.Option;
 
 @Repository
-public interface OptionDAO extends PagingAndSortingRepository<Option, Integer>{
+public interface OptionDAO extends PagingAndSortingRepository<Option, Long>{
 
 }

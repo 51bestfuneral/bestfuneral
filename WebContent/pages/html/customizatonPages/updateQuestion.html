@@ -3,7 +3,7 @@
 <head>
 <title>更新问题</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body ng-app="myApp" ng-controller="questionManager">
 <header>
@@ -211,7 +211,7 @@
 				
 				</td>   </tr> 
 				
-				<tr> <td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">更新</button>   </td></tr>
+				<tr> <td>&nbsp;</td><td  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">更新</button>   </td></tr>
 	
 </table>
 		
@@ -220,6 +220,87 @@
 	
 	
 </div>
+
+
+
+<div  id="addOptionSection">
+	
+	<table>
+<tr>
+	
+	<td>
+		 <label style=' vertical-align: top;'>选项描述</label>
+   <input  type='text'  ng-model="currentOption.optionDesc"   maxlength="50"    >
+		
+		
+		</td>
+		<td>
+		 <label style=' vertical-align: top;'>图片名称</label>
+   <input  type='text'  ng-model="currentOption.imgUrl" size="50"  maxlength="80"   >
+			
+			</td>
+			
+			<td>&nbsp;&nbsp;<button id="addOption" class="addButton">保存选项</button>    </td>
+		<td>&nbsp;&nbsp;<button id="deleteOption" class="addButton">删除选项</button>    </td>
+</tr>
+
+
+</table>	
+	
+	
+	
+	
+	
+	</div>
+	
+	
+<div>已配置选项列表</div>
+
+
+<div  id="optionList">
+	
+	
+	<table  border="0"  width="100%">
+		
+<tr> <td> <label >选项ID&nbsp;</label> </td>   <td>  <label >图片地址</label></td>    <td>  <label >选项说明</label></td> </tr>		
+		
+<tr   ng-repeat="savedOption in savedOptions">
+	
+	
+		<td  >   <li>     <input type="radio" name="savedOption" value={{savedOption.optionId}}  ng-click="changeOption(savedOption.optionId)"/>     <label >    {{savedOption.optionId}} </label>  </li> </td>
+		
+		<td  >  {{savedOption.imgUrl}} </td>
+		
+			<td  >  {{savedOption.optionDesc}} </td>
+	
+	
+	<td>
+		
+	</td>
+	
+	
+	
+	
+</tr>		
+		
+		
+		
+		
+		
+		</table>
+	
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
 
 <div>已添加问题列表</div>
 
@@ -234,14 +315,40 @@
 	
 	
 	
-	<tr> <td> <label >问题ID&nbsp;</label> </td>   <td>  <label >问题标题</label></td> 
+	<tr>    <td>  <label >问题标题</label></td> 
 
   <td> <label >所属模块</label> </td>   <td>  <label >优先级</label></td>   <td>  <label >是否必答</label></td> </tr>
 	
 	<tr   ng-repeat="savedQuestion in questions">
 		
 		
-		<td  >    <li>     <input type="radio" name="savedQuestion" value={{savedQuestion.qusetionId}}  ng-click="changeQuestion(savedQuestion.qusetionId)"/>     <label >    {{savedQuestion.title}} </label>  </li> </td>	<td  >  {{savedQuestion.moduleId}} </td><td  > {{savedQuestion.priorityId}} </td>  <td  > {{savedQuestion.mandatoryFlag}} </td>
+		<td  >    <li>     <input type="radio" name="savedQuestion" value={{savedQuestion.questionId}}  ng-click="changeQuestion(savedQuestion.questionId)"/>     <label >    {{savedQuestion.title}} </label>  </li> </td>	
+		<td  >  <select ng-model="savedQuestion.moduleId"  disabled="true"   value={{savedQuestion.moduleId}} > 
+		
+  <option value="1">墓地</option>
+  <option value="2">寿衣</option>
+  <option value="3">佛事</option>
+  <option value="4">骨灰盒</option>
+  </select> </td>
+  
+  
+  <td  > <select disabled="true"  ng-model="savedQuestion.priorityId"   value={{savedQuestion.priorityId}} >
+
+  <option value="1">高</option>
+  <option value="2">中</option>
+  <option value="3">低</option>
+  <option value="4">无优先级</option>
+  <option value="5">其他</option>
+
+  </select> </td>  
+  
+  <td  > <select  disabled="true"  ng-model="savedQuestion.mandatoryFlag"  value={{savedQuestion.mandatoryFlag}}>
+
+  <option value="1">是</option>
+  <option value="2">不是</option>
+  
+
+  </select> </td>
 		
 		
 		
@@ -278,6 +385,13 @@
   position:relative; left:0%; right:0%;
 	}
 
+#addOptionSection{
+	height:50px;
+	width:100%;
+	border:1px;
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0%;
+	}
 
 
 #addSection contentSection{	
@@ -291,8 +405,20 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 	width:100%;
 	border:0px
   background-color: #d6d6d6;
-  position:relative; left:0%; right:0% ; top:50;
+  position:relative; left:0%; right:0% ; top:100;
 	}
+	
+	
+	
+	#optionList{
+	width:100%;
+	border:0px
+  background-color: #d6d6d6;
+  position:relative; left:0%; right:0% ; top:5;
+	}
+	
+	
+	
 
 #questionList _table{
 	
@@ -327,6 +453,16 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	  font-size: 23px;
 	  border-radius:10px 5px 5px 5px;
    } 
+   
+  .addButton{
+	  background-color: rgba(0, 0, 0, 0.58);
+		width : 150px;
+		height: 30.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:10px 5px 5px 5px;
+   } 
+   
 #blank{
 	height:100px;
 	width:1000px;
@@ -473,9 +609,16 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	</style>
 	
 	
-	 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>-->
+	
+	 <script type="text/javascript" src="/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/pages/html/customizatonPages/js/nav2.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+	
+	
 	
 	
 	
@@ -488,9 +631,10 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	 	
 	 	
 	 	$scope.currentQuestion=null;
+	 	$scope.currentOption=null;
+	 	$scope.savedOptions=null;
 	 	
-	 	
-	 	$http.get("http://localhost:8080/funeral/fQuestion/list").success(function(response) {
+	 	$http.get("http://localhost:8080/funeral/fQuestion/listForUpdate").success(function(response) {
 	       $scope.questions = response;
 			})
 			
@@ -504,42 +648,97 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	    
 	    
 	    var datadata = JSON.stringify($scope.currentQuestion);
-	    	    alert("  vcurrentQuestion ="+datadata);
 
-	    
 	    $http({
             method: "POST",
             url:"http://localhost:8080/funeral/fQuestion/edit",
+          
+          // url:"http://localhost:8080/funeral/testQuestionController.test",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'
             },
 			dataType:"json"
         }).success(function(){
-           window.location.reload("updateQuestion.html");  
+         
+           window.location.reload("addQuestion.html");  
         });
 	});	
+	
+	
+	
+	$("#addOption").click(function() {
+		
+		 	    var datadata = JSON.stringify($scope.currentOption);
+		 	    
+		 	    
+	    var questionId=$scope.currentQuestion.questionId;
+	    var imgUrl= $scope.currentOption.imgUrl;
+	    var optionId=$scope.currentOption.optionId;
+	    var optionDesc=$scope.currentOption.optionDesc;
+	    
+	    			       //  alert("currentOption="+datadata+"    optionId="+optionId+"  questionId="+questionId); 
+
+
+	 	$http.get("http://localhost:8080/funeral/option/save?questionId="+questionId+"&imgUrl="+imgUrl+"&optionDesc="+optionDesc+"&optionId="+optionId).success(function(response) {
+			                  	       $scope.savedOptions = response;	 
+
+			})
+	   $scope.currentOption=null;
+	});	
+	
+	
+		$("#deleteOption").click(function() {
+		
+		 	   	    var questionId=$scope.currentQuestion.questionId;
+
+	    var optionId=$scope.currentOption.optionId;
+	    
+	    			      //   alert("optionId="+optionId+" questionId="+questionId); 
+
+
+	 	$http.get("http://localhost:8080/funeral/option/deleteOption?optionId="+optionId+"&questionId="+questionId).success(function(response) {
+			         alert("delete success!"); 
+			                  	       $scope.savedOptions = response;	 
+ 
+
+			})
+			
+		
+	   
+	});	
+	
+	
 	
 	 $scope.changeQuestion = function( id){
 	 	
             
-   $http.get("http://localhost:8080/funeral/fQuestion/getQuestionById?id="+id).success(function(response) {
-	      
-	      	 
-	      
+   $http.get("http://localhost:8080/funeral/fQuestion/getQuestionById?questionId="+id).success(function(response) {
 	       $scope.currentQuestion = response;
-	       
-	       
-	          var datadata = JSON.stringify( $scope.currentQuestion );
-	    alert("  currentQuestion ="+datadata);
-	    
-	    
-	  
-	      
-	       
+	       $scope.currentOption=null;
 			})     
                
+ $http.get("http://localhost:8080/funeral/option/getOptionListByQuestionId?questionId="+id).success(function(response) {
+	       $scope.savedOptions = response;	 
+	       
+	       
+	       	    var datadata = JSON.stringify($scope.savedOptions);
+	       	    
+
+	       
+	             
+			})                 
                
+             }
+	
+	$scope.changeOption = function( id){
+	 	
+   //   alert(" optionId= "+id);      
+   $http.get("http://localhost:8080/funeral/option/getOptionByOptionId?optionId="+id).success(function(response) {
+	       $scope.currentOption = response;
+			})     
+               
+             
                
              }
 	
