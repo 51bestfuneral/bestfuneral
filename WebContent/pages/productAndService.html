@@ -1,0 +1,651 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+	Bleum - HOME
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers’
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" /> 
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<style>
+@media (min-width: 900px) {
+  .container {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 60px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.closeCoverDiv:hover {
+	color: #ff5274;
+	border: 2px solid #ff5274;
+}
+#mainHeader {
+    width: 100%;
+	height: 400px;
+	text-align: center;
+	padding-top: 160px;
+	background: -webkit-radial-gradient(#ef8391, #db5f34);
+    background: -o-radial-gradient(#ef8391, #db5f34);
+    background: -moz-radial-gradient(#ef8391, #db5f34);
+    background: radial-gradient(#ef8391, #db5f34);
+}
+#mainHeader h1 {
+    font-size: 47px;
+	color: #ffffff;
+	margin: 0px;
+}
+	.productCarousel {
+	    width: 1020px;
+		margin: 0 auto;
+		padding-top: 40px;
+		cursor: pointer;
+	}
+	.productItem {
+	    width: 230px;
+		float: left;
+		margin-left: 20px;
+		border-bottom: 1px solid #ededed;
+		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
+		background-color: #ffffff;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+	.productCarousel .carousel-control {
+	    height: 54px;
+		width: 54px;
+        top: 230px;
+		background-image: none;
+	}
+	.productCarousel .carousel-control.left {
+	    left: -30px;
+	}
+    .productCarousel .carousel-control.right {
+	    right: -30px;
+	}
+	.productCarousel .arrowCoat {
+	    width: 54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+	}
+	.productCarousel .arrowCoat .headerArrow {
+	    line-height: 45px;
+		color: #c6c6c6;
+		font-size: 50px;
+		margin: 0;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		margin-bottom: 20px;
+	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ff5274;
+		padding-left: 7px;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton p:hover {
+	    color: #3078c0;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	.coatDiv {
+	    padding-bottom: 20px;
+	}
+	.subHeader {
+	    margin: 0px;
+		margin-left: 20px;
+		margin-bottom: 20px;
+	}
+    #titleIconDiv {
+	    position: absolute;
+		left: 64px;
+		top: 14px;
+		width: 68px;
+		height: 68px;
+		text-align: center;
+		border-radius: 34px;
+		overflow: hidden;
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	#titleIconDiv:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.iconImg {
+	    margin-left: -5px;
+		margin-top: 2px;
+		max-width: none;
+	}
+	.coverDiv {
+		height: auto;
+		width: 100%;
+		top: 30px;
+		bottom: 60px;
+		text-align: center;
+		position: fixed;
+		z-index: 1001;
+	}
+	.coverDiv .detailFrame {
+		height: 100%;
+	}
+	.closeCoverDiv {
+		position: absolute;
+		top: 0px;
+		width: 35px;
+		height: 35px;
+		border-radius: 17px;
+		border: 2px solid #979797;
+		color: #979797;
+		font-size: 30px;
+		text-align: center;
+		line-height: 35px;
+		cursor: pointer;
+	}
+	.closeCoverDiv:hover {
+		color: yellow;
+		border: 2px solid yellow;
+	}
+	.titleDiv {
+		width: 1165px;
+		height: 40px;
+		margin: 0 auto;
+		background-color: #ccc;
+		text-align: left;
+	}
+	.titleDiv h1 {
+		margin: 0px;
+		margin-left: 15px;
+		font-size: 20px;
+		line-height: 40px;
+	}
+	.overviewItem {
+	    width: 100%;
+		height: 370px;
+		background: -webkit-radial-gradient(#761b18, #000000);
+		background: -o-radial-gradient(#761b18, #000000);
+		background: -moz-radial-gradient(#761b18, #000000);
+		background: radial-gradient(#761b18, #000000);
+		padding-left: 290px;
+		padding-top: 93px;
+	}
+	.overviewItem h1 {
+	    margin: 0px;
+		color: #ffffff;
+		font-size: 44px;
+		line-height: 55px;
+		font-weight: 100;
+	}
+	.overviewItem h2 {
+	    margin: 0px;
+		color: #ffffff;
+		font-size: 44px;
+		line-height: 55px;
+		font-weight: bold;
+	}
+	.overviewItem h3 {
+	    margin: 0px;
+		margin-top: 10px;
+		color: #ff5274;
+		font-size: 24px;
+		line-height: 16px;
+	}
+	#guide {
+	    width: 1040px;
+		height: 330px;
+		background-color: #ffffff;
+		box-shadow: 0px 2px 4px 0px RGBA(0,0,0,0.5);
+		margin: 0px auto;
+		margin-top: 42px;
+		margin-bottom: 48px;
+	}
+	#leftGuide {
+	    width: 65%;
+		height: 100%;
+		background: #f1f1f1;
+		padding-top: 53px;
+		float:left;
+	}
+	.guideIcon {
+	    width: 90px;
+		height: 90px;
+		border-radius: 5px;
+		border: 1px solid #ff5274;
+		margin: 0px auto;
+		margin-bottom: 44px;
+		text-align: center;
+		padding-top: 10px;
+	}
+	.guideIcon p {
+	    color: #ff5274;
+		font-size: 15px;
+	}
+	.guideIcon span {
+	    font-size: 40px;
+	}
+	#rightGuide {
+	    width: 35%;
+		height: 100%;
+		padding-top: 28px;
+		padding-left: 40px;
+		padding-right: 40px;
+		float:left;
+	}
+	#rightGuide h3 {
+	    color: #ff5274;
+		font-size: 25px;
+		line-height: 32px;
+		margin:0px;
+		margin-bottom: 16px;
+	}
+	#rightGuide p {
+	    color: #5b5b5b;
+		font-size: 16px;
+		line-height: 24px;
+		margin-bottom: 30px;
+	}
+	#case {
+	    width: 100%;
+		height: 420px;
+		padding-top: 86px;
+		padding-left: 125px;
+		background: #000000;
+	}
+	#case h1 {
+	    font-size: 44px;
+		line-height: 44px;
+		margin: 0px;
+		margin-bottom: 20px;
+		color: #ffffff;
+	}
+	#case h2 {
+	    font-size: 20px;
+		line-height: 32px;
+		margin: 0px;
+		width: 420px;
+		color: #ffffff;
+	}
+	#case p {
+	    font-size: 20px;
+		line-height: 16px;
+		margin: 0px;
+		width: 420px;
+		color: #ff5274;
+		margin-top: 20px;
+	}
+	#filter {
+	    width: 100%;
+		background: #f2f2f2;
+		box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
+		padding-top: 12px;
+		padding-left: 260px;
+		height: 130px;
+	}
+	.filterIcon {
+	    float: left;
+		width: 92px;
+		height: 106px;
+		border-radius: 7px;
+		margin-right: 25px;
+	}
+	.filterIcon:hover {
+	    background-color: #e8e8e8;
+	}
+	.imageHalf {
+	    text-align: bottom;
+		width: 100%;
+		height: 72%;
+	}
+	.textHalf {
+	    text-align :center;
+		height: 28%;
+		width: 100%;
+	}
+	.textHalf p{
+	    color: #5b5b5b;
+		font-size: 16px;
+		margin: 0px;
+	}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('products', function($scope, $http) {
+    var layouts = [{
+	            index: 1,
+				active: 'active'
+	        }, {
+	    	    index: 2,
+				active: ''
+	    	}, {
+	    	    index: 3,
+				active: ''
+	    	}];
+		
+	    for(var i=0;i<layouts.length;i++){
+            var layout = layouts[i],
+	    	    itemLayout = [{
+	    		    itemName: '镶金楠木棺材',
+					itemPrice: '5000',
+					itemUrl: 'www.baidu1.com',
+					id: '1'
+	    		}, {
+	    		    itemName: '紫檀木棺材',
+					itemPrice: '10000',
+					itemUrl: 'www.baidu2.com',
+					id: '2'
+	    		}, {
+	    		    itemName: '樟木棺材',
+					itemPrice: '2000',
+					itemUrl: 'www.baidu3.com',
+					id: '3'
+	    		}, {
+	    		    itemName: '樟木棺材',
+					itemPrice: '2000',
+					itemUrl: 'www.baidu3.com',
+					id: '4'
+	    		}];
+
+	    	layout.itemLayout = itemLayout;
+        }
+	$scope.layouts = layouts;
+});
+</script>
+<body ng-app="productApp" ng-controller="products">
+<div class="container">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+<div id="filter">
+    <div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		    <p>骨灰盒</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		    <p>骨灰盒</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		   <p>骨灰盒</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		    <p>骨灰盒</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		    <p>骨灰盒</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		    <p>骨灰盒</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		</div>
+		<div class="textHalf">
+		    <p>骨灰盒</p>
+		</div>
+	</div>
+</div>
+<div id="overview">
+    <div class="carousel slide" id="overviewCarousel">
+	    <ol class="carousel-indicators">
+			<li data-target="#overviewCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#overviewCarousel" data-slide-to="1"></li>
+			<li data-target="#overviewCarousel" data-slide-to="2"></li>
+		</ol>
+	    <div class="carousel-inner">
+		    <div class="item active">
+			    <div class="overviewItem">
+			        <h1>全网独家销售</h1>
+				    <h2>日系骨灰盒系列</h2>
+				    <h3>了解更多</h3>
+				</div>
+			</div>
+			<div class="item">
+			    <div class="overviewItem">
+			        <h1>全网独家销售</h1>
+				    <h2>日系骨灰盒系列</h2>
+				    <h3>了解更多</h3>
+				</div>
+			</div>
+			<div class="item">
+			    <div class="overviewItem">
+			        <h1>全网独家销售</h1>
+				    <h2>日系骨灰盒系列</h2>
+				    <h3>了解更多</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="guide">
+    <div id="leftGuide">
+	    <div class="guideIcon">
+		    <p><span class="glyphicon glyphicon-shopping-cart"></span></p>
+			<p>购物篮</p>
+		</div>
+		<div class="guideIcon">
+		    <p><span class="glyphicon glyphicon-list-alt"></span></p>
+			<p>购物篮</p>
+		</div>
+	</div>
+	<div id="rightGuide">
+	    <h3>如何在念念购买产品和服务？</h3>
+		<p>念念提供了最完整的产品类别和特色服务。如果您需要单独购买葬礼或祭扫产品和服务，点击添加到购物篮即可。</p>
+		<p>如果您有葬礼操办的需求，也可以将所要物品添加至愿望清单，并在之后完成您的葬礼定制。</p>
+	</div>
+</div>
+<div id="case">
+    <h1>清明时节，寄托思念！</h1>
+	<h2>我们为涨阿姨提供了一整套清明祭扫物品和鲜花这里说些案例研究的话...</h2>
+	<p><a>祭扫物品</a></p>
+	<p><a>鲜花</a></p>
+</div>
+<div id="mainHeader">
+    <h1>无论是祭扫用品还是葬礼用品<br/>这里一应俱全</h1>
+</div>
+<div id="products" class="coatDiv">
+	<div class="carouselProduct">
+	    <div class="carousel slide productCarousel" id="referenceCarousel">
+		    <h1 class="subHeader">特色产品</h1>
+            <div class="carousel-inner">
+				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
+	                <div class="productItem" id="{{itemLayout.id}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
+		                <div class="imageDiv">
+						    <img src="../../js/images/product1.png" class="image"></img>
+						</div>
+						<div class="productText">
+						    <div class="productInfo">
+							    <p class="header">{{itemLayout.itemName}}</p>
+								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.itemPrice}})</p>
+								<div class="addWishButton">
+								    <img src="../../js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
+								</div>
+							</div>
+							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">了解详情</a></div>
+						</div>
+		            </div>
+                </div>
+            </div>
+            <a class="carousel-control left" href="#referenceCarousel" 
+                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
+            <a class="carousel-control right" href="#referenceCarousel" 
+                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
+        </div>
+	</div>
+</div>
+<div id="services" class="coatDiv">
+	<div class="carouselProduct">
+	    <div class="carousel slide productCarousel" id="referenceCarousel">
+		    <h1 class="subHeader">特色服务</h1>
+            <div class="carousel-inner">
+				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
+	                <div class="productItem" id="{{itemLayout.id}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
+		                <div class="imageDiv">
+						    <img src="../../js/images/product1.png" class="image"></img>
+						</div>
+						<div class="productText">
+						    <div class="productInfo">
+							    <p class="header">{{itemLayout.itemName}}</p>
+								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.itemPrice}})</p>
+								<div class="addWishButton" onselectstart="return false">
+								    <img src="../../js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
+								</div>
+							</div>
+							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">了解详情</a></div>
+						</div>
+		            </div>
+                </div>
+            </div>
+            <a class="carousel-control left" href="#referenceCarousel" 
+                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
+            <a class="carousel-control right" href="#referenceCarousel" 
+                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
+        </div>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div id="titleIconDiv">
+    <img src="../../js/images/titleIcon.jpg" class="iconImg"></img>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
+<script type="text/javascript">
+window.onload=function(){
+    $("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
+    });
+	$(".productItem").click(function() {
+	        $(this).css({
+			    opacity: 0.5
+			});
+			var parentWidth = $(".coverDiv").width(),
+				frameWidth = $(".detailFrame").width();
+			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 1000, 
+				width: $(document).width(), 
+				height: $(document).height(), 
+				'background-color': '#ccc', 
+				opacity: 0 
+			}).fadeIn('slow', function(){ 
+	// 淡入淡出效果 
+				$(this).fadeTo('slow', 0.5); 
+			});
+			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
+			$(".closeCoverDiv").css({
+				right: (parentWidth-frameWidth)/2,
+				left: 'auto',
+				top: 0
+			});
+			$(".coverDiv").fadeIn(1000);
+	});
+	$(".closeCoverDiv").click(function() {
+		$(".coverDiv").fadeOut();
+		$(".jquery_addmask").remove();
+		$(".productItem").css({
+			 opacity: 1
+		});
+	});
+};
+</script>
+</html>

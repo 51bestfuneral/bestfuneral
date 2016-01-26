@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+      xmlns:mvc="http://www.springframework.org/schema/mvc"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xmlns:tx="http://www.springframework.org/schema/tx"
+	  xmlns:context="http://www.springframework.org/schema/context"
+	  xmlns:util="http://www.springframework.org/schema/util"
+      xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/data/jpa
+       http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	   http://www.springframework.org/schema/tx
+	   http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	   http://www.springframework.org/schema/util
+	   http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+    <!--
+       Configures the location of static resources such as css files.
+       Requires Spring Framework 3.0 or higher.
+   -->
+    <mvc:resources mapping="/WEB-INF/js/**" location="/js/"/>
+
+    <!--
+       Ensures that dispatcher servlet can be mapped to '/' and static resources
+       are still served by the containers default servlet. Requires Spring Framework
+       3.0 or higher.
+   -->
+    <mvc:default-servlet-handler/>
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />  
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">  
+        <property name="messageConverters">  
+            <util:list id="beanList">
+                <ref bean="mappingJacksonHttpMessageConverter"/>  
+            </util:list>  
+        </property>  
+    </bean>  
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+        <property name="supportedMediaTypes">  
+            <list>  
+                <value>text/html;charset=gb2312</value>  
+            </list>  
+        </property>  
+    </bean>  
+	<context:annotation-config />
+
+    <!--
+       Configures Spring Data JPA and sets the base package of my DAOs.
+   -->
+    <jpa:repositories base-package="com.funeral.kris.dao" entity-manager-factory-ref="entityManagerFactory" transaction-manager-ref="transactionManager"/>
+</beans>
