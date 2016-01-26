@@ -15,54 +15,49 @@
 	    width: 100%;
 		overflow: auto;
 		color: #ffffff;
+		background-color: #3d4351;
 	}
 	#bottomLeft {
-	    width: 60%;
+	    width: 42%;
 		background-color: #3d4351;
 		float: left;
 		padding-left: 16%;
-		padding-top: 100px;
-		height: 350px;
+		height: 250px;
 	}
 	#bottomRight {
-	    width: 40%;
+	    width: 58%;
 		background-color: #373d4a;
 		float: left;
-		padding-top: 100px;
-		height: 350px;
-		padding-left: 58px;
+		height: 250px;
+		padding-left: 117px;
 	}
 	#bottomRight p {
 	    font-size: 11px;
 		line-height: 32px;
 	}
 	#bottomLeftMain {
-	    width: 62%;
-	}
-	#bottomLeftMain p {
-	    font-size: 11px;
-		line-height: 20px;
-		float: left;
-	}
-	#leftTop {
-	    width: 100%;
-		height: 40px;
-		border-bottom: 1px solid #4e566c;
-		margin: 0px;
-	}
-	#leftTop p {
-	    font-size: 11px;
-		line-height: 20px;
-		margin: 0px;
-	}
-	#leftBottom {
-	    width: 100%;
-		height: 75px;
+		text-align: left;
 		padding-top: 20px;
+		padding-left: 55px;
+	}
+	#bottomLeftMain h1 {
+	    font-size: 35px;
+		line-height: 60px;
+		margin: 0px;
+		margin-bottom: 10px;
+	}
+	#bottomLeftMain h2 {
+	    font-size: 16px;
+		line-height: 20px;
 		margin: 0px;
 	}
-	#leftBottom a {
-	    font-size: 12px;
+	#rightTop {
+	    width: 100%;
+		padding-top: 40px;
+		margin: 0px;
+	}
+	#rightTop a {
+	    font-size: 15px;
 		margin: 0px;
 		margin-right: 26px;
 		color: #ffffff;
@@ -78,30 +73,125 @@
 		margin-right: 10px;
 		color: #ffffff;
 	}
+	#adjustFontDiv {
+	    width: 100%;
+		height: 48px;
+		background: #495061;
+		padding-left: 266px;
+	}
+	#adjustFontDiv span {
+	    line-height: 48px;
+		margin-right: 3px;
+		color: #ffffff;
+		font-size: 12px;
+		cursor: pointer;
+	}
+	#adjustFontDiv span:hover {
+	    color: #ff5274;
+	}
+	#sloganDiv {
+	    width: 965px;
+		height: 72px;
+		margin: 0px auto;
+		border-bottom: 1px solid #767676;
+		padding-left: 75px;
+		overflow: hidden;
+	}
+	.singleSlogan {
+	    width: 165px;
+		height: 100%;
+		float: left;
+	}
+	.singleSlogan img {
+		width: 54px;
+		height: 70px;
+	}
+	.singleSlogan span {
+	    font-size: 16px;
+		font-family: "Microsoft Yahei";
+	}
+	#buttonGroup {
+	    margin-top: 16px;
+		margin-bottom: 10px;
+	}
 </style>
 <body>
 <div id="bottomBar">
-    <div id="bottomLeft">
-	    <div id="bottomLeftMain">
-		    <div id="leftTop">
-				<p><b>NianNian</b></p>
-			</div>
-			<div id="leftBottom">
-				<a href = "#">葬礼定制</a>
-				<a href = "#">产品及服务</a>
-				<a href = "#">墓地信息</a>
-				<a href = "#">关于我们</a>
-			</div>
-			<p>Copyright&copy;2015</p><p><b>NianNian</b></p>
+    <div id="adjustFontDiv">
+	    <span>字体大小:</span>
+		<span class="changeSmall">正常</span>
+		<span>|</span>
+		<span class="changeNormal">大</span>
+		<span>|</span>
+		<span class="changeBig">特大</span>
+	</div>
+	<div id="sloganDiv">
+	    <div class="singleSlogan">
+		    <img src="../../js/images/slogan1.png"></img>
+			<span>正品保证</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="../../js/images/slogan2.png"></img>
+			<span>极速发货</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="../../js/images/slogan3.png"></img>
+			<span>专业咨询</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="../../js/images/slogan4.png"></img>
+			<span>品类齐全</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="../../js/images/slogan5.png"></img>
+			<span>低价省钱</span>
 		</div>
 	</div>
-	<div id="bottomRight">
-	    <p>分享我们的信息，让世界变得更美好</p>
-		<div>
+    <div id="bottomLeft">
+	    <div id="bottomLeftMain">
+		    <h1>念念网</h1>
+			<h2>不要让你爱的人走的太匆忙</br>我们是您身边的葬礼助手。</h2>
+		</div>
+	</div>
+	<div  id="bottomRight">
+	    <div id="rightTop">
+			<a href = "#">葬礼定制</a>
+			<a href = "#">产品及服务</a>
+			<a href = "#">墓地信息</a>
+			<a href = "#">关于我们</a>
+		</div>
+		<div id="buttonGroup">
 		    <button type="button" class="btn btn-default contactMethod">微信</button>
 			<button type="button" class="btn btn-default contactMethod">邮件</button>
 		</div>
+		<p>Copyright&copy;2015念念网</p>
 	</div>
 </div>
 </body>
+<script>
+    function changeAllLayout(level) {
+	    var frames = $(window.parent.document).find('iframe');
+		for (i=0; i<frames.length;i++) {
+		    $(frames[i].contentWindow.document.body).css({
+		        'zoom': level,
+			    '-moz-transform':'scale('+level+')',
+			    '-moz-transform-origin':'top left'
+		    });
+		}
+		$('body', window.parent.document).css({
+		    'zoom': level,
+			'-moz-transform':'scale('+level+')',
+			'-moz-transform-origin':'top left'
+		});
+	}
+    $(".changeSmall").on("click", function () {
+		changeAllLayout(1);
+	});
+    $(".changeNormal").on("click", function () {
+		changeAllLayout(1.1);
+	});
+	$(".changeBig").on("click", function () {
+		changeAllLayout(1.2);
+	});
+</script>
 </html>

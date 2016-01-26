@@ -13,7 +13,8 @@ import org.springframework.jdbc.core.RowMapper;
 import com.funeral.kris.model.User;
   
 public class UserMapper implements RowMapper<User> {
-	public UserMapper() {
+	private String usedClass;
+	public UserMapper(String clsName) {
 		filedMap.put("usrId", "user_id");
 		filedMap.put("userName", "user_name");
 		filedMap.put("userType", "User_type");
@@ -27,6 +28,7 @@ public class UserMapper implements RowMapper<User> {
 		filedMap.put("contactorPhone", "contactor_phone");
 		filedMap.put("updatedDate", "updateddate");
 		filedMap.put("createDate", "createdate");
+		this.usedClass = clsName;
 	}
 	public static Map<String, String> filedMap = new HashMap<String, String>();
 
@@ -35,7 +37,7 @@ public class UserMapper implements RowMapper<User> {
     	Class c = null;
     	Object o = null;
     	try {
-    		c = Class.forName("com.funeral.kris.model.User");
+    		c = Class.forName("com.funeral.kris.model."+this.usedClass);
     		o = c.newInstance();
     		Field f[]=c.getDeclaredFields();
     		for(int i=0;i<f.length;i++) {

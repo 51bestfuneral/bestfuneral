@@ -102,26 +102,6 @@ body {
 	color: white;
 	margin: 0;
 }
-.specialProduct {
-    margin: 0 auto;
-	width: 85%;
-}
-.singleProduct {
-    margin-left: 29px;
-	width: 30%;
-    height: 400px;
-	float: left;
-}
-.productImage {
-    width: 100%;
-	height: 230px;
-	background-color: #ececf1;
-}
-.productDesc {
-    width: 100%;
-	width: 170px;
-	background-color: #f7f8fa;
-}
 .carousel-control {
     background-image: none!important;
 	width: 15px;
@@ -147,7 +127,7 @@ body {
 	font-size: 50px;
 	margin: 0;
 }
-#specialProductCarousel .carousel-indicators li {
+#referenceCarousel .carousel-indicators li {
 	background-color: #b4b4b4;
 }
 #mainContent3 {
@@ -449,13 +429,20 @@ body {
     -webkit-transition:opacity 0.5s;
     -o-transition:opacity 0.5s;
 }
-#askGroupLeft:onclick {
-    opacity: 0.5;
-}
-#askGroupLeft p{
-    font-size: 19px;
-	line-height: 44px;
+#startButton {
+    width: 118px;
+	float: left;
+	height: 44px;
+	background-color: #ff5274;
 	margin: 0px;
+	border-radius: 5px;
+	color: #ffffff;
+	text-align: center;
+}
+#startButton p {
+    font-size: 19px;
+	margin: 0px;
+	color: #ffffff;
 }
 #askGroupRight {
     float: left;
@@ -580,7 +567,7 @@ body {
 }
 @media (min-width: 900px) {
   .container {
-    width: 1366px;
+    width: 1349px;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -588,7 +575,7 @@ body {
 .coverDiv {
     height: auto;
 	width: 100%;
-	top: 60px;
+	top: 30px;
 	bottom: 60px;
 	text-align: center;
 	position: fixed;
@@ -611,13 +598,225 @@ body {
 	cursor: pointer;
 }
 .closeCoverDiv:hover {
-	color: #ff5274;
-	border: 2px solid #ff5274;
+	color: yellow;
+	border: 2px solid yellow;
 }
+.titleDiv {
+    width: 1165px;
+	height: 40px;
+	margin: 0 auto;
+	background-color: #ccc;
+	text-align: left;
+}
+.titleDiv h1 {
+    margin: 0px;
+	margin-left: 15px;
+	font-size: 20px;
+	line-height: 40px;
+}
+	#titleIconDiv {
+	    position: absolute;
+		left: 64px;
+		top: 14px;
+		width: 68px;
+		height: 68px;
+		text-align: center;
+		border-radius: 34px;
+		overflow: hidden;
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	#titleIconDiv:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.iconImg {
+	    margin-left: -5px;
+		margin-top: 2px;
+		max-width: none;
+	}
+	.productCarousel {
+	    width: 1120px;
+		margin: 0 auto;
+		padding-top: 40px;
+	}
+	.productItem {
+	    width: 230px;
+		float: left;
+		margin-left: 40px;
+		border-bottom: 1px solid #ededed;
+		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
+		background-color: #ffffff;
+		border-radius: 4px;
+		overflow: hidden;
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	.productItem:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.productCarousel .carousel-control {
+	    height: 54px;
+		width: 54px;
+        top: 180px;
+		background-image: none;
+	}
+	.productCarousel .carousel-control.left {
+	    left: -30px;
+	}
+    .productCarousel .carousel-control.right {
+	    right: -30px;
+	}
+	.productCarousel .arrowCoat {
+	    width: 54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+	}
+	.productCarousel .arrowCoat .headerArrow {
+	    line-height: 45px;
+		color: #c6c6c6;
+		font-size: 50px;
+		margin: 0;
+	}
+	.productCarousel .carousel-indicators {
+	    bottom: -45px;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		margin-bottom: 20px;
+	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ff5274;
+		padding-left: 7px;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton p:hover {
+	    color: #3078c0;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	#products {
+	    padding-bottom: 50px;
+	}
+	#wechatFrame {
+	    z-index: 1001;
+		position: fixed;
+		top: 180px;
+		left: 540px;
+		width: 300px;
+		height: 300px;
+		background: #ffffff;
+	}
 </style>
-<body>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('wishTypeLevels', function($scope, $http) {
+    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	    var level1 =[],
+		    level2 = [],
+			level3 = [],
+			level4 = [];
+		
+		level1 = response.level1.split(",");
+		level2 = response.level2.split(",");
+		level3 = response.level3.split(",");
+		level4 = response.level4.split(",");
+		$scope.level1 = buildObject(level1);
+		$scope.level2 = buildObject(level2);
+		$scope.level3 = buildObject(level3);
+		$scope.level4 = buildObject(level4);
+	});
+});
+app.controller('products', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/wish/list").success(function(response) {
+	    var j = 1,
+		    counter = 1,
+		    numberInRow = 4,
+			objectsInRow = [],
+			layouts = [];
+		for (var i=0;i<response.length;i++) {
+		    var singleProduct = response[i];
+
+			if (j <= numberInRow) {
+			    objectsInRow.push(singleProduct);
+			}
+
+			if (j === numberInRow) {
+			    var layout = {},
+				    active = '',
+					itemLayout = objectsInRow;
+					
+				if (counter === 1) {
+				    active = 'active'
+				}
+				layout = {
+				    'index': counter,
+					'active': active,
+					'itemLayout': itemLayout
+				};
+				layouts.push(layout);
+			    j = 0;
+				counter++;
+				objectsInRow = [];
+			}
+			j++;
+		}
+		$scope.layouts = layouts;
+	});
+	$http.get("http://localhost:8080/funeral/message/list").success(function(response) {
+	    response[0].active = 'active';
+	    $scope.messages = response;
+	});
+});
+$("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
+});
+</script>
+<body ng-app="productApp" ng-controller="products">
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>  
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>  
 <div id="topHalfLevel">
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
@@ -632,85 +831,43 @@ body {
 		</div>
 </div>
 </div>
-<div class="specialProduct">
-	<div class="carousel slide productCarousel" id="specialProductCarousel">
-	    <ol class="carousel-indicators">
-            <li data-target="#specialProductCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#specialProductCarousel" data-slide-to="1"></li>
-            <li data-target="#specialProductCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-			<div class="item active">
-	            <div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-				<div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-				<div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
+<div id="products">
+	<div class="carouselProduct">
+	    <div class="carousel slide productCarousel" id="referenceCarousel">
+			<ol class="carousel-indicators">
+				<li data-target="#referenceCarousel" data-slide-to="{{$index}}" class="{{layout.active}}" ng-repeat="layout in layouts"></li>
+			</ol>
+            <div class="carousel-inner">
+				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
+	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
+		                <div class="imageDiv">
+						    <img src="../../js/images/product1.png" class="image"></img>
+						</div>
+						<div class="productText">
+						    <div class="productInfo">
+							    <p class="header">{{itemLayout.wishName}}</p>
+								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.price}})</p>
+								<div class="addWishButton" onselectstart="return false">
+								    <img src="../../js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
+								</div>
+							</div>
+							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">了解详情</a></div>
+						</div>
+		            </div>
+                </div>
             </div>
-			<div class="item">
-	            <div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-				<div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-				<div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-            </div>
-			<div class="item">
-	            <div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-				<div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-				<div class="singleProduct">
-				    <div class="productImage">
-					</div>
-					<div class="productDesc">
-					</div>
-				</div>
-            </div>
+            <a class="carousel-control left" href="#referenceCarousel" 
+                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
+            <a class="carousel-control right" href="#referenceCarousel" 
+                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
         </div>
-        <a class="carousel-control left" href="#specialProductCarousel" 
-            data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-        <a class="carousel-control right" href="#specialProductCarousel" 
-            data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-    </div>
+	</div>
 </div>
 <div id = "mainContent3">
     <div id="subContentLeft">
 	     <div>
-		    <div class="carousel slide productCarousel" id="tipsCarousel">
+		    <div class="carousel slide" id="tipsCarousel">
 	            <ol class="carousel-indicators">
                     <li data-target="#tipsCarousel" data-slide-to="0" class="active"></li>
                     <li data-target="#tipsCarousel" data-slide-to="1"></li>
@@ -811,41 +968,19 @@ body {
 	</div>
 </div>
 <div id="members">
-    <div class="carousel slide productCarousel" id="membersCarousel">
+    <div class="carousel slide" id="membersCarousel">
 	    <ol class="carousel-indicators">
-            <li data-target="#membersCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#membersCarousel" data-slide-to="1"></li>
-            <li data-target="#membersCarousel" data-slide-to="2"></li>
+            <li data-target="#membersCarousel" data-slide-to="{{$index}}" class="{{message.active}}" ng-repeat="message in messages"></li>
         </ol>
         <div class="carousel-inner">
-			<div class="item active">
+			<div class="item {{message.active}}" ng-repeat="message in messages">
 			     <div class="singleMember">
 				      <div class="memberPicture">
 					  </div>
 					  <div class="memberComment">
-					      <h1>“念念的一站式服务帮助我节省了很多宝贵的时间。”</h1>
+					      <h1>“{{message.content}}”</h1>
 					  </div>
-					  <p>张春桥，上海虹桥居民</p>
-				 </div>
-            </div>
-			<div class="item">
-			    <div class="singleMember">
-				      <div class="memberPicture">
-					  </div>
-					  <div class="memberComment">
-					      <h1>“念念的一站式服务帮助我节省了很多宝贵的时间。”</h1>
-					  </div>
-					  <p>张春桥，上海虹桥居民</p>
-				 </div>
-            </div>
-			<div class="item">
-			    <div class="singleMember">
-				      <div class="memberPicture">
-					  </div>
-					  <div class="memberComment">
-					      <h1>“念念的一站式服务帮助我节省了很多宝贵的时间。”</h1>
-					  </div>
-					  <p>张春桥，上海虹桥居民</p>
+					  <p>{{message.userName}}，上海虹桥居民</p>
 				 </div>
             </div>
         </div>
@@ -872,9 +1007,7 @@ body {
 		<h2>告诉我们您的需求，我们来联系您</h2>
 		<p>NullaminDUI mauris.Vivamus hendrerit arcu SED ERAT molestie vehicula.</p>
 		<div id="askGroup">
-		    <div id="askGroupLeft" class="contactButton">
-		        <p>开始</p>
-			</div>
+		    <button type="button" class="btn btn-default contactButton" id="startButton"><p>开始</p></button>
 			<div id="askGroupRight">
 		        <h5>我们会问您一系列问题帮助您选择服务和产品</h4>
 			</div>
@@ -886,8 +1019,8 @@ body {
 		<h2>在线聊天</h2>
 		<p>桑达auctor预期值,也EU特力rhoncus UT eleifend NIBH porttitor.UT里法无Ë</p>
 		<div id="contactButtonGroup">
-		    <button type="button" class="btn btn-default methodButton contactButton">微信</button>
-			<button type="button" class="btn btn-default methodButton contactButton">QQ</button>
+		    <button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
+			<button type="button" class="btn btn-default methodButton contactButton" id="qq">QQ</button>
 		</div>
 	</div>
 	<div id="bottomContactInfoRight">
@@ -897,20 +1030,30 @@ body {
 			    <span class="glyphicon glyphicon-comment"></span>
 			</div>
 			<div id="messageUsRight">
-			    <input type="text" class="form-control" placeholder="留下任何您想跟我们说的话...">
+			    <input type="text" class="form-control" placeholder="留下任何您想跟我们说的话..." id="messageSent">
 			</div>
 		</div>
         <button type="button" class="btn btn-default contactButton" id="messageButton">提交</button>
 	</div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=350 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div id="titleIconDiv">
+    <img src="../../js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
 <div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
 </body>
+<div id="wechatFrame" hidden>
+    <h2>请扫描我们的二维码</h2>
+    <img src="../../js/images/erCode.png"></img>
+</div>
 <script>
 $(function() {
     $('.ck-slide').ckSlide({
@@ -935,34 +1078,112 @@ $(function() {
         runEffect(parentId);
         return false;
     });
-});
-$("#messageButton").click(function() {
-        var parentWidth = $(".coverDiv").width(),
-		    frameWidth = $(".detailFrame").width();
-	    $('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
-            position: 'absolute',
-            top: '0px',
-            left: '0px',
-            'z-index': 1000, 
-            width: $(document).width(), 
-            height: $(document).height(), 
-            'background-color': '#ccc', 
-            opacity: 0 
-        }).fadeIn('slow', function(){ 
-// 淡入淡出效果 
-            $(this).fadeTo('slow', 0.5); 
-        });
-		$(".detailFrame").attr("src","component/productDetail.html")
-		$(".closeCoverDiv").css({
-            right: (parentWidth-frameWidth)/2,
-			left: 'auto',
-			top: 0-$(".closeCoverDiv").width()-4
-        });
-		$(".coverDiv").fadeIn();
-});
-$(".closeCoverDiv").click(function() {
-    $(".coverDiv").fadeOut();
-    $(".jquery_addmask").remove();
-});
+	$("#messageButton").click(function() {
+	    var messageValue = $("#messageSent")[0].value,
+		    id = Date.parse(new Date()) + '123',
+		    data = {
+			    content: messageValue,
+				userId: '123',
+				messageId: id
+			};
+
+		if (messageValue && messageValue != '') {
+			$.ajax({
+				url: 'http://localhost:8080/funeral/message/add',
+				data: data,
+				type: 'post',
+				dataType:'json',
+				success:function(data){
+				    alert("您的信息我们已经收到！");
+				},
+				error: function(error) {
+					alert("您的信息我们已经收到！");
+					$("#messageSent")[0].value = '';
+				}
+			});
+		}
+	});
+	$("#messageUsLeft").click(function() {
+	    var messageValue = $("#messageSent")[0].value,
+		    id = Date.parse(new Date()) + '123',
+		    data = {
+			    content: messageValue,
+				userId: '123',
+				messageId: id
+			};
+
+		if (messageValue && messageValue != '') {
+			$.ajax({
+				url: 'http://localhost:8080/funeral/message/add',
+				data: data,
+				type: 'post',
+				dataType:'json',
+				success:function(data){
+				    alert("您的信息我们已经收到！");
+				},
+				error: function(error) {
+					alert("您的信息我们已经收到！");
+					$("#messageSent")[0].value = '';
+				}
+			});
+		}
+	});
+	$("#startButton").click(function() {
+	    window.location.href='funeralDesignPage.html';
+	});
+	$("#wechatFrame").draggable();
+})
+window.onload=function(){
+    function muskPage() {
+			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 1000, 
+				width: $(document).width(), 
+				height: $(document).height(), 
+				'background-color': '#ccc', 
+				opacity: 0 
+			}).fadeIn('slow', function(){ 
+	// 淡入淡出效果 
+				$(this).fadeTo('slow', 0.5); 
+		});
+	};
+	$(".productItem").click(function() {
+		    var parentWidth = $(".coverDiv").width(),
+				frameWidth = $(".detailFrame").width();
+	        $(this).css({
+			    opacity: 0.5
+			});
+			muskPage();
+			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
+			$(".closeCoverDiv").css({
+				right: (parentWidth-frameWidth)/2,
+				left: 'auto',
+				top: 0
+			});
+			$(".coverDiv").fadeIn(1000);
+	});
+	$("#weChat").click(function () {
+	    var parentWidth = $(".coverDiv").width(),
+			frameWidth = $(".detailFrame").width();
+		$(this).css({
+			opacity: 0.5
+	    });
+		muskPage();
+		$("#wechatFrame").fadeIn();
+	});
+	$("#wechatFrame").click(function() {
+	    $(this).fadeOut();
+		$(".jquery_addmask").remove();
+	});
+	$(".closeCoverDiv").click(function() {
+		$(".coverDiv").fadeOut();
+		$(".jquery_addmask").remove();
+		$(".productItem").css({
+			 opacity: 1
+		});
+	});
+};
 </script>
 </html>

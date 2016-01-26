@@ -1,8 +1,16 @@
 package com.funeral.kris.util;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.funeral.kris.model.User;
+import com.funeral.kris.service.UserService;
 
 
 public class SqlHelper {

@@ -1,6 +1,13 @@
 package com.funeral.kris.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.busModel.CommentJson;
 import com.funeral.kris.model.Comment;
+import com.funeral.kris.model.User;
 import com.funeral.kris.service.CommentService;
+import com.funeral.kris.service.UserService;
+import com.funeral.kris.util.SqlHelper;
 
 @Controller
 @RequestMapping(value="/comment")
@@ -20,6 +31,11 @@ public class CommentController {
 	
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private EntityManager em;
+	private Map<String, String> userMap;
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addCommentPage() {
@@ -42,13 +58,26 @@ public class CommentController {
 
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<Comment> listOfComments() {
-		ModelAndView modelAndView = new ModelAndView("list-of-comments");
+	public List<CommentJson> listOfComments(HttpServletRequest request) {
+		List<CommentJson> commentJsons = new ArrayList<CommentJson>();
 
-		List<Comment> comments = commentService.getResources();
-		modelAndView.addObject("comments", comments);
+		List<Comment> comments = commentService.getResources(request);
+		try {
+		    userMap = getUserMap();
+		}
+		catch(Exception e) {
+			System.out.println("error happen"+e.getMessage());
+		}
+		for (Comment comment: comments) {
+			CommentJson commentJson = new CommentJson();
+			commentJson.setComment(comment);
+			commentJson.setUserName(userMap.get(comment.getUserId()));
+			List<CommentJson> subComments = getSubComments(comment.getCommentId());
+			commentJson.setSubCommentList(subComments);
+			commentJsons.add(commentJson);
+		}
 
-		return comments;
+		return commentJsons;
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -81,4 +110,26 @@ public class CommentController {
 		return modelAndView;
 	}
 
+	private Map<String, String> getUserMap() throws Exception{
+		Map<String, String> userMap = new HashMap<String, String>();
+		List<User> users = userService.getResources();
+		for (User user : users) {
+			userMap.put(user.getUsrId(), user.getUserName());
+		}
+		return userMap;
+	}
+
+	private List<CommentJson> getSubComments(Integer baseCommentId) {
+		List<CommentJson> commentJsons = new ArrayList<CommentJson>();
+		String a = "select c from Comment c where c.type = 'sub' and c.wishId='"+baseCommentId+"'";
+		Query query = em.createQuery(a);
+		List<Comment> comments = query.getResultList();
+		for (Comment comment: comments) {
+			CommentJson commentJson = new CommentJson();
+			commentJson.setComment(comment);
+			commentJson.setUserName(userMap.get(comment.getUserId()));
+			commentJsons.add(commentJson);
+		}
+		return commentJsons;
+	}
 }

@@ -168,9 +168,37 @@
 	}
 	#addToWish {
 	    width: 215px;
+		cursor: pointer;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+		-moz-user-select: none; 
+        -khtml-user-select: none; 
+        user-select: none;
+	}
+	#addToWish:hover {
+	    background: #DC2500;
+	}
+	#addToWish:active {
+	    opacity: 0.5;
 	}
 	#purchase {
 	    width: 176px;
+		cursor: pointer;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+		-moz-user-select: none; 
+        -khtml-user-select: none; 
+        user-select: none;
+	}
+	#purchase:hover {
+	    background: #DC2500; 
+	}
+	#purchase:active {
+	    opacity: 0.5;
 	}
 	#comments {
 	    padding-top: 50px;
@@ -366,6 +394,9 @@
 		padding-left: 25px;
 		padding-top: 25px;
 	}
+	.singleCataText h2 {
+	    margin:0px!important;
+	}
 	#referenceCata {
 	    width: 100%;
 		overflow: auto;
@@ -425,7 +456,9 @@
 	}
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
+var app = angular.module('productApp', []),
+    length = location.search.length,
+	type = location.search.substring(4, length);
 app.controller('products', function($scope, $http) {
     var layouts = [{
 	            index: 1,
@@ -487,9 +520,15 @@ app.controller('products', function($scope, $http) {
         }
 	$scope.layouts = layouts;
 	$scope.cataGroups = cataGroups;
+	$http.get("http://localhost:8080/funeral/wish/list?wishId="+type).success(function(response) {
+	    $scope.wish = response[0];
+	});
+	$http.get("http://localhost:8080/funeral/comment/list?wishId="+type+"&type="+"wish").success(function(response) {
+	    $scope.comments = response;
+	});
 });
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body ng-app="productApp" ng-controller="products" onselectstart="return false">
 <div id="productDetail">
     <div id="recommend">
         <div id="recommendImage">
@@ -499,9 +538,9 @@ app.controller('products', function($scope, $http) {
 	        <div class="belongTaocan">
 			    <p>高级款式</p>
 			</div>
-			<h1>镶金楠木棺材</h1>
+			<h1>{{wish.wishName}}</h1>
 		    <hr></hr>
-		    <h3>产品的描述珜痱魵齴讘麡濆澓澋趡趛踠，貄趎跰熿熼燛轒醭歅嫷裌覅诜驐鷑鷩产品的描述珜痱魵齴讘麡濆澓澋趡趛踠，貄趎跰熿熼燛轒醭歅嫷裌覅诜驐鷑鷩产品的描述珜痱魵齴</h3>
+		    <h3>{{wish.wishDesc}}</h3>
 			<div id="otherProduct">
 	        <div class="carousel slide otherProductCarousel" id="otherProductCarousel">
                 <div class="carousel-inner">
@@ -555,23 +594,23 @@ app.controller('products', function($scope, $http) {
 			<div class="link"><a>棺材</a><a>棺材花篮</a></div>
 		</div>
 		<div id="productSubInfoRight">
-		    <h2><span class="ignore">￥</span>16288</h2>
+		    <h2><span class="ignore">￥</span>{{wish.price}}</h2>
 			<div id="addToWish" class="buttonDiv">
-			    <h3><span class="glyphicon glyphicon-list-alt"></span> 添加到购物清单</h3>
+			    <h3><span class="glyphicon glyphicon-list-alt"></span>添加到购物清单</h3>
 			</div>
-			<div id="purchase" class="buttonDiv">
+			<div id="purchase" class="buttonDiv" onselectstart="return false">
 			    <h3><span class="glyphicon glyphicon-shopping-cart"></span> 现在就采购</h3>
 			</div>
 		</div>
 	</div>
 	<div id="comments">
-	    <div class="singleComment">
+	    <div class="singleComment" ng-repeat="comment in comments">
 		    <p>产品使用感受</p>
 			<div class="commentTitle">
 			    <div class="userPicture"><img src="../../js/images/Confuse4.png"></img></div>
 				<div class="headerText">
 				    <h3>Amazing Sound For The Price</h3>
-					<p>Carson Riley 8.22.15</p>
+					<p>{{comment.userName}} {{comment.comment.createDate}}</p>
 				</div>
 				<div class="rating">
 				    <span class="glyphicon glyphicon-star shine"></span>
@@ -582,7 +621,7 @@ app.controller('products', function($scope, $http) {
 				</div>
 			</div>
 			<div class="commentContent">
-			    <p>sidhwie asihdwhee fheurhqb frbeb gburrie gnrnw, ihr gnrhuwet gbwjbfjwebfihwer weruhwet twhjthweh,dqhwu qwehruqwheri fw.sadasfasf. asd asdf asdf fasf asf asfasf asf asf asfas fsafasfasfasfasfasf fwegweg.</p>
+			    <p>{{comment.comment.comment}}</p>
 			</div>
 			<div class="commentFooter">
 			    <a>Comment</a>
@@ -607,7 +646,7 @@ app.controller('products', function($scope, $http) {
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.itemName}}</p>
 								<p class="detail">￥<span>{{itemLayout.itemPrice}}</span></p>
-								<div class="addWishButton">
+								<div class="addWishButton" onselectstart="return false">
 								    <img src="../../js/images/addWish.png"></img>
 								    <p>添加至愿望清单</p>
 								</div>

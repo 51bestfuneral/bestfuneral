@@ -14,9 +14,8 @@ import javax.persistence.Column;
 public class User {
 	
 	@Id
-	@GeneratedValue
 	@Column(name="user_id")
-	private Integer usrId;
+	private String usrId;
 
 	@Column(name="user_name")
 	private String userName;
@@ -54,11 +53,11 @@ public class User {
 	@Column(name="contactor_phone")
 	private String contactorPhone;
 
-	public Integer getUsrId() {
+	public String getUsrId() {
 		return usrId;
 	}
 
-	public void setUsrId(Integer usrId) {
+	public void setUsrId(String usrId) {
 		System.out.print("chuan success");
 		this.usrId = usrId;
 	}

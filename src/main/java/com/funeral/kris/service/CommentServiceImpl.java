@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.CommentDAO;
 import com.funeral.kris.model.Comment;
+import com.funeral.kris.model.Wish;
+import com.funeral.kris.util.SqlHelper;
 
 @Service
 @Transactional
@@ -17,6 +23,8 @@ public class CommentServiceImpl implements CommentService {
 
 	@Autowired
 	private CommentDAO CommentDAO;
+	@Autowired
+	private EntityManager em;
 
 	public void addResource(Comment comment) {
 		CommentDAO.save(comment);		
@@ -34,14 +42,16 @@ public class CommentServiceImpl implements CommentService {
 		CommentDAO.delete(id);
 	}
 
-	public List<Comment> getResources() {
-		List<Comment> commentList = new ArrayList<Comment>();
-		Iterable<Comment> commentIter = CommentDAO.findAll();
-		Iterator<Comment> iter = commentIter.iterator();
-		while(iter.hasNext()) {
-			Comment comment = iter.next();
-			commentList.add(comment);
+	public List<Comment> getResources(HttpServletRequest request) {
+		String a = null;
+		try {
+		    a = SqlHelper.getSqlFromRequest("Comment", request);
 		}
-		return commentList;
+		catch (Exception e) {
+			
+		}
+		Query query = em.createQuery(a);
+		List<Comment> comments = query.getResultList();
+		return comments;
 	}
 }

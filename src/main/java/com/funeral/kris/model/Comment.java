@@ -1,6 +1,7 @@
 package com.funeral.kris.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,17 +14,18 @@ import javax.persistence.Column;
 public class Comment {
 	
 	@Id
+	@GeneratedValue
 	@Column(name="comment_id")
-	private String commentId;
+	private Integer commentId;
 
 	@Column(name="wish_id")
 	private String wishId;
 
 	@Column(name="user_id")
-	private Integer userId;
+	private String userId;
 
-	@Column(name="status")
-	private String status;
+	@Column(name="type")
+	private String type;
 
 	@Column(name="createdate")
 	private Date createDate;
@@ -31,11 +33,14 @@ public class Comment {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getCommentId() {
+	@Column(name="comment")
+	private String comment;
+
+	public Integer getCommentId() {
 		return commentId;
 	}
 
-	public void setCommentId(String commentId) {
+	public void setCommentId(Integer commentId) {
 		this.commentId = commentId;
 	}
 
@@ -47,20 +52,20 @@ public class Comment {
 		this.wishId = wishId;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getType() {
+		return type;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Date getCreateDate() {
@@ -78,4 +83,13 @@ public class Comment {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
 }

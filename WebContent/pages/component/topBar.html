@@ -20,14 +20,14 @@
 		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 	}
 	.linkList {
-	    width: 40%;
+	    width: 50%;
 		margin:0px auto;
 		height:100%;
 		overflow:auto;
 	}
 	.linkList .includeLink {
 	    float: left;
-		width: 25%;
+		width: 20%;
 		text-align: center;
 	}
 	#side {
@@ -78,6 +78,9 @@
 <div class = "topBar">
     <span class = "topBarLogo" background-image = "http://www.bleum.com/images/logo.aspx"></span>
 	<div class='linkList'>
+	    <div class="includeLink" id="main">
+	        <p>Ê×Ò³</p>
+		</div>
 	    <div class="includeLink" id="design">
 	        <p>ÔáÀñ¶¨ÖÆ</p>
 		</div>
@@ -113,9 +116,19 @@
         var $this = $(this);
         $this.removeClass("choose");
 	});
+	$("#main").on("click", function () {
+	    if (type !== 'main') {
+            window.parent.location.href='../mainPage.html';
+		}
+	});
 	$("#design").on("click", function () {
 	    if (type !== 'design') {
-            window.location.href='designProposal.html';
+            window.parent.location.href='../funeralDesignPage.html';
+		}
+	});
+	$("#product").on("click", function () {
+	    if (type !== 'product') {
+            window.parent.location.href='../productAndService.html';
 		}
 	});
 </script>

@@ -49,8 +49,19 @@ public class AnswerController {
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addAnswerPage() {
+		String querySQL ="";
+		Answer answer = new Answer();
+		answer.setAnsListId(" ‘ ‘");
+		answer.setAnswerDesc("∑˛ŒÒ∆˜≈∂");
+		answer.setAnswerId("123");
+		answer.setUserId("123");
 		ModelAndView modelAndView = new ModelAndView("add-answer-form");
 		modelAndView.addObject("answer", new Answer());
+		
+		querySQL = "select p from Cemetery p where p.cemeteryDesc= '%s'";
+		querySQL = String.format(querySQL, "≤‚ ‘");
+		List<Cemetery> cemeterys = em.createQuery(querySQL).getResultList();
+		answerService.addResource(answer);
 		return modelAndView;
 	}
 
