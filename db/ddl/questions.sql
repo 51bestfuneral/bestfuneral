@@ -9,4 +9,3 @@ CREATE TABLE questions (
   PRIMARY KEY (qusetion_id)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-insert into questions values(2,2,1,'test',now(),now());
