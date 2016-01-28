@@ -2,17 +2,13 @@
 <html>
 <head>
 <title>关于我们</title>
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="js/nav2.js"></script>
-<script src="/js/jquery-2.1.4.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/sliderx.js"></script>
-<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+
+<link href="/pages/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/pages/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+<body  >
 <header>
 <!--<ul id="nav">
 	<li><a href="signInPgae.html">葬礼定制</a></li>
@@ -20,327 +16,540 @@
 	<li><a href="signInPgae.html">墓地信息</a></li>
 	<li><a href="/pages/html/aboutUs.html">关于我们</a></li>
 </ul>-->
-<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=contact" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame"  width="100%" SRC="/pages/component/topBar.html?cat=contact" frameborder =1 scrolling="no" height = "65px"></IFRAME>
 </header>
-<script>
-	var serviceCategories;
-</script>
-
-<div class="mainSecton">
 	
-	
-	<div class="videoSection">
-	<video controls="controls"   poster="/pages/images/videoPoster.png" width="99%" height="750" src="/pages/video/nature.mp4"  type="video/mp4">
-</video>
-</div>
+	<div id="backgroundPic">
 		
+		<div id="label1">
+<p>念念</p>	
 
+</div>
+
+<div  id="label2">
+	<p>我们已经给1000+的用户提
+		供了定制化的服务</p>
+
+	</div>
+</div>
 
 <div id="companyIntroduction">
-	<div class="title">
-51BestFuneral是家什么样的公司？
+	<div id="companyIntroductionDetail">
+<p>51BestFuneral是家什么样的公司？</p>
 </div>
 
-<div class="comments">
+<div id="companyIntroductionComments">
 	
-	Mauris lacinia porta faucibus. Fusce eu est ac eros vulputate mollis in ac felis. Aenean commodo scelerisque mi sed imperdiet. Donec at hendrerit nisi, eget vestibulum nisi. Sed sit amet magna luctus, facilisis erat quis, sagittis ligula. Aenean dignissim velit quis leo consequat ultricies. Proin quis pretium justo. Vestibulum at eros nisl. Fusce lobortis erat ante, eu cursus sapien molestie at. Pellentesque placerat ante diam, et euismod lacus dictum vel. Phasellus vitae sollicitudin mi.
+<p>Mauris lacinia porta faucibus. Fusce eu est ac eros vulputate mollis in ac felis. Aenean commodo scelerisque mi sed imperdiet. Donec at hendrerit nisi, eget vestibulum nisi. Sed sit amet magna luctus, facilisis erat quis, sagittis ligula. Aenean dignissim velit quis leo consequat ultricies. Proin quis pretium justo. Vestibulum at eros nisl. Fusce lobortis erat ante, eu cursus sapien molestie at. Pellentesque placerat ante diam, et euismod lacus dictum vel. Phasellus vitae sollicitudin mi.</p>
 
 </div>
 </div>
 
- 
 <div class="serviceIntroduction">
 	我们的主要服务有哪些？
 </div>
 
 
 <div class="serviceComments">
-	
-	Mauris lacinia porta faucibus. Fusce eu est ac eros vulputate mollis in ac felis. Aenean commodo scelerisque mi sed imperdiet. Donec at hendrerit nisi, eget vestibulum nisi. Sed sit amet magna luctus, facilisis erat quis.
-	
+	 <p>scelerisque mi sed imperdiet. Donec at hendrerit nisi, eget vestibulum nisi. Sed sit amet magna luctus, facilisis erat quis. 
+	        Mauris lacinia porta faucibus. Fusce eu est ac eros vulputate mollis in ac felis. Aenean commodo </p>
 </div>
 
-<div class="serviceList">
+<div  id="serviceListTop">
 	
-<table width=56% >
-	
-	<tr>  <td>
-		<a href="/pages/html/customizatonPages/common.html">		<img class="one" src="/pages/images/s1.png" alt=" " title="葬礼订制" /></a>
-		<p>
-			
-			Lorem Ipsum Proin gravida nibh vel  velit auctor 
-aliquet. Aenean sollicitudin, lorem quis bibendum 
-auctor, nisi elit consequat ipsum
-			
-			</p>
-		</td> <td>
-				<a href="index.html">		<img class="one" src="/pages/images/s2.png" alt=" " title="葬礼订制" /></a>
-			
-			
-			<p>
-			
-			Lorem Ipsum Proin gravida nibh vel  velit auctor 
-aliquet. Aenean sollicitudin, lorem quis bibendum 
-auctor, nisi elit consequat ipsum
-			
-			</p>
-			
-			</td> <td>
-				
-					<a href="index.html">		<img class="one" src="/pages/images/s3.png" alt=" " title="葬礼订制" /></a>
-				
-					<p>
-			
-			Lorem Ipsum Proin gravida nibh vel  velit auctor 
-aliquet. Aenean sollicitudin, lorem quis bibendum 
-auctor, nisi elit consequat ipsum
-			
-			</p>
-				
-				</td> </tr>
-	
-		<tr> <td>
-			<a href="index.html">		<img class="one" src="/pages/images/s4.png" alt=" " title="葬礼订制" /></a>	
-			
-			
-				<p>
-			
-			Lorem Ipsum Proin gravida nibh vel  velit auctor 
-aliquet. Aenean sollicitudin, lorem quis bibendum 
-auctor, nisi elit consequat ipsum
-			
-			</p>
-			</td> <td>
-				
-					<a href="index.html">		<img class="one" src="/pages/images/s5.png" alt=" " title="葬礼订制" /></a>
-				
-					<p>
-			
-			Lorem Ipsum Proin gravida nibh vel  velit auctor 
-aliquet. Aenean sollicitudin, lorem quis bibendum 
-auctor, nisi elit consequat ipsum
-			
-			</p>
-				
-				</td> <td>
+	<customize>
+		<pic>
+<a href="#"><img  src="/pages/html/customizatonPages/assets/images/vector.png"></a>
 					
-					&nbsp;
-					
-					</td>  </tr>
-
-	
-	
-	
-</table>	
-	
-	
-	
-</div>
-
-
-<div class="location">
-	
-<img  src="/pages/html/customizatonPages/assets/images/location.png" alt=" " />	
-	
-	
-</div>
-
-
-<div id="contactInfo">
-<div id="contactInformation">
-    <h2>联系我们</h2>
-	<div class="contactUsDesc">
-	    <h4>Nullam在DUI mauris.Vivamus hendrerit arcu SED ERAT molestie vehicula，也EU特力rhoncus UT eleifend NIBH porttitor.UT在法无enim.Phasellus molestie麦格纳非EST必比登非</h4>
-	</div>
-</div>
-<div id="topContactInfo">
-	<div class="topContactInfoLeft">
-		<h2>给我们打电话</h2>
-		<p>Nullam in DUI mauris。Vivamus hendrerit arcu SED ERAT molestie vehicula.</p>
-		<h1>184750699843</h1>
-	</div>
-	<div class="topContactInfoRight">
-		<h2>告诉我们您的需求，我们来联系您</h2>
-		<p>NullaminDUI mauris.Vivamus hendrerit arcu SED ERAT molestie vehicula.</p>
-		<div id="askGroup">
-		    <div id="askGroupLeft" class="contactButton">
-		        <p>开始</p>
-			</div>
-			<div id="askGroupRight">
-		        <h5>我们会问您一系列问题帮助您选择服务和产品</h4>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="bottomContactInfo">
-	<div id="bottomContactInfoLeft">
-		<h2>在线聊天</h2>
-		<p>桑达auctor预期值,也EU特力rhoncus UT eleifend NIBH porttitor.UT里法无Ë</p>
-		<div id="contactButtonGroup">
-		    <button type="button" class="btn btn-default methodButton contactButton">微信</button>
-			<button type="button" class="btn btn-default methodButton contactButton">QQ</button>
-		</div>
-	</div>
-	<div id="bottomContactInfoRight">
-		<h2>直接给我们留言</h2>
-		<div id="messageUs">
-		    <div id="messageUsLeft">
-			    <span class="glyphicon glyphicon-comment"></span>
-			</div>
-			<div id="messageUsRight">
-			    <input type="text" class="form-control" placeholder="留下任何您想跟我们说的话...">
-			</div>
-		</div>
-        <button type="button" class="btn btn-default contactButton" id="messageButton">提交</button>
-	</div>
-</div>
-</div>
+			</pic>
 			
-<IFRAME NAME="content_frame" width=100% height=350 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+			<div class="title"><p>葬礼定制</p></div>
+		
+	<div class="comments">	<p>
+			Lorem Ipsum Proin gravida nibh vel  velit auctor 
+aliquet. Aenean sollicitudin, lorem quis bibendum 
+auctor, nisi elit consequat ipsum	
+			
+		</p></div>
+		</customize>
+	
+	<wishList>
+		<pic>
+		<a href="#"><img  src="/pages/html/customizatonPages/assets/images/monitor.png"></a>
+			</pic>
+		
+		
+			<div class="title"><p>愿望清单</p></div>
+		
+		<div class="comments">	<p>
+			Lorem Ipsum Proin gravida nibh vel  velit auctor 
+aliquet. Aenean sollicitudin, lorem quis bibendum 
+auctor, nisi elit consequat ipsum	
+			
+		</p></div>
+		</wishList>
+	
+	<specialService>
+		<pic>
+		<a href="#"><img  src="/pages/html/customizatonPages/assets/images/speaker.png"></a>
+			</pic>
+			<div class="title"><p>特别服务</p></div>
+			<div class="comments">	<p>
+			Lorem Ipsum Proin gravida nibh vel  velit auctor 
+aliquet. Aenean sollicitudin, lorem quis bibendum 
+auctor, nisi elit consequat ipsum	
+			
+		</p></div>
+			
+		</specialService>
+	
+	</div>
+
+
+<div  id="serviceListBottom">
+	
+	<product>	<pic>
+		
+			<a href="#"><img  src="/pages/html/customizatonPages/assets/images/film.png"></a>
+	
+		</pic>
+		
+		<div class="title"><p>产品购买</p></div>
+			<div class="comments">	<p>
+			Lorem Ipsum Proin gravida nibh vel  velit auctor 
+aliquet. Aenean sollicitudin, lorem quis bibendum 
+auctor, nisi elit consequat ipsum	
+			
+		</p></div>
+		
+		</product>
+	
+	<wording><pic>
+					<a href="#"><img  src="/pages/html/customizatonPages/assets/images/pen.png"></a>
+
+		</pic>
+		
+		<div class="title"><p>文书撰写</p></div>
+			<div class="comments">	<p>
+			Lorem Ipsum Proin gravida nibh vel  velit auctor 
+aliquet. Aenean sollicitudin, lorem quis bibendum 
+auctor, nisi elit consequat ipsum	
+			
+		</p></div>
+		
+		</wording>
+	</div>
 
 			
-</div>
+<IFRAME NAME="content_frame" width=100% height=380 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+
+			
 	
 
 			
 			<style>
-	
+				
+html {
+    height: 100%;
+}				
+				
+	body {
+  margin: 0;
+	text-align: center;
+	height: 100%;
+}
 
 
 .mainSecton{
+	
+	width:100%;
+	border:1px solid #ff5274;
 	margin:0 auto;
-	height:2000px;
-	width:99%;
-	border:0px solid #000000;
+position:relative; 
+left:0%;
+top:0px;
 	}	
 	
-.videoSection{
+#backgroundPic{
 margin:0 auto;
-height:750px;
-width:99%;
+width:100%;
+height:1000px;
 position:relative; 
-left:0.5%; 
+left:0%; 
 right:0%;
 top:0px;
+
+background:url(/pages/html/customizatonPages/assets/images/aboutUs.png) ;
 
 	}	
 	
 
+#label1{
+
+width:180px;
+height:147px;
+position:relative; 
+left:700px;
+right:0%;
+top:350px;
+border:2px solid #ffffff;
+text-align:center;
+
+	}
+	
+	
+#label1 p{
+	
+line-height:66px;
+color:#ffffff; font-family: PingFangSC-Semibold; 
+font-size:66px;
+font-weight: bold;
+position:relative; 
+
+right:0%;
+top:-15px;
+	}	
+
+#label2{
+height:349px;
+width:50%;
+position:relative; 
+top:367px;
+left:480px;
+border:0px solid #ffffff;
+text-align:center;
 	
 	
 	
-.companyIntroduction{
+	}	
+
+#label2 p{
+color:#ffffff; 
+font-family: STHeitiSC-Light;
+font-size:55px;
+line-height:68px;
+	}
+
+	
+	
+#companyIntroduction{
 height:371px;
-width:98%;
+width:100%;
 position:relative; 
-left:1%; 
+left:0px; 
 right:0%;
-top:0px;
+top:-32px;
 background:#ff5274;
-border:0px solid #000000;
 
 	}	
 	
 	
-.title{
-height:80px;
-width:95.6%;
-border:0px solid #000000;
+#companyIntroductionDetail{
+border:0px solid #ff5274;
 position:relative; 
-left:2.2%; 
+left:0%; 
 right:0%;
-top:0px;
+top:73.5px;
 text-align:center;
-line-height:44px;overflow:hidden;
-color:#ffffff; face: "OpenSans-Light"; font-size:32px;
-background:#ff5274;
-padding-top:20px;
 
 	}	
 	
-.comments{
-height:220px;
-width:95.6%;
+	
+#companyIntroductionDetail p{
+
+
+line-height:44px;
+color:#ffffff; 
+font-family: "PingFangSC-Light";
+font-size:32px;
+
+	}	
+	
+	
+	
+#companyIntroductionComments{
+width:100%;	
 position:relative; 
-left:2.2%; 
+left:0%; 
 right:0%;
-top:0px;
+top:140.5px;
 text-align:center;
+line-height:20px;
+color:#ffffff; 
+font-family: "STHeitiSC-Light"; 
+font-size:16px;
+
+	}	
+	
+#companyIntroductionComments p{
+	
+
 line-height:30px;
-color:#ffffff; face: "OpenSans-Light"; font-size:15px;
-background:#ff5274;
-padding-top:40.5px;
-border:0px solid #000000;
+color:#ffffff; 
+font-family: "OpenSans-Light";
+font-size:15px;
 
-	}	
-	
-	
+	}		
 	
 .serviceIntroduction{
 height:80px;
-width:56%;
-border:0px solid #000000;
+width:100%;
+border:0px solid #ff5274;
 position:relative; 
-left:22%; 
+left:0%; 
 top:0px;
 text-align:center;
 line-height:44px;overflow:hidden;
-color:#707070; face: "STHeitiSC-Light"; font-size:32px;
+color:#707070; font-family: "STHeitiSC-Light"; font-size:32px;
 background:#ffffff;
 padding-top:20px;
 	}	
 	
 .serviceComments{
 height:90px;
-width:56%;
-border:0px solid #000000;
+width:65.3%;
+border:0px solid #ff5274;
 position:relative; 
-left:22%; 
+left:220px; 
 top:0px;
 text-align:center;
-line-height:30px;overflow:hidden;
-color:#707070; face: "OpenSans-Light"; font-size:15px;
+line-height:30px;
+color:#707070; font-family: OpenSans-Light
+; 
+font-size:15px;
 background:#ffffff;
-padding-top:10px;
 	}	
 	
-.serviceList{
-width:56%;
+#serviceListTop{
+width:100%;
+height:200px;
 position:relative; 
-left:22%; 
 right:0%;
 top:0px;
 text-align:center;
-line-height:20px;overflow:hidden;
-color:#707070; face: "OpenSans-Light"; font-size:16px;
+line-height:20px;
+color:#707070; font-family: OpenSans-Light; font-size:16px;
 background:#ffffff;
-border:0px solid #000000;
-
+border:0px solid #ff5274;
+margin:auto;
 	}		
 	
-.location{
-width:99%;
+	
+#serviceListTop	customize{	
+width:25%;
+height:200px;
+position:relative; 
+right:0%;
+top:0px;
+left:140px;
+
+float:left;
+margin:auto;	
+border:0px solid #ff5274;
+
+}
+
+#serviceListTop	customize pic{
+margin:0 auto;
+width:100%;
+height:200px;
 position:relative; 
 left:0%; 
 right:0%;
+top:15px;
+}
+
+.title{
+margin:0 auto;
+width:100%;
+
+position:relative; 
+left:0%; 
+right:0%;
+top:10px;
+text-align:center;
+line-height:20px;overflow:hidden;
+color:#333333; font-family: "STHeitiSC-Light"; 
+font-size:16px;
+font-weight:900;
+
+}
+
+
+
+.comments{
+margin:0 auto;
+width:100%;
+
+position:relative; 
+left:0%; 
+right:0%;
+
+
+text-align:center;
+line-height:20px;overflow:hidden;
+color:#777777; face: "OpenSans-Light"; font-size:16px;
+
+
+}
+	
+#serviceListTop	wishList{	
+width:25%;
+height:200px;
+position:relative; 
+right:0%;
+top:0px;
+left:160px;
+float:left;
+margin:auto;	
+border:0px solid #ff5274;
+}	
+
+#serviceListTop	wishList pic{
+margin:0 auto;
+width:100%;
+height:200px;
+position:relative; 
+left:0%; 
+right:0%;
+top:15px;
+
+	
+	
+	}
+
+
+	
+#serviceListTop	specialService{	
+width:25%;
+height:200px;
+position:relative; 
+right:0%;
+top:0px;
+left:180px;
+
+float:left;
+margin:auto;	
+border:0px solid #ff5274;
+}		
+	
+#serviceListTop	specialService pic{
+margin:0 auto;
+width:100%;
+height:200px;
+position:relative; 
+left:0%; 
+right:0%;
+top:15px;
+}	
+
+
+#serviceListTop	specialService title{
+margin:0 auto;
+width:100%;
+height:200px;
+position:relative; 
+left:0%; 
+right:0%;
+top:15px;
+}
+	
+	
+#serviceListBottom{
+width:100%;
+height:200px;
+position:relative; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:20px;
+color:#707070; font-family: "OpenSans-Light"; font-size:16px;
+background:#ffffff;
+border:0px solid #ff5274;
+margin:auto;
+
+	}			
+	
+	
+#serviceListBottom product {
+	
+	width:25%;
+height:200px;
+position:relative; 
+right:0%;
+top:0px;
+left:140px;
+float:left;
+margin:auto;	
+border:0px solid #ff5274;
+	
+	}	
+	
+#serviceListBottom product pic {	
+margin:0 auto;
+width:100%;
+height:200px;
+position:relative; 
+left:0%; 
+right:0%;
+top:15px;	
+	
+}
+	
+	
+#serviceListBottom  wording{
+width:25%;
+height:200px;
+position:relative; 
+right:0%;
+top:0px;
+left:160px;
+float:left;
+margin:auto;	
+border:0px solid #ff5274;
+	
+	}	
+	
+#serviceListBottom wording pic {	
+margin:0 auto;
+width:100%;
+height:200px;
+position:relative; 
+left:0%; 
+right:0%;
+top:15px;	
+	
+}	
+	
+	
+	
+.location{
+width:100%;
+
+position:relative; 
+left:0px; 
+right:0%;
 top:0px;
 text-align:center;
 background:#ffffff;
+border:0px solid #ff5274;
+background:url(/pages/html/customizatonPages/assets/images/location.png) ;
 	}	
 	
 	
 	
 	#contactInformation {
-		width:99%;
-
+		width:100%;
    position:relative; 
-   left:0%; 
+   left:0px; 
    right:0%;
   top:0px;
  text-align:center;
 	overflow: auto;
 	padding-top: 100px;
 	padding-bottom: 40px;
+	border:0px solid #ff5274;
+
 }
 #contactInformation h2 {
     margin: 0px;
@@ -361,6 +570,12 @@ background:#ffffff;
     width: 100%;
 	overflow: auto;
 	text-align: left;
+	 position:relative; 
+   left:0px; 
+   right:0%;
+  top:0px;
+  padding-left:130px;
+	
 }
 #topContactInfo h2 {
     margin: 0;
@@ -396,9 +611,9 @@ background:#ffffff;
 	
 	#contactInfo {
   border:0px solid #000000;
-  width:99%;
+  width:100%;
   position:relative; 
-  left:0.5%; 
+  left:0%; 
   right:0%;
   top:0px;
 	background: #f7f9fa;
@@ -448,6 +663,14 @@ background:#ffffff;
 	overflow: auto;
 	text-align: left;
     padding-top: 10px;
+    
+     position:relative; 
+   left:0px; 
+   right:0%;
+  top:0px;
+      padding-left: 130px;
+
+	
 }
 #bottomContactInfo h2 {
     margin: 0;
@@ -549,81 +772,8 @@ background:#ffffff;
 	
 	
 			</style>
-			<script>
-	var app = angular.module('myApp', []);
- // app.controller('serviceCategory', function($scope, $http) {
-//	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
-//  var datadata = JSON.stringify(response);
-//  $scope.serviceCategories=response;
-//		})
-	 app.controller('serviceCategoryDisplay', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
-  var datadata = JSON.stringify(response);
-  $scope.serviceCategories=response;
-    $scope.totalCost=0.00;
-    $scope.selectedName = [];
-    $scope.selected = [];
-    $scope.selectedCost = [];
-    var updateSelected = function(id,name,value){
-    	    	var idx = $scope.selectedName.indexOf(name);
-      if(idx!=-1){
-    $scope.selected.splice(idx,1);
-    $scope.selectedName.splice(idx,1); 
-    $scope.selectedCost.splice(idx,1);
-      }
-            $scope.selectedName.push(name);
-               $scope.selected.push(id);
-               $scope.selectedCost.push(value);
-       }
-       $scope.updateSelection = function($event, id,name,_price){
-           updateSelected(id,name,_price);  
-                  $scope.totalCost=0;
-            angular.forEach($scope.selectedCost, function(data){
-$scope.totalCost =Number( $scope.totalCost) +Number(data);
-});   
-             }
-});
-	$("#saveButton").click(function() {
-	    var datadata = JSON.stringify($scope.curUser);
-	    alert("  datadata ="+datadata);
-	    $http({
-            method: "POST",
-            url:"http://localhost:8080/funeral/user/add",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-            alert("chenggong");
-        });
-	});		
-});
-	</script>
-			<script>
-  function onChecked(sId,sName) {
-  	        alert('sName'+sName+" sId="+sId);
-    var oImg = document.getElementsByName(sName);
-    for (var i = 0; i < oImg.length; i++) { 	
-      if (oImg[i].id == sId) {
-      	var _id=sId+"_"+sName;
-        oImg[i].style.border = '1px solid #FF6600';
-      } else {
-        oImg[i].style.border = '0px solid #ffffff';
-      }
-    }
-  }
-  function changRadio(_id){                            
-alert('changRadio  _id='+_id);
-   var x= document.getElementById(_id);
-  alert('x ='+x);  
-    if(x.checked==false){
-    	x.checked==true;
-    	}else{
-    		x.checked==false
-    		}
-}  
-			</script>
+		
+		
 			
 		
 			

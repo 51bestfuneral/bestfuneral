@@ -22,6 +22,7 @@ import com.funeral.kris.init.BaseTestConfig;
 @ContextConfiguration(classes=BaseTestConfig.class)
 public class LinkControllerTest {
 	
+	
 	@Autowired
 	private WebApplicationContext wac;
 

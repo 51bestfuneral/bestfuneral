@@ -16,6 +16,3 @@ CREATE TABLE users (
   PRIMARY KEY (user_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-insert into users values
-('1','keler','1','Keler','keler.wu51bestfuneral.com','China','eBao1234',
-'18762605155',now (),now(),'keler','keler.wu51bestfuneral.com','18762605155');
