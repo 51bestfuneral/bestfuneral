@@ -2,12 +2,12 @@
 <html>
 <head>
 <title>偏好调查</title>
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="js/nav2.js"></script>
-<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+<body ng-app="myApp" ng-controller="questionDisplay">
 <header>
 <!--<ul id="nav">
 	<li><a href="signInPgae.html">葬礼定制</a></li>
@@ -15,90 +15,170 @@
 	<li><a href="signInPgae.html">墓地信息</a></li>
 	<li><a href="/pages/html/aboutUs.html">关于我们</a></li>
 </ul>-->
-<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
 </header>
 <script>
-	var serviceCategories;
 </script>
+<IFRAME NAME="content_frame" width=90% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
 
 <div class="mainSecton">
 
 <div id="topBar">
 </div>
 <div class="menu">	
-<IFRAME NAME="content_frame"  class="menuIframe" SRC="/pages/component/menuBar.html?cat=basicInfo" frameborder = 0></IFRAME>
+
+	
+	<div id="title1">
+	<p>葬礼定制</p>
 </div>
 
+<div class="splitLine"> </div>
+
+
+	<ul id="menuBar">
+<li   id='accountInfo' ><a href="acountInfo.html">账户信息</a></li>		
+<li   id='personalInfo'><a href="signInPgae.html">个人信息</a></li>	
+<li   id='privateInfo' ><a href="signInPgae.html">隐私信息</a></li>
+<li   id='basicInfo'><a href="questionAnswer.html">基础信息</a></li>
+<li   id='story' ><a href="signInPgae.html">您的故事</a></li>
+
+	</ul>
+	
+	
+<div id="title2">
+	<p>已选择套餐</p>
+	
+</div>	
+	<div class="splitLine"> </div>
+
+
+<div id="title3"><p>基础套餐</p></div>	
+
+<div id="cost"><p>￥20,000</p></div>
+
+
+<div id="title3"><p>节省金额</p></div>	
+
+<div id="cost"><p>￥3,400</p></div>
+
+</div>
 
 
 
 
 <div class="info">
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<ul id="processBar">
-		<li><a href="signInPgae.html">朝向偏好</a></li>
-		<li><a href="signInPgae.html">形式偏好</a></li>
-		<li><a href="signInPgae.html">材料偏好</a></li>
-		<li><a href="signInPgae.html">材料偏好</a></li>
-		<li><a href="signInPgae.html">材料偏好</a></li>
-		<li><a href="signInPgae.html">材料偏好</a></li>
-		<li><a href="signInPgae.html">材料偏好</a></li>
+		
+		<li> 材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+			<li> 材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li> 材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+		 <li>  材料偏好 </li>
+		 <li>  材料偏好 </li>
 	</ul>
-	<div class="order">
+<!--  延长线开始    -->
+<div id="processLine">
+</div>
+<!--  延长线结束     -->
+	
+<!--  序号开始   -->
+	
+	<div id="order">
 		<p>
-			1/20
+			{{currentIndex}}/{{total}}
 		</p>
 	</div>
-	<div class="questionTitle">
-您是喜欢山还是喜欢水？
+<!--  序号结束   -->
+
+<!--  问题DIV开始   -->
+	
+	<div id="{{s.question.questionId+'_'}}"   data-x="{{s.dataX}}"  data-y="75"   style="{{s.style}}"    ng-repeat="s in questionList">
+	
+	<!--  问题标题开始   -->
+
+	<div id="questionTitle">
+<p>{{s.question.title}}</p>
 	</div>
-	<div class="question">
+	
+	
+	<!--  问题标题结束   -->
+	
+		<!--  选项部分开始   -->
+
+	<div id="question">
 		<table border="0" width="100%" style="margin:auto;">
 		<tr>
-			<td>
-				<img name="img" src="../customizatonPages/assets/images/option1.png"/>
-				<p> 山</p>
+			<td ng-repeat="x in s.optionList">
+				<img  id="{{x.optionId}}"   style="{{x.style}}"  name="optionImg" src="{{x.imgUrl}}"   ng-click="saveAnswer(x.optionId,x.questionId)"     />
+			<p> {{x.optionDesc}}</p>
+			
 			</td>
-			
-			
-			
-			<td>
-				<img name="img" src="../customizatonPages/assets/images/option2.png"/>
-				<p> 水</p>
-			</td>
-			
-			
 		</tr>
 		</table>
+	
+</div>
+	<!--  选项部分结束   -->
+
+	
+	<div  class="inputComments">
+		
+	 <label style=' vertical-align: bottom;'>其他：</label>  
+	 <input   class="inputStyle" type='text'  size="25"  ng-change="saveComments(this.value)"  ng-model="s.otherComments"  value="{{s.otherComments}}" maxlength="100"  placeholder="请填写"  >
+</div>
+		
+		
 	</div>
-		<div class="bottonRow">
-			<button class='backButton'>
+
+<!--  问题DIV结束  -->
+	
+		
+	<div class="bottonRow">
+			<button class='backButton'  ng-click="preItem()">
 		<
 			</button>
-				<button class='skipButton'>
+				<button class='skipButton' ng-click="nextItem()">
 				
 					跳过
 				
 				</button>
-				<button class='nextButton'>
-			
-					下一步
-			
-				</button>
+			<button class="nextButton" ng-click="nextItem()">下一题</button>
 			</div>
 		</div>
 			
-					<IFRAME NAME="content_frame" width=100% height=350 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 1></IFRAME>
 
 			
 </div>
 	
+<IFRAME NAME="content_frame" width=100% height=380 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" ></IFRAME>
 
 			
 			<style>
 				
+				body {
+    margin: 0;
+	text-align: center;
+	height: 100%;
+	
+	
+}
+				
 	.menuIframe{
 		
-		width:99.5%;
+		width:100%;
 
 		 height :860px;
 		
@@ -112,9 +192,10 @@
   ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
   ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
 #topBar{
-	height:48px;
+	height:15px;
 	width:100%;
-	background:#ebebeb;
+	
+	background:#f6f6f6;
   position:relative; left:0%; right:0%;
 	}
 	#bottomBar{
@@ -125,7 +206,7 @@
 	}
 .mainSecton{
 	margin:0 auto;
-	height:1200px;
+		height: 100%;
 	width:100%;
 	border:0px solid #000000;
 	}	
@@ -133,45 +214,133 @@
 .info
 { 
 width:75%;
-height:860px;
+height:950px;
 float:right;
-border:0px;
-background:#fafafa;
+border:0px solid #707070;
+background:#ffffff;
 }	
 
 	
 
 	
 ul#processBar{
-height:50px;
-width:95%;
+height:78px;
+width:100%;
+border:1px solid #707070;  
+position:relative; 
+left:0px; 
+right:0%;
+top:-15px;
+border-top:none;
+border-left:none;
+border-right:none;
+background-color:#ffffff;
+padding-left:0px;
+	}		
+ul#processBar li{
+display:inline; 
+height:15px;
+position:relative; top:29px;left:0px; right:0%; 
+text-align:left;
+line-height:15px;
+color:#000000; 
+font-family: STHeitiSC-Light; 
+font-size:14px;	
+border:0px solid #707070;  
+	
+	} 
+
+
+
+ul#processBar li:after {
+   content:"\2714";
+   font-size:10px;
+   line-height:10px;
+   color:#ffffff;
+   display:inline-block;
+   text-align:center;
+   background-color: #2c9676;
+   width: 13px;
+   height:13px;
+   border-radius: 13px;
+   padding-top:0px;
+   position:relative; 
+   left:-10px; 
+   right:0%;
+   top:-15px;
+}	
+
+
+ul#processBar li a{ padding:0 10px; height:30px; line-height:30px;text-decoration:none;
+color:#707070; face: "STHeitiSC-Light"; font-size:25px;} 
+ul#processBar li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+
+
+
+ul#processBarSelected{
+height:20px;
+width:100%;
 border:1px solid #707070;  
 position:relative; 
 left:0%; 
 right:0%;
 top:0px;
-border-top:none;
-border-left:none;
-border-right:none;
+
 	}		
-ul#processBar li{display:inline; height:50px} 
-ul#processBar li a{ padding:0 10px; height:50px; line-height:50px;text-decoration:none;
+	
+
+	
+	
+	
+ul#processBarSelected li{display:inline; height:50px} 
+ul#processBarSelected li a{ padding:0 10px; height:50px; line-height:50px;text-decoration:none;
 color:#707070; face: "STHeitiSC-Light"; font-size:25px;} 
-ul#processBar li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
-.order{
+ul#processBarSelected li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+
+#processLine{
+	
+height:0px;
+width:7%;
+border:3px solid #ff5274;  
+position:relative; 
+left:0px; 
+right:0%;
+top:-34px;	
+	
+	}
+
+
+
+
+
+#order{
 height:68px;
-width:100%;
+width:68px;
 border:0px solid #ff5274;  
 position:relative; 
-left:0%; 
+left:50%; 
 right:0%;
 top:0px;
 text-align:center;
-line-height:68px;overflow:hidden;
-color:#707070; face: "STHeitiSC-Medium"; font-size:25px;
+
+background-color:#f6f6f6;
+
+border-radius:68px;
 	}	
-.questionTitle{
-height:150px;
+	
+	
+#order p{
+	
+	color:#707070; font-family: STHeitiSC-Medium; font-size:25px;line-height:68px;
+	
+	
+	}	
+	
+	
+	
+	
+#questionTitle{
+height:90px;
 width:100%;
 border:0px solid #ff5274;  
 position:relative; 
@@ -182,27 +351,103 @@ text-align:center;
 line-height:68px;overflow:hidden;
 color:#707070; face: "STHeitiSC-Medium"; font-size:48px;
 	}	
-.question{
-height:440px;
+	
+	
+	
+	#questionTitle p{
+line-height:68px;overflow:hidden;
+color:#707070; font-family: STHeitiSC-Medium; font-size:48px;font-weight:bold;
+position:relative; 
+left:0%; 
+right:0%;
+top:-20px;
+	}	
+	
+	
+	
+	
+	
+	
+#question{
+height:450px;
 width:100%;
 border:0px solid #ff5274;  
 position:relative; 
 left:0%; 
 right:0%;
-top:0px;
+top:20px;
 text-align:center;
 line-height:40px;overflow:hidden;
 color:#707070; face: "STHeitiSC-Medium"; font-size:40px;
 
 	}	
-.bottonRow{
+	
+	
+.question2{
+	
+display:none;	
+
+
+	}	
+	
+	
+.selected{
+	
+border:7px solid #ff5274; border-radius:170px;  cursor:pointer;
+
+	}		
+	
+	
+.unSelected{
+	
+border:0px solid #ff5274; border-radius:170px;  cursor:pointer;
+
+	}	
+	
+	
+	
+.inputComments{
 height:100px;
+width:100%;
+border:0px solid black;  
+position:relative; 
+left:0%; 
+right:0%;
+top:50px;
+text-align:center;
+color:#707070; 
+face: "STHeitiSC-Medium"; 
+font-size:40px;
+font-weight:900;
+	}		
+	
+	.inputStyle{
+		
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid   #979797;
+height:40px;
+outline:none;		
+padding-right:0px;
+font-weight:100;
+color:#707070; 
+font-family: STHeitiSC-Medium;
+font-size:40px;
+
+		}
+	
+	
+	
+	
+.bottonRow{
+height:50px;
 width:100%;
 border:0px solid #ff5274;  
 position:relative; 
 left:0%; 
 right:0%;
-top:0px;
+top:650px;
 padding-top:0px;
 	}		
 .backButton {
@@ -216,7 +461,8 @@ padding-top:0px;
 		margin-top:10px;
 		left:4%; 
 		text-align:center;
-    color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+    color:#ffffff; font-family: "STHeitiSC-Medium"; font-size:28px;
+    border-radius:5px;
 
 	}
 	.skipButton {
@@ -232,6 +478,7 @@ padding-top:0px;
    
 		text-align:center;
 		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+		  border-radius:5px;
 	}
 	.nextButton {
 	  background-color: #ff5274;
@@ -245,7 +492,9 @@ padding-top:0px;
 		text-align:center;
 		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
 		box-shadow:10px 0px 4px ;
-		border-radius:0px 4px 0px 0px ;
+		  border-radius:5px;
+
+
 	}
 
 	
@@ -279,51 +528,83 @@ top:0px;
 	.menu
 { 
 width:25%;
-height:860px;
+height:950px;
 float:left;
-border:0px;
-background:#ebebeb;
+border:0px solid #ff5274;  
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+
+opacity:0.9;
+
+
+
+
+
 } 
-	
-.title1{
-width:70%;
+
+#title1{
+width:87%;
+height:80px;
 border:0px solid #9d9d9d;  
 position:relative; 
-left:15%; 
+left:12%; 
 right:0%;
-top:0px;
-color:#9d9d9d; 
-face: "STHeitiSC-Light";
-font-size:23px;
-padding-left:50px;
+top:10px;
+text-align:left;
+
+
 	}
 	
-.title2{
-width:70%;
-border:1px solid #9d9d9d;  
-position:relative; 
-left:15%; 
-right:0%;
-top:0px;
+#title1 p{
+	
 color:#9d9d9d; 
 face: "STHeitiSC-Light";
-font-size:23px;
+font-size:23px;	
+line-height:23px;
+position:absolute;
+bottom:0px;	
+font-weight:bold;
+
+	}	
+	
+.splitLine{
+	
+width:87%;
+position:relative; 
+left:12%; 
+right:0%;
+top:0px;
+text-align:left;	
 border-top:none;
 border-left:none;
 border-right:none;
-padding-left:45px;
+border-bottom:1px solid   #9d9d9d;	
+	
 	}	
+	
+
+	
+
 
 	
 ul#menuBar{
-width:70%;
-border:0px solid #ff5274;  
+width:87%;
+border:0px solid black;  
 position:relative; 
-left:15%; 
+left:0%; 
 right:0%;
 top:0px;
+text-align:left;
+
 	}		
 	
+
+
+
+
 
 	
 
@@ -331,91 +612,486 @@ ul#menuBar li:before {
 	  
    content:"";
    display: inline-block;
-   background-color: #ffffff;
-   width: 18px;
-   height:18px;
-   border-radius: 18px;
+   background-color: #c6c6c6;
+   width: 29px;
+   height:29px;
+   border-radius: 29px;
    padding-top:0px;
-    
+    position:relative; 
+left:10%; 
+right:0%;
+top:0px;
 }
+
+
+
+
+
 
 ul#menuBar li{
 	list-style-type:none;
-	
-	}
-	
+	 width: 295px;
+   height:62px;
+   border:0px solid green;  
+   line-height:80px;
+   border-radius: 3px;
 
-ul#menuBar li a{ padding:0 5px; height:30px; line-height:30px;text-decoration:none;color:#707070; face: "STHeitiSC-Light"; font-size:23px;} 
+	}
+	ul#menuBar li:hover{background:#ff5274;}
+
+
+ul#menuBar li a{ padding:0 5px; height:62px; line-height:62px;text-decoration:none;color:#707070; font-family: STHeitiSC-Light; font-size:23px;
+	
+	 position:relative; 
+left:15%; 
+right:0%;
+top:-7px;
+font-weight:bold;
+	
+	} 
 ul#menuBar li a:hover{background:#ff5274;}
 	
 	
 	
 	
+#title2{
+width:87%;
+height:60px;
+border:0px solid #f6f6f6;  
+position:relative; 
+left:12%; 
+right:0%;
+top:10px;
+text-align:left;
+	}
+	
+#title2 p{
+	
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;	
+line-height:20px;
+position:absolute;
+bottom:0px;	
+font-weight:bold;
+
+	}		
+	
+	
+#title3{
+width:78%;
+height:30px;
+border:1px solid #f6f6f6;  
+position:relative; 
+left:20%; 
+right:0%;
+top:5px;
+text-align:left;
+
+	}
+	
+#title3 p{
+	
+color:#000000; 
+font-family: STHeitiSC-Light;
+font-size:23px;	
+line-height:24px;
+position:relative;
+top:-15px;
+bottom:0px;	
+font-weight:bold;
+	}		
+	
+#cost{
+width:78%;
+height:50px;
+border:1px solid #f6f6f6;  
+position:relative; 
+left:20%; 
+right:0%;
+top:10px;
+text-align:left;
+
+	}
+	
+#cost p{
+	
+color:#ff5274; 
+font-family: OpenSans-Light;
+font-size:45px;	
+line-height:45px;
+position:relative; 
+top:-40px;
+	}			
+		
+	
+	
+.barSelect {
+	 background-color:#ff5274;
+	}	
+	
+	
+.barUnSelect {
+	 background-color:#f6f6f6;
+	}			
+	
+	
 			</style>
-			<script>
-	var app = angular.module('myApp', []);
- // app.controller('serviceCategory', function($scope, $http) {
-//	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
-//  var datadata = JSON.stringify(response);
-//  $scope.serviceCategories=response;
-//		})
-	 app.controller('serviceCategoryDisplay', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
-  var datadata = JSON.stringify(response);
-  $scope.serviceCategories=response;
-    $scope.totalCost=0.00;
-    $scope.selectedName = [];
-    $scope.selected = [];
-    $scope.selectedCost = [];
-    var updateSelected = function(id,name,value){
-    	    	var idx = $scope.selectedName.indexOf(name);
-      if(idx!=-1){
-    $scope.selected.splice(idx,1);
-    $scope.selectedName.splice(idx,1); 
-    $scope.selectedCost.splice(idx,1);
-      }
-            $scope.selectedName.push(name);
-               $scope.selected.push(id);
-               $scope.selectedCost.push(value);
+	<script>
+var app = angular.module('myApp', []);
+var index=0;
+var  questionId=-1;
+var  selectedOptionId=-1;
+var percent=0.07;
+
+	 
+
+
+app.controller('questionDisplay', function($scope, $http) {
+	$("#basicInfo").addClass("barSelect");
+	
+		$http.get("http://localhost:8080/funeral/fQuestion/totalQuestionNumber").success(function(response) {
+			
+			$scope.total=response;
+			$scope.currentIndex=1;
+			
+			}) 
+	
+		$http.get("http://localhost:8080/funeral/fQuestion/getPerCentList").success(function(response) {
+			
+			$scope.percentList=response;
+			
+			}) 
+	
+	
+$http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+	       $scope.currentQuestion = response[index];
+	       var datadata = JSON.stringify($scope.currentQuestion);	       
+	       $scope.questionList=response;
+	       questionId=$scope.currentQuestion.question.qusetionId;
+	       selectedOptionId=$scope.currentQuestion.selectedOptionId;
+      
+			})
+			
+			$scope.saveAnswer = function(optionId,questionId){
+			 selectedOptionId=$scope.currentQuestion.selectedOptionId;           	
+	       $("#"+selectedOptionId).removeAttr("style");
+		 	$http.get("http://localhost:8080/funeral/fAnswer/save?"+"questionId="+questionId+"&optionId="+optionId).success(function(response) {
+			}) 		
+				 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+				 	
+		
+		
+		
+				 	 index=	Number( index) +Number(1);	
+				 	 
+				 	 
+	if($scope.currentIndex==$scope.total){
+	alert("已经是最后一题了！");
+		return ;
+				} 	
+				 	$scope.currentQuestion = response[index];
+				 	
+				 	
+
+	       $scope.nextQuestion=response[index+1]; 
+	       
+	       if(selectedOptionId==optionId){
+	     	       $("#"+selectedOptionId).removeAttr("style");
+	     	       $("#"+selectedOptionId).addClass("unSelected");
+
+	     }else{
+	     		       $("#"+optionId).addClass("selected");
+
+	     	}
+	     	
+	    
+		
+		
+			  
+				percent=$scope.percentList[Number( index) +Number(1)];
+		  $("#processLine").css("width",percent);	 
+	     $scope.currentIndex=Number( index) +Number(1);
+	     $("#"+questionId+"_").animate({left:"-980px"},500, function(){
+			$("#"+questionId+"_").fadeOut(100);  				
+		   $("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},300, function(){	
+		    $("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(100);					
+		  	});
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	});		})	}
+			
+			$scope.saveComments=function(){
+				
+				var squestionId= $scope.currentQuestion.question.qusetionId;
+				var svalue=$scope.currentQuestion.otherComments;
+				
+
+		 	$http.get("http://localhost:8080/funeral/fAnswer/saveOtherComments?"+"questionId="+squestionId+"&comments="+svalue).success(function(response) {
+			})		
+				
+				}
+         
+		$scope.nextItem = function(){
+			
+		
+			 selectedOptionId=$scope.currentQuestion.selectedOptionId; 
+			 
+          	
+	      
+		 		
+				 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+				 	
+				 
+				 	
+				 	 	if($scope.currentIndex==$scope.total+1){
+		alert("已经是最后一题了！");
+		return ;
+		
+		}
+		
+		
+			$scope.currentQuestion = response[index];
+				 	 index=	Number( index) +Number(1);	
+				 	 
+				 	 questionId=$scope.currentQuestion.question.questionId;
+				 		
+
+			$scope.nextQuestion=response[index+1]; 
+	       
+	       if($scope.total>Number( index) +Number(2)){
+	       	
+	       		$scope.tquestion=response[index+2];
+	       		
+	       		
+	       		 $("#"+$scope.tquestion.question.questionId+"_").hide(); 
+	       	
+	       	}
+	
+			  
+			percent=$scope.percentList[Number( index) +Number(1)];
+		  $("#processLine").css("width",percent);	 
+	     	
+	     		$scope.currentIndex=Number( index) +Number(1);
+	     	
+	     	
+				$("#"+questionId+"_").animate({left:"-980px"},500, function(){
+					
+				   
+					
+		    $("#"+questionId+"_").fadeOut(500); 
+		    				
+		    				
+		    				
+
+		    $("#"+ $scope.nextQuestion.question.questionId+"_").animate({left:"0px"},300, function(){	
+		    	
+		    	$("#"+ $scope.nextQuestion.question.questionId+"_").fadeIn(100);	
+		  	});
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	});		})
+			
+			
+			
        }
-       $scope.updateSelection = function($event, id,name,_price){
-           updateSelected(id,name,_price);  
-                  $scope.totalCost=0;
-            angular.forEach($scope.selectedCost, function(data){
-$scope.totalCost =Number( $scope.totalCost) +Number(data);
-});   
-             }
-});
-	$("#saveButton").click(function() {
-	    var datadata = JSON.stringify($scope.curUser);
-	    alert("  datadata ="+datadata);
-	    $http({
-            method: "POST",
-            url:"http://localhost:8080/funeral/user/add",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-            alert("chenggong");
-        });
-	});		
-});
+	
+	
+	 $scope.preItem = function(){
+	     	if(index==0){
+	   		alert("已经是第一题了！")
+	   		return;
+	   		}
+	 					index=	Number( index) -Number(1);		
+					$scope.currentIndex=index+Number(1);
+			    $scope.currentQuestion =  $scope.questionList[index];	
+
+	 		questionId=$scope.currentQuestion.question.questionId;
+	 		
+	 	$http.get("http://localhost:8080/funeral/fAnswer/getQuestionById?"+"questionId="+questionId).success(function(response) {
+	       $scope.currentQuestion=response;
+			})
+							
+selectedOptionId=$scope.currentQuestion.selectedOptionId;
+
+
+ $scope.nextQuestion=$scope.questionList[index+1];	
+ 
+ 
+ 
+ 
+ 
+ $("#"+ $scope.nextQuestion.question.questionId+"_").fadeOut("slow");
+
+				
+		$("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},500,function(){
+							
+		$("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(1000);	
+							});	
+}
+ });	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 	</script>
 			<script>
-  function onChecked(sId,sName) {
-  	        alert('sName'+sName+" sId="+sId);
-    var oImg = document.getElementsByName(sName);
+			
+			
+$("#basicInfo").mouseleave(
+			function(){
+
+				
+				
+		$("#basicInfo").css("background-color","#ff5274");		
+				
+				
+				});
+			
+
+$("#story").mouseleave(
+			function(){
+$("#basicInfo").css("background-color","#ff5274");		
+$("#story").css("background-color","#f6f6f6");		
+
+		
+		
+		
+		
+				});
+				
+	$("#personalInfo").mouseleave(
+			function(){
+		$("#basicInfo").css("background-color","#ff5274");	
+$("#personalInfo").css("background-color","#f6f6f6");	
+		
+			
+				});
+
+	$("#accountInfo").mouseleave(
+			function(){
+		$("#basicInfo").css("background-color","#ff5274");		
+		$("#accountInfo").css("background-color","#f6f6f6");	
+
+				});
+				
+					$("#privateInfo").mouseleave(
+			function(){
+	   	$("#basicInfo").css("background-color","#ff5274");		
+				$("#privateInfo").css("background-color","#f6f6f6");	
+
+				});
+
+
+
+			$("#privateInfo").mouseover(
+		function(){		
+
+	$("#basicInfo").css("background-color","#f6f6f6");		
+  $("#accountInfo").css("background-color","#f6f6f6");		
+	$("#story").css("background-color","#f6f6f6");	
+	$("#personalInfo").css("background-color","#f6f6f6");	
+	$("#privateInfo").css("background-color","#ff5274");	
+
+
+
+
+});
+			
+			
+			
+				$("#accountInfo").mouseover(
+		function(){
+	$("#basicInfo").css("background-color","#f6f6f6");		
+  $("#accountInfo").css("background-color","#ff5274");		
+	$("#story").css("background-color","#f6f6f6");	
+	$("#personalInfo").css("background-color","#f6f6f6");	
+	$("#privateInfo").css("background-color","#f6f6f6");	
+			});
+			
+				
+			
+		$("#basicInfo").mouseover(
+		function(){
+$("#basicInfo").css("background-color","#ff5274");		
+  $("#accountInfo").css("background-color","#f6f6f6");		
+	$("#story").css("background-color","#f6f6f6");	
+	$("#personalInfo").css("background-color","#f6f6f6");	
+	$("#privateInfo").css("background-color","#f6f6f6");	
+			});
+			
+			
+		$("#story").mouseover(
+		function(){
+			
+		
+$("#basicInfo").css("background-color","#f6f6f6");		
+  $("#accountInfo").css("background-color","#f6f6f6");		
+	$("#story").css("background-color","#ff5274");	
+	$("#personalInfo").css("background-color","#f6f6f6");	
+	$("#privateInfo").css("background-color","#f6f6f6");	
+
+
+
+			});
+			
+				$("#personalInfo").mouseover(
+		function(){
+$("#basicInfo").css("background-color","#f6f6f6");		
+  $("#accountInfo").css("background-color","#f6f6f6");		
+	$("#story").css("background-color","#f6f6f6");	
+	$("#personalInfo").css("background-color","#ff5274");	
+	$("#privateInfo").css("background-color","#f6f6f6");	
+
+			});					
+		function editField() {
+			
+			  var oImg = document.getElementsByName("optionImg");
     for (var i = 0; i < oImg.length; i++) { 	
-      if (oImg[i].id == sId) {
-      	var _id=sId+"_"+sName;
-        oImg[i].style.border = '1px solid #FF6600';
+     
+        oImg[i].style.border = '0px solid #ffffff';
+     
+    }
+			
+			
+			}		
+				
+				
+				var selectedId=-1;
+				
+				
+function updateSelected(sId,sName) {
+    var oImg = document.getElementsByName(sName);
+    for (var i = 0; i < oImg.length; i++) { 	   	
+    	 
+    	alert("  sId="+sId+"  oImg[i].id="+oImg[i].id);
+      if (oImg[i].id == sId) {      	
+        oImg[i].style.border = '2px solid #ff5274';
       } else {
         oImg[i].style.border = '0px solid #ffffff';
       }
     }
-  }
+      
+     
+      
+      
+      
+    }
   function changRadio(_id){                            
 alert('changRadio  _id='+_id);
    var x= document.getElementById(_id);
