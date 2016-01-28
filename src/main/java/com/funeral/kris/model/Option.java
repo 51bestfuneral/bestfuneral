@@ -1,6 +1,7 @@
 package com.funeral.kris.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,14 +14,35 @@ import javax.persistence.Column;
 public class Option {
 	
 	@Id
+	@GeneratedValue
 	@Column(name="option_id")
-	private String optionId;
+	private Long optionId;
 
 	@Column(name="question_id")
 	private String questionId;
 	
 	@Column(name="option_desc")
 	private String optionDesc;
+	@Column(name="img_url")
+	private String imgUrl;
+	@Column(name="style")
+	private String style;
+
+	public String getStyle() {
+		return style;
+	}
+
+	public void setStyle(String style) {
+		this.style = style;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
 
 	@Column(name="sequence")
 	private Integer sequence;
@@ -31,11 +53,11 @@ public class Option {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getOptionId() {
+	public Long getOptionId() {
 		return optionId;
 	}
 
-	public void setOptionId(String optionId) {
+	public void setOptionId(Long optionId) {
 		this.optionId = optionId;
 	}
 
