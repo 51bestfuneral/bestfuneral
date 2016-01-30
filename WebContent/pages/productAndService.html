@@ -285,6 +285,14 @@
 		margin-bottom: 44px;
 		text-align: center;
 		padding-top: 10px;
+		cursor: pointer;
+	    transition:background 0.5s;
+	    -moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+	}
+	.guideIcon:hover {
+	    background: #ccc;
 	}
 	.guideIcon p {
 	    color: #ff5274;
@@ -365,6 +373,15 @@
 	    text-align: bottom;
 		width: 100%;
 		height: 72%;
+		text-align: center;
+	}
+	.fakeImg {
+	    height:100%;
+		width: 0px;
+	}
+	.iconImg{
+		top: 20px;
+		vertical-align:middle
 	}
 	.textHalf {
 	    text-align :center;
@@ -426,6 +443,17 @@ app.controller('products', function($scope, $http) {
 <div id="filter">
     <div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/Layer_1.png" class="iconImg"></img>
+		</div>
+		<div class="textHalf">
+		    <p>Ê×Ò³</p>
+		</div>
+	</div>
+	<div class="filterIcon">
+	    <div class="imageHalf">
+		   <img class="fakeImg"></img>
+		   <img src="../js/images/noun_187249_cc.png"></img>
 		</div>
 		<div class="textHalf">
 		    <p>¹Ç»ÒºÐ</p>
@@ -433,44 +461,56 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/noun_178107_cc.png"></img>
 		</div>
 		<div class="textHalf">
-		    <p>¹Ç»ÒºÐ</p>
+		   <p>ÊÙÒÂ</p>
 		</div>
 	</div>
 	<div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/Mask + Rectangle 77.png"></img>
 		</div>
 		<div class="textHalf">
-		   <p>¹Ç»ÒºÐ</p>
+		    <p>¼ÀìëËæÔá</p>
 		</div>
 	</div>
 	<div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/Group.png"></img>
 		</div>
 		<div class="textHalf">
-		    <p>¹Ç»ÒºÐ</p>
+		    <p>ÀñÒÇ·þÎñ</p>
 		</div>
 	</div>
 	<div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/noun_193115_cc.png"></img>
 		</div>
 		<div class="textHalf">
-		    <p>¹Ç»ÒºÐ</p>
+		    <p>¼ÀÉ¨ÓÃÆ·</p>
 		</div>
 	</div>
 	<div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/1452911054_inspiration_Vol.1-61.png"></img>
 		</div>
 		<div class="textHalf">
-		    <p>¹Ç»ÒºÐ</p>
+		    <p>Ì××°²úÆ·</p>
 		</div>
 	</div>
 	<div class="filterIcon">
 	    <div class="imageHalf">
+		    <img class="fakeImg"></img>
+		    <img src="../js/images/noun_27116.png"></img>
 		</div>
 		<div class="textHalf">
-		    <p>¹Ç»ÒºÐ</p>
+		    <p>ÆäËû·þÎñ</p>
 		</div>
 	</div>
 </div>
@@ -508,12 +548,12 @@ app.controller('products', function($scope, $http) {
 </div>
 <div id="guide">
     <div id="leftGuide">
-	    <div class="guideIcon">
-		    <p><span class="glyphicon glyphicon-shopping-cart"></span></p>
-			<p>¹ºÎïÀº</p>
+	    <div class="guideIcon wishListGuide">
+		    <img src="../js/images/monitor.png"></img>
+			<p>Ô¸ÍûÇåµ¥</p>
 		</div>
 		<div class="guideIcon">
-		    <p><span class="glyphicon glyphicon-list-alt"></span></p>
+		    <img src="../js/images/film.png"></img>
 			<p>¹ºÎïÀº</p>
 		</div>
 	</div>
@@ -609,6 +649,9 @@ app.controller('products', function($scope, $http) {
 </body>
 <script type="text/javascript">
 window.onload=function(){
+    $(".wishListGuide").on("click", function () {
+	    window.location.href='wishList.html';
+	});
     $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
     });

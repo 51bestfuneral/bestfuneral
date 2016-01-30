@@ -88,7 +88,7 @@
 		<div class="includeLink" id="product">
 		    <p>产品及服务</p>
 		</div>
-		<div class="includeLink" id="mudi">
+		<div class="includeLink" id="cemetery">
 	        <p>墓地信息</p>
 		</div>
 		<div class="includeLink" id="contact">
@@ -130,6 +130,11 @@
 	$("#product").on("click", function () {
 	    if (type !== 'product') {
             window.parent.location.href='../productAndService.html';
+		}
+	});
+	$("#cemetery").on("click", function () {
+	    if (type !== 'cemetery') {
+            window.parent.location.href='../cemetery.html';
 		}
 	});
 </script>

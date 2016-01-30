@@ -27,8 +27,9 @@ body {
 	height: 100%;
 }
 #topHalfLevel {
-    background-image:url('../js/images/heroImage031.jpg');
+    background-image:url('../js/images/Bitmap.png');
 	padding-bottom: 3%;
+	background-size:100%;
 }
 #topHalfLevel h1 {
     padding-top: 180px;
@@ -750,10 +751,10 @@ body {
 <script type="text/javascript">
 var app = angular.module('productApp', []);
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+    $http.get("http://localhost:8080/bestfuneral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	$http.get("http://localhost:8080/bestfuneral/wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -770,7 +771,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/wish/list").success(function(response) {
+	$http.get("http://localhost:8080/bestfuneral/wish/list").success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,
@@ -805,7 +806,7 @@ app.controller('products', function($scope, $http) {
 		}
 		$scope.layouts = layouts;
 	});
-	$http.get("http://localhost:8080/funeral/message/list").success(function(response) {
+	$http.get("http://localhost:8080/bestfuneral/message/list").success(function(response) {
 	    response[0].active = 'active';
 	    $scope.messages = response;
 	});
@@ -841,7 +842,7 @@ $("#titleIconDiv").on("click", function () {
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
 	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="../js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
