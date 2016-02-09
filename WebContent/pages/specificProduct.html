@@ -94,8 +94,13 @@
 #sizeFilter {
     width: 184px;
 	float: left;
+	margin-right: 38px;
 }
- #box{position: relative; width: 200px; height: 50px; border: 1px solid #eee; margin:  50px auto 0;}
+#priceFilter {
+    width: 230px;
+	float: left;
+}
+ #box{position: relative; width: 200px; height: 10px; margin:  30px auto 0;}
 #bg{
     height: 2px;
 	margin-top: 19px; 
@@ -127,7 +132,7 @@
 	 position: absolute;
 	 left: 0px;
 	 margin-left: -7px;
-	 top: 12px;
+	 top: -6px;
 	 cursor: pointer;
 }
 #btRight{
@@ -141,7 +146,7 @@
 	 right: 0px;
 	 ledt: auto;
 	 margin-right: -7px;
-	 top: 12px;
+	 top: -6px;
 	 cursor: pointer;
 }
  #text{width: 200px; margin: 0 auto; font-size: 16px; line-height: 2em;}
@@ -203,17 +208,20 @@
 			</div>
 		</div>
 		<div id="priceFilter">
+		    <div class="topHalfHeader">
+			    <p>¼Û¸ñ</p>
+			</div>
+		    <div id="box">
+				<div id="bg">
+					<div id="bgcolor"></div>
+					<div id="bgcolorRight"></div>
+				</div>
+				<div id="btLeft"></div>
+				<div id="btRight"></div>
+			</div>
+			<div id="text"></div>
 		</div>
 </div>
-<div id="box">
-    <div id="bg">
-        <div id="bgcolor"></div>
-		<div id="bgcolorRight"></div>
-    </div>
-    <div id="btLeft"></div>
-	<div id="btRight"></div>
-</div>
-<div id="text"></div>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
  <script type="text/javascript">

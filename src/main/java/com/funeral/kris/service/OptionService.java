@@ -10,8 +10,9 @@ public interface OptionService {
 	
 	public void addResource(Option option);
 	public void updateResource(Option option);
-	public Option getResource(int id);
-	public void deleteResource(int id);
+	public Option getResource(Long id);
+	public void deleteResource(Long id);
+	public List<Option> getResources();
 	public List<Option> getResources(HttpServletRequest request);
-
+    public List<Option> getOptionListByQuestionId(Long id);
 }

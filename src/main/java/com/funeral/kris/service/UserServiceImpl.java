@@ -52,11 +52,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public List<User> verifyUser(String userName, String pwd, String userType) {
-		List<User> usrlist = new ArrayList<User>();
-		String queryCommand = String.format(verifySql, userName, pwd, userType);
-		usrlist = jdbcTemplate.query(queryCommand, new UserMapper());
-		System.out.println(queryCommand);
-		return usrlist;
+//		List<User> usrlist = new ArrayList<User>();
+//		String queryCommand = String.format(verifySql, userName, pwd, userType);
+//		usrlist = jdbcTemplate.query(queryCommand, new UserMapper());
+//		System.out.println(queryCommand);
+		return null;
 	}
 
 	private static final String verifySql =
