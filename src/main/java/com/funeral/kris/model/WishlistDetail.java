@@ -20,7 +20,7 @@ public class WishlistDetail implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name="Wishlist_detail_id")
-	private String wishlistDetailId;
+	private Integer wishlistDetailId;
 
 	@Column(name="wishlist_id")
 	private String wishlistId;
@@ -43,11 +43,11 @@ public class WishlistDetail implements Serializable {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getWishlistDetailId() {
+	public Integer getWishlistDetailId() {
 		return wishlistDetailId;
 	}
 
-	public void setWishlistDetailId(String wishlistDetailId) {
+	public void setWishlistDetailId(Integer wishlistDetailId) {
 		this.wishlistDetailId = wishlistDetailId;
 	}
 

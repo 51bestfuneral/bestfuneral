@@ -2,6 +2,8 @@ package com.funeral.kris.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.funeral.kris.model.Wishlist;
 
 public interface WishlistService {
@@ -10,6 +12,6 @@ public interface WishlistService {
 	public void updateResource(Wishlist wishlist);
 	public Wishlist getResource(int id);
 	public void deleteResource(int id);
-	public List<Wishlist> getResources();
+	public List<Wishlist> getResources(HttpServletRequest request);
 
 }

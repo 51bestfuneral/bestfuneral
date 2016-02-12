@@ -4,12 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.WishlistDAO;
+import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.Wishlist;
+import com.funeral.kris.util.SqlHelper;
 
 @Service
 @Transactional
@@ -17,6 +23,8 @@ public class WishlistServiceImpl implements WishlistService {
 
 	@Autowired
 	private WishlistDAO WishlistDAO;
+	@Autowired
+	private EntityManager em;
 
 	public void addResource(Wishlist wishlist) {
 		WishlistDAO.save(wishlist);		
@@ -34,14 +42,16 @@ public class WishlistServiceImpl implements WishlistService {
 		WishlistDAO.delete(id);
 	}
 
-	public List<Wishlist> getResources() {
-		List<Wishlist> wishlistList = new ArrayList<Wishlist>();
-		Iterable<Wishlist> wishlistIter = WishlistDAO.findAll();
-		Iterator<Wishlist> iter = wishlistIter.iterator();
-		while(iter.hasNext()) {
-			Wishlist wishlist = iter.next();
-			wishlistList.add(wishlist);
+	public List<Wishlist> getResources(HttpServletRequest request) {
+		String a = null;
+		try {
+		    a = SqlHelper.getSqlFromRequest("Wishlist", request);
 		}
-		return wishlistList;
+		catch (Exception e) {
+			
+		}
+		Query query = em.createQuery(a);
+		List<Wishlist> wishList = query.getResultList();
+		return wishList;
 	}
 }

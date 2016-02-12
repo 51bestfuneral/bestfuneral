@@ -1,17 +1,27 @@
 package com.funeral.kris.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.busModel.WishListJson;
+import com.funeral.kris.model.Answer;
+import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishlistDetailService;
 
 @Controller
@@ -20,6 +30,9 @@ public class WishlistDetailController {
 	
 	@Autowired
 	private WishlistDetailService wishlistDetailService;
+	@Autowired
+	private WishService wishService;
+	private Map<String, Wish> wishsMap = null;
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addWishlistDetailPage() {
@@ -29,11 +42,13 @@ public class WishlistDetailController {
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingWishlistDetail(@ModelAttribute WishlistDetail wishlistDetail) {
+	public ModelAndView addingWishlistDetail(@RequestBody List<WishlistDetail> wishlistDetails) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
-		wishlistDetailService.addResource(wishlistDetail);
-		
+
+		for (WishlistDetail wishlistDetail: wishlistDetails) {
+		    wishlistDetailService.addResource(wishlistDetail);
+		}
 		String message = "WishlistDetail was successfully added.";
 		modelAndView.addObject("message", message);
 		
@@ -42,13 +57,32 @@ public class WishlistDetailController {
 
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<WishlistDetail> listOfWishlistDetails() {
-		ModelAndView modelAndView = new ModelAndView("list-of-wishlistDetails");
+	public List<WishListJson> listOfWishlistDetails(HttpServletRequest request) {
+		if (wishsMap == null) {
+			HttpServletRequest fakeRequest = null;
+			List<Wish> wishs = wishService.getResources(fakeRequest);
+			wishsMap = new HashMap<String, Wish>();
+			for (Wish wish : wishs) {
+				wishsMap.put(wish.getWishId(), wish);
+			}
+		}
+		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
+		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResources(request);
+		for (WishlistDetail wishlistDetail : wishlistDetails) {
+			WishListJson wishListJson = new WishListJson();
+		    String wishId = wishlistDetail.getWishId();
+		    Wish wish = wishsMap.get(wishId);
+		    wishListJson.setWishId(wishId);
+		    wishListJson.setAmount(wishlistDetail.getCount());
+		    wishListJson.setWishName(wish.getWishName());
+		    wishListJson.setWishDesc(wish.getWishDesc());
+		    wishListJson.setImageUrl(wish.getUrl());
+		    wishListJson.setPrice(wish.getPrice());
+		    wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
+		    wishlistJsons.add(wishListJson);
+		}
 
-		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResources();
-		modelAndView.addObject("wishlistDetails", wishlistDetails);
-
-		return wishlistDetails;
+		return wishlistJsons;
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
@@ -60,16 +94,13 @@ public class WishlistDetailController {
 	}
 	
 	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	public ModelAndView edditingWishlistDetail(@ModelAttribute WishlistDetail wishlistDetail, @PathVariable Integer id) {
-		
-		ModelAndView modelAndView = new ModelAndView("home");
-		
+	public ModelAndView edditingWishlistDetail(HttpServletRequest request, @PathVariable Integer id) {
+		int count = Integer.valueOf(request.getParameter("count"));
+		WishlistDetail wishlistDetail = wishlistDetailService.getResource(id);
+		wishlistDetail.setCount(count);
 		wishlistDetailService.updateResource(wishlistDetail);
 		
-		String message = "WishlistDetail was successfully edited.";
-		modelAndView.addObject("message", message);
-		
-		return modelAndView;
+		return null;
 	}
 	
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)

@@ -2,6 +2,8 @@ package com.funeral.kris.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,10 +44,10 @@ public class WishlistController {
 
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<Wishlist> listOfWishlists() {
+	public List<Wishlist> listOfWishlists(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("list-of-wishlists");
 
-		List<Wishlist> wishlists = wishlistService.getResources();
+		List<Wishlist> wishlists = wishlistService.getResources(request);
 		modelAndView.addObject("wishlists", wishlists);
 
 		return wishlists;

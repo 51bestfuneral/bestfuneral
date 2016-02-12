@@ -84,9 +84,9 @@
 .tableContent {
     width: 100%;
 	margin-top: 22px;
+	overflow: auto;
 }
 .tableContent div {
-    height: 78px;
 	text-align: center;
 	float: left;
 }
@@ -115,6 +115,11 @@
 }
 .operation {
     width: 140px;
+}
+.operation span {
+    color: #a6a6a6;
+	font-size: 20px;
+	cursor: pointer;
 }
 .title {
     font-size: 16px;
@@ -203,6 +208,9 @@
 	float: right;
 	font-family: "Microsoft Yahei";
 }
+.next button:hover {
+    background: #ff496d;
+}
 .summTitle {
     font-size: 20px;
 	color: #5b5b5b;
@@ -216,11 +224,88 @@
 #rigthTopContent {
     padding-right: 18px;
 }
+.oneThird {
+    width: 33.33%;
+	height: 100%;
+    float: left;
+}
+.changeButton {
+    background: #ccc;
+	width: 20px;
+	height: 20px!important;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.changeButton:hover {
+    opacity: 0.6;
+}
+.minusBitton {
+    float: right!important;
+}
 </style>
 <script type="text/javascript">
+    var app = angular.module('productApp', []);
+	var wishList;
+	var usrId = 1;
+    app.controller('product', function($scope, $http) {
+	    $http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
+	        wishList = response[0];
+			$http.get("http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId="+wishList.ansListId).success(function(response) {
+	            $scope.wishListDetails = response;
+	        });
+	    });
+    });
+	function calculate() {
+	    var totalPrice = 0;
+		for (i =0; i < $(".tableContent").length; i++) {
 
+			var tableLine = $(".tableContent")[i];
+			totalPrice = totalPrice + parseInt($(tableLine).find('.totalPrice').find('p')[0].innerText);
+		}
+		$("#rigthTopTitle").find(".titleNumber")[0].innerText = totalPrice;
+		$("#rigthTopTitle").find(".titleNumber")[2].innerText = totalPrice + parseInt($("#rigthTopTitle").find(".titleNumber")[1].innerText);
+	}
+	function calculateEachLine(tableRow) {
+		var singlePrice = tableRow.closest('.tableContent').find('.itemPrice')[0].innerText,
+			count = parseInt(tableRow.closest('.tableContent').find('.itemAmout').find('.titleNumber')[0].innerText);
+			
+		tableRow.closest('.tableContent').find(".totalPrice").find('.titleNumber')[0].innerText = singlePrice*count;
+	}
+	function sendUpdateRequest(tableRow, count) {
+	    var tableLine = tableRow.closest('.tableContent'),
+		    wishListDetailId = tableLine[0].id,
+			data = {
+			    'count': count
+			};
+
+		$.ajax({
+			url: 'http://localhost:8080/bestfuneral/wishlistDetail/edit/'+wishListDetailId,
+			data: data,
+			type: 'post',
+			dataType:'json',
+			success:function(data){
+			},
+			error: function(error) {
+			}
+		});
+	}
+	function sendDeleteRequest(tableRow) {
+	    var tableLine = tableRow.closest('.tableContent'),
+		    wishListDetailId = tableLine[0].id;
+
+		$.ajax({
+			url: 'http://localhost:8080/bestfuneral/wishlistDetail/delete/'+wishListDetailId,
+			type: 'get',
+			success:function(data){
+				alert("您的信息我们已经收到！");
+			},
+			error: function(error) {
+				alert("您的信息我们已经收到！");
+			}
+		});
+	}
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body ng-app="productApp" ng-controller="product">
 <div class="container">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html" frameborder = 0 height = "65px"></IFRAME>
     <div id="decorContainer">
@@ -280,13 +365,61 @@
 				    <p class="title">45.00</p>
 				</div>
 				<div class="itemAmout inputContent">
-				    <p class="title titleNumber">1</p>
+				    <div class="oneThird">
+					    <div class="changeButton minusBitton">
+						    <span>-</span>
+						</div>
+					</div>
+					<div class="oneThird">
+				        <p class="title titleNumber">1</p>
+					</div>
+					<div class="oneThird">
+					    <div class="changeButton">
+						    <span>+</span>
+						</div>
+					</div>
 				</div>
 				<div class="totalPrice inputContent">
 				    <p class="title titleNumber">45.00</p>
 				</div>
 				<div class="operation inputContent">
-				    <p class="title">45</p>
+				</div>
+			</div>
+			<div class="tableContent" id="{{wishListDetail.wishDetailId}}" ng-repeat="wishListDetail in wishListDetails">
+				<div class="checkBox">
+				    <input type="checkbox">
+				</div>
+				<div class="itemName">
+				    <div class="itemImg">
+					</div>
+					<div class="itemDesc inputContent">
+					    <p class="title">{{wishListDetail.wishName}}</p>
+						<p class="subTitle">{{wishListDetail.wishDesc}}</p>
+					</div>
+				</div>
+				<div class="itemPrice inputContent">
+				    <p class="title">{{wishListDetail.price}}</p>
+				</div>
+				<div class="itemAmout inputContent">
+				    <div class="oneThird">
+					    <div class="changeButton minusBitton">
+						    <span>-</span>
+						</div>
+					</div>
+					<div class="oneThird">
+				        <p class="title titleNumber">{{wishListDetail.amount}}</p>
+					</div>
+					<div class="oneThird">
+					    <div class="changeButton">
+						    <span>+</span>
+						</div>
+					</div>
+				</div>
+				<div class="totalPrice inputContent">
+				    <p class="title titleNumber">00.00</p>
+				</div>
+				<div class="operation inputContent">
+				    <span class="glyphicon glyphicon-trash deleteButton"></span>
 				</div>
 			</div>
 		</div>
@@ -328,6 +461,37 @@
 </body>
 <script>
 window.onload=function(){
+    for (var j =0; j<$(".tableContent").length;j++) {
+	    var tableLine = $($(".tableContent")[j]);
+		calculateEachLine(tableLine);
+	}
+	calculate();
+    $(".changeButton").click(function() {
+	    var number = parseInt($(this).closest('.itemAmout').find(".titleNumber")[0].innerText),
+		    changedNumber;
+
+	    if ($(this).hasClass("minusBitton")) {
+		    if (number>0) {
+		        $(this).closest('.itemAmout').find(".titleNumber")[0].innerText = number - 1;
+				changedNumber = number - 1;
+			}
+		}
+		else {
+		    $(this).closest('.itemAmout').find(".titleNumber")[0].innerText = number + 1;
+			changedNumber = number + 1;
+		}
+		
+		if (number != changedNumber) {
+		    sendUpdateRequest($(this), changedNumber);
+		    calculateEachLine($(this));
+		    calculate();
+		}
+	});
+	$(".deleteButton").click(function() {
+	    $(this).closest('.tableContent').remove();
+	    calculate();
+		sendDeleteRequest($(this));
+	});
 };
 </script>
 </html>
