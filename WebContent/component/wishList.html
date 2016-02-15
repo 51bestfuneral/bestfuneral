@@ -99,8 +99,11 @@
 	    width: 66px;
 		height: 66px;
 		border-radius: 33px;
-		background: #d8d8d8;
 		float: left;
+	}
+	.picCoat img {
+	    width: 100%;
+	    height: 100%;
 	}
 	.wishNameCoat {
 	    float: left;
@@ -206,6 +209,7 @@ app.controller('products', function($scope, $http) {
 		</div>
 		<div class="wishItem" ng-repeat="tab in tabs" id="{{tab.wishId}}" on-finish-render-filters>
 			<div class="picCoat">
+			    <img src="/js/images/{{tab.imageUrl}}"></img>
 			</div>
 			<div class="wishNameCoat">
 			    <p class="wishName">{{tab.wishName}}</p>

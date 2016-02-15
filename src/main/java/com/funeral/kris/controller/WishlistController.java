@@ -196,6 +196,7 @@ public class WishlistController {
 			orderdetail.setOrderId(order.getWishOrderId());
 			orderdetail.setOriginalPrice(wishlistDetail.getOriginalPrice());
 			orderdetail.setPrice(wishlistDetail.getPrice());
+			orderdetail.setWishId(wishlistDetail.getWishId());
 			orderdetail.setCreatedDate(new Date());
 			orderdetail.setUpdatedDate(new Date());
 			orderDetailService.addResource(orderdetail);

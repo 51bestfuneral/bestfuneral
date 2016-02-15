@@ -19,14 +19,14 @@
 		background: #ffffff;
 	}
 	.linkList {
-	    width: 575px;
+	    width: 530px;
 		margin:0px auto;
 		height:100%;
-		overflow:auto;
 	}
 	.linkList .includeLink {
 	    float: left;
-		width: 115px;
+		padding-left: 15px;
+		padding-right: 15px;
 		text-align: center;
 	}
 	.includeLink {
@@ -518,7 +518,7 @@
 							$(".subIcon1").fadeIn();
 						}
 						adjustWishlistLayout(wishlist.status);
-						url = "/funeral/shoppingCartController/listCountOfCart";
+						url = "/shoppingCartController/listCountOfCart";
 						$.ajax({
 							url: url,
 							type: 'GET',

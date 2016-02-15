@@ -497,10 +497,7 @@ function handleFinished(tabPage) {
 				$("#"+tabId).find(".finishedIcon").fadeOut();
 				$("#"+tabId).removeClass("finished");
 			}
-
-	if (tabPage[0] === $(".questionCenter")[count-1]) {
-	    handleFinishButton();
-	}
+	handleFinishButton();
 }
 function generateQuestionList(answetList) {
     $(".questionCenter").each(function() {

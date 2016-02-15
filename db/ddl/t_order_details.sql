@@ -6,7 +6,7 @@ CREATE TABLE t_order_detail (
   price DECIMAL(10,2) default 1,
   original_price DECIMAL(10,2) default 1,
   count integer not null,
-  createdate  datetime default NOW(),
-  updateddate  datetime default  NOW(),
+  created_date  datetime default NOW(),
+  updated_date  datetime default  NOW(),
   PRIMARY KEY (order_detail_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

@@ -179,6 +179,7 @@ var wishList = [],
     originalWishlist = [],
 	wishlistId,
     level;
+muskCurrentPage();
 function iFrameHeight(idx) {
     var height = $($('.questionFrame')[idx]).contents().find('#productMain')[0].offsetHeight;
 	$($('.questionFrame')[idx]).css({
@@ -274,6 +275,7 @@ function updateWishList(nextTab) {
 			if (nextTab) {
 			    drillIntoNextTab(nextTab);
 			}
+			unmusk();
 		},
 		error: function(error) {
 			//$("#messageSent")[0].value = '';

@@ -194,6 +194,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	}
     window.parent.muskCurrentPage();
 	if (me[0].id === 'nextStep') {
+		window.parent.muskCurrentPage();
 	    $.ajax({
 		    url: '/wishlist/generateOrderByWish',
 			type: 'POST',

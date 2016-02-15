@@ -505,6 +505,9 @@ function handleProposal() {
 		$("#good").addClass("barSelect");
 		return;
 	}
+	if ($(".choose").length === 0) {
+		$(".barSelect").removeClass("barSelect");
+	}
 	else {
 		$("#basic").addClass("barSelect");
 		return;
