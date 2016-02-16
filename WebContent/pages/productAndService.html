@@ -54,21 +54,6 @@
 	color: #ff5274;
 	border: 2px solid #ff5274;
 }
-#mainHeader {
-    width: 100%;
-	height: 400px;
-	text-align: center;
-	padding-top: 160px;
-	background: -webkit-radial-gradient(#ef8391, #db5f34);
-    background: -o-radial-gradient(#ef8391, #db5f34);
-    background: -moz-radial-gradient(#ef8391, #db5f34);
-    background: radial-gradient(#ef8391, #db5f34);
-}
-#mainHeader h1 {
-    font-size: 47px;
-	color: #ffffff;
-	margin: 0px;
-}
 	.productCarousel {
 	    width: 1020px;
 		margin: 0 auto;
@@ -160,8 +145,8 @@
 	}
 	.subHeader {
 	    margin: 0px;
-		margin-left: 20px;
-		margin-bottom: 20px;
+		margin-left: 160px;
+		margin-top: 50px;
 	}
     #titleIconDiv {
 	    position: absolute;
@@ -400,6 +385,37 @@
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
+function muskPage() {
+	    $(this).css({
+			    opacity: 0.5
+			});
+			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 1000, 
+				width: $(document).width(), 
+				height: $(document).height(), 
+				'background-color': '#ccc', 
+				opacity: 0 
+			}).fadeIn('slow', function(){ 
+	// 淡入淡出效果 
+				$(this).fadeTo('slow', 0.5); 
+		});
+}
+function muskPageForProduct(id) {
+	    var parentWidth = $(".coverDiv").width(),
+		    frameWidth = $(".detailFrame").width();
+				
+		muskPage();
+		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
+		$(".closeCoverDiv").css({
+			right: (parentWidth-frameWidth)/2,
+			left: 'auto',
+			top: 0
+		});
+		$(".coverDiv").fadeIn(1000);
+};
 app.controller('products', function($scope, $http) {
     var layouts = [{
 	            index: 1,
@@ -573,71 +589,10 @@ app.controller('products', function($scope, $http) {
 	<p><a>祭扫物品</a></p>
 	<p><a>鲜花</a></p>
 </div>
-<div id="mainHeader">
-    <h1>无论是祭扫用品还是葬礼用品<br/>这里一应俱全</h1>
-</div>
-<div id="products" class="coatDiv">
-	<div class="carouselProduct">
-	    <div class="carousel slide productCarousel" id="referenceCarousel">
-		    <h1 class="subHeader">特色产品</h1>
-            <div class="carousel-inner">
-				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
-	                <div class="productItem" id="{{itemLayout.id}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">{{itemLayout.itemName}}</p>
-								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.itemPrice}})</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">了解详情</a></div>
-						</div>
-		            </div>
-                </div>
-            </div>
-            <a class="carousel-control left" href="#referenceCarousel" 
-                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-            <a class="carousel-control right" href="#referenceCarousel" 
-                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-        </div>
-	</div>
-</div>
-<div id="services" class="coatDiv">
-	<div class="carouselProduct">
-	    <div class="carousel slide productCarousel" id="referenceCarousel">
-		    <h1 class="subHeader">特色服务</h1>
-            <div class="carousel-inner">
-				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
-	                <div class="productItem" id="{{itemLayout.id}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">{{itemLayout.itemName}}</p>
-								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.itemPrice}})</p>
-								<div class="addWishButton" onselectstart="return false">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">了解详情</a></div>
-						</div>
-		            </div>
-                </div>
-            </div>
-            <a class="carousel-control left" href="#referenceCarousel" 
-                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-            <a class="carousel-control right" href="#referenceCarousel" 
-                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-        </div>
-	</div>
-</div>
+<h1 class="subHeader">特色产品</h1>
+<IFRAME NAME="content_frame" width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame"></IFRAME>
+<h1 class="subHeader">特色服务</h1>
+<IFRAME NAME="content_frame" width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="serviceFrame"></IFRAME>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div id="titleIconDiv">
@@ -653,6 +608,8 @@ app.controller('products', function($scope, $http) {
 </body>
 <script type="text/javascript">
 window.onload=function(){
+    $("#productFrame").attr("src","component/productLine.html?wishCata=product&feature=1");
+	$("#serviceFrame").attr("src","component/productLine.html?wishCata=service&feature=1");
     $(".wishListGuide").on("click", function () {
 	    window.location.href='wishList.html';
 	});
@@ -667,31 +624,7 @@ window.onload=function(){
 		}
     });
 	$(".productItem").click(function() {
-	        $(this).css({
-			    opacity: 0.5
-			});
-			var parentWidth = $(".coverDiv").width(),
-				frameWidth = $(".detailFrame").width();
-			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-				'z-index': 1000, 
-				width: $(document).width(), 
-				height: $(document).height(), 
-				'background-color': '#ccc', 
-				opacity: 0 
-			}).fadeIn('slow', function(){ 
-	// 淡入淡出效果 
-				$(this).fadeTo('slow', 0.5); 
-			});
-			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
-			$(".closeCoverDiv").css({
-				right: (parentWidth-frameWidth)/2,
-				left: 'auto',
-				top: 0
-			});
-			$(".coverDiv").fadeIn(1000);
+	    muskPageForProduct();
 	});
 	$(".closeCoverDiv").click(function() {
 		$(".coverDiv").fadeOut();

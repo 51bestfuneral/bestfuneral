@@ -154,8 +154,7 @@
 	}
 	#startButton:hover {
 	    background-color: #ff496d;
-		color: #428BCA;
-		box-shadow: 0px 4px 0px 0px #B5AFAF;
+		box-shadow: 0px 4px 0px 0px #ff496d;
 	}
 	#startButton p {
 	    font-size: 48px;

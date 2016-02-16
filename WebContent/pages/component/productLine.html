@@ -60,6 +60,11 @@ body {
 	padding: 0px;
 	min-width: 1000px;
   }
+  body {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+  }
 }
 .coverDiv {
     height: auto;
@@ -172,14 +177,75 @@ body {
 	#products {
 	    padding-bottom: 50px;
 	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ff5274;
+		padding-left: 7px;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton:hover {
+	    background-color: #ff496d!important;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	.disableDiv {
+	    opacity: 0.5;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
-var length = location.search.length,
-	filter = "?"+location.search.substring(5, length),
-	wishList;
+var filter = location.search,
+	wishList,
+	usrId = 1;
 
 app.controller('products', function($scope, $http) {
+	$http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
+	    wishList = response;
+		function validateInList() {
+	    $.ajax({
+			url: 'http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
+			type: 'get',
+			success:function(data){
+				var response = data;
+				for (var i=0;i<response.length;i++) {
+				    var wishInList = response[i];
+					if ($("#"+wishInList.wishId).length > 0) {
+					    $("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
+					}
+				}
+				if ($(".disableDiv").length>0) {
+				    for (var i=0;i<$(".disableDiv").length;i++) {
+				        $(".disableDiv").find("p")[i].innerText = "已加入愿望清单";
+					}
+				}
+			},
+			error: function(error) {
+				var response = error;
+				//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+			}
+		});
+	}
+	validateInList();
+	});
 	$http.get("http://localhost:8080/bestfuneral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
@@ -193,7 +259,7 @@ app.controller('products', function($scope, $http) {
 			    objectsInRow.push(singleProduct);
 			}
 
-			if (j === numberInRow) {
+			if (j === numberInRow || i === response.length-1) {
 			    var layout = {},
 				    active = '',
 					itemLayout = objectsInRow;
@@ -214,9 +280,6 @@ app.controller('products', function($scope, $http) {
 			j++;
 		}
 		$scope.layouts = layouts;
-	});
-	$http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
-	    wishList = response;
 	});
 });
 </script>
@@ -255,72 +318,33 @@ app.controller('products', function($scope, $http) {
         </div>
 	</div>
 </div>
-<div class="coverDiv" hidden>
-<div class="titleDiv">
-<h1>物品详情</h1>
-</div>
-<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
-<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
-</div>
 </body>
 <script>
 window.onload=function(){
-    function muskPage() {
-			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-				'z-index': 1000, 
-				width: $(document).width(), 
-				height: $(document).height(), 
-				'background-color': '#ccc', 
-				opacity: 0 
-			}).fadeIn('slow', function(){ 
-				$(this).fadeTo('slow', 0.5); 
-		});
-	};
-	$(".productItem").click(function() {
-		    var parentWidth = $(".coverDiv").width(),
-				frameWidth = $(".detailFrame").width();
-	        $(this).css({
-			    opacity: 0.5
-			});
-			muskPage();
-			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
-			$(".closeCoverDiv").css({
-				right: (parentWidth-frameWidth)/2,
-				left: 'auto',
-				top: 0
-			});
-			$(".coverDiv").fadeIn(1000);
-	});
-	$(".closeCoverDiv").click(function() {
-		$(".coverDiv").fadeOut();
-		$(".jquery_addmask").remove();
-		$(".productItem").css({
-			 opacity: 1
-		});
+    $("body").on("click",".productItem",function() {
+		    window.parent.muskPageForProduct($(this)[0].id);
 	});
 	$("body").on("click",".addWishButton",function() {
-	    var data = [{
-		    'wishType': 'P',
-			'wishId': $(this).getParent().getParent()[0].id,
-			'count': 1,
-			'wishListId': wishList.wishListId
-		}];
-        $.ajax({
-			url: 'http://localhost:8080/bestfuneral/wishListDetail/add',
-			data: data,
-			type: 'post',
-			dataType:'json',
-			success:function(data){
-				alert("已加入愿望清单！");
-			},
-			error: function(error) {
-			    alert("已加入愿望清单！");
-			}
-		});
-		$(this).select('p')[0].innerText = '已加入愿望清单';
+	    var data = {
+			wishId: $(this).closest('.productItem')[0].id,
+			wishlistId: wishList[0].wishlistId
+		};
+		if (!$(this).hasClass("disableDiv")){
+			$.ajax({
+				url: 'http://localhost:8080/bestfuneral/wishlistDetail/add',
+				type: 'post',
+				data: data,
+				dataType:'json',
+				success:function(data){
+					alert("已加入愿望清单！");
+				},
+				error: function(error) {
+					alert("已加入愿望清单！");
+				}
+			});
+			$(this).addClass("disableDiv");
+			$(this).find('p')[0].innerText = '已加入愿望清单';
+		}
 	});
 };
 </script>

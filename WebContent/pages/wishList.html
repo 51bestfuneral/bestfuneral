@@ -140,6 +140,10 @@
     width: 78px;
 	height: 78px;
 	background: #d8d8d8;
+	cursor: pointer;
+}
+.itemImg:hover {
+    border: 1px solid #ff5274;
 }
 .inputContent {
     padding-top: 14px;
@@ -147,6 +151,12 @@
 .itemDesc {
     text-align: left!important;
 	padding-left: 18px;
+}
+.itemDesc .title {
+    cursor: pointer;
+}
+.itemDesc .title:hover {
+    color: red;
 }
 #shopSumm {
     padding-left: 59px;
@@ -241,6 +251,44 @@
 }
 .minusBitton {
     float: right!important;
+}
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.closeCoverDiv:hover {
+	color: yellow;
+	border: 2px solid yellow;
+}
+.coverImageDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
 }
 </style>
 <script type="text/javascript">
@@ -391,6 +439,7 @@
 				</div>
 				<div class="itemName">
 				    <div class="itemImg">
+					    <img src="{{wishListDetail.imageUrl}}"></img>
 					</div>
 					<div class="itemDesc inputContent">
 					    <p class="title">{{wishListDetail.wishName}}</p>
@@ -458,6 +507,9 @@
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
+<div class="coverImageDiv" hidden>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
 </body>
 <script>
 window.onload=function(){
@@ -491,6 +543,48 @@ window.onload=function(){
 	    $(this).closest('.tableContent').remove();
 	    calculate();
 		sendDeleteRequest($(this));
+	});
+	function muskPage() {
+			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 1000, 
+				width: $(document).width(), 
+				height: $(document).height(), 
+				'background-color': '#ccc', 
+				opacity: 0 
+			}).fadeIn('slow', function(){ 
+	// 淡入淡出效果 
+				$(this).fadeTo('slow', 0.5); 
+		});
+	};
+	$(".itemImg").click(function() {
+	    muskPage();
+	    $(".coverImageDiv").fadeIn();
+	});
+	$(".itemDesc").find(".title").click(function() {
+		    var parentWidth = $(".coverDiv").width(),
+				frameWidth = $(".detailFrame").width();
+	        $(this).css({
+			    opacity: 0.5
+			});
+			muskPage();
+			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
+			$(".closeCoverDiv").css({
+				right: (parentWidth-frameWidth)/2,
+				left: 'auto',
+				top: 0
+			});
+			$(".coverDiv").fadeIn(1000);
+	});
+	$(".closeCoverDiv").click(function() {
+		$(".coverDiv").fadeOut();
+		$(".coverImageDiv").fadeOut();
+		$(".jquery_addmask").remove();
+		$(".productItem").css({
+			 opacity: 1
+		});
 	});
 };
 </script>

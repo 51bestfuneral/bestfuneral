@@ -223,7 +223,155 @@
 		line-height: 35px;
 		margin: 0px;
 	}
+		#comments {
+	    padding-top: 50px;
+	}
+	.singleComment {
+	    width: 600px;
+		margin: 0 auto;
+		padding: 25px;
+	}
+    .commentTitle {
+	    overflow: auto;
+	}
+	.userPicture {
+	    width: 50px;
+		height: 50px;
+		border-radius: 25px;
+		overflow: hidden;
+		float: left;
+	}
+	.userPicture img {
+	    width: 100%;
+		height: 100%;
+	}
+	.headerText {
+	    float: left;
+		padding-left: 25px;
+	}
+	.headerText h3 {
+	    margin: 0px;
+		font-size: 25px;
+        color: #6B6C71;
+	}
+	.headerText  p {
+	    margin: 0px;
+		color: #ccc;
+		margin-top: 5px;
+	}
+	.rating {
+	    float: left;
+		padding-left: 40px;
+	}
+	.rating span {
+	    font-size: 8px;
+		margin: 0px;
+		padding-top: 33px;
+		color: #DFDFDF;
+	}
+	.shine {
+	    color: #F8C320!important;
+	}
+	.commentContent {
+	    margin-top: 25px;
+		color: #6A6A72;
+		height: 100px;
+		line-height: 25px;
+	}
+	.commentFooter {
+	    margin-top: 30px;
+	}
+	.commentFooter a {
+	    float: left;
+		line-height: 34px;
+	}
+	.commentFooter div {
+	    float: right;
+	}
+	.yesbutton {
+	    background-color: #F5F5F5;
+		color: #C1C1C1;
+		border: none;
+	}
+	.nobutton {
+	    background-color: #DC2500;
+		color: #ffffff;
+		border: none;
+	}
 </style>
+<script type="text/javascript">
+var app = angular.module('productApp', []),
+    length = location.search.length,
+	type = location.search.substring(4, length);
+app.controller('products', function($scope, $http) {
+    var layouts = [{
+	            index: 1,
+				active: 'active'
+	        }, {
+	    	    index: 2,
+				active: ''
+	    	}, {
+	    	    index: 3,
+				active: ''
+	    	}],
+		cataGroups = [{
+	            index: 1,
+				active: 'active'
+	        }, {
+	    	    index: 2,
+				active: ''
+	    	}, {
+	    	    index: 3,
+				active: ''
+	    	}];
+		
+	    for(var i=0;i<layouts.length;i++){
+            var layout = layouts[i],
+	    	    itemLayout = [{
+	    		    itemName: '镶金楠木棺材',
+					itemPrice: '5000',
+					itemUrl: 'www.baidu1.com'
+	    		}, {
+	    		    itemName: '紫檀木棺材',
+					itemPrice: '10000',
+					itemUrl: 'www.baidu2.com'
+	    		}, {
+	    		    itemName: '樟木棺材',
+					itemPrice: '2000',
+					itemUrl: 'www.baidu3.com'
+	    		}, {
+	    		    itemName: '樟木棺材',
+					itemPrice: '2000',
+					itemUrl: 'www.baidu3.com'
+	    		}];
+
+	    	layout.itemLayout = itemLayout;
+        }
+
+		for(var i=0;i<cataGroups.length;i++){
+            var cataGroup = cataGroups[i],
+	    	    itemCatas = [{
+	    		    itemName: '墓地准备',
+					itemDesc: '墓地通畅需要提前4-6个月提前预定以便选取到最符合您需要的地点',
+					itemUrl: '../../js/images/guhuiheCata.png'
+	    		}, {
+	    		    itemName: '骨灰盒购买',
+					itemDesc: '墓地通畅需要提前4-6个月提前预定以便选取到最符合您需要的地点',
+					itemUrl: '../../js/images/mudiCata.png'
+	    		}];
+
+	    	cataGroup.itemCatas = itemCatas;
+        }
+	$scope.layouts = layouts;
+	$scope.cataGroups = cataGroups;
+	$http.get("http://localhost:8080/bestfuneral/wish/list?wishId="+type).success(function(response) {
+	    $scope.wish = response[0];
+	});
+	$http.get("http://localhost:8080/bestfuneral/comment/list?wishId="+type).success(function(response) {
+	    $scope.comments = response;
+	});
+});
+</script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
 <div id="productDetail">
     <div id="productInfo">
@@ -231,10 +379,10 @@
 		    <img src="../../js/images/service1.png"></img>
 		</div>
 		<div id="productContent">
-		    <h1>基础入殓师服务</h1>
+		    <h1>{{wish.wishName}}</h1>
 			<div id="priceArea">
 			    <div class="mainPrice">
-				    <h1>￥6288</h1>
+				    <h1>￥{{wish.price}}</h1>
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">市场价</p>
@@ -289,7 +437,7 @@
 			<div class="textContent">
 			    <h1>服务描述</h1>
 				<div class="contentDiv">
-				    <p class="textContentFont">给逝者另外一个美好的世界，让亲人的思念寄托在一个最美的地方给逝者另外一个美好的世界，让亲人的思念寄托在一个最美的地方给逝者另外一个美好的世界，让亲人的思念寄托在一个最美的地方.</p>
+				    <p class="textContentFont">{{wish.wishDesc}}</p>
 				</div>
 			</div>
 		</div>
@@ -377,62 +525,39 @@
 			<div class="textContent">
 			    <h1>服务评论</h1>
 				<div class="contentDiv">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="reference">
-	    <div class="carouselProduct">
-	    <div class="carousel slide productCarousel" id="referenceCarousel">
-            <div class="carousel-inner">
-				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
-	                <div class="productItem" ng-repeat="itemLayout in layout.itemLayout track by $index">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">{{itemLayout.itemName}}</p>
-								<p class="detail">￥<span>{{itemLayout.itemPrice}}</span></p>
-								<div class="addWishButton" onselectstart="return false">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
+				    <div id="comments">
+						<div class="singleComment" ng-repeat="comment in comments">
+							<p>产品使用感受</p>
+							<div class="commentTitle">
+								<div class="userPicture"><img src="../../js/images/Confuse4.png"></img></div>
+								<div class="headerText">
+									<h3>Amazing Sound For The Price</h3>
+									<p>{{comment.userName}} {{comment.comment.createDate}}</p>
+								</div>
+								<div class="rating">
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star"></span>
+								</div>
+							</div>
+							<div class="commentContent">
+								<p>{{comment.comment.comment}}</p>
+							</div>
+							<div class="commentFooter">
+								<a>Comment</a>
+								<div>
+									<span>was this helpful?</span>
+									<button class="btn btn-primary nobutton">No</button>
+									<button class="btn btn-primary yesbutton">Yes</button>
 								</div>
 							</div>
 						</div>
-		            </div>
-                </div>
-            </div>
-            <a class="carousel-control left" href="#referenceCarousel" 
-                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-            <a class="carousel-control right" href="#referenceCarousel" 
-                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-        </div>
-	    </div>
-	</div>
-	<div id="referenceCata">
-		<div class="carouselCata">
-	    <div class="carousel slide" id="referenceCataCarousel">
-		    <h2>相关类别</h2>
-            <div class="carousel-inner">
-				<div class="item {{cataGroup.active}}" alt="Second slide" ng-repeat="cataGroup in cataGroups">
-	                <div class="singleCata" ng-repeat="itemCata in cataGroup.itemCatas track by $index">
-		                <div class="singleCataImag">
-			                <img src="{{itemCata.itemUrl}}" class="detailImage"></img>
-			            </div>
-			            <div class="singleCataText">
-			                <h2>{{itemCata.itemName}}</h2>
-			            	<p>{{itemCata.itemDesc}}</p>
-			            </div>
-		            </div>
-                </div>
-            </div>
-            <a class="carousel-control left" href="#referenceCataCarousel" 
-                data-slide="prev"><div class="arrowCoat"><span class="headerArrow">&lsaquo;</span></div></a>
-            <a class="carousel-control right" href="#referenceCataCarousel" 
-                data-slide="next"><div class="arrowCoat"><span class="headerArrow">&rsaquo;</span></div></a>
-        </div>
-	    </div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 </body>

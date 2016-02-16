@@ -25,8 +25,6 @@ public class SimpleCORSFilter implements Filter {
 	response.setCharacterEncoding("UTF-8");
 	request.setCharacterEncoding("UTF-8");
 	
-	System.out.println("-----------------test");
-	
     chain.doFilter(req, res);
   }
   public void init(FilterConfig filterConfig) {}

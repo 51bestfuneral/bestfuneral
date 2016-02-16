@@ -39,6 +39,12 @@ public class Wish {
 	@Column(name="createdate")
 	private Date createDate;
 	
+	@Column(name="feature")
+	private Integer feature;
+	
+	@Column(name="wish_cata")
+	private String wishCata;
+
 	@Column(name="updateddate")
 	private Date updatedDate;
 
@@ -112,5 +118,21 @@ public class Wish {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}	
+	}
+
+	public Integer getFeature() {
+		return feature;
+	}
+
+	public void setFeature(Integer feature) {
+		this.feature = feature;
+	}
+
+	public String getWishCata() {
+		return wishCata;
+	}
+
+	public void setWishCata(String wishCata) {
+		this.wishCata = wishCata;
+	}
 }
