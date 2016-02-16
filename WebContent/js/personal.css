@@ -1,0 +1,445 @@
+@import url("Bootstrap/boot.css");
+    #mainContent{
+	    width: 100%;
+		text-align:center;
+	}
+    #topMessage {
+	    width: 100%;
+		margin:0px auto;  
+		height:auto;
+	}
+	#topMessage h1 {
+	    margin-top: 0;
+		line-height: 150px;
+		font-size: 52px;
+		margin-bottom: 0;
+	}
+	#myTabContent{
+	    height:auto;
+	}
+	h2{
+	    margin: 0;
+		line-height: 100px;
+	}
+	#myTab li {
+	    margin-left: 5%;
+		width : 8%;
+		padding: 0;
+		border: 0;
+	}
+	li a{
+	    text-decoration: none;
+	}
+	.tabIcon {
+	    width:100px;
+		height:100px;
+		background-color:#E2E2E2;
+		border-radius:50px;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+	}
+	.tabIconText {
+	    height:100px;
+		line-height:100px;
+		display:block;
+		color:#6C6C6C;
+		text-align:center;
+		font-size:30px;
+	}
+	.leftImg {
+	    float:left;
+		width:45%;
+		margin-left: 5%;
+	}
+	.rightText {
+	    float:left;
+		width:45%;
+		padding-left: 50px;
+		text-align: left;
+	}
+	.rightText h2 {
+	    font-size: 44px;
+	}
+	.rightText p {
+	    font-size: 26px;
+	}
+	.messageImg {
+	    width:100%;
+		height:100%;
+	}
+	#confuse {
+	    width: 100%;
+		overflow:auto;
+		background: #F7F3EB;
+		padding-left:12%;
+		padding-right:12%;
+		padding-bottom: 3%;
+	}
+	.tab-pane {
+		overflow:auto;
+	}
+	.iconDiv {
+	    width: 25%;
+		float: left;
+	}
+	#whyChooseText {
+		position: absolute;
+		width:100%;
+	}
+	#textInImg {
+	    margin-top: 80px;
+		color: #fff;
+	}
+	#operation {
+	    width: 100%;
+		overflow: auto;
+	}
+	.halfIcon {
+	    width: 100%;
+		height: 80%;
+	}
+    .halfLink {
+	    width: 100%;
+	}
+	.aButton {
+		padding: 10px 10px;
+		color: #ff5274;
+		font-size: 36px;
+		text-decoration: none;
+	}
+	.halfIconImg {
+	    margin-top: 140px;
+	}
+	#taocan {
+	    width: 50%;
+		margin:0px auto;  
+		height:auto;
+		overflow:auto;
+		height: 250px;
+	}
+    .taocanIconDiv {
+	    width: 30%;
+		float: left;
+		box-shadow: 2px 3px 2px 2px rgba(0,0,0,.2);
+		margin: 10px;
+		margin-top: 40px;
+		height: 150px;
+		cursor:pointer;
+	}
+	.taocanIconDiv #h5 {
+	    font-size: 13px;
+	}
+	.header {
+	    padding-top : 50px;
+	}
+	.headerText {
+	    margin-top : 50px;
+		font-size: 32px;
+	}
+	#nextStep {
+	    padding: 40px;
+		font-size: 28px;
+		margin: 0;
+	}
+	#startButton {
+	    width : 300px;
+		height: 82px;
+		background-color: #ff5274;
+		box-shadow: 0px 4px 0px 0px #e6385a;
+		margin:0px auto;
+		color: white;
+		cursor: pointer;
+	}
+	#startButton:hover {
+	    background-color: #ff496d;
+		box-shadow: 0px 4px 0px 0px #ff496d;
+	}
+	#startButton p {
+	    font-size: 48px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	#startText {
+	    padding: 20px;
+		font-size: 16px;
+	}
+	#footer p {
+	    font-size: 16px;
+	}
+	a {
+	    text-decoration: underline;
+		color: #ff5274;
+		cursor: pointer;
+	}
+	a:hover {
+	    color: #428BCA;
+	}
+	.chooseTab {
+	    background: #ff5274;
+	}
+	.chooseTab .tabIconText {
+	    color: white;
+	}
+	#titleIconDiv {
+	    position: absolute;
+		left: 64px;
+		top: 14px;
+		width: 68px;
+		height: 68px;
+		text-align: center;
+		border-radius: 34px;
+		overflow: hidden;
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	#titleIconDiv:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.iconImg {
+	    margin-left: -5px;
+		margin-top: 2px;
+		max-width: none;
+	}
+	ul#myTab {
+        padding-bottom: 3%;
+    }
+	.nav-tabs a:hover {
+	    text-decoration:none;
+	}
+	#bottomMessage {
+	    padding-bottom: 3%;
+		background-image: linear-gradient(-180deg, #EBEBEB 0%, #DCDDDF 48%, #C4C5C7 99%);
+	}
+	#bottomMessage h3 {
+	    font-size: 38px;
+	}
+	#headerMessage img {
+	    width: 440px;
+		height: 272px;
+	}
+	.triangle-down {
+	    width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 14px solid #ff5274;
+		margin-left: 43px;
+		margin-top: -2px;
+		display: none;
+	}
+	.chooseTab a {
+	    text-decoration:none;
+	}
+    .operationPanel {
+	    width: 50%;
+		overflow: auto;
+		float: left;
+		padding: 2%;
+		height: 100%;
+	}
+	.halfIcon h4 {
+	    font-size: 26px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	#whyChooseText h2 {
+	    font-size: 39px;
+	}
+	#leftPanel .halfLink {
+	    margin-top: 48px;
+	}
+	#rightPanel .halfLink {
+	    margin-top: 20px;
+	}
+	#endMessage {
+	    background-color: #eeeeee;
+	}
+	#endMessage p{
+	    margin: 0px;
+	}
+	body {
+        margin£º0px;
+    }
+	.topContent {
+	    width: 100%;
+		height:auto;
+		overflow:auto;
+		background: radial-gradient(#FFFFFF,#d7dce1);
+	}
+	#designTaocan {
+	    width: 85%;
+		margin:0px auto;
+		height:auto;
+		overflow:auto;
+	    margin-bottom: 3%;
+		padding-bottom: 1%;
+	}
+	#compareForm {
+	    width: 100%;
+		margin:0px auto;
+		overflow:auto;
+		background-color: #f7f7f7;
+		height:auto;
+		padding: 3%;
+	}
+    .designTaocanIconDiv {
+	    width: 22%;
+		float: left;
+		margin-right: 3%;	
+		height: 120px;
+		background-color: #ECE7E7;
+		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+		border-radius: 10px;
+	}
+	.designTaocanIconDiv h3 {
+	    line-height: 120px;
+		margin: 0;
+		cursor:pointer;
+	}
+	.choose {
+	    box-shadow: 1px 1px 1px 1px rgba(0,0,0,.2);
+		background-color: #B5AFAF;
+		border-bottom: 2px solid #B5AFAF;
+	}
+	.iconChild {
+	    width: 100%;
+		height: 100%;
+	}
+	.iconChild h2 {
+	    line-height: 80px;
+		font-size: 20px;
+		margin-bottom: 0;
+		font-weight:bold;
+	}
+	.iconChild h4 {
+	    margin-bottom: 0;
+		margin-top: 0;
+		font-size: 10px;
+	}
+    .iconChild p {
+	    margin-bottom: 0;
+	}
+	.taocanIconDivInRow {
+	    width: 100%;
+		height : 100%;
+		cursor:pointer;
+		margin: 0px;
+		border-top :10px solid green;
+	}
+	.barSelect {
+	    background: #B5AFAF;
+		border: 2px solid #FF5275;
+		box-shadow: none;
+	}
+	#headerMessage {
+	    padding-top: 20px;
+	}
+	#headerMesText {
+	    line-height:100px;
+		margin: 0;
+		font-size: 48px;
+	}
+	.descRow {
+	    width: 100%;
+		float: left;
+		margin: 0;
+		padding: 0;
+	}
+	.descRow p {
+	    line-height: 100px;
+	}
+	.valueRow .headerLine {
+	    background-color: #BF1544;
+	}
+	.valueRow {
+	    width: 100%;
+		float: left;
+		padding: 0;
+		margin-bottom: 0;
+	}
+	.valueRow .normalLine {
+	    background-color: #FBFBFB;
+	}
+	.headerLine {
+	    width: 100%;
+		height: 120px;
+		list-style-type:none;
+		padding: 0;
+		border-top: 1px solid #ECE7E7;
+	}
+    .normalHeaderLine {
+	    width: 100%;
+		height: 100px;
+		list-style-type:none;
+		border-top: 1px solid #ECE7E7;
+	}
+	.normalLine {
+	    width: 100%;
+		height: 60px;
+		list-style-type:none;
+		border-top: 1px solid #ECE7E7;
+	}
+	.normalLine p {
+	    line-height : 60px;
+		margin-bottom: 0;
+	}
+	.normalLineText {
+	    width : 100%;
+		padding: 0;
+		margin-top: 0;
+		height: 60px;
+		padding-top : 1px;
+	}
+	.normalLineText p {
+	    margin: 0;
+		font-size: 1px;
+	}
+	.tickImg {
+	    vertical-align: middle;
+		margin: 0px;
+        padding: 0px;
+	}
+	.doubleText {
+	    line-height:150px;
+		margin: 0;
+	}
+	.imgDiv {
+		width : 100%;
+		height : 100%;
+	}
+	.fakeImg {
+	    width: 0;
+        height: 100%;
+		border: none;
+	}
+	.designHeaderText {
+	    margin-top: 0;
+	}
+	.includeDiv {
+	    width: 15%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		padding-bottom: 1%;
+		margin-top: 20px;
+	}
+	.includeDataDiv {
+	    width: 16%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		margin-bottom: 1%;
+		margin-left : 1%;
+		margin-top: 20px;
+		cursor:pointer;
+	}

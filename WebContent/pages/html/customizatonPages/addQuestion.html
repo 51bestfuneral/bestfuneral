@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>添加问题</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="questionManager">
+<header>
+<ul id="nav">
+		<li><a href="addQuestion.html">添加问题</a></li>
+	<li><a href="updateQuestion.html">修改问题</a></li>
+	<li><a href="deleteQuestion.html">删除问题</a></li>
+	<li><a href="updateQuestion.html">配置选项</a></li>
+</ul>
+</header>
+<script>
+	var serviceCategories;
+</script>
+
+
+
+<div id="addSection">
+	
+	
+	
+
+<contentSection>
+	
+	
+	
+	<table border="0"  width="100%"> 
+		
+	
+		
+		
+		
+		
+		
+	<tr>  <td>
+		
+		<label >所属模块</label>
+	<select   ng-model="question.moduleId">
+  <option value="1">墓地</option>
+  <option value="2">寿衣</option>
+  <option value="3">佛事</option>
+  <option value="4">骨灰盒</option>
+  </select>
+		
+		</td>  <td>
+			
+			<label >优先级&nbsp;</label>
+	<select   ng-model="question.priorityId">
+  <option value="1">高</option>
+  <option value="2">中</option>
+  <option value="3">低</option>
+  <option value="4">无优先级</option>
+  <option value="4">其他</option>
+
+  </select>
+			
+			</td> 
+			
+		</tr>
+			
+		<tr>
+			<td>
+				
+				
+				<label >性别&nbsp;&nbsp;</label>
+	<select  ng-model="question.genderRange">
+  <option  selected="selected" value="1"  selected="selected">男</option>
+  <option value="2">女</option>
+  <option value="3">男和女</option>
+  <option value="4">其他</option>
+  </select>
+				
+				
+				</td> <td>
+					
+					
+				<label >年龄区间</label>
+	<select  ng-model="question.ageRange">
+  <option value="1">( 0-20]</option>
+  <option value="2">(20-30]</option>
+  <option value="3">(30-40]</option>
+  <option value="4">(40-50]</option>
+  <option value="4">(50-60]</option>
+  <option value="4">(60-70]</option>
+  <option value="4">(70-80]</option>
+  <option value="4">(80-90]</option>
+  <option value="4">(90-100]</option>
+  <option value="4">(100-100+]</option>
+
+  </select>	
+					
+					
+					</td> </tr>
+	
+	
+	<tr> 
+		
+		
+		
+		
+		
+		 <td>
+		
+		
+		<label >答案类型</label>
+	<select  ng-model="question.answerCate">
+  <option value="1">单选</option>
+  <option value="2">多选</option>
+  <option value="3">填空</option>
+  <option value="4">多处填空</option>
+  <option value="5">其他</option>
+
+  </select>
+		
+		</td>  <td>
+			
+			<label >展示顺序</label>
+			
+			<input type="number" name="displayOrder" min="10" max="1000"  ng-model="question.displayOrder" />
+	
+			
+			
+			</td>
+		</tr>
+			
+			<tr>
+			 <td>
+				
+				
+				
+				<label >展示形式</label>
+	<select  ng-model="question.displayForm" >
+  <option value="1">文字</option>
+  <option value="2">图片</option>
+  <option value="3">音乐</option>
+  <option value="4">视频</option>
+  <option value="5">其他</option>
+  </select>
+				
+				
+				</td> <td>
+					
+			<label >是否必答</label>
+	<select  ng-model="question.mandatoryFlag">
+  <option value="1">是</option>
+  <option value="2">不是</option>
+  
+
+  </select>
+				
+					
+					
+					</td> </tr>
+					
+			<tr>
+				
+	<td>
+		
+		<label >选项个数</label>
+		
+					<input type="number" name="optionSize" min="1" max="100"  ng-model="question.optionSize" />
+
+		
+		</td>			 	<td>
+			
+			
+				<label >答案形式</label>
+	<select  ng-model="question.optionForm" >
+  <option value="1">文字</option>
+  <option value="2">图片</option>
+  <option value="3">音乐</option>
+  <option value="4">视频</option>
+  <option value="5">其他</option>
+  </select>
+			
+			
+			
+			
+			
+			</td>		
+				
+				
+				
+				
+				
+				</tr>		
+					
+					
+					
+					
+					
+					
+	
+		<tr>  <td>
+			
+			<label >标题&nbsp;&nbsp;</label>
+	
+   <input  type='text'  ng-model="question.title"   maxlength="50"/>
+			
+			</td><td >
+				
+				 <label style=' vertical-align: top;'>问题描述</label>
+	<textarea   rows="8" cols="50"   ng-model="question.questionContent"></textarea>
+				
+				
+				</td>   </tr> 
+				
+				<tr> <td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">添加</button>   </td></tr>
+	
+</table>
+		
+	
+</contentSection>
+	
+	
+</div>
+
+<div>已添加问题列表</div>
+
+
+<div id='questionList'   >
+
+
+
+
+<table border="0"  width="100%" > 
+	
+	
+	
+	
+	<tr> <td> <label >问题ID&nbsp;</label> </td>   <td>  <label >问题标题</label></td> 
+
+  <td> <label >所属模块</label> </td>   <td>  <label >优先级</label></td>   <td>  <label >是否必答</label></td> </tr>
+	
+	<tr   ng-repeat="savedQuestion in questions">
+		
+		
+		<td  >  {{savedQuestion.questionId}} </td><td  >  <li><a href="updateQuestion.html">{{savedQuestion.title}} </a></li> </td>	<td  >  {{savedQuestion.moduleId}} </td><td  > {{savedQuestion.priorityId}} </td>  <td  > {{savedQuestion.mandatoryFlag}} </td>
+		
+		
+		
+</tr>	
+	
+	
+	
+</table>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+	<style>
+		
+		
+	#addSection{
+	height:300px;
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0%;
+	}
+
+
+
+#addSection contentSection{	
+	
+float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0.5);
+	}
+	
+	
+	
+	#questionList{
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0% ; top:50;
+	}
+
+#questionList _table{
+	
+	
+	 background-color: #d6d6d6;
+	
+	
+	
+	
+	}
+
+	
+
+	
+
+		
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
+ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
+ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
+ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
+.nextButton{
+	  background-color: rgba(0, 0, 0, 0.58);
+		width : 70px;
+		height: 30.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:10px 5px 5px 5px;
+   } 
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</style>
+	
+	<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+	
+	
+	<script>
+	var app = angular.module('myApp', []);
+ 
+	 app.controller('questionManager', function($scope, $http) {
+	 	
+	 	$http.get("http://localhost:8080/funeral/fQuestion/listForUpdate").success(function(response) {
+	       $scope.questions = response;
+			})
+	
+	
+	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.question);
+	    alert("  datadata ="+datadata);
+	    $http({
+            method: "POST",
+            url:"http://localhost:8080/funeral/fQuestion/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+          window.location.reload("addQuestion.html");  
+          
+        
+          
+          
+        });
+	});	
+	
+	
+	
+	
+		
+});
+	</script>
+
+</ul>
+</body>
+</html>

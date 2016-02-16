@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script type="text/javascript">
+var app = angular.module('myApp', []);
+var answers = [];
+var answerForSaves = [];
+app.controller('question', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/question/list?questionId=1").success(function(response) {
+		if (response.length > 0) {
+	        $scope.curQuestion = response[0];
+			$http.get("http://localhost:8080/funeral/option/list?questionId=1").success(function(optionRes) {
+			    $scope.options = optionRes;
+			})
+		}
+	});
+	$(document.body).on("click",".questionOption", function( event ) {
+	    var options = {},
+			answer = {
+			    "questionContent": $scope.curQuestion.questionContent,
+				"answerContent": this.innerText
+			},
+			answerForSave = {
+			    "questionId": $scope.curQuestion.questionId,
+				"answerDesc": this.id,
+				"userId": "1"
+			};
+		answers.push(answer);
+	    answerForSaves.push(answerForSave);
+		$("#questionDiv").effect( "drop", options, 500);
+		
+		$http.get("http://localhost:8080/funeral/question/findNext?sequence="+ $scope.curQuestion.sequence +"&optionId="+this.id).success(function(response) {
+			if (response.length > 0) {
+				$scope.curQuestion = response[0];
+				$http.get("http://localhost:8080/funeral/option/list?questionId="+response[0].questionId).success(function(optionRes) {
+					$scope.options = optionRes;
+					$("#questionDiv").fadeIn();
+				});
+			}
+			else {
+			    $scope.answers = answers;
+			    $("#answerDiv").fadeIn();
+			}
+		});
+    });
+	$("#directChooseButton").click(function() {
+	    $("#directChooseDiv").fadeIn();
+	});
+	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify(answers);
+	    $http({
+            method: "POST",
+            url:"http://localhost:8080/funeral/answer/add",
+            data: answerForSaves,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+            alert("chenggong");
+        });
+	});
+});
+app.controller('items', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/question/list?questionId=1").success(function(response) {
+	    
+	});
+});
+
+function testCtrl() {
+            alert('test');
+         }
+
+
+
+</script>
+<body ng-app="myApp" ng-controller="question">
+<div>
+<h1>葬礼定制</h1>
+<h6>无论您是需要一整套葬礼服务，还是单一产品的购买，我们都能提供你最适合的解决方案。回答我们几个问题， 我们可以帮助您预选出您的定制化葬礼</h6>
+    <div id="questionDiv">
+        <h6>回答几个问题，我们帮您选择合适的服务</h6>
+        <h2>{{curQuestion.questionContent}}?</h2>
+        <ul>
+		    <li ng-repeat="option in options">
+                <button class="questionOption" id="{{option.optionId}}" click=nextQuestion()>{{option.optionDesc}}</button>
+			</li>
+        </ul>
+    </div>
+</div>
+<div>
+<div id ="answerDiv" hidden>
+<h3>您的选择是</h3>
+<ul>
+    <li ng-repeat="answer in answers">
+	    <h4>{{answer.questionContent}}</h4>
+		<h4>{{answer.answerContent}}</h4>
+	</li>
+</ul>
+</div>
+<button id="directChooseButton">直接选择</button>
+<h6>您也可以直接定制产品和服务</h6>
+<div hidden id="directChooseDiv">
+<span class="step1"></span>
+<h2>选择物品</h2>
+<ul >
+    <li ng-repeat="item in items">
+        <div id="{{item.questionId}}" class="{{item.className}}">
+            <h6>回答几个问题，我们帮您选择合适的服务</h6>
+            <h2>您是准备为谁定制葬礼?</h2>
+            <ul>
+                <button></button>
+            </ul>
+        </div>
+	</li>
+</ul>
+</div>
+<button id="saveButton">生成愿望清单</button>
+</body>
+<IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</html>

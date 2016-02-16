@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>更新问题</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body ng-app="myApp" ng-controller="questionManager">
+<header>
+<ul id="nav">
+	<li><a href="addQuestion.html">添加问题</a></li>
+	<li><a href="updateQuestion.html">修改问题</a></li>
+	<li><a href="deleteQuestion.html">删除问题</a></li>
+	<li><a href="updateQuestion.html">配置选项</a></li>
+</ul>
+</header>
+<script>
+	var serviceCategories;
+</script>
+
+
+
+<div id="addSection">
+	
+	
+	
+
+<contentSection>
+	
+	
+	
+	<table border="0"  width="100%"> 
+		
+	
+		
+		
+		
+		
+		
+	<tr>  <td>
+		
+		<label >所属模块</label>
+	<select ng-model="currentQuestion.moduleId"     value={{currentQuestion.moduleId}} > 
+		
+  <option value="1">墓地</option>
+  <option value="2">寿衣</option>
+  <option value="3">佛事</option>
+  <option value="4">骨灰盒</option>
+  </select>
+		
+		</td>  <td>
+			
+			<label >优先级&nbsp;</label>
+	<select   ng-model="currentQuestion.priorityId"   value={{currentQuestion.priorityId}} >
+
+  <option value="1">高</option>
+  <option value="2">中</option>
+  <option value="3">低</option>
+  <option value="4">无优先级</option>
+  <option value="5">其他</option>
+
+  </select>
+			
+			</td> 
+			
+		</tr>
+			
+		<tr>
+			<td>
+				
+				
+				<label >性别&nbsp;&nbsp;</label>
+	<select  ng-model="currentQuestion.genderRange" value={{currentQuestion.genderRange}}>
+
+  <option  value="1">男</option>
+  <option value="2">女</option>
+  <option value="3">男和女</option>
+  <option value="4">其他</option>
+  </select>
+				
+				
+				</td> <td>
+					
+					
+				<label >年龄区间</label>
+	<select  ng-model="currentQuestion.ageRange"   value={{currentQuestion.ageRange}}  >
+
+  <option value="1">( 0-20]</option>
+  <option value="2">(20-40]</option>
+  <option value="3">(40-70]</option>
+  <option value="4">(70-90]</option>
+  <option value="5">(90-90+]</option>
+  
+
+  </select>	
+					
+					
+					</td> </tr>
+	
+	
+	<tr> 
+		
+		
+		
+		
+		
+		 <td>
+		
+		
+		<label >答案类型</label>
+	<select  ng-model="currentQuestion.answerCate"  value={{currentQuestion.answerCate}}>
+  <option value="1">单选</option>
+  <option value="2">多选</option>
+  <option value="3">填空</option>
+  <option value="4">多处填空</option>
+  <option value="5">其他</option>
+
+  </select>
+		
+		</td>  <td>
+			
+			<label >展示顺序</label>
+			
+			<input type="number"  name="displayOrder" min="1" max="1000"  ng-model="currentQuestion.displayOrder"  value={{currentQuestion.displayOrder}}>
+			
+			</td>
+		</tr>
+			
+			<tr>
+			 <td>
+				
+				
+				
+				<label >展示形式</label>
+	<select  ng-model="currentQuestion.displayForm" value={{currentQuestion.displayForm}}>
+
+  <option value="1">文字</option>
+  <option value="2">图片</option>
+  <option value="3">音乐</option>
+  <option value="4">视频</option>
+  <option value="5">其他</option>
+  </select>
+				
+				
+				</td> <td>
+					
+			<label >是否必答</label>
+	<select  ng-model="currentQuestion.mandatoryFlag"  value={{currentQuestion.mandatoryFlag}}>
+
+  <option value="1">是</option>
+  <option value="2">不是</option>
+  
+
+  </select>
+				
+					
+					
+					</td> </tr>
+					
+			<tr>
+				
+	<td>
+		
+		<label >选项个数</label>
+		
+					<input type="number" name="optionSize" min="1" max="100"  ng-model="currentQuestion.optionSize" value={{currentQuestion.optionSize}}>
+
+		
+		</td>			 	<td>
+			
+			
+				<label >答案形式</label>
+	<select  ng-model="currentQuestion.optionForm"  value={{currentQuestion.optionForm}} >
+		
+  <option value="1">文字</option>
+  <option value="2">图片</option>
+  <option value="3">音乐</option>
+  <option value="4">视频</option>
+  <option value="5">其他</option>
+  </select>
+			
+			
+			
+			
+			
+			</td>		
+				
+				
+				
+				
+				
+				</tr>		
+					
+					
+					
+					
+					
+					
+	
+		<tr>  <td>
+			
+			<label >标题&nbsp;&nbsp;</label>
+	
+   <input  type='text'  ng-model="currentQuestion.title"   maxlength="50"    value={{currentQuestion.title}}>
+			
+			</td><td >
+				
+				 <label style=' vertical-align: top;'>问题描述</label>
+	<textarea   rows="8" cols="50"   ng-model="currentQuestion.questionContent"    value={{currentQuestion.questionContent}}></textarea>
+				
+				
+				</td>   </tr> 
+				
+				<tr> <td>&nbsp;</td><td  >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">更新</button>   </td></tr>
+	
+</table>
+		
+	
+</contentSection>
+	
+	
+</div>
+
+
+
+<div  id="addOptionSection">
+	
+	<table>
+<tr>
+	
+	<td>
+		 <label style=' vertical-align: top;'>选项描述</label>
+   <input  type='text'  ng-model="currentOption.optionDesc"   maxlength="50"    >
+		
+		
+		</td>
+		<td>
+		 <label style=' vertical-align: top;'>图片名称</label>
+   <input  type='text'  ng-model="currentOption.imgUrl" size="50"  maxlength="80"   >
+			
+			</td>
+			
+			<td>&nbsp;&nbsp;<button id="addOption" class="addButton">保存选项</button>    </td>
+		<td>&nbsp;&nbsp;<button id="deleteOption" class="addButton">删除选项</button>    </td>
+</tr>
+
+
+</table>	
+	
+	
+	
+	
+	
+	</div>
+	
+	
+<div>已配置选项列表</div>
+
+
+<div  id="optionList">
+	
+	
+	<table  border="0"  width="100%">
+		
+<tr> <td> <label >选项ID&nbsp;</label> </td>   <td>  <label >图片地址</label></td>    <td>  <label >选项说明</label></td> </tr>		
+		
+<tr   ng-repeat="savedOption in savedOptions">
+	
+	
+		<td  >   <li>     <input type="radio" name="savedOption" value={{savedOption.optionId}}  ng-click="changeOption(savedOption.optionId)"/>     <label >    {{savedOption.optionId}} </label>  </li> </td>
+		
+		<td  >  {{savedOption.imgUrl}} </td>
+		
+			<td  >  {{savedOption.optionDesc}} </td>
+	
+	
+	<td>
+		
+	</td>
+	
+	
+	
+	
+</tr>		
+		
+		
+		
+		
+		
+		</table>
+	
+	
+	
+	
+	
+</div>
+
+
+
+
+
+
+
+
+<div>已添加问题列表</div>
+
+
+<div id='questionList'   >
+
+
+
+
+<table border="0"  width="100%" > 
+	
+	
+	
+	
+	<tr>    <td>  <label >问题标题</label></td> 
+
+  <td> <label >所属模块</label> </td>   <td>  <label >优先级</label></td>   <td>  <label >是否必答</label></td> </tr>
+	
+	<tr   ng-repeat="savedQuestion in questions">
+		
+		
+	<td>{{savedQuestion.questionId}}</td>	<td  >    <li>     <input type="radio" name="savedQuestion" value={{savedQuestion.questionId}}  ng-click="changeQuestion(savedQuestion.questionId)"/>     <label >    {{savedQuestion.title}} </label>  </li> </td>	
+		<td  >  <select ng-model="savedQuestion.moduleId"  disabled="true"   value={{savedQuestion.moduleId}} > 
+		
+  <option value="1">墓地</option>
+  <option value="2">寿衣</option>
+  <option value="3">佛事</option>
+  <option value="4">骨灰盒</option>
+  </select> </td>
+  
+  
+  <td  > <select disabled="true"  ng-model="savedQuestion.priorityId"   value={{savedQuestion.priorityId}} >
+
+  <option value="1">高</option>
+  <option value="2">中</option>
+  <option value="3">低</option>
+  <option value="4">无优先级</option>
+  <option value="5">其他</option>
+
+  </select> </td>  
+  
+  <td  > <select  disabled="true"  ng-model="savedQuestion.mandatoryFlag"  value={{savedQuestion.mandatoryFlag}}>
+
+  <option value="1">是</option>
+  <option value="2">不是</option>
+  
+
+  </select> </td>
+		
+		
+		
+</tr>	
+	
+	
+	
+</table>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+	<style>
+		
+		
+	#addSection{
+	height:300px;
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0%;
+	}
+
+#addOptionSection{
+	height:50px;
+	width:100%;
+	border:1px;
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0%;
+	}
+
+
+#addSection contentSection{	
+	
+float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0.5);
+	}
+	
+	
+	
+	#questionList{
+	width:100%;
+	border:0px
+  background-color: #d6d6d6;
+  position:relative; left:0%; right:0% ; top:100;
+	}
+	
+	
+	
+	#optionList{
+	width:100%;
+	border:0px
+  background-color: #d6d6d6;
+  position:relative; left:0%; right:0% ; top:5;
+	}
+	
+	
+	
+
+#questionList _table{
+	
+	
+	 background-color: #d6d6d6;
+	
+	
+	
+	
+	}
+
+	
+
+	
+
+		
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</style>
+	
+	
+	<!-- <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>-->
+	
+	<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+	
+	
+	
+	
+	<script>
+	var app = angular.module('myApp', []);
+	
+	
+ 
+	 app.controller('questionManager', function($scope, $http) {
+	 	
+	 	
+	 	$scope.currentQuestion=null;
+	 	$scope.currentOption=null;
+	 	$scope.savedOptions=null;
+	 	
+	 	$http.get("http://localhost:8080/funeral/fQuestion/listForUpdate").success(function(response) {
+	       $scope.questions = response;
+			})
+			
+			
+			
+			
+			
+	
+	
+	$("#saveButton").click(function() {
+	    
+	    
+	    var datadata = JSON.stringify($scope.currentQuestion);
+
+	    $http({
+            method: "POST",
+            url:"http://localhost:8080/funeral/fQuestion/edit",
+          
+          // url:"http://localhost:8080/funeral/testQuestionController.test",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+         
+           window.location.reload("addQuestion.html");  
+        });
+	});	
+	
+	
+	
+	$("#addOption").click(function() {
+		
+		 	    var datadata = JSON.stringify($scope.currentOption);
+		 	    
+		 	    
+	    var questionId=$scope.currentQuestion.questionId;
+	    var imgUrl= $scope.currentOption.imgUrl;
+	    var optionId=$scope.currentOption.optionId;
+	    var optionDesc=$scope.currentOption.optionDesc;
+	    
+	    			       //  alert("currentOption="+datadata+"    optionId="+optionId+"  questionId="+questionId); 
+
+
+	 	$http.get("http://localhost:8080/funeral/option/save?questionId="+questionId+"&imgUrl="+imgUrl+"&optionDesc="+optionDesc+"&optionId="+optionId).success(function(response) {
+			                  	       $scope.savedOptions = response;	 
+
+			})
+	   $scope.currentOption=null;
+	});	
+	
+	
+		$("#deleteOption").click(function() {
+		
+		 	   	    var questionId=$scope.currentQuestion.questionId;
+
+	    var optionId=$scope.currentOption.optionId;
+	    
+	    			      //   alert("optionId="+optionId+" questionId="+questionId); 
+
+
+	 	$http.get("http://localhost:8080/funeral/option/deleteOption?optionId="+optionId+"&questionId="+questionId).success(function(response) {
+			         alert("delete success!"); 
+			                  	       $scope.savedOptions = response;	 
+ 
+
+			})
+			
+		
+	   
+	});	
+	
+	
+	
+	 $scope.changeQuestion = function( id){
+	 	
+            
+   $http.get("http://localhost:8080/funeral/fQuestion/getQuestionById?questionId="+id).success(function(response) {
+	       $scope.currentQuestion = response;
+	       $scope.currentOption=null;
+			})     
+               
+ $http.get("http://localhost:8080/funeral/option/getOptionListByQuestionId?questionId="+id).success(function(response) {
+	       $scope.savedOptions = response;	 
+	       
+	       
+	       	    var datadata = JSON.stringify($scope.savedOptions);
+	       	    
+
+	       
+	             
+			})                 
+               
+             }
+	
+	$scope.changeOption = function( id){
+	 	
+   //   alert(" optionId= "+id);      
+   $http.get("http://localhost:8080/funeral/option/getOptionByOptionId?optionId="+id).success(function(response) {
+	       $scope.currentOption = response;
+			})     
+               
+             
+               
+             }
+	
+	
+		
+});
+	</script>
+	
+</ul>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>计算页面</title>
+	
+	<script type="text/javascript" src="/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/pages/html/js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+<header>
+<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+</header>
+<script>
+	var serviceCategories;
+</script>
+<ul id="box">
+	<li><a href="signInPgae.html">什么是葬礼定制</a></li>
+	<li><a href="howItWorks.html">怎样定制</a></li>
+	<li><a href="costCalculator.html">定制计算器</a></li>
+	<li><a href="signInPgae.html">定制套餐</a></li>
+	 <li><button class="beginButton">开始定制</button></li> 
+</ul>
+<div id="introduction">
+	<div id="wording1"> 
+		 计算葬礼定制费用
+	 </div>
+	<div id="wording2"> 
+		 请回答以下问题，我们将给你一个初步费用预估
+	 </div>
+</div>
+<div ng-repeat="x in serviceCategories">
+	<div id="item">
+		<p>
+			{{x.title}}
+		</p>
+		<li><img name="{{x.cateId}}" id="{{x.displayId0}}" src="/pages/html/customizatonPages/assets/images/costCalcu/no.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)"/>
+		<p>
+			 {{x.discription0+x.price0}}
+		</p>
+		</li>
+		<li><img name="{{x.cateId}}" id="{{x.displayId1}}" src="/pages/html/customizatonPages/assets/images/costCalcu/cloth.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)"/>
+		<p>
+			 {{x.discription1+x.price1}}
+		</p>
+		</li>
+		<li><img name="{{x.cateId}}" id="{{x.displayId2}}" src="/pages/html/customizatonPages/assets/images/costCalcu/basic.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)"/>
+		<p>
+			 {{x.discription2+x.price2}}
+		</p>
+		</li>
+		<li><img name="{{x.cateId}}" id="{{x.displayId3}}" src="/pages/html/customizatonPages/assets/images/costCalcu/advice.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)"/>
+		<p>
+			 {{x.discription3+x.price3}}
+		</p>
+		</li>
+	</div>
+</div>
+
+
+
+
+	<style>
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
+ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
+ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
+ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
+
+.beginButton{
+	  background-color: #ff5274;
+		width : 99px;
+		height: 42px;
+		text-align:center;
+	  font-size: 16px;
+border-radius: 5px 0 0 5px;	 
+Outer: 0px 2px;
+blur:4px;
+spread: 0px;
+ position:absolute;
+  top: 7px;
+	    right:5%;
+
+  } 
+
+.nextButton{
+	  background-color: #ffffff;
+		width : 150px;
+		height: 50.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:5px 5px 5px 5px;
+   } 
+
+#introduction{
+	height:354px;
+	width:100%;
+	border:0px
+	solid #767676;
+	background:url(../customizatonPages/assets/images/rectangle-702.png) 
+	no-repeat 0px 0px;
+	text-align:center;
+  position:relative; left:0%; right:0%;
+	}
+	
+#wording1{
+	height:62px;
+	width:100%;
+	border:1px
+	solid #767676;
+	color:#4b4b4b;
+font-family: "STHeitiSC-Light"; 
+font-size:60px;
+line-height:62px;	
+text-align:center;
+position:relative; left:0%; right:0%;top:107px;
+	}	
+
+
+	
+#wording2{
+	height:37px;
+	width:100%;
+	border:1px
+	solid #767676;
+	color:#4b4b4b;
+font-family: "STHeitiSC-Light"; 
+font-size:35px;
+line-height:37px;	
+text-align:center;
+position:relative; left:0%; right:0%;top:120px;
+	}		
+	
+	
+	
+#item{
+	height:334px;
+	width:69%;
+	border:0px
+	solid #767676;
+  background-color: #ffffff;
+  position:relative;
+  text-align:center;
+  box-shadow: 10px 10px 50px #d6d6d6;
+  margin:0 auto;
+	}
+ #item li{float:left; height:100px;list-style-type:none;	border:1px
+	solid #767676; border-radius:100px; position:relative; 
+ left:10%;} 
+ #item  p{font-family : STHeitiSC-Light;
+font-size: 35px;
+color : #3d4351;
+} 
+#item li p{font-family : STHeitiSC-Light;
+font-size: 15px;
+color : #3d4351; line-height:25px; text-align:center;
+} 
+
+ul#box{
+	height:60px;
+  width:100%;	border:1px
+	solid #767676;
+	border-bottom:none;
+  border-left:none;
+  border-right:none;
+  text-align:center;
+   position:relative; 
+   left:0%; 
+   right:0%;
+	} 
+	ul#box li{display:inline; height:60px} 
+  ul#box li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#5b5b5b; face: "STHeitiSC-Medium"; font-size:20px;} 
+ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  #buttonStyle {
+  	position ：relative;
+  	height: 6900.9px;
+    display:inline;
+		margin:0px auto;
+		color: white;
+		cursor: pointer;
+	}
+	#buttonStyle:hover {
+	  background-color: #e6385a;
+		color: #428BCA;
+	}
+	#buttonStyle back {
+   position:absolute;
+   top:450px;
+   left:350px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	#buttonStyle skip {
+   position:absolute;
+   top:600px;
+   left:750px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+#buttonStyle next {
+   position:absolute;
+   top:600px;
+   left:950px;
+	  background-color: #ff5274;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	
+	</style>
+	<script>
+	var app = angular.module('myApp', []);
+ // app.controller('serviceCategory', function($scope, $http) {
+//	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
+//  var datadata = JSON.stringify(response);
+//  $scope.serviceCategories=response;
+//		})
+	 app.controller('serviceCategoryDisplay', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+  var datadata = JSON.stringify(response);
+  $scope.serviceCategories=response;
+    $scope.totalCost=0.00;
+    $scope.selectedName = [];
+    $scope.selected = [];
+    $scope.selectedCost = [];
+    var updateSelected = function(id,name,value){
+    	    	var idx = $scope.selectedName.indexOf(name);
+      if(idx!=-1){
+    $scope.selected.splice(idx,1);
+    $scope.selectedName.splice(idx,1); 
+    $scope.selectedCost.splice(idx,1);
+      }
+            $scope.selectedName.push(name);
+               $scope.selected.push(id);
+               $scope.selectedCost.push(value);
+       }
+       $scope.updateSelection = function($event, id,name,_price){
+           updateSelected(id,name,_price);  
+                  $scope.totalCost=0;
+            angular.forEach($scope.selectedCost, function(data){
+$scope.totalCost =Number( $scope.totalCost) +Number(data);
+});   
+             }
+});
+	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.curUser);
+	    $http({
+            method: "POST",
+            url:"http://localhost:8080/funeral/user/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+            alert("chenggong");
+        });
+	});		
+});
+	</script>
+	<script>
+		
+		
+		var i=0;
+  function onChecked(sId,sName) {
+  	
+    var oImg = document.getElementsByName(sName);
+    for (var i = 0; i < oImg.length; i++) { 	
+      if (oImg[i].id == sId) {
+      	var _id=sId+"_"+sName;
+        oImg[i].style.border = '1px solid #FF6600';
+        
+      } else {
+        oImg[i].style.border = '0px solid #ffffff';
+      }
+    }
+  }
+  function changRadio(_id){                            
+   var x= document.getElementById(_id);
+    if(x.checked==false){
+    	x.checked==true;
+    	}else{
+    		x.checked==false
+    		}
+}  
+	</script>
+
+</body>
+</html>

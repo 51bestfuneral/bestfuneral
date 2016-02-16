@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/Bootstrap/boot.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<style>
+.headerAddtion {
+    width: 100%;
+	height: 48px;
+	text-align: center;
+	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+}
+.subNavigat {
+    line-height: 48px;
+	font-size: 16px;
+	margin-right: 20px;
+}
+.subNavigat a {
+    text-decoration: none;
+	color: #5b5b5b;
+	font-family: "Microsoft Yahei";
+}
+.naviSelect a{
+    color: #000000!important;
+    font-weight: bold;
+	cursor: default!important;
+}
+.submitArea {
+    width: 100%;
+	height: 106px;
+}
+.submitArea button {
+    background-color: #ff5274;
+	color: #ffffff;
+	border-radius: 5px;
+	width: 136px;
+	height: 44px;
+	border: 0px;
+	margin-top: 30px;
+}
+.submitArea button p {
+    margin: 0px;
+	font-size: 16px;
+}
+</style>
+<script type="text/javascript">
+var app = angular.module('myApp', []);
+function buildObject(level) {
+    var levelOwnList = [];
+	for (i=0 ; i < level.length; i++) {
+	    var levelOwn;
+
+	    if (level[i] === "0") {
+		    levelOwn = {
+			    hidden: "hidden"
+			}
+		}
+		else {
+		    levelOwn = {
+			    hidden: ""
+			}
+		}
+		levelOwnList.push(levelOwn);
+	}
+    return levelOwnList;
+}
+app.controller('wishTypeLevels', function($scope, $http) {
+    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	    var level1 =[],
+		    level2 = [],
+			level3 = [],
+			level4 = [];
+		
+		level1 = response.level1.split(",");
+		level2 = response.level2.split(",");
+		level3 = response.level3.split(",");
+		level4 = response.level4.split(",");
+		$scope.level1 = buildObject(level1);
+		$scope.level2 = buildObject(level2);
+		$scope.level3 = buildObject(level3);
+		$scope.level4 = buildObject(level4);
+	});
+});
+</script>
+<link href="../js/personal.css" rel="stylesheet">
+<body>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
+<div id="mainContent">
+    <div class="headerAddtion">
+	    <span class="subNavigat"><a>什么是葬礼定制</a></span>
+		<span class="subNavigat"><a>怎样定制</a></span>
+		<span class="subNavigat"><a>定制计算器</a></span>
+		<span class="subNavigat naviSelect"><a>定制套餐</a></span>
+	</div>
+    <div class="topContent">
+    <div id="headerMessage">
+	    <h2 id="headerMesText">选择适合您的定制方案</h2>
+	</div>
+	<div id="designTaocan">
+        <div class="designTaocanIconDiv">
+			<h3>白事管家</h3>
+		</div>
+		<div class="designTaocanIconDiv">
+			<h3>白事管家</h3>
+		</div>
+		<div class="designTaocanIconDiv">
+		    <h3>白事管家</h3>
+		</div>
+		<div class="designTaocanIconDiv">
+		    <h3>白事管家</h3>
+		</div>
+	</div>
+	</div>
+	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels">
+	    <div class= "includeDiv">
+	    <ul class="descRow">
+		    <li class="headerLine">
+			    <h2 class="doubleText">比较方案</h2>
+			</li>
+			<li class="normalHeaderLine">
+			    <p>概况</p>
+			</li>
+			<li class="normalLine">
+			    <p class="messageInRow">流程咨询</p>
+			</li>
+		</ul>
+		</div>
+		<div class= "includeDiv">
+		<ul class="descRow">
+		    <li class="headerLine">
+			</li>
+			<li class="normalHeaderLine">
+			    <p>概况</p>
+			</li>
+			<li class="normalLine">
+			    <p class="messageInRow">流程咨询</p>
+			</li>
+			<li class="normalLine" ng-repeat="wishType in wishTypes">
+			    <p class="messageInRow">{{wishType.wishTypeDesc}}</p>
+			</li>
+		</ul>
+		</div>
+		<div class= "includeDataDiv">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+				    <div class="iconChild">
+			            <h2 class="designHeaderText">基础</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最为经济合算的方案，<br/>比较低的成本定制专属葬礼。</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg"></img>
+				</div>
+			</li>
+			<li class="normalLine" ng-repeat="levelWish1 in level1">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish1.hidden}}"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+		<div class= "includeDataDiv">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="designHeaderText">精选</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最受欢迎的方案，<br/>灵活的安排各项葬礼细节。</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine">
+			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+			<li class="normalLine" ng-repeat="levelWish2 in level2">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish2.hidden}}"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+		<div class= "includeDataDiv">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="designHeaderText">豪华</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最大气的方案，<br/>为您爱的人举办高规格的仪式。</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine">
+			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+			<li class="normalLine" ng-repeat="levelWish3 in level3">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish3.hidden}}"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+		<div class= "includeDataDiv">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="designHeaderText">顶级</h3>
+		                <h4>￥6288 - ￥16288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最奢侈的方案，<br/>举办无上规格的仪式。</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine">
+			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			</li>
+			<li class="normalLine" ng-repeat="levelWish4 in level4">
+			    <div class="imgDiv">
+				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish4.hidden}}"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+	</div>
+</div>
+<div id="titleIconDiv">
+    <img src="../js/images/titleIcon.jpg" class="iconImg"></img>
+</div>
+<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script type="text/javascript">
+	$(".designTaocanIconDiv").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".designTaocanIconDiv").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+	$(".designTaocanIconDiv").on("click", function () {
+        var $this = $(this);
+
+        if ($this.hasClass("barSelect")) {
+            $this.removeClass("barSelect");
+		}
+		else {
+		    $this.addClass("barSelect");
+		}
+	});
+	$(".includeDataDiv").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".includeDataDiv").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+    $(".includeDataDiv").on("click", function () {
+        var $this = $(this);
+		
+		$(".includeDataDiv").removeClass("barSelect");
+		if ($this.hasClass("barSelect")) {
+            $this.removeClass("barSelect");
+		}
+		else {
+		    $this.addClass("barSelect");
+		}
+	});
+	$("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
+	});
+</script>
+</html>

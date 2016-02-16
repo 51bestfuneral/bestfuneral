@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>框架页面</title>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+<header>
+<!--<ul id="nav">
+	<li><a href="signInPgae.html">葬礼定制</a></li>
+	<li><a href="signInPgae.html">产品及服务</a></li>
+	<li><a href="signInPgae.html">墓地信息</a></li>
+	<li><a href="/pages/html/aboutUs.html">关于我们</a></li>
+</ul>-->
+<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+</header>
+<script>
+	var serviceCategories;
+</script>
+
+<div class="mainSecton">
+
+<div id="topBar">
+</div>
+<div class="menu">	
+<IFRAME NAME="content_frame"  class="menuIframe" SRC="/pages/component/menuBar.html?cat=basicInfo" frameborder = 0></IFRAME>
+</div>
+
+
+
+
+
+<div class="info">
+	
+		<div class="bottonRow">
+			<button class='backButton'>
+		<
+			</button>
+				<button class='skipButton'>
+				
+					跳过
+				
+				</button>
+				<button class='nextButton'>
+			
+					下一步
+			
+				</button>
+			</div>
+		</div>
+			
+					<IFRAME NAME="content_frame" width=100% height=350 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 1></IFRAME>
+
+			
+</div>
+	
+
+			
+			<style>
+				
+	.menuIframe{
+		
+		width:99.5%;
+
+		 height :860px;
+		
+		}			
+				
+				
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+#topBar{
+	height:48px;
+	width:100%;
+	background:#ebebeb;
+  position:relative; left:0%; right:0%;
+	}
+	#bottomBar{
+	height:48px;
+	width:100%;
+	background:#ebebeb;
+  position:relative; left:0%; right:0%;
+	}
+.mainSecton{
+	margin:0 auto;
+	height:1200px;
+	width:100%;
+	border:0px solid #000000;
+	}	
+
+.info
+{ 
+width:75%;
+height:860px;
+float:right;
+border:0px;
+background:#fafafa;
+}	
+
+	
+
+	
+ul#processBar{
+height:50px;
+width:95%;
+border:1px solid #707070;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+border-top:none;
+border-left:none;
+border-right:none;
+	}		
+ul#processBar li{display:inline; height:50px} 
+ul#processBar li a{ padding:0 10px; height:50px; line-height:50px;text-decoration:none;
+color:#707070; face: "STHeitiSC-Light"; font-size:25px;} 
+ul#processBar li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+.order{
+height:68px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:68px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:25px;
+	}	
+.questionTitle{
+height:150px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:68px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:48px;
+	}	
+.question{
+height:440px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:40px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:40px;
+
+	}	
+.bottonRow{
+height:100px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:750px;
+padding-top:0px;
+	}		
+.backButton {
+   background-color: #d6d6d6;
+   	  cursor:pointer;
+
+		width : 73px;
+		height:69.9px;
+		position:absolute;  
+		top:15%; 
+		margin-top:10px;
+		left:4%; 
+		text-align:center;
+    color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+
+	}
+	.skipButton {
+	  background-color: #d6d6d6;
+	  	  cursor:pointer;
+
+		width : 149px;
+		height:69.9px;
+		 position:absolute;  
+		top:15%; 
+		margin-top:10px;
+		left:55%; 
+   
+		text-align:center;
+		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+	}
+	.nextButton {
+	  background-color: #ff5274;
+	  cursor:pointer;
+		width : 171px;
+		height:69.9px;
+		position:absolute;  
+		top:15%; 
+		margin-top:10px;
+		left:75%; 
+		text-align:center;
+		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+		box-shadow:10px 0px 4px ;
+		border-radius:0px 4px 0px 0px ;
+	}
+
+	
+	
+  ul#costGroup{ 
+width:70%;
+border:0px solid #ff5274;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+  	     } 
+  ul#costGroup li{ height:20px; list-style:none;} 
+  ul#costGroup li a{padding:10 10px; height:20px; line-height:20px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Light"; font-size:23px;} 
+  ul#costGroup li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+ 
+	
+	
+.comments{
+	 color:#000000; face: "STHeitiSC-Light"; font-size:23px;
+	
+	}
+	
+.money{
+	
+	 color:#ff5274; face: "OpenSans-Light"; font-size:30px;
+	
+	}		
+	
+	.menu
+{ 
+width:25%;
+height:860px;
+float:left;
+border:0px;
+background:#ebebeb;
+} 
+	
+.title1{
+width:70%;
+border:0px solid #9d9d9d;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;
+padding-left:50px;
+	}
+	
+.title2{
+width:70%;
+border:1px solid #9d9d9d;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-left:45px;
+	}	
+
+	
+ul#menuBar{
+width:70%;
+border:0px solid #ff5274;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+	}		
+	
+
+	
+
+ul#menuBar li:before {
+	  
+   content:"";
+   display: inline-block;
+   background-color: #ffffff;
+   width: 18px;
+   height:18px;
+   border-radius: 18px;
+   padding-top:0px;
+    
+}
+
+ul#menuBar li{
+	list-style-type:none;
+	
+	}
+	
+
+ul#menuBar li a{ padding:0 5px; height:30px; line-height:30px;text-decoration:none;color:#707070; face: "STHeitiSC-Light"; font-size:23px;} 
+ul#menuBar li a:hover{background:#ff5274;}
+	
+	
+	
+	
+			</style>
+			<script>
+	var app = angular.module('myApp', []);
+ // app.controller('serviceCategory', function($scope, $http) {
+//	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
+//  var datadata = JSON.stringify(response);
+//  $scope.serviceCategories=response;
+//		})
+	 app.controller('serviceCategoryDisplay', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+  var datadata = JSON.stringify(response);
+  $scope.serviceCategories=response;
+    $scope.totalCost=0.00;
+    $scope.selectedName = [];
+    $scope.selected = [];
+    $scope.selectedCost = [];
+    var updateSelected = function(id,name,value){
+    	    	var idx = $scope.selectedName.indexOf(name);
+      if(idx!=-1){
+    $scope.selected.splice(idx,1);
+    $scope.selectedName.splice(idx,1); 
+    $scope.selectedCost.splice(idx,1);
+      }
+            $scope.selectedName.push(name);
+               $scope.selected.push(id);
+               $scope.selectedCost.push(value);
+       }
+       $scope.updateSelection = function($event, id,name,_price){
+           updateSelected(id,name,_price);  
+                  $scope.totalCost=0;
+            angular.forEach($scope.selectedCost, function(data){
+$scope.totalCost =Number( $scope.totalCost) +Number(data);
+});   
+             }
+});
+	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.curUser);
+	    alert("  datadata ="+datadata);
+	    $http({
+            method: "POST",
+            url:"http://localhost:8080/funeral/user/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+            alert("chenggong");
+        });
+	});		
+});
+	</script>
+			<script>
+  function onChecked(sId,sName) {
+  	        alert('sName'+sName+" sId="+sId);
+    var oImg = document.getElementsByName(sName);
+    for (var i = 0; i < oImg.length; i++) { 	
+      if (oImg[i].id == sId) {
+      	var _id=sId+"_"+sName;
+        oImg[i].style.border = '1px solid #FF6600';
+      } else {
+        oImg[i].style.border = '0px solid #ffffff';
+      }
+    }
+  }
+  function changRadio(_id){                            
+alert('changRadio  _id='+_id);
+   var x= document.getElementById(_id);
+  alert('x ='+x);  
+    if(x.checked==false){
+    	x.checked==true;
+    	}else{
+    		x.checked==false
+    		}
+}  
+			</script>
+			
+		
+			
+			
+			</body>
+			</html>
