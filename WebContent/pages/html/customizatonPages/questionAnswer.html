@@ -145,23 +145,20 @@
 
 <!--  问题DIV结束  -->
 	
+	
+	
+	
+	
 		
-	<div class="bottonRow">
-			<button class='backButton'  ng-click="preItem()">
-		<
-			</button>
-				<button class='skipButton' ng-click="nextItem()">
-				
-					跳过
-				
-				</button>
-			<button class="nextButton" ng-click="nextItem()">下一题</button>
-			</div>
-		</div>
+	
+		
 			
-
 			
 </div>
+
+	    <div id="preItemButton" ng-click="preItem()" ><p><</p></div>
+			<div id="skipButton" ><p>跳过</p></div>
+			<div id="nextItemButton"  ng-click="saveAnswer()" ><p>下一题</p></div>
 	
 <IFRAME NAME="content_frame" width=100% height=380 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" ></IFRAME>
 
@@ -206,18 +203,19 @@
 	}
 .mainSecton{
 	margin:0 auto;
-		height: 100%;
+	height: 100%;
 	width:100%;
 	border:0px solid #000000;
 	}	
 
 .info
 { 
-width:75%;
-height:950px;
+width:74%;
+height:800px;
 float:right;
-border:0px solid #707070;
+border:1px solid #707070;
 background:#ffffff;
+overflow:hidden;
 }	
 
 	
@@ -440,62 +438,7 @@ font-size:40px;
 	
 	
 	
-.bottonRow{
-height:50px;
-width:100%;
-border:0px solid #ff5274;  
-position:relative; 
-left:0%; 
-right:0%;
-top:650px;
-padding-top:0px;
-	}		
-.backButton {
-   background-color: #d6d6d6;
-   	  cursor:pointer;
 
-		width : 73px;
-		height:69.9px;
-		position:absolute;  
-		top:15%; 
-		margin-top:10px;
-		left:4%; 
-		text-align:center;
-    color:#ffffff; font-family: "STHeitiSC-Medium"; font-size:28px;
-    border-radius:5px;
-
-	}
-	.skipButton {
-	  background-color: #d6d6d6;
-	  	  cursor:pointer;
-
-		width : 149px;
-		height:69.9px;
-		 position:absolute;  
-		top:15%; 
-		margin-top:10px;
-		left:55%; 
-   
-		text-align:center;
-		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
-		  border-radius:5px;
-	}
-	.nextButton {
-	  background-color: #ff5274;
-	  cursor:pointer;
-		width : 171px;
-		height:69.9px;
-		position:absolute;  
-		top:15%; 
-		margin-top:10px;
-		left:75%; 
-		text-align:center;
-		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
-		box-shadow:10px 0px 4px ;
-		  border-radius:5px;
-
-
-	}
 
 	
 	
@@ -735,6 +678,96 @@ top:-40px;
 	 background-color:#f6f6f6;
 	}			
 	
+#preItemButton{
+border:0px solid #ff5274; 
+height:70px;
+width:73px;
+background-color: #c5c5c5;
+position:relative; 
+left:65px;
+top:0px;
+border-radius: 5px ;
+box-shadow: 0px 4px 0px 0px #c5c5c5;
+text-align:center;	
+float:left;
+}
+
+#preItemButton:hover{ cursor:pointer;	}
+
+#preItemButton p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:28px;
+line-height:28px;
+}			
+	
+#skipButton{
+border:0px solid #ff5274; 
+height:70px;
+width:149px;
+background-color: #c5c5c5;
+position:relative; 
+left:565px;
+top:0px;
+
+border-radius: 5px ;
+box-shadow: 0px 4px 0px 0px #c5c5c5;
+
+text-align:center;	
+float:left;
+
+}
+
+#skipButton:hover{ cursor:pointer;	}
+
+#skipButton p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:28px;
+line-height:28px;
+}	
+
+
+#nextItemButton{
+border:0px solid #ff5274; 
+height:70px;
+width:149px;
+background-color: #e6385a;
+position:relative; 
+left:587px;
+top:0px;
+
+border-radius: 5px ;
+box-shadow: 0px 4px 0px 0px #e6385a;
+
+text-align:center;	
+float:left;
+
+}
+
+#nextItemButton:hover{ cursor:pointer;	}
+
+#nextItemButton p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:28px;
+line-height:28px;
+}		
+
+.buttonRow{
+height:100px;
+width:100%;
+border:3px solid red;  
+position:relative; 
+left:0%; 
+right:0%;
+top:50px;
+text-align:center;
+
+	}	
+
+
+
 	
 			</style>
 	<script>
@@ -778,14 +811,8 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
 	       $("#"+selectedOptionId).removeAttr("style");
 		 	$http.get("http://localhost:8080/funeral/fAnswer/save?"+"questionId="+questionId+"&optionId="+optionId).success(function(response) {
 			}) 		
-				 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
-				 	
-		
-		
-		
-				 	 index=	Number( index) +Number(1);	
-				 	 
-				 	 
+	 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+	index=	Number( index) +Number(1);	 	 
 	if($scope.currentIndex==$scope.total){
 	alert("已经是最后一题了！");
 		return ;
@@ -804,12 +831,7 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
 	     		       $("#"+optionId).addClass("selected");
 
 	     	}
-	     	
-	    
-		
-		
-			  
-				percent=$scope.percentList[Number( index) +Number(1)];
+	     	percent=$scope.percentList[Number( index) +Number(1)];
 		  $("#processLine").css("width",percent);	 
 	     $scope.currentIndex=Number( index) +Number(1);
 	     $("#"+questionId+"_").animate({left:"-980px"},500, function(){
@@ -817,13 +839,6 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
 		   $("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},300, function(){	
 		    $("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(100);					
 		  	});
-		  	
-		  	
-		  	
-		  	
-		  	
-		  	
-		  	
 		  	});		})	}
 			
 			$scope.saveComments=function(){

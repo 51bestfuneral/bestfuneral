@@ -1,310 +1,1204 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>����ҳ��</title>
-	
-	<script type="text/javascript" src="/pages/html/js/jquery-1.7.2.min.js"></script>
+<title>偏好调查</title>
+<script type="text/javascript" src="/pages/html/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/pages/html/js/nav2.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
-	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+<body ng-app="myApp" ng-controller="questionDisplay">
 <header>
-<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+<!--<ul id="nav">
+	<li><a href="signInPgae.html">葬礼定制</a></li>
+	<li><a href="signInPgae.html">产品及服务</a></li>
+	<li><a href="signInPgae.html">墓地信息</a></li>
+	<li><a href="/pages/html/aboutUs.html">关于我们</a></li>
+</ul>-->
 </header>
 <script>
-	var serviceCategories;
 </script>
-<ul id="box">
-	<li><a href="signInPgae.html">ʲô��������</a></li>
-	<li><a href="howItWorks.html">��������</a></li>
-	<li><a href="costCalculator.html">���Ƽ�����</a></li>
-	<li><a href="signInPgae.html">�����ײ�</a></li>
-	 <li><button class="beginButton">��ʼ����</button></li> 
-</ul>
-<div id="introduction">
-	<div id="wording1"> 
-		 ���������Ʒ���
-	 </div>
-	<div id="wording2"> 
-		 ��ش��������⣬���ǽ�����һ����������Ԥ��
-	 </div>
+
+
+	<script type="text/javascript">
+	$(document).ready(
+	function(){
+	$("#story").css({"background-color":"#ff5274"});
+	$("#storyLink").css({"background-color":"#ff5274"});
+	$("#storyCircle").css({"background-color":"#ff5274"});
+	alert("test");
+		}
+	
+	
+	);
+
+	
+	
+
+	
+	</script>	
+
+<IFRAME NAME="content_frame" width=90% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+
+<div class="mainSecton">
+
+<div id="topBar">
 </div>
-<div ng-repeat="x in serviceCategories">
-	<div id="item">
-		<p>
-			{{x.title}}
-		</p>
-		<li><img name="{{x.cateId}}" id="{{x.displayId0}}" src="/pages/html/customizatonPages/assets/images/costCalcu/no.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)"/>
-		<p>
-			 {{x.discription0+x.price0}}
-		</p>
-		</li>
-		<li><img name="{{x.cateId}}" id="{{x.displayId1}}" src="/pages/html/customizatonPages/assets/images/costCalcu/cloth.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)"/>
-		<p>
-			 {{x.discription1+x.price1}}
-		</p>
-		</li>
-		<li><img name="{{x.cateId}}" id="{{x.displayId2}}" src="/pages/html/customizatonPages/assets/images/costCalcu/basic.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)"/>
-		<p>
-			 {{x.discription2+x.price2}}
-		</p>
-		</li>
-		<li><img name="{{x.cateId}}" id="{{x.displayId3}}" src="/pages/html/customizatonPages/assets/images/costCalcu/advice.png" onclick="onChecked(this.id,this.name)" ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)"/>
-		<p>
-			 {{x.discription3+x.price3}}
-		</p>
-		</li>
+<div class="menu">	
+
+	
+	<div id="title1">
+	<p>葬礼定制</p>
+</div>
+
+<div class="splitLine"> </div>
+
+
+	<div id="menuBar">
+		
+		
+	
+<div   id='personalInfo' >
+	<div   id='personalInfoCircle' ></div>  <div id='personalInfoLink' ><a href="signInPgae.html">基础信息</a>
 	</div>
+	</div>	
+	
+
+	
+<div   id='story' >
+	<div   id='storyCircle' ></div><div id='storyLink' ><a href="quesionAnswer.html">您的故事</a>
+	</div>
+	</div>		
+	
+
+
+	</div>
+	
+	
+<div id="title2">
+	<p>已选择套餐</p>
+	
+</div>	
+	<div class="splitLine"> </div>
+
+
+<div id="title3"><p>基础套餐</p></div>	
+
+<div id="cost"><p>￥20,000</p></div>
+
+
+<div id="title3"><p>节省金额</p></div>	
+
+<div id="cost"><p>￥3,400</p></div>
+
 </div>
 
 
 
 
-	<style>
+<div class="info">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<ul id="processBar">
+		
+		<li> 材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+			<li> 材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li> 材料偏好 </li>
+		<li>  材料偏好 </li>
+		<li>  材料偏好 </li>
+		 <li>  材料偏好 </li>
+		 <li>  材料偏好 </li>
+	</ul>
+<!--  延长线开始    -->
+<div id="processLine">
+</div>
+<!--  延长线结束     -->
+	
+<!--  序号开始   -->
+	
+	<div id="order">
+		<p>
+			{{currentIndex}}/{{total}}
+		</p>
+	</div>
+<!--  序号结束   -->
+
+<!--  问题DIV开始   -->
+	
+	<div id="{{s.question.questionId+'_'}}"   data-x="{{s.dataX}}"  data-y="75"   style="{{s.style}}"    ng-repeat="s in questionList">
+	
+	<!--  问题标题开始   -->
+
+	<div id="questionTitle">
+<p>{{s.question.title}}</p>
+	</div>
+	
+	
+	<!--  问题标题结束   -->
+	
+		<!--  选项部分开始   -->
+
+	<div id="question">
+		<table border="0" width="100%" style="margin:auto;">
+		<tr>
+			<td ng-repeat="x in s.optionList">
+				<img  id="{{x.optionId}}"   style="{{x.style}}"  name="optionImg" src="{{x.imgUrl}}"   ng-click="saveAnswer(x.optionId,x.questionId)"     />
+			<p> {{x.optionDesc}}</p>
+			
+			</td>
+		</tr>
+		</table>
+	
+</div>
+	<!--  选项部分结束   -->
+
+	
+	<div  class="inputComments">
+		
+	 <label style=' vertical-align: bottom;'>其他：</label>  
+	 <input   class="inputStyle" type='text'  size="25"  ng-change="saveComments(this.value)"  ng-model="s.otherComments"  value="{{s.otherComments}}" maxlength="100"  placeholder="请填写"  >
+</div>
+		
+		
+	</div>
+
+<!--  问题DIV结束  -->
+	
+	
+	
+	
+	
+		
+	
+		
+			
+			
+</div>
+
+	    <div id="preItemButton" ng-click="preItem()" ><p><</p></div>
+			<div id="skipButton" ><p>跳过</p></div>
+			<div id="nextItemButton"  ng-click="nextItem()" ><p>下一题</p></div>
+	
+<IFRAME NAME="content_frame" width=100% height=380 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" ></IFRAME>
+
+			
+			<style>
+				
+				body {
+    margin: 0;
+	text-align: center;
+	height: 100%;
+	
+	
+}
+				
+	.menuIframe{
+		
+		width:100%;
+
+		 height :860px;
+		
+		}			
+				
+				
 	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
   ul#nav li{display:inline; height:60px} 
   ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
   color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
-  ul#nav li a:hover{background:#ebebeb}/*������껬������ͣʱ�仯�ı�����ɫ*/ 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
   ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
-ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
-ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
-ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
-ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
-
-.beginButton{
-	  background-color: #ff5274;
-		width : 99px;
-		height: 42px;
-		text-align:center;
-	  font-size: 16px;
-border-radius: 5px 0 0 5px;	 
-Outer: 0px 2px;
-blur:4px;
-spread: 0px;
- position:absolute;
-  top: 7px;
-	    right:5%;
-
-  } 
-
-.nextButton{
-	  background-color: #ffffff;
-		width : 150px;
-		height: 50.9px;
-		text-align:center;
-	  font-size: 23px;
-	  border-radius:5px 5px 5px 5px;
-   } 
-
-#introduction{
-	height:354px;
+#topBar{
+	height:15px;
 	width:100%;
-	border:0px
-	solid #767676;
-	background:url(../customizatonPages/assets/images/rectangle-702.png) 
-	no-repeat 0px 0px;
-	text-align:center;
+	
+	background:#f6f6f6;
   position:relative; left:0%; right:0%;
 	}
-	
-#wording1{
-	height:62px;
+	#bottomBar{
+	height:48px;
 	width:100%;
-	border:1px
-	solid #767676;
-	color:#4b4b4b;
-font-family: "STHeitiSC-Light"; 
-font-size:60px;
-line-height:62px;	
-text-align:center;
-position:relative; left:0%; right:0%;top:107px;
+	background:#ebebeb;
+  position:relative; left:0%; right:0%;
+	}
+.mainSecton{
+	margin:0 auto;
+	height: 100%;
+	width:100%;
+	border:0px solid #000000;
 	}	
 
+.info
+{ 
+width:74%;
+height:800px;
+float:right;
+border:1px solid #707070;
+background:#ffffff;
+overflow:hidden;
+}	
 
 	
-#wording2{
-	height:37px;
-	width:100%;
-	border:1px
-	solid #767676;
-	color:#4b4b4b;
-font-family: "STHeitiSC-Light"; 
-font-size:35px;
-line-height:37px;	
+
+	
+ul#processBar{
+height:78px;
+width:100%;
+border:1px solid #707070;  
+position:relative; 
+left:0px; 
+right:0%;
+top:-15px;
+border-top:none;
+border-left:none;
+border-right:none;
+background-color:#ffffff;
+padding-left:0px;
+	}		
+ul#processBar li{
+display:inline; 
+height:15px;
+position:relative; top:29px;left:0px; right:0%; 
+text-align:left;
+line-height:15px;
+color:#000000; 
+font-family: STHeitiSC-Light; 
+font-size:14px;	
+border:0px solid #707070;  
+	
+	} 
+
+
+
+ul#processBar li:after {
+   content:"\2714";
+   font-size:10px;
+   line-height:10px;
+   color:#ffffff;
+   display:inline-block;
+   text-align:center;
+   background-color: #2c9676;
+   width: 13px;
+   height:13px;
+   border-radius: 13px;
+   padding-top:0px;
+   position:relative; 
+   left:-10px; 
+   right:0%;
+   top:-15px;
+}	
+
+
+ul#processBar li a{ padding:0 10px; height:30px; line-height:30px;text-decoration:none;
+color:#707070; face: "STHeitiSC-Light"; font-size:25px;} 
+ul#processBar li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+
+
+
+ul#processBarSelected{
+height:20px;
+width:100%;
+border:1px solid #707070;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+
+	}		
+	
+
+	
+	
+	
+ul#processBarSelected li{display:inline; height:50px} 
+ul#processBarSelected li a{ padding:0 10px; height:50px; line-height:50px;text-decoration:none;
+color:#707070; face: "STHeitiSC-Light"; font-size:25px;} 
+ul#processBarSelected li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+
+#processLine{
+	
+height:0px;
+width:7%;
+border:3px solid #ff5274;  
+position:relative; 
+left:0px; 
+right:0%;
+top:-34px;	
+	
+	}
+
+
+
+
+
+#order{
+height:68px;
+width:68px;
+border:0px solid #ff5274;  
+position:relative; 
+left:50%; 
+right:0%;
+top:0px;
 text-align:center;
-position:relative; left:0%; right:0%;top:120px;
+background-color:#f6f6f6;
+border-radius:68px;
+	}	
+
+#order p{
+	
+	color:#707070; font-family: STHeitiSC-Medium; font-size:25px;line-height:68px;
+	
+	
 	}		
 	
 	
+#menuBar{
+width:80%;
+border:1px solid black;  
+position:relative; 
+left:20%; 
+right:0%;
+top:0px;
+text-align:left;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+opacity:0.9;
+	}			
+
+#accountInfo{
+height:70px;
+width:70%;
+border:1px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+
+opacity:0.9;	}	
+
+
+#accountInfoCircle{
+height:29px;
+width:29px;
+border:2px solid #ff5274;  
+position:relative; 
+left:20%; 
+right:0%;
+top:20px;
+text-align:center;
+background-color:#c6c6c6;
+border-radius:29px;
+float:left;
+	}	
+		
+#accountInfoLink{
+height:68px;
+width:70%;
+border:1px solid #ff5274;  
+position:relative; 
+left:20%; 
+right:0%;
+top:0px;
+text-align:left;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+opacity:0.9;
+float:left;
+}	
 	
-#item{
-	height:334px;
-	width:69%;
-	border:0px
-	solid #767676;
-  background-color: #ffffff;
-  position:relative;
-  text-align:center;
-  box-shadow: 10px 10px 50px #d6d6d6;
-  margin:0 auto;
+	
+#accountInfoLink a{ padding:0 10px; height:68px;text-decoration:none; line-height:68px;
+color:#707070; font-family: "STHeitiSC-Light";
+font-size:23px;} 	
+
+
+	
+
+#personalInfo{
+height:70px;
+width:100%;
+border:1px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+
+opacity:0.9;	}	
+
+
+#personalInfoCircle{
+height:29px;
+width:29px;
+border:2px solid #ff5274;  
+position:relative; 
+left:20%; 
+right:0%;
+top:20px;
+text-align:right;
+background-color:#c6c6c6;
+border-radius:29px;
+float:left;
+	}	
+		
+#personalInfoLink{
+height:68px;
+width:70%;
+border:1px solid #ff5274;  
+position:relative; 
+left:20%; 
+right:0%;
+top:0px;
+text-align:left;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+opacity:0.9;
+float:left;
+}	
+	
+	
+#personalInfoLink a{ padding:0 10px; height:68px;text-decoration:none; line-height:68px;
+color:#707070; font-family: "STHeitiSC-Light";
+font-size:23px;} 	
+
+	
+
+	
+#story{
+height:70px;
+width:100%;
+border:1px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+
+opacity:0.9;	}	
+
+
+#storyCircle{
+height:29px;
+width:29px;
+border:2px solid #ff5274;  
+position:relative; 
+left:20%; 
+right:0%;
+top:20px;
+text-align:center;
+background-color:#c6c6c6;
+border-radius:29px;
+float:left;
+	}	
+		
+#storyLink{
+height:68px;
+width:70%;
+border:1px solid #ff5274;  
+position:relative; 
+left:20%; 
+right:0%;
+top:0px;
+text-align:left;
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+opacity:0.9;
+float:left;
+}	
+	
+	
+#storyLink a{ padding:0 10px; height:68px;text-decoration:none; line-height:68px;
+color:#707070; font-family: "STHeitiSC-Light";
+font-size:23px;} 	
+
+	
+
+	
+	
+	
+#questionTitle{
+height:90px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:68px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:48px;
+	}	
+	
+	
+	
+	#questionTitle p{
+line-height:68px;overflow:hidden;
+color:#707070; font-family: STHeitiSC-Medium; font-size:48px;font-weight:bold;
+position:relative; 
+left:0%; 
+right:0%;
+top:-20px;
+	}	
+	
+	
+	
+	
+	
+	
+#question{
+height:450px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:20px;
+text-align:center;
+line-height:40px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:40px;
+
+	}	
+	
+	
+.question2{
+	
+display:none;	
+
+
+	}	
+	
+	
+.selected{
+	
+border:7px solid #ff5274; border-radius:170px;  cursor:pointer;
+
+	}		
+	
+	
+.unSelected{
+	
+border:0px solid #ff5274; border-radius:170px;  cursor:pointer;
+
+	}	
+	
+	
+	
+.inputComments{
+height:100px;
+width:100%;
+border:0px solid black;  
+position:relative; 
+left:0%; 
+right:0%;
+top:50px;
+text-align:center;
+color:#707070; 
+face: "STHeitiSC-Medium"; 
+font-size:40px;
+font-weight:900;
+	}		
+	
+	.inputStyle{
+		
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid   #979797;
+height:40px;
+outline:none;		
+padding-right:0px;
+font-weight:100;
+color:#707070; 
+font-family: STHeitiSC-Medium;
+font-size:40px;
+
+		}
+	
+	
+	
+	
+
+
+	
+	
+  ul#costGroup{ 
+width:70%;
+border:0px solid #ff5274;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+  	     } 
+  ul#costGroup li{ height:20px; list-style:none;} 
+  ul#costGroup li a{padding:10 10px; height:20px; line-height:20px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Light"; font-size:23px;} 
+  ul#costGroup li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+ 
+	
+	
+.comments{
+	 color:#000000; face: "STHeitiSC-Light"; font-size:23px;
+	
 	}
- #item li{float:left; height:100px;list-style-type:none;	border:1px
-	solid #767676; border-radius:100px; position:relative; 
- left:10%;} 
- #item  p{font-family : STHeitiSC-Light;
-font-size: 35px;
-color : #3d4351;
-} 
-#item li p{font-family : STHeitiSC-Light;
-font-size: 15px;
-color : #3d4351; line-height:25px; text-align:center;
+	
+.money{
+	
+	 color:#ff5274; face: "OpenSans-Light"; font-size:30px;
+	
+	}		
+	
+	.menu
+{ 
+width:25%;
+height:950px;
+float:left;
+border:0px solid #ff5274;  
+background:linear-gradient(to right,#f6f6f6,#f6f6f6,#f6f6f6);
+
+filter:alpha(opacity=80);
+-moz-opacity:0.8;
+-khtml-opacity:0.3;
+
+opacity:0.9;
+
+
+
+
+
 } 
 
-ul#box{
-	height:60px;
-  width:100%;	border:1px
-	solid #767676;
-	border-bottom:none;
-  border-left:none;
-  border-right:none;
-  text-align:center;
-   position:relative; 
-   left:0%; 
-   right:0%;
-	} 
-	ul#box li{display:inline; height:60px} 
-  ul#box li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
-  color:#5b5b5b; face: "STHeitiSC-Medium"; font-size:20px;} 
-ul#box li a:hover{background:#ebebeb}/*������껬������ͣʱ�仯�ı�����ɫ*/ 
-  #buttonStyle {
-  	position ��relative;
-  	height: 6900.9px;
-    display:inline;
-		margin:0px auto;
-		color: white;
-		cursor: pointer;
-	}
-	#buttonStyle:hover {
-	  background-color: #e6385a;
-		color: #428BCA;
-	}
-	#buttonStyle back {
-   position:absolute;
-   top:450px;
-   left:350px;
-	  background-color: #d6d6d6;
-		width : 171px;
-		height: 69.9px;
-		text-align:center;
-	  font-size: 23px;
-		margin: 0px;
-		line-height: 82px;
-	}
-	#buttonStyle skip {
-   position:absolute;
-   top:600px;
-   left:750px;
-	  background-color: #d6d6d6;
-		width : 171px;
-		height: 69.9px;
-		text-align:center;
-	  font-size: 23px;
-		margin: 0px;
-		line-height: 82px;
-	}
-#buttonStyle next {
-   position:absolute;
-   top:600px;
-   left:950px;
-	  background-color: #ff5274;
-		width : 171px;
-		height: 69.9px;
-		text-align:center;
-	  font-size: 23px;
-		margin: 0px;
-		line-height: 82px;
+#title1{
+width:87%;
+height:80px;
+border:0px solid #9d9d9d;  
+position:relative; 
+left:12%; 
+right:0%;
+top:10px;
+text-align:left;
+
+
 	}
 	
-	</style>
+#title1 p{
+	
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;	
+line-height:23px;
+position:absolute;
+bottom:0px;	
+font-weight:bold;
+
+	}	
+	
+.splitLine{
+	
+width:87%;
+position:relative; 
+left:12%; 
+right:0%;
+top:0px;
+text-align:left;	
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid   #9d9d9d;	
+	
+	}	
+	
+
+	
+
+
+	
+
+	
+
+
+	
+	
+	
+#title2{
+width:87%;
+height:60px;
+border:0px solid #f6f6f6;  
+position:relative; 
+left:12%; 
+right:0%;
+top:10px;
+text-align:left;
+	}
+	
+#title2 p{
+	
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;	
+line-height:20px;
+position:absolute;
+bottom:0px;	
+font-weight:bold;
+
+	}		
+	
+	
+#title3{
+width:78%;
+height:30px;
+border:1px solid #f6f6f6;  
+position:relative; 
+left:20%; 
+right:0%;
+top:5px;
+text-align:left;
+
+	}
+	
+#title3 p{
+	
+color:#000000; 
+font-family: STHeitiSC-Light;
+font-size:23px;	
+line-height:24px;
+position:relative;
+top:-15px;
+bottom:0px;	
+font-weight:bold;
+	}		
+	
+#cost{
+width:78%;
+height:50px;
+border:1px solid #f6f6f6;  
+position:relative; 
+left:20%; 
+right:0%;
+top:10px;
+text-align:left;
+
+	}
+	
+#cost p{
+	
+color:#ff5274; 
+font-family: OpenSans-Light;
+font-size:45px;	
+line-height:45px;
+position:relative; 
+top:-40px;
+	}			
+		
+	
+	
+.barSelect {
+	 background-color:#ff5274;
+	}	
+	
+	
+.barUnSelect {
+	 background-color:#f6f6f6;
+	}			
+	
+#preItemButton{
+border:0px solid #ff5274; 
+height:70px;
+width:73px;
+background-color: #c5c5c5;
+position:relative; 
+left:65px;
+top:0px;
+border-radius: 5px ;
+box-shadow: 0px 4px 0px 0px #c5c5c5;
+text-align:center;	
+float:left;
+}
+
+#preItemButton:hover{ cursor:pointer;	}
+
+#preItemButton p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:28px;
+line-height:28px;
+}			
+	
+#skipButton{
+border:0px solid #ff5274; 
+height:70px;
+width:149px;
+background-color: #c5c5c5;
+position:relative; 
+left:565px;
+top:0px;
+
+border-radius: 5px ;
+box-shadow: 0px 4px 0px 0px #c5c5c5;
+
+text-align:center;	
+float:left;
+
+}
+
+#skipButton:hover{ cursor:pointer;	}
+
+#skipButton p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:28px;
+line-height:28px;
+}	
+
+
+#nextItemButton{
+border:0px solid #ff5274; 
+height:70px;
+width:149px;
+background-color: #e6385a;
+position:relative; 
+left:587px;
+top:0px;
+
+border-radius: 5px ;
+box-shadow: 0px 4px 0px 0px #e6385a;
+
+text-align:center;	
+float:left;
+
+}
+
+#nextItemButton:hover{ cursor:pointer;	}
+
+#nextItemButton p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:28px;
+line-height:28px;
+}		
+
+.buttonRow{
+height:100px;
+width:100%;
+border:3px solid red;  
+position:relative; 
+left:0%; 
+right:0%;
+top:50px;
+text-align:center;
+
+	}	
+
+
+
+	
+			</style>
+
+			
+			
 	<script>
-	var app = angular.module('myApp', []);
- // app.controller('serviceCategory', function($scope, $http) {
-//	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
-//  var datadata = JSON.stringify(response);
-//  $scope.serviceCategories=response;
-//		})
-	 app.controller('serviceCategoryDisplay', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
-  var datadata = JSON.stringify(response);
-  $scope.serviceCategories=response;
-    $scope.totalCost=0.00;
-    $scope.selectedName = [];
-    $scope.selected = [];
-    $scope.selectedCost = [];
-    var updateSelected = function(id,name,value){
-    	    	var idx = $scope.selectedName.indexOf(name);
-      if(idx!=-1){
-    $scope.selected.splice(idx,1);
-    $scope.selectedName.splice(idx,1); 
-    $scope.selectedCost.splice(idx,1);
-      }
-            $scope.selectedName.push(name);
-               $scope.selected.push(id);
-               $scope.selectedCost.push(value);
+var app = angular.module('myApp', []);
+var index=0;
+var  questionId=-1;
+var  selectedOptionId=-1;
+var percent=0.07;
+
+	 
+
+
+app.controller('questionDisplay', function($scope, $http) {
+
+
+	
+		$http.get("http://localhost:8080/funeral/fQuestion/totalQuestionNumber").success(function(response) {
+			
+			$scope.total=response;
+			$scope.currentIndex=1;
+			
+			}) 
+	
+		$http.get("http://localhost:8080/funeral/fQuestion/getPerCentList").success(function(response) {
+			
+			$scope.percentList=response;
+			
+			}) 
+	
+	
+$http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+	       $scope.currentQuestion = response[index];
+	       var datadata = JSON.stringify($scope.currentQuestion);	       
+	       $scope.questionList=response;
+	       questionId=$scope.currentQuestion.question.qusetionId;
+	       selectedOptionId=$scope.currentQuestion.selectedOptionId;
+      
+			})
+			
+			$scope.saveAnswer = function(optionId,questionId){
+			 selectedOptionId=$scope.currentQuestion.selectedOptionId;           	
+	       $("#"+selectedOptionId).removeAttr("style");
+		 	$http.get("http://localhost:8080/funeral/fAnswer/save?"+"questionId="+questionId+"&optionId="+optionId).success(function(response) {
+			}) 		
+				 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+				 	
+		
+		
+		
+				 	 index=	Number( index) +Number(1);	
+				 	 
+				 	 
+	if($scope.currentIndex==$scope.total){
+	alert("已经是最后一题了！");
+		return ;
+				} 	
+				 	$scope.currentQuestion = response[index];
+				 	
+				 	
+
+	       $scope.nextQuestion=response[index+1]; 
+	       
+	       if(selectedOptionId==optionId){
+	     	       $("#"+selectedOptionId).removeAttr("style");
+	     	       $("#"+selectedOptionId).addClass("unSelected");
+
+	     }else{
+	     		       $("#"+optionId).addClass("selected");
+
+	     	}
+	     	
+	    
+		
+		
+			  
+				percent=$scope.percentList[Number( index) +Number(1)];
+		  $("#processLine").css("width",percent);	 
+	     $scope.currentIndex=Number( index) +Number(1);
+	     $("#"+questionId+"_").animate({left:"-980px"},500, function(){
+			$("#"+questionId+"_").fadeOut(100);  				
+		   $("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},300, function(){	
+		    $("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(100);					
+		  	});
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	});		})	}
+			
+			$scope.saveComments=function(){
+				
+				var squestionId= $scope.currentQuestion.question.qusetionId;
+				var svalue=$scope.currentQuestion.otherComments;
+				
+
+		 	$http.get("http://localhost:8080/funeral/fAnswer/saveOtherComments?"+"questionId="+squestionId+"&comments="+svalue).success(function(response) {
+			})		
+				
+				}
+         
+		$scope.nextItem = function(){
+			
+		
+			 selectedOptionId=$scope.currentQuestion.selectedOptionId; 
+			 
+          	
+	      
+		 		
+				 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+				 	
+				 
+				 	
+				 	 	if($scope.currentIndex==$scope.total+1){
+		alert("已经是最后一题了！");
+		return ;
+		
+		}
+		
+		
+			$scope.currentQuestion = response[index];
+				 	 index=	Number( index) +Number(1);	
+				 	 
+				 	 questionId=$scope.currentQuestion.question.questionId;
+				 		
+
+			$scope.nextQuestion=response[index+1]; 
+	       
+	       if($scope.total>Number( index) +Number(2)){
+	       	
+	       		$scope.tquestion=response[index+2];
+	       		
+	       		
+	       		 $("#"+$scope.tquestion.question.questionId+"_").hide(); 
+	       	
+	       	}
+	
+			  
+			percent=$scope.percentList[Number( index) +Number(1)];
+		  $("#processLine").css("width",percent);	 
+	     	
+	     		$scope.currentIndex=Number( index) +Number(1);
+	     	
+	     	
+				$("#"+questionId+"_").animate({left:"-980px"},500, function(){
+					
+				   
+					
+		    $("#"+questionId+"_").fadeOut(500); 
+		    				
+		    				
+		    				
+
+		    $("#"+ $scope.nextQuestion.question.questionId+"_").animate({left:"0px"},300, function(){	
+		    	
+		    	$("#"+ $scope.nextQuestion.question.questionId+"_").fadeIn(100);	
+		  	});
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	
+		  	});		})
+			
+			
+			
        }
-       $scope.updateSelection = function($event, id,name,_price){
-           updateSelected(id,name,_price);  
-                  $scope.totalCost=0;
-            angular.forEach($scope.selectedCost, function(data){
-$scope.totalCost =Number( $scope.totalCost) +Number(data);
-});   
-             }
-});
-	$("#saveButton").click(function() {
-	    var datadata = JSON.stringify($scope.curUser);
-	    $http({
-            method: "POST",
-            url:"http://localhost:8080/funeral/user/add",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-            alert("chenggong");
-        });
-	});		
-});
+	
+	
+	 $scope.preItem = function(){
+	     	if(index==0){
+	   		alert("已经是第一题了！")
+	   		return;
+	   		}
+	 					index=	Number( index) -Number(1);		
+					$scope.currentIndex=index+Number(1);
+			    $scope.currentQuestion =  $scope.questionList[index];	
+
+	 		questionId=$scope.currentQuestion.question.questionId;
+	 		
+	 	$http.get("http://localhost:8080/funeral/fAnswer/getQuestionById?"+"questionId="+questionId).success(function(response) {
+	       $scope.currentQuestion=response;
+			})
+							
+selectedOptionId=$scope.currentQuestion.selectedOptionId;
+
+
+ $scope.nextQuestion=$scope.questionList[index+1];	
+ 
+ 
+ 
+ 
+ 
+ $("#"+ $scope.nextQuestion.question.questionId+"_").fadeOut("slow");
+
+				
+		$("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},500,function(){
+							
+		$("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(1000);	
+							});	
+}
+ });	
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 	</script>
-	<script>
-		
-		
-		var i=0;
-  function onChecked(sId,sName) {
-  	
-    var oImg = document.getElementsByName(sName);
+			<script>
+			
+			
+				
+		function editField() {
+			
+			  var oImg = document.getElementsByName("optionImg");
     for (var i = 0; i < oImg.length; i++) { 	
-      if (oImg[i].id == sId) {
-      	var _id=sId+"_"+sName;
-        oImg[i].style.border = '1px solid #FF6600';
-        
+     
+        oImg[i].style.border = '0px solid #ffffff';
+     
+    }
+			
+			
+			}		
+				
+				
+				var selectedId=-1;
+				
+				
+function updateSelected(sId,sName) {
+    var oImg = document.getElementsByName(sName);
+    for (var i = 0; i < oImg.length; i++) { 	   	
+    	 
+    	alert("  sId="+sId+"  oImg[i].id="+oImg[i].id);
+      if (oImg[i].id == sId) {      	
+        oImg[i].style.border = '2px solid #ff5274';
       } else {
         oImg[i].style.border = '0px solid #ffffff';
       }
     }
-  }
+      
+     
+      
+      
+      
+    }
   function changRadio(_id){                            
+alert('changRadio  _id='+_id);
    var x= document.getElementById(_id);
+  alert('x ='+x);  
     if(x.checked==false){
     	x.checked==true;
     	}else{
     		x.checked==false
     		}
 }  
-	</script>
-
-</body>
-</html>
+			</script>
+			
+			
+			
+			
+			
+			</body>
+			</html>

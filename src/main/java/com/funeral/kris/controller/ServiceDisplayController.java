@@ -29,13 +29,14 @@ public class ServiceDisplayController {
 	@ResponseBody
 	@RequestMapping(value = "/serviceDisplay", method = RequestMethod.GET, produces = "application/json")
 	public List<ServiceDisplayBean> serviceDisplay() {
+		
+		System.out.println(this.getClass()+"############## serviceDisplay...");
 
 		ModelAndView modelAndView = new ModelAndView("list-of-serviceDisplay");
 
 		List<TServiceCategoryClass> serviceCategoryClassList = serviceCategoryClassService.getResources();
 		List<TServiceCategory> serviceCategoryList = serviceCategoryService.getResources();
 		List<ServiceDisplayBean> serviceDisplayBeanList = new ArrayList<ServiceDisplayBean>();
-
 
 		Iterator serviceCategoryIterator = serviceCategoryList.iterator();
 
@@ -57,49 +58,66 @@ public class ServiceDisplayController {
 				if (tServiceCategoryClass.getCateId().equals(tServiceCategory.getCateId())) {
 
 					serviceDisplayBean.setCateId(tServiceCategoryClass.getCateId());
-				
 
-				if (tServiceCategoryClass.getClassId() == 1) {
+					if (tServiceCategoryClass.getClassId() == 1) {
 
-					serviceDisplayBean.setDiscription1(tServiceCategoryClass.getClassDis());
+						serviceDisplayBean.setDiscription1(tServiceCategoryClass.getClassDis());
 
-					serviceDisplayBean.setDisplayId1(
-							tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
+						serviceDisplayBean.setDisplayId1(
+								tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
 
-					serviceDisplayBean.setPrice1(tServiceCategoryClass.getPrice());
+						serviceDisplayBean.setPrice1(tServiceCategoryClass.getPrice());
 
-				} else if (tServiceCategoryClass.getClassId() == 2) {
+						serviceDisplayBean.setImgUrldefault1(tServiceCategoryClass.getimgUrldefault());
 
-					serviceDisplayBean.setDiscription2(tServiceCategoryClass.getClassDis());
+						String style = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:1px solid blue";
 
-					serviceDisplayBean.setDisplayId2(
-							tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
+						style = style + ";background:url" + "(" + tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
+						serviceDisplayBean.setStyle1(style);
 
-					serviceDisplayBean.setPrice2(tServiceCategoryClass.getPrice());
+					} else if (tServiceCategoryClass.getClassId() == 2) {
 
-				} else if (tServiceCategoryClass.getClassId() == 3) {
+						serviceDisplayBean.setDiscription2(tServiceCategoryClass.getClassDis());
 
-					serviceDisplayBean.setDiscription3(tServiceCategoryClass.getClassDis());
+						serviceDisplayBean.setDisplayId2(
+								tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
 
-					serviceDisplayBean.setDisplayId3(
-							tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
+						serviceDisplayBean.setPrice2(tServiceCategoryClass.getPrice());
+						serviceDisplayBean.setImgUrldefault2(tServiceCategoryClass.getimgUrldefault());
 
-					serviceDisplayBean.setPrice3(tServiceCategoryClass.getPrice());
+						String style = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:1px solid blue;";
 
-				}else if(tServiceCategoryClass.getClassId() == 0){
+						style = style + "background:url" + "(" + tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
+						serviceDisplayBean.setStyle2(style);
+					} else if (tServiceCategoryClass.getClassId() == 3) {
+
+						serviceDisplayBean.setDiscription3(tServiceCategoryClass.getClassDis());
+
+						serviceDisplayBean.setDisplayId3(
+								tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
+
+						serviceDisplayBean.setPrice3(tServiceCategoryClass.getPrice());
+						serviceDisplayBean.setImgUrldefault3(tServiceCategoryClass.getimgUrldefault());
+						String style = "height:179px;width:179px;border-radius:179px; float:left;position:relative;top:10px;left:4%;padding-left:10px;border:1px solid blue;";
+
+						style = style + "background:url" + "(" + tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
+						serviceDisplayBean.setStyle3(style);
 					
+					} else if (tServiceCategoryClass.getClassId() == 0) {
 
+						serviceDisplayBean.setDiscription0(tServiceCategoryClass.getClassDis());
 
-					serviceDisplayBean.setDiscription0(tServiceCategoryClass.getClassDis());
+						serviceDisplayBean.setDisplayId0(
+								tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
 
-					serviceDisplayBean.setDisplayId0(
-							tServiceCategoryClass.getCateId() + "_" + tServiceCategoryClass.getClassId());
+						serviceDisplayBean.setPrice0(tServiceCategoryClass.getPrice());
 
-					serviceDisplayBean.setPrice0(tServiceCategoryClass.getPrice());
+						serviceDisplayBean.setImgUrldefault0(tServiceCategoryClass.getimgUrldefault());
+						String style = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:1px solid blue;";
 
-				
-					
-				}
+						style = style + "background:url" + "(" + tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
+						serviceDisplayBean.setStyle0(style);
+					}
 
 				}
 
