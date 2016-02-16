@@ -145,8 +145,8 @@ public class FQuestionController {
 			cssDisplay.append("right:0%;                                                      ");
 			cssDisplay.append("top:0px;                                                       ");
 			cssDisplay.append("text-align:center;                                             ");
-			cssDisplay.append("line-height:40px;overflow:hidden;                              ");
-			cssDisplay.append("color:#707070; face: 'STHeitiSC-Medium'; font-size:40px;     float:left;  ");
+			cssDisplay.append("line-height:40px;                          ");
+			cssDisplay.append("color:#707070; face: 'STHeitiSC-Medium'; font-size:40px;    float:left;  ");
 			StringBuffer cssHide = new StringBuffer();
 			cssHide.append("height:700px;                                                  ");
 			cssHide.append("width:100%;                                                    ");
@@ -156,8 +156,8 @@ public class FQuestionController {
 			cssHide.append("right:0%;                                                      ");
 			cssHide.append("top:0px;                                                       ");
 			cssHide.append("text-align:center;                                             ");
-			cssHide.append("line-height:40px;overflow:hidden;                              ");
-			cssHide.append("color:#707070; face: 'STHeitiSC-Medium'; font-size:40px; display:none;    float:left;  ");
+			cssHide.append("line-height:40px;                    ");
+			cssHide.append("color:#707070; face: 'STHeitiSC-Medium'; font-size:40px;   float:left;  ");
 
 			System.out.println(this.getClass() + "======  currentPosition" + QUESTION.currentPosition);
 

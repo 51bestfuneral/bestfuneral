@@ -104,5 +104,89 @@ public class ServiceDisplayBean {
 	private String discription1;
 	private String discription2;
 	private String discription3;
+	private String style0;
+	private String style1;
+	private String style2;
+	public String getStyle0() {
+		return style0;
+	}
+	public void setStyle0(String style0) {
+		this.style0 = style0;
+	}
+	public String getStyle1() {
+		return style1;
+	}
+	public void setStyle1(String style1) {
+		this.style1 = style1;
+	}
+	public String getStyle2() {
+		return style2;
+	}
+	public void setStyle2(String style2) {
+		this.style2 = style2;
+	}
+	public String getStyle3() {
+		return style3;
+	}
+	public void setStyle3(String style3) {
+		this.style3 = style3;
+	}
+	private String style3;
+	private String imgUrldefault0;
+	private String imgUrldefault1;
+	public String getImgUrldefault0() {
+		return imgUrldefault0;
+	}
+	public void setImgUrldefault0(String imgUrldefault0) {
+		this.imgUrldefault0 = imgUrldefault0;
+	}
+	public String getImgUrldefault1() {
+		return imgUrldefault1;
+	}
+	public void setImgUrldefault1(String imgUrldefault1) {
+		this.imgUrldefault1 = imgUrldefault1;
+	}
+	public String getImgUrldefault2() {
+		return imgUrldefault2;
+	}
+	public void setImgUrldefault2(String imgUrldefault2) {
+		this.imgUrldefault2 = imgUrldefault2;
+	}
+	public String getImgUrldefault3() {
+		return imgUrldefault3;
+	}
+	public void setImgUrldefault3(String imgUrldefault3) {
+		this.imgUrldefault3 = imgUrldefault3;
+	}
+	public String getImgUrlSelected0() {
+		return imgUrlSelected0;
+	}
+	public void setImgUrlSelected0(String imgUrlSelected0) {
+		this.imgUrlSelected0 = imgUrlSelected0;
+	}
+	public String getImgUrlSelected1() {
+		return imgUrlSelected1;
+	}
+	public void setImgUrlSelected1(String imgUrlSelected1) {
+		this.imgUrlSelected1 = imgUrlSelected1;
+	}
+	public String getImgUrlSelected2() {
+		return imgUrlSelected2;
+	}
+	public void setImgUrlSelected2(String imgUrlSelected2) {
+		this.imgUrlSelected2 = imgUrlSelected2;
+	}
+	public String getImgUrlSelected3() {
+		return imgUrlSelected3;
+	}
+	public void setImgUrlSelected3(String imgUrlSelected3) {
+		this.imgUrlSelected3 = imgUrlSelected3;
+	}
+	private String imgUrldefault2;
+	private String imgUrldefault3;
+	private String imgUrlSelected0;
+	private String imgUrlSelected1;
+	private String imgUrlSelected2;
+	private String imgUrlSelected3;
 
 }

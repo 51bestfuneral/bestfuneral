@@ -6,6 +6,8 @@
 	<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/common/comm.js"></script>
+	
 	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
@@ -40,10 +42,10 @@
 		
 		<div id="serviceTitle" >	<p>{{x.title}}</p>	</div>
 
-		<div id="{{x.displayId0}}"   class="pass" ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)"  onClick="onChecked(this);" > <div class="price" ><p>  </p>  </div>                  <div  class="discription"><p id="{{x.displayId0+'_'}}" >{{x.discription0}}</p></div> </div>
-		<div id="{{x.displayId1}}"   class="cloth" ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)"  onClick="onChecked(this);"> <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p id="{{x.displayId1+'_'}}">{{x.discription1}}</p></div></div>
-		<div id="{{x.displayId2}}"   class="basic" ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)" onClick="onChecked(this);" ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  id="{{x.displayId2+'_'}}">{{x.discription2}}</p></div></div>
-		<div id="{{x.displayId3}}"   class="advice" ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)" onClick="onChecked(this);" ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p id="{{x.displayId3+'_'}}">{{x.discription3}}</p></div></div>
+		<div id="{{x.displayId0}}"   style="{{x.style0}}"  ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)" onClick="onChecked(this,'no');" > <div class="price" ><p>  </p>  </div>                  <div  class="discription"><p id="{{x.displayId0+'_'}}" >{{x.discription0}}</p></div> </div>
+		<div id="{{x.displayId1}}"   style="{{x.style1}}"  ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)" onClick="onChecked(this,'cloth');"> <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p id="{{x.displayId1+'_'}}">{{x.discription1}}</p></div></div>
+		<div id="{{x.displayId2}}"   style="{{x.style2}}"  ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)" onClick="onChecked(this,'basic');" ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  id="{{x.displayId2+'_'}}">{{x.discription2}}</p></div></div>
+		<div id="{{x.displayId3}}"   style="{{x.style3}}"  ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)" onClick="onChecked(this,'advice');" ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p id="{{x.displayId3+'_'}}">{{x.discription3}}</p></div></div>
 	</div>
 
 
@@ -576,14 +578,21 @@ line-height:34px;
 	
 	</style>
 	<script>
+		
+	
 	var app = angular.module('myApp', []);
  // app.controller('serviceCategory', function($scope, $http) {
 //	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
 //  var datadata = JSON.stringify(response);
 //  $scope.serviceCategories=response;
 //		})
+
+
 	 app.controller('serviceCategoryDisplay', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+	 	
+ 	
+	 	
+	$http.get(window.app_url+"funeral/serviceDisplayController/serviceDisplay").success(function(response) {
   var datadata = JSON.stringify(response);
   $scope.serviceCategories=response;
     $scope.totalCost=0.00;
@@ -621,7 +630,7 @@ $scope.totalCost =Number( $scope.totalCost) +Number(data);
 	    var datadata = JSON.stringify($scope.curUser);
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/user/add",
+            url:window.app_url+"funeral/user/add",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'
@@ -671,8 +680,10 @@ function parsePrice(money)
 		
 		
 		
-  function onChecked(obj) {
+  function onChecked(obj,oname) {
 var sId=obj.id;
+
+
 var arr=sId.split("_");
 var cateId=arr[0];
 
@@ -692,6 +703,12 @@ var des=document.getElementById(sId+"_");
 des.style.color='#ff5274';	
 if (cateId+"_"+i == sId) {
 obj.style.border = '3px solid #ff5274';
+alert("oname="+oname+" sId="+sId);
+
+var desDiv=document.getElementById(obj.id);	
+desDiv.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/'+oname+'_.png)';
+
+
 return;
 } 
     }

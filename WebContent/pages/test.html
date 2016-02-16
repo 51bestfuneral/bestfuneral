@@ -1,0 +1,995 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+	Bleum - HOME
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers’
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" /> 
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<style>
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+	text-align: center;
+	height: 100%;
+}
+#topHalfLevel {
+    background-image:url('../js/images/heroImage031.jpg');
+    background-image:url('../js/images/Bitmap.png');
+	padding-bottom: 3%;
+	background-size:100%;
+}
+#topHalfLevel h1 {
+    padding-top: 180px;
+	margin: 0;
+	color: white;
+	font-size: 59px;
+}
+#topHalfLevel h5 {
+	margin: 0;
+	color: white;
+	padding-bottom: 50px;
+	font-size: 25px;
+	margin-top: 60px;
+}
+#topHalfLevel h3 {
+	margin: 0;
+	color: white;
+}
+#howToHelp {
+    width: 260px;
+	height: 40px;
+	margin:0px auto;
+	border-radius: 5px 0 0 5px;
+}
+#message {
+    width: 220px;
+	background-color: #ff5274;
+	height: 50px;
+	border-radius: 5px 0 0 5px;
+	float: left;
+	text-align: center;
+	cursor: pointer;
+	transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+    -webkit-transition:opacity 0.5s;
+    -o-transition:opacity 0.5s;
+}
+#message:hover {
+    opacity: 0.5;
+}
+#message p {
+    font-size: 20px;
+	margin: 0;
+	line-height: 50px;
+	color: white
+}
+#option {
+    width: 40px;
+	background-color: #ff5274;
+	height: 50px;
+	border-radius: 0 5px 5px 0;
+	float: left;
+	cursor: pointer;
+	transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+    -webkit-transition:opacity 0.5s;
+    -o-transition:opacity 0.5s;
+}
+#option:hover {
+    opacity: 0.5;
+}
+#option span {
+    width: 40px;
+	height: 40px;
+	color: white;
+	font-size: 21px;
+	line-height: 50px;
+}
+#howToHelp h4 {
+    line-height: 40px;
+	color: white;
+	margin: 0;
+}
+.carousel-control {
+    background-image: none!important;
+	width: 15px;
+	height: 54px;
+	width: 54px;
+    top: 100px;
+}
+.specialProduct .carousel-control.left {
+    left: -30px;
+}
+.specialProduct .carousel-control.right {
+    right: -30px;
+}
+.arrowCoat {
+	width: 54px;
+    height: 54px;
+    border-radius: 27px;
+	background-color: #f6f6f6;
+}
+.arrowCoat .headerArrow {
+	line-height: 45px;
+	color: #c6c6c6;
+	font-size: 50px;
+	margin: 0;
+}
+#referenceCarousel .carousel-indicators li {
+	background-color: #b4b4b4;
+}
+#mainContent3 {
+    width: 100%;
+	overflow: auto;
+}
+#subContentLeft {
+    width: 50%;
+	float:left;
+	height: 600px;
+}
+#subContentRight {
+    width: 50%;
+	float: left;
+	height: 600px;
+	padding-top: 80px;
+	text-align: left;
+	padding-left: 115px;
+	background-color: #f7f8fa;
+}
+#subContentRight h1,h2,h3,h4,h5,p {
+	margin: 0px;
+}
+#subContentRight h2,h4 {
+    color: #707070;
+}
+#subContentRight h2 {
+    font-size: 30px;
+}
+#subContentRight h4 {
+    font-size: 25px;
+}
+#subContentRight h5 {
+    color: #1c3653;
+	font-size: 13px;
+	line-height: 20px;
+	padding-bottom: 10px;
+}
+.singleTip {
+    width: 100%;
+	height: 600px;
+	background: -webkit-radial-gradient(#000000, #545454);
+    background: -o-radial-gradient(#000000, #545454);
+    background: -moz-radial-gradient(#000000, #545454);
+    background: radial-gradient(#000000, #545454);
+	padding-left: 160px;
+	text-align: left;
+}
+.singleTip h1 {
+    color: #ff5274;
+	font-family: "OpenSans-Semibold";
+	font-size: 224px;
+	margin: 0px;
+}
+.singleTip h2 {
+    font-size: 65px;
+	color: #FFFFFF;
+	padding-top: 115px;
+	margin: 0px;
+}
+.singleTip p {
+    font-size: 20px;
+	color: #FFFFFF;
+	margin: 0px;
+	margin-left: 8px;
+}
+.reason {
+    height: 100px;
+	border-bottom: 1px solid #e6e9ea;
+	padding-top: 10px;
+	padding-right: 20px;
+	width: 350px;
+}
+.reasonHeader {
+    width: 370px;
+}
+.imgContent {
+    float: left;
+	width: 45px;
+	height: 100%;
+	text-align: center;
+}
+.textContent {
+    float: left;
+	padding-left: 23px;
+	width: 285px;
+	height: 100%;
+}
+.textContent h4 {
+    margin: 0;
+}
+.textContent h5 {
+    margin: 0;
+	margin-top: -10px;
+}
+#questionContent {
+    width: 920px;
+	height: 600px;
+	margin:0px auto;
+}
+#questionGroup {
+    width: 100%;
+	height: 600px;
+    background: -webkit-radial-gradient(#ef8391, #db5f34);
+    background: -o-radial-gradient(#ef8391, #db5f34);
+    background: -moz-radial-gradient(#ef8391, #db5f34);
+    background: radial-gradient(#ef8391, #db5f34);
+}
+#questionGroupLeft {
+    height: 400px;
+	width: 350px;
+	text-align: left;
+	float: left;
+	padding-top: 150px;
+	color: white;
+	margin-right: 20px;
+}
+#questionGroupLeft h3 {
+    font-size: 30px;
+}
+#questionGroupLeft h1 {
+    font-size: 65px;
+	margin-top: 55px;
+}
+.question {
+    width: 550px;
+	height: 300px;
+	float: left;
+	margin-top: 240px;
+	background-color: #FFFFFF;
+	box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.16);
+}
+.questionLeft {
+    width: 60%;
+	height: 100%;
+    text-align: left;
+	float:left;
+}
+.questionLeft h2 {
+    font-size: 23px;
+	line-height: 35px;
+	color: #474747;
+}
+.questionLeft p {
+    font-size: 10px;
+	color: #FF7892;
+	line-height: 33px;
+	margin: 0px;
+}
+.questionRight {
+    width: 40%;
+	height: 100%;
+	float:left;
+}
+.optionButton {
+    width: 80px;
+	height: 33px;
+	border-radius: 33px;
+	border: 2px solid #ff5274;
+	background-color: white;
+	text-align: center;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.optionButton:hover {
+    background: #CCC;
+}
+.leftTop {
+    width: 290px;
+	margin-left: 20px;
+	height: 140px;
+	padding-top: 60px;
+}
+.leftBottom {
+    width: 290px;
+	margin-left: 20px;
+	height: 100px;
+	padding-top: 20px;
+	border-top: 2px solid #3d3d3d;
+}
+#members{
+    overflow: auto;
+	width: 100%;
+	height: 400px;
+}
+#members .carousel-control{
+    top: 160px;
+}
+.singleMember {
+    width: 100%;
+	height: 400px;
+	text-align: center;
+	padding-top: 72px;
+	background: #24272D;
+}
+.singleMember p{
+    font-size: 12px;
+	color: #acb1b4;
+}
+.memberPicture {
+    width: 70px;
+	height: 70px;
+	margin: 0px auto;
+	border-radius: 35px;
+	border: 2px solid #acb1b4;
+}
+.memberComment {
+    width: 550px;
+	font-size: 32px;
+	color: #FFFFFF;
+	margin: 0px auto;
+	margin-top: 32px;
+	margin-bottom: 25px;
+}
+.memberComment h1 {
+    margin: 0px;
+}
+#contactInformation {
+    width: 100%;
+	overflow: auto;
+	padding-top: 100px;
+	padding-bottom: 40px;
+}
+#contactInformation h2 {
+    margin: 0px;
+	font-size: 28px;
+	margin-bottom: 22px;
+}
+#contactInformation h4 {
+    font-size: 12px;
+	line-height: 20px;
+    margin: 0px;
+	color: #1c3653;
+}
+.contactUsDesc {
+    width: 540px;
+	margin: 0px auto;
+}
+#topContactInfo {
+    width: 100%;
+	overflow: auto;
+	text-align: left;
+}
+#topContactInfo h2 {
+    margin: 0;
+	font-size: 20px;
+}
+#topContactInfo h1 {
+    margin: 0;
+	font-size: 36px;
+	line-height: 30px;
+	color: #ff5274;
+}
+#topContactInfo p {
+    margin: 0;
+	font-size: 12px;
+	line-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.topContactInfoLeft {
+	overflow: auto;
+	float: left;
+	margin-left: 300px;
+	padding-bottom: 20px;
+	width: 260px;
+}
+.topContactInfoRight {
+    width: 320px;
+	overflow: auto;
+	float: left;
+	margin-left: 160px;
+	padding-bottom: 20px;
+}
+#contactInfo {
+    overflow: auto;
+	background: #f7f9fa;
+	padding-bottom: 90px;
+}
+#askGroup {
+    width: 268px;;
+	height: 44px;
+}
+#askGroupLeft {
+    width: 118px;
+    float: left;
+	height: 44px;
+	border-radius: 5px;
+	background: #ff5274;
+	color: #ffffff;
+	text-align: center;
+	cursor: pointer;
+    transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+    -webkit-transition:opacity 0.5s;
+    -o-transition:opacity 0.5s;
+}
+#startButton {
+    width: 118px;
+	float: left;
+	height: 44px;
+	background-color: #ff5274;
+	margin: 0px;
+	border-radius: 5px;
+	color: #ffffff;
+	text-align: center;
+}
+#startButton p {
+    font-size: 19px;
+	margin: 0px;
+	color: #ffffff;
+}
+#askGroupRight {
+    float: left;
+	height: 44px;
+	width: 150px;
+	padding-left: 10px;
+	color: #a9aeb0;
+	padding-top: 7px;
+}
+#askGroupRight p{
+    font-size: 12px;
+	line-height: 20px;
+	margin: 0px;
+}
+#bottomContactInfo {
+    width: 100%;
+	overflow: auto;
+	text-align: left;
+    padding-top: 10px;
+}
+#bottomContactInfo h2 {
+    margin: 0;
+	font-size: 20px;
+}
+#bottomContactInfo p {
+    margin: 0;
+	font-size: 12px;
+	line-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#bottomContactInfoLeft {
+    float: left;
+	width: 260px;
+	margin-left: 300px;
+	padding-right: 30px;
+}
+#bottomContactInfoRight {
+    float: left;
+	width: 320px;
+	margin-left: 160px;
+	padding-right: 20px;
+}
+#messageUs {
+    padding-top: 15px;
+	width: 100%;
+	margin-top: 10px;
+}
+#messageUsLeft {
+    float: left;
+	text-align: center;
+	width: 13%;
+	border: 1px solid #ccc;
+	background: #ffffff;
+	border-radius: 4px 0px 0px 4px;
+	cursor: pointer;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+#messageUsLeft:hover {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+#messageUsLeft span {
+    line-height: 43px;
+	font-size: 20px;
+	color: #ff5274;
+}
+#messageUsRight {
+    float: left;
+	width: 87%;
+}
+#messageUsRight input {
+    widht: 200px;
+	height: 45px;
+	border-radius: 0px 4px 4px 0px;
+	font-family: "Microsoft Yahei";
+}
+#messageButton {
+    margin-top: 20px;
+	width: 80px;
+	font-family: "Microsoft Yahei";
+}
+#contactButtonGroup {
+    margin-top: 25px;
+}
+.methodButton {
+    width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	color: #c5c5c5;
+	font-size: 13px;
+}
+.contactButton {
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.contactButton:hover {
+	border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+#maskDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    opacity: 0.5;
+}
+#krisTest {
+    position: fixed;
+	bottom: 0px;
+	z-index: 1001;
+}
+@media (min-width: 900px) {
+  .container {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.closeCoverDiv:hover {
+	color: yellow;
+	border: 2px solid yellow;
+}
+.titleDiv {
+    width: 1165px;
+	height: 40px;
+	margin: 0 auto;
+	background-color: #ccc;
+	text-align: left;
+}
+.titleDiv h1 {
+    margin: 0px;
+	margin-left: 15px;
+	font-size: 20px;
+	line-height: 40px;
+}
+	#titleIconDiv {
+	    position: absolute;
+		left: 64px;
+		top: 14px;
+		width: 68px;
+		height: 68px;
+		text-align: center;
+		border-radius: 34px;
+		overflow: hidden;
+		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	#titleIconDiv:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.iconImg {
+	    margin-left: -5px;
+		margin-top: 2px;
+		max-width: none;
+	}
+	.productCarousel {
+	    width: 1120px;
+		margin: 0 auto;
+		padding-top: 40px;
+	}
+	.productItem {
+	    width: 230px;
+		float: left;
+		margin-left: 40px;
+		border-bottom: 1px solid #ededed;
+		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
+		background-color: #ffffff;
+		border-radius: 4px;
+		overflow: hidden;
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	.productItem:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.productCarousel .carousel-control {
+	    height: 54px;
+		width: 54px;
+        top: 180px;
+		background-image: none;
+	}
+	.productCarousel .carousel-control.left {
+	    left: -30px;
+	}
+    .productCarousel .carousel-control.right {
+	    right: -30px;
+	}
+	.productCarousel .arrowCoat {
+	    width: 54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+	}
+	.productCarousel .arrowCoat .headerArrow {
+	    line-height: 45px;
+		color: #c6c6c6;
+		font-size: 50px;
+		margin: 0;
+	}
+	.productCarousel .carousel-indicators {
+	    bottom: -45px;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		margin-bottom: 20px;
+	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ff5274;
+		padding-left: 7px;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton p:hover {
+	    color: #3078c0;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	#products {
+	    padding-bottom: 50px;
+	}
+	#wechatFrame {
+	    z-index: 1001;
+		position: fixed;
+		top: 180px;
+		left: 540px;
+		width: 300px;
+		height: 300px;
+		background: #ffffff;
+	}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('wishTypeLevels', function($scope, $http) {
+    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	    var level1 =[],
+		    level2 = [],
+			level3 = [],
+			level4 = [];
+		
+		level1 = response.level1.split(",");
+		level2 = response.level2.split(",");
+		level3 = response.level3.split(",");
+		level4 = response.level4.split(",");
+		$scope.level1 = buildObject(level1);
+		$scope.level2 = buildObject(level2);
+		$scope.level3 = buildObject(level3);
+		$scope.level4 = buildObject(level4);
+	});
+});
+app.controller('products', function($scope, $http) {
+	$http.get("http://localhost:8080/funeral/wish/list").success(function(response) {
+	    var j = 1,
+		    counter = 1,
+		    numberInRow = 4,
+			objectsInRow = [],
+			layouts = [];
+		for (var i=0;i<response.length;i++) {
+		    var singleProduct = response[i];
+
+			if (j <= numberInRow) {
+			    objectsInRow.push(singleProduct);
+			}
+
+			if (j === numberInRow) {
+			    var layout = {},
+				    active = '',
+					itemLayout = objectsInRow;
+					
+				if (counter === 1) {
+				    active = 'active'
+				}
+				layout = {
+				    'index': counter,
+					'active': active,
+					'itemLayout': itemLayout
+				};
+				layouts.push(layout);
+			    j = 0;
+				counter++;
+				objectsInRow = [];
+			}
+			j++;
+		}
+		$scope.layouts = layouts;
+	});
+	$http.get("http://localhost:8080/funeral/message/list").success(function(response) {
+	    response[0].active = 'active';
+	    $scope.messages = response;
+	});
+});
+$("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
+});
+</script>
+<body ng-app="productApp" ng-controller="products">
+
+<div id="questionGroup">
+    <div id="questionContent">
+        <div id="questionGroupLeft">
+            <h3>知识测试</h5>
+            <h1>你了解你的父母吗?</h5>
+	    </div>
+	    <div class = "question" id="question1">
+		    <div class="questionLeft">
+			    <div class="leftTop">
+	                <h2>你知道自己父母的生日吗?</label>
+				</div>
+				<div class="leftBottom">
+		            <div class = "optionButton"><p>知道</p></div>
+		            <div class = "optionButton"><p>不知道</p></div>
+				</div>
+			</div>
+			<div class="questionRight">
+			</div>
+	    </div>
+	    <div class = "question" id="question2" hidden>
+		    <div class="questionLeft">
+			    <div class="leftTop">
+	                <h2>你知道自己父母的血型吗?</label>
+				</div>
+				<div class="leftBottom">
+		            <div class = "optionButton"><p>知道</p></div>
+		            <div class = "optionButton"><p>不知道</p></div>
+				</div>
+			</div>
+			<div class="questionRight">
+			</div>
+	    </div>
+	</div>
+</div>
+
+ 
+
+</body>
+<div id="wechatFrame" hidden>
+    <h2>请扫描我们的二维码</h2>
+    <img src="../../js/images/erCode.png"></img>
+</div>
+<script>
+$(function() {
+    $('.ck-slide').ckSlide({
+				autoPlay: true,//默认为不自动播放，需要时请以此设置
+				dir: 'x',//默认效果淡隐淡出，x为水平移动，y 为垂直滚动
+				interval:3000//默认间隔2000毫秒
+				
+			});
+	function runEffect(parentId) {
+	    var options = {};
+	    $("#"+parentId).effect( "drop", options, 500, callback );
+	};
+	
+	function callback() {
+      setTimeout(function() {
+        $( "#question2" ).fadeIn();
+      }, 500 );
+    };
+	
+	$( ".optionButton" ).click(function() {
+	    var parentId = this.parentElement.parentNode.parentElement.id;
+        runEffect(parentId);
+        return false;
+    });
+	$("#messageButton").click(function() {
+	    var messageValue = $("#messageSent")[0].value,
+		    id = Date.parse(new Date()) + '123',
+		    data = {
+			    content: messageValue,
+				userId: '123',
+				messageId: id
+			};
+
+		if (messageValue && messageValue != '') {
+			$.ajax({
+				url: 'http://localhost:8080/funeral/message/add',
+				data: data,
+				type: 'post',
+				dataType:'json',
+				success:function(data){
+				    alert("您的信息我们已经收到！");
+				},
+				error: function(error) {
+					alert("您的信息我们已经收到！");
+					$("#messageSent")[0].value = '';
+				}
+			});
+		}
+	});
+	$("#messageUsLeft").click(function() {
+	    var messageValue = $("#messageSent")[0].value,
+		    id = Date.parse(new Date()) + '123',
+		    data = {
+			    content: messageValue,
+				userId: '123',
+				messageId: id
+			};
+
+		if (messageValue && messageValue != '') {
+			$.ajax({
+				url: 'http://localhost:8080/funeral/message/add',
+				data: data,
+				type: 'post',
+				dataType:'json',
+				success:function(data){
+				    alert("您的信息我们已经收到！");
+				},
+				error: function(error) {
+					alert("您的信息我们已经收到！");
+					$("#messageSent")[0].value = '';
+				}
+			});
+		}
+	});
+	$("#startButton").click(function() {
+	    window.location.href='funeralDesignPage.html';
+	});
+	$("#wechatFrame").draggable();
+})
+window.onload=function(){
+    function muskPage() {
+			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 1000, 
+				width: $(document).width(), 
+				height: $(document).height(), 
+				'background-color': '#ccc', 
+				opacity: 0 
+			}).fadeIn('slow', function(){ 
+	// 淡入淡出效果 
+				$(this).fadeTo('slow', 0.5); 
+		});
+	};
+	$(".productItem").click(function() {
+		    var parentWidth = $(".coverDiv").width(),
+				frameWidth = $(".detailFrame").width();
+	        $(this).css({
+			    opacity: 0.5
+			});
+			muskPage();
+			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
+			$(".closeCoverDiv").css({
+				right: (parentWidth-frameWidth)/2,
+				left: 'auto',
+				top: 0
+			});
+			$(".coverDiv").fadeIn(1000);
+	});
+	$("#weChat").click(function () {
+	    var parentWidth = $(".coverDiv").width(),
+			frameWidth = $(".detailFrame").width();
+		$(this).css({
+			opacity: 0.5
+	    });
+		muskPage();
+		$("#wechatFrame").fadeIn();
+	});
+	$("#wechatFrame").click(function() {
+	    $(this).fadeOut();
+		$(".jquery_addmask").remove();
+	});
+	$(".closeCoverDiv").click(function() {
+		$(".coverDiv").fadeOut();
+		$(".jquery_addmask").remove();
+		$(".productItem").css({
+			 opacity: 1
+		});
+	});
+};
+</script>
+</html>
