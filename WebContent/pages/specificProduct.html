@@ -3,7 +3,7 @@
 <head id="head"><title>
 	Bleum - HOME
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers¡¯
+								deliver smart solutions, helping you to exceed your customersï¿½ï¿½
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
@@ -25,7 +25,7 @@
 }
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -252,13 +252,13 @@ app.controller('products', function($scope, $http) {
 				}
 				if ($(".disableDiv").length>0) {
 				    for (var i=0;i<$(".disableDiv").length;i++) {
-				        $(".disableDiv").find("p")[i].innerText = "ÒÑ¼ÓÈëÔ¸ÍûÇåµ¥";
+				        $(".disableDiv").find("p")[i].innerText = "ï¿½Ñ¼ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½åµ¥";
 					}
 				}
 			},
 			error: function(error) {
 				var response = error;
-				//$(".disableDiv").find("p")[0].innerText = "ÒÑ¼ÓÈëÔ¸ÍûÇåµ¥";
+				//$(".disableDiv").find("p")[0].innerText = "ï¿½Ñ¼ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½åµ¥";
 			}
 		});
 	}
@@ -307,12 +307,12 @@ app.controller('products', function($scope, $http) {
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 </div>
     <div id="header">
-	    <h1>ä¯ÀÀ¹Ç»ÒºÐ</h1>
+	    <h1>ï¿½ï¿½ï¿½ï¿½Ç»Òºï¿½</h1>
 	</div>
 	<div id="filterBar">
 	    <div id="colorFilter">
 		    <div class="topHalfHeader">
-			    <p>ÑÕÉ«</p>
+			    <p>ï¿½ï¿½É«</p>
 			</div>
 			<div class="bottomHalf">
 			    <div class="optionIcon">
@@ -339,29 +339,29 @@ app.controller('products', function($scope, $http) {
 		</div>
 		<div id="sizeFilter">
 		    <div class="topHalfHeader">
-			    <p>´óÐ¡</p>
+			    <p>ï¿½ï¿½Ð¡</p>
 			</div>
 			<div class="bottomHalf">
 			    <div class="optionIcon">
-				    <p>ÌØ´ó</p>
+				    <p>ï¿½Ø´ï¿½</p>
 				</div>
 				<div class="optionIcon">
-				    <p>´ó</p>
+				    <p>ï¿½ï¿½</p>
 				</div>
 				<div class="optionIcon">
-				    <p>ÖÐµÈ</p>
+				    <p>ï¿½Ðµï¿½</p>
 				</div>
 				<div class="optionIcon">
 				    <p>Ð¡</p>
 				</div>
 				<div class="optionIcon">
-				    <p>ÃÔÄã</p>
+				    <p>ï¿½ï¿½ï¿½ï¿½</p>
 				</div>
 			</div>
 		</div>
 		<div id="priceFilter">
 		    <div class="topHalfHeader">
-			    <p>¼Û¸ñ</p>
+			    <p>ï¿½Û¸ï¿½</p>
 			</div>
 		    <div id="box">
 				<div id="bg">
@@ -383,18 +383,18 @@ app.controller('products', function($scope, $http) {
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
-								<p class="detail">°üº¬ÔÚÄúµÄÌ×²ÍÖÐ(Ô­¼Û:£¤{{itemLayout.price}})</p>
+								<p class="detail">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½(Ô­ï¿½ï¿½:ï¿½ï¿½{{itemLayout.price}})</p>
 								<div class="addWishButton" onselectstart="return false">
 								    <img src="../../js/images/addWish.png"></img>
-								    <p>Ìí¼ÓÖÁÔ¸ÍûÇåµ¥</p>
+								    <p>ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½åµ¥</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">ÁË½âÏêÇé</a></div>
+							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">ï¿½Ë½ï¿½ï¿½ï¿½ï¿½ï¿½</a></div>
 						</div>
 		            </div>
                 </div>
 	</div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
  <script type="text/javascript">
  (function($){
@@ -439,7 +439,7 @@ app.controller('products', function($scope, $http) {
      }
      $btn.css('left',left);
      $bgcolor.width(left);
-     $text.html('Î»ÖÃ:' + parseInt((($('#box').width()-left-right)/$('#box').width())*100) + '%');
+     $text.html('Î»ï¿½ï¿½:' + parseInt((($('#box').width()-left-right)/$('#box').width())*100) + '%');
     }
 	if(statuRight){
 	 right = ox2 - e.pageX;
@@ -451,7 +451,7 @@ app.controller('products', function($scope, $http) {
      }
 	 $btn1.css('right',right);
      $bgcolorRight.width(right);
-     $text.html('Î»ÖÃ:' + parseInt((($('#box').width()-left-right)/$('#box').width())*100) + '%');
+     $text.html('Î»ï¿½ï¿½:' + parseInt((($('#box').width()-left-right)/$('#box').width())*100) + '%');
     }
    });
  })(jQuery);

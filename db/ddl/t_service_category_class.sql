@@ -16,6 +16,3 @@ CREATE TABLE t_service_category_class (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
-select _id , cate_id, class_id, img_url_default from  t_service_category_class;
-
-update t_service_category_class set img_url_selected='/pages/html/customizatonPages/assets/images/costCalcu/basic_.png' where _id=11; 

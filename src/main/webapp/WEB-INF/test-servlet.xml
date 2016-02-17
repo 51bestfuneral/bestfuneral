@@ -31,6 +31,7 @@
       
       <props>
       <prop key="testQuestionController.do"> testQuestionController</prop>
+      <prop key="upload.upload"> upload</prop>
       
       
       </props>      
@@ -38,6 +39,7 @@
 
 </bean>
  <bean id="testQuestionController" class="com.funeral.kris.controller.TestQuestionController"></bean>
+ <bean id="upload" class="com.funeral.kris.upload.servlet.UploadFileServlet"></bean>
 
 
 <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">

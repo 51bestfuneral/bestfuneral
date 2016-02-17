@@ -51,15 +51,15 @@ public class AnswerController {
 	public ModelAndView addAnswerPage() {
 		String querySQL ="";
 		Answer answer = new Answer();
-		answer.setAnsListId("ÊÔÊÔ");
-		answer.setAnswerDesc("·þÎñÆ÷Å¶");
+		answer.setAnsListId("ï¿½ï¿½ï¿½ï¿½");
+		answer.setAnswerDesc("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¶");
 		answer.setAnswerId("123");
 		answer.setUserId("123");
 		ModelAndView modelAndView = new ModelAndView("add-answer-form");
 		modelAndView.addObject("answer", new Answer());
 		
 		querySQL = "select p from Cemetery p where p.cemeteryDesc= '%s'";
-		querySQL = String.format(querySQL, "²âÊÔ");
+		querySQL = String.format(querySQL, "ï¿½ï¿½ï¿½ï¿½");
 		List<Cemetery> cemeterys = em.createQuery(querySQL).getResultList();
 		answerService.addResource(answer);
 		return modelAndView;
@@ -167,8 +167,8 @@ public class AnswerController {
 			if (cemeterys!=null && cemeterys.size() > 0) {
 				randomIndex = random.nextInt(cemeterys.size());
 				randomWish = cemeterys.get(randomIndex);
-				detail.setWishId(randomWish.getCemeteryId());
-				detail.setPrice(Double.valueOf(randomWish.getPrice()));
+				detail.setWishId(randomWish.getCemeteryId().toString());
+				detail.setPrice(Double.valueOf(randomWish.getPrice().toString()));
 				detail.setCount(1);
 				detail.setWishlistId(wishListId);
 				detail.setWishType(wishType);

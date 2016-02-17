@@ -1,7 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/sliderx.js"></script>
@@ -11,10 +10,10 @@ var app = angular.module('myApp', []);
 var answers = [];
 var answerForSaves = [];
 app.controller('question', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/question/list?questionId=1").success(function(response) {
+	$http.get("funeral/question/list?questionId=1").success(function(response) {
 		if (response.length > 0) {
 	        $scope.curQuestion = response[0];
-			$http.get("http://localhost:8080/funeral/option/list?questionId=1").success(function(optionRes) {
+			$http.get("funeral/option/list?questionId=1").success(function(optionRes) {
 			    $scope.options = optionRes;
 			})
 		}
@@ -34,10 +33,10 @@ app.controller('question', function($scope, $http) {
 	    answerForSaves.push(answerForSave);
 		$("#questionDiv").effect( "drop", options, 500);
 		
-		$http.get("http://localhost:8080/funeral/question/findNext?sequence="+ $scope.curQuestion.sequence +"&optionId="+this.id).success(function(response) {
+		$http.get("funeral/question/findNext?sequence="+ $scope.curQuestion.sequence +"&optionId="+this.id).success(function(response) {
 			if (response.length > 0) {
 				$scope.curQuestion = response[0];
-				$http.get("http://localhost:8080/funeral/option/list?questionId="+response[0].questionId).success(function(optionRes) {
+				$http.get("funeral/option/list?questionId="+response[0].questionId).success(function(optionRes) {
 					$scope.options = optionRes;
 					$("#questionDiv").fadeIn();
 				});
@@ -55,7 +54,7 @@ app.controller('question', function($scope, $http) {
 	    var datadata = JSON.stringify(answers);
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/answer/add",
+            url:"funeral/answer/add",
             data: answerForSaves,
 			headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +66,7 @@ app.controller('question', function($scope, $http) {
 	});
 });
 app.controller('items', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/question/list?questionId=1").success(function(response) {
+	$http.get("funeral/question/list?questionId=1").success(function(response) {
 	    
 	});
 });
@@ -80,6 +79,11 @@ function testCtrl() {
 
 </script>
 <body ng-app="myApp" ng-controller="question">
+	<div class="container">
+
+<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html?cat=design" frameborder = 0></IFRAME>
+
+
 <div>
 <h1>葬礼定制</h1>
 <h6>无论您是需要一整套葬礼服务，还是单一产品的购买，我们都能提供你最适合的解决方案。回答我们几个问题， 我们可以帮助您预选出您的定制化葬礼</h6>
@@ -122,5 +126,5 @@ function testCtrl() {
 </div>
 <button id="saveButton">生成愿望清单</button>
 </body>
-<IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </html>

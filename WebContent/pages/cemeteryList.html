@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head"><title>
-    Cemetery
+    澧撳湴鍒楄〃
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers’
+								deliver smart solutions, helping you to exceed your customers鈥�
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
-<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
@@ -20,7 +20,7 @@
 <style>
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -117,7 +117,15 @@ p {
 	float: left;
 	background-color: rgba(0, 0, 0, 0.4);
 	text-align: center;
+	cursor:pointer;
+	overflow: hidden;
 }
+.cemeteryDiv img {
+  
+  height: 100%;
+  width: 100%;
+}
+
 .cemeteryDiv p {
     line-height: 370px;
 	color: #ffffff;
@@ -125,113 +133,103 @@ p {
 }
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
+
+	var app = angular.module('myApp', []);
+	 app.controller('cemetery', function($scope, $http) {
+	 	
+	 	$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+       	
+  $scope.cemeteryBeans=response;
+  
+ }) 	
+ 	 	
+	$scope.gotodetails = function(id){
+ 	
+ 	goto(id);
+ 	
+ 	} 	
+	 	
+	 	
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
+	
+
+ 
+
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body ng-app="myApp" ng-controller="cemetery">
 <div class="container">
+	<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
+
 <div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
 </div>
 <div id="mainHeader">
     <div id="headerText">
-        <h1>我们和上海多家墓园和寺庙建立了合作，为您提供方便</h1>
+        <h1>鎴戜滑鍜屼笂娴峰瀹跺鍥拰瀵哄簷寤虹珛浜嗗悎浣滐紝涓烘偍鎻愪緵鏂逛究</h1>
 	</div>
 	<div id="visitButton">
-	    <p>在线预约</p>
+	    <p>鍦ㄧ嚎棰勭害</p>
 	</div>
-	<p>我们会帮您安排参观访问</p>
+	<p>鎴戜滑浼氬府鎮ㄥ畨鎺掑弬瑙傝闂�</p>
 </div>
 <div id="cemeteryList">
     <div class="listTitle">
 	    <img src="../js/images/cemeteryList.png"></img>
-		<h1>墓园</h1>
+		<h1>澧撳洯</h1>
 	</div>
 	<div class="listContent">
-	    <div class="doubleLeft cemeteryDiv">
-		    <p>墓地名称</p>
+	    <div  ng-click="gotodetails(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}} style={{bean.style}} ng-repeat=" bean in  cemeteryBeans">
+		    <p>{{bean.cemeteryName}}</p>
 		</div>
-		<div class="singleRight cemeteryDiv">
-		    <p>墓地名称</p>
-		</div>
-		<div class="singleLeft cemeteryDiv">
-		    <p>墓地名称</p>
-		</div>
-		<div class="singleMiddle cemeteryDiv">
-		    <p>墓地名称</p>
-		</div>
-		<div class="singleRight cemeteryDiv">
-		    <p>墓地名称</p>
-		</div>
-		<div class="singleLeft cemeteryDiv">
-		    <p>墓地名称</p>
-		</div>
-		<div class="doubleRight cemeteryDiv">
-		    <p>墓地名称</p>
-		</div>
+		
+		
+		
+		
 	</div>
 	<div class="listTitle">
 	    <img src="../js/images/cemeteryList.png"></img>
-		<h1>寺庙</h1>
+		<h1>瀵哄簷</h1>
 	</div>
 	<div class="listContent">
 	    <div class="doubleLeft cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 		<div class="singleRight cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 		<div class="singleLeft cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 		<div class="singleMiddle cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 		<div class="singleRight cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 		<div class="singleLeft cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 		<div class="doubleRight cemeteryDiv">
-		    <p>寺庙名称</p>
+		    <p>瀵哄簷鍚嶇О</p>
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>物品详细信息</h1>
+<h1>鐗╁搧璇︾粏淇℃伅</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
 </body>
 <script>
-window.onload=function(){
-    $(".cemeteryDiv").click(function () {
-	    window.location.href='cemetery.html';
-	});
-};
+	
+	function goto(id){
+		
+		    window.location.href='cemetery.html?id='+id;
+	
+		}
+	
 </script>
 </html>

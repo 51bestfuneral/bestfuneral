@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head"><title>
-	Bleum - HOME
+	念念
 </title><meta name="description" content="Bleum provides high performance software development teams that
 								deliver smart solutions, helping you to exceed your customers’
 								expectations for timely product delivery, zero defects, and a
@@ -574,7 +574,7 @@ body {
 }
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -691,14 +691,24 @@ body {
 		font-size: 13px;
 		border: 0px;
 	}
-	#wechatFrame {
-	    z-index: 1001;
-		position: fixed;
-		top: 180px;
-		left: 540px;
-		width: 300px;
-		height: 300px;
-		background: #ffffff;
+	#wechatFrame {		
+		position:relative;
+		left:330px;
+		top:-480px;
+		width:150px;
+		height:130px;
+	}
+	
+		#wechatFrame img{
+		width:90px;
+		height:90px;
+		position:relative;
+		top:-5px;	
+			}
+	#wechatFrame p{
+	font-family: PingFangSC-Light;
+  font-size: 10px;
+  line-height: 10px;
 	}
 </style>
 <script type="text/javascript">
@@ -818,7 +828,7 @@ $("#titleIconDiv").on("click", function () {
 		</div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine.html"></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=460 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine.html"></IFRAME>
 <div id = "mainContent3">
     <div id="subContentLeft">
 	     <div>
@@ -992,7 +1002,7 @@ $("#titleIconDiv").on("click", function () {
 	</div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div id="titleIconDiv">
     <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
@@ -1006,9 +1016,9 @@ $("#titleIconDiv").on("click", function () {
 </div>
 </body>
 <div id="wechatFrame" hidden>
-    <h2>请扫描我们的二维码</h2>
-    <img src="/funeral/js/images/erCode.png"></img>
-</div>
+<h6>微信公众号</h6>
+<img src="/funeral/js/images/erCode.jpg"></img>
+	</div>
 <script>
 $(function() {
     $('.ck-slide').ckSlide({
@@ -1086,20 +1096,16 @@ $(function() {
 	$("#startButton").click(function() {
 	    window.location.href='funeralDesignPage.html';
 	});
-	$("#wechatFrame").draggable();
+
 })
 window.onload=function(){
 	$(".productItem").click(function() {
 			muskPageForProduct();
 	});
-	$("#weChat").click(function () {
-	    var parentWidth = $(".coverDiv").width(),
-			frameWidth = $(".detailFrame").width();
-		$(this).css({
-			opacity: 0.5
-	    });
-		muskPage();
-		$("#wechatFrame").fadeIn();
+	$("#weChat").hover(function () {
+	  
+	 
+	  $("#wechatFrame").show();
 	});
 	$("#wechatFrame").click(function() {
 	    $(this).fadeOut();
@@ -1113,5 +1119,6 @@ window.onload=function(){
 		});
 	});
 };
+
 </script>
 </html>

@@ -3,7 +3,7 @@
 <head id="head"><title>
     Wish List
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers�?
+								deliver smart solutions, helping you to exceed your customers�?
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -21,13 +21,13 @@
 </head>
 
 <header>
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
 
 <div id="line0"></div>
 <div id="link">
  <link1>	 <a href="#">为什么要定制葬礼</a>  </link1>
  <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样定制      </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">定制计算�?/a>  </link3>
+ <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">定制计算</a>  </link3>
  <link4>   <a href="/funeral/pages/designProposal.html">定制套餐  </a>  </link4></div>
 
 </header>
@@ -36,7 +36,7 @@
 <style>
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -361,10 +361,10 @@
 			url: '/funeral/wishlistDetail/delete/'+wishListDetailId,
 			type: 'get',
 			success:function(data){
-				alert("您的信息我们已经收到�?);
+				alert("您的信息我们已经收到？");
 			},
 			error: function(error) {
-				alert("您的信息我们已经收到�?);
+				alert("您的信息我们已经收到？");
 			}
 		});
 	}
@@ -375,7 +375,7 @@
     <div id="decorContainer">
 	    <div id="pageHeader">
 		    <div id="headerLeft">
-			    <h1>您的购物�?/h1>
+			    <h1>您的购物车</h1>
 			</div>
 			<div id="headerRight">
 			    <div class="rightImg">
@@ -398,16 +398,16 @@
 					<input type="checkbox">
 				</div>
 				<div class="itemName">
-				    <p class="title">产品和服�?/p>
+				    <p class="title">产品和服</p>
 				</div>
 				<div class="itemPrice">
-				    <p class="title">念念价格 (�?</p>
+				    <p class="title">念念价格 </p>
 				</div>
 				<div class="itemAmout">
 				    <p class="title">数量</p>
 				</div>
 				<div class="totalPrice">
-				    <p class="title">小计 (�?</p>
+				    <p class="title">小计 </p>
 				</div>
 				<div class="operation">
 				    <p class="title">操作</p>
@@ -492,12 +492,12 @@
 			<div id="rightSumm">
 			    <div id="rigthTop">
 				    <div id="rigthTopTitle">
-					    <p class="title titleNumber">�?25.00</p>
+					    <p class="title titleNumber">25.00</p>
 						<p class="title titleNumber">0</p>
-						<p class="summTitle titleNumber">�?25.00</p>
+						<p class="summTitle titleNumber">25.00</p>
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">�?4 件商品，共计</p>
+					    <p class="title">4 件商品，共计</p>
 						<p class="title">运费</p>
 						<p class="summTitle">订单总计</p>
 					</div>
@@ -508,13 +508,13 @@
 			    <button>继续购物</button>
 				</div>
 				<div class="next">
-				<button id="nextButton">去结�? </button>
+				<button id="nextButton">去结账 </button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
@@ -586,7 +586,7 @@ window.onload=function(){
 			    opacity: 0.5
 			});
 			muskPage();
-			$(".detailFrame").attr("src","component/productDetail.html?id="+$(this)[0].id)
+			$(".detailFrame").attr("src","/funeral/pages/component/productDetail.html?id="+$(this)[0].id)
 			$(".closeCoverDiv").css({
 				right: (parentWidth-frameWidth)/2,
 				left: 'auto',

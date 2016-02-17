@@ -84,11 +84,11 @@ public class ServiceDisplayController {
 						serviceDisplayBean.setImgUrldefault0(tServiceCategoryClass.getimgUrldefault());
 						serviceDisplayBean.setImgUrlSelected0(tServiceCategoryClass.getImgUrlSelected());
 
-						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:0px solid blue";
+						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:0px solid blue";
 
 						unSelectStyle = unSelectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
-						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:3px solid #ff5274";
+						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:3px solid #ff5274";
 
 						selectStyle = selectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getImgUrlSelected() + ");background-repeat:no-repeat;";
@@ -116,11 +116,11 @@ public class ServiceDisplayController {
 						serviceDisplayBean.setImgUrldefault1(tServiceCategoryClass.getimgUrldefault());
 						serviceDisplayBean.setImgUrlSelected1(tServiceCategoryClass.getImgUrlSelected());
 
-						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:0px solid blue";
+						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:0px solid blue";
 
 						unSelectStyle = unSelectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
-						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:3px solid #ff5274";
+						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:3px solid #ff5274";
 
 						selectStyle = selectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getImgUrlSelected() + ");background-repeat:no-repeat;";
@@ -148,11 +148,11 @@ public class ServiceDisplayController {
 						serviceDisplayBean.setImgUrldefault2(tServiceCategoryClass.getimgUrldefault());
 						serviceDisplayBean.setImgUrlSelected2(tServiceCategoryClass.getImgUrlSelected());
 
-						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:0px solid blue";
+						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:0px solid blue";
 
 						unSelectStyle = unSelectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
-						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:3px solid #ff5274";
+						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:3px solid #ff5274";
 
 						selectStyle = selectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getImgUrlSelected() + ");background-repeat:no-repeat;";
@@ -180,11 +180,11 @@ public class ServiceDisplayController {
 
 						serviceDisplayBean.setImgUrldefault3(tServiceCategoryClass.getimgUrldefault());
 						serviceDisplayBean.setImgUrlSelected3(tServiceCategoryClass.getImgUrlSelected());
-						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:0px solid blue";
+						String unSelectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:0px solid blue";
 
 						unSelectStyle = unSelectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getimgUrldefault() + ");background-repeat:no-repeat;";
-						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:4%;padding-left:10px;border:3px solid #ff5274";
+						String selectStyle = "height:179px;width:179px;border-radius:179px;float:left;position:relative;top:10px;left:7%;padding-left:0px;border:3px solid #ff5274";
 
 						selectStyle = selectStyle + ";background:url" + "(" + QUESTION.rootPath
 								+ tServiceCategoryClass.getImgUrlSelected() + ");background-repeat:no-repeat;";

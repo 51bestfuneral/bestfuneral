@@ -1,13 +1,9 @@
 package com.funeral.kris.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,9 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.funeral.kris.dao.MessageDAO;
 import com.funeral.kris.model.Message;
 import com.funeral.kris.model.MessageUser;
-import com.funeral.kris.model.Question;
 import com.funeral.kris.rowMapper.MessageUserMapper;
-import com.funeral.kris.rowMapper.UserMapper;
 
 @Service
 @Transactional

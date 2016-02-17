@@ -29,6 +29,7 @@
 
 </header>
 
+		
 
 <style>
 #mainHeader {
@@ -73,7 +74,7 @@
 }
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -109,13 +110,17 @@
 }
 
 .leftFeatureImg{
-	   width: 485px;
+	width: 485px;
 	float: left;
 	height: 485px;
 	background: #ccc;
-	opacity: 0.5;
+	opacity: 1;
 	border:0px solid red;
-	
+	}
+.leftFeatureImg img{
+	max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+  width: 100%;
 	}
 
 .rightFeatureText {
@@ -163,24 +168,34 @@
 }
 
 .rightlocationImg{
-	
-   width: 512px;
+	width: 485px;
 	height: 330px;
 	background-color: #ccc;
-	margin-left: 24px;
 	float: left;
-	opacity: 0.5;	
-	
+	opacity: 1;	
+	margin:0 auto; overflow:hidden;
 	}
+	
+.rightlocationImg img{
+		max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+   width: 100%;
+	}	
+	
 
 .leftEquipmentImg{
-	
-	   width: 485px;
+	width: 485px;
 	float: left;
 	height: 485px;
 	background: #ccc;
-	opacity: 0.5;
+	opacity: 1;
 	border:0px solid red;
+	}
+	
+	.leftEquipmentImg img{
+	max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+   width: 100%;
 	}
 	
 .rightEquipmentText{
@@ -416,89 +431,44 @@
 	
 }
 </style>
-<script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
+<script>
+	
+	var length = location.search.length,
+id = location.search.substring(4, length);
+	
+	var app = angular.module('myApp', []);
+	 app.controller('cemetery', function($scope, $http) {
+	 	
+	 	$http.get("/funeral/cemetery/findOneCemetery?id="+id).success(function(response) {
+       	
+  $scope.cemeteryBean=response;
+  
+ }) 	
+ 	 	
+	 	
+	 	
+	 	
 	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
-app.controller('products', function($scope, $http) {
-	$http.get("/funeral/wish/list").success(function(response) {
-	    var j = 1,
-		    counter = 1,
-		    numberInRow = 4,
-			objectsInRow = [],
-			layouts = [];
-		for (var i=0;i<response.length;i++) {
-		    var singleProduct = response[i];
-
-			if (j <= numberInRow) {
-			    objectsInRow.push(singleProduct);
-			}
-
-			if (j === numberInRow) {
-			    var layout = {},
-				    active = '',
-					itemLayout = objectsInRow;
-					
-				if (counter === 1) {
-				    active = 'active'
-				}
-				layout = {
-				    'index': counter,
-					'active': active,
-					'itemLayout': itemLayout
-				};
-				layouts.push(layout);
-			    j = 0;
-				counter++;
-				objectsInRow = [];
-			}
-			j++;
-		}
-		$scope.layouts = layouts;
-	});
-	$http.get("/funeral/message/list").success(function(response) {
-	    response[0].active = 'active';
-	    $scope.messages = response;
-	});
-});
-$("#titleIconDiv").on("click", function () {
-	    window.location.href='mainPage.html';
-});
-</script>
-<body ng-app="productApp" ng-controller="products">
+	
+	
+	
+	
+	
+	</script>
+<body ng-app="myApp" ng-controller="cemetery" >
 <div class="container">
 
 <div id="mainHeader">
     <div id="leftTop">
-	    <p><span>墓地信息</span>／清竹园</p>
+	    <p><span>墓地信息</span>／{{cemeteryBean.cemeteryName}}</p>
 	</div>
 	<div id="centerText">
-        <h1>清竹园</h1>
-	    <h2>上海市嘉定区</h2>
+        <h1>{{cemeteryBean.cemeteryName}}</h1>
+	    <h2>{{cemeteryBean.district}}</h2>
 	</div>
 	<div id="labelsArea">
-		<span class="label label-default">清净</span>
-		<span class="label label-default">典雅</span>
-		<span class="label label-default">交通便利</span>
-		<span class="label label-default">设备齐全</span>
+		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
+		
 	</div>
 </div>
 <div id="cemeteryFilter">
@@ -516,46 +486,28 @@ $("#titleIconDiv").on("click", function () {
 		</div>
 		<div id="filterContent">
 			<div class="filterContent">
-			    <div>
-				    <p>单人墓</p>
+			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
+				    <p>{{graveStyle.description}}</p>
 				</div>
-				<div>
-				    <p>双人墓</p>
-				</div>
-				<div>
-				    <p>三人墓</p>
-				</div>
+			
 			</div>
 			<div class="filterContent">
-			    <div>
-				    <p>西式</p>
+			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
+				    <p>{{epigraphStyle.style}}</p>
 				</div>
-				<div>
-				    <p>中式</p>
-				</div>
+				
 			</div>
 			<div class="locationContent">
-			    <div>
-				    <p>乐百苑1-7排</p>
+			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
+				    <p>{{graveZone.zone}}</p>
 				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
+			
 			</div>
 		</div>
 	</div>
 	<div id="reserver">
 	    <h1>市场均价</h1>
-		<h2>￥1,150,000</h2>
+		<h2>￥{{cemeteryBean.price}}</h2>
 		<button class="reserverBtn">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 	</div>
@@ -564,48 +516,51 @@ $("#titleIconDiv").on("click", function () {
     <div id="featureContent">
 	    <div id="singleFeature">
 		    <div id="mainFeature">
-			    <div class="leftFeatureImg">
+			    <div class="leftFeatureImg" >
+			    	
+			    <img src={{cemeteryBean.descImgUrl}}></img>
 				</div>
 				<div class="rightFeatureText">
-				    <h1>特色</h1>
-				    <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
+				    <h1>简介</h1>
+				    <p>{{cemeteryBean.cemeteryDesc}}</p>
 				</div>
 			</div>
 			<div id="locationFeature">
 			    <div class="leftlocationText">
-				     <h1>地理位置</h1>
-					 <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
+				     <h1>特色</h1>
+					 <p>{{cemeteryBean.feature}}</p>
 				</div>
 				<div class="rightlocationImg">
+					 <img src={{cemeteryBean.featureImgUrl}}></img>
 				</div>
 			</div>
 			<div id="equipmentFeature">
 			    <div class="leftEquipmentImg">
+			    	
+					 <img src={{cemeteryBean.locationImgUrl}}></img>
+			
 				</div>
 				<div class="rightEquipmentText">
-				    <h1>设施</h1>
-				    <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
+				    <h1>交通信息</h1>
+				    <p>{{cemeteryBean.trafficInfo}}</p>
 				</div>
 			</div>
+			
+		
+			
 		</div>
 	</div>
 </div>
 <div id="cemeteryMap">
-   <img src="/funeral/js/images/cemeteryMap.png"></img>
+   <img src={{cemeteryBean.mapUrl}}></img>
    <div class="commentMap">
-       <h1>清竹园</h1>
-	   <h2>上海市嘉定区外冈镇嘉松北路633号</h2>
+       <h1>{{cemeteryBean.cemeteryName}}</h1>
+	   <h2>{{cemeteryBean.address}}</h2>
    </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
-<div class="coverDiv" hidden>
-<div class="titleDiv">
-<h1>物品详细信息</h1>
-</div>
-<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
-<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
-</div>
+
 </body>
 <script>
 window.onload=function(){

@@ -12,25 +12,14 @@
 <script src="/funeral/js/sliderx.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <script src="/funeral/js/Bootstrap/boot.js"></script>
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
-<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="/funeral/js/libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="/funeral/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="/funeral/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 
 </head>
 
 
-<header>
-<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
-<div id="line0"></div>
-<div id="link">
- <link1>	 <a href="/funeral/pages/funeralDesignPage.html">为什么要定制葬礼</a>  </link1>
- <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬�?     </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算�?/a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定�?</a>  </link4>
- </div>
-
-</header>
 
 
 
@@ -38,7 +27,7 @@
 <style>
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -149,7 +138,17 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <body>
-<div clsss="container">
+<div class="container">
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
+<div id="line0"></div>
+<div id="link">
+ <link1>	 <a href="/funeral/pages/funeralDesignPage.html">为什么要定制葬礼</a>  </link1>
+ <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼    </a>  </link2>
+ <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算</a>  </link3>
+ <link4>   <a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制</a>  </link4>
+ </div>	
+	
+	
 <div id="mainContent">
    
     <div class="topContent">
@@ -164,7 +163,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	<!--for tab-->
 	<div id="designTaocan">
         <div id="taocan1" class="designTaocanIconDiv">
-			<h3>一路走�?/h3>
+			<h3>一路走好</h3>
 		</div>
 		<div id="taocan2" class="designTaocanIconDiv">
 			<h3>静享怡然</h3>
@@ -202,7 +201,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			 <p>比较</p>
 			</li>
 		<li class="normalHeaderLineLeft">
-			    <p>�?/p>
+			    <p></p>
 			</li>
 				<li style="{{wishCate.style}}" ng-repeat="wishCate in wishCates">
 			    <p class="messageInRow" style="{{wishCate.fontStyle}}">{{wishCate.cateName}}</p>
@@ -229,7 +228,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 
 			</li>
 			<li class="normalHeaderLineRight">
-			    <p>�?/p>
+			    <p></p>
 			</li>
 			
 				<li class="normalLine" ng-repeat="cateSub in cateSubs">
@@ -251,7 +250,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <div class="taocanIconDivInRow">
 				    <div class="iconChild">
 			            <h2 class="designHeaderText">基础</h2>
-		                <h4>�?288 - �?6288<h4>
+		                <h4>￥288 - ￥6288<h4>
 					</div>
 		        </div>
 			</li>
@@ -259,7 +258,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <table class="normalLineText">
 　　                <tr>
 　　                    <td style="vertical-align:middle;">
-                            <p>最为经济合算的方案�?br/>比较低的成本定制专属葬礼�?/p>
+                            <p>最为经济合算的方案<br/>比较低的成本定制专属葬礼</p>
                         </td>
 　　                </tr>
 　　            </table>
@@ -275,7 +274,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 			<li>
 			    <div class="submitArea">
-				    <button><p>选择该套�?/p></button>
+				    <button id="basicButton"><p>选择该套</p></button>
 				</div>
 			</li>
 		
@@ -297,8 +296,8 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">精�?/h3>
-		                <h4>�?288 - �?6288<h5>
+			            <h2 class="designHeaderText">精品</h3>
+		                <h4>￥288 - ￥6288<h5>
 					</div>
 		        </div>
 			</li>
@@ -306,7 +305,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <table class="normalLineText">
 　　                <tr>
 　　                    <td style="vertical-align:middle;">
-                            <p>最受欢迎的方案�?br/>灵活的安排各项葬礼细节�?/p>
+                            <p>最受欢迎的方案<br/>灵活的安排各项葬礼细节</p>
                         </td>
 　　                </tr>
 　　            </table>
@@ -319,7 +318,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button><p>选择该套�?/p></button>
+				    <button id="goodButton"><p>选择该套</p></button>
 				</div>
 			</li>
 		</ul>
@@ -335,7 +334,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
 			            <h2 class="designHeaderText">豪华</h3>
-		                <h4>�?288 - �?6288<h5>
+		                <h4>￥288 - ￥6288<h5>
 					</div>
 		        </div>
 			</li>
@@ -343,7 +342,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <table class="normalLineText">
 　　                <tr>
 　　                    <td style="vertical-align:middle;">
-                            <p>最大气的方案，<br/>为您爱的人举办高规格的仪式�?/p>
+                            <p>最大气的方案，<br/>为您爱的人举办高规格的仪式</p>
                         </td>
 　　                </tr>
 　　            </table>
@@ -356,7 +355,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button><p>选择该套�?/p></button>
+				    <button id="betterButton"><p>选择该套</p></button>
 				</div>
 			</li>
 		</ul>
@@ -375,7 +374,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
 			            <h2 class="designHeaderText">顶级</h3>
-		                <h4>�?288 - �?6288<h5>
+		                <h4>￥288 - ￥6288<h5>
 					</div>
 		        </div>
 			</li>
@@ -383,7 +382,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <table class="normalLineText">
 　　                <tr>
 　　                    <td style="vertical-align:middle;">
-                            <p>最奢侈的方案，<br/>举办无上规格的仪式�?/p>
+                            <p>最奢侈的方案，<br/>举办无上规格的仪式</p>
                         </td>
 　　                </tr>
 　　            </table>
@@ -396,7 +395,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button><p>选择该套�?/p></button>
+				    <button  id="bestButton" ><p>选择该套</p></button>
 				</div>
 			</li>
 		</ul>
@@ -408,7 +407,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
     <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
     
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <!--<script type="text/javascript">
 	$(".designTaocanIconDiv").hover(function () {
@@ -800,7 +799,26 @@ return;
 
 
 
-
+$("#basicButton").on("click", function () {
+	   
+            window.parent.location.href='/funeral/pages/designProcess.html';
+	
+	});
+$("#goodButton").on("click", function () {
+	   
+            window.parent.location.href='/funeral/pages/designProcess.html';
+	
+	});
+$("#betterButton").on("click", function () {
+	   
+            window.parent.location.href='/funeral/pages/designProcess.html';
+	
+	});
+$("#bestButton").on("click", function () {
+	   
+            window.parent.location.href='/funeral/pages/designProcess.html';
+	
+	});
 
 
    

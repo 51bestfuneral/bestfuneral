@@ -114,7 +114,7 @@ public class CommentController {
 		Map<String, String> userMap = new HashMap<String, String>();
 		List<User> users = userService.getResources();
 		for (User user : users) {
-			userMap.put(user.getUsrId(), user.getUserName());
+			userMap.put(user.getUsrId().toString(), user.getUserName());
 		}
 		return userMap;
 	}

@@ -12,7 +12,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body ng-app="myApp" ng-controller="serviceCategoryDisplay">
-<header>
+     	<div class="container">
+
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 <div id="line0"></div>
 <div id="link">
@@ -23,7 +24,7 @@
  <link5>  <a href="/funeral/pages/designProposal.html">   <p>开始定制</p> </a>                              </link5>
  	</div>
 
-</header>
+
 <script>
 	var serviceCategories;
 </script>
@@ -67,7 +68,7 @@
 
 <div style=" position:relative; top:-1px; ">
   
- <IFRAME NAME="content_frame" width=100% height=370  marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder =1></IFRAME>
+ <IFRAME NAME="content_frame" width=100% height=300  marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder =0></IFRAME>
  
 </div>
 	<style>
@@ -156,14 +157,13 @@ position:relative; left:0%; right:0%;top:120px;
 
 
 #pic1{
-height:104px;
-width:770px;
+height:102px;
+width:63px;
 border:0px
 solid #767676;
-background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/pic.png);
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/pic_new.jpg);
 background-repeat:no-repeat;
-position:relative; left:0%; right:0%;top:140px;
-margin: 0 auto;
+position:relative; left:46.5%; right:0%;top:153px;
 }		
 	
 	
@@ -171,17 +171,14 @@ margin: 0 auto;
 #item{
 height:334px;
 width:64.8%;
-border:0px
-solid #767676;
 background-color: #ffffff;
 position:relative;
 top:20px;
-
+border:0px solid blue;
 text-align:center;
 box-shadow: 10px 10px 50px #d6d6d6;
 margin:0 auto;
 margin-bottom:20px;
-margin-right:210px;
 }
  
 .price{
@@ -300,8 +297,9 @@ width:10px;
 background-color:#c2c2c2;	
 position:relative;
 top:-21px;
-left:-28px;
+left:-13px;
 margin:0 auto;
+border:0px solid red;
 
 }
 
@@ -309,9 +307,7 @@ margin:0 auto;
 height:80px;
 width:10px;
 background-color:#c2c2c2;	
-position:relative;
-top:0px;
-margin:0 auto;
+position:relative; left:48.6%; right:0%;
 
 }
 
@@ -453,6 +449,14 @@ line-height:34px;
 	</style>
 	<script>
 		
+	$("#beginButton").on("click", function () {
+	   
+            window.parent.location.href='/funeral/pages/designProposal.html';
+	
+	});
+	
+	
+	
 	
 	var app = angular.module('myApp', []);
  // app.controller('serviceCategory', function($scope, $http) {
