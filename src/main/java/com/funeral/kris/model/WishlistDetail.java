@@ -29,7 +29,7 @@ public class WishlistDetail implements Serializable {
 	private String wishType;
 	
 	@Column(name="wish_id")
-	private String wishId;
+	private Integer wishId;
 	
 	@Column(name="count")
 	private Integer count;
@@ -67,11 +67,11 @@ public class WishlistDetail implements Serializable {
 		this.wishType = wishType;
 	}
 
-	public String getWishId() {
+	public Integer getWishId() {
 		return wishId;
 	}
 
-	public void setWishId(String wishId) {
+	public void setWishId(Integer wishId) {
 		this.wishId = wishId;
 	}
 

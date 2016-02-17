@@ -14,5 +14,5 @@ public interface OptionService {
 	public void deleteResource(Long id);
 	public List<Option> getResources();
 	public List<Option> getResources(HttpServletRequest request);
-    public List<Option> getOptionListByQuestionId(Long id);
+    public List<Option> getOptionListByQuestionId(String id);
 }

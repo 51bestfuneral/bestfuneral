@@ -185,25 +185,8 @@ public class FQuestionController {
 
 					option.setImgUrl(QUESTION.IMG_PATH + option.getImgUrl());
 
-					option.setStyle("cursor:pointer;");
-
 					TFAnswer tFAnswer = fAnswerService.getAnswer(QUESTION.ADMIN_ID, tFQuestion.getQuestionId(),
 							option.getOptionId());
-
-					if (tFAnswer != null) {
-
-						if (tFQuestion.getOptionSize() == 4) {
-							option.setStyle("border:7px solid #ff5274; border-radius:90px; cursor:pointer;");
-						} else if (tFQuestion.getOptionSize() == 2) {
-
-							option.setStyle("border:7px solid #ff5274; border-radius:170px; cursor:pointer;");
-
-						} else if (tFQuestion.getOptionSize() == 3) {
-
-							option.setStyle("border:7px solid #ff5274; border-radius:170px;  cursor:pointer;");
-
-						}
-					}
 
 					optionsList.add(option);
 				}

@@ -131,6 +131,10 @@
 	    font-size: 18px;
 		line-height: 66px;
 		margin: 0px;
+		cursor: pointer;
+	}
+	.operatorCoat p:hover {
+	    opacity: 0.8;
 	}
 	.selectCoat {
 	    float: right;
@@ -158,18 +162,18 @@
 	.selected p {
 	    color: #2c9676!important;
 	}
+	.disabled {
+	    opacity: 0.5;
+		cursor: default;
+		background: #d6d6d6!important;
+		box-shadow: 0 4px 0px 0 #c5c5c5!important;
+	}
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
+var app = angular.module('productApp', []),
+    wishList = parent.wishList;
 app.controller('products', function($scope, $http) {
-    var tabs = [{
-	    index: 1
-	}, {
-	    index: 2
-	}, {
-	    index: 3
-	}]
-	$scope.tabs = tabs;
+	$scope.tabs = wishList.selectedItemList;
 });
 </script>
 <body ng-app="productApp" ng-controller="products">
@@ -180,15 +184,15 @@ app.controller('products', function($scope, $http) {
 		<div id="wishListHeader">
 			<h1>您的愿望清单</h1>
 		</div>
-		<div class="wishItem" ng-repeat="tab in tabs">
+		<div class="wishItem" ng-repeat="tab in tabs" id="{{tab.wishId}}">
 			<div class="picCoat">
 			</div>
 			<div class="wishNameCoat">
-			    <p class="wishName">项目</p>
-				<p class="wishDesc">备注</p>
+			    <p class="wishName">{{tab.wishName}}</p>
+				<p class="wishDesc">{{tab.price}}</p>
 			</div>
 			<div class="operatorCoat">
-			    <p>更改</p>
+			    <p>删除</p>
 			</div>
 			<div class="selectCoat selected">
 			    <div class="IconContent">
@@ -198,7 +202,7 @@ app.controller('products', function($scope, $http) {
 				    <p class="wishDesc">已选择</p>
 				</div>
 			</div>
-			<div class="selectCoat selected">
+			<div class="selectCoat {{tab.selected}}">
 			    <div class="IconContent">
 				    <p class="wishDesc">￥</p>
 				</div>
@@ -219,6 +223,41 @@ app.controller('products', function($scope, $http) {
 </div>
 </body>
 <script>
+$(document.body).on("click",".operatorButton", function( event ) {
+	var me = $(this);
+
+	if (me.hasClass("disabled")) {
+	    return;
+	}
+
+	if (me[0].id === 'nextStep') {
+	    var finalItems = [];
+	    for (var i=0;i<wishList.selectedItemList.length;i++) {
+		    var singleItem = wishList.selectedItemList[i],
+			    finalItem = {};
+			
+			finalItem.wishId = singleItem.wishId;
+			finalItem.price = parseInt(singleItem.price, 10);
+			finalItem.wishDesc = singleItem.wishDesc;
+			finalItems.push(finalItem);
+		}
+	    $.ajax({
+		    url: 'http://localhost:8080/bestfuneral/wishlistDetail/add?wishlistId='+wishList.wishlistId,
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(finalItems),
+			success:function(data){
+				window.parent.location.href='../paymentInfo.html';
+		    },
+			error: function(error) {
+				//alert("您的信息我们已经收到！");
+				//$("#messageSent")[0].value = '';
+			}
+		});
+	}
+	window.parent.iFrameHeight();
+});
 $(document.body).on("click",".productTab", function( event ) {
 	var contentId = $(this)[0].id + "-content";
 
@@ -238,8 +277,46 @@ $(document.body).on("click",".productTab", function( event ) {
 		}
 	});
 });
+$(document.body).on("click",".productTab", function( event ) {
+	var contentId = $(this)[0].id + "-content";
+
+	$(".questionCenter").each(function(){
+	    var me = $(this);
+		
+		if (me[0].id === contentId) {
+		    if (me.is(':hidden')) {
+		        me.fadeIn();
+			}
+			else {
+			    return false;
+			}
+		}
+		else if (me[0].id !== contentId && !me.is(':hidden')) {
+		    me.hide();
+		}
+	});
+});
+$(document.body).on("click",".operatorCoat p", function( event ) {
+	if(window.confirm('你确定要删除这一项吗？')){
+        $(this).closest('.wishItem').fadeOut();
+		for (var i=0;i<wishList.selectedItemList.length;i++) {
+		    var oriWish = wishList.selectedItemList[i];
+
+			if (oriWish.wishId === $(this).closest('.wishItem')[0].id) {
+			    wishList.selectedItemList.splice(i, 1);
+			}
+		}
+		setTimeout(function() {
+		    $(this).closest('.wishItem').remove();
+		}, 1000);
+    }
+	else{
+        return false;
+    }
+});
 window.onload=function(){
     $(".questionCenter").first().fadeIn();
+	$("#prevStep").addClass("disabled");
 };
 </script>
 </html>

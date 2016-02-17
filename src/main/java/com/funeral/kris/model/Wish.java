@@ -16,7 +16,7 @@ public class Wish {
 	@Id
 	@GeneratedValue
 	@Column(name="wish_id")
-	private String wishId;
+	private Integer wishId;
 
 	@Column(name="wish_name")
 	private String wishName;
@@ -48,11 +48,11 @@ public class Wish {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getWishId() {
+	public Integer getWishId() {
 		return wishId;
 	}
 
-	public void setWishId(String wishId) {
+	public void setWishId(Integer wishId) {
 		this.wishId = wishId;
 	}
 

@@ -68,7 +68,9 @@
 		margin: 0px;
 	}
 	.productCenter{
-	    padding-bottom: 40px;
+	    padding-bottom: 100px;
+		display: none;
+		height: 647px;
 	}
 	.productCenter h1,h3 {
 	    color: #707070;
@@ -78,6 +80,10 @@
 		margin: 0 auto;
 		padding-top: 20px;
 		cursor: pointer;
+		padding-bottom: 20px;
+	}
+	.productCarousel .carousel-inner {
+	    padding-bottom: 20px;
 	}
 	.productItem {
 	    width: 184px;
@@ -118,6 +124,7 @@
 	.productInfo {
 	    padding-top: 20px;
 		padding-left: 15px;
+		padding-right: 15px;
 		text-align: left;
 		padding-bottom: 15px;
 	}
@@ -130,6 +137,7 @@
 	    font-size: 12px;
 		color: #f5274;
 		margin-bottom: 20px;
+		height: 34px;
 	}
 	.addWishButton {
 	    cursor: pointer;
@@ -139,14 +147,14 @@
 		background-color: #ff5274;
 		padding-left: 7px;
 	}
+	.addWishButton:hover {
+	    background-color: #ff496d;
+	}
 	.addWishButton p {
 	    color: white;
 		font-size: 13px;
 		line-height: 28px;
 		float: left;
-	}
-	.addWishButton p:hover {
-	    color: #3078c0;
 	}
 	.addWishButton img {
 	    float: left;
@@ -186,10 +194,6 @@
 	.chooseProduct .alreadyInFoot {
 	    height: 56px;
 	}
-	.productCenter {
-	    display: none;
-		height: 537px;
-	}
 	#rightFooter {
 		width: 100%;
 		overflow: auto;
@@ -228,58 +232,144 @@
 		color: #ffffff;
 		font-size: 24px;
 	}
+    .disabled {
+	    opacity: 0.5;
+		cursor: default;
+		background: #d6d6d6!important;
+		box-shadow: 0 4px 0px 0 #c5c5c5!important;
+	}
+	#moveCursor {
+	    width: 120px;
+		height: 2px;
+		position: absolute;
+		background: #ff5274;
+	}
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('products', function($scope, $http) {
-    var tabs = [{
-	    index: 1,
-		typeName: '礼物',
-		tabId: 'test1'
-	}, {
-		index: 2,
-		typeName: '纪念品',
-		tabId: 'test2'
-	}, {
-		index: 3,
-		typeName: '鲜花',
-		tabId: 'test3'
-	}];
-
-	for (var j=0;j<tabs.length;j++) {
-        var tab = tabs[j],
-		    layouts = [{
-	            index: 1,
-				active: 'active'
-	        }, {
-	    	    index: 2,
-				active: ''
-	    	}, {
-	    	    index: 3,
-				active: ''
-	    	}];
-		
-	    for(var i=0;i<layouts.length;i++){
-            var layout = layouts[i],
-	    	    itemLayout = [{
-	    		    itemName: '镶金楠木棺材',
-					itemPrice: '5000',
-					itemUrl: 'www.baidu1.com'
-	    		}, {
-	    		    itemName: '紫檀木棺材',
-					itemPrice: '10000',
-					itemUrl: 'www.baidu2.com'
-	    		}, {
-	    		    itemName: '樟木棺材',
-					itemPrice: '2000',
-					itemUrl: 'www.baidu3.com'
-	    		}];
-
-	    	layout.itemLayout = itemLayout;
+var app = angular.module('productApp', []),
+    tabs = [],
+	wishList,
+	usrId = 1,
+	wishlistObject = {};
+function validateInList() {
+	$.ajax({
+		url: 'http://localhost:8080/bestfuneral/wishlist/list?userId='+usrId,
+		type: 'get',
+		success:function(resdata){
+		    wishList = resdata;
+			wishlistObject.wishlistId = resdata[0].wishlistId;
+			$.ajax({
+				url: 'http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId='+resdata[0].wishlistId,
+				type: 'get',
+				success:function(data){
+					var response = data;
+					wishlistObject.selectedItemList = response;
+					parent.wishList = wishlistObject;
+					for (var i=0;i<response.length;i++) {
+						var wishInList = response[i];
+						if ($("#"+wishInList.wishId).length > 0) {
+							$("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
+							$("#"+wishInList.wishId).addClass("chooseProduct");
+						}
+					}
+					if ($(".disableDiv").length>0) {
+						for (var i=0;i<$(".disableDiv").length;i++) {
+							$(".disableDiv").find("p")[i].innerText = "我们为您选择的";
+						}
+					}
+				},
+				error: function(error) {
+					var response = error;
+					//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+				}
+			});
+		},
+		error: function(error) {
+			var response = error;
+			//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+		}
+	});
+};
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
         }
-		tab.layouts = layouts
-	}
-	$scope.tabs = tabs;
+    };
+});
+app.controller('products', function($scope, $http) {
+	$http.get("http://localhost:8080/bestfuneral/wishType/list").success(function(tabResponse) {
+	    for (var i=1;i<=tabResponse.length;i++) {
+		    var object = tabResponse[i-1];
+            $http.get("http://localhost:8080/bestfuneral/wish/list?wishType="+object.wishType).success(function(response, retStatus, method, request) {
+				var j = 1,
+					counter = 1,
+					numberInRow = 3,
+					objectsInRow = [],
+					layouts = [],
+					url = request.url,
+					tab;
+
+			    for (var m =0;m<tabResponse.length;m++) {
+				    var requestType = url.substring(url.indexOf("=")+1,url.length);
+				    if (tabResponse[m].wishType === requestType) {
+				        tab = {
+						    index: m+1,
+				            typeName: tabResponse[m].wishTypeDesc,
+				            tabId: tabResponse[m].wishType
+						}
+				    }
+				}
+
+			    for (var i=0;i<response.length;i++) {
+						var singleProduct = response[i];
+
+						if (j <= numberInRow) {
+							objectsInRow.push(singleProduct);
+						}
+
+						if (j === numberInRow || i === response.length-1) {
+							var layout = {},
+								active = '',
+								itemLayout = objectsInRow;
+								
+							if (counter === 1) {
+								active = 'active'
+							}
+							layout = {
+								'index': counter,
+								'active': active,
+								'itemLayout': itemLayout
+							};
+							layouts.push(layout);
+							j = 0;
+							counter++;
+							objectsInRow = [];
+						}
+						j++;
+			    }
+				tab.layouts = layouts;
+				tabs.push(tab);
+
+				if (tabs.length === tabResponse.length) {
+				    tabs.sort(function(a, b) {
+					    return a.index>b.index ? 1:-1;
+					});
+					$scope.tabs = tabs;
+				}
+			});
+		}
+	});
+	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+          $(".productCenter").first().fadeIn();
+		  validateInList();
+		  window.parent.iFrameHeight();
+    });
 });
 </script>
 <body ng-app="productApp" ng-controller="products">
@@ -287,12 +377,6 @@ app.controller('products', function($scope, $http) {
 <div id="tabCarousel" class="carousel slide">
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
-	    <div class="productTab" id="casket">
-		    <p>棺材</p>
-		</div>
-		<div class="productTab" id="urn">
-		    <p>骨灰盒</p>
-		</div>
 		<div class="productTab" ng-repeat="tab in tabs" id="{{tab.tabId}}">
 		    <p>{{tab.typeName}}</p>
 		</div>
@@ -303,201 +387,9 @@ app.controller('products', function($scope, $http) {
 <a class="carousel-control right" href="#tabCarousel" 
     data-slide="next"><p class="headerArrow">&rsaquo;</p></a>
 </div>
-<div class="productCenter" id="casket-content" >
-    <div class="index">
-	    <p><b>1</b>/20</p>
-	</div>
-	<h1>棺材选择</h1>
-	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
-	<div class="carouselProduct">
-	    <div class="carousel slide productCarousel" id="casketCarousel">
-            <div class="carousel-inner">
-                <div class="item active" alt="First slide">
-	                <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-		            <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-		            <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-                </div>
-				<div class="item" alt="Second slide">
-	                <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情{{itemLayout.itemIndex}}</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-                </div>
-            </div>
-            <a class="carousel-control left" href="#casketCarousel" 
-                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-            <a class="carousel-control right" href="#casketCarousel" 
-                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-        </div>
-	</div>
+<div id="moveCursor">
 </div>
-<div class="productCenter" id="urn-content">
-    <div class="index">
-	    <p><b>2</b>/20</p>
-	</div>
-	<h1>骨灰盒选择</h1>
-	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
-	<div class="carouselProduct">
-	    <div class="carousel slide productCarousel" id="urnCarousel">
-            <div class="carousel-inner">
-                <div class="item active" alt="First slide">
-	                <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-		            <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-		            <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-                </div>
-				<div class="item" alt="Second slide">
-	                <div class="productItem">
-		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
-						</div>
-						<div class="productText">
-						    <div class="productInfo">
-							    <p class="header">镶金楠木棺材</p>
-								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
-								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
-								</div>
-							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">了解详情{{itemLayout.itemIndex}}</a></div>
-						</div>
-						<div class="alreadyInFoot">
-						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
-						</div>
-		            </div>
-                </div>
-            </div>
-            <a class="carousel-control left" href="#urnCarousel" 
-                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-            <a class="carousel-control right" href="#urnCarousel" 
-                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-        </div>
-	</div>
-</div>
-<div class="productCenter" id="{{tab.tabId}}-content" ng-repeat="tab in tabs">
+<div class="productCenter" id="{{tab.tabId}}-content" ng-repeat="tab in tabs" on-finish-render-filters>
     <div class="index">
 	    <p><b>{{$index+1}}</b>/20</p>
 	</div>
@@ -507,20 +399,20 @@ app.controller('products', function($scope, $http) {
 	    <div class="carousel slide productCarousel" id="{{tab.tabId}}Carousel">
             <div class="carousel-inner">
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in tab.layouts track by $index">
-	                <div class="productItem" ng-repeat="itemLayout in layout.itemLayout track by $index">
+	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
 		                <div class="imageDiv">
 						    <img src="../../js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">{{itemLayout.itemName}}</p>
-								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.itemPrice}})</p>
+							    <p class="header">{{itemLayout.wishName}}</p>
+								<p class="detail">包含在您的套餐中(原价:<span>￥{{itemLayout.price}}</span>)</p>
 								<div class="addWishButton">
 								    <img src="../../js/images/addWish.png"></img>
-								    <p>添加至愿望清单</p>
+								    <p>选择它来替换</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">了解详情</a></div>
+							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
 						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
@@ -546,6 +438,83 @@ app.controller('products', function($scope, $http) {
 </div>
 </body>
 <script>
+function handleButton() {
+    var count = $(".productCenter").length,
+	    firstSlide = $($(".productCenter")[0]),
+		lastSlide = $($(".productCenter")[count]);
+    if (!firstSlide.is(':hidden')) {
+	    $("#prevStep").addClass("disabled");
+	}
+	else {
+	    if ($("#prevStep").hasClass("disabled")) {
+		    $("#prevStep").removeClass("disabled");
+		}
+	}
+
+	if (!lastSlide.is(':hidden')) {
+	    $("#nextStep").addClass("disable");
+	}
+    else {
+	    if ($("#nextStep").hasClass("disabled")) {
+		    $("#nextStep").removeClass("disabled");
+		}
+	}
+}
+function handleCursor(tab) {
+    var me = tab;
+	$("#moveCursor").animate({left:tab.position().left+'px'});
+}
+$(document.body).on("click",".operatorButton", function( event ) {
+	var me = $(this);
+
+	if (me.hasClass("disabled")) {
+	    return;
+	}
+
+	if (me[0].id === 'nextStep') {
+	    $(".productCenter").each(function(){
+		    if (!$(this).is(':hidden')) {
+	            $(this).hide();
+
+				if ($(this).next().hasClass('productCenter')) {
+				    var tabId = $(this).next()[0].id.replace('-content', '');
+				    handleCursor($("#"+tabId));
+	                $(this).next().fadeIn();
+				}
+				else {
+				    var data = {},
+					    selectedItemList = [];
+
+				    data.wishlistId = wishList[0].wishlistId;
+					$(".chooseProduct").each(function() {
+					    var product = {
+						    wishId: $(this)[0].id,
+							price: $(this).find('.detail').find('span')[0].innerText,
+							wishName: $(this).find('.header')[0].innerText
+						};
+						selectedItemList.push(product);
+					});
+					data.selectedItemList = selectedItemList;
+				    window.parent.nextTab(data);
+				}
+				return false;        
+			}
+	    });
+	}
+	else {
+	    $(".productCenter").each(function(){
+		    if (!$(this).is(':hidden')) {
+	            $(this).hide();
+				var tabId = $(this).prev()[0].id.replace('-content', '');
+				handleCursor($("#"+tabId));
+	            $(this).prev().fadeIn();
+				return false;
+			}
+	    });
+	}
+	window.parent.iFrameHeight();
+	handleButton();
+});
 window.onload=function(){
     $(".productCarousel").carousel({
         interval: false
@@ -554,15 +523,18 @@ window.onload=function(){
 $(document.body).on("click",".productItem", function( event ) {
 	if ($(this).hasClass("chooseProduct")) {
         $(this).removeClass("chooseProduct");
+		$(this).find(".addWishButton").find('p')[0].innerText = '已取消选择';
 	}
 	else {
 	    $(this).addClass("chooseProduct");
+		$(this).find(".addWishButton").find('p')[0].innerText = '选择为愿望清单';
 	}
 	event.preventDefault();
 });
 $(document.body).on("click",".productTab", function( event ) {
 	var contentId = $(this)[0].id + "-content";
 
+	handleCursor($(this));
 	$(".productCenter").each(function(){
 	    var me = $(this);
 		
@@ -575,10 +547,32 @@ $(document.body).on("click",".productTab", function( event ) {
 			}
 		}
 		else if (me[0].id !== contentId && !me.is(':hidden')) {
-		    me.fadeOut();
+		    me.hide();
 		}
 	});
 });
-$(".productCenter").first().fadeIn();
+$("body").on("click",".addWishButton",function() {
+	var data = {
+	    wishId: $(this).closest('.productItem')[0].id,
+		wishlistId: wishList[0].wishlistId
+	};
+	if (!$(this).hasClass("disableDiv")){
+		$.ajax({
+			url: 'http://localhost:8080/bestfuneral/wishlistDetail/add',
+			type: 'post',
+			data: data,
+			dataType:'json',
+			success:function(data){
+				//alert("已加入愿望清单！");
+			},
+			error: function(error) {
+				//alert("已加入愿望清单！");
+			}
+		});
+		$(this).addClass("disableDiv");
+		$(this).closest(".productItem").addClass("chooseProduct");
+		$(this).find('p')[0].innerText = '选择为愿望清单';
+	}
+});
 </script>
 </html>

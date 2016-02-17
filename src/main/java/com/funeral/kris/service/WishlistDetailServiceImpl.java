@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,8 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 	private WishlistDetailDAO WishlistDetailDAO;
 	@Autowired
 	private EntityManager em;
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 
 	public void addResource(WishlistDetail wishlistDetail) {
 		WishlistDetailDAO.save(wishlistDetail);
@@ -54,5 +57,17 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 		Query query = em.createQuery(a);
 		List<WishlistDetail> WishlistDetails = query.getResultList();
 		return WishlistDetails;
+	}
+
+	public void deleteAllResources() {
+		String a = null;
+
+		try {
+			 a = "delete from wishlist_details where 1 = 1";
+		}
+		catch (Exception e) {
+			
+		}
+		jdbcTemplate.update(a);
 	}
 }

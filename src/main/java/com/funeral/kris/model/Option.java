@@ -20,21 +20,10 @@ public class Option {
 
 	@Column(name="question_id")
 	private String questionId;
-	
 	@Column(name="option_desc")
 	private String optionDesc;
 	@Column(name="img_url")
 	private String imgUrl;
-	@Column(name="style")
-	private String style;
-
-	public String getStyle() {
-		return style;
-	}
-
-	public void setStyle(String style) {
-		this.style = style;
-	}
 
 	public String getImgUrl() {
 		return imgUrl;

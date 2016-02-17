@@ -31,6 +31,9 @@ public class Question {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
+	@Column(name="question_title")
+	private String questionTitle;
+
 	public String getQuestionId() {
 		return questionId;
 	}
@@ -81,5 +84,13 @@ public class Question {
 
 	public Integer getSequence() {
 		return sequence;
+	}
+
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
+
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
 	}
 }

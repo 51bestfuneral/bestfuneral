@@ -73,107 +73,34 @@
 		color: #707070;
 		margin: 0px;
 	}
+	.questionArea {
+	    text-align: center;
+		width: 100%;
+		overflow: atuo;
+		padding-top: 90px;
+		padding-bottom: 90px;
+	}
+	.questionArea span {
+	    font-size: 23px;
+        color: #707070;
+		font-family: "Microsoft Yahei";
+	}
+	.questionArea select {
+	    color: #ff5274;
+		font-size: 23px;
+		font-family: "Microsoft Yahei";
+		width: 120px;
+		height: 30px;
+		display: inline;
+		padding: 0px;
+		margin-bottom: 10px;
+	}
 	.questionText {
 		text-align: center;
 		width: 522px;
 		margin: 0px auto;
 		margin-top: 10px;
 		margin-bottom: 10px;
-	}
-	.questionTwo {
-	    margin-top: 37px;
-		overflow: auto;
-		margin-left: 50px;
-		float: left;
-	}
-	.questionTwoStart {
-	    margin-left: 176px!important;
-	}
-	.questionTwo .optionIcon {
-	    width: 274px;
-		height: 274px;
-		border-radius: 137px;
-		background-color: #f6f6f6;
-	}
-	.questionTwo .optionText {
-	    width: 274px;
-		overflow: auto;
-	}
-	.questionTwo .optionText p {
-	    font-size: 32px;
-		line-height: 90px;
-		margin: 0px;
-		color: #707070;
-	}
-	.questionThree {
-	    margin-top: 92px;
-		overflow: auto;
-		margin-left: 40px;
-		float: left;
-	}
-	.questionThreeStart {
-	    margin-left: 125px!important;
-	}
-	.questionThree .optionIcon {
-	    width: 204px;
-		height: 204px;
-		border-radius: 102px;
-		background-color: #f6f6f6;
-	}
-	.questionThree .optionText {
-	    width: 204px;
-		overflow: auto;
-	}
-	.questionThree .optionText p {
-	    font-size: 34px;
-		line-height: 118px;
-		margin: 0px;
-		color: #707070;
-	}
-	.questionFour {
-	    margin-top: 61px;
-		overflow: auto;
-		margin-left: 71px;
-		float: left;
-	}
-	.questionFourStart {
-	    margin-left: 102px!important;
-	}
-	.questionFour .optionIcon {
-	    width: 136px;
-		height: 136px;
-		border-radius: 68px;
-		background-color: #f6f6f6;
-	}
-	.optionIcon {
-	    overflow: hidden;
-		cursor: pointer;
-	}
-	.optionIcon:hover {
-	    border: 1px solid #ff5274;
-		opacity: 0.7;
-	}
-	.optionIcon img {
-	    width: 100%;
-		height: 100%;
-	}
-	.questionFour .optionText {
-	    width: 136px;
-		overflow: auto;
-	}
-	.questionFour .optionText p {
-	    font-size: 32px;
-		line-height: 66px;
-		margin: 0px;
-		color: #707070;
-	}
-	.addtionOption {
-	    width: 400px;
-		margin-top: 40px;
-		margin: 0px auto;
-	}
-	.addtionOption input {
-	    width: 400px;
 	}
 	#rightFooter {
 		width: 100%;
@@ -258,27 +185,21 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
-    $http.get("http://localhost:8080/bestfuneral/question/list").success(function(response) {
-		for (var i=0;i<response.length; i++) {
-		    var questionJson = response[i];
-			for (var j=0; j<questionJson.optionList.length;j++) {
-				if (questionJson.optionCount === 2) {
-				    questionJson.optionList[j].questionClass= 'questionTwo';
-				}
-				else if (questionJson.optionCount === 3) {
-				    questionJson.optionList[j].questionClass= 'questionThree';
-				}
-				else if (questionJson.optionCount === 4) {
-				    questionJson.optionList[j].questionClass= 'questionFour';
-				}
+    var ages = [];
 
-				if (j === 0) {
-				    questionJson.optionList[j].questionClass = questionJson.optionList[j].questionClass + " " + questionJson.optionList[j].questionClass + "Start";
-				}
-			}
-		}
-		$scope.questions = response;
-	});
+	$scope.questions = [{
+	    questionId: 1,
+		questionTitle: "基本信息",
+		questionContent: "告诉我们一些您的个人信息"
+	}, {
+	    questionId: 2,
+		questionTitle: "基本信息",
+		questionContent: "告诉我们一些您的个人信息"
+	}, {
+	    questionId: 3,
+		questionTitle: "基本信息",
+		questionContent: "告诉我们一些您的个人信息"
+	}];
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
           $(".questionCenter").first().fadeIn();
 		  $(".finishedIcon").each(function() {
@@ -289,6 +210,14 @@ app.controller('products', function($scope, $http) {
 		  $($(".productTab")[0]).addClass("cursored");
 		  window.parent.iFrameHeight();
     });
+	
+	for (var j=0;j<100;j++) {
+	    var age = {
+		    ageNumber: j
+		};
+		ages.push(age);
+	}
+	$scope.ages = ages;
 });
 </script>
 <body ng-app="productApp" ng-controller="products">
@@ -316,16 +245,27 @@ app.controller('products', function($scope, $http) {
 	<div class="questionText">
 	    <h1>{{question.questionContent}}</h1>
 	</div>
-	<div class="{{option.questionClass}}" ng-repeat="option in question.optionList track by $index">
-	    <div class="optionIcon" id="{{option.optionId}}">
-		    <img src="../../js/images/{{option.imgUrl}}"></img>
-		</div>
-		<div class="optionText">
-		    <p>{{option.optionDesc}}</p>
-		</div>
-	</div>
-	<div class="addtionOption">
-	    <input type="text" class="form-control" placeholder="请填写其他答案" id="messageSent">
+	<div class="questionArea">
+		<span>我今年</span>
+		<select class="form-control">
+		    <option default></option>
+			<option ng-repeat="age in ages">{{age.ageNumber}}</option>
+		</select>
+		<span>岁，现在</span>
+		<select class="form-control">
+		    <option default></option>
+			<option>已退休</option>
+			<option>在工作</option>
+		</select>
+		<span>。家住上海</span>
+		<select class="form-control">
+		    <option default></option>
+			<option>长宁区</option>
+			<option>黄浦区</option>
+			<option>静安区</option>
+			<option>杨浦区</option>
+			<option>宝山区</option>
+		</select>
 	</div>
 </div>
 	<div id="rightFooter">
@@ -371,11 +311,9 @@ function handleButton() {
 
 	if (count>0 && !lastSlide.is(':hidden')) {
 	    $("#nextStep").find("p")[0].innerText = "完成";
-		$("#nextStep").addClass("finishedButton");
 	}
     else {
 	    $("#nextStep").find("p")[0].innerText = "下一步";
-		$("#nextStep").removeClass("finishedButton");
 	}
 }
 function handleCursor(tab) {
@@ -388,7 +326,7 @@ function handleFinished(tabPage) {
     var count = $(".productTab").length;
     $(".productTab").each(function() {
 	    var me = $(this),
-		    otherText = tabPage.find("#messageSent")[0].value;
+		    otherText = tabPage.find("select")[0].value;
 		if (me.hasClass("cursored")) {
 		    if (tabPage.find(".selected").length > 0 || otherText !== "") {
 		        me.find(".finishedIcon").fadeIn();
@@ -404,18 +342,6 @@ function handleFinished(tabPage) {
 	if (tabPage[0] === $(".questionCenter")[count-1]) {
 	    handleFinishButton();
 	}
-}
-function generateQuestionList(answetList) {
-    $(".questionCenter").each(function() {
-	    var answer = {
-		    questionId: $(this)[0].id.replace('-content',''),
-			optionId: $(this).find(".selected")[0].id,
-			answerDesc: $(this).find("#messageSent")[0].value,
-			userId: '123'
-		};
-
-		answetList.push(answer);
-	});
 }
 $(document.body).on("click",".operatorButton", function( event ) {
 	var me = $(this),
@@ -509,27 +435,6 @@ $(document.body).on("click",".optionIcon", function( event ) {
 $(document.body).on("blur","input", function( event ) {
     var tabPage = $(this).closest(".questionCenter");
 	handleFinished(tabPage);
-});
-$(document.body).on("click",".finishedButton", function( event ) {
-    var answetList = [];
-
-    if (!$(this).hasClass("disabled")) {
-	    generateQuestionList(answetList);
-		$.ajax({
-		    url: 'http://localhost:8080/bestfuneral/answer/add',
-			type: 'POST',
-			contentType: "application/json; charset=UTF-8",
-			dataType:'json',
-			data: JSON.stringify(answetList),
-			success:function(data){
-				//alert("您的信息我们已经收到！");
-		    },
-			error: function(error) {
-				//alert("您的信息我们已经收到！");
-				//$("#messageSent")[0].value = '';
-			}
-		});
-	}
 });
 window.onload=function(){
     $(".questionCenter").first().fadeIn();

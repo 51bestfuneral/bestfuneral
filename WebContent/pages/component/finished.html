@@ -136,6 +136,12 @@
 		color: #ff5274;
 		font-weight: bold;
 	}
+	.disabled {
+	    opacity: 0.5;
+		cursor: default;
+		background: #d6d6d6!important;
+		box-shadow: 0 4px 0px 0 #c5c5c5!important;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
@@ -183,6 +189,27 @@ app.controller('products', function($scope, $http) {
 </div>
 </body>
 <script>
+$(document.body).on("click",".operatorButton", function( event ) {
+	var me = $(this);
+
+	if (me.hasClass("disabled")) {
+	    return;
+	}
+
+	if (me[0].id === 'nextStep') {
+	    window.parent.nextTab();
+	}
+	else {
+	    $(".questionCenter").each(function(){
+		    if (!$(this).is(':hidden')) {
+	            $(this).hide();
+	            $(this).prev().fadeIn();
+				return false;
+			}
+	    });
+	}
+	window.parent.iFrameHeight();
+});
 $(document.body).on("click",".productTab", function( event ) {
 	var contentId = $(this)[0].id + "-content";
 
@@ -204,6 +231,7 @@ $(document.body).on("click",".productTab", function( event ) {
 });
 window.onload=function(){
     $(".questionCenter").first().fadeIn();
+	$("#prevStep").addClass("disabled");
 };
 </script>
 </html>

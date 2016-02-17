@@ -74,7 +74,10 @@ public class AnswerController {
 		for (Answer answer : answers) {
 			answer.setAnsListId(ansListId);
 		    answerService.addResource(answer);
-		    generateOptionRule(answer.getAnswerDesc());
+		    
+		    if (answer.getOptionId() != null && answer.getOptionId()>0) {
+		        generateOptionRule(String.valueOf(answer.getOptionId()));
+		    }
 		}
 		generateWishList(userId, ansListId);
 	}
@@ -146,7 +149,7 @@ public class AnswerController {
 		    querySQL = "select p from Cemetery p ";
 		}
 		else {
-			querySQL = "select p from Wish p where wishType = '%s'";
+			querySQL = "select p from Wish p where 1=1 and wishType = '%s'";
 			querySQL = String.format(querySQL, wishType);
 		}
 		

@@ -75,7 +75,7 @@ public class OptionServiceImpl implements OptionService {
 	}
 
 	@Override
-	public List<Option> getOptionListByQuestionId(Long questionId) {
+	public List<Option> getOptionListByQuestionId(String questionId) {
 		List<Option> options = getResources();
 
 		if (options == null) {

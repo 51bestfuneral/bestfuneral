@@ -80,7 +80,7 @@ public class OptionController {
 		option.setUpdatedDate(new Date());
 		optionService.addResource(option);
 
-		List<Option>  list=optionService.getOptionListByQuestionId(Long.parseLong(questionId));
+		List<Option>  list=optionService.getOptionListByQuestionId(questionId);
 		return list;
 		
 		
@@ -107,7 +107,7 @@ public class OptionController {
 	System.out.println(this.getClass() + " listOfOptions    questionId= " + questionId);
 
 	
-	List<Option>  list=optionService.getOptionListByQuestionId(Long.parseLong(questionId));
+	List<Option>  list=optionService.getOptionListByQuestionId(questionId);
 		
 		return list;
 	}
@@ -136,13 +136,11 @@ public class OptionController {
 		String questionId=	request.getParameter("questionId");
 		
 		System.out.println(this.getClass() + " deleteOption    optionId= " + optionId+" questionId="+questionId);
+		optionService.deleteResource(Long.parseLong(optionId));
 		
-		
-		 optionService.deleteResource(Long.parseLong(optionId));
-		
-			List<Option>  list=optionService.getOptionListByQuestionId(Long.parseLong(questionId));
+		List<Option>  list=optionService.getOptionListByQuestionId(questionId);
 
-		 return list;
+		return list;
 		
 		
 	}

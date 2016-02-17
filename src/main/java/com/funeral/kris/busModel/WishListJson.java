@@ -3,7 +3,7 @@ package com.funeral.kris.busModel;
 public class WishListJson {
 	private String wishName;
 	private String wishDesc;
-	private String wishId;
+	private Integer wishId;
 	private Double price;
 	private Integer amount;
 	private String imageUrl;
@@ -22,10 +22,10 @@ public class WishListJson {
 	public void setWishDesc(String wishDesc) {
 		this.wishDesc = wishDesc;
 	}
-	public String getWishId() {
+	public Integer getWishId() {
 		return wishId;
 	}
-	public void setWishId(String wishId) {
+	public void setWishId(Integer wishId) {
 		this.wishId = wishId;
 	}
 	public Double getPrice() {

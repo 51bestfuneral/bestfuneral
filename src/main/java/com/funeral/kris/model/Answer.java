@@ -36,6 +36,9 @@ public class Answer {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
+	@Column(name="option_id")
+	private Integer optionId;
+
 	public String getAnswerId() {
 		return answerId;
 	}
@@ -92,4 +95,11 @@ public class Answer {
 		this.updatedDate = updatedDate;
 	}
 
+	public Integer getOptionId() {
+		return optionId;
+	}
+
+	public void setOptionId(Integer optionId) {
+		this.optionId = optionId;
+	}
 }

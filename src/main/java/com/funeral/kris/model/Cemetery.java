@@ -16,7 +16,7 @@ public class Cemetery {
 	@Id
 	@GeneratedValue
 	@Column(name="cemetery_id")
-	private String cemeteryId;
+	private Integer cemeteryId;
 
 	@Column(name="cemetery_name")
 	private String cemeteryName;
@@ -39,11 +39,11 @@ public class Cemetery {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getCemeteryId() {
+	public Integer getCemeteryId() {
 		return cemeteryId;
 	}
 
-	public void setCemeteryId(String cemeteryId) {
+	public void setCemeteryId(Integer cemeteryId) {
 		this.cemeteryId = cemeteryId;
 	}
 
