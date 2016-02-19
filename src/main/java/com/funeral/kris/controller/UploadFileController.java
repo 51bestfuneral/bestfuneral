@@ -130,7 +130,7 @@ public class UploadFileController extends HttpServlet {
 						}
 						String path = saveDir + File.separatorChar + fileName;
 						
-						String loadPath="/funeral/pages/component/cemetery/images/"+fileName;
+						String loadPath="/component/cemetery/images/"+fileName;
 
 						System.out.println(" actionTypes= " + actionTypes + " fileName= " + fileName+" loadPath="+loadPath);
 						if ("uploadDescriptionImg".equals(actionTypes)) {

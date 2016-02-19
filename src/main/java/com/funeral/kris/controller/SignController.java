@@ -78,7 +78,7 @@ public class SignController {
 		user.setWishlistId(wishlistId);
 		user.setCartId(cartId);
 		userService.updateResource(user);
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		session.setAttribute(LoginConstants.LoginStatus, LoginConstants.login);
 		session.setAttribute("user", user);	
 	}

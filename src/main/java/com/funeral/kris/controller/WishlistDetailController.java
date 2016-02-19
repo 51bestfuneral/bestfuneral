@@ -474,7 +474,7 @@ public class WishlistDetailController {
 	@RequestMapping(value = "/loadShoppingCart", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart loadShoppingCart(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 		String wishlistId = request.getParameter("wishlistId");
 		Wishlist wishlist = wishlistService.getResource(Integer.parseInt(wishlistId));
@@ -515,7 +515,7 @@ public class WishlistDetailController {
 	@RequestMapping(value = "/selectOneItem", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart selectOneItem(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
 
@@ -612,7 +612,7 @@ public class WishlistDetailController {
 	@RequestMapping(value = "/selectAll", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart selectAll(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
 

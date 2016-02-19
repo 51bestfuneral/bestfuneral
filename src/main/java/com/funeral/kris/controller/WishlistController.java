@@ -26,9 +26,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.constants.WishConstants;
+import com.funeral.kris.init.AppContext;
+import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.OrderDetail;
@@ -79,7 +80,7 @@ public class WishlistController {
 		Integer wishlistId = Integer.parseInt(request.getParameter("wishlistId"));
 		System.out.println(this.getClass() + " saveWish  id=  " + id + " wishlist id=" + wishlistId);
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
 
@@ -248,10 +249,22 @@ public class WishlistController {
 
 	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
-	public List<Wishlist> listOfWishlists(HttpServletRequest request) {
+	public List<Wishlist> listOfWishlists(HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(true);
+		System.out.println(this.getClass()+" -----  list  getUser= "+		AppContext.getUser());
+
+		
+		HttpSession session = request.getSession(false);
+		
+		System.out.println(this.getClass()+" -----  list  getId= "+session.getId());
+		System.out.println(this.getClass()+" -----  list  sessionId= "+session.getAttribute("sessionId"));
+
+		
 		User user = (User) session.getAttribute("user");
+		
+		System.out.println(this.getClass()+"   list  user= "+user);
+
+		
 		List<Wishlist> wishlists = new ArrayList<Wishlist>();
 		if (user!= null && user.getUsrId() != null) {
 		    Map<String, String> paramMap = new HashMap<String, String>();

@@ -70,7 +70,7 @@ public class AlipayController {
 	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
 	public Order createOrder(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
 

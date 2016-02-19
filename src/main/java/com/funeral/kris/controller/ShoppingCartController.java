@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funeral.kris.bean.ShoppingCart;
 import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.constants.WishConstants;
+import com.funeral.kris.init.AppContext;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.User;
@@ -64,7 +65,7 @@ public class ShoppingCartController {
 	@RequestMapping(value = "/getCart", method = RequestMethod.GET, produces = "application/json")
 	public int getCart(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 
 		return user.getCartId();
@@ -201,7 +202,7 @@ public class ShoppingCartController {
 	@RequestMapping(value = "/selectAll", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart selectAll(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
 
@@ -389,7 +390,7 @@ public class ShoppingCartController {
 	@RequestMapping(value = "/loadShoppingCart", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart loadShoppingCart(HttpServletRequest request) {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 		Integer cartId = user.getCartId();
 		ShoppingCart shoppingCart = new ShoppingCart();
@@ -423,14 +424,30 @@ public class ShoppingCartController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/listCountOfCart", method = RequestMethod.GET, produces = "application/json")
-	public Integer listCountOfCart(HttpServletRequest request) {
+	@RequestMapping(value = "listCountOfCart", method = RequestMethod.GET, produces = "application/json")
+	public Integer listCountOfCart(HttpServletRequest request) throws Exception {
 
 		int count = 0;
 
-		HttpSession session = request.getSession(true);
-		User user = (User) session.getAttribute("user");
+		User user=new User();
+		
+		user=AppContext.getUser();
+		
+		System.out.println(this.getClass()+"  listCountOfCart from  AppContext user= "+user);
+		System.out.println(this.getClass()+"  listCountOfCart from  AppContext getUserName= "+user.getUserName());
+		
+		HttpSession session = request.getSession(false);
+		 user = (User) session.getAttribute("user");
 
+		System.out.println(this.getClass()+"  listCountOfCart session  getId= "+session.getId());
+		System.out.println(this.getClass()+"  listCountOfCart session  sessionId= "+session.getAttribute("sessionId"));
+
+		
+
+		
+		System.out.println(this.getClass()+"  listCountOfCart user= "+user);
+		System.out.println(this.getClass()+"  listCountOfCart getCartId= "+user.getCartId());
+		
 		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(user.getCartId());
 
 		if (cartDetails != null) {
@@ -442,10 +459,15 @@ public class ShoppingCartController {
 
 	@ResponseBody
 	@RequestMapping(value = "/listCart", method = RequestMethod.GET, produces = "application/json")
-	public Cart listOfCart(HttpServletRequest request) {
+	public Cart listOfCart(HttpServletRequest request) throws Exception {
 
-		HttpSession session = request.getSession(true);
-		User user = (User) session.getAttribute("user");
+		User user=AppContext.getUser();
+
+		System.out.println(this.getClass()+"  listCart user= "+user);
+
+		
+		HttpSession session = request.getSession(false);
+		 user = (User) session.getAttribute("user");
 		if (user != null) {
 			Integer cartId = user.getCartId();
 			Cart cart = cartService.getResource(cartId);

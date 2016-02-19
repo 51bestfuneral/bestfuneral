@@ -274,16 +274,15 @@ background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,
 	margin-top: 176px;
 }
 #cemeteryFilter {
-  width: 1349px;
+    width: 1349px;
 	overflow: auto;
-	padding-top: 60px;
+	padding-top: 16px;
 	margin: 0px auto;
 	padding-left: 50px;
 	padding-right: 50px
 }
 #filterContent {
 	overflow: auto;
-
 }
 #filterCata {
 	overflow: auto;
@@ -353,8 +352,7 @@ background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,
 #reserver {
     float: right;
 	overflow: auto;
-	position:relative;
-	top: -90px;
+	padding-top: 8px;
 	width: 250px;
 	text-align: center;
 }
@@ -366,7 +364,7 @@ background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,
 }
 #reserver h2 {
     font-size: 40px;
-	line-height: 40px;
+	line-height: 70px;
 	margin: 0px;
 	color: #3d3d3d;
 }
@@ -522,12 +520,11 @@ width: 100%;
 			</div>
 		</div>
 	</div>
-	<div id="reserver" ng-cloak  style={{display}} >
-		
-		<h3>{{cemeteryPrice.description}}:￥{{cemeteryPrice.price}}</h3>
+	<div id="reserver" ng-cloak   style={{display}}>
+	    <h1>{{cemeteryPrice.description}}</h1>
+		<h2>￥{{cemeteryPrice.price}}</h2>
 		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
-
 	</div>
 </div>
 <div id="features" ng-cloak>
@@ -536,7 +533,7 @@ width: 100%;
 		    <div id="mainFeature">
 			    <div class="leftFeatureImg" >
 			    	
-			    <img src={{cemeteryBean.descImgUrl}}></img>
+			    <img src={{'/funeral/pages'+cemeteryBean.descImgUrl}}></img>
 				</div>
 				<div class="rightFeatureText">
 				    <h2>简介</h2>
@@ -548,13 +545,13 @@ width: 100%;
 				     <h2>特色</h2>
 <p ng-bind="cemeteryBean.feature"></p>				</div>
 				<div class="rightlocationImg">
-					 <img src={{cemeteryBean.featureImgUrl}}></img>
+					 <img src={{'/funeral/pages'+cemeteryBean.featureImgUrl}}></img>
 				</div>
 			</div>
 			<div id="equipmentFeature">
 			    <div class="leftEquipmentImg">
 			    	
-					 <img src={{cemeteryBean.locationImgUrl}}></img>
+					 <img src={{'/funeral/pages'+cemeteryBean.locationImgUrl}}></img>
 			
 				</div>
 				<div class="rightEquipmentText">
@@ -655,7 +652,7 @@ var eid;
 	    $scope.cemeteryPrice = response;
 	    if($scope.cemeteryPrice==null||$scope.cemeteryPrice=="")
 {
-	$scope.display="visibility: hidden;";
+	$scope.display="display:none";
 	}else{
 			$scope.display="";
 

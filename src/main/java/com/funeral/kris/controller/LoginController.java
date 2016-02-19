@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.funeral.kris.init.AppContext;
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.User;
 import com.funeral.kris.service.UserService;
@@ -22,11 +23,20 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(value = "verifyLogin", method = RequestMethod.GET, produces = "application/json")
 	public Integer verifyLogin(HttpServletRequest request) throws Exception {
-		String account =request.getParameter("userName");
-		String pwd =request.getParameter("password");
+		String account = request.getParameter("userName");
+		String pwd = request.getParameter("password");
 		Integer checkResult = null;
 		checkResult = userService.checkLogin(account, pwd, request);
-System.out.println(this.getClass()+" verifyLogin   checkResult ="+checkResult+"  account="+account+" pwd="+pwd);
+		System.out.println(this.getClass() + " verifyLogin   checkResult =" + checkResult + "  account=" + account
+				+ " pwd=" + pwd);
+		if (checkResult.intValue() == LoginConstants.validatePass.intValue()) {
+			User user = userService.getByAccount(account);
+			AppContext.setUser(user);
+
+			HttpSession session = request.getSession();
+			System.out.println(this.getClass() +"  verifyLogin  user="+user);
+			session.setAttribute("user", user);
+		}
 		return checkResult;
 	}
 
@@ -35,24 +45,27 @@ System.out.println(this.getClass()+" verifyLogin   checkResult ="+checkResult+" 
 	public User validateLogin(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(true);
 
-		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
-				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
-			return (User)session.getAttribute("user");
-		}
-		else {
+		if (session.getAttribute(LoginConstants.LoginStatus) != null
+				&& session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			
+//			AppContext.setUser( (User) session.getAttribute("user"));
+			
+			return (User) session.getAttribute("user");
+		} else {
 			return null;
 		}
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "getCurrentUser", method = RequestMethod.GET, produces = "application/json")
 	public User getCurrentUser(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession(true);
-		
-		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
-				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
-			return (User)session.getAttribute("user");
-		}
-		else {
+		HttpSession session = request.getSession(false);
+
+		if (session.getAttribute(LoginConstants.LoginStatus) != null
+				&& session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+//			AppContext.setUser( (User) session.getAttribute("user"));
+			return (User) session.getAttribute("user");
+		} else {
 			return null;
 		}
 	}
@@ -60,11 +73,11 @@ System.out.println(this.getClass()+" verifyLogin   checkResult ="+checkResult+" 
 	@ResponseBody
 	@RequestMapping(value = "logoff", method = RequestMethod.GET, produces = "application/json")
 	public void logoff(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
-		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
-				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
-			session.removeAttribute("user"); 
+		if (session.getAttribute(LoginConstants.LoginStatus) != null
+				&& session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			session.removeAttribute("user");
 			session.removeAttribute(LoginConstants.LoginStatus);
 		}
 	}

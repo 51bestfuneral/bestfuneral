@@ -51,6 +51,9 @@ public class LoginCheckFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
 
+		
+		
+		
 		String requestURL = request.getRequestURL().toString();
 		String url = response.encodeRedirectURL(request.getRequestURL().toString());
 		if (url.indexOf("www.niannian.com") > 0) {
