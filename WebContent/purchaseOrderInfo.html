@@ -148,6 +148,7 @@
 </body>
 <script>
 var app = angular.module('productApp', []);
+muskCurrentPage();
 app.directive('onFinishRenderFilters', function ($timeout) {
     return {
         restrict: 'A',
@@ -163,6 +164,7 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 app.controller('products', function($scope, $http) {
     $http.get("/wishlistDetail/listWishOrder").success(function(response) {
         $scope.orders = response;
+        unmusk();
     });
 });
 </script>

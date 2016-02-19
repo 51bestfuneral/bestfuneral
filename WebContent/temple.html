@@ -17,15 +17,9 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 <script src="/js/Bootstrap/boot.js"></script>
 <link href="/js/personal.css" rel="stylesheet">
+<script src="/js/generalUsage.js"></script>
 <link href="/component/css/secondLevelMenu.css" rel="stylesheet">
-
 </head>
-
-
-
-
-		
-
 <style>
 
 
@@ -656,12 +650,6 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 		 }
 	}
 }
-
-window.onload=function() {
-	$("#visitButton").click(function() {
-		popupRequestPage();
-	});
-}
 </script>
 
 
@@ -771,5 +759,9 @@ window.onload=function() {
 </div>
 </div>
 </body>
-
+<script>
+$(".reserverBtn").click(function() {
+	popupRequestPage();
+});
+</script>
 </html>

@@ -475,7 +475,7 @@ width: 100%;
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
 <div id="mainHeader"  ng-cloak >
     <div id="leftTop">
-	    <p><span ><a href="cemeteryList.html">墓地信息／</a></span><span ng-bind="cemeteryBean.cemeteryName"></span></p>
+	    <p><span ><a href="cemeteryList.html">墓地信息</a>／</span><span ng-bind="cemeteryBean.cemeteryName"></span></p>
 	</div>
 	<div id="centerText">
         <h1 ng-bind="cemeteryBean.cemeteryName"></h1>
@@ -937,18 +937,6 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 $(".reserverBtn").click(function() {
 	popupRequestPage();
 });
-
-window.onload=function() {
-	
-	
-	
-	
-	
-	
-	$("#visitButton").click(function() {
-		popupRequestPage();
-	});
-}
 //initMap();//创建和初始化地图
 
 

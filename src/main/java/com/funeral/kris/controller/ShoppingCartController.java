@@ -157,7 +157,7 @@ public class ShoppingCartController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/addSingleToCart", method = RequestMethod.GET)
+	@RequestMapping(value = "/addSingleToCart", method = RequestMethod.POST)
 	public List<CartDetail> addingCartSingle(HttpServletRequest request) {
 
 		List<CartDetail> successList = new ArrayList<CartDetail>();

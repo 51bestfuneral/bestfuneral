@@ -385,7 +385,7 @@ app.controller('products', function($scope, $http) {
     	else {
     		response.forSelf = "我自己";
     	}
-    	if (response.gender === 0) {
+    	if (response.gender === 2) {
     		response.gender = "女";
     	}
     	else {
@@ -422,7 +422,7 @@ app.controller('products', function($scope, $http) {
     			window.parent.muskCurrentPage();
     			user.birthday = $("#datetimepicker1").find("input")[0].value;
 				if (user.gender === "女") {
-					user.gender = 0;
+					user.gender = 2;
 				}
 				else {
 					user.gender = 1;
@@ -508,16 +508,17 @@ app.controller('products', function($scope, $http) {
 			    <span>岁，现在</span>
 			</div>
 			<div>
-				<select id="Work" ng-model="user.work" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center;">
-					<option default>已退休</option>
-					<option>未退休</option>
+				<select id="Work" ng-model="user.work" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center; padding-left: 18px;">
+					<option value="0">已退休</option>
+					<option value="1">待业</option>
+					<option value="2">在职</option>
 				</select>
 			</div>
 			<div class="inputTitle">
 			    <span>家住上海</span>
 			</div>
 			<div>
-				<select id="District" ng-model="user.district" class="mandantory" ng-model="user.district" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+				<select id="District" ng-model="user.district" class="mandantory" ng-model="user.district" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center; padding-left: 16px;">
 					<option default>长宁区</option>
 					<option>黄浦区</option>
 					<option>静安区</option>
@@ -555,7 +556,7 @@ app.controller('products', function($scope, $http) {
 		    <span>我是为了</span>
 		    </div>
 		    <div>
-		    <select id="Who" ng-model="user.forSelf" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+		    <select id="Who" ng-model="user.forSelf" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center; padding-left: 18px;">
 				<option default>我自己</option>
 				<option>我爱的人</option>
 			</select>

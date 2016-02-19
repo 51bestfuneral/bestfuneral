@@ -233,17 +233,11 @@ function translateResponse(response) {
     if (response.gender === 0) {
     	response.gender = "0";
     }
-    else {
+    else if (response.gender === 1) {
     	response.gender = "1";
     }
-    if (response.work === 0) {
-    	response.work = "0";
-    }
-    else if (response.work === 1){
-    	response.work = "1";
-    }
     else {
-        response.work = "2";
+    	response.gender = "2";
     }
 }
 function validateInfomation () {
@@ -259,6 +253,9 @@ function validateInfomation () {
 		    msgFiled = me.closest('.normalFieldValue').find(".warning");
 	
 		if (me[0].value !== "" && !emailFilter.test(me[0].value)) {
+			if (me.closest("#emergencyContactInfo").length> 0) {
+				me.closest("#emergencyContactInfo").show();
+			}
 			me[0].focus();
 			msgFiled[0].innerText = "邮箱格式不正确,看看是不是填错了";
 			checkFailed = false;
@@ -270,6 +267,9 @@ function validateInfomation () {
 		    msgFiled = me.closest('.normalFieldValue').find(".warning");
 	
 		if (me[0].value !== "" && !phoneFilter.test(me[0].value)) {
+			if (me.closest("#emergencyContactInfo").length> 0) {
+				me.closest("#emergencyContactInfo").show();
+			}
 			me[0].focus();
 			msgFiled[0].innerText = "手机号码必须是11位";
 			checkFailed = false;

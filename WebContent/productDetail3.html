@@ -601,7 +601,7 @@
 			<a href="catagoryProduct.html?cata=M-S-W">祭祀随葬</a>&nbsp;·
 			<a href="catagoryProduct.html?cata=G-H-L-T">礼仪服务</a>&nbsp;·
 			<a href="catagoryProduct.html?cata=VV-O">祭扫用品</a>&nbsp;·
-			<a href="catagoryProduct.html?cata=P-Q-R">套装用品</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=P-Q-R-U">套装用品</a>&nbsp;·
 			<a href="catagoryProduct.html?cata=NN-X-N">其他产品</a>
 		</div>
 	</div>
@@ -805,6 +805,18 @@ app.controller('products', function($scope, $http) {
 	});
 	$("body").on("click", ".singleReference", function() {
 		window.location.href='productDetail3.html?id='+$(this)[0].id;
+	});
+	$(".goToOtherPlace").click(function() {
+		var catas = ["II-JJ","SS","M-S-W","G-H-L-T","VV-O","P-Q-R-U","NN-X-N"];
+		for (var i=0; i< catas.length; i++) {
+			var cata = catas[i];
+			var types = cata.split("-");
+			for (var j=0; j< types.length; j++) {
+				if (types[j] === wishInLocal.generalCode) {
+					window.location.href= "/catagoryProduct.html?cata="+cata;
+				}
+			}
+		}
 	});
 	$(window).scroll(function(){
 		var topPosition = document.body.scrollTop,

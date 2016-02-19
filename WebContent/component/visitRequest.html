@@ -197,7 +197,7 @@ app.controller('cemetery', function($scope, $http) {
             </span>
         </div>
         <select id="cemetery">
-            <option ng-repeat=" bean in cemeteryList">{{bean.cemeteryName}}</option>
+            <option ng-repeat=" bean in cemeteryList" value="{{bean.cemeteryId}}">{{bean.cemeteryName}}</option>
         </select>
 		<div id="submit">
 		    <p>预约</p>
@@ -216,25 +216,28 @@ window.onload = function() {
 	    viewMode: 'years'
 	});
 	$("#submit").click(function() {
-		var user = {};
+		var reservation = {};
 
-		user.requestPhone = $("#phone")[0].value;
-		user.requestCemetery = $("#cemetery")[0].value;
-		user.requestDate = $("#requestDate")[0].value;
+		reservation.phoneNumber = $("#phone")[0].value;
+		reservation.cemeterId = $("#cemetery")[0].value;
+		reservation.reservDte = $("#requestDate")[0].value;
 		$.ajax({
-	    	url: '/funeral/user/editCemeteryRequest',
+	    	url: '/reservation/add',
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType: 'json',
-			data: JSON.stringify(user),
+			data: JSON.stringify(reservation),
 			success:function(data){
 				if (data === 1) {
                 	alert("请登录");
                 	parent.removeSelf();
                 	parent.popupLogInPage();
         		}
+				else if (data === 2) {
+					alert("您已经预约过了");
+				}
         		else {
-        			alert("修改成功");
+        			alert("预约成功");
         			parent.removeSelf();
         		}
 	    	},

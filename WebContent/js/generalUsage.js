@@ -89,7 +89,8 @@ function popupLogInPage() {
 			width: '380px',
 			height: '463px',
 			'z-index': 1001,
-			border: '5px solid #999'
+			border: '5px solid #999',
+			'box-sizing': 'border-box'
 		});
 		window.onresize = resizeLogin;
 }
@@ -123,7 +124,8 @@ function popupSignInPage() {
 			width: '380px',
 			height: '463px',
 			'z-index': 1001,
-			border: '5px solid #999'
+			border: '5px solid #999',
+			'box-sizing': 'border-box'
 		});
 		window.onresize = resizeLogin;
 }
@@ -177,7 +179,8 @@ function popupRequestPage() {
 			width: '380px',
 			height: '433px',
 			'z-index': 1001,
-			border: '5px solid #999'
+			border: '5px solid #999',
+			'box-sizing': 'border-box'
 		});
 		window.onresize = resizeLogin;
 }
@@ -211,7 +214,8 @@ function popupchangePassWordPage() {
 			width: '388px',
 			height: '465px',
 			'z-index': 1001,
-			border: '5px solid #999'
+			border: '5px solid #999',
+			'box-sizing': 'border-box'
 		});
 		window.onresize = resizeLogin;
 }

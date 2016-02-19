@@ -14,7 +14,7 @@
 </head>
 <style>
 </style>
-<body onselectstart="return false">
+<body onselectstart="return false" ng-app="productApp" ng-controller="products">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
 <div id="accountInfoMain">
     <div id="leftTabs">
@@ -32,7 +32,7 @@
 		</div>
     </div>
 <div id="rightContentsMain">
-	<div id="rightContents">
+	<div id="rightContents" ng-repeat="order in orders">
 	    <div class="contentHeader">
 		    <p class="normalText">预约信息</p>
 		</div>
@@ -48,53 +48,20 @@
 				</thead>
 				<tbody>
 				    <tr>
-					    <td>汇龙源</td>
-						<td>上海市浦东新区朝阳农场军港公路388号</td>
-						<td>2016/5/18 18:00PM</td>
-						<td><a href="/cemetery.html?id=2">查看详情</a></td>
+					    <td>{{order.cemeteryName}}</td>
+						<td>{{order.address}}</td>
+						<td>{{order.reservDate}}</td>
+						<td><a href="/cemetery.html?id={{order.cemeteryId}}">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<div class="detailVeiw">
-			 <div class="imageBox" style="background-image: url('http://www.365niannian.com/component/cemetery/images/1459260543037_581ac42efc3450f1ce152f6c1b8c4c58-001.jpg')">
+			 <div class="imageBox" style="background-image: url('{{order.imgUrl}}')">
 			</div>
 			<div class="cemeteryDescDiv">
-				<h3>汇龙园区</h3>
-				<span>上海汇龙园陵园位于航空港和深水港之间，毗邻东海边独具荷兰田园风光的上海鲜花港，是难得的福祉。 陵园用 "太阳"、"地球"等天文名称定义，营造一种"天人合一"的意境；直径约100米的圆形太阳广场格外醒目。</span>
-			</div>
-	    </div>
-	</div>
-	<div id="rightContents">
-	    <div class="contentHeader">
-		    <p class="normalText">预约信息</p>
-		</div>
-		<div class="contentValue">
-		    <table>
-			    <thead>
-				    <tr>
-					    <th>预约墓地</th>
-						<th>墓地地址</th>
-						<th>预约时间</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-				    <tr>
-					    <td>汇龙源</td>
-						<td>上海市浦东新区朝阳农场军港公路388号</td>
-						<td>2016/5/18 18:00PM</td>
-						<td><a href="/cemetery.html?id=2">查看详情</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="detailVeiw">
-			 <div class="imageBox">
-			</div>
-			<div class="cemeteryDescDiv">
-				<h3>汇龙园区</h3>
-				<span>上海汇龙园陵园位于航空港和深水港之间，毗邻东海边独具荷兰田园风光的上海鲜花港，是难得的福祉。 陵园用 "太阳"、"地球"等天文名称定义，营造一种"天人合一"的意境；直径约100米的圆形太阳广场格外醒目。</span>
+				<h3>{{order.cemeteryName}}</h3>
+				<span>{{order.feature}}</span>
 			</div>
 	    </div>
 	</div>
@@ -103,5 +70,25 @@
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script>
+var app = angular.module('productApp', []);
+muskCurrentPage();
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+app.controller('products', function($scope, $http) {
+    $http.get("/reservation/list").success(function(response) {
+        $scope.orders = response;
+        unmusk();
+    });
+});
 </script>
 </html>
