@@ -1,6 +1,8 @@
 package com.funeral.kris.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,8 +73,6 @@ public class TWishCategorySubServiceImpl implements TWishCategorySubService {
 		
 		
 		List newWishCategorySubList = new ArrayList();
-		
-		
 
 		Iterator  iterator = wishCategorySubList.iterator();
 
@@ -84,8 +84,17 @@ public class TWishCategorySubServiceImpl implements TWishCategorySubService {
 				newWishCategorySubList.add(tWishCategorySub);
 
 		}
-
+		Collections.sort(newWishCategorySubList, new SortByAge());
 		return newWishCategorySubList;
 	}
 
+	class SortByAge implements Comparator {
+		public int compare(Object o1, Object o2) {
+			TWishCategorySub s1 = (TWishCategorySub) o1;
+			TWishCategorySub s2 = (TWishCategorySub) o2;
+		    if (s1.getWishId() > s2.getWishId())
+		       return 1;
+		    return 0;
+	    }
+	}
 }

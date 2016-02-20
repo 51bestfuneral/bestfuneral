@@ -126,7 +126,7 @@
 			<ul id="myTab" class="nav nav-tabs">
 				<li>
 					<a href="#tab1" data-toggle="tab">
-					<div class="tabIcon" >
+					<div class="tabIcon chooseTab select" >
 						<span class="tabIconText">送终</span>
 						<div class="triangle-down">
 						</div>
@@ -757,5 +757,8 @@ top:-160px;
 		$("#leftFront").fadeOut();
 	});
 	$("#middleFront").fadeIn();
+	$(".chooseTab").each(function() {
+		$(this).find(".triangle-down").show();
+	});
 </script>
 </html>

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.WishlistDetailDAO;
+import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.SqlHelper;
 
@@ -94,28 +95,20 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 	@Override
 	public List<WishlistDetail> getResourceByWishListId(int wishListId) {
 
-		List<WishlistDetail> list = new ArrayList<WishlistDetail>();
+		String a = "select q from WishlistDetail q where wishlistId ="+wishListId;
+		Query query = em.createQuery(a);
+		List<WishlistDetail> WishlistDetails = query.getResultList();
+		return WishlistDetails;
 
-		List<WishlistDetail> fullList = this.getResource();
+	}
 
-		if (fullList == null) {
-			return list;
-		} else {
-			Iterator<WishlistDetail> iter = fullList.iterator();
-			while (iter.hasNext()) {
-				WishlistDetail wishlistDetail = iter.next();
+	@Override
+	public List<CartDetail> getResourceByCartId(int cartId) {
 
-				if (wishlistDetail.getWishlistId() == wishListId) {
-
-					list.add(wishlistDetail);
-
-				}
-
-			}
-
-		}
-
-		return list;
+		String a = "select q from CartDetail q where cartId ="+cartId;
+		Query query = em.createQuery(a);
+		List<CartDetail> cartDetails = query.getResultList();
+		return cartDetails;
 
 	}
 

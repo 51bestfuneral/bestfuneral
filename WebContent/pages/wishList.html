@@ -348,120 +348,65 @@
 }
 </style>
 <script type="text/javascript">
-    var app = angular.module('productApp', []);
-
-    app.controller('product', function($scope, $http) {
-    	
-    		  $scope.shappingCart;
-
-    		$scope.wishList;
-
-	  
-	    
-   $scope.loadShoppingCart = function(){	   
-   		
-	    $http.get("/funeral/wishlist/list").success(function(response) {
-	        $scope.wishList = response[0];
-			$http.get("/funeral/wishlistDetail/getDirectWishListForShoppingCart?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-	            $scope.wishListDetails = response;
-				if (response.length <= 0) {
-					
-						    	$("#topCheckBox").attr('disabled',true); 
-
-				    $("#noAnyProduct").show();
-				}else{
-											    	$("#topCheckBox").attr('disabled',false); 
-
-					}
+var app = angular.module('productApp', []);
+app.controller('product', function($scope, $http) {
+	$scope.shappingCart;
+	$scope.wishList;
+	$http.get("/funeral/wishlist/list").success(function(response) {
+	    $scope.wishList = response[0];
+		$http.get("/funeral/wishlistDetail/getDirectWishListForShoppingCart").success(function(response) {
+		    $scope.wishListDetails = response;
+			if (response.length <= 0) {
+				$("#topCheckBox").attr('disabled',true); 
+	            $("#noAnyProduct").show();
+			}else{
+			    $("#topCheckBox").attr('disabled',false); 
+	        }
+			angular.forEach(detailIdList, function(data,index,array){
+	             $("#"+detailIdList[index]).attr("checked",'checked');   
 	        });
-	        
-	  $http.get("/funeral/wishlistDetail/loadShoppingCart?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-	    $scope.shappingCart=	response;
-	    
-	    
-	   
-	    
-	    
-	    var gross=parseFloat($scope.shappingCart.grossFee);
-	     if( gross>0   ){
-	  	$("#nextButton").attr('disabled',false); 
-	  		
-	  	
-     } else{
-	   	$("#nextButton").attr('disabled',true); 
-	   		
-    	}
-	    
-	     if($scope.shappingCart.allSelected==1){
-	    $("#topCheckBox").attr("checked",'checked'); 
-	      
-	  }
-	 var detailIdList =$scope.shappingCart.selectedWishDetailIdList;
-angular.forEach(detailIdList, function(data,index,array){
- $("#"+detailIdList[index]).attr("checked",'checked');   
-     
-});
-	   });      
-	   });
-   
-   
-   
-   
-   	
-  
-   	}
-	    
-	  
-	 $scope.loadShoppingCart(); 
-	    
-	    
-	     $scope.changeOneItem = function(wishDetaillistId,wishlistId){
+		});
+		$http.get("/funeral/wishlist/listCart").success(function(response) {
+		    $scope.shappingCart = response;
+		    var gross=response.price;
+		    if( gross>0   ){
+		  	    $("#nextButton").attr('disabled',false); 
+		  	} else{
+		   	    $("#nextButton").attr('disabled',true); 
+		   	}
+		    if($scope.shappingCart.allSelected==1){
+		        $("#topCheckBox").attr("checked",'checked'); 
+		    }
+		    var detailIdList =$scope.shappingCart.selectedWishDetailIdList;
+	    });
+	});
+	$scope.loadShoppingCart(); 
+	$scope.changeOneItem = function(wishDetaillistId,wishlistId){
 	    $http.get("/funeral/wishlistDetail/selectOneItem?wishDetaillistId="+wishDetaillistId+"&wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-	   $scope.loadShoppingCart();
-	   }); 	}
-	     	
-	     	
-	     	
-	     	 $scope.subtraction = function(wishDetailId){
-	     	 	 $http.get("/funeral/wishlistDetail/subtraction?wishDetailId="+wishDetailId).success(function(response) {
-	     	 	 		$scope.loadShoppingCart();
-	     	 	 	});
-	     	 	 	}
-	     	 	 	
-	     	 	 	 $scope.delete = function(wishDetailId){
-
-	     	 	 $http.get("/funeral/wishlistDetail/delete?wishDetailId="+wishDetailId).success(function(response) {
-
-	     	 	 		$scope.loadShoppingCart();
-	     	 	 	});
-	     	 	 	}
-	     	 	 	
-	     	 	 	
-	     	 	 	$scope.add = function(wishDetailId){
-	     	 	 $http.get("/funeral/wishlistDetail/oneMore?wishDetailId="+wishDetailId).success(function(response) {
-	     	 	 	$scope.loadShoppingCart();
-	     	 	 	});
-	     	 	 	}
-	    
-	    
-	      $scope.selectAll = function(){
-	    $http.get("/funeral/wishlistDetail/selectAll?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-	    	$scope.loadShoppingCart();
-	     	});
-	     	
-	     	}
-	     	
-	   
-	     }	);
-    
- 
-    
-	
-	
-	
-	
-
-	
+		    $scope.loadShoppingCart();
+		});
+	}
+	$scope.subtraction = function(wishDetailId){
+	    $http.get("/funeral/wishlistDetail/subtraction?wishDetailId="+wishDetailId).success(function(response) {
+		    $scope.loadShoppingCart();
+		});
+	}
+	$scope.delete = function(wishDetailId){
+	    $http.get("/funeral/wishlistDetail/delete?wishDetailId="+wishDetailId).success(function(response) {
+	        $scope.loadShoppingCart();
+		});
+	}
+	$scope.add = function(wishDetailId){
+	    $http.get("/funeral/wishlistDetail/oneMore?wishDetailId="+wishDetailId).success(function(response) {
+		    $scope.loadShoppingCart();
+		});
+	}
+	$scope.selectAll = function(){
+		$http.get("/funeral/wishlistDetail/selectAll?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+		   $scope.loadShoppingCart();
+		});
+	}
+});
 </script>
 <body ng-app="productApp" ng-controller="product">
 	
@@ -594,58 +539,54 @@ angular.forEach(detailIdList, function(data,index,array){
 </div>
 </body>
 <script>
-	
-	
-	
 function checkSubClick(){
-var vcheckbox=document.getElementsByName("checkbox");
-var topCheckBox=document.getElementById("topCheckBox");
-
-
-
-
-for(var i=0;i<vcheckbox.length;i++)
-{
-	
-	
-	if(vcheckbox[i].checked){
-		topCheckBox.checked = true;
-
-		}else{
-topCheckBox.checked = false;
-allSelect=0;	
-return;			
-				}
+	var vcheckbox=document.getElementsByName("checkbox");
+	var topCheckBox=document.getElementById("topCheckBox");
+	for(var i=0;i<vcheckbox.length;i++)
+	{
+		if(vcheckbox[i].checked){
+			topCheckBox.checked = true;
+	    }
+		else{
+	        topCheckBox.checked = false;
+	        allSelect=0;	
+	        return;			
+		}
+	}
 }
-
-
-	
-
-}	
-	
-	
-	
-	
 function checkBoxClick(){
-var vcheckbox=document.getElementsByName("checkbox");
-var topCheckBox=document.getElementById("topCheckBox");
-	
-for(var i=0;i<vcheckbox.length;i++)
-{
-	if(topCheckBox.checked){
+	var vcheckbox=document.getElementsByName("checkbox");
+	var topCheckBox=document.getElementById("topCheckBox");
 		
-vcheckbox[i].checked = true;		
-		}else{
-vcheckbox[i].checked = false;				
-				}
-}
+	for(var i=0;i<vcheckbox.length;i++)
+	{
+		if(topCheckBox.checked){
+	        vcheckbox[i].checked = true;		
+	    }
+		else{
+	        vcheckbox[i].checked = false;				
+	    }
+	}
 }
 window.onload=function(){
-  
+
 	$("#nextButton").click(function() {
-	    window.location.href='paymentInfo.html';
+		muskCurrentPage();
+		$.ajax({
+		    url: '/funeral/wishlist/generateOrderByCart',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: [],
+			success:function(data){
+				window.location.href='paymentInfo.html?orderId='+data.orderId;
+				unmusk();
+		    },
+			error: function(error) {
+				//$("#messageSent")[0].value = '';
+			}
+		});
 	});
-	
 };
 $(".continue").click(function() {
 	    window.location.href='/funeral/pages/productAndService.html';

@@ -167,7 +167,7 @@ app.controller('products', function($scope, $http) {
 		<div id="finishText">
 		    <h1>完成</h1>
 			<p>
-			    您已经完成产品和服务。我们根据您的答案帮您生成了愿望清单帮您总结您的产品和服务购买,下一步将把愿望清单中的物品加入到购物车
+			    您已经完成产品和服务。我们根据您的答案帮您生成了愿望清单帮您总结您可能需要的产品和服务,点击完成将生成愿望订单，我们不会强迫您购买生成后的愿望订单，也可以以此作为参考在其他店铺购买
 			</p>
 			<div id="wishListLink">
 			    <div id="linkLeft">
@@ -192,29 +192,22 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	if (me.hasClass("disabled")) {
 	    return;
 	}
-
+    window.parent.muskCurrentPage();
 	if (me[0].id === 'nextStep') {
-	$.ajax({
-		    url: '/funeral/wishlist/add?wishlistId='+parent.wishlistId,
+	    $.ajax({
+		    url: '/funeral/wishlist/generateOrderByWish',
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
-			data: JSON.stringify(wishIdList),
+			data: [],
 			success:function(data){
-                wishList = data;
-				drillIntoNextTab(nextTab);
-				originalWishlist = [];
-				for (var i=0;i<wishList.length;i++) {
-                    originalWishlist.push({
-                        wishId: wishList[i].wishId
-                    });
-				}
+				window.parent.location.href='/funeral/pages/purchaseOrderInfo.html';
+				window.parent.unmusk();
 		    },
 			error: function(error) {
 				//$("#messageSent")[0].value = '';
 			}
-		}); 
-	    window.parent.location.href='/funeral/pages/wishList.html';;
+		});
 	}
 	else {
 	    $(".questionCenter").each(function(){
