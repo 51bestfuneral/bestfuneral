@@ -126,7 +126,7 @@
 			<ul id="myTab" class="nav nav-tabs">
 				<li>
 					<a href="#tab1" data-toggle="tab">
-					<div class="tabIcon chooseTab select" >
+					<div class="tabIcon" id="defaultTab">
 						<span class="tabIconText">送终</span>
 						<div class="triangle-down">
 						</div>
@@ -227,7 +227,7 @@
 				</div>
 				<div class="rightText">
 				    <h2>落葬</h2>
-				    <p>将故人的骨灰或遗体，按照一定的风俗礼仪，安置于身后居所。</p>
+				    <p>将故人的骨灰或遗体，按照一定的风俗礼仪，安置于身后居所，以达到“入土为安”的目的。</p>
 				</div>
             </div>
 			<div class="tab-pane fade" id="tab7">
@@ -696,6 +696,14 @@ top:-160px;
 </style>
 </body>
 <script type="text/javascript">
+	window.onload=function() {
+		$("#defaultTab").addClass("select");
+		$("#defaultTab").addClass("chooseTab");
+		$("#defaultTab").find(".triangle-down").fadeIn(300);
+	}
+	
+	
+	
     $(".taocanIconDiv").click(function(){
         window.location.href='designProposal.html';
     });
@@ -757,8 +765,5 @@ top:-160px;
 		$("#leftFront").fadeOut();
 	});
 	$("#middleFront").fadeIn();
-	$(".chooseTab").each(function() {
-		$(this).find(".triangle-down").show();
-	});
 </script>
 </html>

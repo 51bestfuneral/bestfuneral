@@ -1,0 +1,68 @@
+Apr 18, 2016 9:20:43 PM org.apache.catalina.core.ApplicationContext log
+INFO: Spring WebApplicationInitializers detected on classpath: [com.funeral.kris.init.Initializer@4e103299]
+Apr 18, 2016 9:20:43 PM org.apache.catalina.core.ApplicationContext log
+INFO: Initializing Spring root WebApplicationContext
+Apr 18, 2016 9:20:49 PM org.apache.catalina.core.StandardContext listenerStart
+SEVERE: Exception sending context initialized event to listener instance of class org.springframework.web.context.ContextLoaderListener
+org.springframework.beans.factory.xml.XmlBeanDefinitionStoreException: Line 66 in XML document from class path resource [applicationContext.xml] is invalid; nested exception is org.xml.sax.SAXParseException; lineNumber: 66; columnNumber: 155; cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'jpa:repositories'.
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:398)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:335)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:303)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:180)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:216)
+	at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:187)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsFromImportedResources(ConfigurationClassBeanDefinitionReader.java:313)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsForConfigurationClass(ConfigurationClassBeanDefinitionReader.java:138)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitions(ConfigurationClassBeanDefinitionReader.java:116)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:330)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:243)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:254)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:94)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:611)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:464)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:403)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:306)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106)
+	at org.apache.catalina.core.StandardContext.listenerStart(StandardContext.java:5015)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5531)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:901)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:877)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:652)
+	at org.apache.catalina.startup.HostConfig.deployDirectory(HostConfig.java:1263)
+	at org.apache.catalina.startup.HostConfig$DeployDirectory.run(HostConfig.java:1948)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.xml.sax.SAXParseException; lineNumber: 66; columnNumber: 155; cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'jpa:repositories'.
+	at org.apache.xerces.util.ErrorHandlerWrapper.createSAXParseException(Unknown Source)
+	at org.apache.xerces.util.ErrorHandlerWrapper.error(Unknown Source)
+	at org.apache.xerces.impl.XMLErrorReporter.reportError(Unknown Source)
+	at org.apache.xerces.impl.XMLErrorReporter.reportError(Unknown Source)
+	at org.apache.xerces.impl.xs.XMLSchemaValidator$XSIErrorReporter.reportError(Unknown Source)
+	at org.apache.xerces.impl.xs.XMLSchemaValidator.reportSchemaError(Unknown Source)
+	at org.apache.xerces.impl.xs.XMLSchemaValidator.handleStartElement(Unknown Source)
+	at org.apache.xerces.impl.xs.XMLSchemaValidator.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLNSDocumentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.DOMParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.DocumentBuilderImpl.parse(Unknown Source)
+	at org.springframework.beans.factory.xml.DefaultDocumentLoader.loadDocument(DefaultDocumentLoader.java:76)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadDocument(XmlBeanDefinitionReader.java:428)
+	at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.doLoadBeanDefinitions(XmlBeanDefinitionReader.java:390)
+	... 30 more
+
+Apr 18, 2016 9:20:49 PM org.apache.catalina.core.ApplicationContext log
+INFO: Closing Spring root WebApplicationContext
+Apr 18, 2016 9:20:49 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: contextInitialized()
+Apr 18, 2016 9:20:49 PM org.apache.catalina.core.ApplicationContext log
+INFO: SessionListener: contextInitialized()
+Apr 18, 2016 9:20:50 PM org.apache.catalina.core.ApplicationContext log
+INFO: ContextListener: attributeAdded('org.apache.jasper.compiler.TldLocationsCache', 'org.apache.jasper.compiler.TldLocationsCache@37b9ce21')

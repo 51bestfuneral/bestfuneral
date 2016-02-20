@@ -21,8 +21,7 @@ public List<WishlistDetail>  getSelectedWishlistDetailByWishListId(int wishlistI
 public void deleteWishlistDetail(int wishlistDetailId);
 public  List<ExpressInfo>  getUncompledExpressInfoByUserId(int userId,int statusId);
 public void  updateExpressInfo(ExpressInfo expressInfo);
-public ContactInfo getUsingContacter(int userId);
-public void updateContactInfo(ContactInfo contactInfo);
+public void releaseUsingContacter(int userId);
 
 
 }

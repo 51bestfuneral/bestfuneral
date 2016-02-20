@@ -158,7 +158,7 @@
  	} 	
  	
  $scope.gotoTemple= function(id){		
-		    window.location.href='cemetery.html?id='+id;
+		    window.location.href='temple.html?id='+id;
 	
 		}
 		
@@ -193,7 +193,7 @@
 	<div class="listContent">
 	    <div  ng-click="gotoCemetery(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans">
 		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
-		     <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district+' | '+bean.price+''}}</h5></span> 
+		     <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district}}</h5></span> 
 		 <img  src={{bean.descImgUrl}}></img>
 		  
 		</div>
