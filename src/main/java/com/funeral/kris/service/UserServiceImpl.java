@@ -209,4 +209,18 @@ public class UserServiceImpl implements UserService {
 		}
 		return null;
 	}
+	
+	public List<User> getResourcesByRequestCemetery() {
+		List<User> userList = new ArrayList<User>();
+		Iterable<User> userIter = userDAO.findAll();
+		Iterator<User> iter = userIter.iterator();
+		while (iter.hasNext()) {
+			User user = iter.next();
+			if(user.getRequestCemetery()!=null){
+				userList.add(user);
+			}
+			
+		}
+		return userList;
+	} 
 }

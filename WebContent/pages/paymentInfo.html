@@ -135,6 +135,7 @@ span {
 	margin-right: 25px;
 	margin-top: 15px;
 }
+
 .longField {
     width: 440px;
 }
@@ -142,7 +143,7 @@ span {
     width: 208px;
 }
 .normalField {
-    width: 242px;
+    width: 250px;
 }
 .shorterField {
     width: 170px;
@@ -151,7 +152,7 @@ span {
     margin-right: 0px!important;
 }
 .normalField {
-    width: 242px;
+    width: 250px;
 	overflow: auto;
 	float: left;
 }
@@ -316,7 +317,7 @@ span {
 	
 				<div class="longField fieldInd lastField">
 			    <div class="fieldDesc">
-				    <p>从联系人中选择*</p>
+				    <p>从联系人中选择<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <select class="form-control"   id="contacterSelect"  style=" font-size: 19px;line-height: 44px;font-weight: bold;" >
@@ -336,7 +337,7 @@ span {
 				<div class="fieldContent">
 				    <input id="contactPhone" style=" font-size: 19px;line-height: 44px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
 				</div>
-				<p class="subTitle">我们会确保你的隐私</p>	
+				<p class="subTitle">我们会妥善保存你的隐私，确保它不被泄露</p>	
 			</div>
 			
 			
@@ -355,7 +356,6 @@ span {
 					</select>   
 				    
 				</div>
-				<p class="subTitle">我们会确保你的隐私</p>	
 				
 			</div>
 			

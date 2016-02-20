@@ -1,5 +1,7 @@
 package com.funeral.kris.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.bean.CemeteryBean;
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Answer;
+import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.service.UserService;
@@ -122,4 +126,9 @@ public class UserController {
 		return userService.verifyUser(userName, pwd, userType);
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/listUsersByCemeteryRequest", method = RequestMethod.GET, produces = "application/json")
+	public List<User> listUsersByCemeteryRequest() {
+		return userService.getResourcesByRequestCemetery();
+	}
 }
