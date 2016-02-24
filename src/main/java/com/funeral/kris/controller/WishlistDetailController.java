@@ -47,12 +47,12 @@ public class WishlistDetailController {
 	public List<WishlistDetail> addingWishlistDetail(@RequestBody List<Wish> wishs, HttpServletRequest request) {
 
 		List<WishlistDetail> successList = new ArrayList<WishlistDetail>();
-		String wishlistId = request.getParameter("wishlistId");
+		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
+		wishlistDetailService.deleteAllResources("wishlist_id="+wishlistId);
 		Date sysDate = new Date();
 		if (wishsMap == null) {
 			initialWishMap();
 		}
-		wishlistDetailService.deleteAllResources();
 
 		for (Wish wish: wishs) {
 			WishlistDetail wishlistDetail = new WishlistDetail();

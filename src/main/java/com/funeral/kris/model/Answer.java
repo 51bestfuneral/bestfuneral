@@ -19,7 +19,7 @@ public class Answer {
 	private String answerId;
 
 	@Column(name="user_id")
-	private String userId;
+	private Integer userId;
 
 	@Column(name="ans_list_id")
 	private String ansListId;
@@ -47,11 +47,11 @@ public class Answer {
 		this.answerId = answerId;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

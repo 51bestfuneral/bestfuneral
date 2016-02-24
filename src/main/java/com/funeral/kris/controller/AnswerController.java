@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,7 +55,7 @@ public class AnswerController {
 		answer.setAnsListId("����");
 		answer.setAnswerDesc("������Ŷ");
 		answer.setAnswerId("123");
-		answer.setUserId("123");
+		answer.setUserId(123);
 		ModelAndView modelAndView = new ModelAndView("add-answer-form");
 		modelAndView.addObject("answer", new Answer());
 		
@@ -67,9 +68,10 @@ public class AnswerController {
 
 	@ResponseBody 
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public void addingAnswer(@RequestBody List<Answer> answers) {
+	public Wishlist addingAnswer(@RequestBody List<Answer> answers, HttpServletRequest request) {
 		Date a = new Date();
-		String userId = answers.get(0).getUserId();
+		Integer userId = answers.get(0).getUserId();
+		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
 		String ansListId = userId +"-"+ String.valueOf(a.getTime());
 		for (Answer answer : answers) {
 			answer.setAnsListId(ansListId);
@@ -79,7 +81,7 @@ public class AnswerController {
 		        generateOptionRule(String.valueOf(answer.getOptionId()));
 		    }
 		}
-		generateWishList(userId, ansListId);
+		return generateWishList(userId, ansListId, wishlistId);
 	}
 
 	@ResponseBody
@@ -123,28 +125,37 @@ public class AnswerController {
 		return modelAndView;
 	}
 
-	private void generateWishList(String usrId, String ansListId) {
+	private Wishlist generateWishList(Integer usrId, String ansListId, Integer wishlistId) {
 		Wishlist wishList = new Wishlist();
+		Double totalPrice = 0d;
 		wishList.setAnsListId(ansListId);
-		wishList.setWishlistId(ansListId);
+		wishList.setWishlistId(wishlistId);
 		wishList.setStatus("I");
 		wishList.setUserId(usrId);
 		wishList.setPrice(0d);
-		wishListService.addResource(wishList);
-		generateWishDetail(ansListId);
+		totalPrice = generateWishDetail(wishlistId);
+		wishList.setPrice(totalPrice);
+		wishListService.updateResource(wishList);
+		return wishList;
 	}
 
-	private void generateWishDetail(String wishListId) {
+	private Double generateWishDetail(Integer wishListId) {
+		String condition = "wishlist_id = "+wishListId;
+		wishlistDetailService.deleteAllResources(condition);
+		Double typePrice = 0d;
+		Double totalPrice = 0d;
 		List<WishType> wishTypeList = wishTypeService.getResources();
 		for (WishType wishType: wishTypeList) {
-			generateWishForType(wishType.getWishType(), wishListId);
+			typePrice = generateWishForType(wishType.getWishType(), wishListId);
+			totalPrice = totalPrice + typePrice;
 		}
+		return totalPrice;
 	}
 
 	@SuppressWarnings("unchecked")
-	private void generateWishForType(String wishType, String wishListId) {
+	private Double generateWishForType(String wishType, Integer wishListId) {
 		String querySQL = null;
-
+        Double totalPrice = 0d;
 		if (wishType.equals("Cemetery")) {
 		    querySQL = "select p from Cemetery p ";
 		}
@@ -167,12 +178,15 @@ public class AnswerController {
 			if (cemeterys!=null && cemeterys.size() > 0) {
 				randomIndex = random.nextInt(cemeterys.size());
 				randomWish = cemeterys.get(randomIndex);
-				detail.setWishId(randomWish.getCemeteryId().toString());
+				detail.setWishId(randomWish.getCemeteryId());
 				detail.setPrice(Double.valueOf(randomWish.getPrice().toString()));
 				detail.setCount(1);
 				detail.setWishlistId(wishListId);
 				detail.setWishType(wishType);
+				detail.setCreateDate(new Date());
+				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
+				totalPrice = totalPrice + detail.getPrice();
 			}
 		}
 		else {
@@ -187,9 +201,13 @@ public class AnswerController {
 				detail.setCount(1);
 				detail.setWishlistId(wishListId);
 				detail.setWishType(wishType);
+				detail.setCreateDate(new Date());
+				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
+				totalPrice = totalPrice + detail.getPrice();
 			}
 		}
+		return totalPrice;
 	}
 
 	private void generateOptionRule(String optionIdStr) {

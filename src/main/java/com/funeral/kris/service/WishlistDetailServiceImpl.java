@@ -59,15 +59,12 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 		return WishlistDetails;
 	}
 
-	public void deleteAllResources() {
+	public void deleteAllResources(String condition) {
 		String a = null;
-
-		try {
-			 a = "delete from wishlist_details where 1 = 1";
-		}
-		catch (Exception e) {
-			
-		}
+		a = "delete from wishlist_details where 1 = 1";
+        if (condition != null && !condition.equals("")) {
+        	a = a + " and " + condition;
+        }
 		jdbcTemplate.update(a);
 	}
 }

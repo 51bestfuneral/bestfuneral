@@ -16,7 +16,7 @@ public class Wishlist {
 	@Id
 	@GeneratedValue
 	@Column(name="wishlist_id")
-	private String wishlistId;
+	private Integer wishlistId;
 
 	@Column(name="price")
 	private Double price;
@@ -28,7 +28,7 @@ public class Wishlist {
 	private String comment;
 
 	@Column(name="user_id")
-	private String userId;
+	private Integer userId;
 
 	@Column(name="status")
 	private String status;
@@ -39,11 +39,11 @@ public class Wishlist {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getWishlistId() {
+	public Integer getWishlistId() {
 		return wishlistId;
 	}
 
-	public void setWishlistId(String wishlistId) {
+	public void setWishlistId(Integer wishlistId) {
 		this.wishlistId = wishlistId;
 	}
 
@@ -95,11 +95,11 @@ public class Wishlist {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

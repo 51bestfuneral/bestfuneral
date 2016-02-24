@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-‘·¿Ò∂®÷∆
+Ëë¨Á§ºÂÆöÂà∂
 </title>
 </head>
 <script src="../../js/jquery-2.1.4.js"></script>
@@ -258,7 +258,7 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
-    $http.get("http://localhost:8080/bestfuneral/question/list").success(function(response) {
+    $http.get("/funeral/question/list").success(function(response) {
 		for (var i=0;i<response.length; i++) {
 		    var questionJson = response[i];
 			for (var j=0; j<questionJson.optionList.length;j++) {
@@ -287,7 +287,7 @@ app.controller('products', function($scope, $http) {
 			  }
 		  });
 		  $($(".productTab")[0]).addClass("cursored");
-		  window.parent.iFrameHeight();
+		  window.parent.iFrameHeight(1);
     });
 });
 </script>
@@ -325,7 +325,7 @@ app.controller('products', function($scope, $http) {
 		</div>
 	</div>
 	<div class="addtionOption">
-	    <input type="text" class="form-control" placeholder="«ÎÃÓ–¥∆‰À˚¥∞∏" id="messageSent">
+	    <input type="text" class="form-control" placeholder="ËØ∑Â°´ÂÜôÂÖ∂‰ªñÁ≠îÊ°à" id="messageSent">
 	</div>
 </div>
 	<div id="rightFooter">
@@ -333,7 +333,7 @@ app.controller('products', function($scope, $http) {
 		    <p>&#60;</p>
 		</div>
 		<div id="nextStep" class="operatorButton">
-		    <p>œ¬“ª≤Ω</p>
+		    <p>‰∏ã‰∏ÄÊ≠•</p>
 		</div>
 	</div>
 </div>
@@ -370,11 +370,11 @@ function handleButton() {
 	}
 
 	if (count>0 && !lastSlide.is(':hidden')) {
-	    $("#nextStep").find("p")[0].innerText = "ÕÍ≥…";
+	    $("#nextStep").find("p")[0].innerText = "ÂÆåÊàê";
 		$("#nextStep").addClass("finishedButton");
 	}
     else {
-	    $("#nextStep").find("p")[0].innerText = "œ¬“ª≤Ω";
+	    $("#nextStep").find("p")[0].innerText = "‰∏ã‰∏ÄÊ≠•";
 		$("#nextStep").removeClass("finishedButton");
 	}
 }
@@ -428,9 +428,9 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	if (me[0].id === 'nextStep') {
 	    $(".questionCenter").each(function(idx){
 		    if (!$(this).is(':hidden')) {
-	            $(this).hide();
 
 				if ($(this).next().hasClass('questionCenter')) {
+				    $(this).hide();
 				    var tabId = $(this).next()[0].id.replace('-content', '');
 					handleCursor($("#"+tabId));
 	                $(this).next().fadeIn();
@@ -438,9 +438,6 @@ $(document.body).on("click",".operatorButton", function( event ) {
 					if (idx === count-2) {
 					    handleFinishButton();
 					}
-				}
-				else {
-				    window.parent.nextTab();
 				}
 				return false;        
 			}
@@ -461,7 +458,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 			}
 	    });
 	}
-	window.parent.iFrameHeight();
+	window.parent.iFrameHeight(1);
 	handleButton();
 });
 $(document.body).on("click",".productTab", function( event ) {
@@ -492,7 +489,7 @@ $(document.body).on("click",".productTab", function( event ) {
 	    $("#nextStep").removeClass("disabled");
 	}
 	handleButton();
-	window.parent.iFrameHeight();
+	window.parent.iFrameHeight(1);
 });
 $(document.body).on("click",".optionIcon", function( event ) {
     var tabPage = $(this).closest(".questionCenter"),
@@ -516,17 +513,20 @@ $(document.body).on("click",".finishedButton", function( event ) {
     if (!$(this).hasClass("disabled")) {
 	    generateQuestionList(answetList);
 		$.ajax({
-		    url: 'http://localhost:8080/bestfuneral/answer/add',
+		    url: '/funeral/answer/add?wishlistId='+parent.wishlistId,
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
 			data: JSON.stringify(answetList),
 			success:function(data){
-				//alert("ƒ˙µƒ–≈œ¢Œ“√«“—æ≠ ’µΩ£°");
+                window.parent.updatePrice(data.price);
+				window.parent.nextTab();
 		    },
 			error: function(error) {
-				//alert("ƒ˙µƒ–≈œ¢Œ“√«“—æ≠ ’µΩ£°");
-				//$("#messageSent")[0].value = '';
+				if (error.status === 200) {
+                    window.parent.updatePrice(data.price);
+                    window.parent.nextTab();
+                }
 			}
 		});
 	}

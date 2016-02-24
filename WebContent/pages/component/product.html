@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-ÔáÀñ¶¨ÖÆ
+è‘¬ç¤¼å®šåˆ¶
 </title>
 </head>
 <script src="../../js/jquery-2.1.4.js"></script>
@@ -84,6 +84,7 @@
 	}
 	.productCarousel .carousel-inner {
 	    padding-bottom: 20px;
+        height: 400px;
 	}
 	.productItem {
 	    width: 184px;
@@ -244,51 +245,31 @@
 		position: absolute;
 		background: #ff5274;
 	}
+    .carousel-indicators li .active {
+        background-color: #A76009!important;
+    }
+    .carousel-indicators li{
+        background-color: #D9D9D9!important;
+        position: relative;
+    }
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []),
-    tabs = [],
-	wishList,
-	usrId = 1,
-	wishlistObject = {};
+    tabs = [];
 function validateInList() {
-	$.ajax({
-		url: 'http://localhost:8080/bestfuneral/wishlist/list?userId='+usrId,
-		type: 'get',
-		success:function(resdata){
-		    wishList = resdata;
-			wishlistObject.wishlistId = resdata[0].wishlistId;
-			$.ajax({
-				url: 'http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId='+resdata[0].wishlistId,
-				type: 'get',
-				success:function(data){
-					var response = data;
-					wishlistObject.selectedItemList = response;
-					parent.wishList = wishlistObject;
-					for (var i=0;i<response.length;i++) {
-						var wishInList = response[i];
-						if ($("#"+wishInList.wishId).length > 0) {
-							$("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
-							$("#"+wishInList.wishId).addClass("chooseProduct");
-						}
-					}
-					if ($(".disableDiv").length>0) {
-						for (var i=0;i<$(".disableDiv").length;i++) {
-							$(".disableDiv").find("p")[i].innerText = "ÎÒÃÇÎªÄúÑ¡ÔñµÄ";
-						}
-					}
-				},
-				error: function(error) {
-					var response = error;
-					//$(".disableDiv").find("p")[0].innerText = "ÒÑ¼ÓÈëÔ¸ÍûÇåµ¥";
-				}
-			});
-		},
-		error: function(error) {
-			var response = error;
-			//$(".disableDiv").find("p")[0].innerText = "ÒÑ¼ÓÈëÔ¸ÍûÇåµ¥";
+    var data = parent.wishList;
+	for (var i=0;i<data.length;i++) {
+		var wishInList = data[i];
+		if ($("#"+wishInList.wishId).length > 0) {
+			$("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
+			$("#"+wishInList.wishId).addClass("chooseProduct");
 		}
-	});
+	}
+	if ($(".disableDiv").length>0) {
+		for (var i=0;i<$(".disableDiv").length;i++) {
+			$(".disableDiv").find("p")[i].innerText = "æˆ‘ä»¬ä¸ºæ‚¨é€‰æ‹©çš„";
+		}
+	}
 };
 app.directive('onFinishRenderFilters', function ($timeout) {
     return {
@@ -303,10 +284,10 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/bestfuneral/wishType/list").success(function(tabResponse) {
+	$http.get("/funeral/wishType/list").success(function(tabResponse) {
 	    for (var i=1;i<=tabResponse.length;i++) {
 		    var object = tabResponse[i-1];
-            $http.get("http://localhost:8080/bestfuneral/wish/list?wishType="+object.wishType).success(function(response, retStatus, method, request) {
+            $http.get("/funeral/wish/list?wishType="+object.wishType).success(function(response, retStatus, method, request) {
 				var j = 1,
 					counter = 1,
 					numberInRow = 3,
@@ -368,7 +349,8 @@ app.controller('products', function($scope, $http) {
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
           $(".productCenter").first().fadeIn();
 		  validateInList();
-		  window.parent.iFrameHeight();
+		  window.parent.iFrameHeight(2);
+		  window.parent.flowToIndex(2);
     });
 });
 </script>
@@ -393,8 +375,8 @@ app.controller('products', function($scope, $http) {
     <div class="index">
 	    <p><b>{{$index+1}}</b>/20</p>
 	</div>
-	<h1>{{tab.typeName}}Ñ¡Ôñ</h1>
-	<h3>°´ÕÕÄúµ±Ç°µÄÌ×²ÍÑ¡Ôñ£¬¸øÄúÍÆ¼öÒÔÏÂ²úÆ·:</h3>
+	<h1>{{tab.typeName}}é€‰æ‹©</h1>
+	<h3>æŒ‰ç…§æ‚¨å½“å‰çš„å¥—é¤é€‰æ‹©ï¼Œç»™æ‚¨æ¨èä»¥ä¸‹äº§å“:</h3>
 	<div class="carouselProduct">
 	    <div class="carousel slide productCarousel" id="{{tab.tabId}}Carousel">
             <div class="carousel-inner">
@@ -406,16 +388,16 @@ app.controller('products', function($scope, $http) {
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
-								<p class="detail">°üº¬ÔÚÄúµÄÌ×²ÍÖĞ(Ô­¼Û:<span>£¤{{itemLayout.price}}</span>)</p>
+								<p class="detail">åŒ…å«åœ¨æ‚¨çš„å¥—é¤ä¸­(åŸä»·:ï¿¥<span>{{itemLayout.price}}</span>)</p>
 								<div class="addWishButton">
 								    <img src="../../js/images/addWish.png"></img>
-								    <p>Ñ¡ÔñËüÀ´Ìæ»»</p>
+								    <p>é€‰æ‹©å®ƒæ¥æ›¿æ¢</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">ÁË½âÏêÇé</a></div>
+							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">äº†è§£è¯¦æƒ…</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>¸ù¾İÄúÖ®Ç°Ìá¹©µÄĞÅÏ¢</br>ÍÆ¼ö¸Ã²úÆ·¸øÄú</p>
+						    <p>æ ¹æ®æ‚¨ä¹‹å‰æä¾›çš„ä¿¡æ¯</br>æ¨èè¯¥äº§å“ç»™æ‚¨</p>
 						</div>
 		            </div>
                 </div>
@@ -424,6 +406,9 @@ app.controller('products', function($scope, $http) {
                 data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
             <a class="carousel-control right" href="#{{tab.tabId}}Carousel" 
                 data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
+            <ol class="carousel-indicators">
+				<li data-target="#{{tab.tabId}}Carousel" data-slide-to="{{$index}}" class="{{layout.active}}" ng-repeat="layout in tab.layouts"></li>
+			</ol>
         </div>
 	</div>
 </div>
@@ -432,7 +417,7 @@ app.controller('products', function($scope, $http) {
 		    <p>&#60;</p>
 		</div>
 		<div id="nextStep" class="operatorButton">
-		    <p>ÏÂÒ»²½</p>
+		    <p>ä¸‹ä¸€æ­¥</p>
 		</div>
 	</div>
 </div>
@@ -482,20 +467,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	                $(this).next().fadeIn();
 				}
 				else {
-				    var data = {},
-					    selectedItemList = [];
-
-				    data.wishlistId = wishList[0].wishlistId;
-					$(".chooseProduct").each(function() {
-					    var product = {
-						    wishId: $(this)[0].id,
-							price: $(this).find('.detail').find('span')[0].innerText,
-							wishName: $(this).find('.header')[0].innerText
-						};
-						selectedItemList.push(product);
-					});
-					data.selectedItemList = selectedItemList;
-				    window.parent.nextTab(data);
+				    window.parent.nextTab();
 				}
 				return false;        
 			}
@@ -512,7 +484,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 			}
 	    });
 	}
-	window.parent.iFrameHeight();
+	window.parent.iFrameHeight(2);
 	handleButton();
 });
 window.onload=function(){
@@ -521,13 +493,16 @@ window.onload=function(){
     });
 };
 $(document.body).on("click",".productItem", function( event ) {
+    var priceChange = parseInt($(this).find('.detail').find('span')[0].innerText, 10);
 	if ($(this).hasClass("chooseProduct")) {
         $(this).removeClass("chooseProduct");
-		$(this).find(".addWishButton").find('p')[0].innerText = 'ÒÑÈ¡ÏûÑ¡Ôñ';
+		$(this).find(".addWishButton").find('p')[0].innerText = 'å·²å–æ¶ˆé€‰æ‹©';
+        window.parent.updatePrice(0-priceChange, '+');
 	}
 	else {
 	    $(this).addClass("chooseProduct");
-		$(this).find(".addWishButton").find('p')[0].innerText = 'Ñ¡ÔñÎªÔ¸ÍûÇåµ¥';
+		$(this).find(".addWishButton").find('p')[0].innerText = 'é€‰æ‹©ä¸ºæ„¿æœ›æ¸…å•';
+        window.parent.updatePrice(priceChange, '+');
 	}
 	event.preventDefault();
 });
@@ -550,29 +525,6 @@ $(document.body).on("click",".productTab", function( event ) {
 		    me.hide();
 		}
 	});
-});
-$("body").on("click",".addWishButton",function() {
-	var data = {
-	    wishId: $(this).closest('.productItem')[0].id,
-		wishlistId: wishList[0].wishlistId
-	};
-	if (!$(this).hasClass("disableDiv")){
-		$.ajax({
-			url: 'http://localhost:8080/bestfuneral/wishlistDetail/add',
-			type: 'post',
-			data: data,
-			dataType:'json',
-			success:function(data){
-				//alert("ÒÑ¼ÓÈëÔ¸ÍûÇåµ¥£¡");
-			},
-			error: function(error) {
-				//alert("ÒÑ¼ÓÈëÔ¸ÍûÇåµ¥£¡");
-			}
-		});
-		$(this).addClass("disableDiv");
-		$(this).closest(".productItem").addClass("chooseProduct");
-		$(this).find('p')[0].innerText = 'Ñ¡ÔñÎªÔ¸ÍûÇåµ¥';
-	}
 });
 </script>
 </html>

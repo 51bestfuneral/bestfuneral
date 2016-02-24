@@ -8,7 +8,7 @@ public class WishListJson {
 	private Integer amount;
 	private String imageUrl;
 	private Integer wishDetailId;
-	private String wishlistId;
+	private Integer wishlistId;
 
 	public String getWishName() {
 		return wishName;
@@ -52,10 +52,10 @@ public class WishListJson {
 	public void setWishDetailId(Integer wishDetailId) {
 		this.wishDetailId = wishDetailId;
 	}
-	public String getWishlistId() {
+	public Integer getWishlistId() {
 		return wishlistId;
 	}
-	public void setWishlistId(String wishlistId) {
+	public void setWishlistId(Integer wishlistId) {
 		this.wishlistId = wishlistId;
 	}
 	
