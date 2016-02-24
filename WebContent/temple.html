@@ -163,6 +163,7 @@
 	float: left;
 	opacity: 1;	
 	margin:0 auto; overflow:hidden;
+	float: right;
 	}
 	
 .rightlocationImg img{
@@ -470,13 +471,15 @@ width: 100%;
 </style>
 <script>
 	var length = location.search.length,
-id = location.search.substring(4, length);
+id = location.search.substring(4, length),
+    cemeteryListBean = [];
 	
 	var app = angular.module('productApp', []);
 	 app.controller('cemetery', function($scope, $http) {
 	 	
 	 	$http.get("/cemetery/findOneCemetery?id="+id).success(function(response) {
 	 		$scope.cemeteryBean=response;
+	 		cemeteryListBean.push(response);
        	initMap(response.cemeteryName,response.address);
   		
   
@@ -546,7 +549,6 @@ function initMap(cemeteryName,cemeteryAddress){
     createMap(cemeteryName);//创建地图
     setMapEvent();//设置地图事件
     addMapControl();//向地图添加控件
-    alert(cemeteryAddress);
 	    	var options = {
 	    	        onSearchComplete: function(results){
 	    	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){

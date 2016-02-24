@@ -250,21 +250,7 @@ public class WishlistController {
 	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public List<Wishlist> listOfWishlists(HttpServletRequest request) throws Exception {
-
-		System.out.println(this.getClass()+" -----  list  getUser= "+		AppContext.getUser());
-
-		
-		HttpSession session = request.getSession(false);
-		
-		System.out.println(this.getClass()+" -----  list  getId= "+session.getId());
-		System.out.println(this.getClass()+" -----  list  sessionId= "+session.getAttribute("sessionId"));
-
-		
-		User user = (User) session.getAttribute("user");
-		
-		System.out.println(this.getClass()+"   list  user= "+user);
-
-		
+		User user = (User) request.getSession().getAttribute("user");
 		List<Wishlist> wishlists = new ArrayList<Wishlist>();
 		if (user!= null && user.getUsrId() != null) {
 		    Map<String, String> paramMap = new HashMap<String, String>();
@@ -273,8 +259,6 @@ public class WishlistController {
 		}
 		return wishlists;
 	}
-
-	
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editWishlistPage(@PathVariable Integer id) {

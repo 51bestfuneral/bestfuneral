@@ -133,6 +133,7 @@
 	    font-size: 15px;
 		color: #3b3d40;
 		margin-bottom: 5px;
+		height: 40px;
 	}
 	.productInfo .detail {
 	    font-size: 12px;
@@ -413,12 +414,39 @@ app.controller('products', function($scope, $http) {
 		}
 	});
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-          $(".productCenter").first().fadeIn();
-		  validateInList();
-		  handleCursor($(".productTab").first());
-		  window.parent.iFrameHeight(2);
-		  window.parent.flowToIndex(2);
-		  window.parent.unmusk();
+		$(".productCarousel").carousel({
+			wrap: false
+		});
+		$(".productCarousel").carousel('pause');
+		$(".productCarousel").each(function() {
+			var pages = $(this).find(".item");
+
+			if (pages.length === 1) {
+				$(this).find(".right").hide();
+			}
+		});
+		$(".productCarousel").on('slid.bs.carousel', function() {
+			var pages = $(this).find(".item");
+			
+			if ($(pages[pages.length-1]).hasClass("active")) {
+			    $(this).find(".right").fadeOut();
+			}
+			else {
+				$(this).find(".right").fadeIn();
+			}
+			if ($(pages[0]).hasClass("active")){
+				$(this).find(".left").fadeOut();
+			}
+			else {
+				$(this).find(".left").fadeIn();
+			}
+		});
+		$(".productCenter").first().fadeIn();
+		validateInList();
+		handleCursor($(".productTab").first());
+		window.parent.iFrameHeight(2);
+		window.parent.flowToIndex(2);
+		window.parent.unmusk();
     });
 });
 </script>
@@ -472,7 +500,7 @@ app.controller('products', function($scope, $http) {
 		            </div>
                 </div>
             </div>
-            <a class="carousel-control left" href="#{{tab.tabId}}Carousel" 
+            <a class="carousel-control left" href="#{{tab.tabId}}Carousel" hidden
                 data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
             <a class="carousel-control right" href="#{{tab.tabId}}Carousel" 
                 data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
@@ -615,6 +643,7 @@ window.onload=function(){
     $(".productCarousel").carousel({
         interval: false
     });
+    handleButton();
 };
 $(document.body).on("click",".productItem", function( event ) {
     var priceChange = parseInt($(this).find('.detail').find('span')[0].innerText, 10),

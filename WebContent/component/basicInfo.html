@@ -226,6 +226,7 @@
 	    height: 25px;
 	    color: red;
 	    text-align: left;
+	    margin-top: 40px;
 	}
     .spanCoat {
 	    float: left;
@@ -246,7 +247,6 @@
 		height: 26px;
 		padding: 0px;
 		float: left;
-		margin-top: 25px;
 	}
 	.input-group-addon {
 	    border: none;
@@ -581,22 +581,22 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
-	        <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>姓名*</span></div>
 			<input type="text" class="form-control mandantory" ng-model="user.name" onkeyup="value=value.replace(/[0-9]+/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[0-9]+/g,''))"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>性别*</span></div>
 			<select type="text" class="form-control mandantory" ng-model="user.gender">
 			    <option default></option>
 			    <option>男</option>
 			    <option>女</option>
 			</select>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg" id="datetimepicker1Msg"><span></span></div>
 			<div class="spanCoat"><span>出生日期*</span></div>
+			<div class="warningMsg" id="datetimepicker1Msg"><span></span></div>
 		</div>
 		<div class='input-group date' id='datetimepicker1'>
 		        <input type='text' class="form-control mandantory" ng-model="user.birthday"/>
@@ -604,24 +604,24 @@ app.controller('products', function($scope, $http) {
 		        </span>
 	    </div>
 		<div class="singleQuestion">
-		    <div class="warningMsg" id="identifyNumberWarn"><span></span></div>
 			<div class="spanCoat"><span>身份证号</span></div>
 			<input type="text" class="form-control" ng-model="user.identifier" id="identifyNumber"></input>
+			<div class="warningMsg" id="identifyNumberWarn"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>联系电话*</span></div>
 			<input type="text" class="form-control mandantory phoneField" ng-model="user.phone" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电子邮箱</span></div>
 			<input type="text" class="form-control mailField" ng-model="user.email"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>地址</span></div>
 			<input type="text" class="form-control longField" ng-model="user.address"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 	</div>
 </div>
@@ -634,29 +634,29 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
-	        <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>姓名*</span></div>
 			<input type="text" class="form-control mandantory" ng-model="user.contactor" onkeyup="value=value.replace(/[0-9]+/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[0-9]+/g,''))"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电话*</span></div>
 			<input type="text" class="form-control mandantory phoneField" ng-model="user.contactorPhone" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电子邮件</span></div>
 			<input type="text" class="form-control mailField" ng-model="user.contactorMail"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>地址</span></div>
 			<input type="text" class="form-control" ng-model="user.contactorAddress"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 		<div class="singleQuestion">
-		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>关系*</span></div>
 			<input type="text" class="form-control mandantory" ng-model="user.contactorRelate"></input>
+			<div class="warningMsg"><span></span></div>
 		</div>
 	</div>
 </div>
@@ -778,6 +778,18 @@ $(document.body).on("blur",".mandantory", function( event ) {
 	    msgFiled.find("span").hide();
 	}
 	handleFinished(tabPage);
+});
+$("#2-content").on("blur","input", function( event ) {
+    var main = $(this).closest(".singleQuestion");
+    if ($(this)[0].value !== '') {
+	    main.find(".warningMsg")[0].innerText = '';
+    }
+});
+$("#3-content").on("blur","input", function( event ) {
+    var main = $(this).closest(".singleQuestion");
+    if ($(this)[0].value !== '') {
+	    main.find(".warningMsg")[0].innerText = '';
+    }
 });
 $("#identifyNumber").on("blur", function( event ) {
     var identifyNumber =$(this)[0].value,

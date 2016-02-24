@@ -35,7 +35,9 @@ import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
+import com.funeral.kris.service.OrderDetailService;
 import com.funeral.kris.service.UserService;
+import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
@@ -47,13 +49,13 @@ public class WishlistDetailController {
 	@Autowired
 	private WishlistService wishlistService;
 	@Autowired
-	private UserService userService;
-	@Autowired
 	private WishlistDetailService wishlistDetailService;
 	@Autowired
-	private CartService cartService;
-	@Autowired
 	private CartDetailService cartDetailService;
+	@Autowired
+	private WishOrderService wishOrderService;
+	@Autowired
+	private OrderDetailService orderDetailService;
 	@Autowired
 	private WishService wishService;
 	private Map<Integer, Wish> wishsMap = null;
@@ -160,6 +162,15 @@ public class WishlistDetailController {
 		wishlistService.updateResource(wishlist);
 
 		return successList;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/removeSingleFromWish", method = RequestMethod.DELETE)
+	public Integer removeWishlistSingle(HttpServletRequest request) {
+
+		String wishlistDetailId = request.getParameter("wishlistDetailId");
+		wishlistDetailService.deleteResource(Integer.valueOf(wishlistDetailId));
+		return 0;
 	}
 
 	@ResponseBody
@@ -468,6 +479,15 @@ public class WishlistDetailController {
 			orderJsons.add(orderJson);
 		}
 		return orderJsons;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/removeWishOrder", method = RequestMethod.DELETE)
+	public Integer removeWishOrder(HttpServletRequest request) {
+		String orderId = request.getParameter("orderId");
+		wishOrderService.deleteResource(Integer.valueOf(orderId));
+		orderDetailService.deleteResourceByOrderId(Integer.valueOf(orderId));
+		return 0;
 	}
 
 	@ResponseBody

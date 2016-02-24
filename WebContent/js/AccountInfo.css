@@ -4,7 +4,7 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
         line-height: 1.43;
-		font-family: "Microsoft Yahei"!important;
+		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 		font-weight: lighter; 
         margin: 0px auto;
 		-moz-box-sizing: border-box;
@@ -70,7 +70,7 @@
 	.saveBtn:hover {
 	    background: #ccc;
 	}
-	#rightContents {
+	.rightContents {
 		margin-bottom: 25px;
 		border: 1px solid #dce0e0;
 	}
@@ -129,7 +129,7 @@
 	.fieldDesc {
 	    width: 100%;
 		margin-top: 6.25px;
-		font-size: 18px;
+		font-size: 14px;
 		color: #565a5c;
 	}
 	.normalSelect {
@@ -220,4 +220,98 @@
 	}
 	#leftTabs a {
 	    text-decoration: none;
+	}
+	.clickable {
+	    cursor: pointer;
+	}
+	.clickableItem {
+	    cursor: pointer;
+	}
+	.clickableItem:hover {
+	    background-color: #F5F5F5;
+	}
+	.orderNumber {
+	    font-size: 16px;
+		text-decoration: none;
+		color: #ff5274;
+	}
+	.valuehiddenDiv {
+	    overflow: hidden;
+		height: 0px;
+	    -moz-transition: height 0.5s;
+	    -webkit-transition: height 0.5s;
+	    -o-transition: height 0.5s;
+	}
+	.detailhiddenDiv {
+	    overflow: hidden;
+		height: 0px;
+	    -moz-transition: height 0.5s;
+	    -webkit-transition: height 0.5s; 
+	    -o-transition: height 0.5s;
+	}
+	.spreadIcon {
+	    float: right;
+	    margin-top: -26px;
+	}
+	.containerClass {
+	    overflow: auto;
+		width: 738px;
+		-moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+		border-right: 1px solid #dce0e0;
+	}
+	.detailView {
+	    -moz-box-sizing: border-box;
+	    -webkit-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.th1 {
+	    width: 30%;
+	}
+	.th2 {
+	    width: 20%;
+	}
+	.th3 {
+	    width: 15%;
+	}
+	.totalPriceSpan {
+	    font-size: 20px;
+	    font-weight: bold;
+	}
+	.digToDetail {
+	    color: rgb(0, 0, 238)!important;
+	}
+	select {
+	    font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+	}
+	.removeBtn {
+	    float: right;
+        margin-top: -27px;
+        margin-right: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        cursor: pointer;
+	}
+	.processIcon {
+	    float: right;
+        font-size: 7px;
+        margin-top: -23px;
+	}
+	.disabled {
+	    opacity: 0.5;
+	}
+	.emptyBtn {
+	    width: 120px;
+	    height: 30px;
+	    background: #ed4b83;
+	    color: #fff;
+	    border: none;
+	    border-radius: 4px;
+	    margin-left: 10px;
+	    cursor: pointer;
+	    font-size: 14px;
+	}
+	.emptyBtn:hover {
+	    background: #AF1E50;
 	}

@@ -26,6 +26,7 @@ public class CemeteryBean {
 	private String featureImgUrl;
 	private String locationImgUrl;
 	private String style;
+	private Integer type;
 
 	public String getDescImgUrl() {
 		return descImgUrl;
@@ -129,6 +130,12 @@ public class CemeteryBean {
 	}
 	public void setEpigraphStyleList(List<TCemeteryEpigraphStyle> epigraphStyleList) {
 		this.epigraphStyleList = epigraphStyleList;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
 	}
 	private String feature;
 	

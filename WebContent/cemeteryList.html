@@ -166,7 +166,8 @@
 
 	<div class="listContent">
 	    <div  ng-click="gotoTemple(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  temples">
-		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
+		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span>
+		     <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district}}</h5></span> 
 		 <img  src={{bean.descImgUrl}}></img>
 		  
 		</div>
@@ -184,44 +185,36 @@
 </div>
 </body>
 <script type="text/javascript">
-
 	var app = angular.module('myApp', []),
 	    cemeteryListBean;
-	 app.controller('cemetery', function($scope, $http) {
+	muskCurrentPage();
+	app.controller('cemetery', function($scope, $http) {
 	 	
-	 	$http.get("/cemetery/listAllCemeteries").success(function(response) {
-       	
-  $scope.cemeteryBeans=response;
-  cemeteryListBean = response;
- }) 	
- 	 
- 		 	$http.get("/cemetery/listAllTemple").success(function(response) {
-       	
-  $scope.temples=response;
-  
- }) 	 
-
+	 	$http.get("/cemetery/list").success(function(response) {
+	 		var cemeteryBeans = [],
+	 		    temples= [];
+	 		for (var i=0;i<response.length;i++) {
+	 			var object = response[i];
+	 			if (object.type === 1) {
+	 				cemeteryBeans.push(object);
+	 			}
+	 			else {
+	 				temples.push(object);
+	 			}
+	 		}
+            $scope.cemeteryBeans=cemeteryBeans;
+            $scope.temples = temples;
+            cemeteryListBean = response;
+            unmusk();
+        });
+	 	$scope.gotoCemetery = function(id){
+	 	    window.location.href='cemetery.html?id='+id;
+	 	} 	
  	
- 	
- 	$scope.gotoCemetery = function(id){
- 	
-		    window.location.href='cemetery.html?id='+id;
- 	
- 	} 	
- 	
- $scope.gotoTemple= function(id){		
+        $scope.gotoTemple= function(id){		
 		    window.location.href='temple.html?id='+id;
-	
 		}
-		
-	
-	 	
-	 	
 	});
-	
-
- 
-
 </script>
 <script>
 $("#visitButton").click(function() {

@@ -238,9 +238,6 @@ app.controller('products', function($scope, $http) {
 		</div>
 	</div>
     <div id="rightFooter">
-	    <div id="prevStep" class="operatorButton">
-		    <p>&#60;</p>
-		</div>
 		<div id="nextStep" class="operatorButton">
 		    <p>下一步</p>
 		</div>
@@ -343,7 +340,7 @@ $(document.body).on("click",".operatorCoat p", function( event ) {
 
 			if (parseInt(oriWish.wishId, 10) === parseInt($(this).closest('.wishItem')[0].id, 10)) {
 			    parent.wishIdList.splice(i, 1);
-				parent.updatePrice(0-itemPrice, itemOriginalPrice - itemPrice, '+');
+				parent.updatePrice(0-itemPrice, itemPrice - itemOriginalPrice, '+');
 			}
 		}
 		setTimeout(function() {
