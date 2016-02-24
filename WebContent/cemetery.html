@@ -542,13 +542,13 @@ width: 100%;
 				</div>
 				<div class="rightFeatureText">
 				    <h1>简介</h1>
-				    <p ng-bind="cemeteryBean.cemeteryDesc"></p>
+				    <p ng-bind-html="cemeteryBean.cemeteryDesc|trustAsHtml"></p>
 				</div>
 			</div>
 			<div id="locationFeature">
 			    <div class="leftlocationText">
 				     <h1>特色</h1>
-<p ng-bind="cemeteryBean.feature"></p>				</div>
+<p ng-bind-html="cemeteryBean.feature|trustAsHtml"></p>				</div>
 				<div class="rightlocationImg">
 					 <img src={{cemeteryBean.featureImgUrl}}></img>
 				</div>
@@ -561,7 +561,7 @@ width: 100%;
 				</div>
 				<div class="rightEquipmentText">
 				    <h1>交通信息</h1>
-				    <p ng-bind="cemeteryBean.trafficInfo"></p>
+				    <p ng-bind-html="cemeteryBean.trafficInfo|trustAsHtml"></p>
 				</div>
 			</div>
 			
@@ -598,6 +598,11 @@ var eid;
 	
 	var app = angular.module('productApp', []),
 	cemeteryListBean = [];
+	app.filter('trustAsHtml', function($sce) {
+		  return function(html) {
+		    return $sce.trustAsHtml(html);
+		  };
+		});
 	 app.controller('cemetery', function($scope, $http) {
 	 	
 	 	$scope.selectedGraveStyleId=-1;

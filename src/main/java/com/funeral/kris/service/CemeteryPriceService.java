@@ -13,5 +13,9 @@ public interface CemeteryPriceService {
 	public List<TCemeteryPrice> getResources();
 	public List<TCemeteryPrice> getCemeteryPriceListByCemeteryId(int cemeteryId);
 	
+	public List<TCemeteryPrice> getCemeteryPriceListByGraveStyleId(int graveStyleId);
+	
+	public List<TCemeteryPrice> getCemeteryPriceListByEpigraphStyleId(int epigraphStyleId);
+	
 	
 }

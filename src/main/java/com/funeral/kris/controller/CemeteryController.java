@@ -233,6 +233,13 @@ public class CemeteryController {
 		int id = Integer.parseInt(request.getParameter("id"));
 
 		cemeteryEpigraphStyleService.deleteResource(id);
+		
+		List<TCemeteryPrice> cemeteryPriceList = cemeteryPriceService.getCemeteryPriceListByEpigraphStyleId(id);
+		if (cemeteryPriceList != null && cemeteryPriceList.size() > 0) {
+			for (TCemeteryPrice price : cemeteryPriceList) {
+				cemeteryPriceService.deleteResource(price.getId());
+			}
+		}
 	}
 
 	@ResponseBody
@@ -261,6 +268,12 @@ public class CemeteryController {
 	public void removeGrave(HttpServletRequest request) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		cemeteryGraveStyleService.deleteResource(id);
+		List<TCemeteryPrice> cemeteryPriceList = cemeteryPriceService.getCemeteryPriceListByGraveStyleId(id);
+		if (cemeteryPriceList != null && cemeteryPriceList.size() > 0) {
+			for (TCemeteryPrice price : cemeteryPriceList) {
+				cemeteryPriceService.deleteResource(price.getId());
+			}
+		}
 	}
 
 	@ResponseBody
