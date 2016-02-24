@@ -442,7 +442,7 @@ width: 1350px;
 	var length = location.search.length,
 id = location.search.substring(4, length);
 	
-	var app = angular.module('myApp', []);
+	var app = angular.module('productApp', []);
 	 app.controller('cemetery', function($scope, $http) {
 	 	
 	 	$http.get("/funeral/cemetery/findOneCemetery?id="+id).success(function(response) {
@@ -455,22 +455,6 @@ id = location.search.substring(4, length);
 	 	
 	 	
 	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
 app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wish/list").success(function(response) {
 	    var j = 1,
@@ -729,7 +713,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 
 //initMap();//创建和初始化地图
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body ng-app="productApp" ng-controller="cemetery">
 <div class="container">
 
 <div id="mainHeader">
@@ -826,10 +810,8 @@ function resetCenterAndZoom(x,y,cemeteryName){
 	</div>
 </div>
 <div id="cemeteryMap">
-   <img src={{cemeteryBean.mapUrl}}></img>
-   <div class="commentMap">
-       <h1>{{cemeteryBean.cemeteryName}}</h1>
-	   <h2>{{cemeteryBean.address}}</h2>
+<div id="cemeteryMapContext">
+ 
    </div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
