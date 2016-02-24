@@ -16,38 +16,35 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.init.constants.LoginConstants;
+import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.CartDetail;
-import com.funeral.kris.model.Cemetery;
-import com.funeral.kris.model.Comment;
-import com.funeral.kris.model.Option;
-import com.funeral.kris.model.Order;
 import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.TaoConfig;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
-import com.funeral.kris.model.WishType;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.OrderDetailService;
-import com.funeral.kris.service.OrderService;
+import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishService;
-import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
-import com.funeral.kris.util.AlipayUtil;
-import com.funeral.kris.util.SqlHelper;
 
 @Controller
 @RequestMapping(value = "/wishlist")
@@ -60,11 +57,9 @@ public class WishlistController {
 	@Autowired
 	private CartDetailService cartDetailService;
 	@Autowired
-	private WishTypeService wishTypeService;
-	@Autowired
 	private WishlistDetailService wishlistDetailService;
 	@Autowired
-	private OrderService orderService;
+	private WishOrderService wishOrderService;
 	@Autowired
 	private OrderDetailService orderDetailService;
 	@Autowired
@@ -183,22 +178,22 @@ public class WishlistController {
 
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByWish", method = RequestMethod.POST)
-	public Order generateOrderByWishlist(HttpServletRequest request) {
+	public WishOrder generateOrderByWishlist(HttpServletRequest request) {
 		Wishlist wishlist = null;
-		Order order = new Order();
+		WishOrder order = new WishOrder();
 		User user = (User) request.getSession().getAttribute("user");
 		wishlist = wishlistService.getResource(user.getWishlistId());
 		order.setUserId(user.getUsrId());
-		order.setPayableAmount(wishlist.getPrice());
-		order.setStatusId(AlipayUtil.order_open);
-		orderService.addResource(order);
+		order.setPrice(wishlist.getPrice());
+		order.setOriginalPrice(wishlist.getOriginalPrice());
+		wishOrderService.addResource(order);
 		List<WishlistDetail> wishdetailList = new ArrayList<WishlistDetail>();
 		wishdetailList = wishlistDetailService.getResourceByWishListId(user.getWishlistId());
 
 		for (WishlistDetail wishlistDetail: wishdetailList) {
 			OrderDetail orderdetail = new OrderDetail();
 			orderdetail.setCount(wishlistDetail.getCount());
-			orderdetail.setOrderId(order.getOrderId());
+			orderdetail.setOrderId(order.getWishOrderId());
 			orderdetail.setOriginalPrice(wishlistDetail.getOriginalPrice());
 			orderdetail.setPrice(wishlistDetail.getPrice());
 			orderdetail.setCreatedDate(new Date());
@@ -210,27 +205,42 @@ public class WishlistController {
 
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByCart", method = RequestMethod.POST)
-	public Order generateOrderByCart(HttpServletRequest request) {
+	@Transactional(propagation=Propagation.REQUIRED) 
+	public WishOrder generateOrderByCart(HttpServletRequest request, @RequestBody List<CartlistJson> cartList) {
 		Cart cart = null;
-		Order order = new Order();
+		WishOrder order = new WishOrder();
 		User user = (User) request.getSession().getAttribute("user");
 		cart = cartService.getResource(user.getCartId());
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		BigDecimal originalTotalPrice = BigDecimal.ZERO;
 		order.setUserId(user.getUsrId());
-		order.setPayableAmount(cart.getPrice());
-		order.setStatusId(AlipayUtil.order_open);
-		orderService.addResource(order);
-		List<CartDetail> cartDetailList = new ArrayList<CartDetail>();
-		cartDetailList = cartDetailService.getResourceByCartId(user.getCartId());
-		
-		for (CartDetail cartDetail: cartDetailList) {
-			OrderDetail orderdetail = new OrderDetail();
-			orderdetail.setCount(cartDetail.getCount());
-			orderdetail.setOrderId(order.getOrderId());
-			orderdetail.setOriginalPrice(cartDetail.getOriginalPrice());
-			orderdetail.setPrice(cartDetail.getPrice());
-			orderdetail.setCreatedDate(new Date());
-			orderdetail.setUpdatedDate(new Date());
-			orderDetailService.addResource(orderdetail);
+		order.setPrice(cart.getPrice());
+		order.setOriginalPrice(cart.getOriginalPrice());
+		order.setCreatedDate(new Date());
+		order.setUpdatedDate(new Date());
+		try {
+			wishOrderService.addResource(order);
+			for (CartlistJson cartJson: cartList) {
+				CartDetail cartDetail = cartDetailService.getResource(cartJson.getCartDetailId());
+				OrderDetail orderdetail = new OrderDetail();
+				orderdetail.setWishId(cartDetail.getWishId());
+				orderdetail.setCount(cartDetail.getCount());
+				orderdetail.setOrderId(order.getWishOrderId());
+				orderdetail.setOriginalPrice(cartDetail.getOriginalPrice());
+				orderdetail.setPrice(cartDetail.getPrice());
+				orderdetail.setCreatedDate(new Date());
+				orderdetail.setUpdatedDate(new Date());
+				totalPrice = totalPrice.add(cartJson.getPrice());
+				originalTotalPrice = originalTotalPrice.add(cartJson.getOriginalPrice());
+				orderDetailService.addResource(orderdetail);
+				cartDetailService.deleteResource(cartDetail.getCartDetailId());
+			}
+			order.setPrice(totalPrice);
+			order.setOriginalPrice(originalTotalPrice);
+			wishOrderService.updateResource(order);
+		}
+		catch (Exception e) {
+			throw e;
 		}
 		return order;
 	}

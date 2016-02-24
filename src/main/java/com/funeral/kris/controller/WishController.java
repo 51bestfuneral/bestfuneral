@@ -59,7 +59,7 @@ public class WishController {
 		}
 		return wishlistFinal;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/listForDesign", method = RequestMethod.GET, produces = "application/json")
 	public List<Wish> listForDesign(HttpServletRequest request) {

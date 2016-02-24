@@ -1,26 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="head"><title>
-    Wish List
-</title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers锟?
-								expectations for timely product delivery, zero defects, and a
-								superior customer experience." /> 
+<head id="head">
+<title>念念--购物车</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 <script src="/funeral/js/jquery-2.1.4.js"></script>
-<script src="/funeral/js/jquery-ui.js"></script>
-<script src="/funeral/js/sliderx.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
-<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <script src="/funeral/js/generalUsage.js"></script>
 </head>
-<header>
-</header>
 <style>
 .topBarDiv {
     box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
@@ -78,6 +70,7 @@
 	overflow: auto;
 	padding-bottom: 22px;
 	background: #ffffff;
+	min-height: 400px;
 }
 #tableHeader {
     width: 100%;
@@ -275,7 +268,7 @@
 .changeButton:hover {
     opacity: 0.6;
 }
-.minusBitton {
+.minusButton {
     float: right!important;
 }
 .coverDiv {
@@ -348,70 +341,98 @@
 }
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
+var app = angular.module('productApp', []),
+    saveFunction,
+    saved = false;
 app.controller('product', function($scope, $http) {
-	$scope.shappingCart;
-	$scope.wishList;
-	$http.get("/funeral/wishlist/list").success(function(response) {
-	    $scope.wishList = response[0];
-		$http.get("/funeral/wishlistDetail/getDirectWishListForShoppingCart").success(function(response) {
-		    $scope.wishListDetails = response;
-			if (response.length <= 0) {
-				$("#topCheckBox").attr('disabled',true); 
-	            $("#noAnyProduct").show();
-			}else{
-			    $("#topCheckBox").attr('disabled',false); 
-	        }
-			angular.forEach(detailIdList, function(data,index,array){
-	             $("#"+detailIdList[index]).attr("checked",'checked');   
-	        });
+    $http.get("/funeral/wishlistDetail/getDirectWishListForShoppingCart").success(function(response) {
+    	var totalPrice = 0;
+		$scope.wishListDetails = response;
+		for (var i=0;i<response.length;i++) {
+			totalPrice = totalPrice + response[i].sumPrice
+		}
+		$scope.allTotalPrice = totalPrice;
+		unmusk();
+    });
+    $scope.selectAll = function() {
+        if ($("#topCheckBox")[0].checked === true) {
+    	    $(".contentCheckBox").each(function() {
+    	        $(this)[0].checked = true;
+    	    });
+        }
+        else {
+        	$(".contentCheckBox").each(function() {
+    	        $(this)[0].checked = false;
+    	    });
+        }
+    }
+    $scope.addAmount = function(index) {
+    	var me = $(this);
+        
+    	$scope.wishListDetails[index].amount = $scope.wishListDetails[index].amount + 1;
+    	$scope.wishListDetails[index].sumPrice = $scope.wishListDetails[index].amount* $scope.wishListDetails[index].price;
+    	$scope.allTotalPrice = $scope.allTotalPrice + $scope.wishListDetails[index].price;
+    }
+    $scope.subtractAmount = function(index) {
+    	var me = $(this);
+
+    	if ($scope.wishListDetails[index].amount > 0) {
+            $scope.wishListDetails[index].amount = $scope.wishListDetails[index].amount - 1;
+            $scope.wishListDetails[index].sumPrice = $scope.wishListDetails[index].amount* $scope.wishListDetails[index].price;
+            $scope.allTotalPrice = $scope.allTotalPrice - $scope.wishListDetails[index].price;
+    	}
+    }
+    $scope.deleteSource = function(index) {
+    	$scope.allTotalPrice = $scope.allTotalPrice - $scope.wishListDetails[index].sumPrice;
+    	$scope.wishListDetails.splice(index, 1);
+    }
+	$scope.goToPurchase = function() {
+		muskCurrentPage();
+		var changedCartList = $scope.wishListDetails,
+		    selectedCartList = [];
+    	for (var i=0;i<changedCartList.length;i++) {
+    		if ($(".tableContent").find(".contentCheckBox")[i].checked === true) {
+    		    delete changedCartList[i].$$hashKey;
+    		    selectedCartList.push(changedCartList[i]);
+    		}
+    	}
+		$.ajax({
+		    url: '/funeral/wishlist/generateOrderByCart',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(selectedCartList),
+			success:function(data){
+				window.location.href='paymentInfo.html?orderId='+data.orderId;
+				unmusk();
+		    },
+			error: function(error) {
+				//$("#messageSent")[0].value = '';
+			}
 		});
-		$http.get("/funeral/wishlist/listCart").success(function(response) {
-		    $scope.shappingCart = response;
-		    var gross=response.price;
-		    if( gross>0   ){
-		  	    $("#nextButton").attr('disabled',false); 
-		  	} else{
-		   	    $("#nextButton").attr('disabled',true); 
-		   	}
-		    if($scope.shappingCart.allSelected==1){
-		        $("#topCheckBox").attr("checked",'checked'); 
-		    }
-		    var detailIdList =$scope.shappingCart.selectedWishDetailIdList;
-	    });
-	});
-	$scope.loadShoppingCart(); 
-	$scope.changeOneItem = function(wishDetaillistId,wishlistId){
-	    $http.get("/funeral/wishlistDetail/selectOneItem?wishDetaillistId="+wishDetaillistId+"&wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-		    $scope.loadShoppingCart();
+	};
+    saveFunction = function() {
+    	var changedCartList = $scope.wishListDetails;
+    	for (var i=0;i<changedCartList.length;i++) {
+    		delete changedCartList[i].$$hashKey;
+    	}
+    	$.ajax({
+		    url: '/funeral/wishlistDetail/saveCart',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(changedCartList),
+			async: false,
+			success:function(data){
+		    },
+			error: function(error) {
+				//$("#messageSent")[0].value = '';
+			}
 		});
-	}
-	$scope.subtraction = function(wishDetailId){
-	    $http.get("/funeral/wishlistDetail/subtraction?wishDetailId="+wishDetailId).success(function(response) {
-		    $scope.loadShoppingCart();
-		});
-	}
-	$scope.delete = function(wishDetailId){
-	    $http.get("/funeral/wishlistDetail/delete?wishDetailId="+wishDetailId).success(function(response) {
-	        $scope.loadShoppingCart();
-		});
-	}
-	$scope.add = function(wishDetailId){
-	    $http.get("/funeral/wishlistDetail/oneMore?wishDetailId="+wishDetailId).success(function(response) {
-		    $scope.loadShoppingCart();
-		});
-	}
-	$scope.selectAll = function(){
-		$http.get("/funeral/wishlistDetail/selectAll?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-		   $scope.loadShoppingCart();
-		});
-	}
+    }
 });
 </script>
 <body ng-app="productApp" ng-controller="product">
-	
-<div style="display:none;" id="calcu" ng-click="loadShoppingCart()">	</div>
-	
 <div class="topBarDiv">
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 </div>
@@ -439,7 +460,7 @@ app.controller('product', function($scope, $http) {
 		<div id="shopTable" >
 			<div id="tableHeader">
 				<div class="checkBox" >
-					<input type="checkbox" id="topCheckBox"  ng-click="selectAll()" onClick="checkBoxClick();">
+					<input type="checkbox" id="topCheckBox" ng-click="selectAll();">
 				</div>
 				<div class="itemName">
 				    <p class="title">产品和服务</p>
@@ -463,7 +484,7 @@ app.controller('product', function($scope, $http) {
 	        </div>
 			<div class="tableContent"  id={{wishListDetail.wishDetailId+'_'}} ng-repeat="wishListDetail in wishListDetails">
 				<div class="checkBox">
-				    <input type="checkbox" onClick="checkSubClick();"  name="checkbox"  id="{{wishListDetail.wishDetailId}}"  ng-click="changeOneItem(wishListDetail.wishDetailId,wishListDetail.wishlistId)">
+				    <input type="checkbox" name="checkbox"  id="{{wishListDetail.cartDetailId}}" class="contentCheckBox">
 				</div>
 				<div class="itemName">
 				    <div class="itemImg">
@@ -479,25 +500,25 @@ app.controller('product', function($scope, $http) {
 				</div>
 				<div class="itemAmout inputContent">
 				    <div class="oneThird">
-					    <div class="changeButton minusBitton" ng-click="subtraction(wishListDetail.wishDetailId)" >
+					    <div class="changeButton minusButton" ng-click="subtractAmount($index)">
 						    <span>-</span>
 						</div>
 					</div>
 					<div class="oneThird">
-				        <p class="title titleNumber">{{wishListDetail.amount}}</p>
+				        <p class="title titleNumber wishAmountCoat" ng-bind="wishListDetail.amount"></p>
 					</div>
 					<div class="oneThird">
-					    <div class="changeButton"  ng-click="add(wishListDetail.wishDetailId)">
+					    <div class="changeButton" ng-click="addAmount($index)">
 						    <span>+</span>
 						</div>
 					</div>
 				</div>
 				<div class="totalPrice inputContent">
-				    <p class="title titleNumber">{{wishListDetail.selectedPrice}}</p>
+				    <p class="title titleNumber">{{wishListDetail.sumPrice}}</p>
 
 				</div>
 				<div class="operation inputContent">
-				    <span class="glyphicon glyphicon-trash deleteButton  "   ng-click="delete(wishListDetail.wishDetailId)" ></span>
+				    <span class="glyphicon glyphicon-trash deleteButton" ng-click="deleteSource($index)"></span>
 				</div>
 			</div>
 		</div>
@@ -509,7 +530,7 @@ app.controller('product', function($scope, $http) {
 					
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">共{{shappingCart.count}}件商品，共计￥：{{shappingCart.grossFee}}</p>
+					    <p class="title">共{{wishListDetails.length}}件商品，共计￥：{{allTotalPrice}}</p>
 					
 					</div>
 				</div>
@@ -519,78 +540,24 @@ app.controller('product', function($scope, $http) {
 			    <button>继续购物</button>
 				</div>
 				<div class="next">
-				<button id="nextButton">去结算</button>
+				<button id="nextButton" ng-click="goToPurchase()">去结算</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
-</div>
-<div class="coverDiv" hidden>
-<div class="titleDiv">
-<h1>物品详细信息</h1>
-</div>
-<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
-<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
-</div>
-<div class="coverImageDiv" hidden>
-<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
-</div>
 </body>
 <script>
-function checkSubClick(){
-	var vcheckbox=document.getElementsByName("checkbox");
-	var topCheckBox=document.getElementById("topCheckBox");
-	for(var i=0;i<vcheckbox.length;i++)
-	{
-		if(vcheckbox[i].checked){
-			topCheckBox.checked = true;
-	    }
-		else{
-	        topCheckBox.checked = false;
-	        allSelect=0;	
-	        return;			
-		}
+window.onunload = function(event) {
+	if (!saved) {
+	    saveFunction();
+        saved = true;
 	}
-}
-function checkBoxClick(){
-	var vcheckbox=document.getElementsByName("checkbox");
-	var topCheckBox=document.getElementById("topCheckBox");
-		
-	for(var i=0;i<vcheckbox.length;i++)
-	{
-		if(topCheckBox.checked){
-	        vcheckbox[i].checked = true;		
-	    }
-		else{
-	        vcheckbox[i].checked = false;				
-	    }
-	}
-}
-window.onload=function(){
-
-	$("#nextButton").click(function() {
-		muskCurrentPage();
-		$.ajax({
-		    url: '/funeral/wishlist/generateOrderByCart',
-			type: 'POST',
-			contentType: "application/json; charset=UTF-8",
-			dataType:'json',
-			data: [],
-			success:function(data){
-				window.location.href='paymentInfo.html?orderId='+data.orderId;
-				unmusk();
-		    },
-			error: function(error) {
-				//$("#messageSent")[0].value = '';
-			}
-		});
-	});
 };
 $(".continue").click(function() {
-	    window.location.href='/funeral/pages/productAndService.html';
-	});
+	saveFunction();
+});
 $("#goShoppingButton").click(function() {
 	window.location.href='/funeral/pages/productAndService.html';
 });

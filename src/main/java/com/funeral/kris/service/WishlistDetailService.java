@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.funeral.kris.model.CartDetail;
+import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.WishlistDetail;
 
 public interface WishlistDetailService {
@@ -21,4 +22,5 @@ public interface WishlistDetailService {
     public List<WishlistDetail> getDirectWishlistDetailByWishListId(int wishListId);
     public List<WishlistDetail> getRecommendWishlistDetailByWishListId(int wishListId);
 	public List<CartDetail> getResourceByCartId(int cartId);
+	public List<OrderDetail> getWishOrderDetailByOrderId(int orderId);
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 
 public interface WishlistService {
@@ -17,6 +18,6 @@ public interface WishlistService {
 	public List<Wishlist> getResources(HttpServletRequest request);
 	public List<Wishlist> getResources(Map<String, String> paramMap);
 	public List<Wishlist> getResources();
-	
+	public List<WishOrder> getWishOrderByUserId(int userId);
 
 }

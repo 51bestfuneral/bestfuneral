@@ -10,19 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="t_order_detail")
-public class OrderDetail {
+@Table(name="t_wish_order")
+public class WishOrder {
 
 	@Id
 	@GeneratedValue
-	@Column(name="order_detail_id")
-	private Integer orderDetailId;
+	@Column(name="wish_order_id")
+	private Integer wishOrderId;
 
-	@Column(name="wish_id")
-	private Integer wishId;
-
-	@Column(name="order_id")
-	private Integer orderId;
+	@Column(name="user_id")
+	private Integer userId;
 
 	@Column(name="price")
 	private BigDecimal price;
@@ -30,29 +27,26 @@ public class OrderDetail {
 	@Column(name="original_price")
 	private BigDecimal originalPrice;
 
-	@Column(name="count")
-	private Integer count;
-
 	@Column(name="created_date")
 	private Date createdDate;
 
 	@Column(name="updated_date")
 	private Date updatedDate;
 
-	public Integer getOrderDetailId() {
-		return orderDetailId;
+	public Integer getWishOrderId() {
+		return wishOrderId;
 	}
 
-	public void setOrderDetailId(Integer orderDetailId) {
-		this.orderDetailId = orderDetailId;
+	public void setWishOrderId(Integer wishOrderId) {
+		this.wishOrderId = wishOrderId;
 	}
 
-	public Integer getWishId() {
-		return wishId;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setWishId(Integer wishId) {
-		this.wishId = wishId;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public BigDecimal getPrice() {
@@ -71,14 +65,6 @@ public class OrderDetail {
 		this.originalPrice = originalPrice;
 	}
 
-	public Integer getCount() {
-		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
-
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -93,13 +79,5 @@ public class OrderDetail {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
-	}
-
-	public Integer getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+	} 
 }

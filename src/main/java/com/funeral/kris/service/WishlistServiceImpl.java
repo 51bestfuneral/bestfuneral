@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.funeral.kris.dao.WishOrderDAO;
 import com.funeral.kris.dao.WishlistDAO;
 import com.funeral.kris.dao.WishlistDetailDAO;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.Wish;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.util.SqlHelper;
 
@@ -26,6 +28,8 @@ public class WishlistServiceImpl implements WishlistService {
 
 	@Autowired
 	private WishlistDAO WishlistDAO;
+	@Autowired
+	private WishOrderDAO wishOrderDAO;
 
 	@Autowired
 	private EntityManager em;
@@ -108,7 +112,16 @@ public class WishlistServiceImpl implements WishlistService {
 
 		}
 		return null;
+	}
 
+	@Override
+	public List<WishOrder> getWishOrderByUserId(int userId) {
+
+		String a = null;
+		a = "select p from WishOrder p where p.userId = " + userId;
+		Query query = em.createQuery(a);
+		List<WishOrder> wishList = query.getResultList();
+		return wishList;
 	}
 
 }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>预约信息</title>
+<title>念念--订单列表</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
 <script src="/funeral/js/jquery-2.1.4.js"></script>
 <script src="/funeral/js/jquery-ui.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
@@ -26,50 +27,8 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
-    var days = [],
-	    years = [];
-    $http.get("/funeral/user/list").success(function(response) {
-        var birthday = response.birthday,
-            birthdayOption,
-            birthmonthOption,
-            birthyearOption;
-        if (response.birthday) {
-        birthyearOption = birthday.substring(0,4);
-        $scope.birthmonth = birthday.substring(5,7);
-        birthdayOption = birthday.substring(8, 10);
-        }
-
-		for (var i=1;i<= 31; i++) {
-            if (i === parseInt(birthdayOption)) {
-			    days.push({
-                    optionValue: i,
-                    optionSelected: 'selected'
-                });
-            }
-            else {
-                days.push({
-                    optionValue: i,
-                    optionSelected: ''
-                });
-            }
-		}
-		for (var j=1901;j<= 2016; j++) {
-            if (j === parseInt(birthyearOption)) {
-			    years.push({
-                    optionValue: j,
-                    optionSelected: 'selected'
-                });
-            }
-            else {
-                years.push({
-                    optionValue: j,
-                    optionSelected: ''
-                });
-            }
-		}
-        $scope.days=days;
-	    $scope.years=years;
-    	$scope.user = response;
+    $http.get("/funeral/wishlistDetail/listWishOrder").success(function(response) {
+        $scope.orders = response;
     });
 });
 </script>
@@ -122,6 +81,25 @@ app.controller('products', function($scope, $http) {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+.th1 {
+    width: 500px;
+}
+.th2 {
+    width: 300px;
+}
+.th3 {
+    width: 300px;
+}
+.th4 {
+    width: 300px;
+}
+.th5 {
+    width: 300px;
+}
+.totalPriceSpan {
+    font-size: 20px;
+    font-weight: bold;
+}
 </style>
 <body onselectstart="return false" ng-app="productApp" ng-controller="products">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
@@ -141,29 +119,31 @@ app.controller('products', function($scope, $http) {
 		</div>
     </div>
 <div id="rightContentsMain">
-	<div id="rightContents">
+	<div id="rightContents" ng-repeat="order in orders">
 	    <div class="contentHeader clickable">
-		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:809080707960</a></p>
+		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
 			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
 		</div>
-		<div class="containerClass">
+		<div class="containerClass" ng-repeat="detail in order.detailJson track by $index">
 			<div class="valuehiddenDiv">
 				<div class="contentValue clickableItem">
 					<table>
 						<thead>
 							<tr>
-								<th>订单号</th>
-								<th>订单</th>
-								<th>预约时间</th>
-								<th></th>
+								<th class="th1">商品名称</th>
+								<th class="th2">商品价格</th>
+								<th class="th3">数量</th>
+								<th class="th4">小计</th>
+								<th class="th5"></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>汇龙源</td>
-								<td>上海市浦东新区朝阳农场军港公路388号</td>
-								<td>2016/5/18 18:00PM</td>
-								<td><a href="/funeral/pages/cemetery.html?id=2">查看详情</a></td>
+								<td>{{detail.wishName}}</td>
+								<td>{{detail.price}}</td>
+								<td>{{detail.count}}</td>
+								<td>{{detail.sumPirce}}</td>
+								<td><a href="/funeral/pages/productDetail3.html?id={{detail.wishId}}">查看详情</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -172,123 +152,11 @@ app.controller('products', function($scope, $http) {
 			</div>
 			<div class="detailhiddenDiv">
 				<div class="detailVeiw">
-					<div class="imageBox" style="background-image: url('http://www.365niannian.com/funeral/pages/component/cemetery/images/1459260543037_581ac42efc3450f1ce152f6c1b8c4c58-001.jpg')">
+					<div class="imageBox" style="background-image: url('/funeral/js/images/{{detail.imgUrl}}')">
 					</div>
 					<div class="cemeteryDescDiv">
-						<h3>汇龙园区</h3>
-						<span>上海汇龙园陵园位于航空港和深水港之间，毗邻东海边独具荷兰田园风光的上海鲜花港，是难得的福祉。 陵园用 "太阳"、"地球"等天文名称定义，营造一种"天人合一"的意境；直径约100米的圆形太阳广场格外醒目。</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="containerClass">
-			<div class="valuehiddenDiv">
-				<div class="contentValue clickableItem">
-					<table>
-						<thead>
-							<tr>
-								<th>订单号</th>
-								<th>订单</th>
-								<th>预约时间</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>汇龙源</td>
-								<td>上海市浦东新区朝阳农场军港公路388号</td>
-								<td>2016/5/18 18:00PM</td>
-								<td><a href="/funeral/pages/cemetery.html?id=2">查看详情</a></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
-				</div>
-			</div>
-			<div class="detailhiddenDiv">
-				<div class="detailVeiw">
-					<div class="imageBox" style="background-image: url('http://www.365niannian.com/funeral/pages/component/cemetery/images/1459260543037_581ac42efc3450f1ce152f6c1b8c4c58-001.jpg')">
-					</div>
-					<div class="cemeteryDescDiv">
-						<h3>汇龙园区</h3>
-						<span>上海汇龙园陵园位于航空港和深水港之间，毗邻东海边独具荷兰田园风光的上海鲜花港，是难得的福祉。 陵园用 "太阳"、"地球"等天文名称定义，营造一种"天人合一"的意境；直径约100米的圆形太阳广场格外醒目。</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div id="rightContents">
-	    <div class="contentHeader clickable">
-		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:809080707960</a></p>
-			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
-		</div>
-		<div class="containerClass">
-			<div class="valuehiddenDiv">
-				<div class="contentValue clickableItem">
-					<table>
-						<thead>
-							<tr>
-								<th>订单号</th>
-								<th>订单</th>
-								<th>预约时间</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>汇龙源</td>
-								<td>上海市浦东新区朝阳农场军港公路388号</td>
-								<td>2016/5/18 18:00PM</td>
-								<td><a href="/funeral/pages/cemetery.html?id=2">查看详情</a></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
-				</div>
-			</div>
-			<div class="detailhiddenDiv">
-				<div class="detailVeiw">
-					<div class="imageBox" style="background-image: url('http://www.365niannian.com/funeral/pages/component/cemetery/images/1459260543037_581ac42efc3450f1ce152f6c1b8c4c58-001.jpg')">
-					</div>
-					<div class="cemeteryDescDiv">
-						<h3>汇龙园区</h3>
-						<span>上海汇龙园陵园位于航空港和深水港之间，毗邻东海边独具荷兰田园风光的上海鲜花港，是难得的福祉。 陵园用 "太阳"、"地球"等天文名称定义，营造一种"天人合一"的意境；直径约100米的圆形太阳广场格外醒目。</span>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="containerClass">
-			<div class="valuehiddenDiv">
-				<div class="contentValue clickableItem">
-					<table>
-						<thead>
-							<tr>
-								<th>订单号</th>
-								<th>订单</th>
-								<th>预约时间</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>汇龙源</td>
-								<td>上海市浦东新区朝阳农场军港公路388号</td>
-								<td>2016/5/18 18:00PM</td>
-								<td><a href="/funeral/pages/cemetery.html?id=2">查看详情</a></td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
-				</div>
-			</div>
-			<div class="detailhiddenDiv">
-				<div class="detailVeiw">
-					<div class="imageBox" style="background-image: url('http://www.365niannian.com/funeral/pages/component/cemetery/images/1459260543037_581ac42efc3450f1ce152f6c1b8c4c58-001.jpg')">
-					</div>
-					<div class="cemeteryDescDiv">
-						<h3>汇龙园区</h3>
-						<span>上海汇龙园陵园位于航空港和深水港之间，毗邻东海边独具荷兰田园风光的上海鲜花港，是难得的福祉。 陵园用 "太阳"、"地球"等天文名称定义，营造一种"天人合一"的意境；直径约100米的圆形太阳广场格外醒目。</span>
+						<h3>{{detail.wishName}}</h3>
+						<span>{{detail.wishDesc}}</span>
 					</div>
 				</div>
 			</div>
@@ -299,7 +167,7 @@ app.controller('products', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script>
-    $(".clickable").click(function() {
+    $("body").on("click", ".clickable", function() {
 	    var parentDiv = $(this).closest("#rightContents"),
 		    currentHeight = parentDiv.find(".valuehiddenDiv")[0].offsetHeight;
 
@@ -319,7 +187,7 @@ app.controller('products', function($scope, $http) {
 		    });
 		}
 	});
-	$(".clickableItem").click(function() {
+    $("body").on("click",".clickableItem", function() {
 	    var parentDiv = $(this).closest(".containerClass"),
 		    hiddenDiv = parentDiv.find(".detailhiddenDiv"),
 			currentHeight = parentDiv.find(".detailhiddenDiv")[0].offsetHeight;

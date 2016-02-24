@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>服务详细</title>
+<title>念念--服务详细</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
@@ -57,7 +58,7 @@
 	}
 	#photoShowArea {
 	    overflow: auto;
-		height: 294px;
+		height: 389px;
 	}
 	#photoShowArea div {
 	    transition:opacity 1s;
@@ -154,7 +155,7 @@
 		display: block;
 		width: 100px;
 		height: 20px;
-		background: url(http://res01.haiwaner.com/res/images/beta/newtour/starempty.png) repeat-x;
+		background: url(/funeral/js/images/starempty.png) repeat-x;
 		top: -3px;
 	}
 	.StartFull {
@@ -164,7 +165,7 @@
 		display: block;
 		width: 100px;
 		height: 20px;
-		background: url(http://res01.haiwaner.com/res/images/beta/newtour/star.png) repeat-x;
+		background: url(/funeral/js/images/star.png) repeat-x;
 		left: 20px;
 	}
 	#startGroup {
@@ -219,7 +220,7 @@
 		height: 15px;
 		line-height: 1;
 		padding-left: 25px;
-		background: url(http://res01.haiwaner.com/res/images/beta/newtour/wishlisticon.png) left center no-repeat;
+		background: url(/funeral/js/images/wishlisticon.png) left center no-repeat;
 		font-size: 14px;
 		cursor: pointer;
 	}
@@ -249,7 +250,7 @@
         border: none!important;
     }
 	.mce-toolbar-grp {
-	    display: none;
+	    display: none!important;
 	}
 	#bottomRight {
 	    width: 315px;
@@ -333,7 +334,7 @@
 		-webkit-user-select: none;
 		cursor: pointer;
 		margin-top: 15px;
-		background: url(http://res01.haiwaner.com/res/images/beta/newtour/wishbtnicon.png) 80px 13px no-repeat;
+		background: url('/funeral/js/images/wishbtnicon.png') 80px 13px no-repeat;
 		padding-left: 60px
 	}
 	.addToWish:hover {
@@ -455,6 +456,10 @@
             width: 1280px!important;
         }
     }
+    .disableDiv {
+	   opacity: 0.6;
+	   cursor: default!important;
+	}
 </style>
 <script>
 var content = '';
@@ -482,10 +487,21 @@ var content = '';
 var app = angular.module('productApp', []),
     length = location.search.length,
 	type = location.search.substring(4, length),
-	localMessage;
+	localMessage,
+	wishInLocal,
+	wishlistId;
 app.controller('products', function($scope, $http) {
     $http.get("/funeral/wish/list?wishId="+type).success(function(response) {
 	    $scope.wish = response[0];
+	    wishInLocal = response[0];
+	    $http.get("/funeral/wish/list?generalCode="+response[0].generalCode).success(function(response) {
+	    	if (response.length > 3) {
+		        $scope.relevantWishs = response.slice(0, 3);
+	    	}
+	    	else {
+	    		$scope.relevantWishs = response;
+	    	}
+		});
 	});
 	$http.get("/funeral/message/list?wishId="+type).success(function(response) {
 		localMessage = response[0].messageId;
@@ -495,6 +511,7 @@ app.controller('products', function($scope, $http) {
 		else {
 		    content = response[0].content;
 		}
+		unmusk();
 	});
 });
 </script>
@@ -506,41 +523,41 @@ app.controller('products', function($scope, $http) {
 		    <div id="photosWall">
 			    <div id="photoShow">
 				    <div id="photoShowArea">
-					    <div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('../js/images/{{wish.imgUrl}}');">
+					    <div style="width: 690px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('../js/images/{{wish.imgUrl}}');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('http://img01.haiwaner.com/images/tours/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+<!-- 						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('http://img01.haiwaner.com/images/tours/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('http://img01.haiwaner.com/images/tours/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('http://img01.haiwaner.com/images/tours/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
-						</div>
+						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+						</div> -->
 					</div>
-					<ul id="sliderPhote">
+					<ul id="sliderPhote" hidden>
 					    <li>
 						    <div class="singleSlide" id="1">
-							    <img src="http://img02.haiwaner.com/images/tours/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							    <img src="/funeral/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="2">
-							    <img src="http://img01.haiwaner.com/images/tours/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="3">
-							    <img src="http://img01.haiwaner.com/images/tours/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/funeral/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="4">
-							    <img src="http://img01.haiwaner.com/images/tours/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/funeral/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="5">
-							    <img src="http://img02.haiwaner.com/images/tours/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							    <img src="/funeral/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
 							</div>
 						</li>
 					</ul>
@@ -572,7 +589,7 @@ app.controller('products', function($scope, $http) {
 			</div>
 			<div id="buyButton">
 			    <span id="buyButtonSelf" class="saveToCart">加入购物车</span>
-				<span id="addToWishlist">加入愿望清单</span>
+				<span id="addToWishlist" class="addToWishBtn">加入愿望清单</span>
 			</div>
 		</div>
 	</div>
@@ -605,7 +622,7 @@ app.controller('products', function($scope, $http) {
 			    <span id="productName" ng-bind="wish.wishName"></span>
 			    <div class="addToCart saveToCart"><span>加入购物车</span></div>
 				<div class="buttonDesc"><span>加入购物车以直接购买</span></div>
-			    <div class="addToWish"><span>加入愿望清单</span></div>
+			    <div class="addToWish addToWishBtn"><span>加入愿望清单</span></div>
 				<div class="buttonDesc"><span>你可以把此项服务添加到愿望清单</span></div>
 				<a class="goToOtherPlace">去看看同类别</a>
 			</div>
@@ -614,43 +631,17 @@ app.controller('products', function($scope, $http) {
 	<div id="referenceContent">
 		<h4>相类似产品</h4>
 		<div id="referenceContainer">
-		    <div class="singleReference">
+			<div class="singleReference" ng-repeat="relevantWish in relevantWishs" id="{{relevantWish.wishId}}">
 			    <div class="imageDiv">
-				    <image src="https://z1.muscache.com/ac/pictures/3ad5cd7c-b034-4b28-97b2-d138d03ad2cc.jpg?interpolation=lanczos-none&size=x_medium&output-format=jpg&output-quality=70"></image>
+				    <image src="'../js/images/{{relevantWish.imgUrl}}'"></image>
 				</div>
 				<div class="priceFloat">
-				    <span>￥</span><span>8332</span>
+				    <span>￥</span><span>{{relevantWish.sellingPrice}}</span>
 				</div>
 				<div class="addToWishFloat">
 				</div>
 				<div class="refDesc">
-				    <span>中级灵堂搭建</span>
-				</div>
-			</div>
-			<div class="singleReference">
-			    <div class="imageDiv">
-				    <image src="https://z1.muscache.com/ac/pictures/3ad5cd7c-b034-4b28-97b2-d138d03ad2cc.jpg?interpolation=lanczos-none&size=x_medium&output-format=jpg&output-quality=70"></image>
-				</div>
-				<div class="priceFloat">
-				    <span>￥</span><span>8332</span>
-				</div>
-				<div class="addToWishFloat">
-				</div>
-				<div class="refDesc">
-				    <span>中级灵堂搭建</span>
-				</div>
-			</div>
-			<div class="singleReference">
-			    <div class="imageDiv">
-				    <image src="https://z1.muscache.com/ac/pictures/3ad5cd7c-b034-4b28-97b2-d138d03ad2cc.jpg?interpolation=lanczos-none&size=x_medium&output-format=jpg&output-quality=70"></image>
-				</div>
-				<div class="priceFloat">
-				    <span>￥</span><span>8332</span>
-				</div>
-				<div class="addToWishFloat">
-				</div>
-				<div class="refDesc">
-				    <span>基础灵堂搭建</span>
+				    <span>{{relevantWish.wishName}}</span>
 				</div>
 			</div>
 		</div>
@@ -658,17 +649,144 @@ app.controller('products', function($scope, $http) {
 	<div id="otherType">
 	    <h4>您还可以看看其他的类别</h4>
 		<div id="otherNavi">
-		    <a>骨灰盒</a>·
-			<a>寿衣</a>·
-			<a>灵堂搭建</a>·
-			<a>祭扫用品</a>·
-			<a>其他产品</a>
+		    <a href="catagoryProduct.html?cata=II-JJ">骨灰盒</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=SS">寿衣</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=M-S-W">祭祀随葬</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=G-H-L-T">礼仪服务</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=VV-O">祭扫用品</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=P-Q-R">套装用品</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=NN-X-N">其他产品</a>
 		</div>
 	</div>
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 </body>
 <script>
+    muskCurrentPage();
+    function validateInWishList() {
+    	$.ajax({
+    		url: '/funeral/wishlist/list',
+    		type: 'GET',
+    		contentType: "application/json; charset=UTF-8",
+    		success:function(data){
+    	        var resultCode =data;
+    			if (data.length > 0) {
+    	            wishlistId = data[0].wishlistId;
+    			}
+    		    $.ajax({
+    				url: '/funeral/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
+    				type: 'get',
+    				success:function(data){
+    					var response = data;
+    					for (var i=0;i<response.length;i++) {
+    					    if (response[i].wishId === wishInLocal.wishId) {
+    					    	$(".addToWishBtn").addClass("disableDiv");
+    					    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
+    					    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
+    					    }
+    					}
+    				},
+    				error: function(error) {
+    					var response = error;
+    					//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+    				}
+    			});
+    		},
+    		error: function(error) {
+    		}
+    	});
+    }
+    function validateInCart() {
+    	$.ajax({
+    		url: '/funeral/wishlist/listCart',
+    		type: 'GET',
+    		contentType: "application/json; charset=UTF-8",
+    		success:function(data){
+    	        var resultCode =data;
+    	        if (data !== null) {
+    			    $.ajax({
+    					url: '/funeral/wishlistDetail/getAllCartList?cartId='+data.cartId,
+    					type: 'get',
+    					success:function(data){
+    						var response = data;
+    						for (var i=0;i<response.length;i++) {
+    						    if (response[i].wishId === wishInLocal.wishId) {
+    						    	$(".saveToCart").addClass("disableDiv");
+    						    	$(".saveToCart")[0].innerText = "已添加购物车";
+    						    	$(".saveToCart")[1].innerText = "已添加购物车";
+    						    }
+    						}
+    					},
+    					error: function(error) {
+    						var response = error;
+    						//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+    					}
+    				});
+    	        }
+    		},
+    		error: function(error) {
+    		}
+    	});
+    }
+    function addToWishlistAfterCheck(object) {
+    	$.ajax({
+    		url: '/funeral/wishlistDetail/addSingleToWish?'+'&wishId='+wishInLocal.wishId,
+    		type: 'post',
+    		contentType: "application/json; charset=UTF-8",
+    		data: [],
+    		dataType:'json',
+    		success:function(data){
+    			$(".addToWishBtn").addClass("disableDiv");
+		    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
+		    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
+    			unmusk();
+    		},
+    		error: function(error) {
+    			unmusk();
+    		}
+    	});
+    }
+    function addToCartAfterCheck(object) {
+    		$.ajax({
+    			url: '/funeral/wishlistDetail/addSingleToCart?'+'&wishId='+wishInLocal.wishId,
+    			type: 'post',
+    			contentType: "application/json; charset=UTF-8",
+    			data: [],
+    			dataType:'json',
+    			success:function(data){
+    				$(".saveToCart").addClass("disableDiv");
+			    	$(".saveToCart")[0].innerText = "已添加购物车";
+			    	$(".saveToCart")[1].innerText = "已添加购物车";
+    		    	window.frames[0].addCountOfShoppingCart();
+    				unmusk();
+    			},
+    			error: function(error) {
+    				unmusk();
+    			}
+    		});
+    }
+    function addToWishlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		addToWishlistAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
+    function addToCartlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		addToCartAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
     $(".addEmergency").click(function() {
 	    if ($("#emergencyContactInfo").is(":hidden")) {
 		    $("#emergencyContactInfo").fadeIn();
@@ -683,6 +801,9 @@ app.controller('products', function($scope, $http) {
         $(this).addClass("selectedPic");
 	    $("#photoShowArea").find("div").css({'opacity': 0});
 		$($("#photoShowArea").find("div")[id-1]).css({'opacity': 1});
+	});
+	$("body").on("click", ".singleReference", function() {
+		window.location.href='productDetail3.html?id='+$(this)[0].id;
 	});
 	$(window).scroll(function(){
 		var topPosition = document.body.scrollTop,
@@ -707,26 +828,17 @@ app.controller('products', function($scope, $http) {
 	    $(tinymce.get('mainText').iframeElement).contents().find("body").css({
 	        'background-color': '#F5F5F5'
 	    });
-		$(".saveToCart").click(function (){
-		    var message = {
-			    messageId: localMessage,
-				wishId: type,
-				content: tinymce.get('mainText').getBody().innerHTML
-			};
-			$.ajax({
-				url: '/funeral/message/add',
-				type: 'post',
-				contentType: "application/json; charset=UTF-8",
-				data: JSON.stringify(message),
-				dataType:'json',
-				success:function(data){
-					alert("已加入购物车!");
-					localMessage = data;
-				},
-				error: function(error) {
-					alert("加入购物车失败!");
-				}
-			});
+		validateInWishList();
+		validateInCart();
+		$(".saveToCart").click(function() {
+			if (!$(this).hasClass("disableDiv")){
+				addToCartlist();
+			}
+		});
+		$(".addToWishBtn").click(function() {
+			if (!$(this).hasClass("disableDiv")){
+			    addToWishlist();
+			}
 		});
 	};
 </script>

@@ -22,11 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funeral.kris.bean.ShoppingCart;
 import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.busModel.WishListJson;
+import com.funeral.kris.busModel.WishOrderDetailJson;
+import com.funeral.kris.busModel.WishOrderJson;
 import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.CartDetail;
+import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.CartDetailService;
@@ -197,6 +201,48 @@ public class WishlistDetailController {
 		return successList;
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/saveCart", method = RequestMethod.POST)
+	public int saveCartList(@RequestBody List<CartlistJson> cartDetailList, HttpServletRequest request) {
+
+		User user = (User)request.getSession().getAttribute("user");
+        List<CartDetail> currentCartDetails = wishlistDetailService.getResourceByCartId(user.getCartId());
+        Map<Integer, CartDetail> currentCartDetailMap = convertToMap(currentCartDetails);
+        Map<Integer, CartlistJson> changedCartDetailMap = convertToMapFromJson(cartDetailList);
+        processCartSave(currentCartDetails, currentCartDetailMap, changedCartDetailMap);
+        return 0;
+	}
+
+	private Map<Integer, CartDetail> convertToMap(List<CartDetail> cartDetailList) {
+		Map<Integer, CartDetail> cartMap = new HashMap<Integer, CartDetail>();
+		for (CartDetail carDetail: cartDetailList) {
+			cartMap.put(carDetail.getCartDetailId(), carDetail);
+		}
+		return cartMap;
+	}
+
+	private Map<Integer, CartlistJson> convertToMapFromJson(List<CartlistJson> cartDetailList) {
+		Map<Integer, CartlistJson> cartMap = new HashMap<Integer, CartlistJson>();
+		for (CartlistJson carDetail: cartDetailList) {
+			cartMap.put(carDetail.getCartDetailId(), carDetail);
+		}
+		return cartMap;
+	}
+
+	private void processCartSave(List<CartDetail> currentCartDetailList, Map<Integer, CartDetail> currentCartDetailMap, Map<Integer, CartlistJson> changedCartDetailMap) {
+	    for (CartDetail cartDetail: currentCartDetailList) {
+	    	if (changedCartDetailMap.containsKey(cartDetail.getCartDetailId())) {
+	            if (!cartDetail.getCount().equals(changedCartDetailMap.get(cartDetail.getCartDetailId()).getAmount())) {
+	            	cartDetail.setCount(changedCartDetailMap.get(cartDetail.getCartDetailId()).getAmount());
+	                cartDetailService.updateResource(cartDetail);
+	            }
+	    	}
+	    	else {
+	    		cartDetailService.deleteResource(cartDetail.getCartDetailId());
+	    	}
+	    }
+	}
+	
 	public int checkExist(int wishId, int wishlistId) {
 
 		List<WishlistDetail> list = wishlistDetailService.getResourceByWishListId(wishlistId);
@@ -313,6 +359,7 @@ public class WishlistDetailController {
 			cartListJson.setOriginalPrice(wish.getProcurementCost());
 			cartListJson.setCartDetailId(cartDetail.getCartDetailId());
 			cartListJson.setCartId(cartId);
+			cartListJson.setSumPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
 			cartlistJsons.add(cartListJson);
 		}
 		return cartlistJsons;
@@ -357,7 +404,6 @@ public class WishlistDetailController {
 		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
 		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResources(request);
 		for (WishlistDetail wishlistDetail : wishlistDetails) {
-
 			WishListJson wishListJson = new WishListJson();
 			Integer wishId = wishlistDetail.getWishId();
 			Wish wish = wishsMap.get(wishId);
@@ -371,7 +417,6 @@ public class WishlistDetailController {
 			wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 			wishListJson.setWishlistId(wishlistDetail.getWishlistId());
 			wishlistJsons.add(wishListJson);
-
 		}
 
 		return wishlistJsons;
@@ -405,6 +450,48 @@ public class WishlistDetailController {
 		}
 
 		return cartlistJsons;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/listWishOrder", method = RequestMethod.GET)
+	public List<WishOrderJson> listWishOrder(HttpServletRequest request) {
+		List<WishOrderJson> orderJsons = new ArrayList<WishOrderJson>();
+		User user = (User) request.getSession().getAttribute("user");
+		List<WishOrder> wishOrderList = wishlistService.getWishOrderByUserId(user.getUsrId());
+
+		if (wishsMap == null) {
+			initialWishMap();
+		}
+		for (WishOrder wishOrder: wishOrderList) {
+			WishOrderJson orderJson = new WishOrderJson();
+			List<WishOrderDetailJson> detailJsons = new ArrayList<WishOrderDetailJson>();
+			orderJson.setUserId(user.getUsrId());
+			orderJson.setWishOrderId(wishOrder.getWishOrderId());
+			List<OrderDetail> wishOrderDetailList = wishlistDetailService.getWishOrderDetailByOrderId(wishOrder.getWishOrderId());
+			BigDecimal totalPrice = BigDecimal.ZERO;
+			for (OrderDetail orderDetail: wishOrderDetailList) {
+		        WishOrderDetailJson detailJson = new WishOrderDetailJson();
+		        Wish wish = wishsMap.get(orderDetail.getWishId());
+				BigDecimal sumPrice = wish.getSellingPrice().multiply(new BigDecimal(orderDetail.getCount()));
+				totalPrice = totalPrice.add(sumPrice);
+		        detailJson.setCount(orderDetail.getCount());
+		        detailJson.setOrderDetailId(orderDetail.getOrderDetailId());
+                detailJson.setOrderDetailId(orderDetail.getOrderDetailId());
+                detailJson.setOriginalPrice(wish.getXianenPrice());
+                detailJson.setPrice(wish.getSellingPrice());
+                detailJson.setSumPirce(sumPrice);
+                detailJson.setWishDesc(wish.getRemark());
+                detailJson.setWishName(wish.getWishName());
+                detailJson.setWishId(orderDetail.getWishId());
+                detailJson.setWishOrderId(orderDetail.getOrderDetailId());
+                detailJson.setImgUrl(wish.getImgUrl());
+                detailJsons.add(detailJson);
+			}
+			orderJson.setTotalPrice(totalPrice);
+			orderJson.setDetailJson(detailJsons);
+			orderJsons.add(orderJson);
+		}
+		return orderJsons;
 	}
 
 	@ResponseBody

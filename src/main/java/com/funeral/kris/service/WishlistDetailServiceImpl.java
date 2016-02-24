@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.WishlistDetailDAO;
 import com.funeral.kris.model.CartDetail;
+import com.funeral.kris.model.OrderDetail;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.SqlHelper;
 
@@ -197,31 +199,21 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 			while(iterator.hasNext()){
 				
 				WishlistDetail  detail=	 (WishlistDetail) iterator.next();
-				
-				
 				if(detail.getSourceId()!=null&&detail.getSourceId().intValue()==2){
-					
 					list.add(detail) ;
-					
 				}
-				
-				
-				
 			}
-			
-			
-			
 		}
-		
-		
-		
-		
-		
 		return list;
-		
-		
-		
-		
-		
+	}
+	
+	@Override
+	public List<OrderDetail> getWishOrderDetailByOrderId(int orderId) {
+
+		String a = null;
+		a = "select p from OrderDetail p where p.orderId = " + orderId;
+		Query query = em.createQuery(a);
+		List<OrderDetail> wishList = query.getResultList();
+		return wishList;
 	}
 }
