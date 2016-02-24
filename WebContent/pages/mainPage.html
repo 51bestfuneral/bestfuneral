@@ -88,6 +88,12 @@ var _hmt = _hmt || [];
         width:40%!important;
         min-width: 500px!important;
     }
+    #productIconList {
+    	width: 70%;
+    }
+    #productIconList img{
+    	width: 950px;
+    }
 }
 @media (max-width: 680px) {
     .container {
@@ -685,7 +691,6 @@ body {
 	.memberState {
 	    margin-top: 52px;
 	    width: 427px;
-		height: 250px;
 		padding-left: 30px;
 		padding-top: 42px;
 		padding-right: 35px;
@@ -790,9 +795,9 @@ body {
 		color: #ed4b83;
 	}
 	#productShow {
-	    background-color: #102430;
-	    width: 100%;
-	    height: 457px;
+	    background-image: url('images/product_services_background_image.jpg');
+	    background-size: cover;
+	    height: 657px;
 	    margin-top: -30px;
 	}
 	#productShowCoat {
@@ -800,13 +805,10 @@ body {
 	    margin: 0px auto;
 	}
 	#productIconList {
-	    width: 45%;
-		float: left;
-		height: 457px;
-		background-image: url('../js/images/product & services image@2x.png');
-		background-size: 550px;
-        background-repeat: no-repeat;
-        background-position: 0px 80px;
+	    display: block;
+	    float: left;
+	    margin-left: -100px;
+	    padding-top: 50px;
 	}
 	#productIconList .singleIcon {
 		overflow: auto;
@@ -867,12 +869,9 @@ body {
         filter: blur(1px);
 	}
 	#goToProduct {
-	    width: 45%;
-	    float: left;
+	    float: right;
 		padding-top: 136px;
-		height: 457px;
 		text-align: left;
-		padding-left: 100px;
 	}
 	#goToProduct h3 {
 	    color: #ffffff;
@@ -890,15 +889,15 @@ body {
 	    width: 136px;
 		height: 46px;
 		border-radius: 5px;
-		border: 1px solid #ed4b83;
+		border: 1px solid white;
 		margin-top: 35px;
-		background: #102430;
 	}
 	.startPurchseBtn:hover {
 	    opacity: 1!important;
 	}
 	.startPurchseBtn p {
-	    color: #ed4b83;
+	    color: white;
+	    /*color: #ed4b83;*/
 		font-size: 20px;
 		text-align: center;
 		line-height: 46px;
@@ -1422,7 +1421,7 @@ function muskPageForProduct(id, type) {
 <div id="productShow">
     <div id="productShowCoat">
 	    <div id="productIconList">
-		    <div src=""></div>
+		    <img src="images/product_service_image.png"></img>
 		</div>
 		<div id="goToProduct">
 		    <h3>选购产品和服务</h3>
@@ -1438,9 +1437,11 @@ function muskPageForProduct(id, type) {
 		</div>
 	</div>
 </div>
+<!--
 <div id="productFrameCoat">
 <IFRAME NAME="content_frame" width=100% height=600 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html?showInFront=1"></IFRAME>
 </div>
+-->
 <div id="cemeteryShow">
     <div id="cemeteryInfoCoat">
 	    <div id="cemeteryInfo">
