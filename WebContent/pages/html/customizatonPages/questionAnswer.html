@@ -783,21 +783,21 @@ var percent=0.07;
 app.controller('questionDisplay', function($scope, $http) {
 	$("#basicInfo").addClass("barSelect");
 	
-		$http.get("http://localhost:8080/funeral/fQuestion/totalQuestionNumber").success(function(response) {
+		$http.get("/funeral/fQuestion/totalQuestionNumber").success(function(response) {
 			
 			$scope.total=response;
 			$scope.currentIndex=1;
 			
 			}) 
 	
-		$http.get("http://localhost:8080/funeral/fQuestion/getPerCentList").success(function(response) {
+		$http.get("/funeral/fQuestion/getPerCentList").success(function(response) {
 			
 			$scope.percentList=response;
 			
 			}) 
 	
 	
-$http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+$http.get("/funeral/fQuestion/listAllForDisplay").success(function(response) {
 	       $scope.currentQuestion = response[index];
 	       var datadata = JSON.stringify($scope.currentQuestion);	       
 	       $scope.questionList=response;
@@ -809,9 +809,9 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
 			$scope.saveAnswer = function(optionId,questionId){
 			 selectedOptionId=$scope.currentQuestion.selectedOptionId;           	
 	       $("#"+selectedOptionId).removeAttr("style");
-		 	$http.get("http://localhost:8080/funeral/fAnswer/save?"+"questionId="+questionId+"&optionId="+optionId).success(function(response) {
+		 	$http.get("/funeral/fAnswer/save?"+"questionId="+questionId+"&optionId="+optionId).success(function(response) {
 			}) 		
-	 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+	 $http.get("/funeral/fQuestion/listAllForDisplay").success(function(response) {
 	index=	Number( index) +Number(1);	 	 
 	if($scope.currentIndex==$scope.total){
 	alert("已经是最后一题了！");
@@ -847,7 +847,7 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
 				var svalue=$scope.currentQuestion.otherComments;
 				
 
-		 	$http.get("http://localhost:8080/funeral/fAnswer/saveOtherComments?"+"questionId="+squestionId+"&comments="+svalue).success(function(response) {
+		 	$http.get("/funeral/fAnswer/saveOtherComments?"+"questionId="+squestionId+"&comments="+svalue).success(function(response) {
 			})		
 				
 				}
@@ -860,7 +860,7 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
           	
 	      
 		 		
-				 $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(function(response) {
+				 $http.get("/funeral/fQuestion/listAllForDisplay").success(function(response) {
 				 	
 				 
 				 	
@@ -933,7 +933,7 @@ $http.get("http://localhost:8080/funeral/fQuestion/listAllForDisplay").success(f
 
 	 		questionId=$scope.currentQuestion.question.questionId;
 	 		
-	 	$http.get("http://localhost:8080/funeral/fAnswer/getQuestionById?"+"questionId="+questionId).success(function(response) {
+	 	$http.get("/funeral/fAnswer/getQuestionById?"+"questionId="+questionId).success(function(response) {
 	       $scope.currentQuestion=response;
 			})
 							

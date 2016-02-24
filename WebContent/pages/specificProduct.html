@@ -236,11 +236,11 @@ var filter = location.search,
 	usrId = 1;
 
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
+	$http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
 	    wishList = response;
 		function validateInList() {
 	    $.ajax({
-			url: 'http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
+			url: '/funeral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
 			type: 'get',
 			success:function(data){
 				var response = data;
@@ -264,7 +264,7 @@ app.controller('products', function($scope, $http) {
 	}
 	validateInList();
 	});
-	$http.get("http://localhost:8080/bestfuneral/wish/list"+filter).success(function(response) {
+	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,

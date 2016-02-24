@@ -52,8 +52,8 @@ public class AnswerController {
 	public ModelAndView addAnswerPage() {
 		String querySQL ="";
 		Answer answer = new Answer();
-		answer.setAnsListId("����");
-		answer.setAnswerDesc("������Ŷ");
+//		answer.setAnsListId("����");
+//		answer.setAnswerDesc("������Ŷ");
 		answer.setAnswerId("123");
 		answer.setUserId(123);
 		ModelAndView modelAndView = new ModelAndView("add-answer-form");

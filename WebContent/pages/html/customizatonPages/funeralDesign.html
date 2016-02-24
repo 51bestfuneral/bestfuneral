@@ -355,12 +355,12 @@ ul#menuBar li a:hover{background:#ff5274;}
 			<script>
 	var app = angular.module('myApp', []);
  // app.controller('serviceCategory', function($scope, $http) {
-//	$http.get("http://localhost:8080/funeral/serviceCategory/list?1=1").success(function(response) {
+//	$http.get("/funeral/serviceCategory/list?1=1").success(function(response) {
 //  var datadata = JSON.stringify(response);
 //  $scope.serviceCategories=response;
 //		})
 	 app.controller('serviceCategoryDisplay', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+	$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
   var datadata = JSON.stringify(response);
   $scope.serviceCategories=response;
     $scope.totalCost=0.00;
@@ -391,7 +391,7 @@ $scope.totalCost =Number( $scope.totalCost) +Number(data);
 	    alert("  datadata ="+datadata);
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/user/add",
+            url:"/funeral/user/add",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'
