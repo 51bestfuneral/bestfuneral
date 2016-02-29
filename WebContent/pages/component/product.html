@@ -389,6 +389,7 @@ app.controller('products', function($scope, $http) {
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
 								<p class="detail">包含在您的套餐中(原价:￥<span>{{itemLayout.price}}</span>)</p>
+                                <p class="originalPrice" hidden>{{itemLayout.costPrice}}</p>
 								<div class="addWishButton">
 								    <img src="../../js/images/addWish.png"></img>
 								    <p>选择它来替换</p>
@@ -459,10 +460,10 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	if (me[0].id === 'nextStep') {
 	    $(".productCenter").each(function(){
 		    if (!$(this).is(':hidden')) {
-	            $(this).hide();
-
+                var me = $(this);
 				if ($(this).next().hasClass('productCenter')) {
 				    var tabId = $(this).next()[0].id.replace('-content', '');
+                    me.hide();
 				    handleCursor($("#"+tabId));
 	                $(this).next().fadeIn();
 				}
@@ -493,16 +494,17 @@ window.onload=function(){
     });
 };
 $(document.body).on("click",".productItem", function( event ) {
-    var priceChange = parseInt($(this).find('.detail').find('span')[0].innerText, 10);
+    var priceChange = parseInt($(this).find('.detail').find('span')[0].innerText, 10),
+        originalPriceChange = $(this).find('.originalPrice')[0].innerText;
 	if ($(this).hasClass("chooseProduct")) {
         $(this).removeClass("chooseProduct");
 		$(this).find(".addWishButton").find('p')[0].innerText = '已取消选择';
-        window.parent.updatePrice(0-priceChange, '+');
+        window.parent.updatePrice(0-priceChange, originalPriceChange-priceChange, '+');
 	}
 	else {
 	    $(this).addClass("chooseProduct");
 		$(this).find(".addWishButton").find('p')[0].innerText = '选择为愿望清单';
-        window.parent.updatePrice(priceChange, '+');
+        window.parent.updatePrice(priceChange, priceChange-originalPriceChange, '+');
 	}
 	event.preventDefault();
 });

@@ -31,6 +31,9 @@ public class OptionRule implements Serializable {
 	@Column(name="seq")
 	private Integer sequence;
 
+	@Column(name="level")
+	private Integer level;
+
 	@Column(name="createdate")
 	private Date createDate;
 	
@@ -91,6 +94,14 @@ public class OptionRule implements Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.funeral.kris.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -72,6 +73,7 @@ public class AnswerController {
 		Date a = new Date();
 		Integer userId = answers.get(0).getUserId();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
+		Integer level = Integer.valueOf(request.getParameter("level"));
 		String ansListId = userId +"-"+ String.valueOf(a.getTime());
 		for (Answer answer : answers) {
 			answer.setAnsListId(ansListId);
@@ -81,7 +83,7 @@ public class AnswerController {
 		        generateOptionRule(String.valueOf(answer.getOptionId()));
 		    }
 		}
-		return generateWishList(userId, ansListId, wishlistId);
+		return generateWishList(userId, ansListId, wishlistId, level);
 	}
 
 	@ResponseBody
@@ -125,7 +127,7 @@ public class AnswerController {
 		return modelAndView;
 	}
 
-	private Wishlist generateWishList(Integer usrId, String ansListId, Integer wishlistId) {
+	private Wishlist generateWishList(Integer usrId, String ansListId, Integer wishlistId, Integer level) {
 		Wishlist wishList = new Wishlist();
 		Double totalPrice = 0d;
 		wishList.setAnsListId(ansListId);
@@ -133,42 +135,48 @@ public class AnswerController {
 		wishList.setStatus("I");
 		wishList.setUserId(usrId);
 		wishList.setPrice(0d);
-		totalPrice = generateWishDetail(wishlistId);
+		totalPrice = generateWishDetail(wishList, level);
 		wishList.setPrice(totalPrice);
 		wishListService.updateResource(wishList);
 		return wishList;
 	}
 
-	private Double generateWishDetail(Integer wishListId) {
-		String condition = "wishlist_id = "+wishListId;
+	private Double generateWishDetail(Wishlist wishlist, Integer level) {
+		String condition = "wishlist_id = "+wishlist.getWishlistId();
 		wishlistDetailService.deleteAllResources(condition);
 		Double typePrice = 0d;
 		Double totalPrice = 0d;
 		List<WishType> wishTypeList = wishTypeService.getResources();
 		for (WishType wishType: wishTypeList) {
-			typePrice = generateWishForType(wishType.getWishType(), wishListId);
-			totalPrice = totalPrice + typePrice;
+			if (wishType.getLevel()<= level) {
+			    typePrice = generateWishForType(wishType.getWishType(), wishlist);
+			    totalPrice = totalPrice + typePrice;
+			}
 		}
+		totalPrice = totalPrice + generateWishForAddtional(wishlist);
 		return totalPrice;
 	}
 
 	@SuppressWarnings("unchecked")
-	private Double generateWishForType(String wishType, Integer wishListId) {
+	private Double generateWishForType(String wishType, Wishlist wishList) {
 		String querySQL = null;
         Double totalPrice = 0d;
+        BigDecimal totalOriginalPrice = BigDecimal.ZERO;
 		if (wishType.equals("Cemetery")) {
 		    querySQL = "select p from Cemetery p ";
+
+		    if (optionRuleMap.containsKey(wishType)) {
+				querySQL = querySQL + " AND cemeteryId in(" + optionRuleMap.get(wishType)+")";
+			}
 		}
 		else {
 			querySQL = "select p from Wish p where 1=1 and wishType = '%s'";
 			querySQL = String.format(querySQL, wishType);
-		}
-		
-		if (optionRuleMap.containsKey(wishType)) {
-			querySQL = querySQL + " AND " + optionRuleMap.get(wishType);
+			if (optionRuleMap.containsKey(wishType)) {
+				querySQL = querySQL + " AND wishId in(" + optionRuleMap.get(wishType)+")";
+			}
 		}
 		Random random = new Random();
-		WishlistDetail detail = new WishlistDetail();
 		int randomIndex = 0;
 
 		if (wishType.equals("Cemetery")) {
@@ -176,17 +184,20 @@ public class AnswerController {
 			Cemetery randomWish = null;
 
 			if (cemeterys!=null && cemeterys.size() > 0) {
+				WishlistDetail detail = new WishlistDetail();
 				randomIndex = random.nextInt(cemeterys.size());
 				randomWish = cemeterys.get(randomIndex);
 				detail.setWishId(randomWish.getCemeteryId());
 				detail.setPrice(Double.valueOf(randomWish.getPrice().toString()));
+				detail.setOriginalPrice(randomWish.getOriginalPrice());
 				detail.setCount(1);
-				detail.setWishlistId(wishListId);
+				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wishType);
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
 				totalPrice = totalPrice + detail.getPrice();
+				totalOriginalPrice = totalOriginalPrice.add(randomWish.getOriginalPrice());
 			}
 		}
 		else {
@@ -194,19 +205,24 @@ public class AnswerController {
 			Wish randomWish = null;
 
 			if (wishs!=null && wishs.size() > 0) {
+				WishlistDetail detail = new WishlistDetail();
 				randomIndex = random.nextInt(wishs.size());
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
 				detail.setPrice(randomWish.getPrice());
+				detail.setOriginalPrice(randomWish.getCostPrice());
 				detail.setCount(1);
-				detail.setWishlistId(wishListId);
+				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wishType);
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
 				totalPrice = totalPrice + detail.getPrice();
+				totalOriginalPrice = totalOriginalPrice.add(randomWish.getCostPrice());
 			}
 		}
+		wishList.setPrice(totalPrice);
+		wishList.setOriginalPirce(totalOriginalPrice);
 		return totalPrice;
 	}
 
@@ -216,15 +232,54 @@ public class AnswerController {
 		@SuppressWarnings("unchecked")
 		List<OptionRule> optionRuleList = em.createQuery(sql).getResultList();
 		for (OptionRule optionRule: optionRuleList) {
-
-			if (optionRuleMap.containsKey(optionRule.getRuleType())) {
-				optionRuleMap.put(optionRule.getRuleType(), optionRule.getRule());
+            String ruleStr = optionRule.getRule();
+            
+            if (optionRule.getRuleType() == null || optionRule.getRuleType().equals("")) {
+            	if (!optionRuleMap.containsKey("specialAddWish")) {
+            	    optionRuleMap.put("specialAddWish",ruleStr);
+            	}
+            	else {
+            		String combineRule = optionRuleMap.get("specialAddWish") + " , "
+        			        + ruleStr;
+        			optionRuleMap.put(optionRule.getRuleType(), combineRule);
+            	}
+            }
+            else if (!optionRuleMap.containsKey(optionRule.getRuleType())) {
+				optionRuleMap.put(optionRule.getRuleType(), ruleStr);
 			}
 			else {
-				String combineRule = optionRuleMap.get(optionRule.getRuleType()) + " AND "
-			        + optionRule.getRule();
+				String combineRule = optionRuleMap.get(optionRule.getRuleType()) + " , "
+			        + ruleStr;
 				optionRuleMap.put(optionRule.getRuleType(), combineRule);
 			}
 		}
+	}
+	
+	private Double generateWishForAddtional(Wishlist wishList) {
+		Double totalPrice = 0d;
+		BigDecimal totalOriginalPrice = BigDecimal.ZERO;
+		if (optionRuleMap.containsKey("specialAddWish")) {
+			
+			String querySQL = null;
+			querySQL = "select p from Wish p where 1=1 ";
+			querySQL = querySQL + " AND wishId in(" + optionRuleMap.get("specialAddWish")+")";
+			List<Wish> wishs = em.createQuery(querySQL).getResultList();
+			for (Wish wish: wishs) {
+				WishlistDetail detail = new WishlistDetail();
+				detail.setWishId(wish.getWishId());
+				detail.setPrice(wish.getPrice());
+				detail.setCount(1);
+				detail.setWishlistId(wishList.getWishlistId());
+				detail.setWishType(wish.getWishType());
+				detail.setCreateDate(new Date());
+				detail.setUpdatedDate(new Date());
+				wishlistDetailService.addResource(detail);
+				totalPrice = totalPrice + detail.getPrice();
+				totalOriginalPrice = totalOriginalPrice.add(wish.getCostPrice());
+			}
+		}
+		wishList.setPrice(wishList.getPrice()+totalPrice);
+		wishList.setOriginalPirce(wishList.getOriginalPirce().add(totalOriginalPrice));
+		return totalPrice;
 	}
 }

@@ -36,7 +36,10 @@ public class WishlistDetail implements Serializable {
 	
 	@Column(name="price")
 	private Double price;
-	
+
+	@Column(name="original_price")
+	private BigDecimal originalPrice;
+
 	@Column(name="createdate")
 	private Date createDate;
 	
@@ -107,5 +110,12 @@ public class WishlistDetail implements Serializable {
 		this.updatedDate = updatedDate;
 	}
 
+	public BigDecimal getOriginalPrice() {
+		return originalPrice;
+	}
+
+	public void setOriginalPrice(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
+	}
 }
 

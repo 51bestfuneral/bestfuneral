@@ -6,7 +6,7 @@ CREATE TABLE wishs (
   price varchar(20),
   cost_price DECIMAL(10,2),
   selling_price DECIMAL(10,2),
-status_id integer default 0,
+  status_id integer default 0,
   general_code varchar(20),
   general_cate varchar(20),
   sub_cate_code varchar(40),
@@ -24,5 +24,3 @@ status_id integer default 0,
   feature integer default 0,
   PRIMARY KEY (wish_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-
-

@@ -15,82 +15,15 @@
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/sliderx.js"></script>
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/tinymce/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 <body>
-<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME> 
-<link rel="stylesheet" href="../js/css/slider.css">
-<style>
-.ck-slide { width: 700px; height: 320px; margin: 0 auto;}
-.ck-slide ul.ck-slide-wrapper { height: 320px;}
-</style>
-<div id="helpBar">
-    <a href="mainPage.html">˗ҳ</a>
-	<a href="mainPage.html">²�a>
-	<a href="mainPage.html">·�>
-</div>
-<div class="ck-slide">
-	
-	<a href="javascript:;" class="ctrl-slide ck-prev">ʏһօ</a> <a href="javascript:;" class="ctrl-slide ck-next">Ђһօ</a>
-	<div class="ck-slidebox">
-		<div class="slideWrap">
-			<ul class="dot-wrap">
-				<li class="current"><em>1</em></li>
-				<li><em>2</em></li>
-				<li><em>3</em></li>
-				<li><em>4</em></li>
-				<li><em>5</em></li>
-			</ul>
-		</div>
-	</div>
-</div>
-<div id="product">
-    <div id="title">
-	    <h2>²�h2>
-	</div>
-    <ul>
-	    <li>
-            <div id="tips">
-	            <h2>ɧºϑ¡ձֽȷ²�h2>
-				<button>¸�utton>
-	        </div>
-        </li>
-	    <li ng-repeat="itemCatagory in itemCatagorys">
-            <div>
-			    <a><<img></img></a>
-	            <h3>²�h3>
-				<h4>²�½ؼ/h4>
-	        </div>
-        </li>
-	</ul>
-</div>
-<div id="service">
-    <div id="title">
-	    <h2>²�h2>
-	</div>
-    <ul>
-	    <li>
-            <div id="tips">
-	            <h2>ɧºϑ¡ձֽȷµķ�2>
-				<button>¸�utton>
-	        </div>
-        </li>
-	    <li ng-repeat="service in services">
-            <div>
-			    <a><img></img></a>
-	            <h3>²�h3>
-				<h4>²�½ؼ/h4>
-	        </div>
-        </li>
-	</ul>
-</div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME> 
+<textarea id="kris"></textarea>
+<button id="kkk"></button>
 </body>
-<script type="text/javascript">
-$(function() {
-    $('.ck-slide').ckSlide({
-				autoPlay: true,//ĬɏΪ²»ؔ¶¯²¥·ţ¬ѨҪʱȫӔ´̉闃
-				dir: 'x',//ĬɏЧ¹�µ­³�Ϊˮƽӆ¶¯£¬y Ϊ´¹ֱ¹�
-				interval:3000//Ĭɏ¼乴2000º鋊				
-			});
+<script>
+$("#kkk").click(function() {
+    var me = this;
 });
 </script>
 </html>

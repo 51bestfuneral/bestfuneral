@@ -29,13 +29,12 @@ public Integer getStatusId() {
 		this.statusId = statusId;
 	}
 
-	//	总类编号
 	@Column(name="general_code")
 	private String generalCode;
-//	总类	
+
 	@Column(name="general_cate")
 	private String generalCate;
-//  分类编号	
+
 	@Column(name="sub_cate_code")
 	private String subCateCode;
 	
@@ -47,20 +46,18 @@ public String getImgUrl() {
 		ImgUrl = imgUrl;
 	}
 
-	//	分类
 	@Column(name="category")
 	private String category;
-//	產品圖片
 	@Column(name="img_url")
 	private String ImgUrl;
 	
-//	材质	
 	@Column(name="material")
 	private String material;
 
 	@Column(name="wish_Name")
 	private String wishName;
-public String getGeneralCode() {
+
+    public String getGeneralCode() {
 		return generalCode;
 	}
 
@@ -100,27 +97,27 @@ public String getGeneralCode() {
 		this.material = material;
 	}
 
-	public int getModel() {
+	public Integer getModel() {
 		return model;
 	}
 
-	public void setModel(int model) {
+	public void setModel(Integer model) {
 		this.model = model;
 	}
 
-	public int getSupplier() {
+	public Integer getSupplier() {
 		return supplier;
 	}
 
-	public void setSupplier(int supplier) {
+	public void setSupplier(Integer supplier) {
 		this.supplier = supplier;
 	}
 
-	public int getUnit() {
+	public Integer getUnit() {
 		return unit;
 	}
 
-	public void setUnit(int unit) {
+	public void setUnit(Integer unit) {
 		this.unit = unit;
 	}
 
@@ -140,33 +137,24 @@ public String getGeneralCode() {
 		this.sellingPrice = sellingPrice;
 	}
 
-	//	型号或款式	
 	@Column(name="model")
-	private int model;
+	private Integer model;
 	
-//	供应商
 	@Column(name="supplier")
-	private int supplier;
+	private Integer supplier;
 	
-	
-//	单位
 	@Column(name="unit")
-	private int unit;
+	private Integer unit;
 	
-	
-//  采购成本价	
 	@Column(name="cost_price")
 	private BigDecimal costPrice;
 	
-	
-//  销售价	
 	@Column(name="selling_price")
 	private BigDecimal sellingPrice;
 
-	
 	@Column(name="wish_type")
 	private String wishType;
-	//單價
+
 	@Column(name="price")
 	private Double price;
 	

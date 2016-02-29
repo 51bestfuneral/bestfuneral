@@ -11,6 +11,9 @@
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <style>
+    html {
+	    -webkit-text-size-adjust: none;
+	}
     #bottomBar {
 	    width: 100%;
 		overflow: auto;
@@ -21,56 +24,43 @@
 	    width: 42%;
 		background-color: #3d4351;
 		float: left;
-		padding-left: 16%;
-		height: 250px;
+		height: 200px;
 	}
 	#bottomRight {
 	    width: 58%;
-		background-color: #373d4a;
+		background-color: #3d4351;
 		float: left;
-		height: 250px;
-		padding-left: 117px;
-	}
-	#bottomRight p {
-	   
-		line-height: 32px;
+		height: 205px;
+		padding-left: 80px;
 	}
 	#bottomLeftMain {
 		text-align: left;
+        margin-top: 33px;
 		padding-top: 20px;
-		padding-left: 55px;
+        padding-bottom: 25px;
+        border-right: 1px solid #767676;
 	}
-	#bottomLeftMain h1 {
-	    font-size: 35px;
-		line-height: 60px;
-		margin: 0px;
-		margin-bottom: 10px;
+	#bottomLeftMain img {
+	    width: 120px;
+        height: 45px;
 	}
 	#bottomLeftMain h2 {
-	    font-size: 16px;
-		line-height: 20px;
+	    font-size: 17px;
+        line-height: 12px;
 		margin: 0px;
+        margin-top: 10px;
 	}
 	#rightTop {
-	  width: 100%;
-		padding-top: 40px;
+	    width: 100%;
+		padding-top: 67px;
 		margin: 0px;
+        overflow: auto;
 	}
 	#rightTop a {
 	    
 		margin: 0px;
 		margin-right: 26px;
 	
-	}
-	.contactMethod {
-	    width: 48px;
-		height: 48px;
-		background-color: #767676;
-		border: none;
-		font-family: "Microsoft Yahei";
-		padding: 0px;
-		margin-right: 10px;
-		color: #ffffff;
 	}
 	#adjustFontDiv {
 	    width: 100%;
@@ -110,28 +100,74 @@
 		font-family: "Microsoft Yahei";
 	}
 	#buttonGroup {
-	  margin-top: 60px;
-		margin-bottom: 10px;
+        margin-top: -25px;
+		width: 100%;
+	}
+	#buttonGroup div {
+	    width: 40px;
+		height: 40px;
+		float: left;
+		margin-right: 8px;
+		cursor: pointer;
+		opacity: 0.8;
+	}
+	#buttonGroup div:hover {
+	    opacity: 1;
+	}
+	#buttonGroup div img {
+	    width: 100%;
+		height: 100%;
 	}
 	.includeLink {
 		float:left;
 		cursor:pointer;
-		height: 16px;
-		width:80px;
-    position:relative;
-    top:-40px;
+        overflow: auto;
+        position:relative;
+        top:-40px;
 		transition:background 0.5s;
 		-moz-transition:background 0.5s;
-    -webkit-transition:background 0.5s;
-    -o-transition:background 0.5s;
-    margin-top: 21px;
-		
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+        margin-top: 21px;
+		margin-right: 15px;
 	}
 	.includeLink p {
 	  margin-top: 21px;
-		font-size: 15px;
+		font-size: 17px;
 		font-family: STHeitiSC-Light;
     color: #ffffff;
+	}
+    #bottomDivCoat {
+        border-bottom: 1px solid #767676;
+        overflow: auto;
+        width: 880px;
+        margin: 0px auto;
+    }
+	#certificate {
+	    overflow: auto;
+        width: 880px;
+        margin: 0px auto;
+	}
+	#certificateLeft {
+	    float: left;
+		text-align: left;
+		margin-left: -70px;
+	}
+	#certificateLeft p{
+	    font-size: 8px;  
+        -webkit-transform: scale(0.75);
+		line-height: 30px;
+		color: #ffffff;
+	}
+	#certificateRight {
+	    font-size: 8px;  
+        -webkit-transform: scale(0.75);
+		line-height: 30px;
+	    float: right;
+		font-size: 5px;
+		line-height: 30px;
+		color: #ffffff;
+		margin-right: -10px;
 	}
 </style>
 <body>
@@ -140,9 +176,9 @@
 	    <span>字体大小</span>
 		<span id="changeSmalls" onClick="zoomInOut('zoom','in')">正常</span>
 		<span>|</span>
-		<span id="changeNormals" onClick="zoomInOut('zoom','out')">大
+		<span id="changeNormals" onClick="zoomInOut('zoom','out')">大</span>
 		<span>|</span>
-		<span id="changeBigs">特大
+		<span id="changeBigs">特大</span>
 	</div>
 <!--	<div id="sloganDiv">
 	    <div class="singleSlogan">
@@ -169,36 +205,51 @@
 	-->
 	
 	
-	
-    <div id="bottomLeft">
-	    <div id="bottomLeftMain">
-		    <h1>念念网</h1>
-			<h2><br>不要让你爱的人走的太匆忙，</br><br>我们是您身边的葬礼助手。</br></h2>
+	<div id="bottomDivCoat">
+		<div id="bottomLeft">
+			<div id="bottomLeftMain">
+				<img src="/funeral/js/images/logo-white@2x.png"></img>
+				<h2><br>不要让你爱的人走的太匆忙，</br><br>我们是您身边的葬礼助手。</br></h2>
+			</div>
 		</div>
-	</div>
-	<div  id="bottomRight">
-	    <div id="rightTop">
-	    
-	     <div class="includeLink" id="design">
-	        <p>葬礼定制</p>
-		</div>
+		<div  id="bottomRight">
+			<div id="rightTop">
 			
-			<div class="includeLink" id="product">
-		    <p>产品及服务</p>
+			 <div class="includeLink" id="design">
+				<p>葬礼定制</p>
+			</div>
+				
+				<div class="includeLink" id="product">
+				<p>产品及服务</p>
+			</div>
+				<div class="includeLink" id="cemetery">
+				<p>墓地信息</p>
+			</div>
+			<div class="includeLink" id="contact">
+				<p>关于我们</p>
+			</div>
+				
+			</div>
+			<div id="buttonGroup">
+				<div>
+                    <img src="/funeral/js/images/group-3@2x.png"></img>
+                </div>
+                <div>
+                    <img src="/funeral/js/images/group-3@2x.png"></img>
+                </div>
+                <div>
+                    <img src="/funeral/js/images/group-3@2x.png"></img>
+                </div>
+			</div>
 		</div>
-			<div class="includeLink" id="cemetery">
-	        <p>墓地信息</p>
+    </div>
+	<div id="certificate">
+	    <div id="certificateLeft">
+	        <p>版权所有 © 2016-2017 上海菲诺文化创意有限公司365NIANNIAN.COM (念念网) 保留一切权利  沪ICP备16007794号</p>
 		</div>
-		<div class="includeLink" id="contact">
-		    <p>关于我们</p>
+		<div id="certificateRight">
+		    <p>快捷支付协议 | 隐私声明 | 法律声明 | 服务条款</p>
 		</div>
-			
-		</div>
-		<div id="buttonGroup">
-		    <button type="button" class="btn btn-default contactMethod">微信</button>
-			<button type="button" class="btn btn-default contactMethod">邮箱</button>
-		</div>
-		<p>Copyright&copy;2015念念网</p>
 	</div>
 </div>
 </body>

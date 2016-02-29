@@ -56,10 +56,11 @@ public class WishlistDetailController {
 
 		for (Wish wish: wishs) {
 			WishlistDetail wishlistDetail = new WishlistDetail();
-		    wish = wishService.getResource(Integer.valueOf(wish.getWishId()));
+		    wish = wishsMap.get(wish.getWishId());
 		    wishlistDetail.setWishId(wish.getWishId());
 		    wishlistDetail.setCount(1);
 		    wishlistDetail.setPrice(wish.getPrice());
+		    wishlistDetail.setOriginalPrice(wish.getCostPrice());
 		    wishlistDetail.setWishType(wish.getWishType());
 		    wishlistDetail.setWishlistId(wishlistId);
 		    wishlistDetail.setCreateDate(sysDate);
@@ -89,6 +90,7 @@ public class WishlistDetailController {
 		    wishListJson.setWishDesc(wish.getWishDesc());
 		    wishListJson.setImageUrl(wish.getUrl());
 		    wishListJson.setPrice(wish.getPrice());
+		    wishListJson.setOriginalPrice(wish.getCostPrice());
 		    wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 		    wishListJson.setWishlistId(wishlistDetail.getWishlistId());
 		    wishlistJsons.add(wishListJson);

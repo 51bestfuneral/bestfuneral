@@ -409,62 +409,36 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </div>
 <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
-<!--<script type="text/javascript">
-	$(".designTaocanIconDiv").hover(function () {
-        var $this = $(this);
-        $this.addClass("choose");
-	});
-	$(".designTaocanIconDiv").on("mouseleave", function () {
-        var $this = $(this);
-        $this.removeClass("choose");
-	});
-	$(".designTaocanIconDiv").on("click", function () {
-        var $this = $(this);
-
-        if ($this.hasClass("barSelect")) {
-            $this.removeClass("barSelect");
-		}
-		else {
-		    $this.addClass("barSelect");
-		}
-	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	$(".includeDataDiv").hover(function () {
-        var $this = $(this);
-        $this.addClass("choose");
-	});
-	$(".includeDataDiv").on("mouseleave", function () {
-        var $this = $(this);
-        $this.removeClass("choose");
-	});
-    $(".includeDataDiv").on("click", function () {
-        var $this = $(this);
-		
-		$(".includeDataDiv").removeClass("barSelect");
-		if ($this.hasClass("barSelect")) {
-            $this.removeClass("barSelect");
-		}
-		else {
-		    $this.addClass("barSelect");
-		}
-	});
-	$("#titleIconDiv").on("click", function () {
-	    window.location.href='mainPage.html';
-	});
-</script>
-
--->
-
 <script type="text/javascript">
-
+var userId = 123;
+function generateWishlistByLevel(userId, wishlistId, level) {
+    var paras = 'userId='+userId+'&wishlistId='+wishlistId+'&level='+level;
+    $.ajax({
+		url: '/funeral/wishlist/add?'+paras,
+		data: [],
+		type: 'post',
+		dataType:'json',
+		success:function(data){
+			window.parent.location.href='/funeral/pages/designProcess.html';
+		},
+		error: function(error) {
+		}
+	});
+}
+function getWishlistByLevel(level) {
+    var paras = 'userId='+userId;
+    $.ajax({
+		url: '/funeral/wishlist/list?'+paras,
+		data: [],
+		type: 'get',
+		dataType:'json',
+		success:function(data){
+			generateWishlistByLevel(userId, data[0].wishlistId, level);
+		},
+		error: function(error) {
+		}
+	});
+}
 $("#taocan1").on("click", function () {
 
 	if( $("#taocan1").hasClass("choose")){
@@ -801,22 +775,22 @@ return;
 
 $("#basicButton").on("click", function () {
 	   
-            window.parent.location.href='/funeral/pages/designProcess.html';
+            getWishlistByLevel(1);
 	
 	});
 $("#goodButton").on("click", function () {
 	   
-            window.parent.location.href='/funeral/pages/designProcess.html';
+            getWishlistByLevel(2);
 	
 	});
 $("#betterButton").on("click", function () {
 	   
-            window.parent.location.href='/funeral/pages/designProcess.html';
+            getWishlistByLevel(3);
 	
 	});
 $("#bestButton").on("click", function () {
 	   
-            window.parent.location.href='/funeral/pages/designProcess.html';
+            getWishlistByLevel(4);
 	
 	});
 

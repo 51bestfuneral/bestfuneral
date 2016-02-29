@@ -511,15 +511,16 @@ $(document.body).on("click",".finishedButton", function( event ) {
     var answetList = [];
 
     if (!$(this).hasClass("disabled")) {
+        var paras = 'wishlistId=' + parent.wishlistId + '&level='+ parent.level;
 	    generateQuestionList(answetList);
 		$.ajax({
-		    url: '/funeral/answer/add?wishlistId='+parent.wishlistId,
+		    url: '/funeral/answer/add?' + paras,
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
 			data: JSON.stringify(answetList),
 			success:function(data){
-                window.parent.updatePrice(data.price);
+                window.parent.updatePrice(data.price, data.price - data.originalPrice);
 				window.parent.nextTab();
 		    },
 			error: function(error) {

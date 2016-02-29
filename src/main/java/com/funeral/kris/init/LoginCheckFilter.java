@@ -28,14 +28,12 @@ public class LoginCheckFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 
-		URIsList.add("designProposal.html");
-		URIsList.add("wishList.html");
+		URIsList.add("wishLis.html");
 
 	}
 	public void initUrls() throws ServletException {
-		
-		URIsList.add("designProposal.html");
-		URIsList.add("wishList.html");
+
+		URIsList.add("wishLis.html");
 		
 	}
 

@@ -23,10 +23,12 @@ public class Cemetery {
 
 	@Column(name = "cemetery_desc")
 	private String cemeteryDesc;
+
 	@Column(name = "traffic_Info")
 	private String trafficInfo;
 
-	
+	@Column(name = "original_price")
+	private BigDecimal originalPrice;
 
 	public String getTrafficInfo() {
 		return trafficInfo;
@@ -182,4 +184,11 @@ public class Cemetery {
 		this.updatedDate = updatedDate;
 	}
 
+	public BigDecimal getOriginalPrice() {
+		return originalPrice;
+	}
+
+	public void setOriginalPrice(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
+	}
 }
