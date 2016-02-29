@@ -195,4 +195,18 @@ public class UserServiceImpl implements UserService {
 			user.setStatus(LoginConstants.accountLocked);
 		}
 	}
+
+	@Override
+	public User getByAccount(String account) {
+
+		User user = this.getByEmail(account);
+		if (user != null) {
+			return user;
+		} else if (this.getByPhone(account) != null) {
+
+			return this.getByPhone(account);
+
+		}
+		return null;
+	}
 }

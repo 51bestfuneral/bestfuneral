@@ -55,3 +55,6 @@ CREATE TABLE wishs (
   updateddate  datetime default  NOW(),
   PRIMARY KEY (wish_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+
+

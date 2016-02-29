@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.model.Cemetery;
-import com.funeral.kris.model.OptionRule;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.service.UserService;
+import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
@@ -40,6 +42,68 @@ public class WishlistController {
 	private WishlistDetailService wishlistDetailService;
 	@Autowired
 	private EntityManager em;
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private WishService wishService;
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveWish", method = RequestMethod.GET)
+	public void saveWish(HttpServletRequest request) {
+
+		Integer id=Integer.parseInt(request.getParameter("id"));
+		Integer wishlistId=Integer.parseInt(request.getParameter("wishlistId"));
+		System.out.println(this.getClass()+ " saveWish  id=  "+id+" wishlist id="+wishlistId);
+
+		HttpSession session = request.getSession();
+//
+//		String userName = session.getAttribute("userName").toString();
+//		
+//		System.out.println(this.getClass()+ " userName=  "+userName);
+
+		
+		User user=userService.getByAccount("123");	
+		Wish wish=wishService.getResource(id);
+		
+		Wishlist wishlist =wishlistService.getResource(wishlistId);
+
+		
+		if(wishlist!=null){
+		wishlist.setStatus("1");
+		
+		System.out.println("  getProcurementCost="+wish.getProcurementCost()+"  getOriginalPirce="+wishlist.getOriginalPirce());
+
+		
+		wishlist.setOriginalPirce(wish.getProcurementCost().add((java.math.BigDecimal) (wishlist.getOriginalPirce() == null 
+				? BigDecimal.ZERO : wishlist.getOriginalPirce())));
+		wishlist.setComment(wish.getWishName());
+		wishlist.setPrice(wish.getSellingPrice().doubleValue()+wishlist.getPrice());
+		wishlist.setUserId(14);
+		}else{
+			wishlist=new Wishlist();
+			wishlist.setStatus("1");
+			wishlist.setOriginalPirce(wish.getProcurementCost().add(wishlist.getOriginalPirce()));
+			wishlist.setComment(wish.getWishName());
+			wishlist.setPrice(wish.getSellingPrice().doubleValue()+wishlist.getPrice());
+			wishlist.setUserId(14);
+		}
+		wishlistService.addResource(wishlist);	
+		
+		
+		
+		WishlistDetail wishlistDetail =new WishlistDetail();
+		
+		wishlistDetail.setCount(1);
+		wishlistDetail.setWishlistId(wishlistId);
+		
+		wishlistDetail.setOriginalPrice(wish.getProcurementCost());
+		wishlistDetail.setPrice(wish.getSellingPrice().doubleValue());
+		wishlistDetail.setWishId(wish.getWishId());
+		wishlistDetail.setSourceId(2);
+		
+		wishlistDetailService.addResource(wishlistDetail);
+	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addWishlistPage() {
@@ -65,16 +129,16 @@ public class WishlistController {
 	public List<Wishlist> listOfWishlists(HttpServletRequest request) {
 		List<Wishlist> wishlists = wishlistService.getResources(request);
 
-		if (wishlists.isEmpty() && request.getParameter("userId") !=null && !request.getParameter("userId").equals("")) {
-			Date sysDate = new Date();
-			Wishlist wishlist = new Wishlist();
-			wishlist.setUserId(Integer.valueOf(request.getParameter("userId")));
-            wishlist.setCreateDate(sysDate);
-            wishlist.setUpdatedDate(sysDate);
-            wishlist.setPrice(0d);
-            wishlistService.addResource(wishlist);
-            wishlists = wishlistService.getResources(request);
-		}
+//		if (wishlists.isEmpty() && request.getParameter("userId") !=null && !request.getParameter("userId").equals("")) {
+//			Date sysDate = new Date();
+//			Wishlist wishlist = new Wishlist();
+//			wishlist.setUserId(Integer.valueOf(request.getParameter("userId")));
+//            wishlist.setCreateDate(sysDate);
+//            wishlist.setUpdatedDate(sysDate);
+//            wishlist.setPrice(0d);
+//            wishlistService.addResource(wishlist);
+//            wishlists = wishlistService.getResources(request);
+//		}
 		return wishlists;
 	}
 
@@ -122,7 +186,7 @@ public class WishlistController {
 	}
 	
 	private Double generateWishDetail(Wishlist wishList, Integer level) {
-		String condition = "wishlist_id = "+wishList.getWishlistId();
+		String condition = " source_id!=1 and   wishlist_id = "+wishList.getWishlistId();
 		wishlistDetailService.deleteAllResources(condition);
 		Double typePrice = 0d;
 		Double totalPrice = 0d;

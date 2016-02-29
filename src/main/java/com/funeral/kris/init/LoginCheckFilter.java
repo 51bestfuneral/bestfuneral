@@ -50,7 +50,7 @@ public class LoginCheckFilter implements Filter {
 		System.out.println("  come on LoginCheckFilter---");
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		
 	
 		String requestURL = request.getRequestURL().toString();

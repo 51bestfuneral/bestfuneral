@@ -224,23 +224,33 @@ span {
 </style>
 <script type="text/javascript">
 var app = angular.module('alipayController', []);
-     
-       
+ var usrId = 14;    
        	app.controller('alipay', function($scope, $http) {
-      $scope.pay = function(){ 
-    	  
-    	  $("#alipayButton").click();
-      		//alert("test!");	
-    //$http.get("/funeral/alipay/pay?WIDout_trade_no=111&WIDsubject=test&WIDtotal_fee=100&WIDbody=222&/funeral/pages/paymentFinal.html").success(function(response) {
-	    
-	//})
-	//alert("success!");	
-	}
-		
+	 
+	    	$http.get("/funeral/alipay/createOrder").success(function(response) {
+	           
+	           $scope.order=response;  
+	           
+	           
+	           $("#tradeNo").val($scope.order.orderNo);
+
+	           $("#totalFee").val($scope.order.payableAmount);
+
+	           
+	           
+	              
 });
+	    
+	    
+	    
+     $scope.pay = function(){ 
+    	  $("#alipayButton").click();
+
+};
+  });
        	
 
-           
+          
 
 
 
@@ -302,11 +312,12 @@ var app = angular.module('alipayController', []);
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
 			        <span class="radioDesc">支付宝支付</span>
+			        
 			        <form name="alipayment" action="alipayapi.jsp" method="post" target="_blank">
-						<input type="hidden" name="WIDout_trade_no" value="20160328"/>
-					    <input type="hidden" name="WIDsubject" value="骨灰盒"/>
-						<input type="hidden" name="WIDtotal_fee"  value ="400"/>
-						<input type="hidden" name="WIDbody"  value="白玉骨灰盒"/>
+						<input type="hidden" id="tradeNo"  name="WIDout_trade_no"  />
+					    <input type="hidden" id="subject" name="WIDsubject" value="test" />
+						<input type="hidden" id="totalFee" name="WIDtotal_fee" />
+						<input type="hidden" name="WIDbody" value="test"/>
                         <span class="new-btn-login-sp">
                             <button id="alipayButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
                         </span>

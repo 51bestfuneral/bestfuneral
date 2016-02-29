@@ -747,7 +747,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 <div class="container">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>  
 
-<div id="mainHeader">
+<div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
 	    <p><span>墓地信息</span>／{{cemeteryBean.cemeteryName}}</p>
 	</div>
@@ -818,8 +818,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 			<div id="locationFeature">
 			    <div class="leftlocationText">
 				     <h1>特色</h1>
-					 <p id="kristest"></p>
-				</div>
+<p>{{cemeteryBean.feature}}</p>				</div>
 				<div class="rightlocationImg">
 					 <img src={{cemeteryBean.featureImgUrl}}></img>
 				</div>

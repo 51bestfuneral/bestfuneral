@@ -12,38 +12,50 @@ import java.util.Date;
 import javax.persistence.Column;
 
 @Entity
-@Table(name="wishlist_details")
+@Table(name = "wishlist_details")
 public class WishlistDetail implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name="Wishlist_detail_id")
+	@Column(name = "Wishlist_detail_id")
 	private Integer wishlistDetailId;
 
-	@Column(name="wishlist_id")
+	@Column(name = "wishlist_id")
 	private Integer wishlistId;
 
-	@Column(name="wish_type")
+	@Column(name = "wish_type")
 	private String wishType;
-	
-	@Column(name="wish_id")
+
+	@Column(name = "wish_id")
 	private Integer wishId;
 	
-	@Column(name="count")
+	public Integer getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	//手動直接選擇/系統推薦
+	@Column(name = "source_id")
+	private Integer sourceId;
+
+	@Column(name = "count")
 	private Integer count;
-	
-	@Column(name="price")
+
+	@Column(name = "price")
 	private Double price;
 
-	@Column(name="original_price")
+	@Column(name = "original_price")
 	private BigDecimal originalPrice;
 
-	@Column(name="createdate")
+	@Column(name = "createdate")
 	private Date createDate;
-	
-	@Column(name="updateddate")
+
+	@Column(name = "updateddate")
 	private Date updatedDate;
 
 	public Integer getWishlistDetailId() {
@@ -118,4 +130,3 @@ public class WishlistDetail implements Serializable {
 		this.originalPrice = originalPrice;
 	}
 }
-
