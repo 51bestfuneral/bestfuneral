@@ -15,9 +15,9 @@
 <script src="/funeral/js/libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 <script src="/funeral/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="/funeral/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="../js/generalUsage.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
-
 </head>
 
 
@@ -114,21 +114,6 @@ app.controller('wishTypeLevels', function($scope, $http) {
     $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
 });
 </script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
@@ -176,7 +161,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	
 	
 	
-	</div>
+    </div>
 	
 	
 	
@@ -414,13 +399,13 @@ function generateWishlistByLevel(userId, wishlistId, level) {
 		type: 'post',
 		dataType:'json',
 		success:function(data){
-			window.parent.location.href='/funeral/pages/designProcess.html';
+			window.location.href='/funeral/pages/designProcess.html';
 		},
 		error: function(error) {
 		}
 	});
 }
-function getWishlistByLevel(level) {
+function getWishlistByLevelAfterChcek(level) {
     var paras = 'userId='+userId;
     $.ajax({
 		url: '/funeral/wishlist/list?'+paras,
@@ -429,6 +414,25 @@ function getWishlistByLevel(level) {
 		dataType:'json',
 		success:function(data){
 			generateWishlistByLevel(userId, data[0].wishlistId, level);
+		},
+		error: function(error) {
+		}
+	});
+}
+function getWishlistByLevel(level) {
+    $.ajax({
+		url: '/funeral/login/validateLogin',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+            var resultCode =data;
+
+			if (resultCode === "") {
+	            popupLogInPage();
+			}
+			else {
+				getWishlistByLevelAfterChcek(level);
+			}
 		},
 		error: function(error) {
 		}

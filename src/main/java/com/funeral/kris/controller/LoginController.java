@@ -1,5 +1,7 @@
 package com.funeral.kris.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funeral.kris.init.constants.LoginConstants;
+import com.funeral.kris.model.User;
 import com.funeral.kris.service.UserService;
 
 @Controller
@@ -24,29 +27,25 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping(value = "verifyLogin", method = RequestMethod.GET, produces = "application/json")
 	public Integer verifyLogin(HttpServletRequest request) throws Exception {
-
 		String account =request.getParameter("userName");
 		String pwd =request.getParameter("password");
-		Integer checkResult = userService.checkLogin(account, pwd);
-		
-		HttpSession  session=request.getSession();
-		
-		session.setAttribute("userName", account);
-		
-		Random random = new Random();
-		int number=random.nextInt(1000000);
-		
-		session.setAttribute("sessionId", System.currentTimeMillis()+"_"+number);
-		
-		
-			if(checkResult.intValue()==LoginConstants.validatePass){
-			session.setAttribute(LoginConstants.LoginStatus, LoginConstants.login);
-			}else{
-				session.setAttribute(LoginConstants.LoginStatus, LoginConstants.OffLine);	
-			}
+		Integer checkResult = null;
+		checkResult = userService.checkLogin(account, pwd, request);
 
 		return checkResult;
-
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "validateLogin", method = RequestMethod.GET, produces = "application/json")
+	public User validateLogin(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession(true);
+
+		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
+				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			return (User)session.getAttribute("user");
+		}
+		else {
+			return null;
+		}
+	}
 }

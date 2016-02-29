@@ -5,21 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-钁ぜ瀹氬埗
+葬礼定制
 </title>
 </head>
-<script src="../../js/jquery-2.1.4.js"></script>
-<script src="../../js/jquery-ui.js"></script>
-<script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../../js/Bootstrap/boot.js"></script>
-<script src="../../js/md5.js"></script>
-<link href="../../js/Bootstrap/boot.css" rel="stylesheet">
-<script src="validation/index.js"></script>
-<link href="validation/details.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/Bootstrap/boot.js"></script>
+<script src="../js/md5.js"></script>
+<link href="../js/Bootstrap/boot.css" rel="stylesheet">
+<link href="../js/generalUsage.js" rel="stylesheet">
+<script src="component/validation/index.js"></script>
+<link href="component/validation/details.css" rel="stylesheet" type="text/css" />
 <style>
-    html {
-	    width: 315px;
-		height: 400px;
+    .topBarDiv {
+		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+		height: 65px;
+		z-index: 1000;
 	}
     body {
 	    text-align: center;
@@ -28,10 +31,13 @@
 	    margin: 0px;
 	}
 	#loginMain {
-	    width: 369px;
+	    width: 600px;
 		height: 453px;
+		margin: 0px auto;
 		background-color: #ffffff;
         box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
+		margin-top: 45px;
+		margin-bottom: 45px;
 	}
 	#topPart {
 	    width: 100%;
@@ -62,7 +68,7 @@
 		font-weight: bold;
 	}
 	#inputArea {
-	    width: 302px;
+	    width: 352px;
 		overflow: auto;
 		text-align: center;
 		margin: 0px auto;
@@ -75,19 +81,8 @@
         background-color: #ffffff;
 		margin-bottom: 10px;
 	}
-	#inputArea .form-control:hover {
+	#inputArea .form-control:focus {
 	    border: solid 1px #ff5274;
-	}
-	#remember {
-	    margin-top: 15px;
-		margin-bottom: 16px;
-		overflow: auto;
-	}
-	#remember span {
-	    font-size: 16px;
-        line-height: 1.5;
-        color: #b4b4b4;
-		font-family: "Microsoft Yahei";
 	}
 	#submit {
 	    width: 186px;
@@ -96,7 +91,7 @@
 		margin: 0px auto;
 		background: #ff5274;
 		text-align: center;
-		margin-bottom: 40px;
+		margin-bottom: 10px;
 		cursor: pointer;
 	}
 	#submit:hover {
@@ -107,19 +102,6 @@
 		font-size: 19px;
 		line-height: 50px;
 	}
-	#forget {
-	    overflow: auto;
-		float: left;
-	}
-	#forget p {
-	    font-size: 14px;
-        line-height: 1.5;
-        color: #ff5274;
-		cursor: pointer;
-	}
-	#forget p:hover {
-	    color: #ff496d;
-	}
 	#alreadyHas {
 	    overflow: auto;
 		float: right;
@@ -129,6 +111,7 @@
         line-height: 1.5;
         color: #ff5274;
 		cursor: pointer;
+		text-align: center;
 	}
 	#alreadyHas p:hover {
 	    color: #ff496d;
@@ -162,13 +145,13 @@
 	}
 </style>
 <body>
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>
+</div>
 <div id="loginMain">
     <div id="topPart">
 	    <div id="mainTitle">
 		    <p>登录</p>
-		</div>
-		<div id="closeArea">
-		    <p>X</p>
 		</div>
 	</div>
 	<div id="inputArea">
@@ -204,6 +187,7 @@
 		</div>
 	</div>
 </div>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script>
 function setCookie(name,value,hours,path){  
@@ -258,13 +242,11 @@ function validateValid(content) {
 	return false;
 }
 window.onload = function() {
-    $("#closeArea").click(function() {
-	    parent.removeSelf();
-	});
+    var length = location.search.length,
+	    backUrl = location.search.substring(11, length);
 	$("#alreadyHas").click(function() {
-	    parent.removeSelf(2);
+	    window.location.href='needSignIn.html';
 	});
-	$("#loginFrameCoat",window.parent.document).fadeIn();
 	$("#userName").blur(function() {
         if (!validateValid($(this)[0].value)) {
 		    return false;
@@ -294,9 +276,7 @@ window.onload = function() {
 	$("#submit").click (function() {
         var userNameValue = $("#userName")[0].value;
         var passwordValue = $("#password")[0].value;
-		if (!validate()) {
-		    return false;
-		}
+		
 		if (userNameValue === "") {
 		    $("#errorContent").find("p")[0].innerText = '用户名不能为空';
 	        $("#errorContent").fadeIn();
@@ -308,6 +288,9 @@ window.onload = function() {
 	        $("#errorContent").fadeIn();
 			$("#password")[0].focus();
 			return false;
+		}
+		if (!validate()) {
+		    return false;
 		}
         if( $("#saveCookie")[0].checked){
             setCookie("userName",$("#userName")[0].value,24,"/");  
@@ -323,14 +306,12 @@ window.onload = function() {
 
 				if (resultCode === 1) {
 	                $("#errorContent").fadeOut();
-                    parent.removeSelf();
-			        window.parent.location.reload();
+			        window.location.href=backUrl;
 				}
 				else if (resultCode === -4) {
 				    $("#errorContent").find("p")[0].innerText = '账号被锁定，请在半小时后登录';
 	                $("#errorContent").fadeIn();
 					$("#userName")[0].focus();
-				
 				}
 				else if (resultCode === -3) {
 					$("#errorContent").find("p")[0].innerText = '账号密码不匹配';

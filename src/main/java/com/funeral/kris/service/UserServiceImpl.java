@@ -1,10 +1,16 @@
 package com.funeral.kris.service;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.funeral.kris.dao.UserDAO;
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.User;
-import com.funeral.kris.util.MD5;
 
 @Service
 @Transactional
@@ -107,43 +112,87 @@ public class UserServiceImpl implements UserService {
 			+ "   and pwd = '%s'" + "   and user_type = '%s'";
 
 	@Override
-	public Integer checkLogin(String account, String pwd) {
-
+	public Integer checkLogin(String account, String pwd, HttpServletRequest request) {
+        int resultCode = 0;
+        User user = null;
+        Map<Integer, User> userMap = new HashMap<Integer, User>();
 		if (account.contains("@")) {
 
-			User user = this.getByEmail(account);
+			user = this.getByEmail(account);
 
 			if (user == null) {
-				return LoginConstants.userNotExist;
+				resultCode = LoginConstants.userNotExist;
 			} else {
+				user.setLastLoginTime(new Date());
+				if (user.getStatus().intValue() == LoginConstants.accountLocked) {
+					long lockedTime = new Date().getTime() - user.getLastLoginTime().getTime();
+					if (lockedTime/ (1000 * 60) > 30 && pwd.toString().equals(user.getPassword())) {
+						user.setInvalidLoginTimes(0);
+						user.setStatus(LoginConstants.validatePass);
+					}
+					else {
+					    resultCode = LoginConstants.accountLocked;
+					}
+				} else if (pwd.toString().equals(user.getPassword())) {
 
-				if (user.getStatus().intValue() == -4) {
-					return LoginConstants.accountLocked;
-				} else if (MD5.GetMD5Code(pwd).toString().equals(user.getPassword())) {
-
-					return LoginConstants.validatePass;
+					resultCode = LoginConstants.validatePass;
 				}
-
+				else {
+					lockCurrentUser(user);
+					resultCode = LoginConstants.pwdIncorrect;
+				}
+				userDAO.save(user);
 			}
 
 		} else {
-			User user = this.getByPhone(account);
+			user = this.getByPhone(account);
 
 			if (user == null) {
-				return LoginConstants.userNotExist;
+				resultCode = LoginConstants.userNotExist;
 			} else {
+				user.setLastLoginTime(new Date());
+				if (user.getStatus().intValue() == LoginConstants.accountLocked) {
+					long lockedTime = new Date().getTime() - user.getLastLoginTime().getTime();
+					if (lockedTime/ (1000 * 60) > 30 && pwd.toString().equals(user.getPassword())) {
+						user.setInvalidLoginTimes(0);
+						user.setStatus(LoginConstants.validatePass);
+					}
+					else {
+					    resultCode = LoginConstants.accountLocked;
+					}
+				} else if (pwd.toString().equals(user.getPassword())) {
 
-				if (user.getStatus().intValue() == -4) {
-					return LoginConstants.accountLocked;
-				} else if (MD5.GetMD5Code(pwd).toString().equals(user.getPassword())) {
-
-					return LoginConstants.validatePass;
+					resultCode = LoginConstants.validatePass;
 				}
-
+				else {
+					lockCurrentUser(user);
+					resultCode = LoginConstants.pwdIncorrect;
+				}
+				userDAO.save(user);
 			}
 
 		}
+        HttpSession  session=request.getSession();
+		session.setAttribute("user", user);
+		Random random = new Random();
+		int number=random.nextInt(1000000);
 
-		return LoginConstants.userNotExist;
+		session.setAttribute("sessionId", System.currentTimeMillis()+"_"+number);
+
+		if(resultCode==LoginConstants.validatePass){
+			session.setAttribute(LoginConstants.LoginStatus, LoginConstants.login);
+		}else{
+			session.setAttribute(LoginConstants.LoginStatus, LoginConstants.OffLine);	
+		}
+		return resultCode;
+	}
+
+	private void lockCurrentUser(User user) {
+		int invalidTime = user.getInvalidLoginTimes();
+		invalidTime = invalidTime + 1;
+		user.setInvalidLoginTimes(invalidTime);
+		if (invalidTime >= 5) {
+			user.setStatus(LoginConstants.accountLocked);
+		}
 	}
 }

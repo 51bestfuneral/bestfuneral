@@ -14,7 +14,8 @@ public class LoginConstants {
 	 public static final Integer userTypeInidCustomer=1;
 	 public static final Integer userTypeCompanyCustomer=2;
 	 public static final Integer userTypeAdmin=100;
-	 
-	 
-	 
+
+	 public static final Integer emailInvalid=1;
+	 public static final Integer phoneInvalid=2;
+	 public static final Integer valid=0;
 }
