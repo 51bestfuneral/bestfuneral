@@ -10,7 +10,7 @@
   position:relative; 
   left:0%; 
   right:0%;	
-	
+	top:-2px;
 	
 	
 	}	
@@ -35,7 +35,7 @@ height:60px;
 position:relative; 
 right:0%;
 top:0px;
-left:400px;
+left:29%;
 float:left;
 margin: 0 auto;
 border:0px solid #ff5274; 
@@ -55,7 +55,7 @@ height:60px;
 position:relative; 
 right:0%;
 top:0px;
-left:415px;
+left:31%;
 background-color:#ffffff;
 float:left;
 margin: 0 auto;
@@ -74,7 +74,7 @@ height:60px;
 position:relative; 
 right:0%;
 top:0px;
-left:430px;
+left:33%;
 
 float:left;
 margin: 0 auto;
@@ -94,7 +94,7 @@ margin: 0 auto;
 position:relative; 
 right:0%;
 top:0px;
-left:445px;
+left:35%;
 float:left;
 margin: 0 auto;
 }
@@ -106,22 +106,25 @@ margin: 0 auto;
  
  
 #link link5{
-border:0px solid #ff5274; 
+border:1px solid red; 
 height:44px;
 width:99px;
 float:left;
 background-color: #ff5274;
 position:relative; 
-left:49%;
+left:50%;
 top:8px;
 text-align:center;	
 border-radius: 5px ;
+margin: 0 auto;
+
+
 } 
 #link link5 p{
 	color:#ffffff;
 	 font-family: "STHeitiSC-Light"; 
 	 font-size:20px;
-	 line-height:9px;
+	 line-height:44px;
 	} 
 
 #link link5 a{

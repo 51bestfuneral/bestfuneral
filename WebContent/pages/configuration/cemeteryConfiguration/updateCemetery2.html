@@ -283,9 +283,12 @@ id = location.search.substring(4, length);
 			
 	 	
 	 	$("#saveButton").click(function() {
+	 		
+	 		alert("#features".value);
+	 		
 	    var datadata = JSON.stringify($scope.currentCemetery);
-	    datadata.feature=$("#feature1")[0].innerHTML;
-	   	    
+	    
+	    alert(" datadata="+datadata);
 	    $http({
             method: "POST",
             url:"/funeral/cemetery/add",
@@ -334,11 +337,7 @@ function uploadUnitImage()  {
 
 	</script>
 
-<!--<script type="text/javascript">
-    var editor = new Simditor({
-      textarea: $('#editor')
-    });
-  </script>-->
+
 <body ng-app="myApp" ng-controller="cemetery">
 <header>
 <ul id="nav">
@@ -376,26 +375,29 @@ function uploadUnitImage()  {
    <input  type='text'    maxlength="20"  ng-model="currentCemetery.district"/>
 			
 			</td>	
-			
-			
+		</tr>
+		
+		<tr>	
 			<td>
 			
 			<label >简介</label>
 			
 	<!--	<textarea  id="editor"    placeholder="这里输入内容" autofocus   ng-model="currentCemetery.cemeteryDesc" ></textarea>-->
 	
-			 <textarea id="editor"  placeholder="这里输入内容" ></textarea>
+			 <textarea id="descript"  rows="15" cols="15"   value="currentCemetery.cemeteryDesc" ></textarea>
 			
 			</td>
 			<td>
 			<label >特色</label>
 			
-		<textarea  id="feature1" rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>
+	<!--	<textarea   rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>-->
 	
-			
+		<textarea id="features"  rows="15" cols="15"   value="currentCemetery.feature"  ></textarea>
+
 			
 			</td>
-			
+		</tr>
+			<tr>
 			<td>
 			<label >交通信息</label>
 			
@@ -746,7 +748,15 @@ function uploadUnitImage()  {
 	</div>
 	
 	
-	
+	<script type="text/javascript">
+    var descript = new Simditor({
+      textarea: $('#descript')
+    });
+    
+      var feature = new Simditor({
+      textarea: $('#features')
+    });
+  </script>
 	
 	
 	

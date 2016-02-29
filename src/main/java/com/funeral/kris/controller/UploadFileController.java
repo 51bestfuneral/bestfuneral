@@ -42,6 +42,16 @@ public class UploadFileController extends HttpServlet {
 		response.getWriter().flush();
 	}
 
+	public void uploadHeadImg(Integer cemeteryId, String imgPath) {
+		
+		Cemetery cemetery = cemeteryService.getResource(cemeteryId);
+		
+		System.out.println("-------------  uploadHeadImg ----imgPath = "+imgPath);
+		
+		cemetery.setHeadImg(imgPath);
+		
+		cemeteryService.updateResource(cemetery);
+	}
 	public void uploadDescriptionImg(Integer cemeteryId, String imgPath) {
 
 		Cemetery cemetery = cemeteryService.getResource(cemeteryId);
@@ -136,6 +146,9 @@ public class UploadFileController extends HttpServlet {
 						} else if ("uploadMoreImgs".equals(actionTypes)) {
 							this.uploadMoreImgs(cemeteryId, loadPath);
 
+						}else{
+							
+							this.uploadHeadImg(cemeteryId, loadPath);
 						}
 						// 上传文件
 						File uploaderFile = new File(path);

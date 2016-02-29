@@ -209,7 +209,7 @@ public class AnswerController {
 				randomIndex = random.nextInt(wishs.size());
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
-				detail.setPrice(randomWish.getPrice());
+				detail.setPrice(Double.parseDouble(randomWish.getSellingPrice().toString()));
 				detail.setOriginalPrice(randomWish.getCostPrice());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());

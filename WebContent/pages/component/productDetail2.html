@@ -376,7 +376,7 @@ app.controller('products', function($scope, $http) {
 <div id="productDetail">
     <div id="productInfo">
 	    <div id="productImg">
-		    <img src="/funeral/js/images/service1.png"></img>
+		    <img src={{$scope.wish.imgUrl}}></img>
 		</div>
 		<div id="productContent">
 		    <h1>{{wish.wishName}}</h1>

@@ -5,7 +5,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body ng-app="myApp" ng-controller="wishConfigController">
+<body ng-app="myApp" ng-controller="productConfiguration">
 <header>
 <ul id="nav">
 	<li><a href="updateProduct.html">修改愿望</a></li>
@@ -23,82 +23,16 @@
 	
 	
 	
-	<table border="0"  width="100%"> 
-		
-	
-	
-		
-	
-					
-					
-						<tr> 
-						
-			<td>
-			
-			<label >产品状态&nbsp;</label>
-	<select   ng-model="wish.statusId"  value={{wish.statusId}}>
-  <option value="1">生效</option>
-  <option value="2">未生效</option>
-  <option value="3">已刪除</option>
-  <option value="4">已過期</option>
-  </select>			
-		
-			</td>
-				
-						<td>	<button id="saveButton" class="nextButton">保存</button>  </td>
-			<td><button id="deleteButton" class="nextButton" ng-click="removeWish()">删除</button> </td>
-		
-		<tr>
-			<td>
+
 	
 			 <div id="imgSection">
- 	
- 	  <form name="form" action={{'/funeral/uploadWishImg/upload?id='+wish.wishId}} method="POST" enctype="multipart/form-data">  
-
-        <table class="tableForm">  
-            <thead>  
-                <tr>  
-                    <th>上传简介图片（图片名称只能是数字或者字母或下划线）</th>  
-                </tr>  
-            </thead>  
-            <tbody>  
-                <tr>  
-                    <td><input id="fileToUpload"  type="file" size="45"   
-                        name="fileToUpload"  class="input"></td>  
-                </tr>  
-            </tbody>  
-            <tfoot>  
-                <tr>  
-                    <td><button class="button" id="uploadDescriptionImg"  
-                            onclick="return uploadUnitImage();"   >上传</button></td>  
-                </tr>  
-            </tfoot>  
-        </table>  
-       
-       
-      
-         </form>  
-     </div> 
-
-			</td>
-		<td><img  height="200" width="200"  title="預覽圖"  src={{wish.imgUrl}}></td>
-			
-		</tr>
-					
-	
-	
-</table>
-		
-<tr>
-
- <div id="imgSection">
  	
  	  <form name="form" action='/funeral/productConfiguration/upload' method="POST" enctype="multipart/form-data">  
 
         <table class="tableForm">  
             <thead>  
                 <tr>  
-                    <th>通過導入excel來上傳產品（名称只能是数字或者字母或下划线）</th>  
+                    <th>上传excel（名称只能是数字或者字母或下划线）</th>  
                 </tr>  
             </thead>  
             <tbody>  
@@ -120,42 +54,20 @@
          </form>  
      </div> 
 
-	</tr>
+			
+			</td>
+				
 	
-	
-	
+			
+		</tr>
+					
+
+		
 	
 </contentSection>
 	
 	
 </div>
-
-
-
-<div id="questionList">
-	
-	<table border="0"  width="100%"> 
-		
-		<tr><td>愿望名称</td><td>总类编号</td><td>总类</td><td>分类编号</td><td>型号</td><td>供应商</td><td>成本</td><td>销售价</td></tr>
-		
-	<tr ng-repeat="x in wishs">
-		
-				<td>         <input type="radio" name="savedWishs" value={{x.wishId}}   ng-click="changeWish(x.wishId)"/>     <label >    {{x.wishName}} </label></td>		
-	
-		
-		
-			<td>      {{x.generalCode}}</td>		<td>      {{x.generalCate}}</td>		<td>      {{x.subCateCode}}</td>	<td>      {{x.model}}</td><td>      {{x.supplier}}</td>
-
-<td>{{x.costPrice}}</td>	<td>{{x.sellingPrice}}</td>	
-			
-			</tr>
-		
-		
-	</table>
-	
-	
-	
-	</div>
 
 
 
@@ -238,7 +150,7 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	<script>
 	var app = angular.module('myApp', []);
  
-	 app.controller('wishConfigController', function($scope, $http) {
+	 app.controller('productConfiguration', function($scope, $http) {
 	
 	
 		$http.get("/funeral/wishConfig/list").success(function(response) {
@@ -253,8 +165,7 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
     
 				$http.get("/funeral/wishConfig/listById?id="+vid).success(function(response) {
 	       $scope.wish = response;
-	       	    var data = JSON.stringify($scope.wish);
-	       
+	     
 	       
 			})
 
@@ -278,6 +189,10 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	 	$("#saveButton").click(function() {
 	    var datadata = JSON.stringify($scope.wish);
 	    
+	  if($scope.wish.wishId==null||$scope.wish.wishId==""){
+	  	alert("请选择愿望项目！")
+	  	return;
+	  	}
 	    $http({
             method: "POST",
             url:"/funeral/wishConfig/saveWish",
