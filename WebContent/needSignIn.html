@@ -2,14 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
-<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务" />
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
 葬礼定制
 </title>
 </head>
+<link href="/css/needSignIn.css" rel="stylesheet">
 <script src="/js/jquery-2.1.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/sliderx.js"></script>
@@ -20,134 +21,6 @@
 <script src="component/validation/index.js"></script>
 <link href="component/validation/details.css" rel="stylesheet" type="text/css" />
 <script src="/js/generalUsage.js"></script>
-<style>
-    .topBarDiv {
-		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
-		height: 65px;
-		z-index: 1000;
-	}
-    body {
-	    text-align: center;
-	}
-	p {
-	    margin: 0px;
-	}
-	#loginMain {
-	    width: 600px;
-		height: 453px;
-		background-color: #ffffff;
-        box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
-		margin: 0px auto;
-		margin-top: 90px;
-		margin-bottom: 90px;
-	}
-	#topPart {
-	    width: 100%;
-		overflow: auto;
-		padding-top: 27px;
-	}
-	#mainTitle {
-		width: 100%;
-		text-align: center;
-	}
-	#mainTitle p {
-	    font-size: 19px;
-		font-weight: bold;
-	}
-	#closeArea {
-	    float: right;
-		overflow: auto;
-		margin-right: 21px;
-		margin-top: -40px;
-		cursor: pointer;
-	}
-	#closeArea:hover {
-	    background: #ff5274;
-		color: #ffffff;
-	}
-	#closeArea p {
-	    font-size: 18px;
-		font-weight: bold;
-	}
-	#inputArea {
-	    width: 352px;
-		overflow: auto;
-		text-align: center;
-		margin: 0px auto;
-	}
-	#inputArea .form-control{
-	    width: 100%;
-        height:	50.4px;
-		border: solid 1px #333333;
-		border-radius: 5px;
-        background-color: #ffffff;
-		margin-bottom: 10px;
-	}
-	#inputArea .form-control:focus {
-	    border: solid 1px #ff5274;
-	}
-	#submit {
-	    width: 186px;
-		height: 50px;
-		border-radius: 84px;
-		margin: 0px auto;
-		background: #ff5274;
-		text-align: center;
-		margin-bottom: 10px;
-		cursor: pointer;
-		margin-top: 10px;
-	}
-	#submit:hover {
-	    background: #ff496d;
-	}
-	#submit p {
-	    color: #ffffff;
-		font-size: 19px;
-		line-height: 50px;
-	}
-	#alreadyHas {
-	    width: 100%;
-		text-align: center;
-	}
-	#alreadyHas .textSpan {
-	    font-size: 14px;
-        line-height: 1.5;
-        color: #333333;
-		font-family: "Microsoft Yahei";
-	}
-	#alreadyHas .linkSpan {
-	    font-size: 14px;
-        line-height: 1.5;
-        color: #ff5274;
-		cursor: pointer;
-		font-family: "Microsoft Yahei";
-	}
-	#errorContent {
-	    width: 100%;
-        height:	30px;
-		background: #fef2f2;
-        border: 1px solid #ffb4a8;
-	}
-	#errorContent p {
-	    font-size: 8px;
-		text-align: center;
-		line-height: 30px;
-		margin: 0px;
-	}
-	#errorContentCoat {
-	    width: 100%;
-        height:	47px;
-		padding-top: 17px;
-	}
-	.ddetails-header {
-	    margin:0px auto;
-		left: auto;
-		float: none;
-	}
-	.checkcode {
-	    height: 40px;
-	}
-</style>
 <body ng-app="signController" ng-controller="sign">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>

@@ -250,6 +250,10 @@ window.onload=function(){
     $(".questionCenter").first().fadeIn();
 	$("#prevStep").addClass("disabled");
 	window.parent.iFrameHeight(4);
+	
+	$("#wishListLink").on("click", function () {
+            window.parent.location.href='/wishList.html';
+	});
 };
 </script>
 </html>

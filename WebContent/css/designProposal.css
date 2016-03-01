@@ -1,0 +1,71 @@
+.headerAddtion {
+    width: 100%;
+	height: 48px;
+	text-align: center;
+	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+}
+.second_nav {
+	width: 100%;
+	background: #f2f2f2;
+    box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
+    z-index: 200;
+}
+#subNavilink {
+    width: 555px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
+.submitArea {
+    width: 100%;
+	height: 106px;
+}
+.submitArea button {
+    background-color: #ff5274;
+	color: #ffffff;
+	border-radius: 5px;
+	width: 136px;
+	height: 44px;
+	border: 0px;
+	margin-top: 30px;
+	transition:background-color 0.3s;
+	-moz-transition:background-color0.3s;
+    -webkit-transition:background-color 0.3s;
+    -o-transition:background-color 0.3s;
+}
+.submitArea button:hover{
+    background-color: #B72844;
+}
+.submitArea button p {
+    margin: 0px;
+	font-size: 16px;
+}
+
+.unseleted{
+	pointer-events:none;
+	}
+#headerMessage h3 {
+    margin: 0px;
+    margin-bottom: 20px;
+}
+@media (max-width: 1080px) {
+    .container {
+        width: 1280px!important;
+        padding: 0px;
+    }
+    #lockedTocanDiv {
+        width: 1280px!important;
+    }
+}

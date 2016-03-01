@@ -1,0 +1,122 @@
+@media (min-width: 900px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+	background-color: #F7F7F7;
+  }
+}
+p {
+    margin: 0px;
+}
+span {
+    font-family: "Microsoft Yahei";
+}
+#paymentContain {
+    width: 81%;
+	overflow: auto;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+	background: #ffffff;
+	margin: 0px auto;
+	margin-top: 35px;
+	text-align: center;
+	padding-bottom: 75px;
+}
+#infoContain {
+	overflow: auto;
+	width: 908px;
+	margin: 0px auto;
+	padding-top: 54px;
+	padding-bottom: 26px;
+}
+.statusPointer {
+    width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #eeeeee;
+	float: left;
+}
+.statusBar {
+    width: 270px;
+	height: 7px;
+	background: #eeeeee;
+	margin-left: 3px;
+	margin-right: 3px;
+	float: left;
+	margin-top: 6px;
+}
+#paymentStatusDesc {
+    width: 100%;
+	margin-top: 27px;
+	overflow: auto;
+	padding-bottom: 28px;
+}
+.descDiv {
+    overflow: auto;
+	float: left;
+}
+.first {
+    margin-right: 250px;
+}
+.second {
+    margin-right: 260px;
+}
+.last {
+    float: right!important;
+	margin-right: 0px!important;
+}
+.descDiv p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: #2e2e2e;
+	font-weight: bold;
+}
+#paymentStatusDesc .selected {
+    color: #f62f5e;
+}
+#paymentStatus .selected {
+	background: #f62f5e;
+}
+#confirmed {
+    width: 174px;
+	height: 174px;
+	border-radius: 87px;
+	border: solid 2px #2c9676;
+	margin: 0px auto;
+	text-align: center;
+}
+#confirmed span {
+    font-family: "";
+	line-height: 174px;
+	font-size: 140px;
+	color: #2c9676;
+}
+.success {
+    font-size: 40px;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    color: #2e2e2e;
+}
+.soon {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #2e2e2e;
+}
+#confirmedButton {
+    width: 186px;
+    height: 50px;
+    border-radius: 84px;
+    background-color: #f62f5e;
+	text-align: center;
+	margin: 0px auto;
+	margin-top: 23px;
+	cursor: pointer;
+}
+#confirmedButton:hover {
+    opacity: 0.8;
+}
+#confirmedButton span {
+    font-size: 13px;
+    line-height: 50px;;
+    color: #ffffff;
+}
