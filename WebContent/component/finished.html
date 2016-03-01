@@ -142,6 +142,9 @@
 		background: #d6d6d6!important;
 		box-shadow: 0 4px 0px 0 #c5c5c5!important;
 	}
+	#naviToWish {
+	    cursor : pointer;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
@@ -173,7 +176,7 @@ app.controller('products', function($scope, $http) {
 			    <div id="linkLeft">
 				</div>
 				<div id="linkRight">
-				    <p>查看愿望清单</p>
+				    <p id="naviToWish">查看愿望清单</p></a>
 				</div>
 			</div>
 		</div>
@@ -239,6 +242,9 @@ $(document.body).on("click",".productTab", function( event ) {
 		    me.hide();
 		}
 	});
+});
+$("#naviToWish").click(function() {
+	window.parent.location.href="../userWishList.html";
 });
 window.onload=function(){
     $(".questionCenter").first().fadeIn();

@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>念念--服务详细</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务" />
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script src="../js/tinymce/tinymce.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+    body {
+	    background: #F5F5F5;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+        line-height: 1.43;
+		font-family: "Microsoft Yahei"!important;
+		margin: 0px;
+		color: #565a5c;
+	}
+	h3 {
+	    line-height: 32px;
+		font-weight: 500;
+		width: 100%;
+		font-size: 23px;
+		color: #666;
+		max-height: 62px;
+		margin: 0px;
+	}
+	p {
+	    margin: 0px;
+	}
+	#topContent {
+	    width: 1101px;
+		margin: 0px auto;
+		margin-top: 30px;
+	    margin-bottom: 15px;
+		overflow: auto;
+	}
+	#topLeft {
+	    width: 690px;
+		margin-right: 65px;
+		float: left;
+	}
+	#topRight {
+        width: 343px;
+	    float: left;
+	}
+	#photosWall {
+	    width: 100%;
+		overflow: auto;
+	}
+	#photoShow {
+	    width: 100%;
+		overflow: auto;
+	}
+	#photoShowArea {
+	    overflow: auto;
+		height: 389px;
+		padding-left: 75px;
+	}
+	#photoShowArea img {
+	    width: 100%;
+	    height: 100%;
+	}
+	#photoShowArea div {
+	    transition:opacity 1s;
+	    -moz-transition: opacity 1s;
+        -webkit-transition:opacity 1s;
+        -o-transition:opacity 1s;
+		background-size: 100% 100%;
+	}
+	ul {
+	    list-style: none;
+	}
+	#sliderPhote {
+	    padding-top: 14px;
+		margin: 0px;
+		padding-left: 0px;
+		margin-left: -10px;
+	}
+	.singleSlide img{
+	    width: 126px;
+		height: 86px;
+	}
+	li {
+	    background-size: 100%;
+	}
+	.singleSlide {
+	    overflow: hidden;
+		height: 77px;
+		margin-left: 10px;
+		border: 2px solid #ffffff;
+		float: left;
+		cursor: pointer;
+		opacity: 0.5;
+	}
+	.singleSlide:hover {
+	    border: 2px solid #ed4b83;
+		opacity: 1;
+	}
+	.selectedPic {
+	    border: 2px solid #ed4b83;
+		opacity: 1;
+	}
+	#priceArea {
+	    margin-top: 23px;
+		padding-bottom: 23px;
+		border-bottom: 1px solid #dbdbdb;
+		float: left;
+		width: 100%;
+	}
+	.priceFont {
+	    color: #ed4b83;
+		font-weight: normal;
+		font-size: 16px;
+		float:left;
+	}
+	.priceBold {
+	    font-size: 34px;
+        font-weight: 100;
+		color: #ed4b83;
+		font-family: arial,Verdana,Geneva,Helvetica,"Microsoft YaHei",Simsun;
+		line-height: 1;
+	}
+	.normalPriceText {
+	    font-size: 14px;
+		color: #666;
+		margin-top: 14px;
+		margin-left: 10px;
+		background-size: 100%;
+	}
+	#commentArea {
+	    margin-top: 24px;
+		padding-bottom: 24px;
+		border-bottom: 1px solid #dbdbdb;
+		float: left;
+	}
+	#buyNumberBox {
+	    float: left;
+		padding-left: 10px;
+        float: left;
+        width: 128px;
+        border-right: 1px solid #dbdbdb;
+	}
+	.buyNum {
+	    margin-top: 2px;
+		font-size: 14px;
+		float: left;
+		line-height: 1;
+	}
+	.buyNumberCount {
+	    color: #ed4b83;
+	}
+	.StarEmpty {
+	    position: relative;
+		float: left;
+		display: block;
+		width: 100px;
+		height: 20px;
+		background: url(/js/images/starempty.png) repeat-x;
+		top: -3px;
+	}
+	.StartFull {
+	    top: -3px;
+		position: absolute;
+		float: left;
+		display: block;
+		width: 100px;
+		height: 20px;
+		background: url(/js/images/star.png) repeat-x;
+		left: 20px;
+	}
+	#startGroup {
+	    position: relative;
+		padding-left: 20px;
+		float: left;
+		width: 183px;
+	}
+	#commentNum {
+	    margin-left: 15px;
+        color: #666;
+		margin-top: 2px;
+		font-size: 14px;
+		float: left;
+		line-height: 1;
+		color: #666;
+	}
+	#serverDescription {
+	    color: #666;
+		margin: 15px 0;
+		width: 100%;
+		float: left;
+		font-size: 14px;
+	}
+	#buyButton {
+	    float: left;
+        margin-top: 5px;
+        text-align: center;
+        position: relative;
+	}
+	#buyButtonSelf {
+	    background: #ed4b83;
+		color: #FFF;
+		font-size: 20px;
+		width: 222px;
+		height: 44px;
+		line-height: 44px;
+		border-radius: 3px;
+		display: block;
+		cursor: pointer;
+		margin: auto;
+	}
+	#buyButtonSelf:hover {
+	    background: #AF1E50;
+	}
+	#addToWishlist {
+	    text-align: left;
+		width: 90px;
+		position: absolute;
+		right: -124px;
+		top: 15px;
+		height: 15px;
+		line-height: 1;
+		padding-left: 25px;
+		background: url(/js/images/wishlisticon.png) left center no-repeat;
+		font-size: 14px;
+		cursor: pointer;
+	}
+	#middleContent {
+	    height: 40px;
+        background: #ffffff;
+        width: 100%;
+		box-shadow: 0 4px 3px -2px #f1f1f1;
+	}
+	#bottomContent {
+	    width: 1124px;
+		margin: 0px auto;
+		padding-left: 12.5px;
+		padding-right: 12.5px;
+	}
+	#bottomLeft {
+	    padding-left: 12.5px;
+		padding-right: 12.5px;
+		width: 690px;
+		overflow: auto;
+		float: left;
+	}
+	#tinymce {
+	    background-color: #F5F5F5;
+	}
+	.mce-panel {
+        border: none!important;
+    }
+	.mce-toolbar-grp {
+	    display: none;
+	}
+	#bottomRight {
+	    width: 315px;
+		height: 360px;
+		background-color: #ffffff;
+		float: left;
+		margin-left: 780px;
+		top: 0px;
+		position: fixed;
+		display: none;
+		z-index: 11;
+	}
+	.headerBar {
+	    background-color: rgba(60,63,64,0.9);
+		border: 0;
+		color: #fff;
+		padding: 6px 20px;
+		text-transform: capitalize;
+		width: 100%;
+		z-index: 1001;
+		overflow-y: hidden;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+	}
+	.InfomationCoat {
+	    padding: 20px;
+		width: 100%;
+		box-sizing: border-box!important;
+		-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+	}
+	.priceArea span {
+	    font-size: 24px;
+		font-weight: normal;
+		line-height: 1.1;
+		box-sizing: border-box!important;
+		-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+	}
+	.addToCart {
+	    white-space: normal;
+        width: 100%;
+		border-color: #ed4b83;
+		border-bottom-color: #e00007;
+		background-color: #ed4b83;
+		color: #fff;
+		box-sizing: border-box!important;
+		-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+	   	padding: 9px 27px;
+        font-size: 16px;
+		border-radius: 2px;
+		border: 1px solid;
+		text-align: center;
+		vertical-align: middle;
+		line-height: 1.43;
+		-webkit-user-select: none;
+		cursor: pointer;
+		margin-top: 35px;
+	}
+	.addToCart:hover {
+	    background: #AF1E50;
+	}
+	.addToWish {
+	    white-space: normal;
+        width: 100%;
+		border-color: #ccc;
+		background-color: #ffffff;
+		color: #666;;
+		box-sizing: border-box!important;
+		-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+	   	padding: 9px 27px;
+        font-size: 16px;
+		border-radius: 2px;
+		border: 1px solid;
+		text-align: center;
+		vertical-align: middle;
+		line-height: 1.43;
+		-webkit-user-select: none;
+		cursor: pointer;
+		margin-top: 15px;
+		background: url('/js/images/wishbtnicon.png') 80px 13px no-repeat;
+		padding-left: 60px
+	}
+	.addToWish:hover {
+	    opacity: 0.7;
+	}
+	.buttonDesc {
+	    font-size: 14px;
+		font-weight: lighter;
+		text-align: center;
+		padding-top: 6px;
+	}
+	#productName {
+	    font-weight: bold;
+		font-size: 18px;
+		text-align: center;
+		color: #666;
+	}
+	.goToOtherPlace {
+	    text-align: center;
+		color: #ed4b83;
+		cursor: pointer;
+		float: right;
+		margin-top: 40px;
+	}
+	#referenceContent {
+	    width: 1100px;
+		margin: 0px auto;
+		overflow: auto;
+	    box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+		border-bottom: 1px solid #ccc;
+		margin-bottom: 30px;
+		margin-top: -30px;
+	}
+	h4 {
+	    font-size: 18px;
+		margin-bottom: 25px;
+		padding-left: 13px;
+	}
+	#referenceContainer {
+	    width: 100%;
+	}
+	.singleReference {
+	    width: 25%;
+		box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+		float: left;
+		cursor: pointer;
+		padding-left: 12.5px;
+		padding-right: 12.5px;
+	}
+	.imageDiv {
+	    height: 210px;
+		overflow: hidden;
+	}
+	.imageDiv img {
+	    width: 100%;
+		height: 100%;
+	}
+	.priceFloat {
+        padding: 7px 10px;
+		background-color: rgba(60,63,64,0.9);
+		color: #fff;
+		position: absolute;
+		margin-left: 20px;
+		font-size: 24px;
+		margin-top: -80px;
+	}
+	.refDesc {
+	    padding-top: 10px;
+		font-size: 16px;
+		padding-left: 6px;
+		padding-bottom: 10px;
+	}
+	#otherType {
+	    width: 1100px;
+		margin: 0px auto;
+	}
+	#otherNavi {
+	    width: 100%;
+		padding-left: 13px;
+		padding-bottom: 40px;
+	}
+	#otherNavi a{
+		font-size: 14px;
+		text-decoration: none;
+		color: #82888a;
+		cursor: pointer;
+	}
+	#otherNavi a:hover{
+	    text-decoration: underline;
+	}
+	#middleContainer {
+	    width: 1100px;
+		margin: 0px auto;
+	}
+	.singleNavi {
+	    color: #82888a;
+		font-size: 14px;
+		padding: 10px 14px;
+		float: left;
+		cursor: pointer
+	}
+	.fixDiv {
+	    position: fixed;
+		top: 0px;
+		opacity: 1!important;
+		z-index: 10!important;
+		background: #333!important;
+	}
+	.fixSingleNavi {
+	    color: #ffffff;
+		text-shadow: 0 -4px 5px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
+	}
+	@media (max-width: 680px) {
+        .container {
+            width: 1280px!important;
+        }
+    }
+    .disableDiv {
+	   opacity: 0.6;
+	}
+</style>
+<body onselectstart="return false" ng-app="detailApp" ng-controller="details">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html" frameborder = 0 height = "67px"></IFRAME>
+<div class="container">
+
+    <div id="topContent">
+ 	    <div id="topLeft">
+		    <div id="photosWall">
+			    <div id="photoShow">
+				    <div id="photoShowArea">
+					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1;">
+					        <img src="../js/images/{{wish.imgUrl}}"></img>
+						</div>
+					</div>
+					<ul id="sliderPhote" hidden>
+					    <li>
+						    <div class="singleSlide" id="1">
+							    <img src="/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							</div>
+						</li>
+						<li>
+						    <div class="singleSlide" id="2">
+							    <img src="/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							</div>
+						</li>
+						<li>
+						    <div class="singleSlide" id="3">
+							    <img src="/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							</div>
+						</li>
+						<li>
+						    <div class="singleSlide" id="4">
+							    <img src="/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							</div>
+						</li>
+						<li>
+						    <div class="singleSlide" id="5">
+							    <img src="/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="topRight">
+		    <h3 ng-bind="wish.wishName"></h3>
+			<div id="priceArea">
+			    <p class="priceFont"><span class="priceBold">￥<span ng-bind="wish.sellingPrice"></span></span>起</p>
+				<p class="priceFont normalPriceText">门市价<s>￥<span ng-bind="wish.xianenPrice"></span></s></p>
+			</div>
+			<div id="commentArea">
+			    <div id="buyNumberBox">
+				    <span class="buyNum">已有<span class="buyNumberCount">0</span>人购买</span>
+				</div>
+				<div id="startGroup">
+				    <span>
+					    <span class="StarEmpty"></span>
+						<span class="StartFull"></span>
+					</span>
+					<span id="commentNum">
+					    5分(<span>1</span>)
+					</span>
+				</div>
+			</div>
+			<div id="serverDescription">
+			    <span ng-bind="wish.remark"></span>
+			</div>
+			<div id="buyButton">
+			    <span id="buyButtonSelf" class="saveToCart">加入购物车</span>
+				<span id="addToWishlist" class="addToWishBtn">加入愿望清单</span>
+			</div>
+		</div>
+	</div>
+	<div id="middleContent">
+	    <div id="middleContainer">
+		    <div class="singleNavi">
+			    服务属性
+			</div>
+			<div class="singleNavi">
+			    服务细节
+			</div>
+			<div class="singleNavi">
+			    其他服务
+			</div>
+		</div>
+	</div>
+	<div id="bottomContent">
+	    <div id="bottomLeft">
+		    <div>
+                 <textarea id="mainText"></textarea>
+				 <button onclick="saveToMessage()">保存编辑内容</button>
+            </div>
+		</div>
+		<div id="bottomRight">
+		    <div class="headerBar">
+			    <div class="priceArea">
+				    <span >￥{{wish.sellingPrice}}</span>
+				</div>
+			</div>
+			<div class="InfomationCoat">
+			    <span id="productName" ng-bind="wish.wishName"></span>
+			    <div class="addToCart saveToCart"><span>加入购物车</span></div>
+				<div class="buttonDesc"><span>加入购物车以直接购买</span></div>
+			    <div class="addToWish addToWishBtn"><span>加入愿望清单</span></div>
+				<div class="buttonDesc"><span>你可以把此项服务添加到愿望清单</span></div>
+				<a class="goToOtherPlace">去看看同类别</a>
+			</div>
+		</div>
+	</div>
+	<div id="referenceContent">
+		<h4>相类似产品</h4>
+		<div id="referenceContainer">
+			<div class="singleReference" ng-repeat="relevantWish in relevantWishs" id="{{relevantWish.wishId}}">
+			    <div class="imageDiv">
+				    <image src="../js/images/{{relevantWish.imgUrl}}"></image>
+				</div>
+				<div class="priceFloat">
+				    <span>￥</span><span>{{relevantWish.sellingPrice}}</span>
+				</div>
+				<div class="addToWishFloat">
+				</div>
+				<div class="refDesc">
+				    <span>{{relevantWish.wishName}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="otherType">
+	    <h4>您还可以看看其他的类别</h4>
+		<div id="otherNavi">
+		    <a href="catagoryProduct.html?cata=II-JJ">骨灰盒</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=SS">寿衣</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=M-S-W">祭祀随葬</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=G-H-L-T">礼仪服务</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=VV-O">祭扫用品</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=P-Q-R-U">套装用品</a>&nbsp;·
+			<a href="catagoryProduct.html?cata=NN-X-N">其他产品</a>
+		</div>
+	</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+</body>
+<script>
+var content = '';
+    tinymce.init({ 
+	    'selector':'textarea',
+	    'menubar':false,
+	    'readonly':false,
+		'statusbar': false,
+	    'plugins': ["advlist autolink lists charmap print preview hr anchor pagebreak spellchecker",
+	        "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime  nonbreaking",
+	        "save table contextmenu directionality emoticons paste textcolor", "image imagetools", "autoresize colorpicker directionality", "lineheight"],
+	    'toolbar': "insertfile undo redo | styleselect fontselect fontsizeselect| bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      | print preview fullpage | forecolor backcolor | image | fontsizeselect lineheight",
+	    'width':"100%",
+		'background-color': "#F5F5F5",
+		'font_formats' : "Microsoft Yahei=Microsoft Yahei",
+		'fontsize_formats' : "8px 9px 10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px",
+		setup : function(ed) {
+			ed.on('init', function(args) {
+			    if (content !== '') {
+                    tinymce.get('mainText').getBody().innerHTML = content;
+				}
+            });
+		}
+	});
+ var app = angular.module('detailApp', []),
+    length = location.search.length,
+	type = location.search.substring(4, length),
+	localMessage,
+	wishInLocal,
+	wishlistId,
+	wishlistDetailId,
+	cartDetailId;
+app.controller('details', function($scope, $http) {
+    $http.get("/wish/list?wishId="+type).success(function(response) {
+	    $scope.wish = response[0];
+	    wishInLocal = response[0];
+	    $http.get("/wish/list?generalCode="+response[0].generalCode).success(function(response) {
+	    	if (response.length > 4) {
+		        $scope.relevantWishs = response.slice(0, 4);
+	    	}
+	    	else {
+	    		$scope.relevantWishs = response;
+	    	}
+			unmusk();
+		});
+	});
+	$http.get("/message/list?wishId="+type).success(function(response) {
+		localMessage = response[0].messageId;
+		if (tinymce.get('mainText') !== null) {
+		    tinymce.get('mainText').getBody().innerHTML = response[0].content;
+	    }
+		else {
+		    content = response[0].content;
+		}
+	});
+});
+</script>
+<script>
+    muskCurrentPage();
+    function validateInWishList() {
+    	$.ajax({
+    		url: '/wishlist/list',
+    		type: 'GET',
+    		contentType: "application/json; charset=UTF-8",
+    		success:function(data){
+    	        var resultCode =data;
+    			if (data.length > 0) {
+    	            wishlistId = data[0].wishlistId;
+    			}
+    		    $.ajax({
+    				url: '/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
+    				type: 'get',
+    				success:function(data){
+    					var response = data;
+    					for (var i=0;i<response.length;i++) {
+    					    if (response[i].wishId === wishInLocal.wishId) {
+    					    	$(".addToWishBtn").addClass("disableDiv");
+    					    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
+    					    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
+    					    	wishlistDetailId = response[i].wishDetailId;
+    					    }
+    					}
+    				},
+    				error: function(error) {
+    					var response = error;
+    					//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+    				}
+    			});
+    		},
+    		error: function(error) {
+    		}
+    	});
+    }
+    function validateInCart() {
+    	$.ajax({
+    		url: '/shoppingCartController/listCart',
+    		type: 'GET',
+    		contentType: "application/json; charset=UTF-8",
+    		success:function(data){
+    	        var resultCode =data;
+    	        if (data !== null) {
+    			    $.ajax({
+    					url: '/wishlistDetail/getAllCartList?cartId='+data.cartId,
+    					type: 'get',
+    					success:function(data){
+    						var response = data;
+    						for (var i=0;i<response.length;i++) {
+    						    if (response[i].wishId === wishInLocal.wishId) {
+    						    	$(".saveToCart").addClass("disableDiv");
+    						    	$(".saveToCart")[0].innerText = "已添加购物车";
+    						    	$(".saveToCart")[1].innerText = "已添加购物车";
+    						    	cartDetailId = response[i].cartDetailId;
+    						    }
+    						}
+    					},
+    					error: function(error) {
+    						var response = error;
+    						//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+    					}
+    				});
+    	        }
+    		},
+    		error: function(error) {
+    		}
+    	});
+    }
+    function addToWishlistAfterCheck(object) {
+    	$.ajax({
+    		url: '/wishlistDetail/addSingleToWish?wishId='+wishInLocal.wishId,
+    		type: 'post',
+    		contentType: "application/json; charset=UTF-8",
+    		data: [],
+    		dataType:'json',
+    		success:function(data){
+    			$(".addToWishBtn").addClass("disableDiv");
+		    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
+		    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
+		    	wishlistDetailId = data[0].wishDetailId;
+    			unmusk();
+    		},
+    		error: function(error) {
+    			unmusk();
+    		}
+    	});
+    }
+    function removeFromWishlistAfterCheck(object) {
+    	$.ajax({
+    		url: '/wishlistDetail/removeSingleFromWish?wishlistDetailId='+wishlistDetailId,
+    		type: 'delete',
+    		contentType: "application/json; charset=UTF-8",
+    		dataType:'json',
+    		success:function(data){
+    			$(".addToWishBtn").removeClass("disableDiv");
+		    	$(".addToWishBtn")[0].innerText = "加入愿望单";
+		    	$(".addToWishBtn")[1].innerText = "加入愿望单";
+    			unmusk();
+    		},
+    		error: function(error) {
+    			unmusk();
+    		}
+    	});
+    }
+    function addToCartAfterCheck(object) {
+    		$.ajax({
+    			url: '/shoppingCartController/addSingleToCart?wishId='+wishInLocal.wishId,
+    			type: 'post',
+    			contentType: "application/json; charset=UTF-8",
+    			data: [],
+    			dataType:'json',
+    			success:function(data){
+    				$(".saveToCart").addClass("disableDiv");
+			    	$(".saveToCart")[0].innerText = "已添加购物车";
+			    	$(".saveToCart")[1].innerText = "已添加购物车";
+    		    	window.frames[0].addCountOfShoppingCart(1);
+    		    	cartDetailId = data[0].cartDetailId;
+    				unmusk();
+    			},
+    			error: function(error) {
+    				unmusk();
+    			}
+    		});
+    }
+    function removeFromCartAfterCheck(object) {
+		$.ajax({
+			url: '/shoppingCartController/removeSingleFromCart?cartDetailId='+cartDetailId,
+			type: 'delete',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			success:function(data){
+				$(".saveToCart").removeClass("disableDiv");
+		    	$(".saveToCart")[0].innerText = "加入购物车";
+		    	$(".saveToCart")[1].innerText = "加入购物车";
+		    	window.frames[0].addCountOfShoppingCart(-1);
+				unmusk();
+			},
+			error: function(error) {
+				unmusk();
+			}
+		});
+    }
+    function addToWishlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		addToWishlistAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
+    function removeFromWishlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		removeFromWishlistAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
+    function addToCartlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		addToCartAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
+    function removeFromCartlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		removeFromCartAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
+    $(".addEmergency").click(function() {
+	    if ($("#emergencyContactInfo").is(":hidden")) {
+		    $("#emergencyContactInfo").fadeIn();
+		}
+		else {
+		    $("#emergencyContactInfo").fadeOut();
+		}
+	});
+	$(".singleSlide").click(function() {
+	    var id = parseInt($(this)[0].id);
+		$(".singleSlide").removeClass("selectedPic");
+        $(this).addClass("selectedPic");
+	    $("#photoShowArea").find("div").css({'opacity': 0});
+		$($("#photoShowArea").find("div")[id-1]).css({'opacity': 1});
+	});
+	$("body").on("click", ".singleReference", function() {
+		window.location.href='productDetail3.html?id='+$(this)[0].id;
+	});
+	$(".goToOtherPlace").click(function() {
+		var catas = ["II-JJ","SS","M-S-W","G-H-L-T","VV-O","P-Q-R-U","NN-X-N"];
+		for (var i=0; i< catas.length; i++) {
+			var cata = catas[i];
+			var types = cata.split("-");
+			for (var j=0; j< types.length; j++) {
+				if (types[j] === wishInLocal.generalCode) {
+					window.location.href= "/catagoryProduct.html?cata="+cata;
+				}
+			}
+		}
+	});
+	$(window).scroll(function(){
+		var topPosition = document.body.scrollTop,
+		    maxTopPosition = $("#referenceContent")[0].offsetTop;
+		if (topPosition > 300 && (maxTopPosition - topPosition > 300)) {
+			$("#bottomRight").show();
+		}
+		else {
+			$("#bottomRight").hide();
+		}
+		
+		if (topPosition > 500) {
+		    $("#middleContent").addClass("fixDiv");
+			$(".singleNavi").addClass("fixSingleNavi");
+		}
+		else {
+		$("#middleContent").removeClass("fixDiv");
+		    $(".singleNavi").removeClass("fixSingleNavi");
+		}
+	});
+	window.onload = function() {
+	    $(tinymce.get('mainText').iframeElement).contents().find("body").css({
+	        'background-color': '#F5F5F5'
+	    });
+		validateInWishList();
+		validateInCart();
+		$(".saveToCart").click(function() {
+			if (!$(this).hasClass("disableDiv")){
+				addToCartlist();
+			}
+			else {
+				removeFromCartlist();
+			}
+		});
+		$(".addToWishBtn").click(function() {
+			if (!$(this).hasClass("disableDiv")){
+			    addToWishlist();
+			}
+			else {
+				removeFromWishlist();
+			}
+		});
+	};
+	function saveToMessage() {
+	    muskCurrentPage();
+		var message = {
+			messageId: localMessage,
+	        wishId: type,
+			content: tinymce.get('mainText').getBody().innerHTML
+		};
+		$.ajax({
+			url: '/message/add',
+			type: 'post',
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(message),
+			dataType:'json',
+			success:function(data){
+                unmusk();
+				alert("修改已经保存成功!");
+				localMessage = data;
+			},
+			error: function(error) {
+                unmusk();
+				alert("加入购物车失败!");
+			}
+		});
+	}
+</script>
+</html>

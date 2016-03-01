@@ -403,7 +403,9 @@ function handleFinishButton() {
 		$("#nextStep").removeClass("disabled");
 	}
     else {
-		$("#nextStep").addClass("disabled");
+    	if ($("#nextStep").hasClass("finishedButton")) {
+		    $("#nextStep").addClass("disabled");
+    	}
     }
 }
 function handleButton() {
@@ -422,6 +424,7 @@ function handleButton() {
 	if (count>0 && !lastSlide.is(':hidden')) {
 	    $("#nextStep").find("p")[0].innerText = "完成";
 		$("#nextStep").addClass("finishedButton");
+		handleFinishButton();
 	}
     else {
 	    $("#nextStep").find("p")[0].innerText = "下一步";
@@ -587,7 +590,8 @@ $(document.body).on("click",".productTab", function( event ) {
 });
 $(document.body).on("click",".optionIcon", function( event ) {
     var tabPage = $(this).closest(".questionCenter"),
-	    count = $(".questionCenter").length;
+	    count = $(".questionCenter").length,
+	    handleBtn = 1;
     if ($(this).hasClass("selected")) {
 	    $(this).removeClass("selected");
 	    handleFinished(tabPage);
@@ -606,14 +610,17 @@ $(document.body).on("click",".optionIcon", function( event ) {
 				handleCursor($("#"+tabId), 1);
                 $(this).next().fadeIn();
 
-				if (idx === count-2) {
-					handleFinishedButton(tabPage);
+				if (idx === count-2 || idx === count-1) {
+					handleBtn = 0;
 				}
+			}
+			else {
+				handleBtn = 0;
 			}
 			return false;        
 		}
     });
-	handleFinished(tabPage, 1);
+	handleFinished(tabPage, handleBtn);
 	window.parent.iFrameHeight(1);
 	handleButton();
 });

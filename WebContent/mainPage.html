@@ -42,6 +42,9 @@ var _hmt = _hmt || [];
     #productShowCoat {
         width: 1100px!important;
     }
+    #productShow {
+        height: 557px!important;
+    }
     #subContentLeft {
         width: 348px!important;
         height: 334px!important;
@@ -64,7 +67,10 @@ var _hmt = _hmt || [];
       width: 221px!important;
     }
     #topHalfLevel {
-        height: 550px!important
+        height: 550px!important;
+    }
+    .transitionImg {
+        height: 550px!important;
     }
     #topHalfLevel h1 {
         padding-top: 150px!important;
@@ -95,8 +101,15 @@ var _hmt = _hmt || [];
     	width: 950px;
     }
 }
-@media (max-width: 680px) {
+@media (max-width: 1080px) {
     .container {
+        width: 1280px!important;
+        padding: 0px;
+    }
+    .transitionImg {
+        width: 1280px!important;
+    }
+    .membersContent {
         width: 1280px!important;
     }
 }
@@ -134,16 +147,25 @@ body {
 .mainContent1 {
     position: relative;
 }
-#topHalfLevel h5 {
+#dynamicTextCoat span {
 	margin: 0px auto;
-	color: white;
-	padding-bottom: 50px;
-	font-size: 17px;
 	margin-top: 30px;
 	font-weight: lighter;
 	width: 570px;
 	line-height: 20px;
 }
+#dynamicTextCoat {
+    font-size: 30px;
+    height: 60px;
+    padding-top: 10px;
+}
+#fadeText {
+    animation: blink .7s infinite;
+    opacity: 1;
+    font-size: 34px;
+    color: white;
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .subtext {
     font-size: 12px;
 	color: #ffffff;
@@ -660,6 +682,10 @@ body {
 		height: 708px;
 		overflow: hidden;
 		text-align: left;
+		transition: opacity 1s;
+	    -o-transition: opacity 1s;
+	    -webkit-transition: opacity 1s;
+	    position: absolute;
 	}
 	#memberDesc1 {
 	    background-image:url('/js/images/jiachechuyoudenianqingren-123-min.jpg');
@@ -727,6 +753,7 @@ body {
 	    width: 890px;
 	    margin: 0px auto;
 	    margin-top: -234px;
+	    position: relative;
 	}
 	.singleMember {
 	    width: 23%;
@@ -1001,9 +1028,8 @@ body {
 	    margin: 0px auto;
 	}
 	#calculator {
-	    float: left;
+	    float: right;
 	    width: 600px;
-	    margin-left: 110px;
 	    padding-right: 20px;
 	}
 	#normalFee {
@@ -1076,16 +1102,14 @@ body {
 	    background: #ffffff;
 	}
 	#statusBarDesc {
-	    width : 650px;
 	    margin-top: 20px;
-	    float: left;
-	    margin-left: 100px;
+	    float: right;
 	}
 	#firstDiv {
 	    margin-left: 0px!important;
 	}
 	#statusBarDesc div {
-	    float: left;
+	    float: right;
 	    margin-left: 104px;
 	}
 	#statusBarDesc p {
@@ -1093,9 +1117,8 @@ body {
 	    line-height: 21px;
 	}
 	#subContentRight {
-	    width: 715px;
 	    overflow: auto;
-	    float: left;
+	    float: right;
 	}
 	#detailCalculator {
 	    width: 275px;
@@ -1247,16 +1270,48 @@ body {
         position: relative;
         min-width: 800px;
     }
+    .dynamicStyle1 {
+        color: #7fb800;
+    }
+    .dynamicStyle2 {
+        color: #ffb400;
+    }
+    .dynamicStyle3 {
+        color: #90caf9;
+    }
+    .transitionImg {
+        height: 700px;
+        overflow: hidden;
+        position: absolute;
+        width: 100%;
+        transition:opacity 1s;
+	    -moz-transition:opacity 1s;
+        -webkit-transition:opacity 1s;
+        -o-transition:opacity 1s;
+    }
+    .transitionImg img {
+        position: relative;
+        width: 100%;
+    }
 </style>
 <body onselectstart="return false">
 <div class="container" id="zoom">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
+<div class="transitionImg" style="opacity: 1">
+    <img src="/js/images/Bitmap.jpg"></img>
+</div>
+<div class="transitionImg" style="opacity: 0">
+    <img src="/js/images/wrist-watch-free-license-cc0.jpg"></img>
+</div>
+<div class="transitionImg" style="opacity: 0">
+    <img src="/js/images/1-tulip-tree-leaf.jpg"></img>
+</div>
 <div id="topHalfLevel">
-<!--    <div class="pictureMaskDiv"></div> -->
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
-		<h5 color="white">念念提供综合性一站式殡葬服务体验。<br>
-		告诉我们需求，我们为您定制最适合的服务。</h5>
+		<div id="dynamicTextCoat">
+		    <span id="dynamicText" class="dynamicStyle1"></span><span id="fadeText">|</span>
+		</div>
 	</div>
 	<div id="howToHelp">
 	    <div id="message">
@@ -1307,38 +1362,38 @@ body {
 			</div>
 		</div>
 		<div id="statusBarDesc">
-		    <div id="firstDiv"><p>+ 基础葬礼</p></div>
-		    <div><p>+ 入殓师</p></div>
-		    <div><p>+ 法事服务</p></div>
 		    <div><p>+ 告别式</p></div>
+		    <div><p>+ 法事服务</p></div>
+		    <div><p>+ 入殓师</p></div>
+		    <div id="firstDiv"><p>+ 基础葬礼</p></div>
 		</div>
 		<div id="detailCalculator"><p>详细计算</p></div>
 	</div>
 </div>
 <div id="members">
     <div id="memebersCoat">
-		<div class="membersContent" id="memberDesc2">
+		<div class="membersContent" id="memberDesc2" style="opacity:1">
 			<div class="memberDesc">
 				<div class="memberState">
 					<p>我先生几年前过世了，对全家人来说是晴天霹雳，我和孩子们都沉浸在无尽的悲痛之中，生活负担更是变得沉重起来，一直持续了好多年，才慢慢走出阴霾。现在有了念念能够为我进行提前规划，这样也彻底免去了我将来的后顾之忧，我和儿女们就都可以放心了。</p>
 				</div>
 			</div>
 		</div>		
-		<div class="membersContent" id="memberDesc1">
+		<div class="membersContent" id="memberDesc1" style="opacity:0">
 			<div class="memberDesc">
 				<div class="memberState">
 					<p>我是独生子女，亲戚们也都不在身边，幸亏有念念的帮助，不然我父亲去世的时候，真要手无足措了！</p>
 				</div>
 			</div>
 		</div>
-		<div class="membersContent" id="memberDesc3">
+		<div class="membersContent" id="memberDesc3" style="opacity:0">
 			<div class="memberDesc">
 				<div class="memberState">
 					<p>以往每到清明、冬至要准备点什么都得让老伴去店里买。后来儿子教我们，只要上念念网，轻轻松松鼠标一点，要的东西很快就送到了。而且，同样的东西，在念念买便宜很多，真是让我们两老省钱又省心！</p>
 				</div>
 			</div>
 		</div>
-		<div class="membersContent" id="memberDesc4">
+		<div class="membersContent" id="memberDesc4" style="opacity:0">
 			<div class="memberDesc">
 				<div class="memberState">
 					<p>老伴过世后，心里总是空荡荡的，经常想起她。但岁数越来越大了，儿子儿媳又在国外忙于工作，每到老伴的忌日，想去探望她就成了我的烦心事。好在有念念的一群孩子们，每次只要我打一个电话，他们马上就会为我准备好一切，并专人专车接送我，真的很感谢他们！</p>
@@ -1495,12 +1550,12 @@ function muskPageForProduct(id, type) {
 };
 </script>
 <script>
-var imageArray = ['Bitmap.jpg', 'wrist-watch-free-license-cc0.jpg', '1-tulip-tree-leaf.jpg'];
+/* var imageArray = ['Bitmap.jpg', 'wrist-watch-free-license-cc0.jpg', '1-tulip-tree-leaf.jpg'];
 var number = GetRandomNum(1, 3);
 var picName = imageArray[number-1];
 $("#topHalfLevel").css({
 	"background-image": "url('/js/images/"+picName+"')"
-});
+}); */
 $(".statusBarPoint").click(function() {
 	var id = parseInt($(this)[0].id) - 1,
 	    left = id* 175 - 15;
@@ -1526,93 +1581,21 @@ $(".statusBarPoint").click(function() {
     	$("#savePrice")[0].innerText = '17000';
     }
 });
-$(function() {
-	$("#message").click(function() {
-		window.location.href = "designProposal.html";
-	});
-    $('.ck-slide').ckSlide({
-				autoPlay: true,//默认为不自动播放，需要时请以此设置
-				dir: 'x',//默认效果淡隐淡出，x为水平移动，y 为垂直滚动
-				interval:3000//默认间隔2000毫秒
-				
-			});
-	function runEffect(parentId) {
-	    var options = {};
-	    $("#"+parentId).effect( "drop", options, 500, callback );
-	};
-	
-	function callback() {
-      setTimeout(function() {
-        $( "#question2" ).fadeIn();
-      }, 500 );
-    };
-	
-	$( ".optionButton" ).click(function() {
-	    var parentId = this.parentElement.parentNode.parentElement.id;
-        runEffect(parentId);
-        return false;
-    });
-	$("#messageButton").click(function() {
-	    var messageValue = $("#messageSent")[0].value,
-		    id = Date.parse(new Date()) + '123',
-		    data = {
-			    content: messageValue,
-				messageId: id
-			};
-
-		if (messageValue && messageValue != '') {
-			$.ajax({
-				url: '../message/add',
-				data: data,
-				type: 'post',
-				dataType:'json',
-				success:function(data){
-				    alert("您的信息我们已经收到！");
-				},
-				error: function(error) {
-					alert("您的信息我们已经收到！");
-					$("#messageSent")[0].value = '';
-				}
-			});
-		}
-	});
-	$("#messageUsLeft").click(function() {
-	    var messageValue = $("#messageSent")[0].value,
-		    id = Date.parse(new Date()) + '123',
-		    data = {
-			    content: messageValue,
-				messageId: id
-			};
-
-		if (messageValue && messageValue != '') {
-			$.ajax({
-				url: '../message/add',
-				data: data,
-				type: 'post',
-				dataType:'json',
-				success:function(data){
-				    alert("您的信息我们已经收到！");
-				},
-				error: function(error) {
-					alert("您的信息我们已经收到！");
-					$("#messageSent")[0].value = '';
-				}
-			});
-		}
-	});
-	$(".startDesignButton").click(function() {
-	    window.location.href='designProposal.html';
-	});
-	$("#startButton").click(function() {
-	    window.location.href='designProposal.html';
-	});
-	$(".startPurchseBtn").click(function() {
-	    window.location.href='/productAndService.html';
-	});
-	$(".cemeteryBtn").click(function() {
-	    window.location.href='/cemeteryList.html';
-	});
-})
+$(".startDesignButton").click(function() {
+    window.location.href='designProposal.html';
+});
+$("#startButton").click(function() {
+    window.location.href='designProposal.html';
+});
+$(".startPurchseBtn").click(function() {
+    window.location.href='/productAndService.html';
+});
+$(".cemeteryBtn").click(function() {
+    window.location.href='/cemeteryList.html';
+});
+$("#message").click(function() {
+    window.location.href='designProposal.html';
+});
 window.onload=function(){
 	$(".productItem").click(function() {
 			muskPageForProduct();
@@ -1645,8 +1628,80 @@ $("#detailCalculator").click(function() {
 });
 $("body").on("click",".singleMember",function() {
 	var id = $(this)[0].id;
-    $(".membersContent").fadeOut();
-	$("#memberDesc"+id).fadeIn();
+    $(".membersContent").css({'opacity': '0'});
+	$("#memberDesc"+id).css({'opacity': '1'});
 });
+var allfeatures = ['给他一个合适的葬礼',
+                   '记录下他生前的每一个瞬间',
+                   '让他的意愿在葬礼上实现'],
+    features = allfeatures[0].replace(/(.)(?=[^$])/g,"$1,").split(","),
+    featureIndex = 0;
+    index = 0,
+    start = true,
+    remove = false;
+var changeText = function() {
+	var target = $(".mainContent1").find("#dynamicText");
+	if (start) {
+		remove = false;
+		if (index < features.length) {
+		    target[0].innerText = target[0].innerText + features[index];
+		    index = index + 1;
+		}
+		else {
+			start = false;
+			index = 0;
+			if (featureIndex === allfeatures.length - 1) {
+				featureIndex = 0;
+			}
+			else {
+				featureIndex = featureIndex + 1;
+			}
+			features = allfeatures[featureIndex].replace(/(.)(?=[^$])/g,"$1,").split(",");
+			setTimeout(function() {
+				remove = true;
+			}, 3000);
+		}
+	}
+};
+var removeText = function() {
+	var target = $(".mainContent1").find("#dynamicText");
+	if (remove) {
+	    target[0].innerText = target[0].innerText.substring(0, target[0].innerText.length - 1);
+	    if (target[0].innerText === '') {
+	    	if (!start) {
+		    	if (target.hasClass('dynamicStyle1')) {
+		    		target.removeClass('dynamicStyle1');
+		    		target.addClass('dynamicStyle2');
+		    		$(".transitionImg").css({"opacity": 0})
+		    		$($(".transitionImg")[1]).css({"opacity": 1});
+		    	}
+		    	else if (target.hasClass('dynamicStyle2')) {
+		    		target.removeClass('dynamicStyle2');
+		    		target.addClass('dynamicStyle3');
+		    		$(".transitionImg").css({"opacity": 0})
+		    		$($(".transitionImg")[2]).css({"opacity": 1});
+		    	}
+		    	else {
+		    		target.removeClass('dynamicStyle3');
+		    		target.addClass('dynamicStyle1');
+		    		$(".transitionImg").css({"opacity": 0})
+		    		$($(".transitionImg")[0]).css({"opacity": 1});
+		    	}
+	    	}
+	    	start = true;
+	    }
+	}
+}
+var fadeText = function() {
+	var target = $(".mainContent1").find("#fadeText");
+	if (target.is(":hidden")) {
+		target.fadeIn();
+	}
+	else {
+		target.fadeOut();
+	}
+};
+window.setInterval("changeText()",100);
+window.setInterval("removeText()",50);
 </script>
 </html>

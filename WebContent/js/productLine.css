@@ -1,0 +1,227 @@
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+	text-align: center;
+	height: 100%;
+	background: transparent;
+}
+.carousel-control {
+    background-image: none!important;
+	width: 15px;
+	height: 54px;
+	width: 54px;
+    top: 100px;
+}
+.arrowCoat {
+	width: 54px;
+    height: 54px;
+    border-radius: 27px;
+	background-color: #f6f6f6;
+}
+.arrowCoat .headerArrow {
+	line-height: 45px;
+	color: #c6c6c6;
+	font-size: 50px;
+	margin: 0;
+}
+#maskDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    opacity: 0.5;
+}
+@media (max-width: 1380px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+  }
+  body {
+	  padding: 0px;
+	  min-width: 1000px;
+  }
+  .productItem  {
+      width: 280px!important;
+  }
+  .imageDiv {
+      height: 236px!important;
+  }
+  .productCarousel {
+      width: 1022px!important;
+  }
+  #cemeteryImage img {
+      width: 900px!important;
+  }
+  .productCarousel {
+      padding-top: 30px!important;
+      height: auto!important;
+  }
+  .productCarousel .carousel-control {
+      top: 195px!important;
+  }
+}
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.closeCoverDiv:hover {
+	color: yellow;
+	border: 2px solid yellow;
+}
+.titleDiv {
+    width: 1165px;
+	height: 40px;
+	margin: 0 auto;
+	background-color: #ccc;
+	text-align: left;
+}
+.titleDiv h1 {
+    margin: 0px;
+	margin-left: 15px;
+	font-size: 20px;
+	line-height: 40px;
+	padding-top: 100px;
+}
+	.productCarousel {
+	    width: 1192px;
+		margin: 0 auto;
+		paddi]top: 84px;
+		padding-top: 20px;
+		margin-top: 30px;
+	}
+	.productItem {
+	    width: 336px;
+		float: left;
+		margin-left: 44px;
+		border: 1px solid #ededed;
+		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
+		background-color: #ffffff;
+		border-radius: 4px;
+		overflow: hidden;
+		cursor: pointer;
+        margin-top: 10px;
+	}
+	.productItem:hover {
+	    box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.15);
+	}
+	.productWishShadow {
+	    box-shadow: none!important;
+	}
+	.lastProduct {
+	    margin-right: 0px!important;
+	}
+	.productItem:hover h3 {
+    	color: #ed4b83;
+	}
+	.productCarousel .carousel-control {
+	    height: 54px;
+		width: 54px;
+        top: 200px;
+		background-image: none;
+	}
+	.productCarousel .carousel-control.left {
+	    left: -58px;
+	}
+    .productCarousel .carousel-control.right {
+	    right: -58px;
+	}
+	.productCarousel .arrowCoat {
+	    width: 54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+	}
+	.productCarousel .arrowCoat .headerArrow {
+	    line-height: 45px;
+		color: #c6c6c6;
+		font-size: 50px;
+		margin: 0;
+	}
+	.productCarousel .carousel-indicators {
+	    bottom: -45px;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		margin-bottom: 20px;
+	}
+	#products {
+	    padding-bottom: 50px;
+	  }
+	#products .item {
+	    padding-bottom: 20px;
+		overflow: auto;
+	}
+	.imageDiv {
+	    width: 100%;
+	    height: 286px;
+	}
+	.imageDiv img {
+	    width: 100%;
+		height: 100%;
+	}
+	.inforDiv {
+	    width: 100%;
+		height: 74px;
+	}
+	.inforDiv h3 {
+	    margin: 0px;
+		font-size: 21px;
+		color: #ff5274;
+		margin-bottom: 6px;
+		margin-top: 26px;
+	}
+	.inforDiv h4 {
+	    margin: 0px;
+		font-size: 13px;
+		color: #1c3653;
+		margin-bottom: 10px;
+	}
+	.inforDiv p {
+	    color: #3078C0;
+		font-size: 17px;
+	}
+	.carousel-indicators li {
+	    background-color: #999;
+	}
+	.carousel-indicators .active {
+	    background-color: #ff5274;
+	}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>念念--订单列表</title>
+<title>念念--愿望清单</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
 <meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务" />
 <script src="/js/jquery-2.1.4.js"></script>
@@ -20,23 +20,23 @@
 	    <div class="singleTab">
 		    <a href="AccountInfo.html"><p class="normalText">编辑个人资料</p></a>
 		</div>
-		<div class="singleTab selectedTab">
-		    <a href="#"><p class="normalText">您的订单</p></a>
+		<div class="singleTab">
+		    <a href="purchaseOrderInfo.html"><p class="normalText">您的订单</p></a>
 		</div>
 		<div class="singleTab">
 		    <a href="orderInfo.html"><p class="normalText">预约记录</p></a>
 		</div>
-		<div class="singleTab">
-		    <a href="userWishList.html"><p class="normalText">愿望清单</p></a>
+		<div class="singleTab selectedTab">
+		    <p class="normalText">愿望清单</p>
 		</div>
     </div>
 <div id="rightContentsMain">
-    <div id="noContent" hidden>您还没有任何订单信息<button class="emptyBtn" id="purchaseBtn">去购买</button><button id="designBtn" class="emptyBtn">去定制</button></div>
+    <div id="noContent" hidden>您的愿望清单里还没有任何物品<button class="emptyBtn" id="purchaseBtn">去添加</button><button id="designBtn" class="emptyBtn">去定制</button></div>
 	<div class="rightContents" ng-repeat="order in orders">
 	    <div class="contentHeader clickable" id="{{order.wishOrderId}}">
-		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
+		    <p class="normalText">愿望清单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
 			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
-			<div class="removeBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
+			<div class="removeBtn" id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></div>
 			<div class="processIcon" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
 		</div>
 		<div class="containerClass" ng-repeat="detail in order.detailJson track by $index" on-finish-render-filters>
@@ -97,7 +97,7 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
-    $http.get("/wishlistDetail/listWishOrder").success(function(response) {
+    $http.get("/wishlistDetail//listWishlistDetail").success(function(response) {
         $scope.orders = response;
         if (response.length === 0) {
         	$("#noContent").show();
@@ -120,34 +120,7 @@ app.controller('products', function($scope, $http) {
 			});
 		});
 	    $(".removeBtn").click(function(event) {
-	    	var wishOrderId = $(this).closest(".clickable")[0].id,
-	    	    index = $(this)[0].id;
-	    	if ($(this).hasClass("disabled")) {
-	    		return false;
-	    	}
-	    	var callback = function() {
-	    		$(this).addClass("disabled");
-		    	$(this).closest(".clickable").find(".processIcon").show();
-		        $.ajax({
-					url: '../wishlistDetail/removeWishOrder?orderId='+wishOrderId,
-					type: 'delete',
-					dataType:'json',
-					success:function(data){
-						$(".rightContents").each(function() {
-							if ($(this).closest(".clickable")[0].id === wishOrderId) {
-								$(this).remove();
-							}
-						});
-						if ($(".rightContents").length ===0) {
-							$("#noContent").fadeIn();
-						}
-						floatAlertBar('订单取消成功');
-					},
-					error: function(error) {
-					}
-				});
-	    	};
-	    	popupWarningMessagePage("確定要刪除嗎？", callback);
+	    	window.location.href = "designProcess.html";
 	        event.stopPropagation();
 	    });
     });

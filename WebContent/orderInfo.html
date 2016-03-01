@@ -29,7 +29,7 @@
 		    <p class="normalText">预约记录</p>
 		</div>
 		<div class="singleTab">
-		    <p class="normalText">愿望清单</p>
+		    <a href="userWishList.html"><p class="normalText">愿望清单</p></a>
 		</div>
     </div>
 <div id="rightContentsMain">
@@ -125,7 +125,14 @@ app.controller('products', function($scope, $http) {
 					type: 'delete',
 					dataType:'json',
 					success:function(data){
-						$($(".rightContents")[index]).remove();
+						$(".rightContents").each(function() {
+							if ($(this)[0].id === reservId) {
+								$(this).remove();
+							}
+						});
+						if ($(".rightContents").length ===0) {
+							$("#noContent").fadeIn();
+						}
 						floatAlertBar('预约已经取消成功');
 					},
 					error: function(error) {

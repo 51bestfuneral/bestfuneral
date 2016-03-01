@@ -14,10 +14,10 @@
 <script src="/js/sliderx.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<link href="/js/productLine.css" rel="stylesheet">
 <script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script src="../js/generalUsage.js"></script>
 </head>
-
 <style>
 @media (min-width: 900px) {
   .container {
@@ -25,6 +25,12 @@
 	padding: 0px;
 	min-width: 1000px;
   }
+}
+@media (max-width: 1080px) {
+    .container {
+        width: 1280px!important;
+        padding: 0px;
+    }
 }
 .coverDiv {
     height: auto;
@@ -70,237 +76,6 @@
 	color: #ffffff;
 	margin: 0px;
 }
-	.productCarousel {
-	    width: 1020px;
-		margin: 0 auto;
-		padding-top: 40px;
-		cursor: pointer;
-	}
-	.productItem {
-	    width: 230px;
-		float: left;
-		margin-left: 20px;
-		border-bottom: 1px solid #ededed;
-		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
-		background-color: #ffffff;
-		border-radius: 4px;
-		overflow: hidden;
-	}
-	.productCarousel .carousel-control {
-	    height: 54px;
-		width: 54px;
-        top: 230px;
-		background-image: none;
-	}
-	.productCarousel .carousel-control.left {
-	    left: -30px;
-	}
-    .productCarousel .carousel-control.right {
-	    right: -30px;
-	}
-	.productCarousel .arrowCoat {
-	    width: 54px;
-		height: 54px;
-		border-radius: 27px;
-		background-color: #f6f6f6;
-	}
-	.productCarousel .arrowCoat .headerArrow {
-	    line-height: 45px;
-		color: #c6c6c6;
-		font-size: 50px;
-		margin: 0;
-	}
-	.productInfo {
-	    padding-top: 20px;
-		padding-left: 15px;
-		text-align: left;
-		padding-bottom: 15px;
-	}
-	.productInfo .header {
-	    font-size: 15px;
-		color: #3b3d40;
-		margin-bottom: 5px;
-	}
-	.productInfo .detail {
-	    font-size: 12px;
-		color: #f5274;
-		margin-bottom: 20px;
-	}
-	.addWishButton {
-	    cursor: pointer;
-		border-radius: 3px;
-		width: 130px;
-		height: 28px;
-		background-color: #ff5274;
-		padding-left: 7px;
-	}
-	.addWishButton p {
-	    color: white;
-		font-size: 13px;
-		line-height: 28px;
-		float: left;
-	}
-	.addWishButton p:hover {
-	    color: #3078c0;
-	}
-	.addWishButton img {
-	    float: left;
-		margin-top: 5px;
-	}
-	.moreInfo {
-	    border-top: 1px solid #ededed;
-	}
-	.moreInfo a{
-	    line-height: 30px;
-		color: #3078c0;
-		font-size: 13px;
-		border: 0px;
-	}
-	.coatDiv {
-	    padding-bottom: 20px;
-	}
-	.subHeader {
-	    margin: 0px;
-		margin-left: 160px;
-		margin-top: 50px;
-	}
-    #titleIconDiv {
-	    position: absolute;
-		left: 64px;
-		top: 14px;
-		width: 68px;
-		height: 68px;
-		text-align: center;
-		border-radius: 34px;
-		overflow: hidden;
-		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
-		cursor: pointer;
-		transition:box-shadow 0.3s;
-	    -moz-transition:box-shadow 0.3s;
-        -webkit-transition:box-shadow 0.3s;
-        -o-transition:box-shadow 0.3s;
-	}
-	#titleIconDiv:hover {
-	    box-shadow: 0px 10px 20px 0px #ff5274;
-	}
-	.iconImg {
-	    margin-left: -5px;
-		margin-top: 2px;
-		max-width: none;
-	}
-	.coverDiv {
-		height: auto;
-		width: 100%;
-		top: 30px;
-		bottom: 60px;
-		text-align: center;
-		position: fixed;
-		z-index: 1001;
-	}
-	.coverDiv .detailFrame {
-		height: 100%;
-	}
-	.titleDiv {
-		width: 1165px;
-		height: 40px;
-		margin: 0 auto;
-		background-color: #ccc;
-		text-align: left;
-		display: none;
-	}
-	.titleDiv h1 {
-		margin: 0px;
-		margin-left: 15px;
-		font-size: 20px;
-		line-height: 40px;
-	}
-	.overviewItem {
-	    width: 100%;
-		height: 370px;
-		background: -webkit-radial-gradient(#761b18, #000000);
-		background: -o-radial-gradient(#761b18, #000000);
-		background: -moz-radial-gradient(#761b18, #000000);
-		background: radial-gradient(#761b18, #000000);
-		padding-left: 290px;
-		padding-top: 93px;
-	}
-	.overviewItem h1 {
-	    margin: 0px;
-		color: #ffffff;
-		font-size: 44px;
-		line-height: 55px;
-		font-weight: 100;
-	}
-	.overviewItem h2 {
-	    margin: 0px;
-		color: #ffffff;
-		font-size: 44px;
-		line-height: 55px;
-		font-weight: bold;
-	}
-	.overviewItem h3 {
-	    margin: 0px;
-		margin-top: 10px;
-		color: #ff5274;
-		font-size: 24px;
-		line-height: 16px;
-	}
-	#guide {
-	    width: 1040px;
-		height: 330px;
-		background-color: #ffffff;
-		box-shadow: 0px 2px 4px 0px RGBA(0,0,0,0.5);
-		margin: 0px auto;
-		margin-top: 42px;
-		margin-bottom: 48px;
-	}
-	#leftGuide {
-	    width: 65%;
-		height: 100%;
-		background: #f1f1f1;
-		padding-top: 53px;
-		float:left;
-	}
-	.guideIcon {
-	    width: 90px;
-		height: 90px;
-		border-radius: 5px;
-		border: 1px solid #ff5274;
-		margin: 0px auto;
-		margin-bottom: 44px;
-		text-align: center;
-		padding-top: 10px;
-		cursor: pointer;
-	    transition:background 0.5s;
-	    -moz-transition:background 0.5s;
-        -webkit-transition:background 0.5s;
-        -o-transition:background 0.5s;
-	}
-	.guideIcon:hover {
-	    background: #ccc;
-	}
-	.guideIcon p {
-	    color: #ff5274;
-		font-size: 15px;
-	}
-	.guideIcon span {
-	    font-size: 40px;
-	}
-	#rightGuide {
-	    width: 35%;
-		height: 100%;
-		padding-top: 28px;
-		padding-left: 40px;
-		padding-right: 40px;
-		float:left;
-	}
-	#rightGuide h3 {
-	    color: #ff5274;
-		font-size: 25px;
-		line-height: 32px;
-		margin:0px;
-		margin-bottom: 16px;
-	}
 	#rightGuide p {
 	    color: #5b5b5b;
 		font-size: 16px;
@@ -320,8 +95,9 @@
 	    cursor: pointer;
 	}
 	#caseMain {
-	    width: 1249px;
+	    width: 1120px;
 	    margin: 0px auto;
+	    text-align: left;
 	}
 	#case h1 {
 	    font-size: 44px;
@@ -440,11 +216,6 @@
 	    line-height: 25px;
 		width: 140px;
 	}
-	.frameMain {
-	    width: 1349px;
-	    margin: 0px auto;
-	    overflow: auto;
-	}
 </style>
 <script>
 function findCata(cataName, catas) {
@@ -458,7 +229,8 @@ function findCata(cataName, catas) {
 	
 }
 var length = location.search.length,
-type = location.search.substring(6, length);
+type = location.search.substring(6, length),
+productFilter = "?generalCode="+type;
 var catas = [{
     cataId: 'II-JJ',
 	cataName: '骨灰盒',
@@ -513,46 +285,74 @@ var catas = [{
 cata = findCata(type, catas);
 </script>
 <body ng-app="catagoryApp" ng-controller="catagory">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 <div class="container">
-<div id="filter">
-    <div id="filterCoat">
-    <div class="filterIcon firstIcon" id="mainPage">
-	    <div class="imageHalf">
-		    <img class="fakeImg"></img>
-		    <img src="/js/images/Layer_1.png" class="iconImg"></img>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
+<div>
+	<div id="filter">
+	    <div id="filterCoat">
+	    <div class="filterIcon firstIcon" id="mainPage">
+		    <div class="imageHalf">
+			    <img class="fakeImg"></img>
+			    <img src="/js/images/Layer_1.png" class="iconImg"></img>
+			</div>
+			<div class="textHalf">
+			    <p>首页</p>
+			</div>
 		</div>
-		<div class="textHalf">
-		    <p>首页</p>
+		<div class="filterIcon {{cata.selected}}" id="{{cata.cataId}}" ng-repeat="cata in catas"  ng-cloak>
+		    <div class="imageHalf">
+			   <img class="fakeImg"></img>
+			   <img src="{{cata.cataPic}}"></img>
+			</div>
+			<div class="textHalf" ng-cloak>
+			    <p>{{cata.cataName}}</p>
+			</div>
+		</div>
 		</div>
 	</div>
-	<div class="filterIcon {{cata.selected}}" id="{{cata.cataId}}" ng-repeat="cata in catas"  ng-cloak>
-	    <div class="imageHalf">
-		   <img class="fakeImg"></img>
-		   <img src="{{cata.cataPic}}"></img>
+	<div id="catagoryProduct" ng-cloak>
+	    <div id="topBarCoat">
+	        <img src="/js/images/Page1@2x.png"></img>
+		    <h1>{{cataName}}</h1>
+		    <img src="/js/images/Page 1Copy@2x.png"></img>
 		</div>
-		<div class="textHalf" ng-cloak>
-		    <p>{{cata.cataName}}</p>
+		<div class="bottomLeft">
+		    <script>document.write('<img src="'+ cata.iconPic +'"></img>');</script>
 		</div>
-	</div>
-	</div>
-</div>
-<div id="catagoryProduct" ng-cloak>
-    <div id="topBarCoat">
-        <img src="/js/images/Page1@2x.png"></img>
-	    <h1>{{cataName}}</h1>
-	    <img src="/js/images/Page 1Copy@2x.png"></img>
-	</div>
-	<div class="bottomLeft">
-	    <script>document.write('<img src="'+ cata.iconPic +'"></img>');</script>
-	</div>
-	<div class="bottomRight">
-	    <script>document.write('<img src="'+ cata.textPic +'"></img>');</script>
+		<div class="bottomRight">
+		    <script>document.write('<img src="'+ cata.textPic +'"></img>');</script>
+		</div>
 	</div>
 </div>
 <div class="frameMain">
 <h1 class="subHeader">特色产品</h1>
-<IFRAME NAME="content_frame" width=100% height=600 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame"></IFRAME>
+<div id="products" ng-app="catagoryApp" ng-controller="products">
+	<div class="carouselProduct" ng-repeat="layouts in subLayouts">
+	    <div class="carousel slide productCarousel" id="referenceCarousel{{$index}}">
+			<ol class="carousel-indicators">
+				<li data-target="#referenceCarousel" data-slide-to="{{$index}}" class="{{layout.active}}" ng-repeat="layout in layouts track by $index"></li>
+			</ol>
+            <div class="carousel-inner">
+				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
+	                <div class="productItem {{itemLayout.positionClass}}" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index" on-finish-render-filters>
+		                <div class="imageDiv">
+						    <img src="/js/images/{{itemLayout.imgUrl}}" class="image"></img>
+						</div>
+						<div class="inforDiv">
+						    <h3>{{itemLayout.wishName}}</h3>
+							<p>￥{{itemLayout.sellingPrice.toFixed(0)}}</p>
+							<span id="feature" hidden>{{itemLayout.feature}}</span>
+						</div>
+		            </div>
+                </div>
+            </div>
+            <a class="carousel-control left" href="#referenceCarousel{{$index}}" hidden
+                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
+            <a class="carousel-control right" href="#referenceCarousel{{$index}}" 
+                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
+        </div>
+	</div>
+</div>
 </div>
 <div id="case">
     <div id="caseMain">
@@ -563,13 +363,6 @@ cata = findCata(type, catas);
 	</div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
-</div>
-<div class="coverDiv" hidden>
-<div class="titleDiv">
-<h1>物品详细信息</h1>
-</div>
-<IFRAME class="detailFrame" width=1170px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
-<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
 </body>
 <script type="text/javascript">
@@ -611,17 +404,8 @@ app.controller('catagory', function($scope, $http) {
 	$scope.cataDesc = cata.cataDesc;
 	$scope.catas = catas;
 	$scope.iconPic = cata.iconPic;
-	productFilter = "?generalCode="+type;
 	$("#productFrame").attr("src","component/productLine2.html"+productFilter);
 	$("body").on("click", ".filterIcon", function () {
-	    //var length = location.search.length,
-	    //    type = $(this)[0].id,
-		//    cata = findCata(type, $scope.catas);
-		//$('#catagoryProduct h1')[0].innerText = cata.cataName;
-		//$('#catagoryProduct p')[0].innerText = cata.cataDesc;
-		//$('#catagoryProduct').css({
-		//    'background': '#000000'
-		//});
 		var $this = $(this);
 		
 		if ($this[0].id === "mainPage") {
@@ -647,4 +431,5 @@ window.onload=function(){
 	});
 };
 </script>
+<script src="../js/productLine.js"></script>
 </html>

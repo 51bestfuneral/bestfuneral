@@ -75,7 +75,6 @@
     margin-left: 38px;
 }
 #whyNianCoat {
-    width: 70%;
     margin: 0px auto;
     overflow: auto;
     margin-bottom: 60px;
@@ -98,15 +97,21 @@
 }
 #comfottableCoat {
 	font-size: 26px;
+	padding-top: 40px;
 }
 #why3 .images {
 	position: relative;
 }
+@media (max-width: 1080px) {
+    .container {
+        width: 1280px!important;
+        padding: 0px;
+    }
+}
 </style>
 <body>
+<div class="container">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
-   	<div class="container">
-
    	<div class="second_nav">
 		<div id="subNavilink">
 		 <link1><a href="#" style="font-weight:900;" class="firstLink">为什么要定制葬礼</a>  </link1>
@@ -362,10 +367,9 @@
 </p>
 	</div>
 -->
-
+<IFRAME NAME="content_frame" width=100% height=276 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 <style>
 #why3 img{
     width: 200px;
@@ -443,7 +447,6 @@ top:-5px;
 	
 #comfortable{
  width: 100%;
-  height: 671px;
 	border:0px solid blue; 
 	overflow:auto;
 	}
@@ -499,12 +502,9 @@ top:-5px;
 }
 #leftSection{
 width: 50%;
-height: 671px;
 float:left;
 border:0px solid blue; 
-position:relative; 
-padding-top:200px;
-overflow:auto;
+position:relative;
 background-repeat:no-repeat;
 }
 #leftSection div {
@@ -551,10 +551,7 @@ background-repeat:no-repeat;
 #rightSection{
 border:0px solid blue; 
 width: 50%;
-height: 671px;
 float:left;
-padding-top:200px;
-overflow:auto;
 background-repeat:no-repeat;
 }
 #rightSection div {
