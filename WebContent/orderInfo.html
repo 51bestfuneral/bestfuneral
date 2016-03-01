@@ -34,7 +34,7 @@
     </div>
 <div id="rightContentsMain">
     <div id="noContent" hidden>您还没有任何预约信息<button class="emptyBtn">去预约</button></div>
-	<div class="rightContents" id="{{order.reservId}}" ng-repeat="order in orders" on-finish-render-filters>
+	<div class="rightContents" id="{{order.reservId}}" ng-repeat="order in orders | orderBy: 'reservDate': true                                                              " on-finish-render-filters>
 	    <div class="contentHeader">
 		    <p class="normalText">预约信息</p>
 		    <div class="removeBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
@@ -54,7 +54,7 @@
 				    <tr>
 					    <td>{{order.cemeteryName}}</td>
 						<td>{{order.address}}</td>
-						<td>{{order.reservDate}}</td>
+						<td class="reservDate">{{order.reservDate}}</td>
 						<td><a class="digToDetail" href="/cemetery.html?id={{order.cemeteryId}}">查看详情</a></td>
 					</tr>
 				</tbody>
@@ -141,6 +141,19 @@ app.controller('products', function($scope, $http) {
 	    	};
 	    	popupWarningMessagePage("確定要刪除嗎？", callback);
 	        event.stopPropagation();
+	    });
+	    $(".reservDate").each(function() {
+	    	var reservDate = $(this)[0].innerText,
+	    	    sysdate = new Date(),
+	    	    month = (sysdate.getMonth()+1) > 9? (sysdate.getMonth()+1):'0'+(sysdate.getMonth()+1),
+	    	    day = sysdate.getDate() > 9? sysdate.getDate():'0'+sysdate.getDate();
+	    	    sysdateStr = sysdate.getFullYear()+"-"+month+"-"+day;
+	    	
+	    	if (reservDate < sysdateStr) {
+	    		var parent = $(this).closest(".rightContents");
+	    		parent.css({'opacity': '0.6'});
+	    		parent.find(".contentHeader").find("p")[0].innerText = parent.find(".contentHeader").find("p")[0].innerText+"(已过期)";
+	    	}
 	    });
     });
     $(".emptyBtn").click(function() {

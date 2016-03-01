@@ -73,7 +73,7 @@ public class WishController {
 			    continue;
 			}
 			if (wish.getGender()!=null && !wish.getGender().equals("0")) {
-			    if (gender != null && gender.equals(0) && wish.getGender().equals("2")) {
+			    if (gender != null && gender.equals(2) && wish.getGender().equals("2")) {
 			    	wishlistFinal.add(wish);
 			    }
 			    else if (gender != null && gender.equals(1) && wish.getGender().equals("1")) {

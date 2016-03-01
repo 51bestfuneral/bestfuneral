@@ -348,10 +348,26 @@
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
 app.controller('product', function($scope, $http) {
 	$scope.shappingCart;
 	$scope.wishList;
-	
+	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+		$(".itemDesc").find(".title").click(function() {
+			window.location.href = "/productDetail3.html?id="+$(this)[0].id;
+	    });
+	});
 	  $http.get("/shoppingCartController/getAllGoodsForShoppingCart").success(function(response) {
 		    		    $scope.shoppingCartDetails = response; 
 		    		    
@@ -512,7 +528,7 @@ angular.forEach(detailIdList, function(data,index,array){
 	            <h1>您的购物车里还没有任何物品</h1>
 				<div id="goShoppingButton"><h2>去别的地方看看</h2></div>
 	        </div>
-			<div class="tableContent"  id={{shoppingCartDetail.cartDetailId+'_'}} ng-repeat="shoppingCartDetail in shoppingCartDetails">
+			<div class="tableContent"  id={{shoppingCartDetail.cartDetailId+'_'}} ng-repeat="shoppingCartDetail in shoppingCartDetails" on-finish-render-filters>
 				<div class="checkBox">
 				    <input type="checkbox" onClick="checkSubClick();"  name="checkbox"  id="{{shoppingCartDetail.cartDetailId}}"  ng-click="selectOneItem(shoppingCartDetail.cartDetailId)">
 				</div>

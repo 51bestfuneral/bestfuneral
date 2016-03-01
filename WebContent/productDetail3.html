@@ -288,7 +288,7 @@ app.controller('details', function($scope, $http) {
     			$(".addToWishBtn").addClass("disableDiv");
 		    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
 		    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
-		    	wishlistDetailId = data[0].wishDetailId;
+		    	wishlistDetailId = data[0].wishlistDetailId;
     			unmusk();
     		},
     		error: function(error) {

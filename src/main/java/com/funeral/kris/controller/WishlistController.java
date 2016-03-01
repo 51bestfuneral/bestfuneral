@@ -331,7 +331,7 @@ public class WishlistController {
         if (gender != null && gender.equals(1)) {
         	querySQL = querySQL + " and  (gender = 0 or gender = 1) ";
         }
-        else if (gender != null && gender.equals(0)){
+        else if (gender != null && gender.equals(2)){
         	querySQL = querySQL + " and  (gender = 0 or gender = 2) ";
         }
 		querySQL = String.format(querySQL, wishCataCode);

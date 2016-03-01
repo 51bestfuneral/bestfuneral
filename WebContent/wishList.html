@@ -448,19 +448,7 @@ window.onload=function(){
 	    $(".coverImageDiv").fadeIn();
 	});
 	$(".itemDesc").find(".title").click(function() {
-		    var parentWidth = $(".coverDiv").width(),
-				frameWidth = $(".detailFrame").width();
-	        $(this).css({
-			    opacity: 0.5
-			});
-			muskPage();
-			$(".detailFrame").attr("src","/component/productDetail.html?id="+$(this)[0].id)
-			$(".closeCoverDiv").css({
-				right: (parentWidth-frameWidth)/2,
-				left: 'auto',
-				top: 0
-			});
-			$(".coverDiv").fadeIn(1000);
+			window.location.href = "/component/productDetail3.html?id="+$(this)[0].id;
 	});
 	$(".closeCoverDiv").click(function() {
 		$(".coverDiv").fadeOut();

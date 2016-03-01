@@ -176,7 +176,6 @@ top:-5px;
 	
 #comfortable{
  width: 100%;
-  height: 690px;
 	border:0px solid blue; 
 	overflow:auto;
 	}
@@ -189,29 +188,27 @@ top:-5px;
 	 max-width:100%;
 	}	
 	
-	#why3Text1{
-	width: 45%;
-  height: 135px;
-  text-align:left;
-  position:relative; 
-  left:55%;
-  top:20%;
-  max-width:100%;
-	}
+#why3Text1 {
+    width: 588px;
+    height: 110.5px;
+    text-align: left;
+    position: relative;
+    left: 55%;
+    top: 20%;
+}
 #why3Text1 p{
     font-size: 42px;
     line-height: 1.3;
     color: #333333;
 }
-#why3Text2{
-	width: 45%;
-  height: 163.6px;
-  text-align:left;
-   position:relative; 
-  left:55%;
-  top:23%;
-  max-width:100%;
-	}
+#why3Text2 {
+    width: 588px;
+    height: 163.6px;
+    text-align: left;
+    position: relative;
+    left: 55%;
+    top: 23%;
+}
 	
 #why3Text2 p{
   font-size: 26px;
@@ -235,12 +232,9 @@ top:-5px;
 }
 #leftSection{
 width: 50%;
-height: 671px;
 float:left;
 border:0px solid blue; 
-position:relative; 
-padding-top:200px;
-overflow:auto;
+position:relative;
 background-repeat:no-repeat;
 }
 #leftSection div {
@@ -287,10 +281,7 @@ background-repeat:no-repeat;
 #rightSection{
 border:0px solid blue; 
 width: 50%;
-height: 671px;
 float:left;
-padding-top:200px;
-overflow:auto;
 background-repeat:no-repeat;
 }
 #rightSection div {

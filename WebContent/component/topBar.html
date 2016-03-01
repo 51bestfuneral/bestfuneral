@@ -277,7 +277,7 @@
             else if (status === "F") {
                 wishlistInfo = "您已完成愿望清单配置";
                 buttonInfo = "查看愿望清单";
-                navigateInfo = "wishList.html";
+                navigateInfo = "userWishList.html";
             }
 			parent.append("<div id='wishlistSub' hidden></div><div id='wishlistInfo' hidden><h3>愿望清单</h3><h4>"+wishlistInfo+"</h4><div class='navigateButton'><p>"+buttonInfo+"</p></div></div>");
 			parent.find("#wishlistInfo").css({
@@ -596,7 +596,7 @@
 					window.parent.location.href='/AccountInfo.html';
 				});
 				parent.find("#wishListNavi").click(function() {
-					window.parent.location.href='/wishList.html';
+					window.parent.location.href='/userWishList.html';
 				});
 				parent.find("#logout").click(function() {
 					$.ajax({

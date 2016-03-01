@@ -149,10 +149,8 @@ public class AnswerController {
 		wishlistDetailService.deleteAllResources(condition);
 		List<WishlistDetail> restDetails = wishlistDetailService.getResourceByWishListId(wishlist.getWishlistId());
 		for (WishlistDetail detail: restDetails) {
-			if (detail.getSourceId()!= null && detail.getSourceId().equals(1)) {
 			wishlist.setPrice(wishlist.getPrice().add(detail.getPrice()));
 			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(detail.getOriginalPrice()==null?BigDecimal.ZERO:detail.getOriginalPrice()));
-			}
 		}
 		BigDecimal typePrice = BigDecimal.ZERO;
 		BigDecimal totalPrice = BigDecimal.ZERO;
@@ -175,7 +173,7 @@ public class AnswerController {
         if (gender != null && gender.equals(1)) {
         	querySQL = querySQL + " and  (gender = 0 or gender = 1) ";
         }
-        else if (gender != null && gender.equals(0)){
+        else if (gender != null && gender.equals(2)){
         	querySQL = querySQL + " and  (gender = 0 or gender = 2) ";
         }
 

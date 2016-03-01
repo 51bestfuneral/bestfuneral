@@ -315,3 +315,9 @@
 	.emptyBtn:hover {
 	    background: #AF1E50;
 	}
+	.goToPay {
+	    width: 100px;
+	}
+	.goToPay p:hover {
+	    color: #90caf9;
+	}
