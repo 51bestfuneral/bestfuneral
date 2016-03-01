@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head"><title>
     shopping cart
-</title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customersｿ
-								expectations for timely product delivery, zero defects, and a
-								superior customer experience." /> 
+</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
 <meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" />	 						
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -354,46 +351,86 @@ var app = angular.module('productApp', []);
 app.controller('product', function($scope, $http) {
 	$scope.shappingCart;
 	$scope.wishList;
-	$http.get("/shoppingCartController/getCart").success(function(response) {
-	    $scope.cartId = response;
-		$http.get("/shoppingCartController/getDirectWishListForShoppingCart").success(function(response) {
-		    $scope.shoppingCartDetails = response;
-			if (response.length <= 0) {
+	
+	  $http.get("/shoppingCartController/getAllGoodsForShoppingCart").success(function(response) {
+		    		    $scope.shoppingCartDetails = response; 
+		    		    
+		    		if (response.length <= 0) {
 				$("#topCheckBox").attr('disabled',true); 
 	            $("#noAnyProduct").show();
 			}else{
 			    $("#topCheckBox").attr('disabled',false); 
-	        }
-			angular.forEach(shoppingCartDetails, function(data,index,array){
-	             $("#"+shoppingCartDetails[index]).attr("checked",'checked');   
-	        });
+	        }   		    
+		    		     
 		});
-		$http.get("/shoppingCartController/listCart").success(function(response) {
-		    $scope.shappingCart = response;
-		    var gross=response.price;
-		    if( gross>0   ){
-		  	    $("#nextButton").attr('disabled',false); 
-		  	} else{
-		   	    $("#nextButton").attr('disabled',true); 
-		   	}
-		    if($scope.shappingCart.allSelected==1){
-		        $("#topCheckBox").attr("checked",'checked'); 
-		    }
-		    var detailIdList =$scope.shappingCart.selectedWishDetailIdList;
-	    });
-	});
-	$scope.loadShoppingCart(); 
-	$scope.changeOneItem = function(wishDetaillistId,wishlistId){
-	    $http.get("/shoppingCartController/selectOneItem?cartDetailId="+cartDetailId+"&cartId="+$scope.cartId).success(function(response) {
+		
+		 $http.get("/shoppingCartController/loadShoppingCart").success(function(response) {
+		 		$scope.shappingCart=response;
+		 		
+		 	 var detailIdList =$scope.shappingCart.selectedCartDetailIdList;
+		 	 
+		 	 if(detailIdList.length==0){
+		 	 				    $("#nextButton").attr('disabled',true); 
+		 	 	}else{
+		 	 				    $("#nextButton").attr('disabled',false); 
+		 	 		}
+		 	 
+angular.forEach(detailIdList, function(data,index,array){
+ $("#"+detailIdList[index]).attr("checked",'checked');   
+     
+});	
+
+  if($scope.shappingCart.allSelected==1){
+	    $("#topCheckBox").attr("checked",'checked');   
+	  }
+		 		
+		 	});
+		
+	
+	$scope.loadShoppingCart = function(){
+		$http.get("/shoppingCartController/getAllGoodsForShoppingCart").success(function(response) {
+		    		    $scope.shoppingCartDetails = response; 
+		    		    
+		    		    		if (response.length <= 0) {
+				$("#topCheckBox").attr('disabled',true); 
+	            $("#noAnyProduct").show();
+			}else{
+			    $("#topCheckBox").attr('disabled',false); 
+	        }   
+	        
+		});
+		
+		 $http.get("/shoppingCartController/loadShoppingCart").success(function(response) {
+		 		$scope.shappingCart=response;
+		 		
+		 	 var detailIdList =$scope.shappingCart.selectedCartDetailIdList;
+		 	  if(detailIdList.length==0){
+		 	 				    $("#nextButton").attr('disabled',true); 
+		 	 	}else{
+		 	 				    $("#nextButton").attr('disabled',false); 
+		 	 		}
+angular.forEach(detailIdList, function(data,index,array){
+ $("#"+detailIdList[index]).attr("checked",'checked');   
+     
+});	
+	
+	  if($scope.shappingCart.allSelected==1){
+	    $("#topCheckBox").attr("checked",'checked');   
+	  }	 		
+		 	});
+	}
+	
+		$scope.selectOneItem = function(cartDetailId){
+	    $http.get("/shoppingCartController/selectOneItem?cartDetailId="+cartDetailId).success(function(response) {
 		    $scope.loadShoppingCart();
 		});
 	}
-	$scope.subtraction = function(wishDetailId){
+	$scope.subtraction = function(cartDetailId){
 	    $http.get("/shoppingCartController/subtraction?cartDetailId="+cartDetailId).success(function(response) {
 		    $scope.loadShoppingCart();
 		});
 	}
-	$scope.delete = function(wishDetailId){
+	$scope.delete = function(cartDetailId){
 	    $http.get("/shoppingCartController/delete?cartDetailId="+cartDetailId).success(function(response) {
 	        $scope.loadShoppingCart();
 		});
@@ -403,16 +440,28 @@ app.controller('product', function($scope, $http) {
 		    $scope.loadShoppingCart();
 		});
 	}
+	
 	$scope.selectAll = function(){
-		$http.get("/shoppingCartController/selectAll?cartId="+$scope.cartId).success(function(response) {
+		$http.get("/shoppingCartController/selectAll").success(function(response) {
 		   $scope.loadShoppingCart();
 		});
+		
+		
 	}
-});
+		$scope.goToPay = function(){
+		$http.get("/shoppingCartController/generateOrderByCart").success(function(response) {
+		   $scope.wishOrderId=response;
+		    window.location.href='/paymentInfo.html?wishOrderId='+ $scope.wishOrderId;
+		   
+		});
+		
+		
+	}
+	
+	});
 </script>
 <body ng-app="productApp" ng-controller="product">
 	
-<div style="display:none;" id="calcu" ng-click="loadShoppingCart()">	</div>
 	
 <div class="topBarDiv">
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
@@ -421,7 +470,7 @@ app.controller('product', function($scope, $http) {
     <div id="decorContainer">
 	    <div id="pageHeader">
 		    <div id="headerLeft">
-			    <h1>źµĹºϯ³µ</h1>
+			    <h1>您的购物车</h1>
 			</div>
 			<div id="headerRight">
 			    <div class="rightImg">
@@ -444,62 +493,62 @@ app.controller('product', function($scope, $http) {
 					<input type="checkbox" id="topCheckBox"  ng-click="selectAll()" onClick="checkBoxClick();">
 				</div>
 				<div class="itemName">
-				    <p class="title">²�·�>
+				    <p class="title">产品和服务</p>
 				</div>
 				<div class="itemPrice">
-				    <p class="title">ŮŮ¼۸�)</p>
+				    <p class="title">念念价格(元)</p>
 				</div>
 				<div class="itemAmout">
-				    <p class="title">˽</p>
+				    <p class="title">数量</p>
 				</div>
 				<div class="totalPrice">
-				    <p class="title">С¼ĨԪ)</p>
+				    <p class="title">小计(元)</p>
 				</div>
 				<div class="operation">
-				    <p class="title">²ڗ�>
+				    <p class="title">操作</p>
 				</div>
 			</div>
 			<div id="noAnyProduct" hidden>
-	            <h1>źµĹºϯ³µo»¹ûԐɎºώ𐆷</h1>
-				<div id="goShoppingButton"><h2>ȥ±𶄵ط½¿´¿´</h2></div>
+	            <h1>您的购物车里还没有任何物品</h1>
+				<div id="goShoppingButton"><h2>去别的地方看看</h2></div>
 	        </div>
-			<div class="tableContent"  id={{wishListDetail.wishDetailId+'_'}} ng-repeat="wishListDetail in wishListDetails">
+			<div class="tableContent"  id={{shoppingCartDetail.cartDetailId+'_'}} ng-repeat="shoppingCartDetail in shoppingCartDetails">
 				<div class="checkBox">
-				    <input type="checkbox" onClick="checkSubClick();"  name="checkbox"  id="{{wishListDetail.wishDetailId}}"  ng-click="changeOneItem(wishListDetail.wishDetailId,wishListDetail.wishlistId)">
+				    <input type="checkbox" onClick="checkSubClick();"  name="checkbox"  id="{{shoppingCartDetail.cartDetailId}}"  ng-click="selectOneItem(shoppingCartDetail.cartDetailId)">
 				</div>
 				<div class="itemName">
 				    <div class="itemImg">
-					    <img src="/js/images/{{wishListDetail.imageUrl}}"></img>
+					    <img src="/js/images/{{shoppingCartDetail.imageUrl}}"></img>
 					</div>
 					<div class="itemDesc inputContent">
-					    <p class="title">{{wishListDetail.wishName}}</p>
-						<p class="subTitle">{{wishListDetail.wishDesc}}</p>
+					    <p class="title">{{shoppingCartDetail.wishName}}</p>
+						<p class="subTitle">{{shoppingCartDetail.wishDesc}}</p>
 					</div>
 				</div>
 				<div class="itemPrice inputContent">
-				    <p class="title">{{wishListDetail.price}}</p>
+				    <p class="title">{{shoppingCartDetail.price}}</p>
 				</div>
 				<div class="itemAmout inputContent">
 				    <div class="oneThird">
-					    <div class="changeButton minusBitton" ng-click="subtraction(wishListDetail.wishDetailId)" >
+					    <div class="changeButton minusBitton" ng-click="subtraction(shoppingCartDetail.cartDetailId)" >
 						    <span>-</span>
 						</div>
 					</div>
 					<div class="oneThird">
-				        <p class="title titleNumber">{{wishListDetail.amount}}</p>
+				        <p class="title titleNumber">{{shoppingCartDetail.amount}}</p>
 					</div>
 					<div class="oneThird">
-					    <div class="changeButton"  ng-click="add(wishListDetail.wishDetailId)">
+					    <div class="changeButton"  ng-click="add(shoppingCartDetail.cartDetailId)">
 						    <span>+</span>
 						</div>
 					</div>
 				</div>
 				<div class="totalPrice inputContent">
-				    <p class="title titleNumber">{{wishListDetail.selectedPrice}}</p>
+				    <p class="title titleNumber">{{shoppingCartDetail.selectedPrice}}</p>
 
 				</div>
 				<div class="operation inputContent">
-				    <span class="glyphicon glyphicon-trash deleteButton  "   ng-click="delete(wishListDetail.wishDetailId)" ></span>
+				    <span class="glyphicon glyphicon-trash deleteButton  "   ng-click="delete(shoppingCartDetail.cartDetailId)" ></span>
 				</div>
 			</div>
 		</div>
@@ -511,17 +560,17 @@ app.controller('product', function($scope, $http) {
 					
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">¹²{{shappingCart.count}}¼�¬¹²¼ƣ¤£º{{shappingCart.grossFee}}</p>
+					    <p class="title">共{{shappingCart.count}}件商品，共计￥：{{shappingCart.grossFee}} 元</p>
 					
 					</div>
 				</div>
 			</div>
 			<div id="leftSumm">
 			    <div class="continue">
-			    <button>¼͐�</button>
+			    <button>继续购物</button>
 				</div>
 				<div class="next">
-				<button id="nextButton">ȥ½⌣</button>
+				<button id="nextButton" ng-click="goToPay()">去结算</button>
 				</div>
 			</div>
 		</div>
@@ -531,7 +580,7 @@ app.controller('product', function($scope, $http) {
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>ϯƷЪϸхϢ</h1>
+<h1>??Ъ?х?</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
@@ -570,29 +619,33 @@ function checkBoxClick(){
 	    }
 	}
 }
-window.onload=function(){
+//window.onload=function(){
 
-	$("#nextButton").click(function() {
-		muskCurrentPage();
-		$.ajax({
-		    url: '/wishlist/generateOrderByCart',
-			type: 'POST',
-			contentType: "application/json; charset=UTF-8",
-			dataType:'json',
-			data: [],
-			success:function(data){
-				window.location.href='paymentInfo.html?orderId='+data.orderId;
-				unmusk();
-		    },
-			error: function(error) {
-				//$("#messageSent")[0].value = '';
-			}
-		});
-	});
-};
+//	$("#nextButton").click(function() {
+//		muskCurrentPage();
+//		$.ajax({
+//		    url: '/wishlist/generateOrderByCart',
+//			type: 'POST',
+//			contentType: "application/json; charset=UTF-8",
+//			dataType:'json',
+//			data: [],
+//			success:function(data){
+//				window.location.href='paymentInfo.html?orderId='+data.orderId;
+//				unmusk();
+//		    },
+//			error: function(error) {
+//				//$("#messageSent")[0].value = '';
+//			}
+//		});
+//	});
+//};
+
+
+	
 $(".continue").click(function() {
 	    window.location.href='/productAndService.html';
 	});
+	
 $("#goShoppingButton").click(function() {
 	window.location.href='/productAndService.html';
 });

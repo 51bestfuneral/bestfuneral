@@ -16,6 +16,10 @@
     String 	Version			= ChinapnrUtil.version;
     String 	CmdId			= "Buy";
     String 	MerId			= ChinapnrUtil.merId;
+    
+    System.out.println(" OrdAmt ="+request.getParameter("OrdAmt"));
+
+    
     String 	OrdAmt			= request.getParameter("OrdAmt").trim();//两位数
     
     OrdAmt=new java.math.BigDecimal(OrdAmt).setScale(2, java.math.BigDecimal.ROUND_HALF_UP).toString();

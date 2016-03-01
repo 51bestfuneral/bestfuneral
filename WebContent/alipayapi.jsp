@@ -48,6 +48,8 @@
 		String subject = request.getParameter("WIDsubject");
 		
 	String tradeNo = request.getParameter("WIDout_trade_no");
+		String wishOrderId = request.getParameter("awishOrderId");
+
 
 		
 		//必填
@@ -79,13 +81,19 @@
         sParaTemp.put("seller_email", AlipayUtil.seller_email);
         sParaTemp.put("_input_charset", AlipayUtil.input_charset);
 		sParaTemp.put("payment_type", payment_type);
-		sParaTemp.put("notify_url", "http://www.365niannian.com/funeral/pages/notify_url.jsp");
-		sParaTemp.put("return_url", "http://www.365niannian.com/funeral/pages/paymentFinal.html");
+		sParaTemp.put("notify_url", "http://121.42.182.117/notify_url.jsp");
+		sParaTemp.put("return_url", "http://121.42.182.117/paymentFinal.html");
 		sParaTemp.put("out_trade_no", tradeNo);
 		sParaTemp.put("subject", subject);
 		sParaTemp.put("total_fee", total_fee);
+				sParaTemp.put("price", total_fee);
+
+						sParaTemp.put("collection_type", "2");
+
 		sParaTemp.put("body", body);
 		sParaTemp.put("key", "ceshi");
+				sParaTemp.put("wishOrderId", wishOrderId);
+
 		
 		System.out.println(" sParaTemp=  "+sParaTemp);
 
@@ -99,9 +107,9 @@
 		
 		System.out.println("  tradeNo  ="+tradeNo+"  subject="+subject);
 		
-	//	com.funeral.kris.service.FeeCollectionServiceImpl  collectionService=new com.funeral.kris.service.FeeCollectionServiceImpl();
+		//com.funeral.kris.pay.service.PayCollectionServiceImpl  collectionService=new com.funeral.kris.pay.service.PayCollectionServiceImpl();
 		
-		//collectionService.initFeeCollection(tradeNo);
+		//collectionService.completeCollection(sParaTemp);
 		
 		out.println(sHtmlText);
 		

@@ -13,6 +13,9 @@ public interface OrderService {
 	public void deleteResource(int id);
 	public List<Order> getResources();
 	public Order getOpenByUserId(int userId);
+	public Order getOpenOrderByWishOrderId(int wishOrderId);
+	public Order getOrderByWishOrderId(int wishOrderId);
+
 	public List<Order> listOrderByUserId(int userId);
 	
 }

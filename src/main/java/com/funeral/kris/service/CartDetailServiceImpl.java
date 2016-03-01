@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.funeral.kris.bean.ShoppingCart;
 import com.funeral.kris.dao.CartDetailDAO;
 import com.funeral.kris.model.CartDetail;
-import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.SqlHelper;
 
 @Service
@@ -70,11 +68,11 @@ public class CartDetailServiceImpl implements CartDetailService {
 
 		int allSelected = 1;
 		List<CartDetail> cartDetails = getResourceByCartId(cartId);
-		
-		if(cartDetails==null||cartDetails.size()==0){
+
+		if (cartDetails == null || cartDetails.size() == 0) {
 			return false;
 		}
-		
+
 		Iterator itera = cartDetails.iterator();
 
 		while (itera.hasNext()) {
@@ -95,5 +93,30 @@ public class CartDetailServiceImpl implements CartDetailService {
 			return true;
 
 		}
+	}
+
+	@Override
+	public List<CartDetail> getSelectedCartDetailsByCartId(int cartId) {
+
+		List<CartDetail> selectedCartDetailList = new ArrayList<CartDetail>();
+
+		List<CartDetail> allCartDetailList = this.getResourceByCartId(cartId);
+
+		if (allCartDetailList != null) {
+			Iterator iterator = allCartDetailList.iterator();
+
+			while (iterator.hasNext()) {
+				CartDetail detail = (CartDetail) iterator.next();
+
+				if (detail.getSelected().intValue() == 1) {
+					selectedCartDetailList.add(detail);
+				}
+
+			}
+
+		}
+
+		return selectedCartDetailList;
+
 	}
 }

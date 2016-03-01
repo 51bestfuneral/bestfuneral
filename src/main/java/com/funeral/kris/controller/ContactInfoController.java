@@ -66,9 +66,9 @@ public class ContactInfoController {
 		contactInfoService.addResource(contactInfo);
 
 		List<ExpressInfo> expressInfoList = expressInfoService.getByUserId(contactInfo.getUserId());
-		
+
 		System.out.println("  expressInfoList  ------------------");
-		System.out.println("  expressInfoList  size="+expressInfoList.size());
+		System.out.println("  expressInfoList  size=" + expressInfoList.size());
 
 		if (expressInfoList != null && expressInfoList.size() > 0) {
 
@@ -87,7 +87,7 @@ public class ContactInfoController {
 		expressInfo.setCity(contactInfo.getCity());
 		expressInfo.setProvince(contactInfo.getProvince());
 		expressInfo.setStatusId(1);
-
+		expressInfo.setWishOrderId(contactInfo.getWishOrderId());
 		expressInfo.setDeliveryMethod(contactInfo.getExpressMethod());
 		if (contactInfo.getExpressMethod().intValue() == 3) {
 			expressInfo.setExpressFee(new BigDecimal(20));
@@ -151,6 +151,19 @@ public class ContactInfoController {
 		System.out.println("  ----   userId  = " + userId);
 
 		ContactInfo ContactInfo = contactInfoService.getUsingContacter(userId);
+		return ContactInfo;
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getUsingContacterByWishOrderId", method = RequestMethod.GET, produces = "application/json")
+	public ContactInfo getUsingContacterByWishOrderId(HttpServletRequest request) {
+
+		String wishOrderId = request.getParameter("wishOrderId");
+
+		System.out.println("  --getUsingContacterByWishOrderId--   wishOrderId  = " + wishOrderId);
+
+		ContactInfo ContactInfo = contactInfoService.getContacterByWishOrderId(Integer.parseInt(wishOrderId));
 		return ContactInfo;
 
 	}

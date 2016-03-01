@@ -16,6 +16,14 @@ public class Order {
 	@GeneratedValue
 	@Column(name="order_id ")
 	private Integer orderId;
+	public Integer getWishOrderId() {
+		return wishOrderId;
+	}
+	public void setWishOrderId(Integer wishOrderId) {
+		this.wishOrderId = wishOrderId;
+	}
+	@Column(name="wish_order_id ")
+	private Integer wishOrderId;
 	public Integer getOrderId() {
 		return orderId;
 	}

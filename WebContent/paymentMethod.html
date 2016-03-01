@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" >
+<!DOCTYPE html >
 <head id="head">
 <title>念念--支付方式</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
@@ -64,11 +63,12 @@
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
 			        <span class="radioDesc">网银支付</span>
 			        
-			         <form name="chinapnrpayment" action="chinapnrapi.jsp" method="post" target="_blank">
+			         <form name="chinapnrpayment" action="/funeral/pages/chinapnrapi.jsp" method="post" target="_blank">
 						<input type="hidden" id="chnTradeNo" name="OrdId"/>
-						<input type="hidden" id="chnTotalFee" name="OrdAmt"/>
+						<input type="hidden" id="chnTotalFee" name="OrdAmt" />
 						<input type="hidden" id="chnPhone" name="UsrMp"/>
-						
+					  <input type="hidden" id="cwishOrderId" name="cwishOrderId"/>
+
                         <span class="new-btn-login-sp">
                             <button id="chinapnrButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
                         </span>
@@ -87,6 +87,8 @@
 					    <input type="hidden" id="subject" name="WIDsubject" value="test" />
 						<input type="hidden" id="totalFee" name="WIDtotal_fee" />
 						<input type="hidden" name="WIDbody" value="test"/>
+											  <input type="hidden" id="awishOrderId" name="awishOrderId"/>
+
                         <span class="new-btn-login-sp">
                             <button id="alipayButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
                         </span>
@@ -133,34 +135,54 @@
 </div>
 </body>
 <script type="text/javascript">	
-var app = angular.module('payment', []);   
-	app.controller('pay', function($scope, $http) {
-  	$http.get("/alipay/createOrder").success(function(response) {	           
-         $scope.order=response;   
-         $("#tradeNo").val($scope.order.orderNo);
-         $("#subject").val($scope.order.subject);
-         $("#totalFee").val($scope.order.payableAmount); 
-         $("#chnTradeNo").val($scope.order.orderNo);
-         $("#chnTotalFee").val($scope.order.payableAmount);	           
-         $("#nextButton").show();           
-		});	    
-  	$scope.pay = function(){ 
-  		 $("#alipayButton").click();
-     	var payType = $("input[name='optionsRadios']:checked").val();
-    	  if(payType==1){
-    		  $("#chinapnrButton").click();
-    	  }
- 		  if(payType==2){
- 			  $("#alipayButton").click();
-   	  }
- };
+		var length = location.search.length;
+var wishOrderId= location.search.substring(13, length);
+	
+	
+      var app = angular.module('payment', []);
+      
+     	app.controller('pay', function($scope, $http) {
+	    	$http.get("/alipay/createOrder?wishOrderId="+wishOrderId).success(function(response) {
+	           
+	           $scope.order=response;   
+	           $("#tradeNo").val($scope.order.orderNo);
+	           $("#subject").val($scope.order.subject);
+	           $("#totalFee").val($scope.order.payableAmount); 
+	           $("#chnTradeNo").val($scope.order.orderNo);
+	           $("#chnTotalFee").val($scope.order.payableAmount);
+	           $("#awishOrderId").val($scope.order.wishOrderId);
+	           $("#cwishOrderId").val($scope.order.wishOrderId);
 
-});
+	           
+	           $("#nextButton").show();
+	           
+	           
+	           
+			});
+	    
+	    	$scope.pay = function(){ 
+	    		
+	    		
+	    		
+	    		 $("#alipayButton").click();
+	       	var payType = $("input[name='optionsRadios']:checked").val();
+	      	  if(payType==1){
+	      		  $("#chinapnrButton").click();
+	      	  }
+	   		  if(payType==2){
+	   			  $("#alipayButton").click();
+	     	  }
+	 
+
+	   };
+	    
+     
+  });
  	
 
 window.onload=function(){
     $("#prevButton").click(function () {
-	    window.location.href='paymentConfirm.html';
+	    window.location.href='paymentConfirm.html?wishOrderId='+wishOrderId;
 	});
 
 
@@ -182,7 +204,7 @@ $("#creditExpiredDate").attr('disabled',true);
 $("#CVcode").attr('disabled',true); 
 
 	});
-$("#nextButton").hide();  	
+//$("#nextButton").hide();  	
 };
 </script>
 </html>

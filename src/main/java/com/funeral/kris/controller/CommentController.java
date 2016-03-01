@@ -23,7 +23,6 @@ import com.funeral.kris.model.Comment;
 import com.funeral.kris.model.User;
 import com.funeral.kris.service.CommentService;
 import com.funeral.kris.service.UserService;
-import com.funeral.kris.util.SqlHelper;
 
 @Controller
 @RequestMapping(value="/comment")

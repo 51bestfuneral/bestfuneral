@@ -34,6 +34,18 @@ public class Wishlist {
 	@Column(name="status")
 	private String status;
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setOriginalPrice(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+
 	@Column(name="level")
 	private Integer level;
 	
@@ -78,13 +90,7 @@ public class Wishlist {
 		this.comment = comment;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 
 	public Date getCreateDate() {
 		return createDate;

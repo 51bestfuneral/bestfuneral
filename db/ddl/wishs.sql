@@ -62,3 +62,6 @@ CREATE TABLE wishs (
 ALTER TABLE wishs CHANGE size size varchar(200);
 
 alter table wishs add pd_source varchar(200);
+
+
+update wishs set xianen_price=0.1 where wish_id=2558;

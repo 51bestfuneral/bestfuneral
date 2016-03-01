@@ -59,6 +59,29 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 		return contactList;
 	}
 
+	@Override
+	public ContactInfo getContacterByWishOrderId(int wishOrderId) {
+
+		List<ContactInfo> list = this.getResources();
+
+		System.out.println("  ----- getByUserId  list=" + list.size());
+
+		Iterator<ContactInfo> iterator = list.iterator();
+
+		while (iterator.hasNext()) {
+
+			ContactInfo contactInfo = iterator.next();
+
+			if (contactInfo.getWishOrderId().intValue() == wishOrderId) {
+				return contactInfo;
+			}
+
+		}
+
+		return new ContactInfo();
+
+	}
+
 	public ContactInfoDAO getContactInfoDAO() {
 		return contactInfoDAO;
 	}

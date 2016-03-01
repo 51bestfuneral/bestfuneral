@@ -2,8 +2,6 @@ package com.funeral.kris.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.funeral.kris.model.WishOrder;
 
 public interface WishOrderService {
@@ -12,5 +10,9 @@ public interface WishOrderService {
 	public void updateResource(WishOrder wishOrder);
 	public WishOrder getResource(int id);
 	public void deleteResource(int id);
-	public List<WishOrder> getResources(HttpServletRequest request);
+	public WishOrder getLatestOpenWishOrderForSet(int userId);
+	public List<WishOrder> getResource();
+	public List<WishOrder> getResourceByUserId(int userId);
+
+
 }

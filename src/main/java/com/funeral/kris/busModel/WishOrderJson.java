@@ -6,7 +6,30 @@ import java.util.List;
 public class WishOrderJson {
      private Integer userId;
      private Integer wishOrderId;
-     private BigDecimal totalPrice;
+     private Integer statusId;
+     private String statusDisception;
+     private String style;
+
+     public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
+	}
+	public Integer getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
+	}
+	public String getStatusDisception() {
+		return statusDisception;
+	}
+	public void setStatusDisception(String statusDisception) {
+		this.statusDisception = statusDisception;
+	}
+	private BigDecimal totalPrice;
+     
      private List<WishOrderDetailJson> detailJson;
 	public Integer getUserId() {
 		return userId;

@@ -15,10 +15,10 @@ public class MySQL {
 		String password = null;
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); // 加载mysq驱动
+			Class.forName("com.mysql.jdbc.Driver"); // 鍔犺浇mysq椹卞姩
 		} catch (ClassNotFoundException e) {
-			System.out.println("驱动加载错误");
-			e.printStackTrace();// 打印出错详细信息
+			System.out.println("椹卞姩鍔犺浇閿欒");
+			e.printStackTrace();// 鎵撳嵃鍑洪敊璇︾粏淇℃伅
 		}
 		try {
 
@@ -35,13 +35,12 @@ public class MySQL {
 			// hibernate.show_sql=true
 			// entitymanager.packages.to.scan=com.funeral.kris.model
 			url = "jdbc:mysql://121.42.182.117/spring_tst?user=spring_tst&password=Ebaotech250&useUnicode=true&&characterEncoding=UTF-8&autoReconnect = true";
-			// 简单写法：url = "jdbc:myqsl://localhost/test(数据库名)?
-			// user=root(用户)&password=yqs2602555(密码)";
+			// 绠�崟鍐欐硶锛歶rl = "jdbc:myqsl://localhost/test(鏁版嵁搴撳悕)?
+			// user=root(鐢ㄦ埛)&password=yqs2602555(瀵嗙爜)";
 			user = "spring_tst";
 			password = "Ebaotech250";
 			this.conn = DriverManager.getConnection(url, user, password);
 		} catch (SQLException e) {
-			System.out.println("数据库链接错误");
 			e.printStackTrace();
 		}
 

@@ -432,6 +432,6 @@ top:-160px;
 @media (max-width: 1080px) {
     .container {
         width: 1280px!important;
-        padding: 0px;
+        padding: 0px!important;
     }
 }

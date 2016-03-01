@@ -171,6 +171,8 @@ span {
     width: 100%;
 	overflow: auto;
 	padding-bottom: 10px;
+		padding-left: 8%;
+
 }
 .shippingMethod h1 {
     font-size: 28px;

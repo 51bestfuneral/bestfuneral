@@ -126,6 +126,15 @@ span {
 	overflow: auto;
 	margin: 0px auto;
 }
+
+#expressContain {
+    width: 954px;
+	overflow: auto;
+	margin: 0px auto;
+}
+
+
+
 #confirmContain p {
     font-size: 19px;
 	color: #2e2e2e;
@@ -163,6 +172,19 @@ span {
 	font-weight: bold;
 	color: #b4b4b4;
 }
+
+.open {
+  padding-left: 23px;
+	width:100%;
+	height: 56px;
+}
+.open span {
+  line-height: 56px;
+	font-size: 19px;
+	font-weight: bold;
+	color:blue;
+}
+
 .singleConfirm {
 	width:100%;
 	height: 56px;
@@ -227,8 +249,8 @@ span {
 	height: 17px;
 }
 .descBottom {
-    padding-left: 40px;
-	height: 34px;
+	padding-left: 40px;
+	height: 100%;
 }
 #confirmRight {
     padding-left: 80px;

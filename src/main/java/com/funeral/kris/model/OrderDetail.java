@@ -18,9 +18,41 @@ public class OrderDetail {
 	@Column(name="order_detail_id")
 	private Integer orderDetailId;
 
+	public String getWishName() {
+		return wishName;
+	}
+
+	public void setWishName(String wishName) {
+		this.wishName = wishName;
+	}
+
 	@Column(name="wish_id")
 	private Integer wishId;
+	public Integer getWishListId() {
+		return wishListId;
+	}
 
+	public void setWishListId(Integer wishListId) {
+		this.wishListId = wishListId;
+	}
+
+	@Column(name="wish_name")
+	private String wishName;
+
+	@Column(name="wish_list_id")
+	private Integer wishListId;
+	
+	public Integer getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	@Column(name="source_id")
+	private Integer sourceId;
+	
 	@Column(name="order_id")
 	private Integer orderId;
 

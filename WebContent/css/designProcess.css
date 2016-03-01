@@ -1,3 +1,6 @@
+body{
+	padding: 0px;
+}
 .containerDiv {
     width: 1349px;
     margin: 0px auto;
@@ -50,7 +53,6 @@ p {
 }
 .titleDiv {
     height: 50px;
-	overflow: auto;
 	float: left;
 }
 .titleDiv p{

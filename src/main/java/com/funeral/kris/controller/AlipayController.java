@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.Cart;
-import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
-import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.service.AlipayService;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
@@ -31,6 +31,7 @@ import com.funeral.kris.service.FeeCollectionService;
 import com.funeral.kris.service.MailService;
 import com.funeral.kris.service.OrderService;
 import com.funeral.kris.service.SmsSenderService;
+import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
@@ -48,17 +49,17 @@ public class AlipayController {
 	private ExpressInfoService expressInfoService;
 	@Autowired
 	private FeeCollectionService feeCollectionService;
-	
+	@Autowired
+	private WishOrderService wishOrderService;
 	@Autowired
 	private CartService cartService;
 	@Autowired
 	private CartDetailService cartDetailService;
 	@Autowired
 	private MailService mailService;
-	
+
 	@Autowired
 	private SmsSenderService smsSenderService;
-
 
 	@ResponseBody
 	@RequestMapping(value = "/confirmPay", method = RequestMethod.GET)
@@ -68,56 +69,55 @@ public class AlipayController {
 
 	@ResponseBody
 	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
-	public Order createOrder(HttpServletRequest request) {
+	public Order createOrder(HttpServletRequest request) throws Exception {
 
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
-
-		List<Order> list = orderService.getResources();
-
-		Order order = orderService.getOpenByUserId(user.getUsrId());
-
+		String wishOrderId = request.getParameter("wishOrderId");
 		
-        int cartId=user.getCartId();
+		String setWishOrderId = request.getParameter("setWishOrderId");
+
 		
 		
 		
-		List<CartDetail> detailList = cartDetailService.getResourceByCartId(cartId);
+		
+		
+		
 
-		BigDecimal cost = BigDecimal.ZERO;
-
-		if (detailList == null) {
-			cost = BigDecimal.ZERO;
-			System.out.println("---1---detailList  "+detailList);
-	
+		WishOrder wishOrder = wishOrderService.getResource(Integer
+				.parseInt(wishOrderId));
+		
+		//要考虑是只支付购物车还是同时支付套餐
+		
+		
+		if(wishOrder.getPayMethod().intValue()==WishConstants.wishorder_paymethod_wishListOnly){
 			
-		} else {
-
-			System.out.println("--2----detailList  "+detailList);
-
-			Iterator it = detailList.iterator();
-
-			while (it.hasNext()) {
-
-				CartDetail detail = (CartDetail) it.next();
-
-				cost = cost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
-
-			}
-
+			wishOrder.setPayWishOrderId(Integer.parseInt(setWishOrderId));
+			
+			
 		}
 		
 		
-		
 
-		 ExpressInfo   expressInfo= expressInfoService.getUsingExpressInfo(user.getUsrId());
-		
-		 
-			System.out.println("---------cost  "+cost);
- 
-		 
-		cost=cost.add(expressInfo.getExpressFee());
+		Order order = orderService.getOrderByWishOrderId(Integer
+				.parseInt(wishOrderId));
+
+		if (order != null
+				&& order.getStatusId().intValue() == AlipayUtil.order_completed) {
+
+throw new Exception(" ---");
+
+		}
+
+		BigDecimal cost = wishOrder.getPrice();
+
+		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(user
+				.getUsrId());
+
+		System.out.println("---------cost  " + cost);
+
+		cost = cost.add(expressInfo.getExpressFee());
 
 		List<Order> orderList = orderService.listOrderByUserId(user.getUsrId());
 
@@ -131,21 +131,23 @@ public class AlipayController {
 			order.setOrderNo(orderNo);
 			order.setSubject(orderNo);
 			order.setPayableAmount(cost);
+			order.setWishOrderId(Integer.parseInt(wishOrderId));
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
-			//send mail
-			Map<String,String> messageInfo = new HashMap<String,String>();
+			// send mail
+			Map<String, String> messageInfo = new HashMap<String, String>();
 			messageInfo.put("to", "429105398@qq.com");
 			messageInfo.put("subject", "你有一笔新的订单");
-			messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
+			messageInfo.put("content",
+					"你有一笔新的订单(chelsea will provide the temp)");
 			mailService.send(messageInfo);
 			// send SMS
-			Map<String ,String> smsInfo = new HashMap<String,String>();
+			Map<String, String> smsInfo = new HashMap<String, String>();
 			smsInfo.put("phone", "18762605155");
 			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
-
+			order.setWishOrderId(Integer.parseInt(wishOrderId));
 			order.setUserId(user.getUsrId());
 			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);
@@ -153,7 +155,7 @@ public class AlipayController {
 		}
 
 		feeCollectionService.initFeeCollection(order.getOrderNo());
-		
+
 		return order;
 	}
 
@@ -172,19 +174,17 @@ public class AlipayController {
 
 		Cart cart = cartService.getResource(Integer.parseInt(cartId));
 
-
-		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(cart.getUserId());
+		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(cart
+				.getUserId());
 		System.out.println(" ------expressInfo=" + expressInfo);
 
 		BigDecimal cartFee = cart.getPrice();
 		BigDecimal expressFee;
-		if(expressInfo.getExpressFee()==null)
-		{
-			expressFee =BigDecimal.ZERO;
-		}
-		else{
-			
-			expressFee=	expressInfo.getExpressFee();
+		if (expressInfo.getExpressFee() == null) {
+			expressFee = BigDecimal.ZERO;
+		} else {
+
+			expressFee = expressInfo.getExpressFee();
 		}
 
 		BigDecimal totalPay = cartFee.add(expressFee);
@@ -251,7 +251,8 @@ public class AlipayController {
 			String[] values = (String[]) requestParams.get(name);
 			String valueStr = "";
 			for (int i = 0; i < values.length; i++) {
-				valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+				valueStr = (i == values.length - 1) ? valueStr + values[i]
+						: valueStr + values[i] + ",";
 			}
 			// ����������δ����ڳ�������ʱʹ�á����mysign��sign�����Ҳ����ʹ����δ���ת��
 			// valueStr = new String(valueStr.getBytes("UTF-8"), "UTF-8");
@@ -262,17 +263,20 @@ public class AlipayController {
 			// ��ȡ֧������֪ͨ���ز���ɲο������ĵ���ҳ����תͬ��֪ͨ�����б�(���½����ο�)//
 			// �̻�������
 
-			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("UTF-8"), "UTF-8");
+			String out_trade_no = new String(request.getParameter(
+					"out_trade_no").getBytes("UTF-8"), "UTF-8");
 
 			// ֧�������׺�
 
-			String trade_no = new String(request.getParameter("trade_no").getBytes("UTF-8"), "UTF-8");
+			String trade_no = new String(request.getParameter("trade_no")
+					.getBytes("UTF-8"), "UTF-8");
 
 			// ����״̬
-			String trade_status = new String(request.getParameter("trade_status").getBytes("UTF-8"), "UTF-8");
+			String trade_status = new String(request.getParameter(
+					"trade_status").getBytes("UTF-8"), "UTF-8");
 
 			if (AlipayService.verify(params)) {// ��֤�ɹ�
-				//////////////////////////////////////////////////////////////////////////////////////////
+				// ////////////////////////////////////////////////////////////////////////////////////////
 				// ������������̻���ҵ���߼��������
 
 				// �����������ҵ���߼�����д�������´�������ο�������
@@ -314,12 +318,14 @@ public class AlipayController {
 		Map<String, String> params = new HashMap<String, String>();
 		Map requestParams = request.getParameterMap();
 		try {
-			for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
+			for (Iterator iter = requestParams.keySet().iterator(); iter
+					.hasNext();) {
 				String name = (String) iter.next();
 				String[] values = (String[]) requestParams.get(name);
 				String valueStr = "";
 				for (int i = 0; i < values.length; i++) {
-					valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+					valueStr = (i == values.length - 1) ? valueStr + values[i]
+							: valueStr + values[i] + ",";
 				}
 				// ����������δ����ڳ�������ʱʹ�á����mysign��sign�����Ҳ����ʹ����δ���ת��
 				valueStr = new String(valueStr.getBytes("UTF-8"), "UTF-8");
@@ -329,14 +335,17 @@ public class AlipayController {
 			// ��ȡ֧������֪ͨ���ز���ɲο������ĵ���ҳ����תͬ��֪ͨ�����б�(���½����ο�)//
 			// �̻�������
 
-			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("UTF-8"), "UTF-8");
+			String out_trade_no = new String(request.getParameter(
+					"out_trade_no").getBytes("UTF-8"), "UTF-8");
 
 			// ֧�������׺�
 
-			String trade_no = new String(request.getParameter("trade_no").getBytes("UTF-8"), "UTF-8");
+			String trade_no = new String(request.getParameter("trade_no")
+					.getBytes("UTF-8"), "UTF-8");
 
 			// ����״̬
-			String trade_status = new String(request.getParameter("trade_status").getBytes("UTF-8"), "UTF-8");
+			String trade_status = new String(request.getParameter(
+					"trade_status").getBytes("UTF-8"), "UTF-8");
 
 			// ��ȡ֧������֪ͨ���ز���ɲο������ĵ���ҳ����תͬ��֪ͨ�����б�(���Ͻ����ο�)//
 
@@ -344,11 +353,12 @@ public class AlipayController {
 			boolean verify_result = AlipayService.verify(params);
 
 			if (verify_result) {// ��֤�ɹ�
-				//////////////////////////////////////////////////////////////////////////////////////////
+				// ////////////////////////////////////////////////////////////////////////////////////////
 				// ������������̻���ҵ���߼��������
 
 				// �����������ҵ���߼�����д�������´�������ο�������
-				if (trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")) {
+				if (trade_status.equals("TRADE_FINISHED")
+						|| trade_status.equals("TRADE_SUCCESS")) {
 					// �жϸñʶ����Ƿ����̻���վ���Ѿ�������
 					// ���û�������?��ݶ����ţ�out_trade_no�����̻���վ�Ķ���ϵͳ�в鵽�ñʶ�������ϸ����ִ���̻���ҵ�����
 					// ����������?��ִ���̻���ҵ�����
@@ -358,7 +368,7 @@ public class AlipayController {
 				System.out.println("��֤�ɹ�<br />");
 				// �����������ҵ���߼�����д�������ϴ�������ο�������
 
-				//////////////////////////////////////////////////////////////////////////////////////////
+				// ////////////////////////////////////////////////////////////////////////////////////////
 			} else {
 				// ��ҳ�����ҳ�������༭
 				System.out.println("��֤ʧ��");

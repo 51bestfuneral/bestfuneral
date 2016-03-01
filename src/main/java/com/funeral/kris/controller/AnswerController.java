@@ -1,7 +1,6 @@
 package com.funeral.kris.controller;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Answer;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.Option;
-import com.funeral.kris.model.OptionRule;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
@@ -35,8 +34,6 @@ import com.funeral.kris.service.OptionService;
 import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
-
-import com.funeral.kris.init.constants.LoginConstants;
 
 @Controller
 @RequestMapping(value="/answer")

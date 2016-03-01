@@ -187,20 +187,20 @@
 		<div class="shippingMethod">
 		    <h1>邮寄方式</h1>
 		</div>
-		<div class="shippingMethod">
+	<div class="shippingMethod">
 		    <p>推荐方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod1"  value="1" checked>
 			<span class="radioDesc">暂存在念念</span>
-			<span class="normalDesc">（我们会暂时替您保管，在需要的时候提供给怿）</span>
+			<span class="normalDesc"   style="font-size: 19px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">（我们会暂时替您保管，在需要的时候提供给您）</span>
 	    </div>
 		<div class="shippingMethod">
 		    <p>传统方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod2" value="2">
 			<span class="radioDesc">标准</span>
-			<span class="normalDesc">（免费, 2-3日送达）</span>
+			<span class="normalDesc" style="font-size: 19px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">(免邮费，2-3日送达)</span>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod3" value="3">
 			<span class="radioDesc">快递</span>
-			<span class="normalDesc">（1日送达，20块钱快递费用）</span>
+			<span class="normalDesc" style="font-size: 19px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">(快递费20元,1日内送达)</span>
 	    </div>
 	</div>
 	<div id="footerContain">
@@ -226,22 +226,30 @@
 </div>
 </body>
 <script>
-var deliverMethod;	
+var deliverMethod;;	
 	
 var app = angular.module('contactInfo', []);
 
+var length = location.search.length;
+var wishOrderId= location.search.substring(13, length);
+
+
+
 app.controller('contactInfoController', function($scope, $http) {
-$scope.user;
 $scope.currentContacter;
 $scope.currenctExpress;
 $scope.contactorId;
-  $http.get("/login/getCurrentUser").success(function(response) {
-	    $scope.user = response;
-	    	    var data = JSON.stringify($scope.user);
-	    	     $http.get("/contactInfo/getUsingContacter").success(function(response) {
+
+ $http.get("/login/getCurrentUser").success(function(response) {
+	  $scope.user = response;
+	  });
+
+
+
+	    	     $http.get("/contactInfo/getUsingContacterByWishOrderId?wishOrderId="+wishOrderId).success(function(response) {
 	    $scope.currentContacter = response;
 	    });
-	   $http.get("/expressController/getUsingExpressInfoByUserId").success(function(response) {
+	   $http.get("/expressController/getExpressInfoByWishOrderId?wishOrderId="+wishOrderId).success(function(response) {
 	    $scope.currenctExpress = response;
 	    	    var datadata = JSON.stringify($scope.currenctExpress);
 	    //	 alert("----currenctExpress---"+datadata+"  deliveryMethod= "+datadata.deliveryMethod);
@@ -264,7 +272,7 @@ $scope.contactorId;
 	
 	    				}else{
 	  $("#deliveryMethod1").attr("checked",'checked'); 
-
+deliverMethod=='1';
 	    					}
 		
 			//	alert(" --2--  deliverMethod ="+deliverMethod);
@@ -273,7 +281,7 @@ $scope.contactorId;
 		
 		});
 	    
-	});
+	
 	
     $http.get("/contactInfo/listByUserId").success(function(response) {
 	    $scope.contactInfos = response;
@@ -326,6 +334,9 @@ function validatemobile(vid)
 
 $("#nextButton").click(function () {
 	
+	
+
+
 
 if( $scope.currentContacter.contactName==null||$scope.currentContacter.contactName==""){
 	alert("请输入联系人姓名！");
@@ -422,8 +433,13 @@ if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPho
 		
 		}
 
-	    $scope.currentContacter.userId=$scope.user.usrId;
-	    
+
+if(deliverMethod==null){
+	deliverMethod=1;
+	}
+
+     $scope.currentContacter.userId=$scope.user.usrId;
+	     $scope.currentContacter.wishOrderId=wishOrderId;
 	    $scope.currentContacter.expressMethod=deliverMethod;
 		
 	    var datadata = JSON.stringify($scope.currentContacter);
@@ -442,7 +458,7 @@ if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPho
   
           });
  
- window.location.href='/paymentConfirm.html'; 
+ window.location.href='/paymentConfirm.html?wishOrderId='+wishOrderId; 
          });
 
 $("#deliveryMethod1").click(function () {
@@ -474,7 +490,7 @@ $("#deliveryMethod3").click(function () {
 window.onload=function(){
 
 	  $("#prevButton").click(function () {
-	    window.location.href='/wishList.html';
+	    window.location.href='/shoppingCart.html';
 	});
 };
 </script>

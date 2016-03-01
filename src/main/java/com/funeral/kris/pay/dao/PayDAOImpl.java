@@ -46,6 +46,7 @@ public class PayDAOImpl implements PayDAO {
 				order.setOrderId(rs.getInt("order_id"));
 				order.setStatusId(rs.getInt("status_id"));
 				order.setUserId(rs.getInt("user_id"));
+				order.setWishOrderId(rs.getInt("wish_order_id"));
 				order.setSubject(rs.getString("subject"));
 				order.setDescription(rs.getString("description"));
 				order.setOrderNo(orderNo);
@@ -344,13 +345,32 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public void updateExpressInfo(ExpressInfo expressInfo) {
+	public void updateExpressInfo(ExpressInfo expressInfo) throws Exception {
 
-	}
+
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " update t_express_info set  status_id=?    where  express_id=?";
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, expressInfo.getStatusId());
+			st.setInt(2, expressInfo.getExpressId().intValue());
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw e;
+		}
 
 	
-
-
+		
+		
+		
+		
+	}
 
 	@Override
 	public void releaseUsingContacter(int userId) {
@@ -374,6 +394,93 @@ public class PayDAOImpl implements PayDAO {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public ExpressInfo getUncompledExpressInfoByWishOrderId(int wishOrderId, int statusId) throws Exception {
+
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " select *  from t_express_info where  wish_order_id=? and status_id=" + statusId;
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, wishOrderId);
+
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				ExpressInfo expressInfo = new ExpressInfo();
+
+				expressInfo.setExpressId(rs.getLong("express_id"));
+
+				expressInfo.setStatusId(statusId);
+
+				return expressInfo;
+			}
+
+		} catch (SQLException e) {
+			throw e;
+
+		}
+		return null;
+
+	}
+
+	@Override
+	public void updateOrderStatus(String orderNo,int statusId)throws Exception {
+
+
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " update t_order set  status_id=?    where  order_no=?";
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, statusId);
+			st.setString(2, orderNo);
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw e;
+
+		}
+
+			
+	}
+
+	@Override
+	public void updateWishOrderStatus(int wishOrderId,int statusId) throws Exception {
+
+
+
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " update t_wish_order set  status_id=?    where  wish_order_id=?";
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, statusId);
+			st.setInt(2, wishOrderId);
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			throw e;
+		}
+
+			
+	
+		
 	}
 
 }

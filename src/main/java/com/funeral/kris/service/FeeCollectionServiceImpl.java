@@ -248,7 +248,7 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 
 		List<TFeeCollection> tFeeCollectionList = this.loadFeeCollectionByOrderNo(orderNo);
 
-		if (tFeeCollectionList == null || tFeeCollectionList.size() > 0) {
+		if (tFeeCollectionList == null || tFeeCollectionList.size() == 0) {
 
 			return null;
 		} else {
