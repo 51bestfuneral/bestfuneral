@@ -129,9 +129,21 @@ public class ExpressController {
 
 		WishOrder wishOrder = wishOrderService.getResource(contactInfo
 				.getWishOrderId());
+
+		WishOrder latestOpenWishOrder = wishOrderService
+				.getLatestOpenWishOrderForSet(user.getUsrId());
+
+		Integer currentWishOrderId = wishOrder.getWishOrderId();
 		
-		Integer currentWishOrderId=wishOrder.getWishOrderId();
 		
+	System.out.println(this.getClass()+"  --------add currentWishOrderId="+currentWishOrderId);
+	
+	if(latestOpenWishOrder!=null){
+		
+		System.out.println(this.getClass()+"  --------add latestOpenWishOrder.getWishOrderId="+latestOpenWishOrder.getWishOrderId());
+		
+	}
+
 		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_shoppingCartOnly
 				|| wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_together) { // 如果支付组合里面包含了支付购物车，则在此处清空购物车
 			for (CartDetail cartDetail : cartList) {
@@ -142,13 +154,31 @@ public class ExpressController {
 
 		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_together
 				|| wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_wishListOnly) {
+
+			// 先把原来order下面的套餐order detail 删除
+			List<OrderDetail> oldsetWishOrderDetaillist = orderDetailService
+					.getOrderDetailForWishList(wishOrder.getWishOrderId());
+
+			if (oldsetWishOrderDetaillist != null
+					&& currentWishOrderId.intValue() != latestOpenWishOrder
+							.getWishOrderId().intValue()) {
+				Iterator iterator = oldsetWishOrderDetaillist.iterator();
+
+				while (iterator.hasNext()) {
+					OrderDetail detail = (OrderDetail) iterator.next();
+
+					orderDetailService
+							.deleteResource(detail.getOrderDetailId());
+				}
+
+			}
+
 			// 需要把套餐下的 t_order_detail copy 一份，挂在直选的wish下面
 
 			// 拿到当前最新的套餐，copy一份 order detail，然后挂在当前的wish order下
 
-			WishOrder latestOpenWishOrder = wishOrderService
-					.getLatestOpenWishOrderForSet(user.getUsrId());
-			if (latestOpenWishOrder != null) {
+			if (latestOpenWishOrder != null&&currentWishOrderId.intValue() != latestOpenWishOrder
+					.getWishOrderId().intValue()) {
 
 				List<OrderDetail> list = orderDetailService
 						.getResourcesByWishOrderId(latestOpenWishOrder
@@ -169,25 +199,15 @@ public class ExpressController {
 					}
 
 				}
-//把套餐指向当前的订单
+				// 把套餐指向当前的订单
 				latestOpenWishOrder.setPayWishOrderId(currentWishOrderId);
 				wishOrderService.updateResource(latestOpenWishOrder);
 			}
 
 		} else if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_shoppingCartOnly) {
-			// 把 pay wish order id 置为自己
-			
-			WishOrder latestOpenWishOrder = wishOrderService
-					.getLatestOpenWishOrderForSet(user.getUsrId());
-			
-			if(latestOpenWishOrder!=null){
-				
-				latestOpenWishOrder.setPayWishOrderId(null);
-				wishOrderService.updateResource(latestOpenWishOrder);				
-			}
-
+			// 什么也不用做
 		}
-		
+
 		wishOrder.setPayWishOrderId(wishOrder.getWishOrderId());
 
 		wishOrder.setStatusId(WishConstants.wishorder_status_pendingPay);

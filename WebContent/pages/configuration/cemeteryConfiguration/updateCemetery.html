@@ -85,6 +85,8 @@ id = location.search.substring(4, length);
 	      
 	     	$http.get("/funeral/cemetery/listCemeteryKeywords?id="+$scope.cemeteryId).success(function(response) {
 	       $scope.cemeteryKeywords = response;
+	       
+	       
 			})
 			 
 	      
@@ -142,11 +144,9 @@ id = location.search.substring(4, length);
 		 			 $scope.removeCemetery= function(){
 		 			 	
 		 	$http.get("/funeral/cemetery/removeCemetery?id="+$scope.cemeteryId).success(function(response) {
-	     	$scope.currentCemetery="";
-		 
-		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
-	       $scope.cemeterys = response;
-			})
+	     
+	     window.location.href='/funeral/pages/configuration/cemeteryConfiguration/updateCemetery.html';
+	
 	      
 			})
 		 	}

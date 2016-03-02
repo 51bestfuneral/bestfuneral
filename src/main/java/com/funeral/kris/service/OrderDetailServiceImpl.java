@@ -148,7 +148,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 				OrderDetail detail = (OrderDetail) it.next();
 
-				if (detail.getWishOrderId().intValue() == wishOrderId
+				if (detail.getWishOrderId()!=null&&detail.getWishOrderId().intValue() == wishOrderId
 						&& detail.getSourceId().intValue() == WishConstants.wish_source_direct) {
 					list.add(detail);
 				}
@@ -177,10 +177,10 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 				OrderDetail detail = (OrderDetail) it.next();
 
-				System.out.println(this.getClass()
-						+ " ----getOrderDetailForWishList---- getWishOrderId="
-						+ detail.getWishOrderId() + " getSourceId="
-						+ detail.getSourceId());
+//				System.out.println(this.getClass()
+//						+ " ----getOrderDetailForWishList---- getWishOrderId="
+//						+ detail.getWishOrderId() + " getSourceId="
+//						+ detail.getSourceId());
 
 				if (detail.getWishOrderId().intValue() == wishOrderId
 						&& detail.getSourceId().intValue() == WishConstants.wish_source_set) {

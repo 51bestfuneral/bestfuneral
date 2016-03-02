@@ -27,264 +27,71 @@ import com.funeral.kris.service.CemeteryEpigraphStyleService;
 import com.funeral.kris.service.CemeteryGraveStyleService;
 import com.funeral.kris.service.CemeteryGraveZoneService;
 import com.funeral.kris.service.CemeteryKeywordsService;
-import com.funeral.kris.service.CemeteryPriceService;
 import com.funeral.kris.service.CemeteryService;
-
+import com.funeral.kris.service.CemeteryPriceService;
 @Controller
-@RequestMapping(value = "/cemetery")
-public class CemeteryController {
-	@Autowired
+@RequestMapping({"/cemetery"})
+public class CemeteryController
+{
+
+  @Autowired
+  private CemeteryService cemeteryService;
+  @Autowired
 	private CemeteryPriceService cemeteryPriceService;
-	@Autowired
-	private CemeteryService cemeteryService;
-	@Autowired
-	private CemeteryEpigraphStyleService cemeteryEpigraphStyleService;
-	@Autowired
-	private CemeteryGraveStyleService cemeteryGraveStyleService;
-	@Autowired
-	private CemeteryGraveZoneService cemeteryGraveZoneService;
-	@Autowired
-	private CemeteryKeywordsService cemeteryKeywordsService;
-
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public ModelAndView addCemeteryPage() {
-		ModelAndView modelAndView = new ModelAndView("add-cemetery-form");
-		modelAndView.addObject("cemetery", new Cemetery());
-		return modelAndView;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public void addingCemetery(@RequestBody Cemetery cemetery) {
-
-		System.out.println("  cemetery=" + cemetery);
-		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
-
-		cemeteryService.addResource(cemetery);
-
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addTemple", method = RequestMethod.POST)
-	public void addTemple(@RequestBody Cemetery cemetery) {
-
-		System.out.println("  cemetery=" + cemetery);
-		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
-		cemetery.setType(2);
-		cemeteryService.addResource(cemetery);
-
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addCemetery", method = RequestMethod.POST)
-	public void addCemetery(@RequestBody Cemetery cemetery) {
-
-		System.out.println("  cemetery=" + cemetery);
-		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
-		cemetery.setType(1);
-		cemeteryService.addResource(cemetery);
-
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/getCemetery", method = RequestMethod.GET, produces = "application/json")
-	public Cemetery getCemetery(HttpServletRequest request) {
-
-		int cemeteryId = Integer.parseInt(request.getParameter("id"));
-		Cemetery cemetery = cemeteryService.getResource(cemeteryId);
-		return cemetery;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/findOneCemetery", method = RequestMethod.GET, produces = "application/json")
-	public CemeteryBean findOneCemetery(HttpServletRequest request) {
-
-		int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
-		Cemetery cemetery = cemeteryService.getResource(cemeteryId);
-
-		List<TCemeteryEpigraphStyle> cemeteryEpigraphStyleList = cemeteryEpigraphStyleService
-				.findByCemeteryId(cemeteryId);
-		List<TCemeteryGraveStyle> cemeteryGraveStyleList = cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
-		List<TCemeteryGraveZone> zoneList = cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
-
-		List<TCemeteryKeywords> keywordsList = cemeteryKeywordsService.getResources(request);
-
-		CemeteryBean bean = new CemeteryBean();
-
-		bean.setCemeteryId(cemeteryId);
-
-		bean.setCemeteryName(cemetery.getCemeteryName());
-
-		bean.setAddress(cemetery.getAddress());
-
-		bean.setCemeteryDesc(cemetery.getCemeteryDesc());
-
-		bean.setDistrict(cemetery.getDistrict());
-
-		bean.setFeature(cemetery.getFeature());
-
-		bean.setMapUrl("/funeral/js/images/cemeteryMap.png");
-
-		bean.setPrice(cemetery.getPrice());
-
-		bean.setTrafficInfo(cemetery.getTrafficInfo());
-
-		bean.setEpigraphStyleList(cemeteryEpigraphStyleList);
-
-		bean.setGraveStyleList(cemeteryGraveStyleList);
-
-		bean.setGraveZoneList(zoneList);
-
-		bean.setDescImgUrl(cemetery.getDescImgUrl());
-		bean.setFeatureImgUrl(cemetery.getFeatureImgUrl());
-		bean.setLocationImgUrl(cemetery.getLocationImgUrl());
-
-		bean.setKeywordsList(keywordsList);
-
-		return bean;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/listCemeteryKeywords", method = RequestMethod.GET, produces = "application/json")
-	public List<TCemeteryKeywords> listCemeteryKeywords(HttpServletRequest request) {
-		List<TCemeteryKeywords> keywords = cemeteryKeywordsService.getResources(request);
-
-		return keywords;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/listCemeteryPrice", method = RequestMethod.GET, produces = "application/json")
-	public List<TCemeteryPrice> listCemeteryPrice(HttpServletRequest request) {
-
-		int cemeteryId = Integer.parseInt(request.getParameter("id"));
-
-		List<TCemeteryPrice> prices = cemeteryPriceService.getCemeteryPriceListByCemeteryId(cemeteryId);
-
-		return prices;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/getOneCemeteryKeyword", method = RequestMethod.GET, produces = "application/json")
-	public TCemeteryKeywords getOneCemeteryKeyword(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
-
-		TCemeteryKeywords keywords = cemeteryKeywordsService.getResource(id);
-
-		return keywords;
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addCemeteryKeyword", method = RequestMethod.POST)
-	public void addCemeteryKeyword(@RequestBody TCemeteryKeywords cemeteryKeywords) {
-
-		cemeteryKeywordsService.addResource(cemeteryKeywords);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addCemeteryPrice", method = RequestMethod.POST)
-	public void addCemeteryPrice(@RequestBody TCemeteryPrice tCemeteryPrice) {
-
-		System.out.println("  getDescription =" + tCemeteryPrice.getDescription() + " getCemeteryId="
-				+ tCemeteryPrice.getCemeteryId() + " getEpigraphStyleId= " + tCemeteryPrice.getEpigraphStyleId()
-				+ " getGraveStyleId= " + tCemeteryPrice.getGraveStyleId());
-
-		cemeteryPriceService.addResource(tCemeteryPrice);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/removeCemetery", method = RequestMethod.GET, produces = "application/json")
-	public void removeCemetery(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
-		cemeteryService.deleteResource(id);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/removePrice", method = RequestMethod.GET, produces = "application/json")
-	public void removePrice(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
-		cemeteryPriceService.deleteResource(id);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/removeCemeteryKeyword", method = RequestMethod.GET, produces = "application/json")
-	public void removeCemeteryKeyword(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
-		cemeteryKeywordsService.deleteResource(id);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addEpigraph", method = RequestMethod.POST)
-	public void addEpigraph(@RequestBody TCemeteryEpigraphStyle cemeteryEpigraphStyle) {
-
-		cemeteryEpigraphStyleService.addResource(cemeteryEpigraphStyle);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/removeEpigraph", method = RequestMethod.GET, produces = "application/json")
-	public void removeEpigraph(HttpServletRequest request) {
-
-		int id = Integer.parseInt(request.getParameter("id"));
-
-		cemeteryEpigraphStyleService.deleteResource(id);
-		
-		List<TCemeteryPrice> cemeteryPriceList = cemeteryPriceService.getCemeteryPriceListByEpigraphStyleId(id);
-		if (cemeteryPriceList != null && cemeteryPriceList.size() > 0) {
-			for (TCemeteryPrice price : cemeteryPriceList) {
-				cemeteryPriceService.deleteResource(price.getId());
-			}
-		}
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addGrave", method = RequestMethod.POST)
-	public void addGrave(@RequestBody TCemeteryGraveStyle cemeteryGraveStyle) {
-
-		cemeteryGraveStyleService.addResource(cemeteryGraveStyle);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/addZone", method = RequestMethod.POST)
-	public void addZone(@RequestBody TCemeteryGraveZone cemeteryGraveZone) {
-
-		cemeteryGraveZoneService.addResource(cemeteryGraveZone);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/removeZone", method = RequestMethod.GET, produces = "application/json")
-	public void removeZone(HttpServletRequest request) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		cemeteryGraveZoneService.deleteResource(id);
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/removeGrave", method = RequestMethod.GET, produces = "application/json")
-	public void removeGrave(HttpServletRequest request) {
-		int id = Integer.parseInt(request.getParameter("id"));
-		cemeteryGraveStyleService.deleteResource(id);
-		List<TCemeteryPrice> cemeteryPriceList = cemeteryPriceService.getCemeteryPriceListByGraveStyleId(id);
-		if (cemeteryPriceList != null && cemeteryPriceList.size() > 0) {
-			for (TCemeteryPrice price : cemeteryPriceList) {
-				cemeteryPriceService.deleteResource(price.getId());
-			}
-		}
-	}
-
-	@ResponseBody
-	@RequestMapping(value = "/listZones", method = RequestMethod.GET, produces = "application/json")
-	public List<TCemeteryGraveZone> listZones(HttpServletRequest request) {
-
-		int cemeteryId = Integer.parseInt(request.getParameter("id"));
-
-		List<TCemeteryGraveZone> zones = cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
-
-		return zones;
-	}
-
-	@ResponseBody
+  @Autowired
+  private CemeteryEpigraphStyleService cemeteryEpigraphStyleService;
+
+  @Autowired
+  private CemeteryGraveStyleService cemeteryGraveStyleService;
+
+  @Autowired
+  private CemeteryGraveZoneService cemeteryGraveZoneService;
+
+  @Autowired
+  private CemeteryKeywordsService cemeteryKeywordsService;
+
+  @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public ModelAndView addCemeteryPage()
+  {
+    ModelAndView modelAndView = new ModelAndView("add-cemetery-form");
+    modelAndView.addObject("cemetery", new Cemetery());
+    return modelAndView;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addingCemetery(@RequestBody Cemetery cemetery) {
+    System.out.println("  cemetery=" + cemetery);
+    System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
+
+    this.cemeteryService.addResource(cemetery);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/addTemple"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addTemple(@RequestBody Cemetery cemetery) {
+    System.out.println("  cemetery=" + cemetery);
+    System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
+    cemetery.setType(Integer.valueOf(2));
+    this.cemeteryService.addResource(cemetery);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/addCemetery"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addCemetery(@RequestBody Cemetery cemetery) {
+    System.out.println("  cemetery=" + cemetery);
+    System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
+    cemetery.setType(Integer.valueOf(1));
+    this.cemeteryService.addResource(cemetery);
+  }
+
+  @ResponseBody
+  @RequestMapping(value={"/getCemetery"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public Cemetery getCemetery(HttpServletRequest request) {
+    int cemeteryId = Integer.parseInt(request.getParameter("id"));
+    Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
+    return cemetery;
+  }
+  
+  
+  @ResponseBody
 	@RequestMapping(value = "/getCemeteryPriceBygraveStyleIdAndEpigraphStyleId", method = RequestMethod.GET, produces = "application/json")
 	public TCemeteryPrice getCemeteryPriceBygraveStyleIdAndEpigraphStyleId(HttpServletRequest request) {
 
@@ -314,109 +121,291 @@ public class CemeteryController {
 		return null;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/listEpigraphs", method = RequestMethod.GET, produces = "application/json")
-	public List<TCemeteryEpigraphStyle> listEpigraphs(HttpServletRequest request) {
+  @ResponseBody
+	@RequestMapping(value = "/listCemeteryPrice", method = RequestMethod.GET, produces = "application/json")
+	public List<TCemeteryPrice> listCemeteryPrice(HttpServletRequest request) {
 
 		int cemeteryId = Integer.parseInt(request.getParameter("id"));
 
-		List<TCemeteryEpigraphStyle> epigraphs = cemeteryEpigraphStyleService.findByCemeteryId(cemeteryId);
+		List<TCemeteryPrice> prices = cemeteryPriceService.getCemeteryPriceListByCemeteryId(cemeteryId);
 
-		return epigraphs;
+		return prices;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/listGraveStyle", method = RequestMethod.GET, produces = "application/json")
-	public List<TCemeteryGraveStyle> listGraveStyle(HttpServletRequest request) {
+  
+  
+  @ResponseBody
+  @RequestMapping(value={"/findOneCemetery"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public CemeteryBean findOneCemetery(HttpServletRequest request) {
+    int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
+    Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
 
-		int cemeteryId = Integer.parseInt(request.getParameter("id"));
+    List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService
+      .findByCemeteryId(cemeteryId);
+    List cemeteryGraveStyleList = this.cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
+    List zoneList = this.cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
 
-		List<TCemeteryGraveStyle> Style = cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
+    List keywordsList = this.cemeteryKeywordsService.findByCemeteryId(cemeteryId);
 
-		return Style;
-	}
+    CemeteryBean bean = new CemeteryBean();
 
-	@ResponseBody
-	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
-	public List<CemeteryBean> listOfCemeterys() {
-		List<CemeteryBean> list = new ArrayList<CemeteryBean>();
+    bean.setCemeteryId(Integer.valueOf(cemeteryId));
 
-		List<Cemetery> cemeteryList = cemeteryService.getResources();
+    bean.setCemeteryName(cemetery.getCemeteryName());
 
-		List<String> cssList = cemeteryService.getAllCss();
+    bean.setAddress(cemetery.getAddress());
 
-		Iterator iterator = cemeteryList.iterator();
+    bean.setCemeteryDesc(cemetery.getCemeteryDesc());
 
-		int[] index = {0, 0};
+    bean.setDistrict(cemetery.getDistrict());
 
-		while (iterator.hasNext()) {
-            String css;
-			Cemetery cemetery = (Cemetery) iterator.next();
-			CemeteryBean bean = new CemeteryBean();
+    bean.setFeature(cemetery.getFeature());
 
-			bean.setCemeteryId(cemetery.getCemeteryId());
+    bean.setMapUrl("/funeral/js/images/cemeteryMap.png");
 
-			bean.setCemeteryName(cemetery.getCemeteryName());
+    bean.setPrice(cemetery.getPrice());
 
-			bean.setAddress(cemetery.getAddress());
+    bean.setTrafficInfo(cemetery.getTrafficInfo());
 
-			bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+    bean.setEpigraphStyleList(cemeteryEpigraphStyleList);
 
-			bean.setDistrict(cemetery.getDistrict());
+    bean.setGraveStyleList(cemeteryGraveStyleList);
 
-			bean.setFeature(cemetery.getFeature());
+    bean.setGraveZoneList(zoneList);
 
-			bean.setMapUrl(cemetery.getMapUrl());
+    bean.setDescImgUrl(cemetery.getDescImgUrl());
+    bean.setFeatureImgUrl(cemetery.getFeatureImgUrl());
+    bean.setLocationImgUrl(cemetery.getLocationImgUrl());
 
-			bean.setPrice(cemetery.getPrice());
+    bean.setKeywordsList(keywordsList);
 
-			bean.setType(cemetery.getType());
-			bean.setTrafficInfo(cemetery.getTrafficInfo());
+    return bean;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listCemeteryKeywords"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<TCemeteryKeywords> listCemeteryKeywords(HttpServletRequest request) {
+    int cemeteryId = Integer.parseInt(request.getParameter("id"));
 
-			if (cemetery.getType().equals(1)) {
-				css = cssList.get(index[0]++);
-			}
-			else {
-				css = cssList.get(index[1]++);
-			}
-			bean.setDescImgUrl(cemetery.getDescImgUrl());
-			bean.setCss(css);
-			String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
-			bean.setStyle(style);
-			list.add(bean);
-		}
+    List keywords = this.cemeteryKeywordsService.findByCemeteryId(cemeteryId);
 
-		return list;
-	}
+    return keywords;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/getOneCemeteryKeyword"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public TCemeteryKeywords getOneCemeteryKeyword(HttpServletRequest request) {
+    int id = Integer.parseInt(request.getParameter("id"));
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public ModelAndView editCemeteryPage(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("edit-cemetery-form");
-		Cemetery cemetery = cemeteryService.getResource(id);
-		modelAndView.addObject("cemetery", cemetery);
-		return modelAndView;
-	}
+    TCemeteryKeywords keywords = this.cemeteryKeywordsService.getResource(id);
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView edditingCemetery(@ModelAttribute Cemetery cemetery, @PathVariable Integer id) {
+    return keywords;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/addCemeteryKeyword"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addCemeteryKeyword(@RequestBody TCemeteryKeywords cemeteryKeywords) {
+    this.cemeteryKeywordsService.addResource(cemeteryKeywords);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/removeCemetery"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public void removeCemetery(HttpServletRequest request) {
+    int id = Integer.parseInt(request.getParameter("id"));
+    this.cemeteryService.deleteResource(id);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/removeCemeteryKeyword"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public void removeCemeteryKeyword(HttpServletRequest request) {
+    int id = Integer.parseInt(request.getParameter("id"));
+    this.cemeteryKeywordsService.deleteResource(id);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/addEpigraph"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addEpigraph(@RequestBody TCemeteryEpigraphStyle cemeteryEpigraphStyle) {
+    this.cemeteryEpigraphStyleService.addResource(cemeteryEpigraphStyle);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/removeEpigraph"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public void removeEpigraph(HttpServletRequest request) {
+    int id = Integer.parseInt(request.getParameter("id"));
 
-		ModelAndView modelAndView = new ModelAndView("home");
+    this.cemeteryEpigraphStyleService.deleteResource(id);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/addGrave"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addGrave(@RequestBody TCemeteryGraveStyle cemeteryGraveStyle) {
+    this.cemeteryGraveStyleService.addResource(cemeteryGraveStyle);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/addZone"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public void addZone(@RequestBody TCemeteryGraveZone cemeteryGraveZone) {
+    this.cemeteryGraveZoneService.addResource(cemeteryGraveZone);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/removeZone"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public void removeZone(HttpServletRequest request) { int id = Integer.parseInt(request.getParameter("id"));
+    this.cemeteryGraveZoneService.deleteResource(id); } 
+  @ResponseBody
+  @RequestMapping(value={"/removeGrave"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public void removeGrave(HttpServletRequest request) {
+    int id = Integer.parseInt(request.getParameter("id"));
+    this.cemeteryGraveStyleService.deleteResource(id);
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listZones"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<TCemeteryGraveZone> listZones(HttpServletRequest request) {
+    int cemeteryId = Integer.parseInt(request.getParameter("id"));
 
-		cemeteryService.updateResource(cemetery);
+    List zones = this.cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
 
-		String message = "Cemetery was successfully edited.";
-		modelAndView.addObject("message", message);
+    return zones;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listEpigraphs"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<TCemeteryEpigraphStyle> listEpigraphs(HttpServletRequest request) {
+    int cemeteryId = Integer.parseInt(request.getParameter("id"));
 
-		return modelAndView;
-	}
+    List epigraphs = this.cemeteryEpigraphStyleService.findByCemeteryId(cemeteryId);
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteCemetery(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("home");
-		cemeteryService.deleteResource(id);
-		String message = "Cemetery was successfully deleted.";
-		modelAndView.addObject("message", message);
-		return modelAndView;
-	}
+    return epigraphs;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listGraveStyle"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<TCemeteryGraveStyle> listGraveStyle(HttpServletRequest request) {
+    int cemeteryId = Integer.parseInt(request.getParameter("id"));
 
+    List Style = this.cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
+
+    return Style;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listAllCemeteries"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<CemeteryBean> listAllCemeteries() {
+    List list = new ArrayList();
+
+    List cemeteryList = this.cemeteryService.getResources();
+
+    List cssList = this.cemeteryService.getAllCss();
+
+    Iterator iterator = cemeteryList.iterator();
+
+    int index = 0;
+
+    while (iterator.hasNext())
+    {
+      Cemetery cemetery = (Cemetery)iterator.next();
+
+      if (cemetery.getType().intValue() != 1)
+        continue;
+      CemeteryBean bean = new CemeteryBean();
+
+      bean.setCemeteryId(cemetery.getCemeteryId());
+
+      bean.setCemeteryName(cemetery.getCemeteryName());
+
+      bean.setAddress(cemetery.getAddress());
+
+      bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+
+      bean.setDistrict(cemetery.getDistrict());
+
+      bean.setFeature(cemetery.getFeature());
+
+      bean.setMapUrl(cemetery.getMapUrl());
+
+      bean.setPrice(cemetery.getPrice());
+
+      bean.setTrafficInfo(cemetery.getTrafficInfo());
+
+      String css = (String)cssList.get(index++);
+      bean.setDescImgUrl(cemetery.getDescImgUrl());
+      bean.setCss(css);
+      String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
+      bean.setStyle(style);
+      list.add(bean);
+    }
+
+    return list;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listAllTemple"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<CemeteryBean> listAllTemple() { List list = new ArrayList();
+
+    List cemeteryList = this.cemeteryService.getResources();
+
+    List cssList = this.cemeteryService.getAllCss();
+
+    Iterator iterator = cemeteryList.iterator();
+
+    int index = 0;
+
+    while (iterator.hasNext())
+    {
+      Cemetery cemetery = (Cemetery)iterator.next();
+
+      if (cemetery.getType().intValue() != 2)
+        continue;
+      CemeteryBean bean = new CemeteryBean();
+
+      bean.setCemeteryId(cemetery.getCemeteryId());
+
+      bean.setCemeteryName(cemetery.getCemeteryName());
+
+      bean.setAddress(cemetery.getAddress());
+
+      bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+
+      bean.setDistrict(cemetery.getDistrict());
+
+      bean.setFeature(cemetery.getFeature());
+
+      bean.setMapUrl(cemetery.getMapUrl());
+
+      bean.setPrice(cemetery.getPrice());
+
+      bean.setTrafficInfo(cemetery.getTrafficInfo());
+
+      String css = (String)cssList.get(index++);
+      bean.setDescImgUrl(cemetery.getDescImgUrl());
+      bean.setCss(css);
+      String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
+      bean.setStyle(style);
+      list.add(bean);
+    }
+
+    return list; } 
+  @ResponseBody
+  @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public List<Cemetery> listOfCemeterys() {
+    ModelAndView modelAndView = new ModelAndView("list-of-cemeterys");
+
+    List cemeterys = this.cemeteryService.getResources();
+    modelAndView.addObject("cemeterys", cemeterys);
+
+    return cemeterys;
+  }
+  @RequestMapping(value={"/edit/{id}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public ModelAndView editCemeteryPage(@PathVariable Integer id) {
+    ModelAndView modelAndView = new ModelAndView("edit-cemetery-form");
+    Cemetery cemetery = this.cemeteryService.getResource(id.intValue());
+    modelAndView.addObject("cemetery", cemetery);
+    return modelAndView;
+  }
+
+  @RequestMapping(value={"/edit/{id}"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  public ModelAndView edditingCemetery(@ModelAttribute Cemetery cemetery, @PathVariable Integer id) {
+    ModelAndView modelAndView = new ModelAndView("home");
+
+    this.cemeteryService.updateResource(cemetery);
+
+    String message = "Cemetery was successfully edited.";
+    modelAndView.addObject("message", message);
+
+    return modelAndView;
+  }
+  @RequestMapping(value={"/delete/{id}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public ModelAndView deleteCemetery(@PathVariable Integer id) {
+    ModelAndView modelAndView = new ModelAndView("home");
+    this.cemeteryService.deleteResource(id.intValue());
+    String message = "Cemetery was successfully deleted.";
+    modelAndView.addObject("message", message);
+    return modelAndView;
+  }
 }

@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -116,7 +117,7 @@ public class PayController {
 	@RequestMapping(value = "weixinPay", method = RequestMethod.POST)
 	public Map<String, String> weixinPay(HttpServletRequest request) throws Exception{
 		String orderNo= request.getParameter("orderNo");
-		BigDecimal price =new BigDecimal(request.getParameter("price")).multiply(new BigDecimal("100"));
+		BigDecimal price =new BigDecimal(request.getParameter("price")).multiply(new BigDecimal("100")).setScale(0, RoundingMode.HALF_UP);
 		String desc =request.getParameter("desc");
 		String url= payService.weixinPay(orderNo, price, desc);
 		Map<String, String> resultMap = new HashMap<String, String>();

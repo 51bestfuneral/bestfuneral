@@ -1,15 +1,19 @@
 package com.funeral.kris.service;
 
+import com.funeral.kris.model.TCemeteryKeywords;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+public abstract interface CemeteryKeywordsService
+{
+  public abstract void addResource(TCemeteryKeywords paramTCemeteryKeywords);
 
-import com.funeral.kris.model.TCemeteryKeywords;
+  public abstract void updateResource(TCemeteryKeywords paramTCemeteryKeywords);
 
-public interface CemeteryKeywordsService {
-	public void addResource(TCemeteryKeywords tCemeteryKeywords);
-	public void updateResource(TCemeteryKeywords tCemeteryKeywords);
-	public TCemeteryKeywords getResource(int id);
-	public void deleteResource(int id);
-	public List<TCemeteryKeywords> getResources(HttpServletRequest request);
+  public abstract TCemeteryKeywords getResource(int paramInt);
+
+  public abstract void deleteResource(int paramInt);
+
+  public abstract List<TCemeteryKeywords> getResources();
+
+  public abstract List<TCemeteryKeywords> findByCemeteryId(int paramInt);
 }

@@ -460,3 +460,43 @@ width: 100%;
 .choose{
 	background: #7E7E7E;
 	}
+	
+	.doubleLeft {
+    width: 714px;
+	margin-right: 42px;
+}
+.doubleRight {
+    width: 714px;
+}
+.singleLeft {
+    width: 336px;
+	margin-right: 42px;
+}
+.singleMiddle {
+    width: 336px;
+	margin-right: 42px;
+}
+.singleRight {
+    width: 336px;
+}
+.cemeteryDiv {
+    margin-bottom: 42px;
+	height: 370px;
+	float: left;
+	background-color: #ffffff;
+	text-align: center;
+	cursor:pointer;
+	overflow: hidden;
+}
+.cemeteryDiv img {
+ max-width:714px;_width:expression(this.width > 714 ? "714px" : 100%);
+  height: 100%;
+  width: 100%; 
+ 
+}
+
+.cemeteryDiv p {
+    line-height: 370px;
+	color: #000000;
+	font-size: 34px;
+}
