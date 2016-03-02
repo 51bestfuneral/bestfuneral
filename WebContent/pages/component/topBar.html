@@ -13,6 +13,7 @@
     body {
 	    margin: 0;
 	    background-color: transparent;
+	    height: 67px;
 	}
     .topBar {
 	    width: 100%;
@@ -21,7 +22,7 @@
 		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 	}
 	.linkList {
-	    width: 40%;
+	    width: 575px;
 		margin:0px auto;
 		height:100%;
 		overflow:auto;
@@ -33,7 +34,6 @@
 	}
 	#side {
 	    width: 120px;
-	    position: absolute;
 		right: 0px;
 		top: 0px;
 	}
@@ -68,7 +68,7 @@
 	    width: 25%;
 		float: left;
 		text-align: center;
-		margin-top: 18px;
+		margin-top: 22px;
 	}
 	#rightSide {
 	    width: 75%;
@@ -88,8 +88,8 @@
     .tickImg {
 		margin: 0px;
         padding: 0px;
-		width: 25px;
-		height: 25px;
+		width: 20px;
+		height: 20px;
 	}
 	.sideIcon {
 	    width: 20px;
@@ -141,6 +141,14 @@
 		margin: 0px;
 		text-align: center;
 	}
+	#rightSideLink {
+	    overflow: auto;
+		margin-top: -65px;
+	}
+	.sideLink {
+	    width: 120px;
+		float: right;
+	}
 </style>
 
 <body>
@@ -180,6 +188,22 @@
 			    <p>0</p>
 			</div>
 			<img src="../../js/images/shopping-red@2x.png" class="tickImg"></img>
+		</div>
+		<div class="includeLink sideLink" id="side2">
+			<div id="leftSide">
+				<img src="../../js/images/contact-red@2x.png" class="tickImg"></img>
+			</div>
+			<div id="rightSide">
+				<p>登录/注册</p>
+			</div>
+		</div>
+		<div class="includeLink sideLink" id="side">
+			<div id="leftSide">
+				<img src="../../js/images/contactUs.jpg" class="tickImg"></img>
+			</div>
+			<div id="rightSide">
+				<p>联系我们</p>
+			</div>
 		</div>
 	</div>
    
@@ -322,14 +346,15 @@
 				parent.find("#wishlistInfo").addClass("tempAdd");
 			});
 		});
-		parent.find("#contactUsInfo").mouseleave(function () {
-		    $(this).removeClass("tempAdd");
+		$("#wishlistIcon").mouseleave(function (e) {
+			var parent = $(window.parent.document.body);
+			parent.find("#wishlistInfo").removeClass('tempAdd');
 			setTimeout (function () {
-			    if (!parent.find("#contactUsInfo").hasClass('tempAdd')) {
-			        parent.find("#contactUsInfo").fadeOut();
-					parent.find("#contactSub").fadeOut();
+				if (!parent.find("#wishlistInfo").hasClass('tempAdd')) {
+					parent.find("#wishlistInfo").fadeOut();
+					parent.find("#wishlistSub").fadeOut();
 				}
-		    }, 100);
+			}, 100);
 		});
     }
     function adjustShoppingLayout(count) {
