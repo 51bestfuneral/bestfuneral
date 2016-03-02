@@ -55,8 +55,8 @@ public class QuestionController {
         List<QuestionListJson> questionJsonList = new ArrayList<QuestionListJson>();
         for (Question question : questions) {
         	QuestionListJson questionJson = new QuestionListJson();
-            List<Option> options = optionService.getOptionListByQuestionId(question.getQuestionId());
-            questionJson.setQuestionId(question.getQuestionId());
+            List<Option> options = optionService.getOptionListByQuestionId(question.getQuestionId().toString());
+            questionJson.setQuestionId(question.getQuestionId().toString());
             questionJson.setQuestionContent(question.getQuestionContent());
             questionJson.setOptionList(options);
             questionJson.setQuestionTitle(question.getQuestionTitle());

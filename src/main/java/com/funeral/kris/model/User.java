@@ -29,8 +29,44 @@ public class User {
 	@Column(name="e_mail")
 	private String email;
 	
+	@Column(name="age")
+	private Integer age;
 	
+	@Column(name="work")
+	private String work;
 
+	@Column(name="district")
+	private String district;
+
+	@Column(name="for_self")
+	private Integer for_self;
+
+	@Column(name="name")
+	private String name;
+
+	@Column(name="gender")
+	private String gender;
+	
+	@Column(name="birthday")
+	private String birthday;
+	
+	@Column(name="birth_place")
+	private String birthPlace;
+	
+	@Column(name="contactor")
+	private String contactor;
+	
+	@Column(name="contactor_mail")
+	private String contactorMail;
+	
+	@Column(name="contactor_phone")
+	private String contactorPhone;
+	
+	@Column(name="contactor_address")
+	private String contactorAddress;
+	
+	@Column(name="contactor_relate")
+	private String contactor_relate;
 	@Column(name="pwd")
 	private String password;
 	
@@ -171,6 +207,108 @@ public class User {
 		this.updatedDate = updatedDate;
 	}
 
-	
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getWork() {
+		return work;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public Integer getFor_self() {
+		return for_self;
+	}
+
+	public void setFor_self(Integer for_self) {
+		this.for_self = for_self;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getBirthPlace() {
+		return birthPlace;
+	}
+
+	public void setBirthPlace(String birthPlace) {
+		this.birthPlace = birthPlace;
+	}
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
+	public String getContactorMail() {
+		return contactorMail;
+	}
+
+	public void setContactorMail(String contactorMail) {
+		this.contactorMail = contactorMail;
+	}
+
+	public String getContactorPhone() {
+		return contactorPhone;
+	}
+
+	public void setContactorPhone(String contactorPhone) {
+		this.contactorPhone = contactorPhone;
+	}
+
+	public String getContactorAddress() {
+		return contactorAddress;
+	}
+
+	public void setContactorAddress(String contactorAddress) {
+		this.contactorAddress = contactorAddress;
+	}
+
+	public String getContactor_relate() {
+		return contactor_relate;
+	}
+
+	public void setContactor_relate(String contactor_relate) {
+		this.contactor_relate = contactor_relate;
+	}
 
 }

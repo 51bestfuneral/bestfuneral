@@ -105,6 +105,13 @@ public class WishlistDetailController {
 		return wishlistJsons;
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/listCount", method = RequestMethod.GET, produces = "application/json")
+	public Integer listCountOfWishlistDetails(HttpServletRequest request) {
+		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResources(request);
+		return wishlistDetails.size();
+	}
+
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editWishlistDetailPage(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("edit-wishlistDetail-form");

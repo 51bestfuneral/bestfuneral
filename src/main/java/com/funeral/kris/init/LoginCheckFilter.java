@@ -28,13 +28,11 @@ public class LoginCheckFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		URIsList.add("wishList.html");
-		URIsList.add("mainPage.html");
 	}
 
 	public void initUrls() throws ServletException {
 
 		URIsList.add("wishList.html");
-		URIsList.add("mainPage.html");
 	}
 
 	@Override
@@ -52,7 +50,7 @@ public class LoginCheckFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
 		
-	
+
 		String requestURL = request.getRequestURL().toString();
 		String url = response.encodeRedirectURL(request.getRequestURL().toString()) ;
 
@@ -61,7 +59,7 @@ public class LoginCheckFilter implements Filter {
 			System.out.println("  come on LoginCheckFilter--1-");
 
 			chain.doFilter(req, res);
-		} else if (session.getAttribute(LoginConstants.LoginStatus) != null
+		} else if (session != null && session.getAttribute(LoginConstants.LoginStatus) != null
 				&& !StringUtils.isNullOrEmpty(session.getAttribute(LoginConstants.LoginStatus).toString())
 				) {
 			

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
@@ -47,7 +48,7 @@ public class WishlistController {
 	
 	@Autowired
 	private WishService wishService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/saveWish", method = RequestMethod.GET)
 	public void saveWish(HttpServletRequest request) {
@@ -175,7 +176,7 @@ public class WishlistController {
 	private Wishlist generateWishList(Integer usrId, Integer wishlistId, Integer level) {
 		Wishlist wishList = new Wishlist();
 		Double totalPrice = 0d;
-		wishList.setStatus("I");
+		wishList.setStatus(LoginConstants.WISHLISTSTATUS_INPROCESS);
 		wishList.setUserId(usrId);
 		wishList.setWishlistId(wishlistId);
 		wishList.setLevel(level);

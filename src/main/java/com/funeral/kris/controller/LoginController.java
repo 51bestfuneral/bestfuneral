@@ -48,4 +48,16 @@ public class LoginController {
 			return null;
 		}
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "logoff", method = RequestMethod.GET, produces = "application/json")
+	public void logoff(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession(true);
+
+		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
+				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			session.removeAttribute("user"); 
+			session.removeAttribute(LoginConstants.LoginStatus);
+		}
+	}
 }

@@ -32,6 +32,8 @@ import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
 
+import com.funeral.kris.init.constants.LoginConstants;
+
 @Controller
 @RequestMapping(value="/answer")
 public class AnswerController {
@@ -132,7 +134,7 @@ public class AnswerController {
 		Double totalPrice = 0d;
 		wishList.setAnsListId(ansListId);
 		wishList.setWishlistId(wishlistId);
-		wishList.setStatus("I");
+		wishList.setStatus(LoginConstants.WISHLISTSTATUS_FINISHED);
 		wishList.setUserId(usrId);
 		wishList.setPrice(0d);
 		totalPrice = generateWishDetail(wishList, level);

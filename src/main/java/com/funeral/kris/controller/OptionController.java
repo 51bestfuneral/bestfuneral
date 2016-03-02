@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.constants.QUESTION;
 import com.funeral.kris.model.Option;
+import com.funeral.kris.model.Question;
 import com.funeral.kris.service.OptionService;
 
 @Controller
@@ -26,6 +29,8 @@ public class OptionController {
 
 	@Autowired
 	private OptionService optionService;
+	@Autowired
+	private EntityManager em;
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView addOptionPage() {
@@ -92,8 +97,22 @@ public class OptionController {
 	public List<Option> listOfOptions(HttpServletRequest request) {
 
 		System.out.println(this.getClass() + " listOfOptions    questionId= " + request.getParameter("questionId"));
+		String questionContent = request.getParameter("questionContent");
+		String questionId = null;
+		List<Option> options = null;
 
-		List<Option> options = optionService.getResources(request);
+		if (questionContent != null && !questionContent.equals("")) {
+	        String sql = "select p from Question p where p.questionContent = '"+questionContent+"'";
+	        Query query = em.createQuery(sql);
+			List<Question> questionList = query.getResultList();
+			questionId = questionList.get(0).getQuestionId().toString();
+			sql = "select o from Option o where o.questionId = '"+questionId+"'";
+			Query query2 = em.createQuery(sql);
+			options = query2.getResultList();
+		}
+		else {
+		    options = optionService.getResources(request);
+		}
 
 		return options;
 	}
