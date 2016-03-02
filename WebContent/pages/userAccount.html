@@ -8,14 +8,14 @@
 葬礼定制
 </title>
 </head>
-<script src="../../js/jquery-2.1.4.js"></script>
-<script src="../../js/jquery-ui.js"></script>
-<script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
-<link href="../../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<link href="../../js/timepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
-<script src="../../js/timepicker/js/moment-with-locales.js"></script>
-<script src="../../js/timepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<link href="../js/timepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="../js/timepicker/js/moment-with-locales.js"></script>
+<script src="../js/timepicker/js/bootstrap-datetimepicker.js"></script>
 <style>
     body {
 	    text-align: center;
@@ -240,21 +240,12 @@
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
-app.directive('onFinishRenderFilters', function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function() {
-                    scope.$emit('ngRepeatFinished');
-                });
-            }
-        }
-    };
-});
 app.controller('products', function($scope, $http) {
     var ages = [];
 
+    $http.get("/funeral/user/list").success(function(response) {
+    	
+    });
 	$scope.questions = [{
 	    questionId: 1,
 		questionTitle: "基本信息",
@@ -268,27 +259,11 @@ app.controller('products', function($scope, $http) {
 		questionTitle: "联系人信息",
 		questionContent: "告诉我们一些您的个人信息"
 	}];
-	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-          $(".questionCenter").first().fadeIn();
-		  $(".finishedIcon").each(function() {
-		      if ($(this).hasClass("finished")) {
-			      $(this).fadeIn();
-			  }
-		  });
-		  $($(".productTab")[0]).addClass("cursored");
-		  window.parent.iFrameHeight(0);
-    });
-	
-	for (var j=0;j<100;j++) {
-	    var age = {
-		    ageNumber: j
-		};
-		ages.push(age);
-	}
-	$scope.ages = ages;
 });
 </script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>
+<div class="container">
 <div id="productMain"  ng-cloak>
 <div id="tabCarousel" class="carousel slide">
 <div class="carousel-inner">
@@ -350,7 +325,7 @@ app.controller('products', function($scope, $http) {
 	    <p><b>2</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>告诉我们一些他(她)的个人信息</h1>
+	    <h1>请务必准确真实准确填写以下基本资料，这对我们而言非常重要</h1>
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
@@ -396,7 +371,7 @@ app.controller('products', function($scope, $http) {
 	    <p><b>3</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>请输入您的信息作为紧急联系人</h1>
+	    <h1>请填写一位您最信赖的备用联系人，一旦有需要，我们可以通过他（她）及时联系到您</h1>
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
@@ -422,14 +397,13 @@ app.controller('products', function($scope, $http) {
 	</div>
 </div>
 <div id="rightFooter">
-	<div id="prevStep" class="operatorButton">
-		<p>&#60;</p>
-	</div>
 	<div id="nextStep" class="operatorButton">
-		<p>下一步</p>
+		<p>保存</p>
 	</div>
 </div>
 </div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script>
 function handleFinishButton() {
@@ -473,7 +447,7 @@ function handleCursor(tab) {
     var me = tab;
 	$(".productTab").removeClass("cursored");
 	me.addClass("cursored");
-	$("#moveCursor").animate({left:tab.position().left+'px'});
+	$("#moveCursor").animate({'margin-left':tab.position().left+'px'});
 }
 function generateWishList() {
     $.ajax({
@@ -590,7 +564,6 @@ $(document.body).on("click",".productTab", function( event ) {
 	    $("#nextStep").removeClass("disabled");
 	}
 	handleButton();
-	window.parent.iFrameHeight(0);
 });
 $(document.body).on("click",".optionIcon", function( event ) {
     var tabPage = $(this).closest(".questionCenter"),
@@ -613,7 +586,6 @@ window.onload=function(){
 	    format: "YYYY-MM-DD"
 	});
     $(".questionCenter").first().fadeIn();
-	window.parent.iFrameHeight(0);
 	handleButton();
 };
 </script>

@@ -218,7 +218,7 @@
 	  	</div>
 	  	
 	  	
-	  	 <div  id="why1RightText2">
+	  	<div  id="why1RightText2">
 	  	 	<p>不需要找别人，念念会协助您完成所有的愿望</p>
 	  	</div>
 	  	
@@ -226,8 +226,12 @@
 	
 	</div>
 <div id="why3">
-	
-	
+	<img src="../js/images/Asian_Girl@2x-min.png" id="middleFront" hidden></img>
+	<img src="../js/images/Asian_GirlCopy@2x-min.png" id="middleBack"></img>
+	<img src="../js/images/Asian_Old@2x-min.png" id="rightFront" hidden></img>
+	<img src="../js/images/Asian_OldCopy@2x-min.png" id="rightBack"></img>
+	<img src="../js/images/Asian_Tech_2-min.png" class="sepcialImg" id="leftFront" hidden></img>
+	<img src="../js/images/Asian_Tech_2Copy@2x-min.png" class="sepcialImg" id="leftBack"></img>
 	<div id="why3Text1"><p>我们相信，不论何种情况，我们总是可以帮助到您</p></div>
 	
 	<div id="why3Text2"><p>您可能是70后，80后，忙于事业，忙着照料小孩。一旦遇到亲人离去的状况，肯定会不知所措。我们可以帮准您很好的平衡工作和处理后事的时间，无忧地解决所有问题。</p></div>
@@ -278,15 +282,24 @@
 		    <h3>我们为您提供了更为灵活的基础定制方案</h3>
 		</div>
 		<div id="taocan">
-			<div class="taocanIconDiv">
+			<div class="taocanIconDiv" id="taocanIconGood">
+			    <div class="IconBrand">
+			        <img src="/funeral/js/images/LogoWhite@2x-min.png"></img>
+			    </div>
 			    <h3 class="headerText">基础</h3>
 				<h5>￥6288 - ￥16288<h5>
 			</div>
-			<div class="taocanIconDiv">
+			<div class="taocanIconDiv" id="taocanIconBetter">
+			    <div class="IconBrand">
+			        <img src="/funeral/js/images/LogoWhite@2x-min.png"></img>
+			    </div>
 				<h3 class="headerText">精选</h3>
 				<h5>￥6288 - ￥16288<h5>
 			</div>
-			<div class="taocanIconDiv">
+			<div class="taocanIconDiv" id="taocanIconBest">
+			    <div class="IconBrand">
+			        <img src="/funeral/js/images/LogoWhite@2x-min.png"></img>
+			    </div>
 				<h3 class="headerText">豪华</h3>
 				<h5>￥6288 - ￥16288<h5>
 			</div>
@@ -305,9 +318,71 @@
 <div id="titleIconDiv">
     <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
-    <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME> 
-
+</div>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 <style>
+#why3 img{
+    width: 200px;
+    position: absolute;
+}
+.sepcialImg {
+    width: 280px!important;
+}
+#leftFront {
+    margin-left: -630px;
+    margin-top: 120px;
+    z-index: 10;
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -o-transform: scale(1.1); 
+}
+#leftBack {
+    margin-left: -630px;
+    margin-top: 120px;
+    cursor: pointer;
+}
+#leftBack:hover {
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -o-transform: scale(1.1); 
+}
+#middleFront {
+    margin-left: -440px;
+    margin-top: 100px;
+    z-index: 10;
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -o-transform: scale(1.1);
+}
+#middleBack {
+    margin-left: -440px;
+    margin-top: 100px;
+    cursor: pointer;
+}
+#middleBack:hover {
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -o-transform: scale(1.1); 
+}
+#rightFront {
+    margin-left: -270px;
+    margin-top: 100px;
+    z-index: 10;
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -o-transform: scale(1.1); 
+}
+#rightBack {
+    margin-left: -270px;
+    margin-top: 110px;
+    width: 190px!important;
+    cursor: pointer;
+}
+#rightBack:hover {
+    -webkit-transform: scale(1.1); 
+    -moz-transform: scale(1.1); 
+    -o-transform: scale(1.1); 
+}
 #frameDiv{
 width:100%;
 height:3px;	
@@ -331,8 +406,7 @@ top:-5px;
   height: 504.6px;
 	border:0px solid blue; 
 	overflow:auto;
-	 background:url(/funeral/js/images/why3.jpg);
-background-repeat:no-repeat;
+	 background:#DFE0E2;
 	}	
 	
 	#why3Text1{
@@ -627,5 +701,24 @@ top:-160px;
 	$("#startButton").on("click", function () {
 	    window.location.href='designProposal.html';
     });
+	$("#rightBack").click(function() {
+		$("#why3Text2").find("p")[0].innerText = "40后、50后：您可能是40、50后，辛苦操劳了大半生，现在既要帮助孩子照顾孙辈，还要面对父辈和自身的双重养老问题，无论经济上和精神上都面临极大的压力。我们可以帮助您提前进行合理规划，最大程度减轻您的负担。";
+		$("#rightFront").fadeIn();
+		$("#middleFront").fadeOut();
+		$("#leftFront").fadeOut();
+	});
+	$("#leftBack").click(function() {
+		$("#why3Text2").find("p")[0].innerText = "60后、70后：您可能是60、70后，忙于事业和家庭，缺少对传统礼数的认知和经历。一旦身边亲人遭遇不可知的变故，便容易不知所措。我们可以帮助您完善地应对所有的事务，解决您的后顾之忧。";
+		$("#leftFront").fadeIn();
+		$("#middleFront").fadeOut();
+		$("#rightFront").fadeOut();
+	});
+	$("#middleBack").click(function() {
+		$("#why3Text2").find("p")[0].innerText = "80后、90后：您可能是80、90后，正值壮年，社会阅历并不丰富，财富积累可能也有限，但这并不妨碍你们享受生命中最美好的时光。我们可以为您提供一种全新模式的金融理财方案，确保您终身收益。";
+		$("#middleFront").fadeIn();
+		$("#rightFront").fadeOut();
+		$("#leftFront").fadeOut();
+	});
+	$("#middleFront").fadeIn();
 </script>
 </html>

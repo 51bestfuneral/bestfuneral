@@ -3,7 +3,7 @@
 <head id="head"><title>
     Wish List
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers�?
+								deliver smart solutions, helping you to exceed your customers锟?
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -21,19 +21,15 @@
 </head>
 
 <header>
-<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
-
-<div id="line0"></div>
-<div id="link">
- <link1>	 <a href="#">为什么要定制葬礼</a>  </link1>
- <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样定制      </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">定制计算</a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html">定制套餐  </a>  </link4></div>
-
 </header>
 
 
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 @media (min-width: 900px) {
   .container {
     width: 100%;
@@ -366,21 +362,29 @@
 			url: '/funeral/wishlistDetail/delete/'+wishListDetailId,
 			type: 'get',
 			success:function(data){
-				alert("您的信息我们已经收到？");
+				alert("鎮ㄧ殑淇℃伅鎴戜滑宸茬粡鏀跺埌锛?);
 			},
 			error: function(error) {
-				alert("您的信息我们已经收到？");
+				alert("鎮ㄧ殑淇℃伅鎴戜滑宸茬粡鏀跺埌锛?);
 			}
 		});
 	}
 </script>
 <body ng-app="productApp" ng-controller="product">
+<div class="topBarDiv">
+    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
+<div id="line0"></div>
+<div id="link">
+ <link1>	 <a href="#">涓轰粈涔堣瀹氬埗钁ぜ</a>  </link1>
+ <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">鎬庢牱瀹氬埗      </a>  </link2>
+ <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">瀹氬埗璁＄畻</a>  </link3>
+ <link4>   <a href="/funeral/pages/designProposal.html">瀹氬埗濂楅  </a>  </link4></div>
 <div class="container"  ng-cloak>
-
     <div id="decorContainer">
 	    <div id="pageHeader">
 		    <div id="headerLeft">
-			    <h1>您的购物车</h1>
+			    <h1>鎮ㄧ殑璐墿杞?/h1>
 			</div>
 			<div id="headerRight">
 			    <div class="rightImg">
@@ -403,19 +407,19 @@
 					<input type="checkbox">
 				</div>
 				<div class="itemName">
-				    <p class="title">产品和服務</p>
+				    <p class="title">浜у搧鍜屾湇鍕?/p>
 				</div>
 				<div class="itemPrice">
-				    <p class="title">念念价格 </p>
+				    <p class="title">蹇靛康浠锋牸 </p>
 				</div>
 				<div class="itemAmout">
-				    <p class="title">数量</p>
+				    <p class="title">鏁伴噺</p>
 				</div>
 				<div class="totalPrice">
-				    <p class="title">小计 </p>
+				    <p class="title">灏忚 </p>
 				</div>
 				<div class="operation">
-				    <p class="title">操作</p>
+				    <p class="title">鎿嶄綔</p>
 				</div>
 			</div>
 			
@@ -467,18 +471,18 @@
 						<p class="summTitle titleNumber"></p>
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">件商品，共计</p>
-						<p class="title">运费</p>
-						<p class="summTitle">订单总计</p>
+					    <p class="title">浠跺晢鍝侊紝鍏辫</p>
+						<p class="title">杩愯垂</p>
+						<p class="summTitle">璁㈠崟鎬昏</p>
 					</div>
 				</div>
 			</div>
 			<div id="leftSumm">
 			    <div class="continue">
-			    <button>继续购物</button>
+			    <button>缁х画璐墿</button>
 				</div>
 				<div class="next">
-				<button id="nextButton">去结账 </button>
+				<button id="nextButton">鍘荤粨璐?</button>
 				</div>
 			</div>
 		</div>
@@ -488,7 +492,7 @@
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>物品详细信息</h1>
+<h1>鐗╁搧璇︾粏淇℃伅</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
@@ -541,7 +545,7 @@ window.onload=function(){
 				'background-color': '#ccc', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-	// 淡入淡出效果 
+	// 娣″叆娣″嚭鏁堟灉 
 				$(this).fadeTo('slow', 0.5); 
 		});
 	};

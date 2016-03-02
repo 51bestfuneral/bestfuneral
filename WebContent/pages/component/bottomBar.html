@@ -169,6 +169,13 @@
 		color: #ffffff;
 		margin-right: -10px;
 	}
+	#certificateRight span {
+	    cursor:pointer;
+		opacity: 0.5;
+	}
+	#certificateRight span:hover {
+	    opacity: 1;
+	}
 </style>
 <body>
 <div id="bottomBar">
@@ -248,7 +255,7 @@
 	        <p>版权所有 © 2016-2017 上海菲诺文化创意有限公司365NIANNIAN.COM (念念网) 保留一切权利  沪ICP备16007794号</p>
 		</div>
 		<div id="certificateRight">
-		    <p>快捷支付协议 | 隐私声明 | 法律声明 | 服务条款</p>
+		    <p><span id="quick">快捷支付协议</span>| <span id="secret">隐私声明</span> | <span id="law">法律声明</span> | <span id="clause">服务条款</span></p>
 		</div>
 	</div>
 </div>
@@ -348,21 +355,20 @@
             window.parent.location.href='/funeral/pages/html/customizatonPages/aboutUs.html';
 		}
 	});
+	$("#certificateRight").find("span").click(function() {
+	    var id = $(this)[0].id;
+		if (id === "quick") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else if (id === "secret") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else if (id === "law") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+	});
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
