@@ -16,10 +16,14 @@
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
-<link href="../pages/component/css/secondLevelMenu.css" rel="stylesheet">
-<link href="../js/personal.css" rel="stylesheet">
-<script src="./js/util.js"></script>
-<script src="../js/generalUsage.js"></script>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<script src="/funeral/js/util.js"></script>
+
+
+
+
+
 </head>
 <style>
 html {
@@ -664,14 +668,14 @@ body {
 	}
 	#wechatFrame {		
 		position:relative;
-		left:355px;
-		top:-425px;
+		left:330px;
+		top:-480px;
 		width:150px;
 		height:130px;
 	}
 	#wechatFrame img{
-		width:150px;
-		height:150px;
+		width:90px;
+		height:90px;
 		position:relative;
 		top:-5px;	
 			}
@@ -1495,15 +1499,10 @@ window.onload=function(){
 	 
 	  $("#wechatFrame").show();
 	});
-	$("#weChat").mouseleave(function () {
-		$("#wechatFrame").fadeOut();
+	$("#wechatFrame").click(function() {
+	    $(this).fadeOut();
 		$(".jquery_addmask").remove();
 	});
-	
-	//$("#wechatFrame").click(function() {
-	//    $(this).fadeOut();
-	//	$(".jquery_addmask").remove();
-	//});
 	$(".closeCoverDiv").click(function() {
 		$(".coverDiv").fadeOut();
 		$(".jquery_addmask").remove();
@@ -1516,5 +1515,9 @@ $("body").on("click",".singleMember",function() {
     $(".membersContent").fadeOut();
 	$("#memberDesc4").fadeIn();
 });
+
+
+
+
 </script>
 </html>

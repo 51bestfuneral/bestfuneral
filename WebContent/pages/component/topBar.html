@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script src="../../js/jquery-2.1.4.js"></script>
 <script src="../../js/jquery-ui.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link href="../../js/Bootstrap/boot.css" rel="stylesheet">
 <style>
     body {
 	    margin: 0;
+	    background-color: transparent;
 	}
     .topBar {
 	    width: 100%;
@@ -17,7 +21,7 @@
 		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 	}
 	.linkList {
-	    width: 575px;
+	    width: 40%;
 		margin:0px auto;
 		height:100%;
 		overflow:auto;
@@ -27,13 +31,11 @@
 		width: 115px;
 		text-align: center;
 	}
-	#rightSideLink {
-	    overflow: auto;
-		margin-top: -65px;
-	}
-	.sideLink {
+	#side {
 	    width: 120px;
-		float: right;
+	    position: absolute;
+		right: 0px;
+		top: 0px;
 	}
 	.includeLink {
 		cursor:pointer;
@@ -42,6 +44,12 @@
 		-moz-transition:background 0.5s;
         -webkit-transition:background 0.5s;
         -o-transition:background 0.5s;
+	}
+	.logo_section {
+		float: left;
+		height: auto;
+		margin-left: 30px;
+		position: absolute;
 	}
 	.includeLink p {
 	    margin-top: 21px;
@@ -52,14 +60,15 @@
 		border-bottom: 3px solid #B5AFAF;
 	}
 	.barSelect {
-	    background: rgb(244,244,244);
-		border-bottom: 3px solid #ff5274;
+	    border-bottom: 3px solid #ED4B83;
+	    color: #ED4B83;
+	    font-weight: bold;
 	}
 	#leftSide {
 	    width: 25%;
 		float: left;
 		text-align: center;
-		margin-top: 22px;
+		margin-top: 18px;
 	}
 	#rightSide {
 	    width: 75%;
@@ -79,8 +88,8 @@
     .tickImg {
 		margin: 0px;
         padding: 0px;
-		width: 20px;
-		height: 20px;
+		width: 25px;
+		height: 25px;
 	}
 	.sideIcon {
 	    width: 20px;
@@ -133,10 +142,13 @@
 		text-align: center;
 	}
 </style>
+
 <body>
 
 <div class = "topBar">
-    <span class = "topBarLogo" background-image = "http://www.bleum.com/images/logo.aspx"></span>
+	<div class='logo_section'>
+		<img src="../../js/images/logo_pink.png" alt="logo">
+	</div>
 	<div class='linkList'>
 	    <div class="includeLink" id="main">
 	        <p>首页</p>
@@ -169,24 +181,10 @@
 			</div>
 			<img src="../../js/images/shopping-red@2x.png" class="tickImg"></img>
 		</div>
-	    <div class="includeLink sideLink" id="side2">
-			<div id="leftSide">
-				<img src="../../js/images/contact-red@2x.png" class="tickImg"></img>
-			</div>
-			<div id="rightSide">
-				<p>登录/注册</p>
-			</div>
-		</div>
-		<div class="includeLink sideLink" id="side">
-			<div id="leftSide">
-				<img src="../../js/images/contactUs.jpg" class="tickImg"></img>
-			</div>
-			<div id="rightSide">
-				<p>联系我们</p>
-			</div>
-		</div>
 	</div>
+   
 </body>
+
 <script type="text/javascript">
     var length = location.search.length,
 	type = location.search.substring(5, length);
@@ -324,15 +322,14 @@
 				parent.find("#wishlistInfo").addClass("tempAdd");
 			});
 		});
-		$("#wishlistIcon").mouseleave(function (e) {
-			var parent = $(window.parent.document.body);
-			parent.find("#wishlistInfo").removeClass('tempAdd');
+		parent.find("#contactUsInfo").mouseleave(function () {
+		    $(this).removeClass("tempAdd");
 			setTimeout (function () {
-				if (!parent.find("#wishlistInfo").hasClass('tempAdd')) {
-					parent.find("#wishlistInfo").fadeOut();
-					parent.find("#wishlistSub").fadeOut();
+			    if (!parent.find("#contactUsInfo").hasClass('tempAdd')) {
+			        parent.find("#contactUsInfo").fadeOut();
+					parent.find("#contactSub").fadeOut();
 				}
-			}, 100);
+		    }, 100);
 		});
     }
     function adjustShoppingLayout(count) {
@@ -693,5 +690,9 @@
 		error: function(error) {
 		}
 	});
+	
+	
+	
+	
 </script>
 </html>
