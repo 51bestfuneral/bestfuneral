@@ -302,14 +302,23 @@ span {
 <script type="text/javascript">
   var app = angular.module('productApp', []);
 	
-	var usrId = 14;
+	
   app.controller('product', function($scope, $http) {
-	    $http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
+	    $http.get("/funeral/wishlist/list").success(function(response) {
 	         $scope.wishList = response[0];
-			$http.get("/funeral/wishlistDetail/list?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+			$http.get("/funeral/wishlistDetail/getDirectWishList?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
 	            $scope.wishListDetails = response;
 	        });
 	    });
+	    
+	     $http.get("/funeral/expressController/getUncompledExpressInfoByUserId?statusId=2").success(function(response) {
+	         $scope.express = response[0];
+			
+	    }); 
+	    
+	    
+	    
+	    
     });
 	
 </script>

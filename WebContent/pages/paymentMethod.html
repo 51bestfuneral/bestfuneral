@@ -224,7 +224,6 @@ span {
 </style>
 <script type="text/javascript">
 var app = angular.module('alipayController', []);
- var usrId = 14;    
        	app.controller('alipay', function($scope, $http) {
 	 
 	    	$http.get("/funeral/alipay/createOrder").success(function(response) {
@@ -312,7 +311,6 @@ var app = angular.module('alipayController', []);
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
 			        <span class="radioDesc">支付宝支付</span>
-			        
 			        <form name="alipayment" action="alipayapi.jsp" method="post" target="_blank">
 						<input type="hidden" id="tradeNo"  name="WIDout_trade_no"  />
 					    <input type="hidden" id="subject" name="WIDsubject" value="test" />

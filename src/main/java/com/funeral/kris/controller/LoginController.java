@@ -31,7 +31,7 @@ public class LoginController {
 		String pwd =request.getParameter("password");
 		Integer checkResult = null;
 		checkResult = userService.checkLogin(account, pwd, request);
-
+System.out.println(this.getClass()+" verifyLogin   checkResult ="+checkResult+"  account="+account+" pwd="+pwd);
 		return checkResult;
 	}
 
@@ -40,6 +40,19 @@ public class LoginController {
 	public User validateLogin(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(true);
 
+		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
+				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			return (User)session.getAttribute("user");
+		}
+		else {
+			return null;
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "getCurrentUser", method = RequestMethod.GET, produces = "application/json")
+	public User getCurrentUser(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession(true);
+		
 		if (session.getAttribute(LoginConstants.LoginStatus) != null &&
 				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
 			return (User)session.getAttribute("user");

@@ -9,6 +9,7 @@ CREATE TABLE cemeterys (
   district  varchar(1000),
   feature  varchar(1000),
   url  varchar(100),
+  type integer ,
   map_url  varchar(100),
   traffic_Info  varchar(1000),
   desc_img_url VARCHAR(200) DEFAULT NULL,

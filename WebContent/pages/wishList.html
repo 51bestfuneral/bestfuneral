@@ -311,11 +311,10 @@
 <script type="text/javascript">
     var app = angular.module('productApp', []);
 	var wishList;
-	var usrId = 14;
     app.controller('product', function($scope, $http) {
-	    $http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
+	    $http.get("/funeral/wishlist/list").success(function(response) {
 	        wishList = response[0];
-			$http.get("/funeral/wishlistDetail/list?wishlistId="+wishList.wishlistId).success(function(response) {
+			$http.get("/funeral/wishlistDetail/getDirectWishList?wishlistId="+wishList.wishlistId).success(function(response) {
 	            $scope.wishListDetails = response;
 	        });
 	    });
@@ -369,6 +368,11 @@
 			}
 		});
 	}
+	
+	
+				
+	
+	
 </script>
 <body ng-app="productApp" ng-controller="product">
 <div class="topBarDiv">
@@ -403,8 +407,8 @@
 		</div>
 		<div id="shopTable">
 			<div id="tableHeader">
-				<div class="checkBox">
-					<input type="checkbox">
+				<div class="checkBox" >
+					<input type="checkbox" id="topCheckBox"  onClick="checkBoxClick();">
 				</div>
 				<div class="itemName">
 				    <p class="title">浜у搧鍜屾湇鍕?/p>
@@ -425,7 +429,7 @@
 			
 			<div class="tableContent" id="{{wishListDetail.wishDetailId}}" ng-repeat="wishListDetail in wishListDetails">
 				<div class="checkBox">
-				    <input type="checkbox">
+				    <input type="checkbox"  name="checkbox">
 				</div>
 				<div class="itemName">
 				    <div class="itemImg">
@@ -502,6 +506,26 @@
 </div>
 </body>
 <script>
+	
+function checkBoxClick(){
+var vcheckbox=document.getElementsByName("checkbox");
+var topCheckBox=document.getElementById("topCheckBox");
+	
+for(var i=0;i<vcheckbox.length;i++)//这里是length还是count记不清了
+{
+	if(topCheckBox.checked){
+		
+vcheckbox[i].checked = true;		
+		}else{
+vcheckbox[i].checked = false;				
+				}
+}
+	
+	
+	}
+	
+	
+	
 window.onload=function(){
     for (var j =0; j<$(".tableContent").length;j++) {
 	    var tableLine = $($(".tableContent")[j]);
@@ -579,6 +603,14 @@ window.onload=function(){
 	$("#nextButton").click(function() {
 	    window.location.href='paymentInfo.html';
 	});
+	
 };
+
+
+
+$(".continue").click(function() {
+	    window.location.href='/funeral/pages/productAndService.html';
+	});
+
 </script>
 </html>

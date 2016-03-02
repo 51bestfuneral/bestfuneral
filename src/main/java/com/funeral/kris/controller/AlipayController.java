@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funeral.kris.model.Order;
+import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.AlipayService;
 import com.funeral.kris.service.OrderService;
@@ -32,8 +35,12 @@ public class AlipayController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
-	public Order  createOrder(ServletRequest request) {
-		int userId=14;
+	public Order  createOrder(HttpServletRequest request) {
+
+		HttpSession session = request.getSession(true);
+
+		User  user=(User)session.getAttribute("user");	
+		
 		
 		List<Order> list=orderService.getResources();
 		
@@ -51,7 +58,7 @@ public class AlipayController {
 				
 				Order order=(Order) iterator.next();
 				
-				if(order.getUserId().intValue()==userId){
+				if(order.getUserId().intValue()==user.getUsrId().intValue()){
 					
 					index=index+1;
 				}
@@ -67,7 +74,7 @@ public class AlipayController {
 		
 		
 		
-		Order order=orderService.getByUserId(userId);
+		Order order=orderService.getByUserId(user.getUsrId());
 		
 		List<Wishlist> wishlist =wishlistService.getResources();
 
@@ -80,7 +87,7 @@ public class AlipayController {
 			
 			 wishs	=(Wishlist) iterator.next();
 			
-			if(wishs.getUserId().intValue()==userId){
+			if(wishs.getUserId().intValue()==user.getUsrId().intValue()){
 				
 				break;
 				
@@ -95,8 +102,8 @@ public class AlipayController {
 		}else{
 			
 			order=new Order();
-			order.setUserId(userId);
-			order.setOrderNo(AlipayUtil.generateTradeNo(userId,index));
+			order.setUserId(user.getUsrId());
+			order.setOrderNo(AlipayUtil.generateTradeNo(user.getUsrId(),index));
 			order.setSubject(wishs.getComment());
 			order.setPayableAmount(new BigDecimal(wishs.getPrice()));
 			order.setStatusId(1);

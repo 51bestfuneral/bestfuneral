@@ -53,7 +53,7 @@ id = location.search.substring(4, length);
 			})
 	
 	
-		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+		$http.get("/funeral/cemetery/listAllTemple").success(function(response) {
 	       $scope.cemeterys = response;
 			})
 	
@@ -132,7 +132,7 @@ id = location.search.substring(4, length);
 		 	$http.get("/funeral/cemetery/removeCemetery?id="+$scope.cemeteryId).success(function(response) {
 	     	$scope.currentCemetery="";
 		 
-		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+		$http.get("/funeral/cemetery/listAllTemple").success(function(response) {
 	       $scope.cemeterys = response;
 			})
 	      
@@ -285,7 +285,7 @@ id = location.search.substring(4, length);
 	 	$("#saveButton").click(function() {
 	    var datadata = JSON.stringify($scope.currentCemetery);
 	//    datadata.feature=$("#feature1")[0].innerHTML;
-	   	    
+	   	   
 	    $http({
             method: "POST",
             url:"/funeral/cemetery/add",
@@ -342,8 +342,8 @@ function uploadUnitImage()  {
 <body ng-app="myApp" ng-controller="cemetery">
 <header>
 <ul id="nav">
-	<li><a href="addCemetery.html">添加墓地</a></li>
-	<li><a href="updateCemetery.html">修改墓地</a></li>
+	<li><a href="addTemple.html">添加寺庙</a></li>
+	<li><a href="updateTemple.html">修改寺庙</a></li>
 </ul>
 </header>
 	
@@ -355,7 +355,7 @@ function uploadUnitImage()  {
 		
 		 <td>
 			
-			<label >墓地名称</label>
+			<label >寺庙名称</label>
 	
    <input  type='text'    maxlength="20"  ng-model="currentCemetery.cemeteryName"/>
 			
@@ -363,7 +363,7 @@ function uploadUnitImage()  {
 			
 		 <td>
 			
-			<label >市场均价</label>
+			<label >莲位最低价</label>
 	
    <input  type='text'    maxlength="20"  ng-model="currentCemetery.price" placeholder="必须是数字"/>
 			
@@ -443,7 +443,7 @@ function uploadUnitImage()  {
         <table class="tableForm">  
             <thead>  
                 <tr>  
-                    <th>上传墓地顶部图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：380px 宽度不低于：1349px）</th>  
+                    <th>上传寺庙顶部图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：380px 宽度不低于：1349px）</th>  
                 </tr>  
             </thead>  
             <tbody>  
