@@ -20,6 +20,7 @@
 		margin:0px auto;
 		height:65px;
 		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+		background: #ffffff;
 	}
 	.linkList {
 	    width: 575px;
@@ -50,6 +51,9 @@
 		height: auto;
 		margin-left: 30px;
 		position: absolute;
+	}
+	.logo_section img {
+	    width: 180px;
 	}
 	.includeLink p {
 	    margin-top: 21px;
@@ -154,9 +158,6 @@
 <body>
 
 <div class = "topBar">
-	<div class='logo_section'>
-		<img src="../../js/images/logo_pink.png" alt="logo">
-	</div>
 	<div class='linkList'>
 	    <div class="includeLink" id="main">
 	        <p>首页</p>
@@ -715,9 +716,14 @@
 		error: function(error) {
 		}
 	});
-	
-	
-	
-	
+	$(window.parent.document.body).append("<div class='logo_section'><img src='../js/images/logo_pink.png' alt='logo'></div>");
+	$(window.parent.document.body).find(".logo_section").css({
+	    'position': 'absolute',
+	    'top': '0px',
+	    'left': '20px'
+	});
+	$(window.parent.document.body).find(".logo_section").find("img").css({
+		'width': '180px'
+	});
 </script>
 </html>
