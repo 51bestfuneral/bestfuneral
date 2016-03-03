@@ -5,7 +5,7 @@
  */
 
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
-
+#
 article,
 aside,
 details,
@@ -399,7 +399,13 @@ h6,
 }
 
 p {
-  font-family: Helvetica-Light, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+    font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+span {
+    font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+a {
+    font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 
 h1 small,

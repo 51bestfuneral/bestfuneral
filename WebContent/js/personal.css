@@ -22,7 +22,7 @@
 		line-height: 100px;
 	}
 	#myTab li {
-	    margin-left: 5%;
+	    margin-left: 6%;
 		width : 8%;
 		padding: 0;
 		border: 0;
@@ -576,7 +576,7 @@
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
 	}
 	.headerLine {
@@ -586,7 +586,6 @@
 		padding: 0;
 		border: 0px solid #ECE7E7;
 		text-align:center;
-		margin-top: 8px;
 	}
 	.includeDataDivBasic .headerLine {
 		background: #F4548B;
@@ -623,15 +622,19 @@
 	    height: 125px;
 	}
 	#lockedTocanDiv .taocanIconDivInRow {
-	    width: 210px;
+	    width: 16%;
 	    height: 125px;
 	    float: left;
-	    margin-left: 6px;
+	    margin-left: 1%;
 	}
 	#lockedTocanDiv {
 	    position: fixed;
 	    top: 0px;
 	    box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+	    width: 100%;
+	    padding: 3%;
+	    padding-top: 0px;
+	    padding-bottom: 0px;
 	}
 	#lockedTocanDiv p {
 	    font-family: STHeitiSC-Medium;
@@ -642,10 +645,9 @@
 	}
 	#compareLocked {
 	    float: left;
-	    width: 424px;
+	    width: 30%;
 	    height: 125px;
 	    background: #F7F7F7;
-	    padding-left: 49px;
 	}
 	.includeDataDivGood {
 	    width: 16%;
@@ -654,7 +656,7 @@
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
 	}
 	
@@ -665,7 +667,7 @@
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
 	}
 	
@@ -676,7 +678,7 @@
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
 	}
 		@media (min-width: 900px) {
