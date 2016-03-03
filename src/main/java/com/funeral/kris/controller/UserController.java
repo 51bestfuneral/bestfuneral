@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.init.constants.LoginConstants;
+import com.funeral.kris.model.Answer;
 import com.funeral.kris.model.User;
+import com.funeral.kris.model.Wish;
 import com.funeral.kris.service.UserService;
 import com.funeral.kris.util.MD5;
 
@@ -44,7 +46,8 @@ public class UserController {
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
 	public User listOfUsers(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-		if (session!=null &&session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+		if (session!=null &&session.getAttribute(LoginConstants.LoginStatus) !=null && 
+				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
 			User user = (User)session.getAttribute("user");
 			return user;
 		}
@@ -60,18 +63,26 @@ public class UserController {
 		modelAndView.addObject("user",user);
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
-	public ModelAndView edditingUser(@ModelAttribute User user, @PathVariable Integer id) {
-		
-		ModelAndView modelAndView = new ModelAndView("home");
-		
-		userService.updateResource(user);
-		
-		String message = "User was successfully edited.";
-		modelAndView.addObject("message", message);
-		
-		return modelAndView;
+
+	@ResponseBody
+	@RequestMapping(value="/edit", method=RequestMethod.POST)
+	public Integer edditingUser(@RequestBody User user, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session!=null &&session.getAttribute(LoginConstants.LoginStatus) !=null && 
+				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			User userInsession = (User)session.getAttribute("user");
+			if (userInsession.getUsrId().equals(user.getUsrId())) {
+				userService.updateResource(user);
+				session.setAttribute("user", user);
+			}
+			else {
+				return 1;
+			}
+		}
+		else {
+		    return 1;
+		}
+		return 0;
 	}
 
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
