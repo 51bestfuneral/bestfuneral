@@ -51,7 +51,7 @@
 }
 #leftTop {
     width: 100%;
-	padding-top: 10px;
+	padding-top: 30px;
 	padding-left: 120px;
 	text-align: left;
 }
@@ -78,6 +78,7 @@
 	font-family: "Microsoft Yahei";
 	font-weight: lighter;
 	padding: .4em .9em .4em;
+	margin-right: 5px;
 }
 #labelsArea {
     width: 100%;
@@ -752,7 +753,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 
 
 <body ng-app="productApp" ng-controller="cemetery">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME> 
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
 <div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
 	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
@@ -858,7 +859,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 </div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 
 </html>

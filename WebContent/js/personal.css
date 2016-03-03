@@ -113,11 +113,12 @@
 	    margin-top: 140px;
 	}
 	#taocan {
-	    width: 50%;
+	    width: 1055px;
 		margin:0px auto;  
 		height:auto;
 		overflow:auto;
 		height: 370px;
+		padding-left: 30px;
 	}
     .taocanIconDiv {
 	    width: 30%;
@@ -146,10 +147,11 @@
 	    font-size: 13px;
 	}
 	.IconBrand {
-		width: 75px;
+		width: 40%;
 		margin: 0px auto;
-		height: 75px;
+		overflow: hidden;
 		background-image: url(/funeral/js/images/LogoWhite@2x-min.jpg);
+		margin-top: 40px;
 	}
 	.header {
 	    padding-top : 50px;
@@ -157,7 +159,7 @@
 
 	}
 	.headerText {
-	    margin-top : 50px;
+	    margin-top : 20px;
 		font-size: 32px;
 	}
 	#nextStep {

@@ -593,25 +593,6 @@ body {
 	font-size: 20px;
 	line-height: 40px;
 }
-	#titleIconDiv {
-	    position: absolute;
-		left: 64px;
-		top: 14px;
-		width: 68px;
-		height: 68px;
-		text-align: center;
-		border-radius: 34px;
-		overflow: hidden;
-		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
-		cursor: pointer;
-		transition:box-shadow 0.3s;
-	    -moz-transition:box-shadow 0.3s;
-        -webkit-transition:box-shadow 0.3s;
-        -o-transition:box-shadow 0.3s;
-	}
-	#titleIconDiv:hover {
-	    box-shadow: 0px 10px 20px 0px #ec4a82;
-	}
 	.iconImg {
 	    margin-left: -5px;
 		margin-top: 2px;
@@ -973,7 +954,6 @@ body {
 	}
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
 function muskPage() {
 	    $(this).css({
 			    opacity: 0.5
@@ -1005,72 +985,8 @@ function muskPageForProduct(id) {
 		});
 		$(".coverDiv").fadeIn(1000);
 };
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("../wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-	$http.get("../wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
-app.controller('products', function($scope, $http) {
-	$http.get("../wish/list").success(function(response) {
-	    var j = 1,
-		    counter = 1,
-		    numberInRow = 4,
-			objectsInRow = [],
-			layouts = [];
-		for (var i=0;i<response.length;i++) {
-		    var singleProduct = response[i];
-
-			if (j <= numberInRow) {
-			    objectsInRow.push(singleProduct);
-			}
-
-			if (j === numberInRow || j === response.length) {
-			    var layout = {},
-				    active = '',
-					itemLayout = objectsInRow;
-					
-				if (counter === 1) {
-				    active = 'active'
-				}
-				layout = {
-				    'index': counter,
-					'active': active,
-					'itemLayout': itemLayout
-				};
-				layouts.push(layout);
-			    j = 0;
-				counter++;
-				objectsInRow = [];
-			}
-			j++;
-		}
-		$scope.layouts = layouts;
-	});
-	$http.get("../message/list").success(function(response) {
-	    response[0].active = 'active';
-	    $scope.messages = response;
-	});
-});
-$("#titleIconDiv").on("click", function () {
-	    window.location.href='mainPage.html';
-});
 </script>
-<body ng-app="productApp" ng-controller="products" onselectstart="return false">
+<body onselectstart="return false">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
 <div class="container" id="zoom">
 <div id="topHalfLevel">
@@ -1510,9 +1426,5 @@ $("body").on("click",".singleMember",function() {
     $(".membersContent").fadeOut();
 	$("#memberDesc4").fadeIn();
 });
-
-
-
-
 </script>
 </html>

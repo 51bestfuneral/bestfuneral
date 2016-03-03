@@ -499,37 +499,37 @@ function muskPageForProduct(id) {
 };
 app.controller('catagory', function($scope, $http) {
     var catas = [{
-	        cataId: 'guhuihe',
+	        cataId: 'II-JJ',
 			cataName: '骨灰',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/noun_187249_cc.png'
 		}, {
-		    cataId: 'clothe',
+		    cataId: 'SS',
 			cataName: '寿衣',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/noun_178107_cc.png'
 		}, {
-		    cataId: 'ceremony',
+		    cataId: 'M',
 			cataName: '祭祀随葬',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/Mask + Rectangle 77.png'
 		}, {
-		    cataId: 'service',
+		    cataId: 'G-H-L',
 			cataName: '礼仪服务',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/Group.png'
 		}, {
-		    cataId: 'cereProduct',
+		    cataId: 'VV',
 			cataName: '祭扫用品',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/noun_193115_cc.png'
 		}, {
-		    cataId: 'suit',
+		    cataId: 'P',
 			cataName: '套装产品',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/1452911054_inspiration_Vol.1-61.png'
 		}, {
-		    cataId: 'other',
+		    cataId: 'NN',
 			cataName: '其他服务',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/noun_27116.png'
@@ -539,8 +539,8 @@ app.controller('catagory', function($scope, $http) {
 	$scope.cataName = cata.cataName;
 	$scope.cataDesc = cata.cataDesc;
 	$scope.catas = catas;
-	productFilter = "?wishCata=product&wishType="+type;
-	serviceFilter = "?wishCata=service&wishType="+type
+	productFilter = "?feature=1&generalCode="+type;
+	serviceFilter = "?feature=2&generalCode="+type;
 
 	$("body").on("click", ".filterIcon", function () {
 	    //var length = location.search.length,
@@ -563,7 +563,7 @@ app.controller('catagory', function($scope, $http) {
 });
 </script>
 <body ng-app="catagoryApp" ng-controller="catagory">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 <div class="container">
 <div id="filter">
     <div id="filterCoat">
@@ -617,7 +617,7 @@ app.controller('catagory', function($scope, $http) {
 <h1 class="subHeader">特色服务</h1>
 <IFRAME NAME="content_frame" width=100% height=450 marginwidth=0 marginheight=0 frameborder = 0 id="serviceFrame"></IFRAME>
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div id="titleIconDiv">
     <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>

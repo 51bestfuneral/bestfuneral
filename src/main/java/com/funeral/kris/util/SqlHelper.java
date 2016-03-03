@@ -25,7 +25,22 @@ public class SqlHelper {
 			for(int i=0;i<f.length;i++) {
 				String fieldName = f[i].getName();
 				if (request.getParameter(fieldName) != null && !request.getParameter(fieldName).equals("")) {
-					completeSql = completeSql + "and " + fieldName + "= '" + request.getParameter(fieldName) +"' ";
+					if (request.getParameter(fieldName).indexOf("-") >=0) {
+						String[] strs = request.getParameter(fieldName).split("-");
+						String conditionStr = "";
+						for (String str: strs) {
+							if (conditionStr.equals("")) {
+							    conditionStr = "'"+str+"'";
+							}
+							else {
+								conditionStr = conditionStr+ ",'" + str + "'";
+							}
+						}
+						completeSql = completeSql + " and "+ fieldName + " in ("+ conditionStr + ")";
+					}
+					else {
+					    completeSql = completeSql + " and " + fieldName + " = '" + request.getParameter(fieldName) +"' ";
+					}
 				}
 			}
 		}
