@@ -179,7 +179,6 @@ p {
 var wishList = [],
     wishIdList = [],
     originalWishlist = [],
-    userId = 123,
 	wishlistId,
     level;
 function iFrameHeight(idx) {
@@ -256,7 +255,7 @@ function drillIntoNextTab(nextTab, needReload) {
 }
 function updateWishList(nextTab) {
     $.ajax({
-		url: '/funeral/wishlistDetail/list?wishlistId='+wishlistId,
+		url: '/funeral/wishlistDetail/getSetWishList?wishlistId='+wishlistId,
 	    type: 'GET',
 		success:function(data){
 		    var totalPrice = 0;
@@ -284,7 +283,7 @@ function updateWishList(nextTab) {
 }
 function getOrGenerateWishId() {
     $.ajax({
-		url: '/funeral/wishlist/list?userId='+userId,
+		url: '/funeral/wishlist/list',
 	    type: 'GET',
 		success:function(data){
 			wishlistId = data[0].wishlistId;

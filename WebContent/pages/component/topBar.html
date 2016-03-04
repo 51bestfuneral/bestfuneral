@@ -33,11 +33,6 @@
 		width: 115px;
 		text-align: center;
 	}
-	#side {
-	    width: 120px;
-		right: 0px;
-		top: 0px;
-	}
 	.includeLink {
 		cursor:pointer;
 		height: 65px;
@@ -136,8 +131,11 @@
 		height: 14px;
 		border-radius: 7px;
 		background: #f62f5e;
-		margin-left: 12px;
+		margin-left: 20px;
 		margin-top: -4px;
+	}
+	.subIcon1 span {
+	    color: #ffffff;
 	}
 	.subIcon1 p {
 	    color: #ffffff;
@@ -181,28 +179,20 @@
 			    <p hidden>&#10004;</p>
                 <span class="glyphicon glyphicon-pencil" hidden></span>
 			</div>
-			<img src="../../js/images/wishlist-red@2x.png" class="tickImg"></img>
+			<img src="../../js/images/wishlist@2x.png" class="tickImg"></img>
 		</div>
 		<div class="sideIcon" id="shoppingCartIcon">
 		    <div class="subIcon2" hidden>
 			    <p>0</p>
 			</div>
-			<img src="../../js/images/shopping-red@2x.png" class="tickImg"></img>
+			<img src="../../js/images/shopping@2x.png" class="tickImg"></img>
 		</div>
 		<div class="includeLink sideLink" id="side2">
 			<div id="leftSide">
-				<img src="../../js/images/contact-red@2x.png" class="tickImg"></img>
+				<img src="../../js/images/account@2x.png" class="tickImg"></img>
 			</div>
 			<div id="rightSide">
 				<p>登录/注册</p>
-			</div>
-		</div>
-		<div class="includeLink sideLink" id="side">
-			<div id="leftSide">
-				<img src="../../js/images/contactUs.jpg" class="tickImg"></img>
-			</div>
-			<div id="rightSide">
-				<p>联系我们</p>
 			</div>
 		</div>
 	</div>
@@ -247,6 +237,11 @@
 		}
 	});
     function adjustWishlistLayout(status) {
+    	$("#wishlistIcon").hover(function() {
+    		$("#wishlistIcon").find("img").attr("src", "../../js/images/wishlist-red@2x.png");
+    	}, function() {
+    		$("#wishlistIcon").find("img").attr("src", "../../js/images/wishlist@2x.png");
+    	});
     	$("#wishlistIcon").mouseenter(function () {
 			var parent = $(window.parent.document.body),
 				top = $('.topBar').height(),
@@ -267,6 +262,7 @@
                 wishlistInfo = "您尚未完成愿望清单定制";
                 buttonInfo = "点击继续定制";
                 navigateInfo = "designProcess.html";
+                $("")
             }
             else if (status === "F") {
                 wishlistInfo = "您已完成愿望清单配置";
@@ -358,6 +354,14 @@
 		});
     }
     function adjustShoppingLayout(count) {
+    	$("#shoppingCartIcon").hover(function() {
+    		$("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping-red@2x.png");
+    	}, function() {
+    		$("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping@2x.png");
+    	});
+    	if (count > 0) {
+    	    $("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping-red@2x.png");
+    	}
 		$("#shoppingCartIcon").mouseenter(function () {
 			var parent = $(window.parent.document.body),
 				top = $('.topBar').height(),
@@ -365,11 +369,12 @@
 				clientWidth = parent.find('.container').width(),
 				right = 0;
 
-            if (count = 0) {
+            if (count === 0) {
                 parent.append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物袋("+count+")</h3><div class='navigateButton'><p>开始购物</p></div></div>");
             }
             else {
 			    parent.append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物袋("+count+")</h3><div class='navigateButton' id='navigateButton1'><p>前去购物袋</p></div><div class='navigateButton' id='navigateButton2'><p>直接结算</p></div></div>");
+			    $("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping-red@2x.png");
             }
 			parent.find("#shoppingInfo").css({
 				'width': '185px',
@@ -401,7 +406,7 @@
 				'border-bottom': '20px solid #ffffff',
 				'z-index': 21
 			});
-            if (count = 0) {
+            if (count === 0) {
                 parent.find(".navigateButton").css({
 					'width': '159px',
 					'height': '26px',
@@ -481,66 +486,6 @@
     }
 	function adjustLayout(user) {
         var url;
-		$("#side").mouseenter(function () {
-			var parent = $(window.parent.document.body),
-				top = $('.topBar').height(),
-				totalWidth = parent.width(),
-				clientWidth = parent.find('.container').width(),
-				right = 0;
-
-			//	alert("parent="+parent+"  totalWidth= "+totalWidth+"  clientWidth="+clientWidth+"  right="+right);
-			parent.append("<div id='contactSub' hidden></div><div id='contactUsInfo' hidden><iframe src='/funeral/pages/component/contactUs.html' width=735 height=290 frameborder = 0></iframe></div>");
-			parent.find("#contactUsInfo").css({
-				'width': '535px',
-				'height': '240px',
-				'position': 'absolute',
-				'right': right,
-				'top': top,
-				'overflow': 'hidden',
-				'box-shadow': '0 5px 30px 0 rgba(0, 0, 0, 0.3)',
-				'z-index': 20
-			});
-			parent.find("#contactSub").css({
-				'width': '0px',
-				'height': '0px',
-				'position': 'absolute',
-				'right': right+220,
-				'top': top-24,
-				'overflow': 'hidden',
-				'border-left': '20px solid transparent',
-				'border-right': '20px solid transparent',
-				'border-bottom': '24px solid #ffffff',
-				'z-index': 21
-			});
-			parent.find("#contactUsInfo").fadeIn();
-			parent.find("#contactSub").fadeIn();
-			parent.find("#contactUsInfo").addClass("tempAdd");
-			parent.find("#contactUsInfo").mouseenter(function () {
-				$(this).addClass("tempAdd");
-			});
-			parent.find("#contactUsInfo").mouseleave(function () {
-				$(this).removeClass("tempAdd");
-				setTimeout (function () {
-					if (!parent.find("#contactUsInfo").hasClass('tempAdd')) {
-						parent.find("#contactUsInfo").fadeOut();
-						parent.find("#contactSub").fadeOut();
-					}
-				}, 100);
-			});
-			parent.find("#contactSub").mouseenter(function () {
-				parent.find("#contactUsInfo").addClass("tempAdd");
-			});
-		});
-		$("#side").mouseleave(function (e) {
-			var parent = $(window.parent.document.body);
-			parent.find("#contactUsInfo").removeClass('tempAdd');
-			setTimeout (function () {
-				if (!parent.find("#contactUsInfo").hasClass('tempAdd')) {
-					parent.find("#contactUsInfo").fadeOut();
-					parent.find("#contactSub").fadeOut();
-				}
-			}, 100);
-		});
         if (user !== null && user != undefined && user != '') {
             url = '/funeral/wishlist/list?userId='+user.usrId;
             $.ajax({
@@ -553,14 +498,14 @@
 					if (data.length > 0) {
 						wishlist =data[0];
 						if (wishlist.status === "I") {
-							$("subIcon1").find("p").hide();
-							$("subIcon1").find("span").fadeIn();
-							$("subIcon1").fadeIn();
+							$(".subIcon1").find("p").hide();
+							$(".subIcon1").find("span").fadeIn();
+							$(".subIcon1").fadeIn();
 						}
-						else if (wishlist.status === "C"){
-							$("subIcon1").find("span").hide();
-							$("subIcon1").find("p").fadeIn();
-							$("subIcon1").fadeIn();
+						else if (wishlist.status === "F"){
+							$(".subIcon1").find("span").hide();
+							$(".subIcon1").find("p").fadeIn();
+							$(".subIcon1").fadeIn();
 						}
 						adjustWishlistLayout(wishlist.status);
 						url = "/funeral/wishlistDetail/listCount?wishlistId="+wishlist.wishlistId;
@@ -588,6 +533,11 @@
                 'cursor': 'default'
             });
         }
+        $("#side2").hover(function() {
+    		$("#side2").find("img").attr("src", "../../js/images/account red@2x.png");
+    	}, function() {
+    		$("#side2").find("img").attr("src", "../../js/images/account@2x.png");
+    	});
 		if (user !== undefined && user!= null && user.userName !== null && user.userName !== undefined) {
 			$("#side2").find("p")[0].innerText = user.userName;
 			$("#side2").mouseenter(function () {
