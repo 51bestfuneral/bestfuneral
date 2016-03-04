@@ -9,6 +9,7 @@
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 </head>
+<link href="/css/cemeteryList.css" rel="stylesheet">
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/sliderx.js"></script>
@@ -17,8 +18,8 @@
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <link href="/js/personal.css" rel="stylesheet">
 <script src="/js/generalUsage.js"></script>
-<link href="/css/cemeteryList.css" rel="stylesheet">
-
+<script src="../js/timepicker/js/moment-with-locales.js"></script>
+<script src="../js/timepicker/js/bootstrap-datetimepicker.js"></script>
 <body ng-app="myApp" ng-controller="cemetery">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME>
@@ -28,10 +29,44 @@
     <div id="headerText">
         <h1>我们和上海多家墓园和寺庙建立了合作，为您提供方便</h1>
 	</div>
-	<div id="visitButton">
-	    <p>在线预约</p>
+	<div id="navigateVisit">
+		<input type="text" placeholder="选择墓地/寺庙" id="inputArea">
+		</input>
+		<div class='input-group date' id='datetimepicker1'>
+			<input type='text' class="form-control mandantory" placeholder="选择预约时间" ng-model="user.birthday" id="requestDate"/>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+		</div>
+		<button id="visitButton">
+			<p>在线预约</p>
+		</button>
+        <div id="searchBlurDiv" hidden>
+            <div class="stateBar" ng-repeat="result in resultMap">
+                <div class="headerCol">
+                    <span><b ng-bind="result.district"></b></span>
+                </div>
+                <div class="normalCol">
+                    <div class="normalCell" ng-repeat="cemetery in result.list track by $index">
+                        <span ng-bind="cemetery.cemeteryName"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="subBar">
+                <span>温馨提示，选择墓地或者寺庙，也可以直接输入</span>
+            </div>
+        </div>
+		<div id="typeBlurDiv" hidden>
+            <div class="optionBar" ng-repeat = "search in searchList">
+				<div class="optionIcon">
+					<img src="../js/images/cemeteryList.png"/>
+				</div>
+				<div class="optionDesc">
+                    <span class="descMain" ng-bind="search.cemeteryName"></span>
+					<span class="descAdd" ng-bind="search.address"></span>
+				</div>
+			</div>
+		</div>
 	</div>
-	<p>我们会帮您安排参观访问</p>
 </div>
 <div id="cemeteryList">
     <div class="listTitle">
@@ -47,7 +82,7 @@
 		</div>
 	</div>
 	<div class="listTitle">
-	    <img src="../js/images/cemeteryList.png"></img>
+	    <img src="../js/images/cemeteryList.png"/>
 		<h1>寺庙</h1>
 	</div>
 	<div class="listContent">
@@ -78,22 +113,42 @@
 	});
 	app.controller('cemetery', function($scope, $http) {
 		muskCurrentPage();
+        var searchList = [];
 	 	$http.get("/cemetery/list").success(function(response) {
-	 		var cemeteryBeans = [],
-	 		    temples= [];
-	 		for (var i=0;i<response.length;i++) {
-	 			var object = response[i];
-	 			if (object.type === 1) {
-	 				cemeteryBeans.push(object);
-	 			}
-	 			else {
-	 				temples.push(object);
-	 			}
-	 		}
-            $scope.cemeteryBeans=cemeteryBeans;
-            $scope.temples = temples;
-            cemeteryListBean = response;
+			var resultMap = [];
+			for (var p in response) {
+				var result = {};
+				result.district = p.replace('上海市','');
+				result.list = response[p];
+				resultMap.push(result);
+                for (var i=0;i < response[p].length;i++) {
+                    searchList.push(response[p][i]);
+                }
+			}
+			$scope.resultMap = resultMap;
             unmusk();
+        });
+        $("#inputArea").bind('input propertychange', function() {
+            $scope.searchList = [];
+            for (var i=0;i < searchList.length;i++) {
+                if ($(this)[0].value !== "") {
+                    var hasValue = false;
+                    $("#searchBlurDiv").fadeOut();
+                    if (searchList[i].cemeteryName.indexOf($(this)[0].value) >= 0
+                            || searchList[i].address.indexOf($(this)[0].value) >= 0) {
+                        $scope.searchList.push(searchList[i]);
+                        hasValue = true;
+                    }
+                    if (hasValue) {
+                        $scope.$apply();
+                        $("#typeBlurDiv").fadeIn();
+                    }
+                }
+                else {
+                    $("#typeBlurDiv").fadeOut();
+                    $("#searchBlurDiv").fadeIn();
+                }
+            }
         });
 	 	$scope.gotoCemetery = function(id){
 	 	    window.location.href='cemetery.html?id='+id;
@@ -116,8 +171,32 @@
 	});
 </script>
 <script>
-$("#visitButton").click(function() {
-	popupRequestPage();
-});
+	$('#datetimepicker1').datetimepicker({
+		format: "YYYY-MM-DD",
+		locale: "zh-cn"
+	});
+	$("#visitButton").click(function() {
+		popupRequestPage();
+	});
+    $("#inputArea").focus(function() {
+        if ($("#inputArea")[0].value === '') {
+            $("#searchBlurDiv").fadeIn();
+        }
+    });
+    $("#typeBlurDiv").on("click", ".optionBar", function() {
+        $("#inputArea")[0].value = $(this).find(".descMain")[0].innerText;
+        $("#typeBlurDiv").fadeOut();
+    });
+    $("#searchBlurDiv").on("click", ".normalCell", function(e) {
+        $("#inputArea")[0].value = $(this).find("span")[0].innerText;
+        $("#searchBlurDiv").fadeOut();
+        e.stopPropagation();
+    });
+    $(document).click(function(e){
+        if (e.toElement.offsetParent !== $("#searchBlurDiv")[0]
+            && e.toElement !== $("#inputArea")[0]) {
+            $("#searchBlurDiv").fadeOut();
+        }
+    });
 </script>
 </html>

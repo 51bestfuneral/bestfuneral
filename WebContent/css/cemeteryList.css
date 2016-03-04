@@ -22,20 +22,142 @@
 	color: #ffffff;
 	font-weight: 100;
 }
-#visitButton {
-    width: 160px;
-	height: 32px;
-	border-radius: 4px;
-	background-color: #ff5274;
+#navigateVisit {
+	width: 740px;
 	margin: 0px auto;
 	margin-top: 30px;
+}
+#navigateVisit input {
+	height: 40px;
+	margin-right: -4px;
+	padding-left: 5px;
+	border: 1px solid #eee;
+	float: left;
+}
+#navigateVisit #inputArea {
+	width: 360px;
+	border-radius: 2px;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-bottomright: 0;
+	border-bottom-right-radius: 0;
+}
+#navigateVisit #inputCe {
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-bottomright: 0;
+	border-bottom-right-radius: 0;
+}
+#visitButton {
+    width: 160px;
+	height: 40px;
+	border-radius: 4px;
+	background-color: #ff5274;
+	margin-top: -2px;
 	margin-bottom: 4px;
+	border: none;
+	position: relative;
+	top: 2px;
+	float: left;
 }
 #visitButton p{
     font-size: 18px;
-	line-height: 32px;
+	line-height: 40px;
 	color: #ffffff;
 	font-weight: 100;
+}
+#datetimepicker1 {
+	width: 200px;
+	float: left;
+}
+#searchBlurDiv {
+	position: absolute;
+	width: 714px;
+	margin-top: 42px;
+	background: #ffffff;
+	border: 1px solid #c4c4c4;
+	border-radius: 4px;
+}
+#searchBlurDiv .stateBar {
+	width: 100%;
+	border-bottom: 1px solid #c4c4c4;
+	padding-top: 12px;
+	overflow: auto;
+}
+#searchBlurDiv .subBar {
+	width: 100%;
+	padding-top: 6px;
+	overflow: auto;
+	padding-bottom: 6px;
+	text-align: left;
+	padding-left: 15px;
+}
+#searchBlurDiv .headerCol {
+	width: 20%;
+	float: left;
+}
+#searchBlurDiv .normalCol {
+	width: 80%;
+	float: left;
+}
+#searchBlurDiv .normalCell {
+	width: 20%;
+	float: left;
+	margin-bottom: 12px;
+	text-align: left;
+	border-radius: 2px;
+	cursor: pointer;
+}
+#searchBlurDiv .normalCell:hover {
+	color: #ffffff;
+	background-color: #ff5274;
+}
+#typeBlurDiv {
+	width: 714px;
+	position: absolute;
+	margin-top: 40px;
+	background: #ffffff;
+	border: 1px solid #c4c4c4;
+	border-radius: 4px;
+}
+#typeBlurDiv .optionBar {
+    width: 100%;
+	overflow: auto;
+	cursor: pointer;
+}
+#typeBlurDiv .optionBar:hover {
+	background: #999999;
+	color: #ffffff!important;
+}
+#typeBlurDiv .optionIcon {
+	width: 6%;
+	float: left;
+}
+.optionIcon img {
+	width: 70%;
+	margin-top: 6px;
+	margin-left: 10px;
+}
+#typeBlurDiv .optionDesc {
+	width: 94%;
+	float: left;
+	text-align: left;
+	padding-left: 10px;
+}
+#typeBlurDiv .descMain {
+	line-height: 44px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #484848;
+}
+#typeBlurDiv .descAdd {
+	line-height: 44px;
+	font-size: 14px;
+	color: #c3c0c0;
 }
 #cemeteryList {
     width: 100%;
