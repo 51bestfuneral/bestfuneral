@@ -44,7 +44,7 @@ public class Wishlist {
 	private Date updatedDate;
 
 	@Column(name="original_price")
-	private BigDecimal originalPirce;
+	private BigDecimal originalPrice;
 
 	public Integer getWishlistId() {
 		return wishlistId;
@@ -118,12 +118,12 @@ public class Wishlist {
 		this.level = level;
 	}
 
-	public BigDecimal getOriginalPirce() {
-		return originalPirce;
+	public BigDecimal getOriginalPrice() {
+		return originalPrice;
 	}
 
-	public void setOriginalPirce(BigDecimal originalPirce) {
-		this.originalPirce = originalPirce;
+	public void setOriginalPirce(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
 	}
 }
 

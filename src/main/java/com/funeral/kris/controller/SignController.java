@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,7 @@ public class SignController {
 
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public void sign(@RequestBody User user) throws Exception {
+	public void sign(HttpServletRequest request, @RequestBody User user) throws Exception {
 		String account = user.getUserName();
 		
 		if (account.contains("@")) {
@@ -53,8 +54,11 @@ public class SignController {
 		user.setStatus(LoginConstants.accountValid);
 		user.setUserType(LoginConstants.userTypeInidCustomer);
 		user.setInvalidLoginTimes(0);
-		createWishListForUser(user);
 		userService.addResource(user);
+		createWishListForUser(user);
+		HttpSession session = request.getSession(true);
+		session.setAttribute(LoginConstants.LoginStatus, LoginConstants.login);
+		session.setAttribute("user", user);	
 	}
 
 	@ResponseBody

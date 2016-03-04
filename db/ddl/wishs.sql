@@ -16,8 +16,8 @@ CREATE TABLE wishs (
   size varchar(200),
   url  varchar(500),
   unit varchar(20),
-  procurement_cost DECIMAL(10,2),
-  selling_price DECIMAL(10,2),
+  procurement_cost DECIMAL(10,2) default 0,
+  selling_price DECIMAL(10,2) default 0,
   xianen_price  DECIMAL(10,2),
   xianen_diff_price varchar(20),
   xianghe_total_price DECIMAL(10,2),
@@ -54,6 +54,7 @@ CREATE TABLE wishs (
   remark varchar(500),
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
+  show_in_front integer default 0
   PRIMARY KEY (wish_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

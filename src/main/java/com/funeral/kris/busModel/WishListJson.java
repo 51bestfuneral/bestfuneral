@@ -6,7 +6,7 @@ public class WishListJson {
 	private String wishName;
 	private String wishDesc;
 	private Integer wishId;
-	private Double price;
+	private BigDecimal price;
 	private Integer amount;
 	private String imageUrl;
 	private Integer wishDetailId;
@@ -32,10 +32,10 @@ public class WishListJson {
 	public void setWishId(Integer wishId) {
 		this.wishId = wishId;
 	}
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public Integer getAmount() {

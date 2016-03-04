@@ -28,4 +28,3 @@ CREATE TABLE users (
   contactor_relate varchar(20)
   PRIMARY KEY (user_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
-

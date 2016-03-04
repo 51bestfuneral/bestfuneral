@@ -71,7 +71,8 @@ public class WishlistDetailController {
 			wishlistDetail.setWishId(wish.getWishId());
 			wishlistDetail.setCount(1);
 			wishlistDetail.setPrice(wish.getSellingPrice());
-			wishlistDetail.setOriginalPrice(wish.getProcurementCost());
+			wishlistDetail.setOriginalPrice(wish.getXianenPrice());
+			wishlistDetail.setSourceId(1);
 			wishlistDetail.setWishType(wish.getWishType());
 			wishlistDetail.setWishlistId(wishlistId);
 			wishlistDetail.setCreateDate(sysDate);
@@ -101,7 +102,7 @@ public class WishlistDetailController {
 			wishlistDetail.setWishId(wish.getWishId());
 			wishlistDetail.setCount(1);
 			wishlistDetail.setPrice(wish.getSellingPrice());
-			wishlistDetail.setOriginalPrice(wish.getProcurementCost());
+			wishlistDetail.setOriginalPrice(wish.getXianenPrice());
 			wishlistDetail.setWishType(wish.getWishType());
 			wishlistDetail.setSourceId( WishConstants.wish_source_direct);
 			wishlistDetail.setSelected(0);
@@ -137,8 +138,8 @@ public class WishlistDetailController {
 			    wishListJson.setWishName(wish.getWishName());
 			    wishListJson.setWishDesc(wish.getWishDesc());
 			    wishListJson.setImageUrl(wish.getImgUrl());
-			    wishListJson.setPrice(wish.getSellingPrice().doubleValue());
-			    wishListJson.setOriginalPrice(wish.getProcurementCost());
+			    wishListJson.setPrice(wish.getSellingPrice());
+			    wishListJson.setOriginalPrice(wish.getXianenPrice());
 			    wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 			    wishListJson.setWishlistId(wishlistDetail.getWishlistId());
 			    wishlistJsons.add(wishListJson);
@@ -156,7 +157,7 @@ public class WishlistDetailController {
 		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
 		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResources(request);
 		for (WishlistDetail wishlistDetail : wishlistDetails) {
-			if (wishlistDetail.getSourceId().intValue() == WishConstants.wish_source_set) {
+			if (wishlistDetail.getSourceId() != null && wishlistDetail.getSourceId().intValue() == WishConstants.wish_source_set) {
 				WishListJson wishListJson = new WishListJson();
 				Integer wishId = wishlistDetail.getWishId();
 				Wish wish = wishsMap.get(wishId);
@@ -165,8 +166,8 @@ public class WishlistDetailController {
 				wishListJson.setWishName(wish.getWishName());
 				wishListJson.setWishDesc(wish.getWishDesc());
 				wishListJson.setImageUrl(wish.getImgUrl());
-				wishListJson.setPrice(wish.getSellingPrice().doubleValue());
-				wishListJson.setOriginalPrice(wish.getProcurementCost());
+				wishListJson.setPrice(wish.getSellingPrice());
+				wishListJson.setOriginalPrice(wish.getXianenPrice());
 				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
 				wishlistJsons.add(wishListJson);
@@ -194,8 +195,8 @@ public class WishlistDetailController {
 			wishListJson.setWishName(wish.getWishName());
 			wishListJson.setWishDesc(wish.getWishDesc());
 			wishListJson.setImageUrl(wish.getImgUrl());
-			wishListJson.setPrice(wish.getSellingPrice().doubleValue());
-			wishListJson.setOriginalPrice(wish.getProcurementCost());
+			wishListJson.setPrice(wish.getSellingPrice());
+			wishListJson.setOriginalPrice(wish.getXianenPrice());
 			wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 			wishListJson.setWishlistId(wishlistDetail.getWishlistId());
 			wishlistJsons.add(wishListJson);
@@ -227,7 +228,7 @@ public class WishlistDetailController {
 
 			wishlist.setPrice(wishlist.getPrice()
 					.add(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
-			wishlist.setOriginalPirce(wishlist.getOriginalPirce()
+			wishlist.setOriginalPirce(wishlist.getOriginalPrice()
 					.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 			
 
@@ -236,7 +237,7 @@ public class WishlistDetailController {
 			wishlist.setPrice(wishlist.getPrice()
 					.subtract(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 			
-			wishlist.setOriginalPirce(wishlist.getOriginalPirce()
+			wishlist.setOriginalPirce(wishlist.getOriginalPrice()
 					.subtract(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 
 			wishlistDetail.setSelected(0);
@@ -406,7 +407,7 @@ public class WishlistDetailController {
 
 		wishlist.setPrice(wishlist.getPrice().add(wishlistDetail.getPrice().multiply(new BigDecimal(difference))));
 
-		wishlist.setOriginalPirce(wishlist.getOriginalPirce()
+		wishlist.setOriginalPirce(wishlist.getOriginalPrice()
 				.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(difference))));
 
 		wishlistDetail.setCount(count);
@@ -429,7 +430,7 @@ public class WishlistDetailController {
 
 		wishlist.setPrice(wishlist.getPrice().subtract(wishlistDetail.getPrice()));
 
-		wishlist.setOriginalPirce(wishlist.getOriginalPirce().subtract(wishlistDetail.getOriginalPrice()));
+		wishlist.setOriginalPirce(wishlist.getOriginalPrice().subtract(wishlistDetail.getOriginalPrice()));
 		wishlistDetailService.deleteResource(id);
 
 		wishlistService.updateResource(wishlist);

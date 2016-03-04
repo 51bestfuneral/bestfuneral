@@ -22,12 +22,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.model.Answer;
 import com.funeral.kris.model.Cemetery;
+import com.funeral.kris.model.Option;
 import com.funeral.kris.model.OptionRule;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.AnswerService;
+import com.funeral.kris.service.OptionService;
 import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
@@ -46,6 +48,8 @@ public class AnswerController {
 	private WishTypeService wishTypeService;
 	@Autowired
 	private WishlistDetailService wishlistDetailService;
+	@Autowired
+	private OptionService optionService;
 	@Autowired
 	private EntityManager em;
 
@@ -82,7 +86,7 @@ public class AnswerController {
 		    answerService.addResource(answer);
 		    
 		    if (answer.getOptionId() != null && answer.getOptionId()>0) {
-		        generateOptionRule(String.valueOf(answer.getOptionId()));
+		        generateOptionRule(answer.getOptionId(), level);
 		    }
 		}
 		return generateWishList(userId, ansListId, wishlistId, level);
@@ -155,7 +159,6 @@ public class AnswerController {
 			    totalPrice = totalPrice.add(typePrice);
 			}
 		}
-		totalPrice = totalPrice.add(generateWishForAddtional(wishlist));
 		return totalPrice;
 	}
 
@@ -164,45 +167,14 @@ public class AnswerController {
 		String querySQL = null;
         BigDecimal totalPrice = BigDecimal.ZERO;
         BigDecimal totalOriginalPrice = BigDecimal.ZERO;
-		if (wishType.equals("Cemetery")) {
-		    querySQL = "select p from Cemetery p ";
-
-		    if (optionRuleMap.containsKey(wishType)) {
-				querySQL = querySQL + " AND cemeteryId in(" + optionRuleMap.get(wishType)+")";
-			}
-		}
-		else {
-			querySQL = "select p from Wish p where 1=1 and wishType = '%s'";
-			querySQL = String.format(querySQL, wishType);
-			if (optionRuleMap.containsKey(wishType)) {
-				querySQL = querySQL + " AND wishId in(" + optionRuleMap.get(wishType)+")";
-			}
+		querySQL = "select p from Wish p where 1=1 and generalCode = '%s'";
+		querySQL = String.format(querySQL, wishType);
+		if (optionRuleMap.containsKey(wishType)) {
+			querySQL = querySQL + optionRuleMap.get(wishType);
 		}
 		Random random = new Random();
 		int randomIndex = 0;
 
-		if (wishType.equals("Cemetery")) {
-			List<Cemetery> cemeterys = em.createQuery(querySQL).getResultList();
-			Cemetery randomWish = null;
-
-			if (cemeterys!=null && cemeterys.size() > 0) {
-				WishlistDetail detail = new WishlistDetail();
-				randomIndex = random.nextInt(cemeterys.size());
-				randomWish = cemeterys.get(randomIndex);
-				detail.setWishId(randomWish.getCemeteryId());
-				detail.setPrice(randomWish.getPrice());
-				detail.setOriginalPrice(randomWish.getOriginalPrice());
-				detail.setCount(1);
-				detail.setWishlistId(wishList.getWishlistId());
-				detail.setWishType(wishType);
-				detail.setCreateDate(new Date());
-				detail.setUpdatedDate(new Date());
-				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice.add(detail.getPrice());
-				totalOriginalPrice = totalOriginalPrice.add(randomWish.getOriginalPrice());
-			}
-		}
-		else {
 			List<Wish> wishs = em.createQuery(querySQL).getResultList();
 			Wish randomWish = null;
 
@@ -212,7 +184,8 @@ public class AnswerController {
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
 				detail.setPrice(randomWish.getSellingPrice());
-				detail.setOriginalPrice(randomWish.getProcurementCost());
+				detail.setOriginalPrice(randomWish.getXianenPrice());
+				detail.setSourceId(1);
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wishType);
@@ -220,68 +193,36 @@ public class AnswerController {
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
 				totalPrice = totalPrice.add(detail.getPrice());
-				totalOriginalPrice = totalOriginalPrice.add(randomWish.getProcurementCost());
-			}
+				totalOriginalPrice = totalOriginalPrice.add(randomWish.getXianenPrice());
 		}
 		wishList.setPrice(totalPrice);
 		wishList.setOriginalPirce(totalOriginalPrice);
 		return totalPrice;
 	}
 
-	private void generateOptionRule(String optionIdStr) {
+	private void generateOptionRule(Integer optionId, Integer level) {
 		String sql = "select p from OptionRule p where optionId = '%s'";
-		sql = String.format(sql, optionIdStr);
-		@SuppressWarnings("unchecked")
-		List<OptionRule> optionRuleList = em.createQuery(sql).getResultList();
-		for (OptionRule optionRule: optionRuleList) {
-            String ruleStr = optionRule.getRule();
-            
-            if (optionRule.getRuleType() == null || optionRule.getRuleType().equals("")) {
-            	if (!optionRuleMap.containsKey("specialAddWish")) {
-            	    optionRuleMap.put("specialAddWish",ruleStr);
-            	}
-            	else {
-            		String combineRule = optionRuleMap.get("specialAddWish") + " , "
-        			        + ruleStr;
-        			optionRuleMap.put(optionRule.getRuleType(), combineRule);
-            	}
-            }
-            else if (!optionRuleMap.containsKey(optionRule.getRuleType())) {
-				optionRuleMap.put(optionRule.getRuleType(), ruleStr);
-			}
-			else {
-				String combineRule = optionRuleMap.get(optionRule.getRuleType()) + " , "
-			        + ruleStr;
-				optionRuleMap.put(optionRule.getRuleType(), combineRule);
-			}
+		Option option = optionService.getResource(optionId.longValue());
+		String rule = null;
+		String combinedSql = "";
+		if (level.equals(1)) {
+			rule = option.getRule1();
 		}
-	}
-	
-	private BigDecimal generateWishForAddtional(Wishlist wishList) {
-		BigDecimal totalPrice = BigDecimal.ZERO;
-		BigDecimal totalOriginalPrice = BigDecimal.ZERO;
-		if (optionRuleMap.containsKey("specialAddWish")) {
-			
-			String querySQL = null;
-			querySQL = "select p from Wish p where 1=1 ";
-			querySQL = querySQL + " AND wishId in(" + optionRuleMap.get("specialAddWish")+")";
-			List<Wish> wishs = em.createQuery(querySQL).getResultList();
-			for (Wish wish: wishs) {
-				WishlistDetail detail = new WishlistDetail();
-				detail.setWishId(wish.getWishId());
-				detail.setPrice(wish.getSellingPrice());
-				detail.setCount(1);
-				detail.setWishlistId(wishList.getWishlistId());
-				detail.setWishType(wish.getWishType());
-				detail.setCreateDate(new Date());
-				detail.setUpdatedDate(new Date());
-				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice.add(detail.getPrice());
-				totalOriginalPrice = totalOriginalPrice.add(detail.getPrice());
-			}
+		else if (level.equals(2)) {
+			rule = option.getRule2();
 		}
-		wishList.setPrice(wishList.getPrice().add(totalPrice));
-		wishList.setOriginalPirce(wishList.getOriginalPirce().add(totalOriginalPrice));
-		return totalPrice;
+		else if (level.equals(3)) {
+			rule = option.getRule3();
+		}
+		else if (level.equals(4)) {
+			rule = option.getRule4();
+		}
+		
+		if (rule != null && rule.length() > 0) {
+		String catagoryCode = rule.substring(0, rule.length() -1);
+		String levelNumber = rule.substring(rule.length() -1, rule.length());
+		combinedSql = " and wishLevel ='0"+levelNumber+"'";
+		optionRuleMap.put(catagoryCode, combinedSql);
+		}
 	}
 }

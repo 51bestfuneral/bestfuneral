@@ -6,10 +6,10 @@ CREATE TABLE wishlist_details (
   wish_id integer,  
   source_id integer,  
   count  varchar(20),
-  price DECIMAL(20,2),
+  price DECIMAL(20,2) DEFAULT 0,
   sourceId integer,
   selected integer DEFAULT 0,
-  original_price DECIMAL(20,2),
+  original_price DECIMAL(20,2) DEFAULT 0,
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
   PRIMARY KEY ( wishlist_detail_id)  

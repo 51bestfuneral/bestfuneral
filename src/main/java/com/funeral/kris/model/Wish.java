@@ -27,6 +27,10 @@ public class Wish {
 	private String gender;
 	@Column(name = "wish_cata_code")
 	private String wishCataCode;
+	@Column(name = "show_in_front")
+	private Integer showInFront;
+	@Column(name = "parent_wish")
+	private String parentWish;
 
 	public Integer getPurchaseTime() {
 		return purchaseTime;
@@ -619,4 +623,19 @@ public class Wish {
 		this.wishCataCode = wishCataCode;
 	}
 
+	public Integer getShowInFront() {
+		return showInFront;
+	}
+
+	public void setShowInFront(Integer showInFront) {
+		this.showInFront = showInFront;
+	}
+
+	public String getParentWish() {
+		return parentWish;
+	}
+
+	public void setParentWish(String parentWish) {
+		this.parentWish = parentWish;
+	}
 }

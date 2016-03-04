@@ -34,6 +34,9 @@ public class Question {
 	@Column(name="question_title")
 	private String questionTitle;
 
+	@Column(name="gender")
+	private Integer gender;
+
 	public Integer getQuestionId() {
 		return questionId;
 	}
@@ -92,5 +95,13 @@ public class Question {
 
 	public void setQuestionTitle(String questionTitle) {
 		this.questionTitle = questionTitle;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
 	}
 }

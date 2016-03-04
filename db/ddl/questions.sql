@@ -7,6 +7,7 @@ CREATE TABLE questions (
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
   question_title varchar(20),
+  gender integer,
   PRIMARY KEY (qusetion_id)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

@@ -48,24 +48,15 @@ public class WishController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public List<Wish> list(HttpServletRequest request) {
 
-		List<Wish> whishlist = wishService.getResources();
-
-		List<Wish> list = new ArrayList();
-
-		String feature = request.getParameter("feature");
-
-		Iterator iterator = whishlist.iterator();
-
-		while (iterator.hasNext()) {
-
-			Wish wish = (Wish) iterator.next();
-
-			if (wish.getFeature()!=null&&wish.getFeature().intValue() == Integer.parseInt(feature)) {
-				list.add(wish);
+		List<Wish> whishlist = wishService.getResources(request);
+		List<Wish> wishlistFinal = new ArrayList<Wish>();
+		for (Wish wish : whishlist) {
+			if (wish.getParentWish()!=null && !wish.getParentWish().equals("")) {
+			    continue;
 			}
-
+			wishlistFinal.add(wish);
 		}
-		return list;
+		return wishlistFinal;
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

@@ -69,19 +69,19 @@ public class WishlistController {
 
 		if (wishlist != null) {
 			wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
-			System.out.println("  getProcurementCost=" + wish.getProcurementCost() + "  getOriginalPirce="
-					+ wishlist.getOriginalPirce());
+			System.out.println("  getProcurementCost=" + wish.getXianenPrice() + "  getOriginalPirce="
+					+ wishlist.getOriginalPrice());
 
 			wishlist.setOriginalPirce(
-					wish.getProcurementCost().add((java.math.BigDecimal) (wishlist.getOriginalPirce() == null
-							? BigDecimal.ZERO : wishlist.getOriginalPirce())));
+					wish.getProcurementCost().add((wishlist.getOriginalPrice() == null
+							? BigDecimal.ZERO : wishlist.getOriginalPrice())));
 			wishlist.setComment(wish.getWishName());
 			wishlist.setPrice(wish.getSellingPrice().add(wishlist.getPrice()));
 			wishlist.setUserId(user.getUsrId());
 		} else {
 			wishlist = new Wishlist();
 			wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
-			wishlist.setOriginalPirce(wish.getProcurementCost().add(wishlist.getOriginalPirce()));
+			wishlist.setOriginalPirce(wish.getProcurementCost().add(wishlist.getOriginalPrice()));
 			wishlist.setComment(wish.getWishName());
 			wishlist.setPrice(wish.getSellingPrice().add(wishlist.getPrice()));
 			wishlist.setUserId(user.getUsrId());
@@ -124,7 +124,7 @@ public class WishlistController {
 		wishlistDetail.setCount(1);
 		wishlistDetail.setWishlistId(wishlistId);
 		wishlistDetail.setSourceId(WishConstants.wish_source_direct);
-		wishlistDetail.setOriginalPrice(wish.getProcurementCost());
+		wishlistDetail.setOriginalPrice(wish.getXianenPrice());
 		wishlistDetail.setPrice(wish.getSellingPrice());
 		wishlistDetail.setWishId(wish.getWishId());
 		wishlistDetail.setSourceId(2);
@@ -144,7 +144,7 @@ public class WishlistController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Wishlist addingWishlist(HttpServletRequest request) {
 		Wishlist wishlist = null;
-		Integer userId = Integer.valueOf(request.getParameter("userId"));
+		Integer userId = ((User) request.getSession().getAttribute("user")).getUsrId();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
 		Integer level = Integer.valueOf(request.getParameter("level"));
 		wishlist = generateWishList(userId, wishlistId, level);
@@ -158,10 +158,12 @@ public class WishlistController {
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
-		Map<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("userId", user.getUsrId().toString());
-		List<Wishlist> wishlists = wishlistService.getResources(paramMap);
-
+		List<Wishlist> wishlists = new ArrayList<Wishlist>();
+		if (user!= null && user.getUsrId() != null) {
+		    Map<String, String> paramMap = new HashMap<String, String>();
+		    paramMap.put("userId", user.getUsrId().toString());
+		    wishlists = wishlistService.getResources(paramMap);
+		}
 		return wishlists;
 	}
 
@@ -202,14 +204,15 @@ public class WishlistController {
 		wishList.setUserId(usrId);
 		wishList.setWishlistId(wishlistId);
 		wishList.setLevel(level);
+		wishList.setPrice(BigDecimal.ZERO);
+		wishList.setOriginalPirce(BigDecimal.ZERO);
 		totalPrice = generateWishDetail(wishList, level);
-		wishList.setPrice(totalPrice);
 		wishlistService.updateResource(wishList);
 		return wishList;
 	}
 
 	private BigDecimal generateWishDetail(Wishlist wishList, Integer level) {
-		String condition = " source_id!=1 and   wishlist_id = " + wishList.getWishlistId();
+		String condition = " source_id = 1 and   wishlist_id = " + wishList.getWishlistId();
 		wishlistDetailService.deleteAllResources(condition);
 		BigDecimal typePrice = BigDecimal.ZERO;
 		BigDecimal totalPrice = BigDecimal.ZERO;
@@ -228,59 +231,33 @@ public class WishlistController {
 		String querySQL = null;
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		BigDecimal originalPrice = new BigDecimal(0);
-		if (wishType.equals("Cemetery")) {
-			querySQL = "select p from Cemetery p ";
-		} else {
-			querySQL = "select p from Wish p where 1=1 and wishType = '%s'";
-			querySQL = String.format(querySQL, wishType);
-		}
-
+		querySQL = "select p from Wish p where 1=1 and generalCode = '%s'";
+		querySQL = String.format(querySQL, wishType);
 		Random random = new Random();
 		int randomIndex = 0;
 
-		if (wishType.equals("Cemetery")) {
-			List<Cemetery> cemeterys = em.createQuery(querySQL).getResultList();
-			Cemetery randomWish = null;
-
-			if (cemeterys != null && cemeterys.size() > 0) {
-				WishlistDetail detail = new WishlistDetail();
-				randomIndex = random.nextInt(cemeterys.size());
-				randomWish = cemeterys.get(randomIndex);
-				detail.setWishId(randomWish.getCemeteryId());
-				detail.setPrice(randomWish.getPrice());
-				detail.setOriginalPrice(randomWish.getOriginalPrice());
-				detail.setCount(1);
-				detail.setWishlistId(wishList.getWishlistId());
-				detail.setWishType(wishType);
-				detail.setCreateDate(new Date());
-				detail.setUpdatedDate(new Date());
-				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice.add(detail.getPrice());
-				originalPrice = originalPrice.add(randomWish.getOriginalPrice());
-			}
-		} else {
-			List<Wish> wishs = em.createQuery(querySQL).getResultList();
-			Wish randomWish = null;
-
-			if (wishs != null && wishs.size() > 0) {
-				WishlistDetail detail = new WishlistDetail();
-				randomIndex = random.nextInt(wishs.size());
-				randomWish = wishs.get(randomIndex);
-				detail.setWishId(randomWish.getWishId());
-				detail.setPrice(randomWish.getSellingPrice());
-				detail.setOriginalPrice(randomWish.getProcurementCost());
-				detail.setCount(1);
-				detail.setWishlistId(wishList.getWishlistId());
-				detail.setWishType(wishType);
-				detail.setCreateDate(new Date());
-				detail.setUpdatedDate(new Date());
-				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice.add(detail.getPrice());
-				originalPrice = originalPrice.add(randomWish.getProcurementCost());
-			}
+		List<Wish> wishs = em.createQuery(querySQL).getResultList();
+        Wish randomWish = null;
+		if (wishs != null && wishs.size() > 0) {
+			WishlistDetail detail = new WishlistDetail();
+			randomIndex = random.nextInt(wishs.size());
+			randomWish = wishs.get(randomIndex);
+			detail.setWishId(randomWish.getWishId());
+			detail.setPrice(randomWish.getSellingPrice());
+			detail.setOriginalPrice(randomWish.getXianenPrice());
+			detail.setCount(1);
+			detail.setSourceId(1);
+			detail.setWishlistId(wishList.getWishlistId());
+			detail.setWishType(wishType);
+			detail.setCreateDate(new Date());
+			detail.setUpdatedDate(new Date());
+			detail.setSourceId(1);
+			wishlistDetailService.addResource(detail);
+			totalPrice = totalPrice.add(detail.getPrice() == null? BigDecimal.ZERO:detail.getPrice());
+			originalPrice = originalPrice.add(randomWish.getXianenPrice() == null? BigDecimal.ZERO:randomWish.getXianenPrice());
 		}
-		wishList.setPrice(totalPrice);
-		wishList.setOriginalPirce(originalPrice);
+		wishList.setPrice(wishList.getPrice().add(totalPrice));
+		wishList.setOriginalPirce(wishList.getOriginalPrice().add(originalPrice));
 		return totalPrice;
 	}
 

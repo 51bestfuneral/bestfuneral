@@ -31,6 +31,7 @@ public class LoginCheckFilter implements Filter {
 		URIsList.add("paymentInfo.html");
 		URIsList.add("paymentMethod.html");
 		URIsList.add("paymentConfirm.html");
+		URIsList.add("designProcess.html");
 	}
 
 	public void initUrls() throws ServletException {
