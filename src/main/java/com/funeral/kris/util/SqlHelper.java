@@ -47,5 +47,37 @@ public class SqlHelper {
 		return completeSql;
 	}
 
+	@SuppressWarnings("rawtypes")
+	public static String getSqlFromMap(String cName, Map<String, String> paramMap) throws Exception{
+		String completeSql = "select q from "+ cName +" q where 1= 1";
+		
+		if (paramMap != null) {
+			Class c = Class.forName(PRE_NAME+cName);
+			Field f[]=c.getDeclaredFields();
+			for(int i=0;i<f.length;i++) {
+				String fieldName = f[i].getName();
+				if (paramMap.get(fieldName) != null && !paramMap.get(fieldName).equals("")) {
+					if (paramMap.get(fieldName).indexOf("-") >=0) {
+						String[] strs = paramMap.get(fieldName).split("-");
+						String conditionStr = "";
+						for (String str: strs) {
+							if (conditionStr.equals("")) {
+							    conditionStr = "'"+str+"'";
+							}
+							else {
+								conditionStr = conditionStr+ ",'" + str + "'";
+							}
+						}
+						completeSql = completeSql + " and "+ fieldName + " in ("+ conditionStr + ")";
+					}
+					else {
+					    completeSql = completeSql + " and " + fieldName + " = '" + paramMap.get(fieldName) +"' ";
+					}
+				}
+			}
+		}
+		return completeSql;
+	}
+
 	private static final String PRE_NAME = "com.funeral.kris.model.";
 }

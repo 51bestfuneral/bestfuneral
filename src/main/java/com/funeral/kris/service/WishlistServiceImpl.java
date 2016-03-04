@@ -3,6 +3,7 @@ package com.funeral.kris.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -50,6 +51,19 @@ public class WishlistServiceImpl implements WishlistService {
 		String a = null;
 		try {
 		    a = SqlHelper.getSqlFromRequest("Wishlist", request);
+		}
+		catch (Exception e) {
+			
+		}
+		Query query = em.createQuery(a);
+		List<Wishlist> wishList = query.getResultList();
+		return wishList;
+	}
+
+	public List<Wishlist> getResources(Map<String, String> paramsMap) {
+		String a = null;
+		try {
+		    a = SqlHelper.getSqlFromMap("Wishlist", paramsMap);
 		}
 		catch (Exception e) {
 			

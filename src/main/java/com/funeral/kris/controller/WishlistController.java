@@ -3,8 +3,10 @@ package com.funeral.kris.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -66,8 +68,7 @@ public class WishlistController {
 		Wishlist wishlist = wishlistService.getResource(wishlistId);
 
 		if (wishlist != null) {
-			wishlist.setStatus("1");
-
+			wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
 			System.out.println("  getProcurementCost=" + wish.getProcurementCost() + "  getOriginalPirce="
 					+ wishlist.getOriginalPirce());
 
@@ -79,7 +80,7 @@ public class WishlistController {
 			wishlist.setUserId(user.getUsrId());
 		} else {
 			wishlist = new Wishlist();
-			wishlist.setStatus("1");
+			wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
 			wishlist.setOriginalPirce(wish.getProcurementCost().add(wishlist.getOriginalPirce()));
 			wishlist.setComment(wish.getWishName());
 			wishlist.setPrice(wish.getSellingPrice().add(wishlist.getPrice()));
@@ -156,35 +157,12 @@ public class WishlistController {
 	public List<Wishlist> listOfWishlists(HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
-
 		User user = (User) session.getAttribute("user");
+		Map<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("userId", user.getUsrId().toString());
+		List<Wishlist> wishlists = wishlistService.getResources(paramMap);
 
-		List<Wishlist> wishlists = wishlistService.getResources();
-
-		List list = new ArrayList();
-
-		if (user != null && wishlists != null) {
-
-			int userId = user.getUsrId();
-
-			Iterator iterator = wishlists.iterator();
-
-			while (iterator.hasNext()) {
-
-				Wishlist Wishlist = (Wishlist) iterator.next();
-
-				if (Wishlist.getUserId().intValue() == userId) {
-					list.add(Wishlist);
-				}
-
-			}
-
-		} else {
-
-			return list;
-		}
-
-		return list;
+		return wishlists;
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
