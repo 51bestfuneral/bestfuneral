@@ -21,7 +21,7 @@
 	    text-align: center;
 	}
     #productMain {
-	    width: 950px;
+	    width: 960px;
 		overflow: auto;
 	}
     #tabCarousel {
@@ -252,6 +252,18 @@
         background-color: #D9D9D9!important;
         position: relative;
     }
+    #tabSoLong {
+        width: 100%;
+        overflow: hidden;
+        height: 50px;
+    }
+    #tabSoLong .right {
+        left: 930px;
+        right: auto;
+    }
+    #tabSoLong .carousel-control {
+        width: 30px;
+    }
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []),
@@ -283,11 +295,55 @@ app.directive('onFinishRenderFilters', function ($timeout) {
         }
     };
 });
+function pickToFirst (data) {
+	var wishlist = parent.wishList;
+	for (var i=0;i<data.length;i++) {
+		var me = data[i];
+
+		for (var j=0;j<wishlist.length;j++) {
+			if (me.wishId === wishlist[j].wishId) {
+				data.splice(i, 1);
+				data.unshift(me);
+			}
+		}
+	}
+}
 app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wishType/list").success(function(tabResponse) {
+		var count = tabResponse.length,
+		    singleTabWidth = 120;
+	    $("#tabCarousel").css({
+	    	'width': count*singleTabWidth+"px"
+	    });
+	    $("#tabCarousel").find(".right").click(function(event) {
+	    	var length = $("#tabCarousel").find(".productTab").length;
+
+	    	for (var i = 0; i<length; i++) {
+	    		var me = $($("#tabCarousel").find(".productTab")[i]);
+	    		if (!me.is(':hidden') && i !== length-1) {
+	    			me.hide();
+	    			handleCursor($(".cursoredTab"));
+	    			return false;
+	    		}
+	    	}
+	    });
+        $("#tabCarousel").find(".left").click(function(event) {
+        	$("#tabCarousel").find(".productTab").each(function(idx) {
+	    		var me = $(this);
+	    		if (!me.is(':hidden')) {
+	    			if (idx > 0) {
+	    				me.prev().show();
+	    				handleCursor($(".cursoredTab"));
+	    				return false;
+	    			}
+	    		}
+	    	});
+	    });
 	    for (var i=1;i<=tabResponse.length;i++) {
-		    var object = tabResponse[i-1];
-            $http.get("/funeral/wish/list?wishType="+object.wishType).success(function(response, retStatus, method, request) {
+		    var object = tabResponse[i-1],
+		        wishlist = parent.wishList;;
+
+            $http.get("/funeral/wish/list?generalCode="+object.wishType).success(function(response, retStatus, method, request) {
 				var j = 1,
 					counter = 1,
 					numberInRow = 3,
@@ -306,7 +362,7 @@ app.controller('products', function($scope, $http) {
 						}
 				    }
 				}
-
+                pickToFirst(response);
 			    for (var i=0;i<response.length;i++) {
 						var singleProduct = response[i];
 
@@ -349,6 +405,7 @@ app.controller('products', function($scope, $http) {
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
           $(".productCenter").first().fadeIn();
 		  validateInList();
+		  handleCursor($(".productTab").first());
 		  window.parent.iFrameHeight(2);
 		  window.parent.flowToIndex(2);
     });
@@ -356,6 +413,7 @@ app.controller('products', function($scope, $http) {
 </script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
 <div id="productMain">
+<div id="tabSoLong">
 <div id="tabCarousel" class="carousel slide">
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
@@ -370,6 +428,7 @@ app.controller('products', function($scope, $http) {
     data-slide="next"><p class="headerArrow">&rsaquo;</p></a>
 </div>
 <div id="moveCursor">
+</div>
 </div>
 <div class="productCenter" id="{{tab.tabId}}-content" ng-repeat="tab in tabs" on-finish-render-filters>
     <div class="index">
@@ -388,8 +447,8 @@ app.controller('products', function($scope, $http) {
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
-								<p class="detail">包含在您的套餐中(原价:￥<span>{{itemLayout.price}}</span>)</p>
-                                <p class="originalPrice" hidden>{{itemLayout.costPrice}}</p>
+								<p class="detail">包含在您的套餐中(原价:￥<span>{{itemLayout.sellingPrice}}</span>)</p>
+                                <p class="originalPrice" hidden>{{itemLayout.procurementCost}}</p>
 								<div class="addWishButton">
 								    <img src="../../js/images/addWish.png"></img>
 								    <p>选择它来替换</p>
@@ -446,9 +505,62 @@ function handleButton() {
 		}
 	}
 }
-function handleCursor(tab) {
-    var me = tab;
-	$("#moveCursor").animate({left:tab.position().left+'px'});
+function handleCursor(tab, move) {
+    var me = tab,
+        length = $("#tabCarousel").find(".productTab").length;
+    $(".productTab").removeClass("cursoredTab");
+    me.addClass("cursoredTab");
+    if (!me.is(':hidden')) {
+    	$("#moveCursor").show();
+    	if (tab.position().left > 900) {
+    		if (move === 1) {
+	    		var needCancelCount = 8;
+	    		$("#tabCarousel").find(".productTab").each(function(idx) {
+		    		var me = $(this);
+		    		if (!me.is(':hidden')) {
+		    			if (needCancelCount > 0 && idx < length - 1) {
+		    			    me.hide();
+		    			    needCancelCount = needCancelCount - 1;
+		    			}
+		    			else {
+		    				$("#moveCursor").animate({left:'0px'});
+		    				return false;
+		    			}
+		    		}
+		    	});
+    		}
+    		else {
+    			$("#moveCursor").hide();
+    		}
+    	}
+    	else {
+    		$("#moveCursor").animate({left:tab.position().left+'px'});
+    	}
+    }
+    else {
+    	if (move === 1) {
+    		var needCancelCount = 8;
+    		$("#tabCarousel").find(".productTab").each(function(idx) {
+	    		var me = $(this);
+	    		if (!me.is(':hidden')) {
+	    			if (idx >= 0 && needCancelCount > 0) {
+	    				while(needCancelCount > 0) {
+	    				    me.prev().show();
+	    				    me = me.prev();
+	    				    needCancelCount = needCancelCount -1;
+	    				}
+	    			}
+	    			else {
+	    				$("#moveCursor").animate({left:'840px'});
+	    				return false;
+	    			}
+	    		}
+	    	});
+    	}
+    	else {
+    	    $("#moveCursor").hide();
+    	}
+    }
 }
 $(document.body).on("click",".operatorButton", function( event ) {
 	var me = $(this);
@@ -464,7 +576,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 				if ($(this).next().hasClass('productCenter')) {
 				    var tabId = $(this).next()[0].id.replace('-content', '');
                     me.hide();
-				    handleCursor($("#"+tabId));
+				    handleCursor($("#"+tabId), 1);
 	                $(this).next().fadeIn();
 				}
 				else {
@@ -479,7 +591,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 		    if (!$(this).is(':hidden')) {
 	            $(this).hide();
 				var tabId = $(this).prev()[0].id.replace('-content', '');
-				handleCursor($("#"+tabId));
+				handleCursor($("#"+tabId), 1);
 	            $(this).prev().fadeIn();
 				return false;
 			}

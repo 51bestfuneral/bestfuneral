@@ -85,9 +85,11 @@
 		overflow: auto;
 		margin-left: 50px;
 		float: left;
+		padding-bottom: 40px;
 	}
 	.questionTwoStart {
 	    margin-left: 176px!important;
+	    padding-bottom: 40px;
 	}
 	.questionTwo .optionIcon {
 	    width: 274px;
@@ -101,7 +103,7 @@
 	}
 	.questionTwo .optionText p {
 	    font-size: 32px;
-		line-height: 90px;
+		line-height:40px;
 		margin: 0px;
 		color: #707070;
 	}
@@ -110,9 +112,11 @@
 		overflow: auto;
 		margin-left: 40px;
 		float: left;
+		padding-bottom: 40px;
 	}
 	.questionThreeStart {
 	    margin-left: 125px!important;
+	    padding-bottom: 40px;
 	}
 	.questionThree .optionIcon {
 	    width: 204px;
@@ -126,7 +130,7 @@
 	}
 	.questionThree .optionText p {
 	    font-size: 34px;
-		line-height: 118px;
+		line-height: 40px;
 		margin: 0px;
 		color: #707070;
 	}
@@ -135,9 +139,11 @@
 		overflow: auto;
 		margin-left: 71px;
 		float: left;
+		padding-bottom: 40px;
 	}
 	.questionFourStart {
 	    margin-left: 102px!important;
+	    padding-bottom: 40px;
 	}
 	.questionFour .optionIcon {
 	    width: 136px;
@@ -163,7 +169,7 @@
 	}
 	.questionFour .optionText p {
 	    font-size: 32px;
-		line-height: 66px;
+		line-height: 40px;
 		margin: 0px;
 		color: #707070;
 	}
@@ -242,6 +248,18 @@
 		font-size: 6px;
 		line-height: 16px;
 	}
+	#tabSoLong {
+        width: 100%;
+        overflow: hidden;
+        height: 50px;
+    }
+    #tabSoLong .right {
+        left: 930px;
+        right: auto;
+    }
+    #tabSoLong .carousel-control {
+        width: 30px;
+    }
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
@@ -259,6 +277,35 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 });
 app.controller('products', function($scope, $http) {
     $http.get("/funeral/question/list").success(function(response) {
+    	var count = response.length,
+		    singleTabWidth = 120;
+	    $("#tabCarousel").css({
+	    	'width': count*singleTabWidth+"px"
+	    });
+	    $("#tabCarousel").find(".right").click(function(event) {
+	    	var length = $("#tabCarousel").find(".productTab").length;
+	
+	    	for (var i = 0; i<length; i++) {
+	    		var me = $($("#tabCarousel").find(".productTab")[i]);
+	    		if (!me.is(':hidden') && i !== length-1) {
+	    			me.hide();
+	    			handleCursor($(".cursoredTab"));
+	    			return false;
+	    		}
+	    	}
+	    });
+	    $("#tabCarousel").find(".left").click(function(event) {
+	    	$("#tabCarousel").find(".productTab").each(function(idx) {
+	    		var me = $(this);
+	    		if (!me.is(':hidden')) {
+	    			if (idx > 0) {
+	    				me.prev().show();
+	    				handleCursor($(".cursoredTab"));
+	    				return false;
+	    			}
+	    		}
+	    	});
+	    });
 		for (var i=0;i<response.length; i++) {
 		    var questionJson = response[i];
 			for (var j=0; j<questionJson.optionList.length;j++) {
@@ -293,6 +340,7 @@ app.controller('products', function($scope, $http) {
 </script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
 <div id="productMain" ng-cloak>
+<div id="tabSoLong">
 <div id="tabCarousel" class="carousel slide">
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
@@ -308,6 +356,7 @@ app.controller('products', function($scope, $http) {
     data-slide="next"><p class="headerArrow">&rsaquo;</p></a>
 </div>
 <div id="moveCursor">
+</div>
 </div>
 <div class="questionCenter" hidden id="{{question.questionId}}-content" ng-repeat="question in questions" on-finish-render-filters>
     <div class="index">
@@ -378,28 +427,76 @@ function handleButton() {
 		$("#nextStep").removeClass("finishedButton");
 	}
 }
-function handleCursor(tab) {
-    var me = tab;
-	$(".productTab").removeClass("cursored");
-	me.addClass("cursored");
-	$("#moveCursor").animate({left:tab.position().left+'px'});
+function handleCursor(tab, move) {
+    var me = tab,
+        length = $("#tabCarousel").find(".productTab").length;
+    $(".productTab").removeClass("cursoredTab");
+    me.addClass("cursoredTab");
+    if (!me.is(':hidden')) {
+    	$("#moveCursor").show();
+    	if (tab.position().left > 900) {
+    		if (move === 1) {
+	    		var needCancelCount = 8;
+	    		$("#tabCarousel").find(".productTab").each(function(idx) {
+		    		var me = $(this);
+		    		if (!me.is(':hidden')) {
+		    			if (needCancelCount > 0 && idx < length - 1) {
+		    			    me.hide();
+		    			    needCancelCount = needCancelCount - 1;
+		    			}
+		    			else {
+		    				$("#moveCursor").animate({left:'0px'});
+		    				return false;
+		    			}
+		    		}
+		    	});
+    		}
+    		else {
+    			$("#moveCursor").hide();
+    		}
+    	}
+    	else {
+    		$("#moveCursor").animate({left:tab.position().left+'px'});
+    	}
+    }
+    else {
+    	if (move === 1) {
+    		var needCancelCount = 8;
+    		$("#tabCarousel").find(".productTab").each(function(idx) {
+	    		var me = $(this);
+	    		if (!me.is(':hidden')) {
+	    			if (idx >= 0 && needCancelCount > 0) {
+	    				while(needCancelCount > 0) {
+	    				    me.prev().show();
+	    				    me = me.prev();
+	    				    needCancelCount = needCancelCount -1;
+	    				}
+	    			}
+	    			else {
+	    				$("#moveCursor").animate({left:'840px'});
+	    				return false;
+	    			}
+	    		}
+	    	});
+    	}
+    	else {
+    	    $("#moveCursor").hide();
+    	}
+    }
 }
 function handleFinished(tabPage) {
     var count = $(".productTab").length;
-    $(".productTab").each(function() {
-	    var me = $(this),
-		    otherText = tabPage.find("#messageSent")[0].value;
-		if (me.hasClass("cursored")) {
+	var me = tabPage,
+		otherText = tabPage.find("#messageSent")[0].value,
+		tabId = tabPage[0].id.replace('-content', '');
 		    if (tabPage.find(".selected").length > 0 || otherText !== "") {
-		        me.find(".finishedIcon").fadeIn();
-				me.addClass("finished");
+		    	$("#"+tabId).find(".finishedIcon").fadeIn();
+		    	$("#"+tabId).addClass("finished");
 			}
 			else {
-			    me.find(".finishedIcon").fadeOut();
-				me.removeClass("finished");
+				$("#"+tabId).find(".finishedIcon").fadeOut();
+				$("#"+tabId).removeClass("finished");
 			}
-		}
-	});
 
 	if (tabPage[0] === $(".questionCenter")[count-1]) {
 	    handleFinishButton();
@@ -432,7 +529,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 				if ($(this).next().hasClass('questionCenter')) {
 				    $(this).hide();
 				    var tabId = $(this).next()[0].id.replace('-content', '');
-					handleCursor($("#"+tabId));
+					handleCursor($("#"+tabId), 1);
 	                $(this).next().fadeIn();
 
 					if (idx === count-2) {
@@ -448,7 +545,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 		    if (!$(this).is(':hidden')) {
 	            $(this).hide();
 				var tabId = $(this).prev()[0].id.replace('-content', '');
-				handleCursor($("#"+tabId));
+				handleCursor($("#"+tabId), 1);
 	            $(this).prev().fadeIn();
 
 				if (idx === count-1) {

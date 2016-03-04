@@ -151,13 +151,12 @@ function ChangeType() {
 	<span>产品大类</span>
 	<select onchange="ChangeType()" id="ruleType">
 	    <option default></option>
-		<option>S</option>
+		<option ng-repeat="wishType in wishTypes">{{wishType.wishType}}</option>
 		<option>E</option>
 	</select>
 	<span>产品小类</span>
 	<select id="rule">
 	    <option default></option>
-		<option>S001</option>
 		<option>E001</option>
 		<option>S002</option>
 		<option>E002</option>

@@ -4,11 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <script src="../../js/jquery-2.1.4.js"></script>
-<script src="../../js/jquery-ui.js"></script>
 <script src="/funeral/js/generalUsage.js"></script>
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
-<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link href="../../js/Bootstrap/boot.css" rel="stylesheet">
 
 <style>
@@ -667,7 +663,7 @@
 		error: function(error) {
 		}
 	});
-	$(window.parent.document.body).append("<div class='logo_section'><img src='../js/images/logo_pink.png' alt='logo'></div>");
+	$(window.parent.document.body).append("<div class='logo_section'><img src='/funeral/js/images/logo_pink.png' alt='logo'></div>");
 	$(window.parent.document.body).find(".logo_section").css({
 	    'position': 'absolute',
 	    'top': '0px',
@@ -691,7 +687,7 @@
 		});
 	});
 	$(window.parent.document.body).find(".logo_section").click(function() {
-		window.parent.location.href = "mainPage.html";
+		window.parent.location.href = "/funeral/pages/mainPage.html";
 	});
 </script>
 </html>

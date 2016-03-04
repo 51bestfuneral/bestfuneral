@@ -26,7 +26,9 @@
 
 </header>
 <style>
-
+.containerProduct {
+    width: 100%;
+}
 .coverDiv {
     height: auto;
 	width: 100%;
@@ -485,7 +487,7 @@ app.controller('products', function($scope, $http) {
 </script>
 <body ng-app="productApp" ng-controller="products">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
-<div class="container">
+<div class="containerProduct">
 <div id="filter">
     <div id="filterMain">
     <div class="filterIcon selected">
@@ -640,8 +642,8 @@ app.controller('products', function($scope, $http) {
 </body>
 <script type="text/javascript">
 window.onload=function(){
-    $("#productFrame").attr("src","component/productLine.html?feature=1");
-	$("#serviceFrame").attr("src","component/productLine.html?feature=2");
+    $("#productFrame").attr("src","component/productLine.html?feature=1&showInFront=1");
+	$("#serviceFrame").attr("src","component/productLine.html?feature=2&showInFront=1");
     $(".wishListGuide").on("click", function () {
 	    window.location.href='wishList.html';
 	});

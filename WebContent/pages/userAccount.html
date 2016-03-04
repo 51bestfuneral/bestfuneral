@@ -554,24 +554,6 @@ function handleCursor(tab) {
 	me.addClass("cursored");
 	$("#moveCursor").animate({'margin-left':tab.position().left+'px'});
 }
-function generateWishList() {
-    $.ajax({
-		url: '/funeral/wishlist/add',
-	    type: 'POST',
-		contentType: "application/json; charset=UTF-8",
-		dataType:'json',
-		data: {
-		    usrId: '123'
-		},
-		success:function(data){
-			//alert("您的信息我们已经收到！");
-		},
-		error: function(error) {
-			//alert("您的信息我们已经收到！");
-			//$("#messageSent")[0].value = '';
-		}
-	});
-} 
 function handleFinished(tabPage) {
     var count = $(".productTab").length,
         tabs;

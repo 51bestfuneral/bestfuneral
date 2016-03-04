@@ -111,7 +111,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <div class="container" >
 <div id="line0"></div>
 <div id="subNavilink">
- <link1><a href="#" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link1><a href="/funeral/pages/funeralDesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
  <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
  <link3><a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算器</a>  </link3>
  <link4><a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制  </a>  </link4>
@@ -388,9 +388,8 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
-var userId = 123;
-function generateWishlistByLevel(userId, wishlistId, level) {
-    var paras = 'userId='+userId+'&wishlistId='+wishlistId+'&level='+level;
+function generateWishlistByLevel(wishlistId, level) {
+    var paras = '&wishlistId='+wishlistId+'&level='+level;
     $.ajax({
 		url: '/funeral/wishlist/add?'+paras,
 		data: [],
@@ -404,14 +403,13 @@ function generateWishlistByLevel(userId, wishlistId, level) {
 	});
 }
 function getWishlistByLevelAfterChcek(level) {
-    var paras = 'userId='+userId;
     $.ajax({
-		url: '/funeral/wishlist/list?'+paras,
+		url: '/funeral/wishlist/list',
 		data: [],
 		type: 'get',
 		dataType:'json',
 		success:function(data){
-			generateWishlistByLevel(userId, data[0].wishlistId, level);
+			generateWishlistByLevel(data[0].wishlistId, level);
 		},
 		error: function(error) {
 		}

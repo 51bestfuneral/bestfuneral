@@ -212,8 +212,6 @@ body {
 		margin: 0px auto;
 		text-align: center;
 	}
-
-	
 	.addWishButton p {
 	    color: white;
 		font-size: 13px;
@@ -284,8 +282,6 @@ app.controller('products', function($scope, $http) {
             validateInList();
 	    });
     }
-    
-
 	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
@@ -334,7 +330,7 @@ app.controller('products', function($scope, $http) {
             <div class="carousel-inner">
 				<div class="item {{layout.active}}"  ng-repeat="layout in layouts">
 	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
-                        <div class="imgCoat"><img src={{itemLayout.imgUrl}} ></img></div>
+                        <div class="imgCoat"><img src="/funeral/js/images/{{itemLayout.imgUrl}}"></img></div>
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>

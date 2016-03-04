@@ -240,52 +240,132 @@
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
-app.directive('onFinishRenderFilters', function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attr) {
-            if (scope.$last === true) {
-                $timeout(function() {
-                    scope.$emit('ngRepeatFinished');
-                });
-            }
-        }
-    };
-});
+var user;
+function validateInput(tab) {
+	var emailFilter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+        phoneFilter = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/,
+        checkFailed = true;
+	handleFinished(tab);
+	tab.find(".mandantory").each(function() {
+		var me = $(this);
+
+		if (me[0].value === "") {
+			me[0].focus();
+			alert("请填写这个字段");
+			checkFailed = false;
+			return false;
+		}
+	});
+	if (!checkFailed) {
+		return false;
+	}
+	tab.find(".mailField").each(function() {
+		var me = $(this);
+
+		if (me[0].value !== "" && !emailFilter.test(me[0].value)) {
+			me[0].focus();
+			alert("请填写正确的邮箱格式");
+			checkFailed = false;
+			return false;
+		}
+	});
+	if (!checkFailed) {
+		return false;
+	}
+	tab.find(".phoneField").each(function() {
+		var me = $(this);
+
+		if (me[0].value !== "" && !phoneFilter.test(me[0].value)) {
+			me[0].focus();
+			alert("电话号码格式不正确");
+			checkFailed = false;
+			return false;
+		}
+	});
+	if (!checkFailed) {
+		return false;
+	}
+	return true;
+}
 app.controller('products', function($scope, $http) {
     var ages = [];
 
-	$scope.questions = [{
-	    questionId: 1,
-		questionTitle: "基本信息",
-		questionContent: "告诉我们一些您的个人信息"
-	}, {
-	    questionId: 2,
-		questionTitle: "个人信息",
-		questionContent: "告诉我们一些您的个人信息"
-	}, {
-	    questionId: 3,
-		questionTitle: "联系人信息",
-		questionContent: "告诉我们一些您的个人信息"
-	}];
-	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-          $(".questionCenter").first().fadeIn();
-		  $(".finishedIcon").each(function() {
-		      if ($(this).hasClass("finished")) {
-			      $(this).fadeIn();
-			  }
-		  });
-		  $($(".productTab")[0]).addClass("cursored");
-		  window.parent.iFrameHeight(0);
+    $http.get("/funeral/user/list").success(function(response) {
+    	if (response.forSelf === 0) {
+    		response.forSelf = "我爱的人";
+    	}
+    	else {
+    		response.forSelf = "我自己";
+    	}
+    	if (response.gender === 0) {
+    		response.gender = "女";
+    	}
+    	else {
+    		response.gender = "男";
+    	}
+    	$scope.user = response;
     });
-	
-	for (var j=0;j<100;j++) {
-	    var age = {
-		    ageNumber: j
-		};
-		ages.push(age);
-	}
-	$scope.ages = ages;
+	$(document.body).on("click",".operatorButton", function( event ) {
+		var me = $(this),
+		    count =  $(".questionCenter").length,
+		    contentId = $(".cursored")[0].id + "-content",
+		    center = $("#"+contentId);
+
+		if (me.hasClass("disabled")) {
+		    return;
+		}
+        if (validateInput(center)) {
+        	if (center.next().hasClass("questionCenter")) {
+        		center.hide();
+        		center.next().fadeIn();
+        		handleCursor($(".cursored").next());
+        		if (!center.next().next().hasClass("questionCenter")) {
+        			$("#nextStep").find("p")[0].innerText = "保存";
+        		}
+        		else {
+        			$("#nextStep").find("p")[0].innerText = "下一步";
+        		}
+        	}
+        	else {
+    			var user = $scope.user,
+			    	users = [];
+			
+				if (user.gender === "女") {
+					user.gender = 0;
+				}
+				else {
+					user.gender = 1;
+				}
+
+				if (user.forSelf === "我自己") {
+					user.forSelf = 1;
+				}
+				else {
+					user.forSelf = 0;
+				}
+				users.push(user);
+ 		    	$.ajax({
+			    	url: '/funeral/user/edit',
+					type: 'POST',
+					contentType: "application/json; charset=UTF-8",
+					dataType: 'json',
+					data: JSON.stringify(user),
+					success:function(data){
+						if (data === 1) {
+		                	alert("请登录");
+		                	window.location.reload();
+		        		}
+		        		else {
+		        			alert("修改成功");
+		        		}
+			    	},
+				    error: function(error) {
+					    alert(error);
+				    }
+			    });
+        	}
+        }
+	});
 });
 </script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
@@ -293,8 +373,16 @@ app.controller('products', function($scope, $http) {
 <div id="tabCarousel" class="carousel slide">
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
-		<div class="productTab" ng-repeat="question in questions" id="{{question.questionId}}">
-		    <p>{{question.questionTitle}}</p>
+		<div class="productTab" id="1">
+		    <p>基本信息</p>
+			<div class="finishedIcon" hidden><span>&#10004;</span></div>
+		</div>
+		<div class="productTab" id="2">
+		    <p>个人信息</p>
+			<div class="finishedIcon" hidden><span>&#10004;</span></div>
+		</div>
+		<div class="productTab" id="3">
+		    <p>联系人信息</p>
 			<div class="finishedIcon" hidden><span>&#10004;</span></div>
 		</div>
     </div>
@@ -315,18 +403,18 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="questionArea">
 		<span>我今年</span>
-		   <input type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
+		   <input value="{{user.age}}" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
 		   
 			
 		
 		<span>岁，现在</span>
-		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center;">
+		<select ng-model="user.work" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center;">
 		    <option default></option>
 			<option>已退休</option>
 			<option>在工作</option>
 		</select>
-		<span>。家住上海</span>
-		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+		<span>家住上海</span>
+		<select ng-model="user.district" class="mandantory" ng-model="user.district" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
 		    <option default></option>
 			<option>长宁区</option>
 			<option>黄浦区</option>
@@ -337,7 +425,7 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="subQuestionArea">
 	    <span>我是为了</span>
-	    <select style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+	    <select ng-model="user.forSelf" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
 		    <option default></option>
 			<option>我自己</option>
 			<option>我爱的人</option>
@@ -350,44 +438,48 @@ app.controller('products', function($scope, $http) {
 	    <p><b>2</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>告诉我们一些他(她)的个人信息</h1>
+	    <h1>请务必准确真实准确填写以下基本资料，这对我们而言非常重要</h1>
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
-			<div class="spanCoat mandantory"><span>姓名*</span></div>
-			<input type="text" class="form-control"></input>
+			<div class="spanCoat"><span>姓名*</span></div>
+			<input type="text" class="form-control mandantory" ng-model="user.name"></input>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat mandantory"><span>性别*</span></div>
-			<input type="text" class="form-control"></input>
+			<div class="spanCoat"><span>性别*</span></div>
+			<select type="text" class="form-control mandantory" ng-model="user.gender">
+			    <option default></option>
+			    <option>男</option>
+			    <option>女</option>
+			</select>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat mandantory"><span>出生日期*</span></div>
+			<div class="spanCoat"><span>出生日期*</span></div>
 		</div>
         <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control" />
+            <input type='text' class="form-control mandantory" ng-model="user.birthday"/>
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
             </span>
         </div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>身份证号</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control" ng-model="user.identifier"></input>
 		</div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>地址</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control" ng-model="user.address"></input>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat mandantory"><span>联系电话*</span></div>
-			<input type="text" class="form-control"></input>
+			<div class="spanCoat"><span>联系电话*</span></div>
+			<input type="text" class="form-control mandantory phoneField" ng-model="user.phone"></input>
 		</div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>电子邮箱</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control mailField" ng-model="user.email"></input>
 		</div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>出生地</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control" ng-model="user.birthPlace"></input>
 		</div>
 	</div>
 </div>
@@ -396,35 +488,32 @@ app.controller('products', function($scope, $http) {
 	    <p><b>3</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>请输入您的信息作为紧急联系人</h1>
+	    <h1>请填写一位您最信赖的备用联系人，一旦有需要，我们可以通过他（她）及时联系到您</h1>
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
-			<div class="spanCoat mandantory"><span>姓名*</span></div>
-			<input type="text" class="form-control"></input>
+			<div class="spanCoat"><span>姓名*</span></div>
+			<input type="text" class="form-control mandantory" ng-model="user.contactor"></input>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat mandantory"><span>电话*</span></div>
-			<input type="text" class="form-control"></input>
+			<div class="spanCoat"><span>电话*</span></div>
+			<input type="text" class="form-control mandantory phoneField" ng-model="user.contactorPhone"></input>
 		</div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>电子邮件</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control mailField" ng-model="user.contactorMail"></input>
 		</div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>地址</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control" ng-model="user.contactorAddress"></input>
 		</div>
 		<div class="singleQuestion">
 			<div class="spanCoat"><span>关系</span></div>
-			<input type="text" class="form-control"></input>
+			<input type="text" class="form-control" ng-model="user.contactorRelate"></input>
 		</div>
 	</div>
 </div>
 <div id="rightFooter">
-	<div id="prevStep" class="operatorButton">
-		<p>&#60;</p>
-	</div>
 	<div id="nextStep" class="operatorButton">
 		<p>下一步</p>
 	</div>
@@ -435,9 +524,9 @@ app.controller('products', function($scope, $http) {
 function handleFinishButton() {
     var allFinished = true;
 
-    $(".productTab").each(function() {
-		if (!$(this).hasClass("finished")) {
-		    allFinished = false;
+    $(".mandantory").each(function() {
+		if ($(this)[0].value === "") {
+			allFinished = false;
 			return false;
 		}
 	});
@@ -449,124 +538,63 @@ function handleFinishButton() {
 		$("#nextStep").addClass("disabled");
     }
 }
-function handleButton() {
-    var count = $(".questionCenter").length,
-	    firstSlide = $($(".questionCenter")[0]),
-		lastSlide = $($(".questionCenter")[count-1]);
-    if (!firstSlide.is(':hidden')) {
-	    $("#prevStep").addClass("disabled");
-	}
-	else {
-	    if ($("#prevStep").hasClass("disabled")) {
-		    $("#prevStep").removeClass("disabled");
-		}
-	}
-
-	if (count>0 && !lastSlide.is(':hidden')) {
-	    $("#nextStep").find("p")[0].innerText = "完成";
-	}
-    else {
-	    $("#nextStep").find("p")[0].innerText = "下一步";
-	}
-}
 function handleCursor(tab) {
     var me = tab;
 	$(".productTab").removeClass("cursored");
 	me.addClass("cursored");
 	$("#moveCursor").animate({left:tab.position().left+'px'});
 }
-function generateWishList() {
-    $.ajax({
-		url: '/funeral/wishlist/add',
-	    type: 'POST',
-		contentType: "application/json; charset=UTF-8",
-		dataType:'json',
-		data: {
-		    usrId: '123'
-		},
-		success:function(data){
-			//alert("您的信息我们已经收到！");
-		},
-		error: function(error) {
-			//alert("您的信息我们已经收到！");
-			//$("#messageSent")[0].value = '';
-		}
-	});
-} 
 function handleFinished(tabPage) {
-    var count = $(".productTab").length;
-    $(".productTab").each(function() {
+    var count = $(".productTab").length,
+        tabs;
+    
+    if (tabPage != null &&tabPage!= undefined) {
+    	tabs = tabPage;
+    	if (tabPage[0] === $(".questionCenter")[count-1]) {
+    	    handleFinishButton();
+    	}
+    }
+    else {
+    	tabs = $(".productTab")
+    }
+    tabs.each(function() {
 	    var me = $(this),
-		    otherText = tabPage.find("select")[0].value;
-		if (me.hasClass("cursored")) {
-		    if (tabPage.find(".selected").length > 0 || otherText !== "") {
-		        me.find(".finishedIcon").fadeIn();
-				me.addClass("finished");
-			}
-			else {
-			    me.find(".finishedIcon").fadeOut();
-				me.removeClass("finished");
-			}
-		}
-	});
-
-	if (tabPage[0] === $(".questionCenter")[count-1]) {
-	    handleFinishButton();
-	}
-}
-$(document.body).on("click",".operatorButton", function( event ) {
-	var me = $(this),
-	    count =  $(".questionCenter").length;;
-
-	if (me.hasClass("disabled")) {
-	    return;
-	}
-
-	if (me[0].id === 'nextStep') {
-	    $(".questionCenter").each(function(idx){
-		    if (!$(this).is(':hidden')) {
-	            $(this).hide();
-
-				if ($(this).next().hasClass('questionCenter')) {
-				    var tabId = $(this).next()[0].id.replace('-content', '');
-					handleCursor($("#"+tabId));
-	                $(this).next().fadeIn();
-
-					if (idx === count-2) {
-					    handleFinishButton();
-					}
-				}
-				else {
-				    generateWishList();
-				    window.parent.nextTab();
-				}
-				return false;        
-			}
-	    });
-	}
-	else {
-	    $(".questionCenter").each(function(idx){
-		    if (!$(this).is(':hidden')) {
-	            $(this).hide();
-				var tabId = $(this).prev()[0].id.replace('-content', '');
-				handleCursor($("#"+tabId));
-	            $(this).prev().fadeIn();
-
-				if (idx === count-1) {
-					$("#nextStep").removeClass("disabled");
-				}
+		    mustFields = me.find(".mandantory"),
+		    finished = true,
+		    id = me[0].id.replace('-content', '');
+	    if (mustFields.length === 0) {
+	    	finished = false;
+	    }
+		mustFields.each(function() {
+			if ($(this)[0].value === "") {
+				finished = false;
 				return false;
 			}
-	    });
-	}
-	window.parent.iFrameHeight(0);
-	handleButton();
-});
+		});
+		if (finished) {
+			$("#"+id).find(".finishedIcon").fadeIn();
+			$("#"+id).addClass("finished");
+		}
+		else {
+			$("#"+id).find(".finishedIcon").fadeOut();
+			$("#"+id).removeClass("finished");
+		}
+	});
+}
 $(document.body).on("click",".productTab", function( event ) {
 	var contentId = $(this)[0].id + "-content",
+	    cursoredContentId = $(".cursored")[0].id + "-content",
 	    count = $(".productTab").length;
+	if (!validateInput($("#"+cursoredContentId))) {
+		return false;
+	}
 	handleCursor($(this));
-
+	if (!$(this).next().hasClass("productTab")) {
+		$("#nextStep").find("p")[0].innerText = "wancheng";
+	}
+	else {
+		$("#nextStep").find("p")[0].innerText = "下一步";
+	}
 	$(".questionCenter").each(function(){
 	    var me = $(this);
 		
@@ -589,32 +617,21 @@ $(document.body).on("click",".productTab", function( event ) {
 	else {
 	    $("#nextStep").removeClass("disabled");
 	}
-	handleButton();
 	window.parent.iFrameHeight(0);
 });
-$(document.body).on("click",".optionIcon", function( event ) {
-    var tabPage = $(this).closest(".questionCenter"),
-	    count = $(".questionCenter").length;
-    if ($(this).hasClass("selected")) {
-	    $(this).removeClass("selected");
-	}
-	else {
-	    tabPage.find(".optionIcon").removeClass("selected");
-	    $(this).addClass("selected");
-	}
-	handleFinished(tabPage);
-});
-$(document.body).on("blur","input", function( event ) {
+$(document.body).on("blur",".mandantory", function( event ) {
     var tabPage = $(this).closest(".questionCenter");
 	handleFinished(tabPage);
 });
 window.onload=function(){
 	$('#datetimepicker1').datetimepicker({
-	    format: "YYYY-MM-DD"
+	    format: "YYYY-MM-DD",
+	    locale: "zh-cn",
+	    viewMode: 'years'
 	});
     $(".questionCenter").first().fadeIn();
+    $(".productTab").first().addClass("cursored");
 	window.parent.iFrameHeight(0);
-	handleButton();
 };
 </script>
 </html>

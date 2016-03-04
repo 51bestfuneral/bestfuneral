@@ -4,10 +4,7 @@
 <title>葬礼定制</title>
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.min.js"></script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <script src="../js/generalUsage.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -108,7 +105,7 @@ p {
 	font-weight: 200;
 }
 #rightContent {
-    width: 950px;
+    width: 960px;
 	box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.1);
 	background-color: #ffffff;
 	float: left;
@@ -202,17 +199,17 @@ function flowToIndex(idx) {
 	});
 }
 function updatePrice(price, totalSavedPrice, operator) {
-    var currentPrice = parseInt($("#totalPrice")[0].innerText, 10),
+    var currentPrice = parseFloat($("#totalPrice")[0].innerText),
         currentSavedPrice = parseFloat($("#totalSavedPrice")[0].innerText),
         changedPrice,
 		changedSavedPrice;
     if (operator === '+') {
-        changedPrice = currentPrice + price;
-		changedSavedPrice = currentSavedPrice + totalSavedPrice;
+        changedPrice = (currentPrice + price).toFixed(0);
+		changedSavedPrice = (currentSavedPrice + totalSavedPrice).toFixed(0);
     }
     else {
-        changedPrice = price;
-		changedSavedPrice = totalSavedPrice;
+        changedPrice = price.toFixed(0);
+		changedSavedPrice = totalSavedPrice.toFixed(0);
     }
     $("#totalPrice").hide();
 	$("#totalSavedPrice").hide();
@@ -258,12 +255,8 @@ function updateWishList(nextTab) {
 		url: '/funeral/wishlistDetail/getSetWishList?wishlistId='+wishlistId,
 	    type: 'GET',
 		success:function(data){
-		    var totalPrice = 0;
-			var totalSavedPrice = 0;
 			wishList = data;
 			for (var i=0;i<data.length;i++) {
-			    totalPrice = totalPrice + data[i].price;
-				totalSavedPrice = totalSavedPrice + (data[i].price - data[i].originalPrice)
 				originalWishlist.push({
                     wishId: data[i].wishId
                 });
@@ -271,7 +264,6 @@ function updateWishList(nextTab) {
                     wishId: data[i].wishId
                 });
 			}
-			updatePrice(totalPrice, totalSavedPrice);
 			if (nextTab) {
 			    drillIntoNextTab(nextTab);
 			}
@@ -288,6 +280,7 @@ function getOrGenerateWishId() {
 		success:function(data){
 			wishlistId = data[0].wishlistId;
             level = data[0].level;
+            updatePrice(data[0].price, data[0].originalPrice - data[0].price);
 			updateWishList();
 		},
 		error: function(error) {
