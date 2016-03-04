@@ -1,6 +1,6 @@
 package com.funeral.kris.util;
 
-import java.util.Random;
+import java.text.SimpleDateFormat;
 
 public class AlipayUtil {
 	
@@ -29,17 +29,20 @@ public class AlipayUtil {
 	
 	public static String generateTradeNo(int userId,int sequence){
 		
-		Long time=System.currentTimeMillis();
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");  
+		java.util.Date date=new java.util.Date();  
+		String time=sdf.format(date);  
 		
 		String index="0"+sequence;
 		
-		String no="NN"+time+"T"+userId+"U";
+		String no="FN"+time+"T"+userId+"U";
 		
-		while(no.length()<21){	
+		while(no.length()<10){	
 			no=no+"0";
 		}
 		
-		while(index.length()<11){	
+		while(index.length()<5){	
 			index="0"+index;
 		}		
 		

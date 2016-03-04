@@ -85,29 +85,29 @@ public class UploadFileServlet extends HttpServlet {
 
 		Integer cemeteryId = Integer.parseInt(id);
 
-		// 判断提交过来的表单是否为文件上传菜单
+		// 鍒ゆ柇鎻愪氦杩囨潵鐨勮〃鍗曟槸鍚︿负鏂囦欢涓婁紶鑿滃崟
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
 		if (isMultipart) {
-			// 构造一个文件上传处理对象
+			// 鏋勯�涓�釜鏂囦欢涓婁紶澶勭悊瀵硅薄
 			FileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 
 			Iterator items;
 			try {
-				// 解析表单中提交的所有文件内容
+				// 瑙ｆ瀽琛ㄥ崟涓彁浜ょ殑鎵�湁鏂囦欢鍐呭
 				items = upload.parseRequest(request).iterator();
 				while (items.hasNext()) {
 					FileItem item = (FileItem) items.next();
 					if (!item.isFormField()) {
-						// 取出上传文件的文件名称
+						// 鍙栧嚭涓婁紶鏂囦欢鐨勬枃浠跺悕绉�
 						String name = item.getName();
-						// 取得上传文件以后的存储路径
+						// 鍙栧緱涓婁紶鏂囦欢浠ュ悗鐨勫瓨鍌ㄨ矾寰�
 						String fileName = name.substring(name.lastIndexOf('\\') + 1, name.length());
 
 						fileName = System.currentTimeMillis() + "_" + fileName;
 
-						// 上传文件以后的存储路径
+						// 涓婁紶鏂囦欢浠ュ悗鐨勫瓨鍌ㄨ矾寰�
 						String saveDir = "/funeral/pages/component/cemetery/images";
 						if (!(new File(saveDir).isDirectory())) {
 							new File(saveDir).mkdir();
@@ -129,7 +129,7 @@ public class UploadFileServlet extends HttpServlet {
 							this.uploadMoreImgs(cemeteryId, path);
 
 						}
-						// 上传文件
+						// 涓婁紶鏂囦欢
 						File uploaderFile = new File(path);
 						item.write(uploaderFile);
 					}
@@ -140,7 +140,7 @@ public class UploadFileServlet extends HttpServlet {
 				return;
 			}
 			response.setStatus(HttpServletResponse.SC_OK);
-			response.getWriter().append("上传成功！");
+			response.getWriter().append("");
 		}
 	}
 }

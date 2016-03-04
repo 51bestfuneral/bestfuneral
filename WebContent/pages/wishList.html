@@ -330,7 +330,13 @@
 <script type="text/javascript">
     var app = angular.module('productApp', []);
 	var wishList;
+	
+
     app.controller('product', function($scope, $http) {
+    	
+    	
+    	
+    	
 	    $http.get("/funeral/wishlist/list").success(function(response) {
 	        wishList = response[0];
 			$http.get("/funeral/wishlistDetail/getDirectWishList?wishlistId="+wishList.wishlistId).success(function(response) {
@@ -340,16 +346,38 @@
 				}
 	        });
 	    });
+	    
+	    
+	    
+	    
+	     $scope.changeOneItem = function(wishDetaillistId,wishlistId){
+	    $http.get("/funeral/wishlistDetail/selectOneItem?wishDetaillistId="+wishDetaillistId+"&wishlistId="+wishlistId).success(function(response) {
+	    $scope.shappingCart=	response;
+	   }); 	
+	     	
+	     	
+	     	}
+	    
+	      $scope.selectAll = function(){
+	    $http.get("/funeral/wishlistDetail/selectAll?wishlistId="+wishList.wishlistId).success(function(response) {
+	    $scope.shappingCart=	response;	
+	    	}); 	
+	     	
+	     	
+	     	}
+	    
+	    
     });
 	function calculate() {
 	    var totalPrice = 0;
+    
 		for (i =0; i < $(".tableContent").length; i++) {
-
 			var tableLine = $(".tableContent")[i];
-			totalPrice = totalPrice + parseInt($(tableLine).find('.totalPrice').find('p')[0].innerText);
+		
+			totalPrice = totalPrice + parseInt($(tableLine).find('.totalPrice').find('p')[0].innerText);		
 		}
-		$("#rigthTopTitle").find(".titleNumber")[0].innerText = totalPrice;
-		$("#rigthTopTitle").find(".titleNumber")[2].innerText = totalPrice + parseInt($("#rigthTopTitle").find(".titleNumber")[1].innerText);
+	//	$("#rigthTopTitle").find(".titleNumber")[0].innerText = totalPrice;
+	//	$("#rigthTopTitle").find(".titleNumber")[2].innerText = totalPrice + parseInt($("#rigthTopTitle").find(".titleNumber")[1].innerText);
 	}
 	function calculateEachLine(tableRow) {
 		var singlePrice = tableRow.closest('.tableContent').find('.itemPrice')[0].innerText,
@@ -422,7 +450,7 @@
 		<div id="shopTable">
 			<div id="tableHeader">
 				<div class="checkBox" >
-					<input type="checkbox" id="topCheckBox"  onClick="checkBoxClick();">
+					<input type="checkbox" id="topCheckBox"  ng-click="selectAll()" onClick="checkBoxClick();">
 				</div>
 				<div class="itemName">
 				    <p class="title">产品和服务</p>
@@ -444,9 +472,9 @@
 	            <h1>您的购物车里还没有任何物品</h1>
 				<div id="goShoppingButton"><h2>去别的地方看看</h2></div>
 	        </div>
-			<div class="tableContent" id="{{wishListDetail.wishDetailId}}" ng-repeat="wishListDetail in wishListDetails">
+			<div class="tableContent"   ng-repeat="wishListDetail in wishListDetails">
 				<div class="checkBox">
-				    <input type="checkbox"  name="checkbox">
+				    <input type="checkbox"  name="checkbox"  id="{{wishListDetail.wishDetailId}}"  ng-click="changeOneItem(wishListDetail.wishlistDetailId,wishListDetail.wishlistId)">
 				</div>
 				<div class="itemName">
 				    <div class="itemImg">
@@ -488,13 +516,11 @@
 			    <div id="rigthTop">
 				    <div id="rigthTopTitle">
 					    <p class="title titleNumber"></p>
-						<p class="title titleNumber">0</p>
-						<p class="summTitle titleNumber"></p>
+					
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">共4件商品，共计</p>
-						<p class="title">运费</p>
-						<p class="summTitle">订单总计</p>
+					    <p class="title">共{{shappingCart.count}}件商品，共计￥：{{shappingCart.grossFee}}</p>
+					
 					</div>
 				</div>
 			</div>

@@ -52,7 +52,7 @@ public class WishlistController {
 	private WishService wishService;
 
 	@ResponseBody
-	@RequestMapping(value = "/saveWish", method = RequestMethod.GET)
+	@RequestMapping(value = "/saveWish", method = RequestMethod.POST)
 	public void saveWish(HttpServletRequest request) {
 
 		Integer id = Integer.parseInt(request.getParameter("id"));

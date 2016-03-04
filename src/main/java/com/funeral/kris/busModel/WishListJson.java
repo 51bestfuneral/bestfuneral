@@ -12,6 +12,7 @@ public class WishListJson {
 	private Integer wishDetailId;
 	private Integer wishlistId;
 	private BigDecimal originalPrice;
+	 
 
 	public String getWishName() {
 		return wishName;

@@ -237,7 +237,20 @@ span {
     line-height: 56px;;
     color: #ffffff;
 }
-
+#prevButton {
+    width: 190px;
+	height: 56px;
+	border-radius: 28px;
+	background: #ffffff;
+	text-align: center;
+	float: left;
+	cursor: pointer;
+}
+#prevButton p {
+    font-size: 20px;
+    line-height: 56px;;
+    color: #f62f5e;
+}
 
 </style>
 <script type="text/javascript">
@@ -436,6 +449,10 @@ span {
 	</div>
 	<div id="footerContain">
 	    <div id="footer">
+	    	
+	    	 <div id="prevButton">
+			    <p>上一步</p>
+			</div>
 		    <div id="nextButton">
 			    <p>下一�?/p>
 			</div>
@@ -598,7 +615,9 @@ $("#deliveryMethod3").click(function () {
 	
 	
 window.onload=function(){
-	
+	  $("#prevButton").click(function () {
+	    window.location.href='/funeral/pages/wishList.html';
+	});
 };
 </script>
 </html>

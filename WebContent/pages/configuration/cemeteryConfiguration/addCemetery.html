@@ -200,7 +200,7 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	    var datadata = JSON.stringify($scope.cemetery);
 	    $http({
             method: "POST",
-            url:"/funeral/cemetery/add",
+            url:"/funeral/cemetery/addCemetery",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'

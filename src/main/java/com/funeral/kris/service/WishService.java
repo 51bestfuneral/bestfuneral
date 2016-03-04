@@ -13,5 +13,8 @@ public interface WishService {
 	public Wish getResource(int id);
 	public void deleteResource(int id);
 	public List<Wish> getResources(HttpServletRequest request);
+	public List<Wish> getResources();
+
+	
 
 }
