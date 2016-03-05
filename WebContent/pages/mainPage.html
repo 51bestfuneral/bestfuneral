@@ -10,19 +10,18 @@
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+
 </head>
-<script src="/js/jquery-2.1.4.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/sliderx.js"></script>
-<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+
 <style>
-.topBarDiv {
-    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
-	height: 65px;
-	z-index: 100;
-}
 html {
     height: 100%;
 }
@@ -32,8 +31,8 @@ body {
 	height: 100%;
 }
 #topHalfLevel {
-    background-image:url('../js/images/heroImage031.jpg');
-    background-image:url('../js/images/Bitmap.png');
+    background-image:url('/funeral/js/images/heroImage031.jpg');
+    background-image:url('/funeral/js/images/Bitmap.png');
 	padding-bottom: 3%;
 	background-size:100%;
 }
@@ -185,6 +184,7 @@ body {
 }
 .singleTip h1 {
     color: #ff5274;
+	font-family: "OpenSans-Semibold";
 	font-size: 224px;
 	margin: 0px;
 }
@@ -735,10 +735,10 @@ function muskPageForProduct(id) {
 		$(".coverDiv").fadeIn(1000);
 };
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+    $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	$http.get("/funeral/wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -755,7 +755,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/bestfuneral/wish/list").success(function(response) {
+	$http.get("/funeral/wish/list").success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,
@@ -790,7 +790,7 @@ app.controller('products', function($scope, $http) {
 		}
 		$scope.layouts = layouts;
 	});
-	$http.get("http://localhost:8080/bestfuneral/message/list").success(function(response) {
+	$http.get("/funeral/message/list").success(function(response) {
 	    response[0].active = 'active';
 	    $scope.messages = response;
 	});
@@ -801,9 +801,9 @@ $("#titleIconDiv").on("click", function () {
 </script>
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
-<div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>
-</div>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>  
+
+
 <div id="topHalfLevel">
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
@@ -861,7 +861,7 @@ $("#titleIconDiv").on("click", function () {
 		</div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="../js/images/yizhan.png"></img>
+			    <img src="/funeral/js/images/yizhan.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>一站式</h4><br/>
@@ -870,7 +870,7 @@ $("#titleIconDiv").on("click", function () {
         </div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="../js/images/people.png"></img>
+			    <img src="/funeral/js/images/people.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>私人定制</h4><br/>
@@ -879,7 +879,7 @@ $("#titleIconDiv").on("click", function () {
         </div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="../js/images/bottle.png"></img>
+			    <img src="/funeral/js/images/bottle.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>性价比高</h4><br/>
@@ -995,7 +995,7 @@ $("#titleIconDiv").on("click", function () {
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div id="titleIconDiv">
-    <img src="../../js/images/titleIcon.jpg" class="iconImg"></img>
+    <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
@@ -1007,7 +1007,7 @@ $("#titleIconDiv").on("click", function () {
 </body>
 <div id="wechatFrame" hidden>
     <h2>请扫描我们的二维码</h2>
-    <img src="../../js/images/erCode.png"></img>
+    <img src="/funeral/js/images/erCode.png"></img>
 </div>
 <script>
 $(function() {
@@ -1044,7 +1044,7 @@ $(function() {
 
 		if (messageValue && messageValue != '') {
 			$.ajax({
-				url: 'http://localhost:8080/bestfuneral/message/add',
+				url: '/funeral/pages/message/add',
 				data: data,
 				type: 'post',
 				dataType:'json',
@@ -1069,7 +1069,7 @@ $(function() {
 
 		if (messageValue && messageValue != '') {
 			$.ajax({
-				url: 'http://localhost:8080/bestfuneral/message/add',
+				url: '/funeral/pages/message/add',
 				data: data,
 				type: 'post',
 				dataType:'json',

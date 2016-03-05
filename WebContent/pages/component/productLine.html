@@ -2,20 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head">
 <meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers��
+								deliver smart solutions, helping you to exceed your customers��
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 </head>
-<script src="/js/jquery-2.1.4.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/sliderx.js"></script>
-<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
 <style>
 html {
     height: 100%;
@@ -129,6 +130,7 @@ body {
         -o-transition:box-shadow 0.3s;
 	}
 	.productItem:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
 	    box-shadow: 0px 5px 10px 0px #ff5274;
 	}
 	.productCarousel .carousel-control {
@@ -156,6 +158,7 @@ body {
 		margin: 0;
 	}
 	.productCarousel .carousel-indicators {
+	    bottom: -45px;
 	    bottom: -25px;
 	}
 	.productInfo {
@@ -174,6 +177,8 @@ body {
 		color: #f5274;
 		margin-bottom: 20px;
 	}
+	#products {
+	    padding-bottom: 50px;
 	#products .item {
 	    padding-bottom: 20px;
 		overflow: auto;
@@ -219,11 +224,11 @@ var filter = location.search,
 	usrId = 1;
 
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
+	$http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
 	    wishList = response;
 		function validateInList() {
 	    $.ajax({
-			url: 'http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
+			url: '/funeral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
 			type: 'get',
 			success:function(data){
 				var response = data;
@@ -247,7 +252,7 @@ app.controller('products', function($scope, $http) {
 	}
 	validateInList();
 	});
-	$http.get("http://localhost:8080/bestfuneral/wish/list"+filter).success(function(response) {
+	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,
@@ -296,14 +301,14 @@ app.controller('products', function($scope, $http) {
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
 	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
 								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.price}})</p>
 								<div class="addWishButton" onselectstart="return false">
-								    <img src="../../js/images/addWish.png"></img>
+								    <img src="/funeral/js/images/addWish.png"></img>
 								    <p>添加至愿望清单</p>
 								</div>
 							</div>
@@ -332,7 +337,7 @@ window.onload=function(){
 		};
 		if (!$(this).hasClass("disableDiv")){
 			$.ajax({
-				url: 'http://localhost:8080/bestfuneral/wishlistDetail/add',
+				url: '/funeral/wishlistDetail/add',
 				type: 'post',
 				data: data,
 				dataType:'json',

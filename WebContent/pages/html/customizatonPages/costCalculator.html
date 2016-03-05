@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>计算页面</title>
+<title>葬礼花费计算器</title>
 	
 	<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <script src="/funeral/js/common/comm.js"></script>
-	
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 	
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body ng-app="myApp" ng-controller="serviceCategoryDisplay">
 <header>
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
+<div id="line0"></div>
+<div id="link">
+ <link1>	 <a href="/funeral/pages/funeralDesignPage.html">为什么要定制葬礼</a>  </link1>
+ <link2>   <a href="howItWorks.html">怎样在念念定制葬礼</a>  </link2>
+ <link3>   <a href="costCalculator.html"  style="font-weight:900;">葬礼花费计算器</a>  </link3>
+ <link4>   <a href="/funeral/pages/designProposal.html">开始定制  </a>  </link4>
+ <link5>  <a href="/funeral/pages/designProposal.html">   <p>开始定制</p> </a>                              </link5>
+ 	</div>
+
 </header>
 <script>
 	var serviceCategories;
 </script>
-<div id="line0"></div>
-<div id="link">
- <link1>	 <a href="#">什么是葬礼定制</a>  </link1>
- <link2>   <a href="howItWorks.html">怎样定制      </a>  </link2>
- <link3>   <a href="costCalculator.html">定制计算器</a>  </link3>
- <link4>   <a href="#">定制套餐  </a>  </link4>
- <link5>  <a href="#">   <p>开始订制</p> </a>                              </link5>
- 	</div>
+
 <div id="introduction">
 	<div id="wording1"> 
 		 计算葬礼定制费用
@@ -42,19 +44,19 @@
 		
 		<div id="serviceTitle" >	<p>{{x.title}}</p>	</div>
 
-		<div id="{{x.displayId0}}"   style="{{x.style0}}"  ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)" onClick="onChecked(this,'no');" > <div class="price" ><p>  </p>  </div>                  <div  class="discription"><p id="{{x.displayId0+'_'}}" >{{x.discription0}}</p></div> </div>
-		<div id="{{x.displayId1}}"   style="{{x.style1}}"  ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)" onClick="onChecked(this,'cloth');"> <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p id="{{x.displayId1+'_'}}">{{x.discription1}}</p></div></div>
-		<div id="{{x.displayId2}}"   style="{{x.style2}}"  ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)" onClick="onChecked(this,'basic');" ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  id="{{x.displayId2+'_'}}">{{x.discription2}}</p></div></div>
-		<div id="{{x.displayId3}}"   style="{{x.style3}}"  ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)" onClick="onChecked(this,'advice');" ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p id="{{x.displayId3+'_'}}">{{x.discription3}}</p></div></div>
+		<div id="{{x.displayId0}}"   style="{{x.style0}}"  ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)"  > <div class="price" ><p>  </p>  </div>                  <div  class="discription"><p  style="{{x.font0}}"  >{{x.discription0}}</p></div> </div>
+		<div id="{{x.displayId1}}"   style="{{x.style1}}"  ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)" > <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p style="{{x.font1}}">{{x.discription1}}</p></div></div>
+		<div id="{{x.displayId2}}"   style="{{x.style2}}"  ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)"  ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  style="{{x.font2}}">{{x.discription2}}</p></div></div>
+		<div id="{{x.displayId3}}"   style="{{x.style3}}"  ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)"  ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p style="{{x.font3}}">{{x.discription3}}</p></div></div>
 	</div>
 
 
 		<div class="line2"></div>
 
-<div id="summary">
+<div id="summary" >
 	
 	<div id="totalCostTitle"><p>费用总计:</p></div>
-		<div id="totalCostPrice"><p>{{'¥'+totalCostFormated}}</p></div>
+		<div id="totalCostPrice"><p>{{'¥'+costsFormated}}</p></div>
 		<div id="totalCostIntroduction"><p>我们会根据您的选择在下一页向您推荐合适的套餐</p></div>
 	<div id="beginButton"><p>开始订制</p></div>
 
@@ -81,121 +83,7 @@ html {
 	height: 100%;
 }
 
-#link{
-	
-height:60px;
-width:100%;	
-box-shadow:0px 2px 4px rgba(162, 162, 162, 0.5);	
-background-color: #ffffff;
-border:0px solid blue; 
-position:relative; 
-right:0%;
-top:0px;
-left:0%;
-margin:0 auto;
-}
 
-#link link1{
-
-height:60px;
-position:relative; 
-right:0%;
-top:0px;
-left:500px;
-float:left;
-margin: 0 auto;
-border:0px solid #ff5274; 
-
-}
-
-#link link1 a{
-	 line-height:60px;text-decoration:none;
-  color:#5b5b5b; font-family: "STHeitiSC-Light"; font-size:20px;
-  } 
-
-
-#link link2{
-border:0px solid #ff5274; 
-
-height:60px;
-position:relative; 
-right:0%;
-top:0px;
-left:515px;
-background-color:#ffffff;
-float:left;
-margin: 0 auto;
-}
-
-#link link2 a{
-	 line-height:60px;text-decoration:none;
-  color:#000000; font-family: "STHeitiSC-Medium"; font-size:20px;
-  } 
- 
-
-#link link3{
-	border:0px solid #ff5274; 
-
-height:60px;
-position:relative; 
-right:0%;
-top:0px;
-left:530px;
-
-float:left;
-margin: 0 auto;
-}
-
-
-#link link3 a{
-	 line-height:60px;text-decoration:none;
-  color:#5b5b5b; font-family: "STHeitiSC-Light"; font-size:20px;font-weight:900;
-
-  } 
-
-#link link4{
-	border:0px solid #ff5274; 
-
-
-position:relative; 
-right:0%;
-top:0px;
-left:545px;
-float:left;
-margin: 0 auto;
-}
-
-#link link4 a{
-	 line-height:60px;text-decoration:none;
-  color:#5b5b5b; font-family: "STHeitiSC-Light"; font-size:20px;
-  } 
- 
- 
-#link link5{
-border:0px solid #ff5274; 
-height:44px;
-width:99px;
-float:left;
-background-color: #ff5274;
-position:relative; 
-left:60%;
-top:8px;
-text-align:center;	
-border-radius: 5px ;
-} 
-#link link5 p{
-	color:#ffffff;
-	 font-family: "STHeitiSC-Light"; 
-	 font-size:20px;
-	 line-height:9px;
-	} 
-
-#link link5 a{
-	text-decoration:none;
-  
-  } 
-
-#link link5:hover{ cursor:pointer;	}
 
 	
 #start{
@@ -232,8 +120,8 @@ height:354px;
 width:100%;
 border:0px
 solid #767676;
-background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/rectangle-702.png) 
-no-repeat 0px 0px;
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/rectangle-702.png) ;
+background-repeat:no-repeat ;
 text-align:center;
 position:relative; left:0%; right:0%;
 }
@@ -442,21 +330,7 @@ margin:0 auto;
 	
 	}
 	
-#line0{
- 
-  width:100%;	
-  border:1px solid #767676;
-	border-bottom:none;
-  border-left:none;
-  border-right:none;
-  text-align:center;
-  position:relative; 
-  left:0%; 
-  right:0%;	
-	
-	
-	
-	}	
+
 
 ul#box{
 	height:60px;
@@ -588,11 +462,28 @@ line-height:34px;
 //		})
 
 
+ 
+
+
+
+
 	 app.controller('serviceCategoryDisplay', function($scope, $http) {
 	 	
  	
+			$http.get("/funeral/serviceDisplayController/calcCost").success(function(response) {
+       	
+  $scope.costs=response;
+  
+  $scope.costsFormated=format_number($scope.costs);
+  	   
+
+  
+			}) 	
+ 	 	
+ 	
+ 	
 	 	
-	$http.get(window.app_url+"funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+	$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
   var datadata = JSON.stringify(response);
   $scope.serviceCategories=response;
     $scope.totalCost=0.00;
@@ -600,27 +491,29 @@ line-height:34px;
     $scope.selectedName = [];
     $scope.selected = [];
     $scope.selectedCost = [];
-    var updateSelected = function(id,name,value){
-    	    	var idx = $scope.selectedName.indexOf(name);
-      if(idx!=-1){
-    $scope.selected.splice(idx,1);
-    $scope.selectedName.splice(idx,1); 
-    $scope.selectedCost.splice(idx,1);
-      }
-            $scope.selectedName.push(name);
-               $scope.selected.push(id);
-               $scope.selectedCost.push(value);
-       }
        $scope.updateSelection = function($event, id,name,_price){
-           updateSelected(id,name,_price);  
-                  $scope.totalCost=0;
-            angular.forEach($scope.selectedCost, function(data){
-$scope.totalCost =Number( $scope.totalCost) +Number(data);
- $scope.totalCostFormated=format_number($scope.totalCost);
+       	
+       	
+       		$http.get("/funeral/costCalculatorController/saveCalculationTrace?id="+id).success(function(response) {
+       	
+       			$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+  $scope.serviceCategories=response;
+  
+			}) 
+			
+			$http.get("/funeral/serviceDisplayController/calcCost").success(function(response) {
+       	
+  $scope.costs=response;
+  
+  $scope.costsFormated=format_number($scope.costs);
+  
+			}) 	
+			
+       	
+       	
+			})
+       	
 
-
-
-});   
              }
 
 
@@ -630,7 +523,7 @@ $scope.totalCost =Number( $scope.totalCost) +Number(data);
 	    var datadata = JSON.stringify($scope.curUser);
 	    $http({
             method: "POST",
-            url:window.app_url+"funeral/user/add",
+            url:"/funeral/user/add",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'
@@ -693,7 +586,17 @@ var obj1=document.getElementById(cateId+"_"+i);
 obj1.style.border = '0px solid #FF6600';
 var des=document.getElementById(cateId+"_"+i+"_");	
 des.style.color='#3d4351';	
+if(i==0){
 
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/no.png)';
+}else if(i==1){
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/cloth.png)';
+}else if(i==2){
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/basic.png)';
+}else{
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/advice.png)';
+
+}
 
  }
 
@@ -703,7 +606,6 @@ var des=document.getElementById(sId+"_");
 des.style.color='#ff5274';	
 if (cateId+"_"+i == sId) {
 obj.style.border = '3px solid #ff5274';
-alert("oname="+oname+" sId="+sId);
 
 var desDiv=document.getElementById(obj.id);	
 desDiv.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/'+oname+'_.png)';

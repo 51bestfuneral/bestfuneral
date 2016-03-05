@@ -3,26 +3,34 @@
 <head id="head"><title>
     Cemetery
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers¡¯
+								deliver smart solutions, helping you to exceed your customersâ€™
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
-<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="/funeral/js/Bootstrap/boot.js"></script>
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+
 </head>
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+
+<header>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>  
+
+</header>
+
+
 <style>
-.topBarDiv {
-    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
-	height: 65px;
-	z-index: 100;
-}
 #mainHeader {
     text-align: center;
 	width: 100%;
@@ -86,7 +94,7 @@
     width: 100%;
 	overflow: auto;
 	padding-top: 48px;
-	background-image:url(../js/images/cemeteryBackground.jpg); 
+	background-image:url(/funeral/js/images/cemeteryBackground.jpg); 
     background-repeat: repeat;
 	padding-bottom: 60px;
 }
@@ -99,18 +107,120 @@
     float: right;
 	overflow: auto;
 }
+
+.leftFeatureImg{
+	   width: 485px;
+	float: left;
+	height: 485px;
+	background: #ccc;
+	opacity: 0.5;
+	border:0px solid red;
+	
+	}
+
+.rightFeatureText {
+    width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+}
+.rightFeatureText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+	position: relative;
+		left: -56px;
+
+}
+.rightFeatureText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+.leftlocationText{
+	  width: 500px;
+	padding-left: 120px;
+	overflow: auto;
+	float: left;
+	
+	}
+	
+	.leftlocationText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.leftlocationText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+.rightlocationImg{
+	
+   width: 512px;
+	height: 330px;
+	background-color: #ccc;
+	margin-left: 24px;
+	float: left;
+	opacity: 0.5;	
+	
+	}
+
+.leftEquipmentImg{
+	
+	   width: 485px;
+	float: left;
+	height: 485px;
+	background: #ccc;
+	opacity: 0.5;
+	border:0px solid red;
+	}
+	
+.rightEquipmentText{
+	width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+	}	
+
+.rightEquipmentText h1 {
+    margin: 0px;
+	position: relative;
+	left: -56px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.rightEquipmentText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+
 .leftImg {
     width: 485px;
 	float: left;
 	height: 485px;
 	background: #ccc;
 	opacity: 0.5;
+	border:0px solid red;
 }
 .rightText {
-    width: 660px;
+    width: 500px;
 	float: left;
 	padding-left: 20px;
 	padding-top: 150px;
+	border:0px solid red;
 }
 .rightText h1 {
     margin: 0px;
@@ -309,10 +419,10 @@
 <script type="text/javascript">
 var app = angular.module('productApp', []);
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+    $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	$http.get("/funeral/wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -329,7 +439,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/wish/list").success(function(response) {
+	$http.get("/funeral/wish/list").success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,
@@ -364,7 +474,7 @@ app.controller('products', function($scope, $http) {
 		}
 		$scope.layouts = layouts;
 	});
-	$http.get("http://localhost:8080/funeral/message/list").success(function(response) {
+	$http.get("/funeral/message/list").success(function(response) {
 	    response[0].active = 'active';
 	    $scope.messages = response;
 	});
@@ -375,125 +485,123 @@ $("#titleIconDiv").on("click", function () {
 </script>
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
-<div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
-</div>
+
 <div id="mainHeader">
     <div id="leftTop">
-	    <p><span>Ä¹µØĞÅÏ¢</span>£¯ÇåÖñÔ°</p>
+	    <p><span>å¢“åœ°ä¿¡æ¯</span>ï¼æ¸…ç«¹å›­</p>
 	</div>
 	<div id="centerText">
-        <h1>ÇåÖñÔ°</h1>
-	    <h2>ÉÏº£ÊĞ¼Î¶¨Çø</h2>
+        <h1>æ¸…ç«¹å›­</h1>
+	    <h2>ä¸Šæµ·å¸‚å˜‰å®šåŒº</h2>
 	</div>
 	<div id="labelsArea">
-		<span class="label label-default">Çå¾»</span>
-		<span class="label label-default">µäÑÅ</span>
-		<span class="label label-default">½»Í¨±ãÀû</span>
-		<span class="label label-default">Éè±¸ÆëÈ«</span>
+		<span class="label label-default">æ¸…å‡€</span>
+		<span class="label label-default">å…¸é›…</span>
+		<span class="label label-default">äº¤é€šä¾¿åˆ©</span>
+		<span class="label label-default">è®¾å¤‡é½å…¨</span>
 	</div>
 </div>
 <div id="cemeteryFilter">
     <div id="filter">
 		<div id="filterCata">
 			<div class="filterCata">
-			    <p>Ä¹Ñ¨</p>
+			    <p>å¢“ç©´</p>
 			</div>
 			<div class="filterCata">
-			    <p>±®ÎÄÑùÊ½</p>
+			    <p>ç¢‘æ–‡æ ·å¼</p>
 			</div>
 			<div class="filterCata">
-			    <p>ÇøÓò</p>
+			    <p>åŒºåŸŸ</p>
 			</div>
 		</div>
 		<div id="filterContent">
 			<div class="filterContent">
 			    <div>
-				    <p>µ¥ÈËÄ¹</p>
+				    <p>å•äººå¢“</p>
 				</div>
 				<div>
-				    <p>Ë«ÈËÄ¹</p>
+				    <p>åŒäººå¢“</p>
 				</div>
 				<div>
-				    <p>ÈıÈËÄ¹</p>
+				    <p>ä¸‰äººå¢“</p>
 				</div>
 			</div>
 			<div class="filterContent">
 			    <div>
-				    <p>Î÷Ê½</p>
+				    <p>è¥¿å¼</p>
 				</div>
 				<div>
-				    <p>ÖĞÊ½</p>
+				    <p>ä¸­å¼</p>
 				</div>
 			</div>
 			<div class="locationContent">
 			    <div>
-				    <p>ÀÖ°ÙÔ·1-7ÅÅ</p>
+				    <p>ä¹ç™¾è‹‘1-7æ’</p>
 				</div>
 				<div>
-				    <p>ÀÖ°ÙÔ·1-7ÅÅ</p>
+				    <p>ä¹ç™¾è‹‘1-7æ’</p>
 				</div>
 				<div>
-				    <p>ÀÖ°ÙÔ·1-7ÅÅ</p>
+				    <p>ä¹ç™¾è‹‘1-7æ’</p>
 				</div>
 				<div>
-				    <p>ÀÖ°ÙÔ·1-7ÅÅ</p>
+				    <p>ä¹ç™¾è‹‘1-7æ’</p>
 				</div>
 				<div>
-				    <p>ÀÖ°ÙÔ·1-7ÅÅ</p>
+				    <p>ä¹ç™¾è‹‘1-7æ’</p>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="reserver">
-	    <h1>ÊĞ³¡¾ù¼Û</h1>
-		<h2>£¤1,150,000</h2>
-		<button class="reserverBtn">ÔÚÏßÔ¤Ô¼</button>
-		<p>ÎÒÃÇ»á°ïÄú°²ÅÅ²Î¹Û·ÃÎÊ</p>
+	    <h1>å¸‚åœºå‡ä»·</h1>
+		<h2>ï¿¥1,150,000</h2>
+		<button class="reserverBtn">åœ¨çº¿é¢„çº¦</button>
+		<p>æˆ‘ä»¬ä¼šå¸®æ‚¨å®‰æ’å‚è§‚è®¿é—®</p>
 	</div>
 </div>
 <div id="features">
     <div id="featureContent">
 	    <div id="singleFeature">
 		    <div id="mainFeature">
-			    <div class="leftImg">
+			    <div class="leftFeatureImg">
 				</div>
-				<div class="rightText">
-				    <h1>ÌØÉ«</h1>
-				    <p>ÇåÖñÔ°¿ÕégµÄ×î´óÌØÉ«£¬ÊÇÒò‘ª²»Í¬ĞèÇó£¬Ò„¶à˜ÓµÄÔOÓ‹Ö÷î}Ãæ°å£¬¼°¸÷·N˜O¾ß‚€ĞÔ»¯µÄËşÎ»„“Òâ¿Õég¡£ÔÚÊ©¹¤ÓÃÁÏÉÏÒÔ×î‡ÀÖ”µÄÆ·Ù|£¬ÒªÇóÊ©¹¤˜ËœÊ£¬KºÏºõ‡ø¼Ò¸÷í—Ò¶¨£¬Èç·ÀÕğ¡¢·À»ğ½¨²Ä£¬ IÔì×î°²È«µÄ·À×o™CÖÆ£¬ÊÇé±£ÕÏÏÈÈËë[Ë½¼°Äı¾Û¼Ò×åÇé¸ĞµÄÀíÏë×¡Ëù¡£</p>
+				<div class="rightFeatureText">
+				    <h1>ç‰¹è‰²</h1>
+				    <p>æ¸…ç«¹å›­ç©ºé–“çš„æœ€å¤§ç‰¹è‰²ï¼Œæ˜¯å› æ‡‰ä¸åŒéœ€æ±‚ï¼Œè¦åŠƒå¤šæ¨£çš„è¨­è¨ˆä¸»é¡Œé¢æ¿ï¼ŒåŠå„ç¨®æ¥µå…·å€‹æ€§åŒ–çš„å¡”ä½å‰µæ„ç©ºé–“ã€‚åœ¨æ–½å·¥ç”¨æ–™ä¸Šä»¥æœ€åš´è¬¹çš„å“è³ªï¼Œè¦æ±‚æ–½å·¥æ¨™æº–ï¼Œä¸¦åˆä¹åœ‹å®¶å„é …è¦å®šï¼Œå¦‚é˜²éœ‡ã€é˜²ç«å»ºæï¼Œç‡Ÿé€ æœ€å®‰å…¨çš„é˜²è­·æ©Ÿåˆ¶ï¼Œæ˜¯ç‚ºä¿éšœå…ˆäººéš±ç§åŠå‡èšå®¶æ—æƒ…æ„Ÿçš„ç†æƒ³ä½æ‰€ã€‚</p>
 				</div>
 			</div>
 			<div id="locationFeature">
-			    <div class="leftText">
-				     <h1>µØÀíÎ»ÖÃ</h1>
-					 <p>ÇåÖñÔ°¿ÕégµÄ×î´óÌØÉ«£¬ÊÇÒò‘ª²»Í¬ĞèÇó£¬Ò„¶à˜ÓµÄÔOÓ‹Ö÷î}Ãæ°å£¬¼°¸÷·N˜O¾ß‚€ĞÔ»¯µÄËşÎ»„“Òâ¿Õég¡£ÔÚÊ©¹¤ÓÃÁÏÉÏÒÔ×î‡ÀÖ”µÄÆ·Ù|£¬ÒªÇóÊ©¹¤˜ËœÊ£¬KºÏºõ‡ø¼Ò¸÷í—Ò¶¨£¬Èç·ÀÕğ¡¢·À»ğ½¨²Ä£¬ IÔì×î°²È«µÄ·À×o™CÖÆ£¬ÊÇé±£ÕÏÏÈÈËë[Ë½¼°Äı¾Û¼Ò×åÇé¸ĞµÄÀíÏë×¡Ëù¡£</p>
+			    <div class="leftlocationText">
+				     <h1>åœ°ç†ä½ç½®</h1>
+					 <p>æ¸…ç«¹å›­ç©ºé–“çš„æœ€å¤§ç‰¹è‰²ï¼Œæ˜¯å› æ‡‰ä¸åŒéœ€æ±‚ï¼Œè¦åŠƒå¤šæ¨£çš„è¨­è¨ˆä¸»é¡Œé¢æ¿ï¼ŒåŠå„ç¨®æ¥µå…·å€‹æ€§åŒ–çš„å¡”ä½å‰µæ„ç©ºé–“ã€‚åœ¨æ–½å·¥ç”¨æ–™ä¸Šä»¥æœ€åš´è¬¹çš„å“è³ªï¼Œè¦æ±‚æ–½å·¥æ¨™æº–ï¼Œä¸¦åˆä¹åœ‹å®¶å„é …è¦å®šï¼Œå¦‚é˜²éœ‡ã€é˜²ç«å»ºæï¼Œç‡Ÿé€ æœ€å®‰å…¨çš„é˜²è­·æ©Ÿåˆ¶ï¼Œæ˜¯ç‚ºä¿éšœå…ˆäººéš±ç§åŠå‡èšå®¶æ—æƒ…æ„Ÿçš„ç†æƒ³ä½æ‰€ã€‚</p>
 				</div>
-				<div class="rightImg">
+				<div class="rightlocationImg">
 				</div>
 			</div>
 			<div id="equipmentFeature">
-			    <div class="leftImg">
+			    <div class="leftEquipmentImg">
 				</div>
-				<div class="rightText">
-				    <h1>ÉèÊ©</h1>
-				    <p>ÇåÖñÔ°¿ÕégµÄ×î´óÌØÉ«£¬ÊÇÒò‘ª²»Í¬ĞèÇó£¬Ò„¶à˜ÓµÄÔOÓ‹Ö÷î}Ãæ°å£¬¼°¸÷·N˜O¾ß‚€ĞÔ»¯µÄËşÎ»„“Òâ¿Õég¡£ÔÚÊ©¹¤ÓÃÁÏÉÏÒÔ×î‡ÀÖ”µÄÆ·Ù|£¬ÒªÇóÊ©¹¤˜ËœÊ£¬KºÏºõ‡ø¼Ò¸÷í—Ò¶¨£¬Èç·ÀÕğ¡¢·À»ğ½¨²Ä£¬ IÔì×î°²È«µÄ·À×o™CÖÆ£¬ÊÇé±£ÕÏÏÈÈËë[Ë½¼°Äı¾Û¼Ò×åÇé¸ĞµÄÀíÏë×¡Ëù¡£</p>
+				<div class="rightEquipmentText">
+				    <h1>è®¾æ–½</h1>
+				    <p>æ¸…ç«¹å›­ç©ºé–“çš„æœ€å¤§ç‰¹è‰²ï¼Œæ˜¯å› æ‡‰ä¸åŒéœ€æ±‚ï¼Œè¦åŠƒå¤šæ¨£çš„è¨­è¨ˆä¸»é¡Œé¢æ¿ï¼ŒåŠå„ç¨®æ¥µå…·å€‹æ€§åŒ–çš„å¡”ä½å‰µæ„ç©ºé–“ã€‚åœ¨æ–½å·¥ç”¨æ–™ä¸Šä»¥æœ€åš´è¬¹çš„å“è³ªï¼Œè¦æ±‚æ–½å·¥æ¨™æº–ï¼Œä¸¦åˆä¹åœ‹å®¶å„é …è¦å®šï¼Œå¦‚é˜²éœ‡ã€é˜²ç«å»ºæï¼Œç‡Ÿé€ æœ€å®‰å…¨çš„é˜²è­·æ©Ÿåˆ¶ï¼Œæ˜¯ç‚ºä¿éšœå…ˆäººéš±ç§åŠå‡èšå®¶æ—æƒ…æ„Ÿçš„ç†æƒ³ä½æ‰€ã€‚</p>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <div id="cemeteryMap">
-   <img src="../js/images/cemeteryMap.png"></img>
+   <img src="/funeral/js/images/cemeteryMap.png"></img>
    <div class="commentMap">
-       <h1>ÇåÖñÔ°</h1>
-	   <h2>ÉÏº£ÊĞ¼Î¶¨ÇøÍâ¸ÔÕò¼ÎËÉ±±Â·633ºÅ</h2>
+       <h1>æ¸…ç«¹å›­</h1>
+	   <h2>ä¸Šæµ·å¸‚å˜‰å®šåŒºå¤–å†ˆé•‡å˜‰æ¾åŒ—è·¯633å·</h2>
    </div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>ÎïÆ·ÏêÏ¸ĞÅÏ¢</h1>
+<h1>ç‰©å“è¯¦ç»†ä¿¡æ¯</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>

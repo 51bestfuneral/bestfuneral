@@ -1,16 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script src="../../js/jquery-2.1.4.js"></script>
-<script src="../../js/jquery-ui.js"></script>
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<link href="../../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
-<script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <style>
     p {
 	    margin: 0px;
@@ -328,19 +328,19 @@ app.controller('products', function($scope, $http) {
 	    for(var i=0;i<layouts.length;i++){
             var layout = layouts[i],
 	    	    itemLayout = [{
-	    		    itemName: '����ľ�ײ�',
+	    		    itemName: '镶金楠木棺材',
 					itemPrice: '5000',
 					itemUrl: 'www.baidu1.com'
 	    		}, {
-	    		    itemName: '��̴ľ�ײ�',
+	    		    itemName: '紫檀木棺材',
 					itemPrice: '10000',
 					itemUrl: 'www.baidu2.com'
 	    		}, {
-	    		    itemName: '��ľ�ײ�',
+	    		    itemName: '樟木棺材',
 					itemPrice: '2000',
 					itemUrl: 'www.baidu3.com'
 	    		}, {
-	    		    itemName: '��ľ�ײ�',
+	    		    itemName: '樟木棺材',
 					itemPrice: '2000',
 					itemUrl: 'www.baidu3.com'
 	    		}];
@@ -351,23 +351,23 @@ app.controller('products', function($scope, $http) {
 		for(var i=0;i<cataGroups.length;i++){
             var cataGroup = cataGroups[i],
 	    	    itemCatas = [{
-	    		    itemName: 'Ĺ��׼��',
-					itemDesc: 'Ĺ��ͨ����Ҫ��ǰ4-6������ǰԤ���Ա�ѡȡ�����������Ҫ�ĵص�',
-					itemUrl: '../../js/images/guhuiheCata.png'
+	    		    itemName: '墓地准备',
+					itemDesc: '墓地通畅需要提前4-6个月提前预定以便选取到最符合您需要的地点',
+					itemUrl: '/funeral/js/images/guhuiheCata.png'
 	    		}, {
-	    		    itemName: '�ǻҺй���',
-					itemDesc: 'Ĺ��ͨ����Ҫ��ǰ4-6������ǰԤ���Ա�ѡȡ�����������Ҫ�ĵص�',
-					itemUrl: '../../js/images/mudiCata.png'
+	    		    itemName: '骨灰盒购买',
+					itemDesc: '墓地通畅需要提前4-6个月提前预定以便选取到最符合您需要的地点',
+					itemUrl: '/funeral/js/images/mudiCata.png'
 	    		}];
 
 	    	cataGroup.itemCatas = itemCatas;
         }
 	$scope.layouts = layouts;
 	$scope.cataGroups = cataGroups;
-	$http.get("http://localhost:8080/bestfuneral/wish/list?wishId="+type).success(function(response) {
+	$http.get("/funeral/wish/list?wishId="+type).success(function(response) {
 	    $scope.wish = response[0];
 	});
-	$http.get("http://localhost:8080/bestfuneral/comment/list?wishId="+type).success(function(response) {
+	$http.get("/funeral/comment/list?wishId="+type).success(function(response) {
 	    $scope.comments = response;
 	});
 });
@@ -376,54 +376,54 @@ app.controller('products', function($scope, $http) {
 <div id="productDetail">
     <div id="productInfo">
 	    <div id="productImg">
-		    <img src="../../js/images/service1.png"></img>
+		    <img src="/funeral/js/images/service1.png"></img>
 		</div>
 		<div id="productContent">
 		    <h1>{{wish.wishName}}</h1>
 			<div id="priceArea">
 			    <div class="mainPrice">
-				    <h1>��{{wish.price}}</h1>
+				    <h1>￥{{wish.price}}</h1>
 				</div>
 				<div class="priceContainer">
-				    <p class="ptitle">�г���</p>
-					<p class="pnumber">��16288</p>
+				    <p class="ptitle">市场价</p>
+					<p class="pnumber">￥16288</p>
 				</div>
 				<div class="priceContainer">
-				    <p class="ptitle">������ʡ</p>
-					<p class="pnumber">��10000</p>
+				    <p class="ptitle">您将节省</p>
+					<p class="pnumber">￥10000</p>
 				</div>
 				<div class="priceContainer">
-				    <p class="ptitle">�ۿ�</p>
+				    <p class="ptitle">折扣</p>
 					<p class="pnumber">65%</p>
 				</div>
 			</div>
 			<div class="buttonArea">
 			    <div class="singleBtmArea">
 				    <div>
-					    <p class="pnumber">ֱ�����Ϲ���</p>
+					    <p class="pnumber">直接网上购买</p>
 					</div>
 					<div class="buttonDiv">
-					    <button class="addToCart"><span class="glyphicon glyphicon-shopping-cart"></span>���ӵ����ﳵ</button>
+					    <button class="addToCart"><span class="glyphicon glyphicon-shopping-cart"></span>添加到购物车</button>
 					</div>
 				</div>
 				<div class="singleBtmArea">
 				    <div>
-					    <p class="pnumber">����������</p>
+					    <p class="pnumber">加入葬礼定制</p>
 					</div>
 					<div class="buttonDiv">
-					    <button class="addToCart addToWish"><span class="glyphicon glyphicon glyphicon-list-alt"></span>���ӵ����ﳵ</button>
-						<p class="subTitle">���ٽ�ʡ��1200����</p>
+					    <button class="addToCart addToWish"><span class="glyphicon glyphicon glyphicon-list-alt"></span>添加到购物车</button>
+						<p class="subTitle">可再节省￥1200以上</p>
 					</div>
 				</div>
 			</div>
 			<div id="provider">
-			    <p class="pnumber">�����ṩ</p>
+			    <p class="pnumber">服务提供</p>
 				<div id="servProvider">
 				    <div id="providerIcon">
 					    <span class="glyphicon glyphicon-user"></span>
 					</div>
 					<div id="providerInfo">
-					    <p class="ptitle">�÷��񽫻�����������ʦ���Դ����������������ɹ���֮�������ϵ���۷���ϸ��</p>
+					    <p class="ptitle">该服务将会由念念入殓师亲自打理。念念会在您完成购买之后跟您联系讨论服务细节</p>
 					</div>
 				</div>
 			</div>
@@ -435,7 +435,7 @@ app.controller('products', function($scope, $http) {
 			    <span class="glyphicon glyphicon-tags"></span>
 			</div>
 			<div class="textContent">
-			    <h1>��������</h1>
+			    <h1>服务描述</h1>
 				<div class="contentDiv">
 				    <p class="textContentFont">{{wish.wishDesc}}</p>
 				</div>
@@ -446,59 +446,59 @@ app.controller('products', function($scope, $http) {
 			    <span class="glyphicon glyphicon-info-sign"></span>
 			</div>
 			<div class="textContent">
-			    <h1>����ϸ��</h1>
+			    <h1>服务细节</h1>
 				<div class="contentDiv">
 				    <div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>��������</p>
+						    <p>服务名称</p>
 						</div>
 						<div class="detailContent">
-						    <p>��</p>
+						    <p>答案</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>�����ṩ��</p>
+						    <p>服务提供商</p>
 						</div>
 						<div class="detailContent">
-						    <p>��</p>
+						    <p>答案</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>�������</p>
+						    <p>服务分类</p>
 						</div>
 						<div class="detailContent">
-						    <p>��</p>
+						    <p>答案</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>��������</p>
+						    <p>服务人数</p>
 						</div>
 						<div class="detailContent">
-						    <p>��</p>
+						    <p>答案</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>���</p>
+						    <p>规格</p>
 						</div>
 						<div class="detailContent">
-						    <p>��</p>
+						    <p>答案</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>����ʱ��</p>
+						    <p>服务时长</p>
 						</div>
 						<div class="detailContent">
-						    <p>��</p>
+						    <p>答案</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>������</p>
+						    <p>服务编号</p>
 						</div>
 						<div class="detailContent">
 						    <p>139585792938</p>
@@ -512,9 +512,9 @@ app.controller('products', function($scope, $http) {
 			    <span class="glyphicon glyphicon-picture"></span>
 			</div>
 			<div class="textContent">
-			    <h1>����չʾ</h1>
+			    <h1>服务展示</h1>
 				<div class="contentDiv">
-				    <img src="../../js/images/service1.png"></img>
+				    <img src="/funeral/js/images/service1.png"></img>
 				</div>
 			</div>
 		</div>
@@ -523,13 +523,13 @@ app.controller('products', function($scope, $http) {
 			    <span class="glyphicon glyphicon-comment"></span>
 			</div>
 			<div class="textContent">
-			    <h1>��������</h1>
+			    <h1>服务评论</h1>
 				<div class="contentDiv">
 				    <div id="comments">
 						<div class="singleComment" ng-repeat="comment in comments">
-							<p>��Ʒʹ�ø���</p>
+							<p>产品使用感受</p>
 							<div class="commentTitle">
-								<div class="userPicture"><img src="../../js/images/Confuse4.png"></img></div>
+								<div class="userPicture"><img src="/funeral/js/images/Confuse4.png"></img></div>
 								<div class="headerText">
 									<h3>Amazing Sound For The Price</h3>
 									<p>{{comment.userName}} {{comment.comment.createDate}}</p>

@@ -6,3 +6,7 @@ CREATE TABLE level_wish_types (
   updateddate  datetime default  NOW(),
   PRIMARY KEY (wish_type, wish_type_level)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+
+insert into level_wish_types('wish_type','wish_type_level') values('电话，网站','1' );
+insert into level_wish_types('wish_type','wish_type_level') values('专人咨询','1' );
