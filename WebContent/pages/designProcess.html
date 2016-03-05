@@ -362,6 +362,7 @@ function saveWishlist(nextTab) {
 		});
 	}
 	else if (nextTab){
+		unmusk();
 	    drillIntoNextTab(nextTab, 0);
 	}
 }
@@ -393,6 +394,9 @@ function nextTab() {
 			    saveProductFrameChange(me.next());
 			}
 			else if (me.next()[0].id === 'story') {
+				if ($($('.questionFrame')[1]).contents().find('.questionCenter').length>0) {
+					unmusk();
+				}
 			    flowToIndex(1);
 			}
 			return false;

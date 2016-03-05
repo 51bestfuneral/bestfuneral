@@ -347,7 +347,7 @@ app.controller('products', function($scope, $http) {
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
 		<div class="productTab" ng-repeat="question in questions" id="{{question.questionId}}">
-		    <p>{{question.questionTitle}}</p>
+		    <p>问题{{$index+1}}</p>
 			<div class="finishedIcon" hidden><span>&#10004;</span></div>
 		</div>
     </div>
@@ -625,7 +625,7 @@ $(document.body).on("blur","input", function( event ) {
 });
 $(document.body).on("click",".finishedButton", function( event ) {
     var answetList = [];
-
+    window.parent.muskCurrentPage();
     if (!$(this).hasClass("disabled")) {
         var paras = 'wishlistId=' + parent.wishlistId + '&level='+ parent.level;
 	    generateQuestionList(answetList);

@@ -313,7 +313,7 @@ app.controller('products', function($scope, $http) {
 		if (me.hasClass("disabled")) {
 		    return;
 		}
-		if (me.hasClass("nextStep")) {
+		if (me[0].id === "nextStep") {
         if (validateInput(center)) {
         	if (center.next().hasClass("questionCenter")) {
         		center.hide();
@@ -325,11 +325,13 @@ app.controller('products', function($scope, $http) {
         		else {
         			$("#nextStep").find("p")[0].innerText = "下一步";
         		}
+        		window.parent.iFrameHeight(0);
         	}
         	else {
     			var user = $scope.user,
 			    	users = [];
-			
+
+    			window.parent.muskCurrentPage();
 				if (user.gender === "女") {
 					user.gender = 0;
 				}
@@ -357,6 +359,7 @@ app.controller('products', function($scope, $http) {
 		        		}
 		        		else {
 		        			alert("修改成功");
+		        			window.parent.nextTab();
 		        		}
 			    	},
 				    error: function(error) {
@@ -597,7 +600,7 @@ $(document.body).on("click",".productTab", function( event ) {
 	}
 	handleCursor($(this));
 	if (!$(this).next().hasClass("productTab")) {
-		$("#nextStep").find("p")[0].innerText = "wancheng";
+		$("#nextStep").find("p")[0].innerText = "完成";
 	}
 	else {
 		$("#nextStep").find("p")[0].innerText = "下一步";

@@ -48,8 +48,6 @@ public class LoginCheckFilter implements Filter {
 		if(URIsList.isEmpty()){
 			initUrls();
 		}
-
-		System.out.println("  come on LoginCheckFilter---");
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
@@ -59,23 +57,17 @@ public class LoginCheckFilter implements Filter {
 		String url = response.encodeRedirectURL(request.getRequestURL().toString()) ;
 
 		if (!needCheck(requestURL)) {
-			
-			System.out.println("  come on LoginCheckFilter--1-");
 
 			chain.doFilter(req, res);
 		} else if (session != null && session.getAttribute(LoginConstants.LoginStatus) != null && session.getAttribute("user") != null
 				&& !StringUtils.isNullOrEmpty(session.getAttribute(LoginConstants.LoginStatus).toString())
 				) {
-			
-			System.out.println("  come on LoginCheckFilter--2-");
 
 
 			if (session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
-				System.out.println("  come on LoginCheckFilter--3-");
 
 				chain.doFilter(req, res);
 			} else {
-				System.out.println("  come on LoginCheckFilter--4-");
 
 
 				response.setContentType("text/html;charset=utf-8");
@@ -83,7 +75,6 @@ public class LoginCheckFilter implements Filter {
 			}
 
 		} else {
-			System.out.println("  come on LoginCheckFilter--5-");
 
 			response.setContentType("text/html;charset=utf-8");
 			response.sendRedirect("needLogIn.html?returnUrl="+url);
@@ -99,8 +90,6 @@ public class LoginCheckFilter implements Filter {
 		while (iterator.hasNext()) {
 
 			String url = iterator.next();
-			
-			System.out.println("----LoginCheckFilter  url  = "+url);
 
 			if (requestURL.endsWith(url)) {
 

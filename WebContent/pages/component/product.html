@@ -580,6 +580,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	                $(this).next().fadeIn();
 				}
 				else {
+					window.parent.muskCurrentPage();
 				    window.parent.nextTab();
 				}
 				return false;        
