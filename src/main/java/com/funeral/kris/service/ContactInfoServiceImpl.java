@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.funeral.kris.controller.ContactInfoController;
 import com.funeral.kris.dao.ContactInfoDAO;
 import com.funeral.kris.model.ContactInfo;
 
@@ -31,8 +32,9 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 	@Override
 	public List<ContactInfo> getByUserId(int userId) {
 		List<ContactInfo> list = this.getResources();
-		
-		
+
+		System.out.println("  ----- getByUserId  list=" + list.size());
+
 		List<ContactInfo> contactList = new ArrayList();
 
 		if (list == null) {
@@ -51,6 +53,8 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 			}
 
 		}
+
+		System.out.println("  ----- getByUserId  contactList  size=" + contactList.size());
 
 		return contactList;
 	}
@@ -90,6 +94,29 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 			list.add(contactInfo);
 		}
 		return list;
+	}
+
+	@Override
+	public ContactInfo getUsingContacter(int userId) {
+
+		ContactInfo ContactInfo = new ContactInfo();
+
+		List<ContactInfo> contactInfoList = this.getResources();
+
+		Iterator iterator = contactInfoList.iterator();
+
+		while (contactInfoList != null && contactInfoList.size() > 0 && iterator.hasNext()) {
+
+			ContactInfo contact = (com.funeral.kris.model.ContactInfo) iterator.next();
+
+			if (contact.getUserId().intValue() == userId
+					&& contact.getStatusId().intValue() == ContactInfoController.IN_USE.intValue()) {
+				return contact;
+			}
+		}
+
+		return ContactInfo;
+
 	}
 
 }

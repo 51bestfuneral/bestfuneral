@@ -12,6 +12,8 @@ public interface ContactInfoService {
 	public ContactInfo getResource(int id);
 	public void deleteResource(int id);
 	public List<ContactInfo> getResources();
+	public ContactInfo getUsingContacter(int userId);
+
 	
 	
 	

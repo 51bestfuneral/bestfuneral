@@ -30,7 +30,7 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	}
 
 	@Override
-	public List<ExpressInfo> getByUserId(int userId) {
+	public List<ExpressInfo> getByUserId(long userId) {
 
 		List<ExpressInfo> list = new ArrayList<ExpressInfo>();
 		Iterable<ExpressInfo> iter = expressInfoDAO.findAll();
@@ -70,17 +70,6 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	}
 
 	@Override
-	public ExpressInfo getResource(long id) {
-		return expressInfoDAO.findOne(id);
-	}
-
-	@Override
-	public void deleteResource(long id) {
-		expressInfoDAO.delete(id);
-
-	}
-
-	@Override
 	public List<ExpressInfo> getResources() {
 
 		List<ExpressInfo> list = new ArrayList<ExpressInfo>();
@@ -98,5 +87,44 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 		return list;
 
 	}
+
+	@Override
+	public ExpressInfo getUsingExpressInfo(int useId) {
+
+		List<ExpressInfo> list = this.getResources();
+
+		if (list != null && list.size() > 0) {
+
+			Iterator iter = list.iterator();
+
+			while (iter.hasNext()) {
+
+				ExpressInfo info = (ExpressInfo) iter.next();
+				if (info.getUserId().intValue() == useId && info.getStatusId().intValue() == 1) {
+
+					return info;
+				}
+
+			}
+
+		}
+
+		return new ExpressInfo();
+	}
+
+	@Override
+	public ExpressInfo getResource(long id) {
+		// TODO Auto-generated method stub
+		return expressInfoDAO.findOne(id);
+	}
+
+	@Override
+	public void deleteResource(long id) {
+		expressInfoDAO.delete(id);
+
+	}
+	
+	
+	
 
 }

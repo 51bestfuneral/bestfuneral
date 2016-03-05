@@ -355,20 +355,21 @@ app.controller('products', function($scope, $http) {
 </body>
 <script>
 function addToWishlist(object) {
+	
 	if (!object.hasClass("disableDiv")){
 	    var data = {
 			"wishId": object.closest('.productItem')[0].id
 		},
 		dataList = [];
 		
-	//	alert("id= "+object.closest('.productItem')[0].id);
 	
 	
-	//alert("id= "+object.closest('.productItem')[0].id+"  wishlistId="+wishList[0].wishlistId);
+	
+	alert("wishId= "+object.closest('.productItem')[0].id+"  wishlistId="+wishList[0].wishlistId);
 		
 	    dataList.push(data);
 		$.ajax({
-			url: '/funeral/wishlistDetail/addSingle?wishlistId='+wishList[0].wishlistId,
+			url: '/funeral/wishlistDetail/addSingle?wishlistId='+wishList[0].wishlistId+"&wishId="+object.closest('.productItem')[0].id,
 			type: 'post',
 			contentType: "application/json; charset=UTF-8",
 			data: JSON.stringify(dataList),
@@ -390,6 +391,9 @@ window.onload=function(){
 	    window.parent.muskPageForProduct($(this)[0].id);
 	});
 	$("body").on("click",".addWishButton",function(event) {
+		
+			alert("---------------");
+
 	    if (flag.code === 1) {
 	    	addToWishlist($(this));
 	    	event.stopPropagation(); 

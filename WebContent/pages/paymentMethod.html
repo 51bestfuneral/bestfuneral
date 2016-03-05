@@ -322,7 +322,7 @@ span {
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="2">
+				    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option1">
 			        <span class="radioDesc">支付宝支付</span>
 			        <form name="alipayment" action="alipayapi.jsp" method="post" target="_blank">
 						<input type="hidden" id="tradeNo"  name="WIDout_trade_no"  />
@@ -341,12 +341,57 @@ span {
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="3">
+				    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option1">
 			        <span class="radioDesc">分期支付</span>
 				</div>
 			</div>
 		</div>
-		    
+		<div id="methodInfo">
+		    <div class="longField fieldInd"  >
+			    <div class="fieldDesc">
+				    <p>信用卡人姓名</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control" id="creditName"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-user"></span>
+				</div>
+			</div>
+			<div class="longField fieldInd lastField"  >
+			    <div class="fieldDesc">
+				    <p>卡号</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  id="creditNo"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-credit-card"></span>
+				</div>
+			</div>
+			<div class="shortField fieldInd" >
+			    <div class="fieldDesc">
+				    <p>到期日</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  id="creditExpiredDate"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-time"></span>
+				</div>
+			</div>
+			<div class="shortField fieldInd">
+			    <div class="fieldDesc">
+				    <p>CVV / CVC *</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  id="CVcode"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-heart-empty"></span>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="footerContain">
 	    <div id="footer">
@@ -374,6 +419,36 @@ window.onload=function(){
     $("#prevButton").click(function () {
 	    window.location.href='paymentConfirm.html';
 	});
+$("#optionsRadios1").attr('disabled',true); 
+$("#optionsRadios2").attr('checked','checked'); 
+$("#creditName").attr('disabled',true); 
+$("#creditNo").attr('disabled',true); 
+$("#creditExpiredDate").attr('disabled',true); 
+$("#CVcode").attr('disabled',true); 	
+$("#optionsRadios3").attr('disabled',true); 	
+
+	
+$("#optionsRadios1").click(function () {
+$("#creditName").attr('disabled',false); 
+$("#creditNo").attr('disabled',false); 
+$("#creditExpiredDate").attr('disabled',false); 
+$("#CVcode").attr('disabled',false); 
+
+
+	});
+		
+	
+$("#optionsRadios2").click(function () {
+$("#creditName").attr('disabled',true); 
+$("#creditNo").attr('disabled',true); 
+$("#creditExpiredDate").attr('disabled',true); 
+$("#CVcode").attr('disabled',true); 
+
+	});
+	
+	
+	
+	
 	//$("#nextButton").click(function () {
 	 //  window.location.href='paymentFinal.html';
 	//});

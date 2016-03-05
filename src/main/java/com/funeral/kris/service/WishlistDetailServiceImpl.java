@@ -1,5 +1,6 @@
 package com.funeral.kris.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.WishlistDetailDAO;
-import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.SqlHelper;
 
@@ -30,10 +30,18 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 	private JdbcTemplate jdbcTemplate;
 
 	public void addResource(WishlistDetail wishlistDetail) {
+
+		BigDecimal selectedCost = new BigDecimal(wishlistDetail.getCount()).multiply(wishlistDetail.getPrice());
+
+		wishlistDetail.setSelectedPrice(selectedCost);
+
 		WishlistDetailDAO.save(wishlistDetail);
 	}
 
 	public void updateResource(WishlistDetail wishlistDetail) {
+		BigDecimal selectedCost = new BigDecimal(wishlistDetail.getCount()).multiply(wishlistDetail.getPrice());
+
+		wishlistDetail.setSelectedPrice(selectedCost);
 		WishlistDetailDAO.save(wishlistDetail);
 	}
 
@@ -109,5 +117,48 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 
 		return list;
 
+	}
+
+	@Override
+	public List<WishlistDetail> getSelectedWishlistDetailByWishListId(int wishListId) {
+	
+		 List<WishlistDetail>  wishListDetailList= 	this.getResourceByWishListId(wishListId);
+		 
+		 List<WishlistDetail>   list=new ArrayList();
+		 
+		 
+		 if(wishListDetailList!=null&&wishListDetailList.size()>0){
+			 
+			 Iterator  iterator= wishListDetailList.iterator();
+			 
+			 while(iterator.hasNext()){
+				 
+				 WishlistDetail  detail=	 (WishlistDetail) iterator.next();
+				 
+				 
+				 if(detail.getSelected().intValue()==1){
+					 
+					 list.add(detail) ;
+					 
+				 }
+				 
+				 
+				 
+			 }
+			 
+			 
+			 
+		 }
+		 
+		 
+		 
+		 
+		 
+		return list;
+		
+		
+		
+		
+		
 	}
 }

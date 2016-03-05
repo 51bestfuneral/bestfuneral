@@ -12,8 +12,15 @@ public class WishListJson {
 	private Integer wishDetailId;
 	private Integer wishlistId;
 	private BigDecimal originalPrice;
+	private BigDecimal selectedPrice;
 	 
 
+	public BigDecimal getSelectedPrice() {
+		return selectedPrice;
+	}
+	public void setSelectedPrice(BigDecimal selectedPrice) {
+		this.selectedPrice = selectedPrice;
+	}
 	public String getWishName() {
 		return wishName;
 	}

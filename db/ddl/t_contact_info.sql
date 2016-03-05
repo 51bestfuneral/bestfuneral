@@ -4,6 +4,7 @@ CREATE TABLE t_contact_info (
   user_id integer NOT NULL ,
   contact_name varchar(200) NOT NULL,  
   gender integer ,  
+  express_method integer ,  
   status_id integer NOT NULL,
   province varchar(200),  
   city varchar(200),  
