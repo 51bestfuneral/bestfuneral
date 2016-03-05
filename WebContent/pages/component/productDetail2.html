@@ -186,7 +186,7 @@
 	}
 	.contentDiv img {
 	    width: 100%;
-		height: 328px;
+		height: 528px;
 	}
 	.singleDetail {
 	    width: 50%;
@@ -260,8 +260,7 @@
 		margin-top: 5px;
 	}
 	.rating {
-	    float: left;
-		padding-left: 40px;
+	    float: right;
 	}
 	.rating span {
 	    font-size: 8px;
@@ -304,66 +303,6 @@ var app = angular.module('productApp', []),
     length = location.search.length,
 	type = location.search.substring(4, length);
 app.controller('products', function($scope, $http) {
-    var layouts = [{
-	            index: 1,
-				active: 'active'
-	        }, {
-	    	    index: 2,
-				active: ''
-	    	}, {
-	    	    index: 3,
-				active: ''
-	    	}],
-		cataGroups = [{
-	            index: 1,
-				active: 'active'
-	        }, {
-	    	    index: 2,
-				active: ''
-	    	}, {
-	    	    index: 3,
-				active: ''
-	    	}];
-		
-	    for(var i=0;i<layouts.length;i++){
-            var layout = layouts[i],
-	    	    itemLayout = [{
-	    		    itemName: '镶金楠木棺材',
-					itemPrice: '5000',
-					itemUrl: 'www.baidu1.com'
-	    		}, {
-	    		    itemName: '紫檀木棺材',
-					itemPrice: '10000',
-					itemUrl: 'www.baidu2.com'
-	    		}, {
-	    		    itemName: '樟木棺材',
-					itemPrice: '2000',
-					itemUrl: 'www.baidu3.com'
-	    		}, {
-	    		    itemName: '樟木棺材',
-					itemPrice: '2000',
-					itemUrl: 'www.baidu3.com'
-	    		}];
-
-	    	layout.itemLayout = itemLayout;
-        }
-
-		for(var i=0;i<cataGroups.length;i++){
-            var cataGroup = cataGroups[i],
-	    	    itemCatas = [{
-	    		    itemName: '墓地准备',
-					itemDesc: '墓地通畅需要提前4-6个月提前预定以便选取到最符合您需要的地点',
-					itemUrl: '/funeral/js/images/guhuiheCata.png'
-	    		}, {
-	    		    itemName: '骨灰盒购买',
-					itemDesc: '墓地通畅需要提前4-6个月提前预定以便选取到最符合您需要的地点',
-					itemUrl: '/funeral/js/images/mudiCata.png'
-	    		}];
-
-	    	cataGroup.itemCatas = itemCatas;
-        }
-	$scope.layouts = layouts;
-	$scope.cataGroups = cataGroups;
 	$http.get("/funeral/wish/list?wishId="+type).success(function(response) {
 	    $scope.wish = response[0];
 	});
@@ -376,7 +315,7 @@ app.controller('products', function($scope, $http) {
 <div id="productDetail">
     <div id="productInfo">
 	    <div id="productImg">
-		    <img src={{$scope.wish.imgUrl}}></img>
+		    <img src="/funeral/js/images/{{wish.imgUrl}}.jpg"></img>
 		</div>
 		<div id="productContent">
 		    <h1>{{wish.wishName}}</h1>
@@ -386,15 +325,15 @@ app.controller('products', function($scope, $http) {
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">市场价</p>
-					<p class="pnumber">￥16288</p>
+					<p class="pnumber">￥{{wish.sellingPrice.toFixed(0)}}</p>
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">您将节省</p>
-					<p class="pnumber">￥10000</p>
+					<p class="pnumber">￥{{wish.xianenPrice.toFixed(0) - wish.sellingPrice.toFixed(0)}}</p>
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">折扣</p>
-					<p class="pnumber">65%</p>
+					<p class="pnumber">{{((wish.sellingPrice/wish.xianenPrice)*100).toFixed(0)}}%</p>
 				</div>
 			</div>
 			<div class="buttonArea">
@@ -411,7 +350,7 @@ app.controller('products', function($scope, $http) {
 					    <p class="pnumber">加入葬礼定制</p>
 					</div>
 					<div class="buttonDiv">
-					    <button class="addToCart addToWish"><span class="glyphicon glyphicon glyphicon-list-alt"></span>添加到购物车</button>
+					    <button class="addToCart addToWish"><span class="glyphicon glyphicon glyphicon-list-alt"></span>添加到愿望清单</button>
 						<p class="subTitle">可再节省￥1200以上</p>
 					</div>
 				</div>
@@ -423,7 +362,7 @@ app.controller('products', function($scope, $http) {
 					    <span class="glyphicon glyphicon-user"></span>
 					</div>
 					<div id="providerInfo">
-					    <p class="ptitle">该服务将会由念念入殓师亲自打理。念念会在您完成购买之后跟您联系讨论服务细节</p>
+					    <p class="ptitle">该服务将会由念念亲自打理。念念会在您完成购买之后跟您联系讨论服务细节</p>
 					</div>
 				</div>
 			</div>
@@ -453,7 +392,7 @@ app.controller('products', function($scope, $http) {
 						    <p>服务名称</p>
 						</div>
 						<div class="detailContent">
-						    <p>答案</p>
+						    <p>{{wish.wishName}}</p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -469,7 +408,7 @@ app.controller('products', function($scope, $http) {
 						    <p>服务分类</p>
 						</div>
 						<div class="detailContent">
-						    <p>答案</p>
+						    <p>{{wish.subCategory}}</p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -477,7 +416,7 @@ app.controller('products', function($scope, $http) {
 						    <p>服务人数</p>
 						</div>
 						<div class="detailContent">
-						    <p>答案</p>
+						    <p>N/A</p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -485,7 +424,7 @@ app.controller('products', function($scope, $http) {
 						    <p>规格</p>
 						</div>
 						<div class="detailContent">
-						    <p>答案</p>
+						    <p>{{wish.size}}</p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -514,7 +453,7 @@ app.controller('products', function($scope, $http) {
 			<div class="textContent">
 			    <h1>服务展示</h1>
 				<div class="contentDiv">
-				    <img src="/funeral/js/images/service1.png"></img>
+				    <img src="/funeral/js/images/{{wish.imgUrl}}.jpg"></img>
 				</div>
 			</div>
 		</div>

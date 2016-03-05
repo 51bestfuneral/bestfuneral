@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.Cemetery;
+import com.funeral.kris.model.Comment;
+import com.funeral.kris.model.Option;
+import com.funeral.kris.model.TaoConfig;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
@@ -34,6 +38,7 @@ import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
+import com.funeral.kris.util.SqlHelper;
 
 @Controller
 @RequestMapping(value = "/wishlist")
@@ -47,9 +52,12 @@ public class WishlistController {
 	private WishlistDetailService wishlistDetailService;
 	@Autowired
 	private EntityManager em;
+	
+	private List<TaoConfig> taoConfigs = new ArrayList<TaoConfig>();
 
 	@Autowired
 	private WishService wishService;
+	private Integer gender;
 
 	@ResponseBody
 	@RequestMapping(value = "/saveWish", method = RequestMethod.POST)
@@ -123,6 +131,7 @@ public class WishlistController {
       if(!hasSame){
 		wishlistDetail.setCount(1);
 		wishlistDetail.setWishlistId(wishlistId);
+		wishlistDetail.setWishType(wish.getGeneralCode());
 		wishlistDetail.setSourceId(WishConstants.wish_source_direct);
 		wishlistDetail.setOriginalPrice(wish.getXianenPrice());
 		wishlistDetail.setPrice(wish.getSellingPrice());
@@ -144,9 +153,12 @@ public class WishlistController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public Wishlist addingWishlist(HttpServletRequest request) {
 		Wishlist wishlist = null;
-		Integer userId = ((User) request.getSession().getAttribute("user")).getUsrId();
+		User user = (User) request.getSession().getAttribute("user");
+		gender = user.getGender();
+		Integer userId = user.getUsrId();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
 		Integer level = Integer.valueOf(request.getParameter("level"));
+		generateTaoCanRule(level, user.getBirthday());
 		wishlist = generateWishList(userId, wishlistId, level);
 
 		return wishlist;
@@ -216,23 +228,26 @@ public class WishlistController {
 		wishlistDetailService.deleteAllResources(condition);
 		BigDecimal typePrice = BigDecimal.ZERO;
 		BigDecimal totalPrice = BigDecimal.ZERO;
-		List<WishType> wishTypeList = wishTypeService.getResources();
-		for (WishType wishType : wishTypeList) {
-			if (wishType.getLevel() <= level) {
-				typePrice = generateWishForType(wishType.getWishType(), wishList);
-				totalPrice = totalPrice.add(typePrice);
-			}
+		for (TaoConfig taoConfig : taoConfigs) {
+			typePrice = generateWishForType(taoConfig.getWishCataCode(), wishList);
+			totalPrice = totalPrice.add(typePrice);
 		}
 		return totalPrice;
 	}
 
 	@SuppressWarnings("unchecked")
-	private BigDecimal generateWishForType(String wishType, Wishlist wishList) {
+	private BigDecimal generateWishForType(String wishCataCode, Wishlist wishList) {
 		String querySQL = null;
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		BigDecimal originalPrice = new BigDecimal(0);
-		querySQL = "select p from Wish p where 1=1 and generalCode = '%s'";
-		querySQL = String.format(querySQL, wishType);
+		querySQL = "select p from Wish p where 1=1 and wishCataCode = '%s'";
+        if (gender != null && gender.equals(1)) {
+        	querySQL = querySQL + " and  (gender = 0 or gender = 1) ";
+        }
+        else if (gender != null && gender.equals(0)){
+        	querySQL = querySQL + " and  (gender = 0 or gender = 2) ";
+        }
+		querySQL = String.format(querySQL, wishCataCode);
 		Random random = new Random();
 		int randomIndex = 0;
 
@@ -248,7 +263,7 @@ public class WishlistController {
 			detail.setCount(1);
 			detail.setSourceId(1);
 			detail.setWishlistId(wishList.getWishlistId());
-			detail.setWishType(wishType);
+			detail.setWishType(randomWish.getGeneralCode());
 			detail.setCreateDate(new Date());
 			detail.setUpdatedDate(new Date());
 			detail.setSourceId(1);
@@ -261,4 +276,72 @@ public class WishlistController {
 		return totalPrice;
 	}
 
+
+	private void generateTaoCanRule(Integer level, String birthday) {
+		String sql = "select p from TaoConfig p where taoCode = '%s'";
+		Integer xingzuo = star(birthday);
+		String taoCode = null;
+		if (level.equals(1)) {
+			taoCode = "A";
+		}
+		else if (level.equals(2)) {
+			taoCode = "B";
+		}
+        else if (level.equals(3)) {
+        	taoCode = "C";
+		}
+        else {
+        	taoCode = "D";
+        }
+		taoCode = taoCode + xingzuo.toString();
+		sql = String.format(sql, taoCode);
+		Query query = em.createQuery(sql);
+		taoConfigs = query.getResultList();
+	}
+	
+	private Integer star(String birthday) {  
+		Integer star = 0;
+		if (birthday == null || birthday.equals("")) {
+			return 1;
+		}
+		int month = Integer.valueOf(birthday.substring(5, 7));
+		int day = Integer.valueOf(birthday.substring(8, 10));
+        if (month == 1 && day >= 20 || month == 2 && day <= 18) {  
+         star = 1;  
+        }  
+        if (month == 2 && day >= 19 || month == 3 && day <= 20) {  
+         star = 2;  
+        }  
+        if (month == 3 && day >= 21 || month == 4 && day <= 19) {  
+         star = 3;  
+        }  
+        if (month == 4 && day >= 20 || month == 5 && day <= 20) {  
+         star = 4;  
+        }  
+        if (month == 5 && day >= 21 || month == 6 && day <= 21) {  
+         star = 5;  
+        }  
+        if (month == 6 && day >= 22 || month == 7 && day <= 22) {  
+         star = 6;  
+        }  
+        if (month == 7 && day >= 23 || month == 8 && day <= 22) {  
+         star = 7;  
+        }  
+        if (month == 8 && day >= 23 || month == 9 && day <= 22) {  
+         star = 8;  
+        }  
+        if (month == 9 && day >= 23 || month == 10 && day <= 22) {  
+         star = 9;  
+        }  
+        if (month == 10 && day >= 23 || month == 11 && day <= 21) {  
+         star = 10;  
+        }  
+        if (month == 11 && day >= 22 || month == 12 && day <= 21) {  
+         star = 11;  
+        }  
+        if (month == 12 && day >= 22 || month == 1 && day <= 19) {  
+         star = 12;  
+        }  
+        return star;  
+   }
 }

@@ -178,6 +178,42 @@ var wishList = [],
     originalWishlist = [],
 	wishlistId,
     level;
+function muskCurrentPage() {
+    $(this).css({
+	    opacity: 0.5
+	});
+	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+		'z-index': 1000, 
+		width: $(document).width(), 
+		height: $(document).height(), 
+		'background-color': '#ccc', 
+		opacity: 0.5
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	var topLoading = (document.documentElement.clientHeight/2)-50;
+	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: topLoading+'px',
+		left: '0px',
+		'z-index': 1001, 
+		width: $(document).width(), 
+		height: '100px',
+		'text-align': 'center'
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	$(".loadingShow").show();
+}
+function unmusk() {
+	$(".jquery_addmask").remove();
+	$(".loadingShow").remove();
+}
 function iFrameHeight(idx) {
     var height = $($('.questionFrame')[idx]).contents().find('#productMain')[0].offsetHeight;
 	$($('.questionFrame')[idx]).css({
@@ -228,6 +264,7 @@ function drillIntoNextTab(nextTab, needReload) {
     if (nextTab[0].id === 'productAndService') {
         if (needReload === 0 && $($('.questionFrame')[2]).contents().find('#productMain').length > 0) {
             flowToIndex(2);
+            unmusk();
         }
         else {
 	        $($(".questionFrame")[2]).attr("src","component/product.html");
@@ -235,16 +272,21 @@ function drillIntoNextTab(nextTab, needReload) {
 	}
 	else if (nextTab[0].id === 'basicInfo') {
 		flowToIndex(0);
+		unmusk();
 	}
 	else if (nextTab[0].id === 'wishList') {
         if (needReload === 0 && $($('.questionFrame')[3]).contents().find('#productMain').length > 0) {
             flowToIndex(3);
+            unmusk();
         }
         else {
 		    $($(".questionFrame")[3]).attr("src","component/wishList.html");
         }
 	}
 	else if (nextTab[0].id === 'story') {
+		if ($($('.questionFrame')[1]).contents().find('.questionCenter').length>0) {
+			unmusk();
+		}
 		flowToIndex(1);
 	}
 	$(".normalTab").removeClass("selectedTab");
@@ -375,10 +417,11 @@ window.onload=function(){
 	    var destUrl = "",
 		    needSave = false,
 			me = $(this);
-			
+
 		if ($(this).hasClass("selectedTab")) {
 		    return false;
 		}
+		muskCurrentPage();
 		$(".normalTab").each(function() {
 		    if ($(this).hasClass("selectedTab")) {
 			    if ($(this)[0].id === 'productAndService') {
@@ -395,7 +438,7 @@ window.onload=function(){
 			}
 		});
 	    if (!needSave) {
-		    drillIntoNextTab($(this));
+		    drillIntoNextTab($(this), 0);
 		}
 	});
 	$(".normalTab").removeClass("selectedTab");

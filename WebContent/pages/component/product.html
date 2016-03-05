@@ -76,9 +76,9 @@
 	    color: #707070;
 	}
 	.productCarousel {
-	    width: 760px;
+	    width: 820px;
 		margin: 0 auto;
-		padding-top: 20px;
+		padding-top: 40px;
 		cursor: pointer;
 		padding-bottom: 20px;
 	}
@@ -87,7 +87,7 @@
         height: 400px;
 	}
 	.productItem {
-	    width: 184px;
+	    width: 204px;
 		float: left;
 		margin-left: 50px;
 		border-bottom: 1px solid #ededed;
@@ -137,8 +137,7 @@
 	.productInfo .detail {
 	    font-size: 12px;
 		color: #f5274;
-		margin-bottom: 20px;
-		height: 34px;
+		height: 14px;
 	}
 	.addWishButton {
 	    cursor: pointer;
@@ -309,7 +308,7 @@ function pickToFirst (data) {
 	}
 }
 app.controller('products', function($scope, $http) {
-	$http.get("/funeral/wishType/list").success(function(tabResponse) {
+	$http.get("/funeral/wishType/listInWish?wishlistId="+parent.wishlistId).success(function(tabResponse) {
 		var count = tabResponse.length,
 		    singleTabWidth = 120;
 	    $("#tabCarousel").css({
@@ -343,7 +342,7 @@ app.controller('products', function($scope, $http) {
 		    var object = tabResponse[i-1],
 		        wishlist = parent.wishList;;
 
-            $http.get("/funeral/wish/list?generalCode="+object.wishType).success(function(response, retStatus, method, request) {
+            $http.get("/funeral/wish/listForDesign?generalCode="+object.wishType).success(function(response, retStatus, method, request) {
 				var j = 1,
 					counter = 1,
 					numberInRow = 3,
@@ -393,6 +392,7 @@ app.controller('products', function($scope, $http) {
 				tab.layouts = layouts;
 				tabs.push(tab);
 
+				$scope.totalCount = tabs.length;
 				if (tabs.length === tabResponse.length) {
 				    tabs.sort(function(a, b) {
 					    return a.index>b.index ? 1:-1;
@@ -408,6 +408,7 @@ app.controller('products', function($scope, $http) {
 		  handleCursor($(".productTab").first());
 		  window.parent.iFrameHeight(2);
 		  window.parent.flowToIndex(2);
+		  window.parent.unmusk();
     });
 });
 </script>
@@ -432,7 +433,7 @@ app.controller('products', function($scope, $http) {
 </div>
 <div class="productCenter" id="{{tab.tabId}}-content" ng-repeat="tab in tabs" on-finish-render-filters>
     <div class="index">
-	    <p><b>{{$index+1}}</b>/20</p>
+	    <p><b>{{$index+1}}</b>/{{totalCount}}</p>
 	</div>
 	<h1>{{tab.typeName}}选择</h1>
 	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
@@ -447,14 +448,13 @@ app.controller('products', function($scope, $http) {
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
-								<p class="detail">包含在您的套餐中(原价:￥<span>{{itemLayout.sellingPrice}}</span>)</p>
-                                <p class="originalPrice" hidden>{{itemLayout.procurementCost}}</p>
+								<p class="detail">(售价:￥<span>{{itemLayout.sellingPrice}}</span>)</p>
+                                <p class="originalPrice" hidden>{{itemLayout.xianenPrice}}</p>
 								<div class="addWishButton">
 								    <img src="../../js/images/addWish.png"></img>
 								    <p>选择它来替换</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
 						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
@@ -611,12 +611,12 @@ $(document.body).on("click",".productItem", function( event ) {
 	if ($(this).hasClass("chooseProduct")) {
         $(this).removeClass("chooseProduct");
 		$(this).find(".addWishButton").find('p')[0].innerText = '已取消选择';
-        window.parent.updatePrice(0-priceChange, originalPriceChange-priceChange, '+');
+        window.parent.updatePrice(0-priceChange, priceChange - originalPriceChange, '+');
 	}
 	else {
 	    $(this).addClass("chooseProduct");
 		$(this).find(".addWishButton").find('p')[0].innerText = '选择为愿望清单';
-        window.parent.updatePrice(priceChange, priceChange-originalPriceChange, '+');
+        window.parent.updatePrice(priceChange, originalPriceChange - priceChange, '+');
 	}
 	event.preventDefault();
 });

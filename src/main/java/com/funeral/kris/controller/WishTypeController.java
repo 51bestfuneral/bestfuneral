@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,8 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funeral.kris.dao.LevelWishTypeDAO;
 import com.funeral.kris.dao.WishTypeDAO;
 import com.funeral.kris.model.LevelWishType;
+import com.funeral.kris.model.User;
 import com.funeral.kris.model.WishType;
+import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.WishTypeService;
+import com.funeral.kris.service.WishlistDetailService;
+import com.funeral.kris.service.WishlistService;
 
 @Controller
 @RequestMapping(value="/wishType")
@@ -27,7 +33,8 @@ public class WishTypeController {
 	
 	@Autowired
 	private WishTypeService wishTypeService;
-
+	@Autowired
+	private WishlistDetailService wishlistDetailService;
 	@Autowired
 	private LevelWishTypeDAO levelWishTypeDAO;
 	
@@ -56,6 +63,29 @@ public class WishTypeController {
 		List<WishType> wishTypes = wishTypeService.getResources();
 
 		return wishTypes;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/listInWish",method=RequestMethod.GET, produces = "application/json")
+	public List<WishType> listOfWishTypesInWish(HttpServletRequest request) {
+		String wishlistId = request.getParameter("wishlistId");
+		List<WishType> wishTypes = wishTypeService.getResources();
+		List<WishType> finalWishTypes = new ArrayList<WishType>();
+		Map<String, WishType> wishTypeMap = new HashMap<String, WishType>();
+		for (WishType wishType: wishTypes) {
+			wishTypeMap.put(wishType.getWishType(), wishType);
+		}
+		Map<String,String> params = new HashMap<String,String>();
+		User user = (User)request.getSession().getAttribute("user");
+		Integer userId = user.getUsrId();
+		params.put("userId", userId.toString());
+		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResourceByWishListId(Integer.valueOf(wishlistId));
+		for (WishlistDetail wishlistDetail: wishlistDetails) {
+			if (wishTypeMap.containsKey(wishlistDetail.getWishType())) {
+				finalWishTypes.add(wishTypeMap.get(wishlistDetail.getWishType()));
+			}
+		}
+		return finalWishTypes;
 	}
 
 	@ResponseBody

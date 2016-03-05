@@ -1,6 +1,7 @@
 package com.funeral.kris.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import com.funeral.kris.model.Answer;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.Option;
 import com.funeral.kris.model.OptionRule;
+import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
 import com.funeral.kris.model.Wishlist;
@@ -52,6 +54,8 @@ public class AnswerController {
 	private OptionService optionService;
 	@Autowired
 	private EntityManager em;
+	private Integer gender;
+	private String wishTypeList = "";
 
 	private Map<String, String> optionRuleMap = new HashMap<String, String>();
 	
@@ -59,15 +63,10 @@ public class AnswerController {
 	public ModelAndView addAnswerPage() {
 		String querySQL ="";
 		Answer answer = new Answer();
-//		answer.setAnsListId("����");
-//		answer.setAnswerDesc("������Ŷ");
-		answer.setAnswerId("123");
-		answer.setUserId(123);
 		ModelAndView modelAndView = new ModelAndView("add-answer-form");
 		modelAndView.addObject("answer", new Answer());
 		
 		querySQL = "select p from Cemetery p where p.cemeteryDesc= '%s'";
-		querySQL = String.format(querySQL, "����");
 		List<Cemetery> cemeterys = em.createQuery(querySQL).getResultList();
 		answerService.addResource(answer);
 		return modelAndView;
@@ -77,14 +76,17 @@ public class AnswerController {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public Wishlist addingAnswer(@RequestBody List<Answer> answers, HttpServletRequest request) {
 		Date a = new Date();
-		Integer userId = answers.get(0).getUserId();
+		User user = (User)request.getSession().getAttribute("user");
+		Integer userId = user.getUsrId();
+		gender = user.getGender();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
 		Integer level = Integer.valueOf(request.getParameter("level"));
 		String ansListId = userId +"-"+ String.valueOf(a.getTime());
 		for (Answer answer : answers) {
 			answer.setAnsListId(ansListId);
+			answer.setUserId(userId);
 		    answerService.addResource(answer);
-		    
+
 		    if (answer.getOptionId() != null && answer.getOptionId()>0) {
 		        generateOptionRule(answer.getOptionId(), level);
 		    }
@@ -141,15 +143,23 @@ public class AnswerController {
 		wishList.setStatus(LoginConstants.WISHLISTSTATUS_FINISHED);
 		wishList.setUserId(usrId);
 		wishList.setPrice(BigDecimal.ZERO);
+		wishList.setLevel(level);
+		wishList.setOriginalPirce(BigDecimal.ZERO);
 		totalPrice = generateWishDetail(wishList, level);
-		wishList.setPrice(totalPrice);
 		wishListService.updateResource(wishList);
 		return wishList;
 	}
 
 	private BigDecimal generateWishDetail(Wishlist wishlist, Integer level) {
-		String condition = "wishlist_id = "+wishlist.getWishlistId();
+		String condition = "wishlist_id = "+wishlist.getWishlistId() + " and wish_type in("+wishTypeList+")";
 		wishlistDetailService.deleteAllResources(condition);
+		List<WishlistDetail> restDetails = wishlistDetailService.getResourceByWishListId(wishlist.getWishlistId());
+		for (WishlistDetail detail: restDetails) {
+			if (detail.getSourceId()!= null && detail.getSourceId().equals(1)) {
+			wishlist.setPrice(wishlist.getPrice().add(detail.getPrice()));
+			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(detail.getOriginalPrice()));
+			}
+		}
 		BigDecimal typePrice = BigDecimal.ZERO;
 		BigDecimal totalPrice = BigDecimal.ZERO;
 		List<WishType> wishTypeList = wishTypeService.getResources();
@@ -167,10 +177,20 @@ public class AnswerController {
 		String querySQL = null;
         BigDecimal totalPrice = BigDecimal.ZERO;
         BigDecimal totalOriginalPrice = BigDecimal.ZERO;
-		querySQL = "select p from Wish p where 1=1 and generalCode = '%s'";
+        querySQL = "select p from Wish p where 1=1 and generalCode = '%s' ";
+        if (gender != null && gender.equals(1)) {
+        	querySQL = querySQL + " and  (gender = 0 or gender = 1) ";
+        }
+        else if (gender != null && gender.equals(0)){
+        	querySQL = querySQL + " and  (gender = 0 or gender = 2) ";
+        }
+
 		querySQL = String.format(querySQL, wishType);
 		if (optionRuleMap.containsKey(wishType)) {
 			querySQL = querySQL + optionRuleMap.get(wishType);
+		}
+		else {
+			return BigDecimal.ZERO;
 		}
 		Random random = new Random();
 		int randomIndex = 0;
@@ -188,6 +208,7 @@ public class AnswerController {
 				detail.setSourceId(1);
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
+				detail.setWishType(randomWish.getGeneralCode());
 				detail.setWishType(wishType);
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
@@ -195,13 +216,12 @@ public class AnswerController {
 				totalPrice = totalPrice.add(detail.getPrice());
 				totalOriginalPrice = totalOriginalPrice.add(randomWish.getXianenPrice());
 		}
-		wishList.setPrice(totalPrice);
-		wishList.setOriginalPirce(totalOriginalPrice);
+		wishList.setPrice(wishList.getPrice().add(totalPrice));
+		wishList.setOriginalPirce(wishList.getOriginalPrice().add(totalOriginalPrice));
 		return totalPrice;
 	}
 
 	private void generateOptionRule(Integer optionId, Integer level) {
-		String sql = "select p from OptionRule p where optionId = '%s'";
 		Option option = optionService.getResource(optionId.longValue());
 		String rule = null;
 		String combinedSql = "";
@@ -223,6 +243,12 @@ public class AnswerController {
 		String levelNumber = rule.substring(rule.length() -1, rule.length());
 		combinedSql = " and wishLevel ='0"+levelNumber+"'";
 		optionRuleMap.put(catagoryCode, combinedSql);
+		if (wishTypeList!=null && wishTypeList.equals("")) {
+		    wishTypeList = "'" + catagoryCode + "'";
+		}
+		else {
+			wishTypeList = wishTypeList + "," +"'" + catagoryCode + "'";
+		}
 		}
 	}
 }

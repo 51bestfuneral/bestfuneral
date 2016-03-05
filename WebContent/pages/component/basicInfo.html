@@ -114,9 +114,8 @@
 	}
 	#prevStep {
 		float: left;
-		width: 61px;
+		width: 150px;
 		height: 60px;
-		background: 
 	}
 	#nextStep {
 		float: right;
@@ -314,6 +313,7 @@ app.controller('products', function($scope, $http) {
 		if (me.hasClass("disabled")) {
 		    return;
 		}
+		if (me.hasClass("nextStep")) {
         if (validateInput(center)) {
         	if (center.next().hasClass("questionCenter")) {
         		center.hide();
@@ -365,6 +365,10 @@ app.controller('products', function($scope, $http) {
 			    });
         	}
         }
+		}
+		else {
+			window.parent.location.href='/funeral/pages/designProposal.html';;
+		}
 	});
 });
 </script>
@@ -396,7 +400,7 @@ app.controller('products', function($scope, $http) {
 </div>
 <div class="questionCenter" hidden id="1-content">
     <div class="index">
-	    <p><b>1</b>/20</p>
+	    <p><b>1</b>/3</p>
 	</div>
 	<div class="questionText">
 	    <h1>告诉我们一些您的个人信息</h1>
@@ -514,6 +518,9 @@ app.controller('products', function($scope, $http) {
 	</div>
 </div>
 <div id="rightFooter">
+    <div id="prevStep" class="operatorButton">
+        <p>重新选择方案</p>
+	</div>
 	<div id="nextStep" class="operatorButton">
 		<p>下一步</p>
 	</div>

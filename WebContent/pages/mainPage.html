@@ -153,16 +153,15 @@ body {
 #subContentLeft {
     width: 50%;
 	float:left;
-	height: 600px;
 }
 #subContentRight {
     width: 50%;
 	float: left;
-	height: 600px;
 	padding-top: 80px;
 	text-align: left;
 	padding-left: 115px;
 	background-color: #f7f8fa;
+	height: 650px;
 }
 #subContentRight h1,h2,h3,h4,h5,p {
 	margin: 0px;
@@ -184,7 +183,7 @@ body {
 }
 .singleTip {
     width: 100%;
-	height: 600px;
+	height: 650px;
 	background-color: #ec4a82;
 	padding-left: 25%;
 	text-align: left;
@@ -242,30 +241,6 @@ body {
     width: 920px;
 	height: 600px;
 	margin:0px auto;
-}
-#questionGroup {
-    width: 100%;
-	height: 600px;
-    background: -webkit-radial-gradient(#ef8391, #db5f34);
-    background: -o-radial-gradient(#ef8391, #db5f34);
-    background: -moz-radial-gradient(#ef8391, #db5f34);
-    background: radial-gradient(#ef8391, #db5f34);
-}
-#questionGroupLeft {
-    height: 400px;
-	width: 350px;
-	text-align: left;
-	float: left;
-	padding-top: 150px;
-	color: white;
-	margin-right: 20px;
-}
-#questionGroupLeft h3 {
-    font-size: 30px;
-}
-#questionGroupLeft h1 {
-    font-size: 65px;
-	margin-top: 55px;
 }
 .question {
     width: 550px;
@@ -645,11 +620,8 @@ body {
 		border: 0px;
 	}
 	#wechatFrame {		
-		position:relative;
-		left:330px;
-		top:-480px;
-		width:150px;
-		height:130px;
+		position:absolute;
+		margin-left: 400px;
 	}
 	#wechatFrame img{
 		width:90px;
@@ -664,12 +636,12 @@ body {
 	}
 	#memebersCoat {
 	    width: 100%;
-		height: 484px;
+		height: 708px;
 		overflow: hidden;
 	}
 	.membersContent {
 	    width: 100%;
-		height: 484px;
+		height: 708px;
 		overflow: hidden;
 		text-align: left;
 		background-image:url('../js/images/heroImage031.jpg');
@@ -714,6 +686,9 @@ body {
 	    width: 100%;
         overflow: auto;
 		cursor: pointer;
+	    width: 1349px;
+	    margin: 0px auto;
+	    margin-top: -284px;
 	}
 	.singleMember {
 	    width: 16.66%;
@@ -742,6 +717,7 @@ body {
 		overflow: auto;
 		height: 687px;
 		padding-top: 40px;
+		margin-top: 60px;
 	}
 	#designShow h4 {
 	    font-size: 29px;
@@ -951,6 +927,15 @@ body {
 	}
 	#adjustFontDiv span:hover {
 	    color: #ff5274;
+	}
+	#productFrameCoat {
+	    margin-top: 416px;
+	    width: 100%;
+	    background: #0B1820;
+	}
+	#contactInfoCoat {
+	    width: 1349px;
+	    margin: 0px auto;
 	}
 </style>
 <script type="text/javascript">
@@ -1209,7 +1194,9 @@ function muskPageForProduct(id) {
 </div>
 <div id="designProcessShow">
 </div>
-<IFRAME NAME="content_frame" width=100% height=570 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html?showInFront=1"></IFRAME>
+<div id="productFrameCoat">
+<IFRAME NAME="content_frame" width=1349px height=570 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html?showInFront=1"></IFRAME>
+</div>
 <div id="cemeteryShow">
     <div id="cemeteryInfo">
 	    <h2>墓地和寺庙信息汇总</h2>
@@ -1219,83 +1206,53 @@ function muskPageForProduct(id) {
 		</div>
 	</div>
 </div>
-<div id="questionGroup">
-    <div id="questionContent">
-        <div id="questionGroupLeft">
-            <h3>知识测试</h5>
-            <h1>你了解你的父母吗?</h5>
-	    </div>
-	    <div class = "question" id="question1">
-		    <div class="questionLeft">
-			    <div class="leftTop">
-	                <h2>你知道自己父母的生日吗?</label>
-				</div>
-				<div class="leftBottom">
-		            <div class = "optionButton"><p>知道</p></div>
-		            <div class = "optionButton"><p>不知道</p></div>
-				</div>
-			</div>
-			<div class="questionRight">
-			</div>
-	    </div>
-	    <div class = "question" id="question2" hidden>
-		    <div class="questionLeft">
-			    <div class="leftTop">
-	                <h2>你知道自己父母的血型吗?</label>
-				</div>
-				<div class="leftBottom">
-		            <div class = "optionButton"><p>知道</p></div>
-		            <div class = "optionButton"><p>不知道</p></div>
-				</div>
-			</div>
-			<div class="questionRight">
-			</div>
-	    </div>
-	</div>
-</div>
 <div id="contactInfo">
-<div id="contactInformation">
-    <h2>联系我们</h2>
-	
-</div>
-<div id="topContactInfo">
-	<div class="topContactInfoLeft">
-		<h2>给我们打电话</h2>
-
-		<h1>400-166-0030</h1>
-	</div>
-	<div class="topContactInfoRight">
-		<h2>告诉我们您的需求，我们来联系您</h2>
+    <div id="contactInfoCoat">
+		<div id="contactInformation">
+    		<h2>联系我们</h2>
+		</div>
+	    <div id="topContactInfo">
+			<div class="topContactInfoLeft">
+				<h2>给我们打电话</h2>
+				<h1>400-166-0030</h1>
+			</div>
+			<div class="topContactInfoRight">
+				<h2>告诉我们您的需求，我们来联系您</h2>
 		
-		<div id="askGroup">
-		    <button type="button" class="btn btn-default contactButton" id="startButton"><p>开始</p></button>
-			<div id="askGroupRight">
-		        <h5>我们会问您一系列问题帮助您选择服务和产品</h4>
+				<div id="askGroup">
+		    		<button type="button" class="btn btn-default contactButton" id="startButton"><p>开始</p></button>
+					<div id="askGroupRight">
+		        		<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
-<div id="bottomContactInfo">
-	<div id="bottomContactInfoLeft">
-		<h2>在线聊天</h2>
+		<div id="bottomContactInfo">
+			<div id="bottomContactInfoLeft">
+				<h2>在线聊天</h2>
 		
-		<div id="contactButtonGroup">
-		    <button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
+				<div id="contactButtonGroup">
+		    		<button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
+				</div>
+			</div>
+			<div id="wechatFrame" hidden>
+                <h6>微信公众号</h6>
+                <img src="../js/images/erCode.jpg"></img>
+	        </div>
+			<div id="bottomContactInfoRight">
+				<h2>直接给我们留言</h2>
+				<div id="messageUs">
+		    		<div id="messageUsLeft">
+			    		<span class="glyphicon glyphicon-comment"></span>
+					</div>
+					<div id="messageUsRight">
+			    		<input type="text" class="form-control" placeholder="留下任何您想跟我们说的话..." id="messageSent">
+					</div>
+				</div>
+        		<button type="button" class="btn btn-default contactButton" id="messageButton">提交</button>
+			</div>
 		</div>
 	</div>
-	<div id="bottomContactInfoRight">
-		<h2>直接给我们留言</h2>
-		<div id="messageUs">
-		    <div id="messageUsLeft">
-			    <span class="glyphicon glyphicon-comment"></span>
-			</div>
-			<div id="messageUsRight">
-			    <input type="text" class="form-control" placeholder="留下任何您想跟我们说的话..." id="messageSent">
-			</div>
-		</div>
-        <button type="button" class="btn btn-default contactButton" id="messageButton">提交</button>
-	</div>
-</div>
 </div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
@@ -1308,11 +1265,6 @@ function muskPageForProduct(id) {
 </div>
 	
 </body>
-
-<div id="wechatFrame" hidden>
-<h6>微信公众号</h6>
-<img src="../js/images/erCode.jpg"></img>
-	</div>
 <script>
 $(function() {
     $('.ck-slide').ckSlide({
@@ -1342,7 +1294,6 @@ $(function() {
 		    id = Date.parse(new Date()) + '123',
 		    data = {
 			    content: messageValue,
-				userId: '123',
 				messageId: id
 			};
 
@@ -1367,7 +1318,6 @@ $(function() {
 		    id = Date.parse(new Date()) + '123',
 		    data = {
 			    content: messageValue,
-				userId: '123',
 				messageId: id
 			};
 
@@ -1406,9 +1356,9 @@ window.onload=function(){
 			muskPageForProduct();
 	});
 	$("#weChat").hover(function () {
-	  
-	 
 	  $("#wechatFrame").show();
+	}, function() {
+		$("#wechatFrame").hide();
 	});
 	$("#wechatFrame").click(function() {
 	    $(this).fadeOut();

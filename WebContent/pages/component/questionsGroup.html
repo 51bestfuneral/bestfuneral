@@ -324,6 +324,7 @@ app.controller('products', function($scope, $http) {
 				}
 			}
 		}
+		$scope.totalCount = response.length;
 		$scope.questions = response;
 	});
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
@@ -335,6 +336,7 @@ app.controller('products', function($scope, $http) {
 		  });
 		  $($(".productTab")[0]).addClass("cursored");
 		  window.parent.iFrameHeight(1);
+		  window.parent.unmusk();
     });
 });
 </script>
@@ -360,7 +362,7 @@ app.controller('products', function($scope, $http) {
 </div>
 <div class="questionCenter" hidden id="{{question.questionId}}-content" ng-repeat="question in questions" on-finish-render-filters>
     <div class="index">
-	    <p><b>{{$index+1}}</b>/20</p>
+	    <p><b>{{$index+1}}</b>/{{totalCount}}</p>
 	</div>
 	<div class="questionText">
 	    <h1>{{question.questionContent}}</h1>
@@ -507,8 +509,7 @@ function generateQuestionList(answetList) {
 	    var answer = {
 		    questionId: $(this)[0].id.replace('-content',''),
 			optionId: $(this).find(".selected")[0].id,
-			answerDesc: $(this).find("#messageSent")[0].value,
-			userId: '123'
+			answerDesc: $(this).find("#messageSent")[0].value
 		};
 
 		answetList.push(answer);
@@ -516,7 +517,7 @@ function generateQuestionList(answetList) {
 }
 $(document.body).on("click",".operatorButton", function( event ) {
 	var me = $(this),
-	    count =  $(".questionCenter").length;;
+	    count =  $(".questionCenter").length;
 
 	if (me.hasClass("disabled")) {
 	    return;
@@ -598,7 +599,25 @@ $(document.body).on("click",".optionIcon", function( event ) {
 	    tabPage.find(".optionIcon").removeClass("selected");
 	    $(this).addClass("selected");
 	}
+    $(".questionCenter").each(function(idx){
+	    if (!$(this).is(':hidden')) {
+
+			if ($(this).next().hasClass('questionCenter')) {
+			    $(this).hide();
+			    var tabId = $(this).next()[0].id.replace('-content', '');
+				handleCursor($("#"+tabId), 1);
+                $(this).next().fadeIn();
+
+				if (idx === count-2) {
+				    handleFinishButton();
+				}
+			}
+			return false;        
+		}
+    });
 	handleFinished(tabPage);
+	window.parent.iFrameHeight(1);
+	handleButton();
 });
 $(document.body).on("blur","input", function( event ) {
     var tabPage = $(this).closest(".questionCenter");
@@ -617,7 +636,7 @@ $(document.body).on("click",".finishedButton", function( event ) {
 			dataType:'json',
 			data: JSON.stringify(answetList),
 			success:function(data){
-                window.parent.updatePrice(data.price, data.price - data.originalPrice);
+                window.parent.updatePrice(data.price, data.originalPrice - data.price);
 				window.parent.nextTab();
 		    },
 			error: function(error) {

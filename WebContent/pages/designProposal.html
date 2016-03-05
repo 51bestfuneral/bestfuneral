@@ -66,8 +66,10 @@
 .unseleted{
 	pointer-events:none;
 	}
-
-
+#headerMessage h3 {
+    margin: 0px;
+    margin-bottom: 20px;
+}
 </style>
 <script type="text/javascript">
 var app = angular.module('myApp', []);
@@ -123,23 +125,27 @@ app.controller('wishTypeLevels', function($scope, $http) {
    
     <div id="headerMessage">
 	    <h2 id="headerMesText">选择适合您的定制方案</h2>
+	    <h3>请选择下面几项服务中的一项或多项，我们会为您选择合适的方案</h3>
 	</div>
-	
-	
-	
 	<!--for tab-->
 	<div id="designTaocan">
-        <div id="taocan1" class="designTaocanIconDiv">
-			<h3>一路走好</h3>
+        <div id="taocan1" class="designTaocanIconDiv firstIconDiv">
+			<h3>葬礼策划</h3>
 		</div>
 		<div id="taocan2" class="designTaocanIconDiv">
-			<h3>静享怡然</h3>
+			<h3>精选鲜花</h3>
 		</div>
 		<div  id="taocan3" class="designTaocanIconDiv">
-		    <h3>深情告别</h3>
+		    <h3>法事超度</h3>
 		</div>
 		<div id="taocan4" class="designTaocanIconDiv">
-		    <h3>新家搬迁</h3>
+		    <h3>追悼会</h3>
+		</div>
+		<div id="taocan5" class="designTaocanIconDiv">
+		    <h3>入殓师</h3>
+		</div>
+		<div id="taocan6" class="designTaocanIconDiv">
+		    <h3>私人订制</h3>
 		</div>
 	</div>
     </div>
@@ -222,7 +228,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 		
 		
-		<div id="basic" class= "includeDataDivBasic">
+		<div id="basic" class= "includeDataDivBasic proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -252,7 +258,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 			<li>
 			    <div class="submitArea">
-				    <button id="basicButton"><p>选择该套</p></button>
+				    <button id="basicButton"><p>选择该套餐</p></button>
 				</div>
 			</li>
 		
@@ -269,7 +275,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 		
 		
-		<div id="good" class= "includeDataDivGood">
+		<div id="good" class= "includeDataDivGood proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -296,7 +302,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button id="goodButton"><p>选择该套</p></button>
+				    <button id="goodButton"><p>选择该套餐</p></button>
 				</div>
 			</li>
 		</ul>
@@ -306,7 +312,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 		
 		
-		<div id="better" class= "includeDataDivBetter">
+		<div id="better" class= "includeDataDivBetter proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -333,7 +339,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button id="betterButton"><p>选择该套</p></button>
+				    <button id="betterButton"><p>选择该套餐</p></button>
 				</div>
 			</li>
 		</ul>
@@ -346,7 +352,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 
 		
 		
-		<div id="best" class= "includeDataDivBest">
+		<div id="best" class= "includeDataDivBest proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
@@ -373,7 +379,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button  id="bestButton" ><p>选择该套</p></button>
+				    <button  id="bestButton" ><p>选择该套餐</p></button>
 				</div>
 			</li>
 		</ul>
@@ -388,6 +394,38 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
+function muskCurrentPage() {
+    $(this).css({
+	    opacity: 0.5
+	});
+	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+		'z-index': 1000, 
+		width: $(document).width(), 
+		height: $(document).height(), 
+		'background-color': '#ccc', 
+		opacity: 0.5
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	var topLoading = (document.documentElement.clientHeight/2)-50;
+	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: topLoading+'px',
+		left: '0px',
+		'z-index': 1001, 
+		width: $(document).width(), 
+		height: '100px',
+		'text-align': 'center'
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	$(".loadingShow").show();
+}
 function generateWishlistByLevel(wishlistId, level) {
     var paras = '&wishlistId='+wishlistId+'&level='+level;
     $.ajax({
@@ -416,6 +454,7 @@ function getWishlistByLevelAfterChcek(level) {
 	});
 }
 function getWishlistByLevel(level) {
+	muskCurrentPage();
     $.ajax({
 		url: '/funeral/login/validateLogin',
 		type: 'GET',
@@ -434,345 +473,57 @@ function getWishlistByLevel(level) {
 		}
 	});
 }
-$("#taocan1").on("click", function () {
-
-	if( $("#taocan1").hasClass("choose")){
-	$("#taocan1").removeClass("barSelect");
-	$("#taocan1").removeClass("choose");	
-			 $("#basic").removeClass("barSelect");
-
-	
-	if($("#taocan4").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").removeClass("barSelect");	
-	  	  $("#best").addClass("barSelect");	
-return;
-					}else{
-	  	  $("#best").removeClass("barSelect");	
-						}
-	
-			if($("#taocan3").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").addClass("barSelect");	
-	  return;
-					}else{
-						
-	  $("#better").removeClass("barSelect");	
-						}
-	
-	
-		
-		if($("#taocan2").hasClass("choose")){
-	 $("#basic").removeClass("barSelect");
-	 $("#good").addClass("barSelect");
-			return;
-			}else{
-				
-		
-	 $("#good").removeClass("barSelect");	
-				
-				}
-				
-		
-		
-		
-		
-		
-		
-	 
-	}else{
-	$("#taocan1").addClass("choose");
-	$("#taocan1").addClass("barSelect");
-		 $("#basic").addClass("barSelect");
-	
-		if($("#taocan4").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").removeClass("barSelect");	
-	  	  $("#best").addClass("barSelect");	
-return;
-					}else{
-		
-	  	  $("#best").removeClass("barSelect");	
-						}
-	
-	
-		if($("#taocan3").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").addClass("barSelect");	
-	  return;
-					}else{
-						
-	  $("#better").removeClass("barSelect");	
-						}
-	
-	
-
-			if($("#taocan2").hasClass("choose")){
-	 $("#basic").removeClass("barSelect");
-	 $("#good").addClass("barSelect");
-			 return;
-			}else{
-				
-			
-	    $("#good").removeClass("barSelect");	
-				
-				}
-				
-			
-		
-		
-	
-		
-		
-		
-		}
-	 
-	 
-   });
-   
-   
- 
-$("#taocan2").on("click", function () {
-	if( $("#taocan2").hasClass("choose")){
-	$("#taocan2").removeClass("barSelect");
-	$("#taocan2").removeClass("choose");	
-	
-	 $("#good").removeClass("barSelect");
-	
-	if($("#taocan4").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").removeClass("barSelect");	
-	  	  $("#best").addClass("barSelect");	
-return;
-					}else{
-	 $("#best").removeClass("barSelect");	
-			}
-	
-	
-		if($("#taocan3").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").addClass("barSelect");	
-	  return;
-					}else{
-	  $("#better").removeClass("barSelect");	
-						}
-	
-	
-		if($("#taocan1").hasClass("choose")){
-	 $("#basic").addClass("barSelect");
-	 $("#good").removeClass("barSelect");
-			
-			}else{
-				
-			 $("#basic").removeClass("barSelect");
-				}
-				
-			
-		
-		
-		
-		
-		
-	 
-	}else{
-	$("#taocan2").addClass("choose");
-	$("#taocan2").addClass("barSelect");
-
-	 $("#basic").removeClass("barSelect");
-	 $("#good").addClass("barSelect");
-
-
-	if($("#taocan4").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	      $("#good").removeClass("barSelect");	
-	     $("#better").removeClass("barSelect");	
-	  	  $("#best").addClass("barSelect");	
-return;
-					}else{
-	  	  $("#best").removeClass("barSelect");	
-						}
-
-
-
-				
-				if($("#taocan3").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").addClass("barSelect");	
-	  return;
-					}else{
-	  $("#better").removeClass("barSelect");	
-						}
-		
-		
-	
-		
-		
-		
-		}
-	 
-	 
-   });
-
-
-
-
-
-$("#taocan3").on("click", function () {
-	if( $("#taocan3").hasClass("choose")){
-	$("#taocan3").removeClass("barSelect");
-	$("#taocan3").removeClass("choose");	
-	
-	 $("#better").removeClass("barSelect");
-	
-	if($("#taocan4").hasClass("choose")){
-	$("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").removeClass("barSelect");	
-	  	  $("#best").addClass("barSelect");	
-return;
-					}else{
-	 $("#best").removeClass("barSelect");	
-			}
-	
-	
-		if($("#taocan2").hasClass("choose")){
-		$("#basic").removeClass("barSelect");
-	 $("#good").addClass("barSelect");	
-	  return;
-					}else{
-	  $("#good").removeClass("barSelect");	
-						}
-	
-	
-		if($("#taocan1").hasClass("choose")){
-	 $("#basic").addClass("barSelect");
-			
-			}else{
-				
-			 $("#basic").removeClass("barSelect");
-				}
-				
-			
-		
-		
-		
-		
-		
-	 
-	}else{
-	$("#taocan3").addClass("choose");
-	$("#taocan3").addClass("barSelect");
-
-	 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");
-	 $("#better").addClass("barSelect");
-
-
-	if($("#taocan4").hasClass("choose")){
-					 $("#basic").removeClass("barSelect");
-	      $("#good").removeClass("barSelect");	
-	     $("#better").removeClass("barSelect");	
-	  	  $("#best").addClass("barSelect");	
-return;
-					}else{
-	  	  $("#best").removeClass("barSelect");	
-						}
-
-
-
-				
-			
-		
-		
-		
-		}
-	 
-	 
-   });
-
-
-
-
-
-$("#taocan4").on("click", function () {
-	if( $("#taocan4").hasClass("choose")){
-	$("#taocan4").removeClass("barSelect");
-	$("#taocan4").removeClass("choose");	
-	
-	 $("#best").removeClass("barSelect");
-	
-	if($("#taocan3").hasClass("choose")){
-	$("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");	
-	  $("#better").addClass("barSelect");	
-	  	 
-return;
-					}else{
-	 $("#better").removeClass("barSelect");	
-			}
-	
-	
-		if($("#taocan2").hasClass("choose")){
-		$("#basic").removeClass("barSelect");
-	 $("#good").addClass("barSelect");	
-	  return;
-					}else{
-	  $("#good").removeClass("barSelect");	
-						}
-	
-	
-		if($("#taocan1").hasClass("choose")){
-	 $("#basic").addClass("barSelect");
-			
-			}else{
-				
-			 $("#basic").removeClass("barSelect");
-				}
-				
-			
-		
-		
-		
-		
-		
-	 
-	}else{
-	$("#taocan4").addClass("choose");
-	$("#taocan4").addClass("barSelect");
-
-	 $("#basic").removeClass("barSelect");
-	 $("#good").removeClass("barSelect");
-	 $("#better").removeClass("barSelect");
-	 $("#best").addClass("barSelect");
-
-
-
-
-				
-			
-		
-		
-		
-		}
-	 
-	 
-   });
-
-
-
-
+function handleProposal() {
+	$(".proposalBar").removeClass("barSelect");
+	if ($("#taocan6").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose") && $("#taocan4").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose") && $("#taocan3").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan4").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan3").hasClass("choose") && $("#taocan2").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan3").hasClass("choose")) {
+		$("#good").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan2").hasClass("choose") && $("#taocan1").hasClass("choose")) {
+		$("#good").addClass("barSelect");
+		return;
+	}
+	else {
+		$("#basic").addClass("barSelect");
+		return;
+	}
+}
+$(".designTaocanIconDiv").click(function() {
+	if ($(this).hasClass("choose")) {
+		$(this).removeClass("choose");
+	}
+	else {
+		$(this).addClass("choose");
+	}
+	handleProposal();
+});
 $("#basicButton").on("click", function () {
-	   
-            getWishlistByLevel(1);
-	
-	});
+    getWishlistByLevel(1);
+});
 $("#goodButton").on("click", function () {
 	   
             getWishlistByLevel(2);

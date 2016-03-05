@@ -73,7 +73,7 @@ public class WishlistDetailController {
 			wishlistDetail.setPrice(wish.getSellingPrice());
 			wishlistDetail.setOriginalPrice(wish.getXianenPrice());
 			wishlistDetail.setSourceId(1);
-			wishlistDetail.setWishType(wish.getWishType());
+			wishlistDetail.setWishType(wish.getGeneralCode());
 			wishlistDetail.setWishlistId(wishlistId);
 			wishlistDetail.setCreateDate(sysDate);
 			wishlistDetail.setUpdatedDate(sysDate);
@@ -107,6 +107,7 @@ public class WishlistDetailController {
 			wishlistDetail.setSourceId( WishConstants.wish_source_direct);
 			wishlistDetail.setSelected(0);
 			wishlistDetail.setWishlistId(wishlistId);
+			wishlistDetail.setWishType(wish.getGeneralCode());
 			wishlistDetail.setCreateDate(sysDate);
 			wishlistDetail.setUpdatedDate(sysDate);
 			wishlistDetailService.addResource(wishlistDetail);

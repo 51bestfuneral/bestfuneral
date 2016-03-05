@@ -330,10 +330,10 @@
 		padding: 3%;
 	}
     .designTaocanIconDiv {
-	    width: 22%;
+	    width: 14%;
 		float: left;
-		margin-right: 3%;	
-		height: 120px;
+		margin-right: 2%;	
+		height: 100px;
 		background-color: #ECE7E7;
 		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
 		transition:background 0.5s;
@@ -342,8 +342,11 @@
         -o-transition:background 0.5s;
 		border-radius: 10px;
 	}
+	.firstIconDiv {
+	    margin-left: 3%;
+	}
 	.designTaocanIconDiv h3 {
-	    line-height: 120px;
+	    line-height: 100px;
 		margin: 0;
 		cursor:pointer;
 	}

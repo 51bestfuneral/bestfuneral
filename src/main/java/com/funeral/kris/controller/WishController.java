@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.service.WishService;
 
@@ -55,6 +56,33 @@ public class WishController {
 			    continue;
 			}
 			wishlistFinal.add(wish);
+		}
+		return wishlistFinal;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/listForDesign", method = RequestMethod.GET, produces = "application/json")
+	public List<Wish> listForDesign(HttpServletRequest request) {
+
+		List<Wish> whishlist = wishService.getResources(request);
+		List<Wish> wishlistFinal = new ArrayList<Wish>();
+		User user = (User)request.getSession().getAttribute("user");
+		Integer gender = user.getGender();
+		for (Wish wish : whishlist) {
+			if (wish.getParentWish()!=null && !wish.getParentWish().equals("")) {
+			    continue;
+			}
+			if (wish.getGender()!=null && !wish.getGender().equals("0")) {
+			    if (gender.equals(0) && wish.getGender().equals("2")) {
+			    	wishlistFinal.add(wish);
+			    }
+			    else if (gender.equals(1) && wish.getGender().equals("1")) {
+			    	wishlistFinal.add(wish);
+			    }
+			}
+			else {
+				wishlistFinal.add(wish);
+			}
 		}
 		return wishlistFinal;
 	}

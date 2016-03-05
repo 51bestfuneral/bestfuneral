@@ -65,7 +65,7 @@ body {
     width: 1349px;
 	padding: 0px;
 	min-width: 1000px;
-	background-color:#0b1820;
+	background: transparent;
   }
 }
 .coverDiv {
@@ -111,7 +111,7 @@ body {
 	line-height: 40px;
 }
 	.productCarousel {
-	    width: 1092px;
+	    width: 1192px;
 		margin: 0 auto;
 		padding-top: 84px;
 		height: 516px;
@@ -119,7 +119,7 @@ body {
 	.productItem {
 	    width: 336px;
 		float: left;
-		margin-right: 42px;
+		margin-left: 42px;
 		border-bottom: 1px solid #ededed;
 		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
 		background-color: #ffffff;
@@ -130,6 +130,7 @@ body {
 	    -moz-transition:box-shadow 0.3s;
         -webkit-transition:box-shadow 0.3s;
         -o-transition:box-shadow 0.3s;
+        margin-top: 10px;
 	}
 	.lastProduct {
 	    margin-right: 0px!important;
@@ -282,7 +283,7 @@ app.controller('products', function($scope, $http) {
 						<div class="inforDiv">
 						    <h3>{{itemLayout.wishName}}</h3>
 							<h4>{{itemLayout.wishDesc}}</h4>
-							<p>￥{{itemLayout.sellingPrice}}</p>
+							<p>￥{{itemLayout.sellingPrice.toFixed(0)}}</p>
 						</div>
 		            </div>
                 </div>
@@ -296,5 +297,10 @@ app.controller('products', function($scope, $http) {
 </div>
 </body>
 <script>
+window.onload=function(){
+	$("body").on("click",".productItem",function() {
+        window.parent.muskPageForProduct($(this)[0].id);
+	});
+}
 </script>
 </html>
