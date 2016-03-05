@@ -44,19 +44,19 @@
 		
 		<div id="serviceTitle" >	<p>{{x.title}}</p>	</div>
 
-		<div id="{{x.displayId0}}"   style="{{x.style0}}"  ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)"  > <div class="price" ><p>  </p>  </div>                  <div  class="discription"><p  style="{{x.font0}}"  >{{x.discription0}}</p></div> </div>
-		<div id="{{x.displayId1}}"   style="{{x.style1}}"  ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)" > <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p style="{{x.font1}}">{{x.discription1}}</p></div></div>
-		<div id="{{x.displayId2}}"   style="{{x.style2}}"  ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)"  ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  style="{{x.font2}}">{{x.discription2}}</p></div></div>
-		<div id="{{x.displayId3}}"   style="{{x.style3}}"  ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)"  ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p style="{{x.font3}}">{{x.discription3}}</p></div></div>
+		<div id="{{x.displayId0}}"   style="{{x.style0}}"  ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)" onClick="onChecked(this,'no');" > <div class="price" ><p>  </p>  </div>                  <div  class="discription"><p id="{{x.displayId0+'_'}}" >{{x.discription0}}</p></div> </div>
+		<div id="{{x.displayId1}}"   style="{{x.style1}}"  ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)" onClick="onChecked(this,'cloth');"> <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p id="{{x.displayId1+'_'}}">{{x.discription1}}</p></div></div>
+		<div id="{{x.displayId2}}"   style="{{x.style2}}"  ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)" onClick="onChecked(this,'basic');" ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  id="{{x.displayId2+'_'}}">{{x.discription2}}</p></div></div>
+		<div id="{{x.displayId3}}"   style="{{x.style3}}"  ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)" onClick="onChecked(this,'advice');" ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p id="{{x.displayId3+'_'}}">{{x.discription3}}</p></div></div>
 	</div>
 
 
 		<div class="line2"></div>
 
-<div id="summary" >
+<div id="summary">
 	
 	<div id="totalCostTitle"><p>费用总计:</p></div>
-		<div id="totalCostPrice"><p>{{'¥'+costsFormated}}</p></div>
+		<div id="totalCostPrice"><p>{{'¥'+totalCostFormated}}</p></div>
 		<div id="totalCostIntroduction"><p>我们会根据您的选择在下一页向您推荐合适的套餐</p></div>
 	<div id="beginButton"><p>开始订制</p></div>
 
@@ -462,25 +462,8 @@ line-height:34px;
 //		})
 
 
- 
-
-
-
-
 	 app.controller('serviceCategoryDisplay', function($scope, $http) {
 	 	
- 	
-			$http.get("/funeral/serviceDisplayController/calcCost").success(function(response) {
-       	
-  $scope.costs=response;
-  
-  $scope.costsFormated=format_number($scope.costs);
-  	   
-
-  
-			}) 	
- 	 	
- 	
  	
 	 	
 	$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
@@ -491,29 +474,27 @@ line-height:34px;
     $scope.selectedName = [];
     $scope.selected = [];
     $scope.selectedCost = [];
+    var updateSelected = function(id,name,value){
+    	    	var idx = $scope.selectedName.indexOf(name);
+      if(idx!=-1){
+    $scope.selected.splice(idx,1);
+    $scope.selectedName.splice(idx,1); 
+    $scope.selectedCost.splice(idx,1);
+      }
+            $scope.selectedName.push(name);
+               $scope.selected.push(id);
+               $scope.selectedCost.push(value);
+       }
        $scope.updateSelection = function($event, id,name,_price){
-       	
-       	
-       		$http.get("/funeral/costCalculatorController/saveCalculationTrace?id="+id).success(function(response) {
-       	
-       			$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
-  $scope.serviceCategories=response;
-  
-			}) 
-			
-			$http.get("/funeral/serviceDisplayController/calcCost").success(function(response) {
-       	
-  $scope.costs=response;
-  
-  $scope.costsFormated=format_number($scope.costs);
-  
-			}) 	
-			
-       	
-       	
-			})
-       	
+           updateSelected(id,name,_price);  
+                  $scope.totalCost=0;
+            angular.forEach($scope.selectedCost, function(data){
+$scope.totalCost =Number( $scope.totalCost) +Number(data);
+ $scope.totalCostFormated=format_number($scope.totalCost);
 
+
+
+});   
              }
 
 
