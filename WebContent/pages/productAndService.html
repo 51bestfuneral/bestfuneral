@@ -18,6 +18,11 @@
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 @media (min-width: 900px) {
   .container {
     width: 1349px;
@@ -382,6 +387,9 @@
 		font-size: 16px;
 		margin: 0px;
 	}
+	#overview .item {
+	    cursor: pointer;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
@@ -459,7 +467,9 @@ app.controller('products', function($scope, $http) {
 </script>
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
+<div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
 <div id="filter">
     <div class="filterIcon selected">
 	    <div class="imageHalf">
@@ -632,6 +642,9 @@ window.onload=function(){
 		$(".productItem").css({
 			 opacity: 1
 		});
+	});
+	$("#overview").find(".item").click(function() {
+	    window.location.href='specificProduct.html';
 	});
 };
 </script>

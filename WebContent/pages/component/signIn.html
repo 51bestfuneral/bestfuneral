@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../../js/jquery-2.1.4.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="../../js/jquery-ui.js"></script>
+<script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../../js/Bootstrap/boot.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<link href="../../js/Bootstrap/boot.css" rel="stylesheet">
+<style>
+    body {
+	    text-align: center;
+	}
+	p {
+	    margin: 0px;
+	}
+	#loginMain {
+	    width: 319px;
+		height: 403px;
+		background-color: #ffffff;
+        box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
+	}
+	#topPart {
+	    width: 100%;
+		overflow: auto;
+		padding-top: 27px;
+	}
+	#mainTitle {
+		width: 100%;
+		text-align: center;
+	}
+	#mainTitle p {
+	    font-size: 19px;
+		font-weight: bold;
+	}
+	#closeArea {
+	    float: right;
+		overflow: auto;
+		margin-right: 21px;
+		margin-top: -40px;
+		cursor: pointer;
+	}
+	#closeArea:hover {
+	    background: #ff5274;
+		color: #ffffff;
+	}
+	#closeArea p {
+	    font-size: 18px;
+		font-weight: bold;
+	}
+	#inputArea {
+	    width: 252px;
+		overflow: auto;
+		text-align: center;
+		margin: 0px auto;
+		margin-top: 47px;
+	}
+	#inputArea input[type='text']{
+	    width: 100%;
+        height:	50.4px;
+		border: solid 1px #333333;
+		border-radius: 5px;
+        background-color: #ffffff;
+		margin-bottom: 10px;
+	}
+	#inputArea input[type='text']:focus {
+	    border: solid 1px #ff5274;
+	}
+	#submit {
+	    width: 186px;
+		height: 50px;
+		border-radius: 84px;
+		margin: 0px auto;
+		background: #ff5274;
+		text-align: center;
+		margin-bottom: 10px;
+		cursor: pointer;
+	}
+	#submit:hover {
+	    background: #ff496d;
+	}
+	#submit p {
+	    color: #ffffff;
+		font-size: 19px;
+		line-height: 50px;
+	}
+	#alreadyHas {
+	    width: 100%;
+		text-align: center;
+	}
+	#alreadyHas .textSpan {
+	    font-size: 14px;
+        line-height: 1.5;
+        color: #333333;
+		font-family: "Microsoft Yahei";
+	}
+	#alreadyHas .linkSpan {
+	    font-size: 14px;
+        line-height: 1.5;
+        color: #ff5274;
+		cursor: pointer;
+		font-family: "Microsoft Yahei";
+	}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('products', function($scope, $http) {
+    var tabs = [{
+	    index: 1
+	}, {
+	    index: 2
+	}, {
+	    index: 3
+	}]
+	$scope.tabs = tabs;
+});
+</script>
+<body ng-app="productApp" ng-controller="products">
+<div id="loginMain">
+    <div id="topPart">
+	    <div id="mainTitle">
+		    <p>注册</p>
+		</div>
+		<div id="closeArea">
+		    <p>X</p>
+		</div>
+	</div>
+	<div id="inputArea">
+	    <input type="text" class="form-control" placeholder="邮件或电话"></input>
+		<input type="text" class="form-control" placeholder="密码"></input>
+		<input type="text" class="form-control" placeholder="重填密码"></input>
+		<div id="submit">
+		    <p>注册</p>
+		</div>
+		<div id="alreadyHas">
+		    <span class="textSpan">已有账户？</span><span class="linkSpan">登录?</span>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+window.onload=function(){
+    $(".questionCenter").first().fadeIn();
+};
+</script>
+</html>

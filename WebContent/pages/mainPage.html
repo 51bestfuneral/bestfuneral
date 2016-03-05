@@ -18,6 +18,11 @@
 <link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 html {
     height: 100%;
 }
@@ -180,7 +185,6 @@ body {
 }
 .singleTip h1 {
     color: #ff5274;
-	font-family: "OpenSans-Semibold";
 	font-size: 224px;
 	margin: 0px;
 }
@@ -797,7 +801,9 @@ $("#titleIconDiv").on("click", function () {
 </script>
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>  
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>
+</div>
 <div id="topHalfLevel">
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>关于我们</title>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK"/>
+</head>
+<style>
+@media (min-width: 900px) {
+  .container {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 1000;
+}
+p {
+    margin: 0px;
+}
+#mainPage {
+    width: 100%;
+	overflow: auto;
+	padding-bottom: 117px;
+	background: #F6F6F6;
+	z-index: 1;
+}
+#leftTabContent {
+    float: left;
+	width: 243px;
+	overflow: auto;
+	padding-top: 60px;
+	margin-left: 100px;
+	padding-bottom: 40px;
+}
+.tabTitle {
+    width: 100%;
+	height: 58px;
+	padding-top: 25px;
+	padding-left: 6px;
+	border-bottom: 1px solid #9d9d9d;
+}
+.tabTitle p {
+    font-size: 20px;
+    color: #9d9d9d;
+}
+.normalTab {
+    width: 100%;
+	height: 50px;
+	padding-left: 13px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.circleDiv {
+    width: 24px;
+	height: 24px;
+	border-radius: 12px;
+	background-color: #c6c6c6;
+	float: left;
+	margin-right: 14px;
+	margin-top: 11px;
+}
+.titleDiv {
+    height: 50px;
+	overflow: auto;
+	float: left;
+}
+.titleDiv p{
+    font-size: 20px;
+    color: #707070;
+	line-height: 50px;
+}
+.selectedTab {
+    background-color: #ff5274;
+}
+.selectedTab .circleDiv {
+    background-color: #ffffff!important;
+}
+.selectedTab p {
+    color: #ffffff!important;
+}
+.hoberdTab {
+    background-color: #ff5274;
+}
+.hoberdTab .circleDiv {
+    background-color: #ffffff!important;
+}
+.hoberdTab p {
+    color: #ffffff!important;
+}
+.taocanDiv {
+    width: 100%;
+	height: 85px;
+	padding-top: 15px;
+	padding-left: 22px;
+}
+.taocaoDiv {
+    font-size: 20px;
+	color: #000000;
+}
+.priceDiv {
+    font-size: 36px;
+	line-height: 48px;
+	color: #ff5274;
+	font-weight: 200;
+}
+#rightContent {
+    width: 950px;
+	box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.1);
+	background-color: #ffffff;
+	float: left;
+	margin-top: 29px;
+}
+</style>
+<body>
+<div class="container">
+<div id="mainPage">
+<div class="topBarDiv">
+    <IFRAME NAME="content_frame" width="100%" SRC="/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
+</div>
+<div id="leftTabContent">
+    <div class="tabTitle">
+	    <p>葬礼定制</p>
+	</div>
+	<div class="normalTab selectedTab" id="basicInfo">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>基础信息</p>
+		</div>
+	</div>
+	<div class="normalTab" id="story">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>您的故事</p>
+		</div>
+	</div>
+	<div class="normalTab" id="productAndService">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>产品和服务</p>
+		</div>
+	</div>
+	<div class="normalTab" id="wishList">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>愿望清单</p>
+		</div>
+	</div>
+	<div class="tabTitle">
+	    <p>已选择套餐</p>
+	</div>
+	<div class="taocanDiv">
+	    <p class="taocaoDiv">基础套餐</p>
+		<p class="priceDiv">￥ 20,000</p>
+	</div>
+	<div class="taocanDiv">
+	    <p class="taocaoDiv">节省金额</p>
+		<p class="priceDiv">￥ 3,400</p>
+	</div>
+</div>
+<div id="rightContent">
+    <div id="rightDsiplayContent">
+	    <IFRAME width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="questionFrame" src="component/questionsGroup.html" onLoad="iFrameHeight()" hidden></IFRAME>
+	</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+</body>
+<script type="text/javascript" language="javascript">
+    function iFrameHeight() {
+        var ifm = $('#questionFrame').contents().find('#productMain');
+		$('#questionFrame').css({
+		    height: ifm[0].offsetHeight
+		});
+		$('#rightContent').css({
+		    height: ifm[0].offsetHeight
+		});
+		$('#questionFrame').fadeIn();
+    }
+window.onload=function(){
+	$(".normalTab").hover(function () {
+        var $this = $(this);
+		if (!$this.hasClass("hoberdTab")) {
+            $this.addClass("hoberdTab");
+		}
+	});
+	$(".normalTab").on("mouseleave", function () {
+        var $this = $(this);
+
+		if ($this.hasClass("hoberdTab")) {
+            $this.removeClass("hoberdTab");
+		}
+	});
+	$(".normalTab").click(function() {
+	    var destUrl = "";
+	    if (!$(this).hasClass("selectedTab")) {
+		    if ($(this)[0].id === 'productAndService') {
+			    destUrl = "component/product.html";
+			}
+			else if ($(this)[0].id === 'basicInfo') {
+			    destUrl = "component/questionsGroup.html";
+			}
+			else if ($(this)[0].id === 'wishList') {
+			    destUrl = "component/wishList.html";
+			}
+			else if ($(this)[0].id === 'story') {
+			    destUrl = "component/finished.html";
+			}
+			$("#questionFrame").attr("src",destUrl);
+			$(".normalTab").removeClass("selectedTab");
+			$(this).addClass("selectedTab");
+		}
+	});
+};
+</script> 
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../../js/jquery-2.1.4.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="../../js/jquery-ui.js"></script>
+<script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../../js/Bootstrap/boot.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<link href="../../js/Bootstrap/boot.css" rel="stylesheet">
+<style>
+    body {
+	    text-align: center;
+	}
+    #productMain {
+	    width: 950px;
+		overflow: auto;
+		padding-top: 53px;
+	}
+    #wishListTitle {
+	    width: 84px;
+		height: 84px;
+		border-radius: 42px;
+		background: #ededed;
+		margin: 0px auto;
+	}
+	#wishListContent {
+	    overflow: auto;
+		width: 850px;
+		margin: 0px auto;
+	}
+	#wishListHeader {
+	    width: 100%;
+		height: 111px;
+		margin-bottom: 25px;
+	}
+	#wishListHeader h1 {
+	    line-height: 111px;
+		font-size: 40px;
+		color: #707070;
+		margin: 0px;
+		padding-bottom: 25px;
+	}
+	#rightFooter {
+		width: 100%;
+		overflow: auto;
+		background: #fafafa;
+		padding-top: 31px;
+		padding-bottom: 31px;
+		padding-left: 55px;
+		padding-right: 55px;
+	}
+	#prevStep {
+		float: left;
+		width: 61px;
+		height: 60px;
+		background: 
+	}
+	#nextStep {
+		float: right;
+		width: 144px;
+		height: 60px;
+	}
+	.operatorButton {
+		background: #d6d6d6;
+		border-radius: 4px;
+		box-shadow: 0 4px 0px 0 #c5c5c5;
+		text-align: center;
+		cursor: pointer;
+	}
+	.operatorButton:hover {
+		box-shadow: none;
+		background: #ff5274;
+		box-shadow: 0 4px 0px 0 #e6385a;
+	}
+	.operatorButton p {
+		margin: 0px;
+		line-height: 60px;
+		color: #ffffff;
+		font-size: 24px;
+	}
+	.wishItem {
+	    width: 100%;
+		height: 135px;
+		border-top: 1px solid #979797;
+		padding-left: 8px;
+		padding-top: 30px;
+		padding-right: 53px;
+	}
+	.picCoat {
+	    width: 66px;
+		height: 66px;
+		border-radius: 33px;
+		background: #d8d8d8;
+		float: left;
+	}
+	.wishNameCoat {
+	    float: left;
+		text-align: left;
+		margin-left: 63px;
+		width: 260px;
+		height: 66px;
+	}
+	.wishNameCoat p {
+	    margin: 0px;
+	}
+	.wishName {
+        font-size: 26px;
+        line-height: 1.4;
+        color: #333333;
+	}
+	.wishDesc {
+        font-size: 18px;
+        line-height: 2.0;
+        color: #8c8c8c;
+	}
+	.operatorCoat {
+	    float: right;
+		overflow: auto;
+		margin-left: 10px;
+	}
+	.operatorCoat p {
+	    font-size: 18px;
+		line-height: 66px;
+		margin: 0px;
+	}
+	.selectCoat {
+	    float: right;
+	    overflow: auto;
+		width: 130px;
+		height: 66px;
+		padding-top: 13px;
+	}
+	.selectCoat div {
+	    float: left;
+		height: 40px;
+	}
+	.IconContent {
+	    width: 40px;
+		border-radius: 20px;
+		border: 2px solid #8e8e8e;
+		margin-right: 15px;
+	}
+	.IconDesc p {
+	    line-height: 40px!important;
+	}
+	.selected .IconContent{
+	    border: 2px solid #2c9676!important;
+	}
+	.selected p {
+	    color: #2c9676!important;
+	}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('products', function($scope, $http) {
+    var tabs = [{
+	    index: 1
+	}, {
+	    index: 2
+	}, {
+	    index: 3
+	}]
+	$scope.tabs = tabs;
+});
+</script>
+<body ng-app="productApp" ng-controller="products">
+<div id="productMain">
+    <div id="wishListTitle">
+	</div>
+	<div id="wishListContent">
+		<div id="wishListHeader">
+			<h1>您的愿望清单</h1>
+		</div>
+		<div class="wishItem" ng-repeat="tab in tabs">
+			<div class="picCoat">
+			</div>
+			<div class="wishNameCoat">
+			    <p class="wishName">项目</p>
+				<p class="wishDesc">备注</p>
+			</div>
+			<div class="operatorCoat">
+			    <p>更改</p>
+			</div>
+			<div class="selectCoat selected">
+			    <div class="IconContent">
+				    <p class="wishDesc">&radic;</p>
+				</div>
+				<div class="IconDesc selected">
+				    <p class="wishDesc">已选择</p>
+				</div>
+			</div>
+			<div class="selectCoat selected">
+			    <div class="IconContent">
+				    <p class="wishDesc">￥</p>
+				</div>
+				<div class="IconDesc">
+				    <p class="wishDesc">已支付</p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div id="rightFooter">
+	    <div id="prevStep" class="operatorButton">
+		    <p>&#60;</p>
+		</div>
+		<div id="nextStep" class="operatorButton">
+		    <p>下一步</p>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+$(document.body).on("click",".productTab", function( event ) {
+	var contentId = $(this)[0].id + "-content";
+
+	$(".questionCenter").each(function(){
+	    var me = $(this);
+		
+		if (me[0].id === contentId) {
+		    if (me.is(':hidden')) {
+		        me.fadeIn();
+			}
+			else {
+			    return false;
+			}
+		}
+		else if (me[0].id !== contentId && !me.is(':hidden')) {
+		    me.hide();
+		}
+	});
+});
+window.onload=function(){
+    $(".questionCenter").first().fadeIn();
+};
+</script>
+</html>

@@ -18,6 +18,11 @@
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 #mainHeader {
     text-align: center;
 	width: 100%;
@@ -370,7 +375,9 @@ $("#titleIconDiv").on("click", function () {
 </script>
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>  
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
+</div>
 <div id="mainHeader">
     <div id="leftTop">
 	    <p><span>墓地信息</span>／清竹园</p>

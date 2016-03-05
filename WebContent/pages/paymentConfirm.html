@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+    Cemetery
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers’
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<style>
+@media (min-width: 900px) {
+  .container {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+	background-color: #F7F7F7;
+  }
+}
+p {
+    margin: 0px;
+}
+span {
+    font-family: "Microsoft Yahei";
+}
+#paymentContain {
+    width: 81%;
+	overflow: auto;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+	background: #ffffff;
+	margin: 0px auto;
+	margin-top: 35px;
+}
+#infoContain {
+	overflow: auto;
+	width: 908px;
+	margin: 0px auto;
+	padding-top: 54px;
+	padding-bottom: 46px;
+}
+#footerContain {
+    background: #efefef;
+	overflow: auto;
+}
+#footer {
+    overflow: auto;
+	width: 908px;
+	margin: 0px auto;
+	padding-top: 28px;
+	padding-bottom: 28px;
+}
+#nextButton {
+    width: 190px;
+	height: 56px;
+	border-radius: 28px;
+	background: #f62f5e;
+	text-align: center;
+	float: right;
+	cursor: pointer;
+}
+#nextButton p {
+    font-size: 20px;
+    line-height: 56px;;
+    color: #ffffff;
+}
+#prevButton {
+    width: 190px;
+	height: 56px;
+	border-radius: 28px;
+	background: #ffffff;
+	text-align: center;
+	float: left;
+	cursor: pointer;
+}
+#prevButton p {
+    font-size: 20px;
+    line-height: 56px;;
+    color: #f62f5e;
+}
+#paymentStatus {
+    overflow: auto;
+}
+.statusPointer {
+    width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #eeeeee;
+	float: left;
+}
+.statusBar {
+    width: 270px;
+	height: 7px;
+	background: #eeeeee;
+	margin-left: 3px;
+	margin-right: 3px;
+	float: left;
+	margin-top: 6px;
+}
+#paymentStatusDesc {
+    width: 100%;
+	margin-top: 27px;
+	overflow: auto;
+	padding-bottom: 28px;
+}
+.descDiv {
+    overflow: auto;
+	float: left;
+}
+.first {
+    margin-right: 250px;
+}
+.second {
+    margin-right: 260px;
+}
+.last {
+    float: right!important;
+}
+.descDiv p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: #2e2e2e;
+	font-weight: bold;
+}
+#paymentStatusDesc .selected {
+    color: #f62f5e;
+}
+#paymentStatus .selected {
+	background: #f62f5e;
+}
+#confirmContain {
+    width: 954px;
+	overflow: auto;
+	margin: 0px auto;
+}
+#confirmContain p {
+    font-size: 19px;
+	color: #2e2e2e;
+}
+#confirmationInfo {
+    width: 100%;
+	overflow: auto;
+}
+#confirmLeft {
+    width: 61%;
+	float: left;
+	overflow: auto;
+	padding-bottom: 30px;
+}
+#confirmRight {
+    width: 39%;
+	float: left;
+	overflow: auto;
+}
+.titleText {
+    padding-left: 23px;
+	padding-top: 15px;
+}
+.titleText p {
+    font-weight: bold;
+}
+.singleConfirmTitle {
+    padding-left: 23px;
+	width:100%;
+	height: 56px;
+}
+.singleConfirmTitle span {
+    line-height: 56px;
+	font-size: 19px;
+	font-weight: bold;
+	color: #b4b4b4;
+}
+.singleConfirm {
+	width:100%;
+	height: 56px;
+	padding-left: 23px;
+}
+.singleConfirm span {
+    line-height: 56px;
+	font-size: 19px;
+}
+.itemName {
+    float: left;
+}
+.itemAmout {
+    float: right;
+	margin-right: 48px;
+}
+.itemPrice {
+    float: right;
+	margin-right: 22px;
+	color: #f62f5e;
+}
+.itemAmoutValue {
+    float: right;
+	margin-right: 14px;
+}
+.itemPriceValue {
+    float: right;
+	margin-right: 15px;
+	color: #f62f5e;
+	width: 90px;
+	text-align: right;
+}
+.taocanDiv {
+    background-color: #f7f7f7;
+	width: 100%;
+	overflow: auto;
+	padding-left: 23px;
+	padding-bottom: 10px;
+}
+.taocanDiv .singleConfirm{
+    padding-left: 0px;
+}
+.taocanDiv p {
+    line-height: 48px;
+}
+.taocanDesc {
+    width: 460px;
+	background-color: #f0f0f0;
+	border: solid 1.4px #f7f7f7;
+	padding-top: 11px;
+	padding-bottom: 12px;
+	overflow: auto;
+	margin-top: -10px;
+}
+.taocanDesc p {
+    font-size: 15px!important;
+    color: #2e2e2e;
+	line-height: 17px;
+}
+.descTop {
+    padding-left: 20px;
+	height: 17px;
+}
+.descBottom {
+    padding-left: 40px;
+	height: 34px;
+}
+#confirmRight {
+    padding-left: 80px;
+}
+.rightInfo {
+    padding-left: 23px;
+	width: 180px;
+}
+#priceInfo {
+    width: 908px;
+	margin: 0px auto;
+	overflow: auto;
+	padding-top: 37px;
+	padding-bottom: 37px;
+	border-top: 2px solid #e5e5e5;
+}
+.discountDiv {
+    overflow: auto;
+	float: left;
+}
+#discount {
+    width: 256px;
+	height: 56px;
+	border-radius: 28px;
+	font-size: 20px;
+	font-family: "Microsoft Yahei"
+}
+.summ {
+    overflow: auto;
+	margin-left: 100px;
+	float: left;
+	margin-top: -5px;
+}
+.summ p {
+    font-size: 19px;
+	color: #2e2e2e;
+	line-height: 42px;
+	font-weight: bold;
+}
+.summ .title {
+	color: #b4b4b4!important;
+	line-height: 1.5!important;
+}
+.summ .final {
+    font-size: 28px!important;
+    color: #f62f5e!important;
+	margin-left: -5px;
+}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('wishTypeLevels', function($scope, $http) {
+    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	    var level1 =[],
+		    level2 = [],
+			level3 = [],
+			level4 = [];
+		
+		level1 = response.level1.split(",");
+		level2 = response.level2.split(",");
+		level3 = response.level3.split(",");
+		level4 = response.level4.split(",");
+		$scope.level1 = buildObject(level1);
+		$scope.level2 = buildObject(level2);
+		$scope.level3 = buildObject(level3);
+		$scope.level4 = buildObject(level4);
+	});
+});
+</script>
+<body ng-app="productApp" ng-controller="products">
+<div class="container">
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
+</div>
+<div id="paymentContain">
+    <div id="infoContain">
+	    <div id="paymentStatus">
+		     <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar">
+			 </div>
+			 <div class="statusPointer">
+			 </div>
+			 <div class="statusBar">
+			 </div>
+			 <div class="statusPointer">
+			 </div>
+		</div>
+		<div id="paymentStatusDesc">
+		     <div class="descDiv first">
+			     <p class="selected">寄送</p>
+			 </div>
+			 <div class="descDiv second">
+			     <p class="selected">确认</p>
+			 </div>
+			 <div class="descDiv">
+			     <p>支付</p>
+			 </div>
+			 <div class="descDiv last">
+			     <p>核对</p>
+			 </div>
+		</div>
+	</div>
+	<div id="confirmContain">
+	    <div id="confirmationInfo">
+		    <div id="confirmLeft">
+			    <div class="titleText">
+			        <p>套餐购买总结</p>
+				</div>
+			    <div class="singleConfirmTitle">
+				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
+				</div>
+				<div class="taocanDiv">
+				    <div class="singleConfirm">
+						<span class="itemName">顶级套餐</span><span class="itemPriceValue">￥23,323</span><span class="itemAmoutValue">1</span>
+					</div>
+				    <div class="taocanDesc">
+					    <div class="descTop">
+						    <p>您的套餐包含:</p>
+						</div>
+						<div class="descBottom">
+						    <p>10项服务，我们会有专门的人员给您提供这些服务。</p>
+							<p>20项物品，其中有5项物品我们会将在5天内邮寄给您。</p>
+						</div>
+					</div>
+				</div>
+				<div class="titleText">
+			        <p>附加产品和服务购买总结</p>
+				</div>
+				<div class="singleConfirmTitle">
+				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
+				</div>
+				<div class="singleConfirm">
+					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥23,323</span><span class="itemAmoutValue">1</span>
+				</div>
+				<div class="singleConfirm">
+					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥13</span><span class="itemAmoutValue">12</span>
+				</div>
+				<div class="singleConfirm">
+					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥323</span><span class="itemAmoutValue">3</span>
+				</div>
+				<div class="singleConfirm">
+					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥3,323</span><span class="itemAmoutValue">5</span>
+				</div>
+			</div>
+			<div id="confirmRight">
+			    <div class="titleText">
+			        <p>寄送</p>
+				</div>
+				<div class="singleConfirmTitle">
+				    <span>地址</span>
+				</div>
+				<p class="rightInfo">陆寻</p>
+				<p class="rightInfo">上海市长宁区武胜路23弄34号</p>
+				<div class="singleConfirmTitle">
+				    <span>寄送方式</span>
+				</div>
+				<p class="rightInfo">标准</p>
+				<p class="rightInfo">(免费, 2-3日寄到)</p>
+			</div>
+		</div>
+		<div id="priceInfo">
+		    <div class="discountDiv">
+		    <input type="text" class="form-control" id="discount" placeholder="折扣码"></input>
+			</div>
+			<div class="summ">
+			    <p class="title">小计</p>
+				<p>￥12334</p>
+			</div>
+			<div class="summ">
+			    <p class="title">邮寄</p>
+				<p>免费</p>
+			</div>
+			<div class="summ">
+			    <p class="title">总计</p>
+				<p class="final">￥12345</p>
+			</div>
+		</div>
+	</div>
+	<div id="footerContain">
+	    <div id="footer">
+		    <div id="prevButton">
+			    <p>返回</p>
+			</div>
+		    <div id="nextButton">
+			    <p>下一步</p>
+			</div>
+		</div>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
+<script>
+window.onload=function(){
+    $(".singleConfirm:odd").css({
+	    'background': '#f7f7f7'
+	});
+	$("#prevButton").click(function () {
+	    window.location.href='paymentInfo.html';
+	});
+	$("#nextButton").click(function () {
+	    window.location.href='paymentMethod.html';
+	});
+};
+</script>
+</html>

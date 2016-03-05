@@ -18,6 +18,11 @@
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 @media (min-width: 900px) {
   .container {
     width: 1349px;
@@ -544,7 +549,9 @@ app.controller('catagory', function($scope, $http) {
 </script>
 <body ng-app="catagoryApp" ng-controller="catagory">
 <div class="container">
+<div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
 <div id="filter">
     <div class="filterIcon" id="mainPage">
 	    <div class="imageHalf">

@@ -17,6 +17,11 @@
 <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 .headerAddtion {
     width: 100%;
 	height: 48px;
@@ -54,6 +59,13 @@
 .submitArea button p {
     margin: 0px;
 	font-size: 16px;
+}
+@media (min-width: 900px) {
+  .container {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+  }
 }
 </style>
 <script type="text/javascript">
@@ -100,7 +112,10 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </script>
 <link href="../js/personal.css" rel="stylesheet">
 <body>
+<div class="container">
+<div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
+</div>
 <div id="mainContent">
     <div class="headerAddtion">
 	    <span class="subNavigat"><a>什么是葬礼定制</a></span>
@@ -308,6 +323,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
     <img src="../js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
 </body>
 <script type="text/javascript">
 	$(".designTaocanIconDiv").hover(function () {
@@ -350,5 +366,10 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	$("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 	});
+	window.onload=function(){
+	    $(".submitArea").find('button').click(function() {
+		    window.location.href='designProcess.html';
+		});
+	};
 </script>
 </html>

@@ -18,6 +18,11 @@
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
 @media (min-width: 900px) {
   .container {
     width: 1349px;
@@ -100,10 +105,9 @@
     width: 230px;
 	float: left;
 }
- #box{position: relative; width: 200px; height: 10px; margin:  30px auto 0;}
+ #box{position: relative; width: 200px; height: 10px; padding-top:  30px;padding-bottom: 30px; margin-left: 15px;}
 #bg{
     height: 2px;
-	margin-top: 19px; 
 	border-radius: 1px; 
 	overflow: hidden;
 	background: #838d8f;
@@ -132,7 +136,7 @@
 	 position: absolute;
 	 left: 0px;
 	 margin-left: -7px;
-	 top: -6px;
+	 margin-top: -6px;
 	 cursor: pointer;
 }
 #btRight{
@@ -146,14 +150,162 @@
 	 right: 0px;
 	 ledt: auto;
 	 margin-right: -7px;
-	 top: -6px;
+	 margin-top: -6px;
 	 cursor: pointer;
 }
+	.productItem {
+	    width: 230px;
+		float: left;
+		margin-left: 40px;
+		border-bottom: 1px solid #ededed;
+		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
+		background-color: #ffffff;
+		border-radius: 4px;
+		overflow: hidden;
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	.productItem:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		margin-bottom: 20px;
+	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ff5274;
+		padding-left: 7px;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton:hover {
+	    background-color: #ff496d!important;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	#product {
+	    width: 1120px;
+		margin: 0 auto;
+		padding-top: 40px;
+	}
+	.item {
+	    padding-top: 20px;
+	    padding-bottom: 20px;
+		overflow: auto;
+	}
  #text{width: 200px; margin: 0 auto; font-size: 16px; line-height: 2em;}
 </style>
-<body onselectstart="return false">
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+var filter = location.search,
+	wishList,
+	usrId = 1;
+
+app.controller('products', function($scope, $http) {
+	$http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
+	    wishList = response;
+		function validateInList() {
+	    $.ajax({
+			url: 'http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
+			type: 'get',
+			success:function(data){
+				var response = data;
+				for (var i=0;i<response.length;i++) {
+				    var wishInList = response[i];
+					if ($("#"+wishInList.wishId).length > 0) {
+					    $("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
+					}
+				}
+				if ($(".disableDiv").length>0) {
+				    for (var i=0;i<$(".disableDiv").length;i++) {
+				        $(".disableDiv").find("p")[i].innerText = "已加入愿望清单";
+					}
+				}
+			},
+			error: function(error) {
+				var response = error;
+				//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+			}
+		});
+	}
+	validateInList();
+	});
+	$http.get("http://localhost:8080/bestfuneral/wish/list"+filter).success(function(response) {
+	    var j = 1,
+		    counter = 1,
+		    numberInRow = 4,
+			objectsInRow = [],
+			layouts = [];
+		for (var i=0;i<response.length;i++) {
+		    var singleProduct = response[i];
+
+			if (j <= numberInRow) {
+			    objectsInRow.push(singleProduct);
+			}
+
+			if (j === numberInRow || i === response.length-1) {
+			    var layout = {},
+				    active = '',
+					itemLayout = objectsInRow;
+					
+				if (counter === 1) {
+				    active = 'active'
+				}
+				layout = {
+				    'index': counter,
+					'active': active,
+					'itemLayout': itemLayout
+				};
+				layouts.push(layout);
+			    j = 0;
+				counter++;
+				objectsInRow = [];
+			}
+			j++;
+		}
+		$scope.layouts = layouts;
+	});
+});
+</script>
+<body onselectstart="return false"  ng-app="productApp" ng-controller="products">
 <div class="container">
+<div class="topBarDiv">
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
     <div id="header">
 	    <h1>浏览骨灰盒</h1>
 	</div>
@@ -221,7 +373,27 @@
 			</div>
 			<div id="text"></div>
 		</div>
-</div>
+    </div>
+	<div id="product">
+	    <div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
+	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
+		                <div class="imageDiv">
+						    <img src="../../js/images/product1.png" class="image"></img>
+						</div>
+						<div class="productText">
+						    <div class="productInfo">
+							    <p class="header">{{itemLayout.wishName}}</p>
+								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.price}})</p>
+								<div class="addWishButton" onselectstart="return false">
+								    <img src="../../js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
+								</div>
+							</div>
+							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">了解详情</a></div>
+						</div>
+		            </div>
+                </div>
+	</div>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
  <script type="text/javascript">

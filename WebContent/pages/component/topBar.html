@@ -91,7 +91,7 @@
 		<div class="includeLink" id="cemetery">
 	        <p>墓地信息</p>
 		</div>
-		<div class="includeLink" id="contact">
+		<div class="includeLink" id="aboutUs">
 		    <p>关于我们</p>
 		</div>
 	</div>
@@ -134,8 +134,71 @@
 	});
 	$("#cemetery").on("click", function () {
 	    if (type !== 'cemetery') {
-            window.parent.location.href='../cemetery.html';
+            window.parent.location.href='../cemeteryList.html';
 		}
+	});
+	$("#aboutUs").on("click", function () {
+	    if (type !== 'aboutUs') {
+            window.parent.location.href='../aboutUs.html';
+		}
+	});
+	$("#side").mouseenter(function () {
+	    var parent = $(window.parent.document.body),
+		    top = $('.topBar').height(),
+			totalWidth = parent.width(),
+			clientWidth = parent.find('.container').width(),
+			right = (totalWidth - clientWidth)/2;
+		parent.append("<div id='contactSub' hidden></div><div id='contactUsInfo' hidden><iframe src='component/contactUs.html' width=735 height=290 frameborder = 0></iframe></div>");
+		parent.find("#contactUsInfo").css({
+		    'width': '735px',
+			'height': '288px',
+			'position': 'absolute',
+			'right': right,
+			'top': top,
+			'overflow': 'hidden',
+			'box-shadow': '0 5px 30px 0 rgba(0, 0, 0, 0.3)',
+			'z-index': 20
+		});
+		parent.find("#contactSub").css({
+		    'width': '0px',
+			'height': '0px',
+			'position': 'absolute',
+			'right': right+60,
+			'top': top-24,
+			'overflow': 'hidden',
+			'border-left': '20px solid transparent',
+            'border-right': '20px solid transparent',
+            'border-bottom': '24px solid #ffffff',
+			'z-index': 21
+		});
+		parent.find("#contactUsInfo").fadeIn();
+		parent.find("#contactSub").fadeIn();
+		parent.find("#contactUsInfo").addClass("tempAdd");
+        parent.find("#contactUsInfo").mouseenter(function () {
+		    $(this).addClass("tempAdd");
+		});
+		parent.find("#contactUsInfo").mouseleave(function () {
+		    $(this).removeClass("tempAdd");
+			setTimeout (function () {
+			    if (!parent.find("#contactUsInfo").hasClass('tempAdd')) {
+			        parent.find("#contactUsInfo").fadeOut();
+					parent.find("#contactSub").fadeOut();
+				}
+		    }, 100);
+		});
+		parent.find("#contactSub").mouseenter(function () {
+		    parent.find("#contactUsInfo").addClass("tempAdd");
+		});
+	});
+	$("#side").mouseleave(function (e) {
+	    var parent = $(window.parent.document.body);
+		parent.find("#contactUsInfo").removeClass('tempAdd');
+		setTimeout (function () {
+		    if (!parent.find("#contactUsInfo").hasClass('tempAdd')) {
+			    parent.find("#contactUsInfo").fadeOut();
+				parent.find("#contactSub").fadeOut();
+			}
+		}, 100);
 	});
 </script>
 </html>

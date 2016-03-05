@@ -443,3 +443,15 @@
 		margin-top: 20px;
 		cursor:pointer;
 	}
+	@media (min-width: 900px) {
+  .container {
+    width: 1349px;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
