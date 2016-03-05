@@ -1,21 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-������
+葬礼定制
 </title>
 </head>
-<script src="../../js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-2.1.4.js"></script>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
-<script src="../../js/jquery-ui.js"></script>
-<script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../../js/Bootstrap/boot.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/Bootstrap/boot.js"></script>
 <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<link href="../../js/Bootstrap/boot.css" rel="stylesheet">
+<link href="/funeral/js/Bootstrap/boot.css" rel="stylesheet">
 <style>
     body {
 	    text-align: center;
@@ -194,15 +194,15 @@ var app = angular.module('productApp', []);
 app.controller('products', function($scope, $http) {
     var tabs = [{
 	    index: 1,
-		typeName: '����',
+		typeName: '礼物',
 		tabId: 'test1'
 	}, {
 		index: 2,
-		typeName: '����Ʒ',
+		typeName: '纪念品',
 		tabId: 'test2'
 	}, {
 		index: 3,
-		typeName: '�ʻ�',
+		typeName: '鲜花',
 		tabId: 'test3'
 	}];
 
@@ -222,15 +222,15 @@ app.controller('products', function($scope, $http) {
 	    for(var i=0;i<layouts.length;i++){
             var layout = layouts[i],
 	    	    itemLayout = [{
-	    		    itemName: '����ľ�ײ�',
+	    		    itemName: '镶金楠木棺材',
 					itemPrice: '5000',
 					itemUrl: 'www.baidu1.com'
 	    		}, {
-	    		    itemName: '��̴ľ�ײ�',
+	    		    itemName: '紫檀木棺材',
 					itemPrice: '10000',
 					itemUrl: 'www.baidu2.com'
 	    		}, {
-	    		    itemName: '��ľ�ײ�',
+	    		    itemName: '樟木棺材',
 					itemPrice: '2000',
 					itemUrl: 'www.baidu3.com'
 	    		}];
@@ -248,10 +248,10 @@ app.controller('products', function($scope, $http) {
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
 	    <div class="productTab" id="casket">
-		    <p>�ײ�</p>
+		    <p>棺材</p>
 		</div>
 		<div class="productTab" id="urn">
-		    <p>�ǻҺ�</p>
+		    <p>骨灰盒</p>
 		</div>
 		<div class="productTab" ng-repeat="tab in tabs" id="{{tab.tabId}}">
 		    <p>{{tab.typeName}}</p>
@@ -267,88 +267,88 @@ app.controller('products', function($scope, $http) {
     <div class="index">
 	    <p><b>1</b>/20</p>
 	</div>
-	<h1>�ײ�ѡ��</h1>
-	<h3>��������ǰ���ײ�ѡ�񣬸����Ƽ����²�Ʒ:</h3>
+	<h1>棺材选择</h1>
+	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
 	<div class="carouselProduct">
 	    <div class="carousel slide productCarousel" id="casketCarousel">
             <div class="carousel-inner">
                 <div class="item active" alt="First slide">
 	                <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
 		            <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
 		            <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
                 </div>
 				<div class="item" alt="Second slide">
 	                <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����{{itemLayout.itemIndex}}</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情{{itemLayout.itemIndex}}</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
                 </div>
@@ -364,88 +364,88 @@ app.controller('products', function($scope, $http) {
     <div class="index">
 	    <p><b>2</b>/20</p>
 	</div>
-	<h1>�ǻҺ�ѡ��</h1>
-	<h3>��������ǰ���ײ�ѡ�񣬸����Ƽ����²�Ʒ:</h3>
+	<h1>骨灰盒选择</h1>
+	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
 	<div class="carouselProduct">
 	    <div class="carousel slide productCarousel" id="urnCarousel">
             <div class="carousel-inner">
                 <div class="item active" alt="First slide">
 	                <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
 		            <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
 		            <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
                 </div>
 				<div class="item" alt="Second slide">
 	                <div class="productItem">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
-							    <p class="header">����ľ�ײ�</p>
-								<p class="detail">�����������ײ���(ԭ��:��5000)</p>
+							    <p class="header">镶金楠木棺材</p>
+								<p class="detail">包含在您的套餐中(原价:￥5000)</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="#" class="moreInfo">�˽�����{{itemLayout.itemIndex}}</a></div>
+							<div class="moreInfo"><a href="#" class="moreInfo">了解详情{{itemLayout.itemIndex}}</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
                 </div>
@@ -461,29 +461,29 @@ app.controller('products', function($scope, $http) {
     <div class="index">
 	    <p><b>{{$index+1}}</b>/20</p>
 	</div>
-	<h1>{{tab.typeName}}ѡ��</h1>
-	<h3>��������ǰ���ײ�ѡ�񣬸����Ƽ����²�Ʒ:</h3>
+	<h1>{{tab.typeName}}选择</h1>
+	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
 	<div class="carouselProduct">
 	    <div class="carousel slide productCarousel" id="{{tab.tabId}}Carousel">
             <div class="carousel-inner">
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in tab.layouts track by $index">
 	                <div class="productItem" ng-repeat="itemLayout in layout.itemLayout track by $index">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src="/funeral/js/images/product1.png" class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.itemName}}</p>
-								<p class="detail">�����������ײ���(ԭ��:��{{itemLayout.itemPrice}})</p>
+								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.itemPrice}})</p>
 								<div class="addWishButton">
-								    <img src="../../js/images/addWish.png"></img>
-								    <p>������Ը���嵥</p>
+								    <img src="/funeral/js/images/addWish.png"></img>
+								    <p>添加至愿望清单</p>
 								</div>
 							</div>
-							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">�˽�����</a></div>
+							<div class="moreInfo"><a href="{{itemLayout.itemUrl}}" class="moreInfo">了解详情</a></div>
 						</div>
 						<div class="alreadyInFoot">
-						    <p>������֮ǰ�ṩ����Ϣ</br>�Ƽ��ò�Ʒ����</p>
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
 						</div>
 		            </div>
                 </div>

@@ -3,20 +3,23 @@
 <head id="head"><title>
 	Bleum - HOME
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers¡¯
+								deliver smart solutions, helping you to exceed your customersâ€™
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
-<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 </head>
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
 <style>
 @media (min-width: 900px) {
   .container {
@@ -460,7 +463,7 @@ function muskPage() {
 				'background-color': '#ccc', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-	// µ­Èëµ­³öĞ§¹û 
+	// æ·¡å…¥æ·¡å‡ºæ•ˆæœ 
 				$(this).fadeTo('slow', 0.5); 
 		});
 }
@@ -480,39 +483,39 @@ function muskPageForProduct(id) {
 app.controller('catagory', function($scope, $http) {
     var catas = [{
 	        cataId: 'guhuihe',
-			cataName: '¹Ç»ÒºĞ',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/noun_187249_cc.png'
+			cataName: 'éª¨ç°ç›’',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/noun_187249_cc.png'
 		}, {
 		    cataId: 'clothe',
-			cataName: 'ÊÙÒÂ',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/noun_178107_cc.png'
+			cataName: 'å¯¿è¡£',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/noun_178107_cc.png'
 		}, {
 		    cataId: 'ceremony',
-			cataName: '¼ÀìëËæÔá',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/Mask + Rectangle 77.png'
+			cataName: 'ç¥­ç¥€éšè‘¬',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/Mask + Rectangle 77.png'
 		}, {
 		    cataId: 'service',
-			cataName: 'ÀñÒÇ·şÎñ',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/Group.png'
+			cataName: 'ç¤¼ä»ªæœåŠ¡',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/Group.png'
 		}, {
 		    cataId: 'cereProduct',
-			cataName: '¼ÀÉ¨ÓÃÆ·',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/noun_193115_cc.png'
+			cataName: 'ç¥­æ‰«ç”¨å“',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/noun_193115_cc.png'
 		}, {
 		    cataId: 'suit',
-			cataName: 'Ì××°²úÆ·',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/1452911054_inspiration_Vol.1-61.png'
+			cataName: 'å¥—è£…äº§å“',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/1452911054_inspiration_Vol.1-61.png'
 		}, {
 		    cataId: 'other',
-			cataName: 'ÆäËû·şÎñ',
-			cataDesc: 'ÄîÄîÌá¹©ÁË×îÍêÕûµÄ²úÆ·Àà±ğºÍÌØÉ«·şÎñ£¬ÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×ÖÕâÀïĞèÒªÒ»Ğ©½éÉÜµÄÎÄ×Ö',
-			cataPic: '../js/images/noun_27116.png'
+			cataName: 'å…¶ä»–æœåŠ¡',
+			cataDesc: 'å¿µå¿µæä¾›äº†æœ€å®Œæ•´çš„äº§å“ç±»åˆ«å’Œç‰¹è‰²æœåŠ¡ï¼Œè¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—è¿™é‡Œéœ€è¦ä¸€äº›ä»‹ç»çš„æ–‡å­—',
+			cataPic: '/funeral/js/images/noun_27116.png'
 		}
 	];
 	cata = findCata(type, catas);
@@ -545,14 +548,18 @@ app.controller('catagory', function($scope, $http) {
 <body ng-app="catagoryApp" ng-controller="catagory">
 <div class="container">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+
+
+
+
 <div id="filter">
     <div class="filterIcon" id="mainPage">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
-		    <img src="../js/images/Layer_1.png" class="iconImg"></img>
+		    <img src="/funeral/js/images/Layer_1.png" class="iconImg"></img>
 		</div>
 		<div class="textHalf">
-		    <p>Ê×Ò³</p>
+		    <p>é¦–é¡µ</p>
 		</div>
 	</div>
 	<div class="filterIcon {{cata.selected}}" id="{{cata.cataId}}" ng-repeat="cata in catas">
@@ -576,27 +583,27 @@ app.controller('catagory', function($scope, $http) {
 	    <p>{{cataDesc}}</p>
 	</div>
 </div>
-<h1 class="subHeader">ÌØÉ«²úÆ·</h1>
+<h1 class="subHeader">ç‰¹è‰²äº§å“</h1>
 <IFRAME NAME="content_frame" width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame"></IFRAME>
 <div id="case">
-    <h1>ÇåÃ÷Ê±½Ú£¬¼ÄÍĞË¼Äî£¡</h1>
-	<h2>ÎÒÃÇÎªÕÇ°¢ÒÌÌá¹©ÁËÒ»ÕûÌ×ÇåÃ÷¼ÀÉ¨ÎïÆ·ºÍÏÊ»¨ÕâÀïËµĞ©°¸ÀıÑĞ¾¿µÄ»°...</h2>
-	<p><a>¼ÀÉ¨ÎïÆ·</a></p>
-	<p><a>ÏÊ»¨</a></p>
+    <h1>æ¸…æ˜æ—¶èŠ‚ï¼Œå¯„æ‰˜æ€å¿µï¼</h1>
+	<h2>æˆ‘ä»¬ä¸ºæ¶¨é˜¿å§¨æä¾›äº†ä¸€æ•´å¥—æ¸…æ˜ç¥­æ‰«ç‰©å“å’Œé²œèŠ±è¿™é‡Œè¯´äº›æ¡ˆä¾‹ç ”ç©¶çš„è¯...</h2>
+	<p><a>ç¥­æ‰«ç‰©å“</a></p>
+	<p><a>é²œèŠ±</a></p>
 </div>
 <div id="mainHeader">
-    <h1>ÎŞÂÛÊÇ¼ÀÉ¨ÓÃÆ·»¹ÊÇÔáÀñÓÃÆ·<br/>ÕâÀïÒ»Ó¦¾ãÈ«</h1>
+    <h1>æ— è®ºæ˜¯ç¥­æ‰«ç”¨å“è¿˜æ˜¯è‘¬ç¤¼ç”¨å“<br/>è¿™é‡Œä¸€åº”ä¿±å…¨</h1>
 </div>
-<h1 class="subHeader">ÌØÉ«·şÎñ</h1>
+<h1 class="subHeader">ç‰¹è‰²æœåŠ¡</h1>
 <IFRAME NAME="content_frame" width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="serviceFrame"></IFRAME>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div id="titleIconDiv">
-    <img src="../../js/images/titleIcon.jpg" class="iconImg"></img>
+    <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>ÎïÆ·ÏêÏ¸ĞÅÏ¢</h1>
+<h1>ç‰©å“è¯¦ç»†ä¿¡æ¯</h1>
 </div>
 <IFRAME class="detailFrame" width=1170px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>

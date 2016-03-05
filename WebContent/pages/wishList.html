@@ -3,20 +3,36 @@
 <head id="head"><title>
     Wish List
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers¡¯
+								deliver smart solutions, helping you to exceed your customersâ€™
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
-<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+
 </head>
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+<header>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+
+<div id="line0"></div>
+<div id="link">
+ <link1>	 <a href="#">ä¸ºä»€ä¹ˆè¦å®šåˆ¶è‘¬ç¤¼</a>  </link1>
+ <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">æ€æ ·å®šåˆ¶      </a>  </link2>
+ <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">å®šåˆ¶è®¡ç®—å™¨</a>  </link3>
+ <link4>   <a href="/funeral/pages/designProposal.html">å®šåˆ¶å¥—é¤  </a>  </link4></div>
+
+</header>
+
+
 <style>
 @media (min-width: 900px) {
   .container {
@@ -296,9 +312,9 @@
 	var wishList;
 	var usrId = 1;
     app.controller('product', function($scope, $http) {
-	    $http.get("http://localhost:8080/bestfuneral/wishlist/list?userId="+usrId).success(function(response) {
+	    $http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
 	        wishList = response[0];
-			$http.get("http://localhost:8080/bestfuneral/wishlistDetail/list?wishlistId="+wishList.ansListId).success(function(response) {
+			$http.get("/funeral/wishlistDetail/list?wishlistId="+wishList.ansListId).success(function(response) {
 	            $scope.wishListDetails = response;
 	        });
 	    });
@@ -327,7 +343,7 @@
 			};
 
 		$.ajax({
-			url: 'http://localhost:8080/bestfuneral/wishlistDetail/edit/'+wishListDetailId,
+			url: '/funeral/wishlistDetail/edit/'+wishListDetailId,
 			data: data,
 			type: 'post',
 			dataType:'json',
@@ -342,37 +358,37 @@
 		    wishListDetailId = tableLine[0].id;
 
 		$.ajax({
-			url: 'http://localhost:8080/bestfuneral/wishlistDetail/delete/'+wishListDetailId,
+			url: '/funeral/wishlistDetail/delete/'+wishListDetailId,
 			type: 'get',
 			success:function(data){
-				alert("ÄúµÄĞÅÏ¢ÎÒÃÇÒÑ¾­ÊÕµ½£¡");
+				alert("æ‚¨çš„ä¿¡æ¯æˆ‘ä»¬å·²ç»æ”¶åˆ°ï¼");
 			},
 			error: function(error) {
-				alert("ÄúµÄĞÅÏ¢ÎÒÃÇÒÑ¾­ÊÕµ½£¡");
+				alert("æ‚¨çš„ä¿¡æ¯æˆ‘ä»¬å·²ç»æ”¶åˆ°ï¼");
 			}
 		});
 	}
 </script>
 <body ng-app="productApp" ng-controller="product">
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html" frameborder = 0 height = "65px"></IFRAME>
+
     <div id="decorContainer">
 	    <div id="pageHeader">
 		    <div id="headerLeft">
-			    <h1>ÄúµÄ¹ºÎï³µ</h1>
+			    <h1>æ‚¨çš„è´­ç‰©è½¦</h1>
 			</div>
 			<div id="headerRight">
 			    <div class="rightImg">
 				    <img class="fakeImg"></img>
-				    <img src="../js/images/5.png" class="realImg"></img>
+				    <img src="/funeral/js/images/5.png" class="realImg"></img>
 				</div>
 				<div class="rightImg">
 				    <img class="fakeImg"></img>
-				    <img src="../js/images/2.png" class="realImg"></img>
+				    <img src="/funeral/js/images/2.png" class="realImg"></img>
 				</div>
 				<div class="rightImg">
 				    <img class="fakeImg"></img>
-				    <img src="../js/images/1.png" class="realImg"></img>
+				    <img src="/funeral/js/images/1.png" class="realImg"></img>
 				</div>
 			</div>
 		</div>
@@ -382,19 +398,19 @@
 					<input type="checkbox">
 				</div>
 				<div class="itemName">
-				    <p class="title">²úÆ·ºÍ·şÎñ</p>
+				    <p class="title">äº§å“å’ŒæœåŠ¡</p>
 				</div>
 				<div class="itemPrice">
-				    <p class="title">ÄîÄî¼Û¸ñ (Ôª)</p>
+				    <p class="title">å¿µå¿µä»·æ ¼ (å…ƒ)</p>
 				</div>
 				<div class="itemAmout">
-				    <p class="title">ÊıÁ¿</p>
+				    <p class="title">æ•°é‡</p>
 				</div>
 				<div class="totalPrice">
-				    <p class="title">Ğ¡¼Æ (Ôª)</p>
+				    <p class="title">å°è®¡ (å…ƒ)</p>
 				</div>
 				<div class="operation">
-				    <p class="title">²Ù×÷</p>
+				    <p class="title">æ“ä½œ</p>
 				</div>
 			</div>
 			<div class="tableContent">
@@ -405,8 +421,8 @@
 				    <div class="itemImg">
 					</div>
 					<div class="itemDesc inputContent">
-					    <p class="title">²úÆ·Ãû³Æ</p>
-						<p class="subTitle">±¸×¢</p>
+					    <p class="title">äº§å“åç§°</p>
+						<p class="subTitle">å¤‡æ³¨</p>
 					</div>
 				</div>
 				<div class="itemPrice inputContent">
@@ -476,23 +492,23 @@
 			<div id="rightSumm">
 			    <div id="rigthTop">
 				    <div id="rigthTopTitle">
-					    <p class="title titleNumber">£¤225.00</p>
+					    <p class="title titleNumber">ï¿¥225.00</p>
 						<p class="title titleNumber">0</p>
-						<p class="summTitle titleNumber">£¤225.00</p>
+						<p class="summTitle titleNumber">ï¿¥225.00</p>
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">¹² 4 ¼şÉÌÆ·£¬¹²¼Æ</p>
-						<p class="title">ÔË·Ñ</p>
-						<p class="summTitle">¶©µ¥×Ü¼Æ</p>
+					    <p class="title">å…± 4 ä»¶å•†å“ï¼Œå…±è®¡</p>
+						<p class="title">è¿è´¹</p>
+						<p class="summTitle">è®¢å•æ€»è®¡</p>
 					</div>
 				</div>
 			</div>
 			<div id="leftSumm">
 			    <div class="continue">
-			    <button>¼ÌĞø¹ºÎï</button>
+			    <button>ç»§ç»­è´­ç‰©</button>
 				</div>
 				<div class="next">
-				<button>È¥½áËã</button>
+				<button>å»ç»“ç®—</button>
 				</div>
 			</div>
 		</div>
@@ -502,7 +518,7 @@
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>ÎïÆ·ÏêÏ¸ĞÅÏ¢</h1>
+<h1>ç‰©å“è¯¦ç»†ä¿¡æ¯</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
@@ -555,7 +571,7 @@ window.onload=function(){
 				'background-color': '#ccc', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-	// µ­Èëµ­³öĞ§¹û 
+	// æ·¡å…¥æ·¡å‡ºæ•ˆæœ 
 				$(this).fadeTo('slow', 0.5); 
 		});
 	};

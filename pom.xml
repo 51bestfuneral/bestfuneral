@@ -113,7 +113,11 @@
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.8.4</version>
-        </dependency> 
+        </dependency>
+        <dependency>
+        	<groupId>freemarker</groupId>
+        	<artifactId>freemarker</artifactId>
+        </dependency>
 	</dependencies>
 
 	<repositories>

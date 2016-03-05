@@ -1,21 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-ÔáÀñ¶¨ÖÆ
+è‘¬ç¤¼å®šåˆ¶
 </title>
-</head>
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../js/Bootstrap/boot.js"></script>
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/Bootstrap/boot.js"></script>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+
+</head>
+
+
+<header>
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
+<div id="line0"></div>
+<div id="link">
+ <link1>	 <a href="/funeral/pages/funeralDesignPage.html">ä¸ºä»€ä¹ˆè¦å®šåˆ¶è‘¬ç¤¼</a>  </link1>
+ <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">æ€æ ·åœ¨å¿µå¿µå®šåˆ¶è‘¬ç¤¼      </a>  </link2>
+ <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">è‘¬ç¤¼èŠ±è´¹è®¡ç®—å™¨</a>  </link3>
+ <link4>   <a href="/funeral/pages/designProposal.html" style="font-weight:900;">å¼€å§‹å®šåˆ¶ </a>  </link4>
+ </div>
+
+</header>
+
+
+
+
 <style>
 .headerAddtion {
     width: 100%;
@@ -55,7 +74,21 @@
     margin: 0px;
 	font-size: 16px;
 }
+
+.unseleted{
+	pointer-events:none;
+	}
+
+
 </style>
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 var app = angular.module('myApp', []);
 function buildObject(level) {
@@ -78,10 +111,19 @@ function buildObject(level) {
     return levelOwnList;
 }
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+	
+	  $http.get("/funeral/displayWishType/listWishCategory").success(function(response) {
+	    $scope.wishCates = response;
+	});
+	
+	 $http.get("/funeral/displayWishType/listWishCategorySub").success(function(response) {
+	    $scope.cateSubs = response;
+	});
+	
+    $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	$http.get("/funeral/wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -98,206 +140,255 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 </script>
-<link href="../js/personal.css" rel="stylesheet">
+<link href="/funeral/js/personal.css" rel="stylesheet">
 <body>
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
 <div id="mainContent">
-    <div class="headerAddtion">
-	    <span class="subNavigat"><a>Ê²Ã´ÊÇÔáÀñ¶¨ÖÆ</a></span>
-		<span class="subNavigat"><a>ÔõÑù¶¨ÖÆ</a></span>
-		<span class="subNavigat"><a>¶¨ÖÆ¼ÆËãÆ÷</a></span>
-		<span class="subNavigat naviSelect"><a>¶¨ÖÆÌ×²Í</a></span>
-	</div>
+   
     <div class="topContent">
+   
+   
     <div id="headerMessage">
-	    <h2 id="headerMesText">Ñ¡ÔñÊÊºÏÄúµÄ¶¨ÖÆ·½°¸</h2>
+	    <h2 id="headerMesText">é€‰æ‹©é€‚åˆæ‚¨çš„å®šåˆ¶æ–¹æ¡ˆ</h2>
 	</div>
+	
+	
+	
+	<!--for tab-->
 	<div id="designTaocan">
-        <div class="designTaocanIconDiv">
-			<h3>°×ÊÂ¹Ü¼Ò</h3>
+        <div id="taocan1" class="designTaocanIconDiv">
+			<h3>ä¸€è·¯èµ°å¥½</h3>
 		</div>
-		<div class="designTaocanIconDiv">
-			<h3>°×ÊÂ¹Ü¼Ò</h3>
+		<div id="taocan2" class="designTaocanIconDiv">
+			<h3>é™äº«æ€¡ç„¶</h3>
 		</div>
-		<div class="designTaocanIconDiv">
-		    <h3>°×ÊÂ¹Ü¼Ò</h3>
+		<div  id="taocan3" class="designTaocanIconDiv">
+		    <h3>æ·±æƒ…å‘Šåˆ«</h3>
 		</div>
-		<div class="designTaocanIconDiv">
-		    <h3>°×ÊÂ¹Ü¼Ò</h3>
+		<div id="taocan4" class="designTaocanIconDiv">
+		    <h3>æ–°å®¶æ¬è¿</h3>
 		</div>
 	</div>
+	
+	
+	
+	
+	
+	
 	</div>
+	
+	
+	
+	
+	
+	
+	
+	
 	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels">
+		
+		
+		
+		
 	    <div class= "includeDiv">
 	    <ul class="descRow">
-		    <li class="headerLine">
-			    <h2 class="doubleText">±È½Ï·½°¸</h2>
+		    <li class="headerLineLeft">
+			 <p>æ¯”è¾ƒ</p>
+			</li>
+		<li class="normalHeaderLineLeft">
+			    <p>æ¦‚</p>
+			</li>
+				<li style="{{wishCate.style}}" ng-repeat="wishCate in wishCates">
+			    <p class="messageInRow" style="{{wishCate.fontStyle}}">{{wishCate.cateName}}</p>
 			</li>
 			<li class="normalHeaderLine">
-			    <p>¸Å¿ö</p>
-			</li>
-			<li class="normalLine">
-			    <p class="messageInRow">Á÷³Ì×ÉÑ¯</p>
+			    <p></p>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDiv">
-		<ul class="descRow">
-		    <li class="headerLine">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		  <div class= "includeDiv">
+	    <ul class="descRow">
+		    <li class="headerLineRight">
+			   			 <p>æ–¹æ¡ˆ</p>
+
 			</li>
-			<li class="normalHeaderLine">
-			    <p>¸Å¿ö</p>
+			<li class="normalHeaderLineRight">
+			    <p>å†µ</p>
 			</li>
-			<li class="normalLine">
-			    <p class="messageInRow">Á÷³Ì×ÉÑ¯</p>
+			
+				<li class="normalLine" ng-repeat="cateSub in cateSubs">
+			    <p class="messageInRow"  >{{cateSub.wishName	}}</p>
 			</li>
-			<li class="normalLine" ng-repeat="wishType in wishTypes">
-			    <p class="messageInRow">{{wishType.wishTypeDesc}}</p>
+		<li class="normalHeaderLine">
+			    <p></p>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+		<div id="basic" class= "includeDataDivBasic">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 				    <div class="iconChild">
-			            <h2 class="designHeaderText">»ù´¡</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">åŸºç¡€</h2>
+		                <h4>ï¿¥6288 - ï¿¥16288<h4>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×îÎª¾­¼ÃºÏËãµÄ·½°¸£¬<br/>±È½ÏµÍµÄ³É±¾¶¨ÖÆ×¨ÊôÔáÀñ¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€ä¸ºç»æµåˆç®—çš„æ–¹æ¡ˆï¼Œ<br/>æ¯”è¾ƒä½çš„æˆæœ¬å®šåˆ¶ä¸“å±è‘¬ç¤¼ã€‚</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
 			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg"></img>
+			    	   <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url01}}" class="tickImg"></img>
 				</div>
 			</li>
-			<li class="normalLine" ng-repeat="levelWish1 in level1">
-			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish1.hidden}}"></img>
-				</div>
-			</li>
+		
+		
+		
 			<li>
 			    <div class="submitArea">
-				    <button><p>Ñ¡Ôñ¸ÃÌ×²Í</p></button>
+				    <button><p>é€‰æ‹©è¯¥å¥—é¤</p></button>
 				</div>
 			</li>
+		
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div id="good" class= "includeDataDivGood">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">¾«Ñ¡</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">ç²¾é€‰</h3>
+		                <h4>ï¿¥6288 - ï¿¥16288<h5>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×îÊÜ»¶Ó­µÄ·½°¸£¬<br/>Áé»îµÄ°²ÅÅ¸÷ÏîÔáÀñÏ¸½Ú¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€å—æ¬¢è¿çš„æ–¹æ¡ˆï¼Œ<br/>çµæ´»çš„å®‰æ’å„é¡¹è‘¬ç¤¼ç»†èŠ‚ã€‚</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
-			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			    <img src="../js/images/tick.jpg" class="tickImg"></img>
-			</li>
-			<li class="normalLine" ng-repeat="levelWish2 in level2">
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
 			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish2.hidden}}"></img>
+				    <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url02}}" class="tickImg"></img>
 				</div>
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button><p>Ñ¡Ôñ¸ÃÌ×²Í</p></button>
+				    <button><p>é€‰æ‹©è¯¥å¥—é¤</p></button>
 				</div>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+		<div id="better" class= "includeDataDivBetter">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">ºÀ»ª</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">è±ªå</h3>
+		                <h4>ï¿¥6288 - ï¿¥16288<h5>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×î´óÆøµÄ·½°¸£¬<br/>ÎªÄú°®µÄÈË¾Ù°ì¸ß¹æ¸ñµÄÒÇÊ½¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€å¤§æ°”çš„æ–¹æ¡ˆï¼Œ<br/>ä¸ºæ‚¨çˆ±çš„äººä¸¾åŠé«˜è§„æ ¼çš„ä»ªå¼ã€‚</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
-			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			    <img src="../js/images/tick.jpg" class="tickImg"></img>
-			</li>
-			<li class="normalLine" ng-repeat="levelWish3 in level3">
+		<li class="normalLine"  ng-repeat="cateSub in cateSubs">
 			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish3.hidden}}"></img>
+				    <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url03}}" class="tickImg"></img>
 				</div>
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button><p>Ñ¡Ôñ¸ÃÌ×²Í</p></button>
+				    <button><p>é€‰æ‹©è¯¥å¥—é¤</p></button>
 				</div>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+
+		
+		
+		<div id="best" class= "includeDataDivBest">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">¶¥¼¶</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">é¡¶çº§</h3>
+		                <h4>ï¿¥6288 - ï¿¥16288<h5>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×îÉİ³ŞµÄ·½°¸£¬<br/>¾Ù°ìÎŞÉÏ¹æ¸ñµÄÒÇÊ½¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€å¥¢ä¾ˆçš„æ–¹æ¡ˆï¼Œ<br/>ä¸¾åŠæ— ä¸Šè§„æ ¼çš„ä»ªå¼ã€‚</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
-			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			    <img src="../js/images/tick.jpg" class="tickImg"></img>
-			</li>
-			<li class="normalLine" ng-repeat="levelWish4 in level4">
-			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish4.hidden}}"></img>
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
+			    <div class="imgDiv">   <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+				  			        <img src="{{cateSub.url04}}" class="tickImg"></img>
+
 				</div>
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button><p>Ñ¡Ôñ¸ÃÌ×²Í</p></button>
+				    <button><p>é€‰æ‹©è¯¥å¥—é¤</p></button>
 				</div>
 			</li>
 		</ul>
@@ -305,11 +396,12 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	</div>
 </div>
 <div id="titleIconDiv">
-    <img src="../js/images/titleIcon.jpg" class="iconImg"></img>
+    <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
+    
 </div>
 <IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
-<script type="text/javascript">
+<!--<script type="text/javascript">
 	$(".designTaocanIconDiv").hover(function () {
         var $this = $(this);
         $this.addClass("choose");
@@ -328,6 +420,15 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    $this.addClass("barSelect");
 		}
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	$(".includeDataDiv").hover(function () {
         var $this = $(this);
         $this.addClass("choose");
@@ -350,5 +451,349 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	$("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 	});
+</script>
+
+-->
+
+<script type="text/javascript">
+
+$("#taocan1").on("click", function () {
+
+	if( $("#taocan1").hasClass("choose")){
+	$("#taocan1").removeClass("barSelect");
+	$("#taocan1").removeClass("choose");	
+			 $("#basic").removeClass("barSelect");
+
+	
+	if($("#taocan4").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").removeClass("barSelect");	
+	  	  $("#best").addClass("barSelect");	
+return;
+					}else{
+	  	  $("#best").removeClass("barSelect");	
+						}
+	
+			if($("#taocan3").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").addClass("barSelect");	
+	  return;
+					}else{
+						
+	  $("#better").removeClass("barSelect");	
+						}
+	
+	
+		
+		if($("#taocan2").hasClass("choose")){
+	 $("#basic").removeClass("barSelect");
+	 $("#good").addClass("barSelect");
+			return;
+			}else{
+				
+		
+	 $("#good").removeClass("barSelect");	
+				
+				}
+				
+		
+		
+		
+		
+		
+		
+	 
+	}else{
+	$("#taocan1").addClass("choose");
+	$("#taocan1").addClass("barSelect");
+		 $("#basic").addClass("barSelect");
+	
+		if($("#taocan4").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").removeClass("barSelect");	
+	  	  $("#best").addClass("barSelect");	
+return;
+					}else{
+		
+	  	  $("#best").removeClass("barSelect");	
+						}
+	
+	
+		if($("#taocan3").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").addClass("barSelect");	
+	  return;
+					}else{
+						
+	  $("#better").removeClass("barSelect");	
+						}
+	
+	
+
+			if($("#taocan2").hasClass("choose")){
+	 $("#basic").removeClass("barSelect");
+	 $("#good").addClass("barSelect");
+			 return;
+			}else{
+				
+			
+	    $("#good").removeClass("barSelect");	
+				
+				}
+				
+			
+		
+		
+	
+		
+		
+		
+		}
+	 
+	 
+   });
+   
+   
+ 
+$("#taocan2").on("click", function () {
+	if( $("#taocan2").hasClass("choose")){
+	$("#taocan2").removeClass("barSelect");
+	$("#taocan2").removeClass("choose");	
+	
+	 $("#good").removeClass("barSelect");
+	
+	if($("#taocan4").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").removeClass("barSelect");	
+	  	  $("#best").addClass("barSelect");	
+return;
+					}else{
+	 $("#best").removeClass("barSelect");	
+			}
+	
+	
+		if($("#taocan3").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").addClass("barSelect");	
+	  return;
+					}else{
+	  $("#better").removeClass("barSelect");	
+						}
+	
+	
+		if($("#taocan1").hasClass("choose")){
+	 $("#basic").addClass("barSelect");
+	 $("#good").removeClass("barSelect");
+			
+			}else{
+				
+			 $("#basic").removeClass("barSelect");
+				}
+				
+			
+		
+		
+		
+		
+		
+	 
+	}else{
+	$("#taocan2").addClass("choose");
+	$("#taocan2").addClass("barSelect");
+
+	 $("#basic").removeClass("barSelect");
+	 $("#good").addClass("barSelect");
+
+
+	if($("#taocan4").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	      $("#good").removeClass("barSelect");	
+	     $("#better").removeClass("barSelect");	
+	  	  $("#best").addClass("barSelect");	
+return;
+					}else{
+	  	  $("#best").removeClass("barSelect");	
+						}
+
+
+
+				
+				if($("#taocan3").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").addClass("barSelect");	
+	  return;
+					}else{
+	  $("#better").removeClass("barSelect");	
+						}
+		
+		
+	
+		
+		
+		
+		}
+	 
+	 
+   });
+
+
+
+
+
+$("#taocan3").on("click", function () {
+	if( $("#taocan3").hasClass("choose")){
+	$("#taocan3").removeClass("barSelect");
+	$("#taocan3").removeClass("choose");	
+	
+	 $("#better").removeClass("barSelect");
+	
+	if($("#taocan4").hasClass("choose")){
+	$("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").removeClass("barSelect");	
+	  	  $("#best").addClass("barSelect");	
+return;
+					}else{
+	 $("#best").removeClass("barSelect");	
+			}
+	
+	
+		if($("#taocan2").hasClass("choose")){
+		$("#basic").removeClass("barSelect");
+	 $("#good").addClass("barSelect");	
+	  return;
+					}else{
+	  $("#good").removeClass("barSelect");	
+						}
+	
+	
+		if($("#taocan1").hasClass("choose")){
+	 $("#basic").addClass("barSelect");
+			
+			}else{
+				
+			 $("#basic").removeClass("barSelect");
+				}
+				
+			
+		
+		
+		
+		
+		
+	 
+	}else{
+	$("#taocan3").addClass("choose");
+	$("#taocan3").addClass("barSelect");
+
+	 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");
+	 $("#better").addClass("barSelect");
+
+
+	if($("#taocan4").hasClass("choose")){
+					 $("#basic").removeClass("barSelect");
+	      $("#good").removeClass("barSelect");	
+	     $("#better").removeClass("barSelect");	
+	  	  $("#best").addClass("barSelect");	
+return;
+					}else{
+	  	  $("#best").removeClass("barSelect");	
+						}
+
+
+
+				
+			
+		
+		
+		
+		}
+	 
+	 
+   });
+
+
+
+
+
+$("#taocan4").on("click", function () {
+	if( $("#taocan4").hasClass("choose")){
+	$("#taocan4").removeClass("barSelect");
+	$("#taocan4").removeClass("choose");	
+	
+	 $("#best").removeClass("barSelect");
+	
+	if($("#taocan3").hasClass("choose")){
+	$("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");	
+	  $("#better").addClass("barSelect");	
+	  	 
+return;
+					}else{
+	 $("#better").removeClass("barSelect");	
+			}
+	
+	
+		if($("#taocan2").hasClass("choose")){
+		$("#basic").removeClass("barSelect");
+	 $("#good").addClass("barSelect");	
+	  return;
+					}else{
+	  $("#good").removeClass("barSelect");	
+						}
+	
+	
+		if($("#taocan1").hasClass("choose")){
+	 $("#basic").addClass("barSelect");
+			
+			}else{
+				
+			 $("#basic").removeClass("barSelect");
+				}
+				
+			
+		
+		
+		
+		
+		
+	 
+	}else{
+	$("#taocan4").addClass("choose");
+	$("#taocan4").addClass("barSelect");
+
+	 $("#basic").removeClass("barSelect");
+	 $("#good").removeClass("barSelect");
+	 $("#better").removeClass("barSelect");
+	 $("#best").addClass("barSelect");
+
+
+
+
+				
+			
+		
+		
+		
+		}
+	 
+	 
+   });
+
+
+
+
+
+
+
+   
 </script>
 </html>

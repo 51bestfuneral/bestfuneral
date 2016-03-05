@@ -13,6 +13,5 @@ public interface ServiceCategoryClassService {
 	public List<TServiceCategoryClass> getResources();
 	public TServiceCategoryClass getServiceCategoryClassByCateIdAndClassId(Integer cateId,int classId);
 	
-	
 
 }

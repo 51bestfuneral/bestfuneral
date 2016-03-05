@@ -5,9 +5,13 @@ import java.util.Date;
 public class Test {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-         Date dt = new Date();
-         System.out.println(";");
+		
+		
+	String id="adb_sdsd";	
+		
+	String ids[]=id.split("_");
+		
+         System.out.println(ids[0]+"    "+ids[1]);
 	}
 
 }

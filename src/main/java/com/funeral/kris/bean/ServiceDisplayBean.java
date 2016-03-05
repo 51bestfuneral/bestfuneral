@@ -188,5 +188,34 @@ public class ServiceDisplayBean {
 	private String imgUrlSelected1;
 	private String imgUrlSelected2;
 	private String imgUrlSelected3;
+	
+	private String font0;
+	private String font1;
+	public String getFont0() {
+		return font0;
+	}
+	public void setFont0(String font0) {
+		this.font0 = font0;
+	}
+	public String getFont1() {
+		return font1;
+	}
+	public void setFont1(String font1) {
+		this.font1 = font1;
+	}
+	public String getFont2() {
+		return font2;
+	}
+	public void setFont2(String font2) {
+		this.font2 = font2;
+	}
+	public String getFont3() {
+		return font3;
+	}
+	public void setFont3(String font3) {
+		this.font3 = font3;
+	}
+	private String font2;
+	private String font3;
 
 }
