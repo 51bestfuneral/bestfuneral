@@ -204,10 +204,15 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 	@ResponseBody
 	@RequestMapping(value = "/getProcess", method = RequestMethod.GET)
 	public String getExpressProcess(HttpServletRequest request) {
-
+		try{
+		String orderNo = request.getParameter("orderNo");
 		String expressNo = request.getParameter("expressNo");
 		String expressCompany = request.getParameter("expressCompany");
-		return expressService.searchExpress(expressNo, expressCompany);
+		return expressService.searchExpress(orderNo,expressNo, expressCompany);
+		} catch(Exception e){
+			
+		}
+		return null;
 		
 		
 		
