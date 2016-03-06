@@ -13,7 +13,7 @@ public class ChinapnrUtil {
 	
 	public static String gateId="";
 	
-	public static final String PAGE_URL ="http://localhost:8080/funeral/pages";
+	public static final String PAGE_URL ="http://121.42.182.117/funeral/pages";
 	
 	public static final String CHINAPNR_GATEWAY = "http://mas.chinapnr.com/gar/RecvMerchant.do";
 	

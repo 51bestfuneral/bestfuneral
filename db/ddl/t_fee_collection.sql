@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS t_fee_collection;  
 CREATE TABLE t_fee_collection (  
   collection_id integer NOT NULL AUTO_INCREMENT,  
-  order_id integer NOT NULL,  
+  order_id integer ,  
   order_no varchar(80) NOT NULL,  
   subject varchar(500) NOT NULL, 
   payer_id varchar(20) ,  

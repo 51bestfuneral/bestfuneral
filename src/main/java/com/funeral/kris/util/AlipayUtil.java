@@ -43,24 +43,20 @@ public class AlipayUtil {
 		
 		
 		
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmssSSS");  
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");  
 		java.util.Date date=new java.util.Date();  
 		String time=sdf.format(date);  
 		
 		String index="0"+sequence;
 		
-		String no="FN"+time+"F"+userId+"U";
+		String no="F"+time+userId;
 		
-		while(no.length()<10){	
-			no=no+"0";
+		while(no.length()+index.length()<20){	
+			index="0"+index;
 		}
 		
-		while(index.length()<5){	
-			index="0"+index;
-		}		
-		
-		System.out.println("  generateTradeNo   no= "+no);
-		return no+index;
+		String orderNo=no+index;
+		return orderNo;
 		
 	}
 
