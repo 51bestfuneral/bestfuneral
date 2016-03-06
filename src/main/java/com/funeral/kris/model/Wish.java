@@ -530,10 +530,6 @@ public class Wish {
 		this.showInFront = showInFront;
 	}
 
-	@Column(name = "show_in_front")
-	private Integer showInFront;
-
-
 	public String getPdSource() {
 		return pdSource;
 	}
@@ -631,14 +627,6 @@ public class Wish {
 
 	public void setWishCataCode(String wishCataCode) {
 		this.wishCataCode = wishCataCode;
-	}
-
-	public Integer getShowInFront() {
-		return showInFront;
-	}
-
-	public void setShowInFront(Integer showInFront) {
-		this.showInFront = showInFront;
 	}
 
 	public String getParentWish() {
