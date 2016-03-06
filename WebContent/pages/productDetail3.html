@@ -59,13 +59,14 @@
 	#photoShowArea {
 	    overflow: auto;
 		height: 389px;
+		padding-left: 75px;
 	}
 	#photoShowArea div {
 	    transition:opacity 1s;
 	    -moz-transition: opacity 1s;
         -webkit-transition:opacity 1s;
         -o-transition:opacity 1s;
-		background-size: 100%;
+		background-size: 100% 100%;
 	}
 	ul {
 	    list-style: none;
@@ -379,7 +380,7 @@
 	    width: 100%;
 	}
 	.singleReference {
-	    width: 33.33%;
+	    width: 25%;
 		box-sizing: border-box;
 		-webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -495,12 +496,13 @@ app.controller('products', function($scope, $http) {
 	    $scope.wish = response[0];
 	    wishInLocal = response[0];
 	    $http.get("/funeral/wish/list?generalCode="+response[0].generalCode).success(function(response) {
-	    	if (response.length > 3) {
-		        $scope.relevantWishs = response.slice(0, 3);
+	    	if (response.length > 4) {
+		        $scope.relevantWishs = response.slice(0, 4);
 	    	}
 	    	else {
 	    		$scope.relevantWishs = response;
 	    	}
+			unmusk();
 		});
 	});
 	$http.get("/funeral/message/list?wishId="+type).success(function(response) {
@@ -511,7 +513,6 @@ app.controller('products', function($scope, $http) {
 		else {
 		    content = response[0].content;
 		}
-		unmusk();
 	});
 });
 </script>
@@ -523,7 +524,7 @@ app.controller('products', function($scope, $http) {
 		    <div id="photosWall">
 			    <div id="photoShow">
 				    <div id="photoShowArea">
-					    <div style="width: 690px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('../js/images/{{wish.imgUrl}}');">
+					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('../js/images/{{wish.imgUrl}}');">
 						</div>
 <!-- 						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
@@ -615,7 +616,7 @@ app.controller('products', function($scope, $http) {
 		<div id="bottomRight">
 		    <div class="headerBar">
 			    <div class="priceArea">
-				    <span >￥500</span>
+				    <span >￥{{wish.sellingPrice}}</span>
 				</div>
 			</div>
 			<div class="InfomationCoat">
@@ -633,7 +634,7 @@ app.controller('products', function($scope, $http) {
 		<div id="referenceContainer">
 			<div class="singleReference" ng-repeat="relevantWish in relevantWishs" id="{{relevantWish.wishId}}">
 			    <div class="imageDiv">
-				    <image src="'../js/images/{{relevantWish.imgUrl}}'"></image>
+				    <image src="../js/images/{{relevantWish.imgUrl}}"></image>
 				</div>
 				<div class="priceFloat">
 				    <span>￥</span><span>{{relevantWish.sellingPrice}}</span>

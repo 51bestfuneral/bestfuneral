@@ -325,8 +325,8 @@ app.controller('products', function($scope, $http) {
 <script>
 window.onload=function(){
 	$("body").on("click",".productItem",function() {
-        window.parent.muskPageForProduct($(this)[0].id, $(this).find("#feature")[0].innerText);
         $(this).removeClass("productWishShadow");
+        window.parent.location.href="/funeral/pages/productDetail3.html?id="+$(this)[0].id;
 	});
 	$("body").on("mousedown",".productItem",function() {
         $(this).addClass("productWishShadow");

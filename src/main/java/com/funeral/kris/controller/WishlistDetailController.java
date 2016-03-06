@@ -366,6 +366,21 @@ public class WishlistDetailController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/getShoppingCartCount", method = RequestMethod.GET, produces = "application/json")
+	public Integer getShoppingCartCount(HttpServletRequest request) {
+		if (wishsMap == null) {
+			initialWishMap();
+		}
+		User user = (User)request.getSession().getAttribute("user");
+		Integer cartId = user.getCartId();
+
+		List<CartlistJson> cartlistJsons = new ArrayList<CartlistJson>();
+		List<CartDetail> cartDetails = wishlistDetailService
+				.getResourceByCartId(cartId);
+		return cartDetails.size();
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/getSetWishList", method = RequestMethod.GET, produces = "application/json")
 	public List<WishListJson> getSetWishList(HttpServletRequest request) {
 		if (wishsMap == null) {
