@@ -53,10 +53,10 @@
 	text-align: center;
 	line-height: 35px;
 	cursor: pointer;
+	opacity: 0.5;
 }
 .closeCoverDiv:hover {
-	color: #ff5274;
-	border: 2px solid #ff5274;
+	opacity: 1;
 }
 	.productCarousel {
 	    width: 1020px;
@@ -189,29 +189,13 @@
 		width: 1165px;
 		margin: 0px auto;
 	}
-	.closeCoverDiv {
-		position: absolute;
-		top: 0px;
-		width: 35px;
-		height: 35px;
-		border-radius: 17px;
-		border: 2px solid #979797;
-		color: #979797;
-		font-size: 30px;
-		text-align: center;
-		line-height: 35px;
-		cursor: pointer;
-	}
-	.closeCoverDiv:hover {
-		color: yellow;
-		border: 2px solid yellow;
-	}
 	.titleDiv {
 		width: 1165px;
 		height: 40px;
 		margin: 0 auto;
 		background-color: #ccc;
 		text-align: left;
+		display: none;
 	}
 	.titleDiv h1 {
 		margin: 0px;
@@ -222,12 +206,10 @@
 	.overviewItem {
 	    width: 100%;
 		height: 370px;
-		background: -webkit-radial-gradient(#761b18, #000000);
-		background: -o-radial-gradient(#761b18, #000000);
-		background: -moz-radial-gradient(#761b18, #000000);
-		background: radial-gradient(#761b18, #000000);
+		background-image: url('/funeral/js/images/japan_promotion.jpg');
 		padding-left: 290px;
 		padding-top: 93px;
+		background-position: center;
 	}
 	.overviewItem h1 {
 	    margin: 0px;
@@ -326,9 +308,12 @@
 		padding-top: 86px;
 		padding-left: 125px;
 		background: #000000;
+		background-image: url('/funeral/js/images/qingming_img.jpg');
+		background-position: center;
+        background-size: 100%;
 	}
 	#caseMain {
-	    width: 1349px;
+	    width: 1200px;
 	    margin: 0px auto;
 	}
 	#case h1 {
@@ -438,7 +423,7 @@ function muskPageForProduct(id) {
 		muskPage();
 		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
 		$(".closeCoverDiv").css({
-			right: (parentWidth-frameWidth)/2,
+			right: (parentWidth-frameWidth)/2 - 30,
 			left: 'auto',
 			top: 0
 		});

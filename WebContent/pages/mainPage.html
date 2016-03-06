@@ -53,7 +53,6 @@ body {
 	color: white;
 	font-size: 50px;
 	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
-    font-family: HelveticaNeue-Thin;
 }
 .mainContent1 {
     position: relative;
@@ -348,35 +347,6 @@ body {
     -webkit-transition:opacity 0.5s;
     -o-transition:opacity 0.5s;
 }
-#startButton {
-    width: 118px;
-	float: left;
-	height: 44px;
-	background-color: #ec4a82;
-	margin: 0px;
-	border-radius: 5px;
-	color: #ffffff;
-	text-align: center;
-	box-shadow: none!important;
-}
-#startButton p {
-    font-size: 19px;
-	margin: 0px;
-	color: #ffffff;
-}
-#askGroupRight {
-    float: left;
-	height: 44px;
-	width: 150px;
-	padding-left: 10px;
-	color: #a9aeb0;
-	padding-top: 7px;
-}
-#askGroupRight p{
-    font-size: 12px;
-	line-height: 20px;
-	margin: 0px;
-}
 #bottomContactInfo {
     width: 100%;
 	overflow: auto;
@@ -517,10 +487,10 @@ body {
 	text-align: center;
 	line-height: 35px;
 	cursor: pointer;
+	opacity: 0.5;
 }
 .closeCoverDiv:hover {
-	color: yellow;
-	border: 2px solid yellow;
+	opacity: 1;
 }
 .titleDiv {
     width: 1165px;
@@ -528,6 +498,7 @@ body {
 	margin: 0 auto;
 	background-color: #ccc;
 	text-align: left;
+	display: none;
 }
 .titleDiv h1 {
     margin: 0px;
@@ -698,7 +669,7 @@ body {
 	    width: 100%;
 		background-color: #ed4b83;
 		overflow: auto;
-		height: 687px;
+		height: 747px;
 		padding-top: 40px;
 		margin-top: 10px;
 	}
@@ -742,11 +713,20 @@ body {
 	    background-color: #102430;
 	    width: 100%;
 	    height: 457px;
+	    margin-top: -100px;
+	}
+	#productShowCoat {
+	    width: 1300px;
+	    margin: 0px auto;
 	}
 	#productIconList {
 	    width: 50%;
 		float: left;
 		height: 457px;
+		background-image: url('../js/images/product & services image@2x.png');
+		background-size: 550px;
+        background-repeat: no-repeat;
+        background-position: 0px 80px;
 	}
 	#productIconList .singleIcon {
 		overflow: auto;
@@ -847,13 +827,13 @@ body {
 	#cemeteryShow {
 	    width: 100%;
 		height: 457px;
-		background-image:url('../js/images/temple_viz@2x-min.jpg');
+		background-image:url('../js/images/temple pattern@2x-min.jpg');
 		background-repeat: repeat;
+		overflow: hidden;
 	}
 	#cemeteryInfo {
 	    float: left;
-		padding-top: 136px;
-		padding-left: 281px;
+		padding-top: 86px;
 		text-align: left;
 	}
 	#cemeteryInfo h2 {
@@ -889,7 +869,6 @@ body {
 	#designProcessShow {
 	    width: 632px;
 		height: 486px;
-		background-image: url('../js/images/20160220202822.png');
 		background-size: 100% 100%;
 		margin: 0px auto;
 		margin-top: -900px;
@@ -912,7 +891,6 @@ body {
 	    color: #ff5274;
 	}
 	#productFrameCoat {
-	    margin-top: 416px;
 	    width: 100%;
 	    background: #0B1820;
 	}
@@ -1168,10 +1146,23 @@ body {
 		height: 0; 
 		border-left: 5px solid transparent;
 		border-right: 5px solid transparent;
-		
 		border-bottom: 5px solid black;
 	}
-
+    #cemeteryImage {
+        float: right;
+    }
+    #cemeteryImage img {
+        width: 1000px;
+        margin-left: 510px;
+        margin-top: -320px;
+    }
+    #cemeteryInfoCoat {
+        width: 1200px;
+        margin: 0px auto;
+    }
+    video {
+        margin-top: 30px;
+    }
 </style>
 <script type="text/javascript">
 function GetRandomNum(Min,Max)
@@ -1205,7 +1196,7 @@ function muskPageForProduct(id) {
 		muskPage();
 		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
 		$(".closeCoverDiv").css({
-			right: (parentWidth-frameWidth)/2,
+			right: (parentWidth-frameWidth)/2 - 30,
 			left: 'auto',
 			top: 0
 		});
@@ -1336,50 +1327,41 @@ function muskPageForProduct(id) {
 	<div class="startDesignButton">
 	    <p>开始定制</p>
 	</div>
+	<video id="editor-video" width="600px" autoplay="autoplay" loop="loop" class="hide-mobile device-content" poster="../js/images/customization_placeholder.jpg">
+  		<source src="../js/images/animation.mp4" type="video/mp4">
+        <source src="../js/images/animation.webm" type="video/ogg">
+  		<img src="../js/images/customization_placeholder.jpg" width="100%" height="auto">
+    </video>
 </div>
 <div id="productShow">
-    <div id="productIconList">
-	    <div class="singleIcon position1">
-		    <div class="sizeHelp">
-			</div>
+    <div id="productShowCoat">
+	    <div id="productIconList">
+		    <div src=""></div>
 		</div>
-		<div class="singleIcon position2">
-		    <div class="sizeHelp">
+		<div id="goToProduct">
+		    <h3>选购产品和服务</h3>
+			<h4>除了直接定制葬礼，我们也给您</h4>
+			<div class="startPurchseBtn">
+			    <p>开始选购</p>
 			</div>
-		</div>
-		<div class="singleIcon position3">
-		    <div class="sizeHelp">
-			</div>
-		</div>
-		<div class="singleIcon position4">
-		    <div class="sizeHelp">
-			</div>
-		</div>
-		<div class="singleIcon position5">
-		    <div class="sizeHelp">
-			</div>
+			<div class="arrow-up"></div>
 		</div>
 	</div>
-	<div id="goToProduct">
-	    <h3>选购产品和服务</h3>
-		<h4>除了直接定制葬礼，我们也给您</h4>
-		<div class="startPurchseBtn">
-		    <p>开始选购</p>
-		</div>
-		<div class="arrow-up"></div>
-	</div>
-</div>
-<div id="designProcessShow">
 </div>
 <div id="productFrameCoat">
 <IFRAME NAME="content_frame" width=1349px height=600 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html?showInFront=1"></IFRAME>
 </div>
 <div id="cemeteryShow">
-    <div id="cemeteryInfo">
-	    <h2>墓地和寺庙信息汇总</h2>
-		<h3>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</h3>
-		<div class="cemeteryBtn">
-		    <p>了解更多</p>
+    <div id="cemeteryInfoCoat">
+	    <div id="cemeteryInfo">
+		    <h2>墓地和寺庙信息汇总</h2>
+			<h3>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</h3>
+			<div class="cemeteryBtn">
+			    <p>了解更多</p>
+			</div>
+			<div id="cemeteryImage">
+			    <img src="/funeral/js/images/temple_viz@2x-min.png"></img>
+			</div>
 		</div>
 	</div>
 </div>

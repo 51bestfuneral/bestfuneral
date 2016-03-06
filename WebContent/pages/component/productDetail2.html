@@ -43,6 +43,7 @@
 		text-align: left;
 		height: 64px;
 		border-bottom: 1px solid #ececec;
+		margin-left: -10px;
 	}
 	.mainPrice {
 	    overflow: auto;
@@ -58,19 +59,19 @@
 	}
 	.priceContainer {
 	    float: left;
-		width: 60px;
 		text-align: center;
-		padding-top: 15px;
+		padding-top: 10px;
+		margin-left: 10px;
 	}
 	.ptitle {
-	    font-size: 12px;
-		line-height: 16px;
+	    font-size: 18px;
+		line-height: 25px;
 		letter-spacing: -0.2px;
 		color: #9b9b9b
 	}
 	.pnumber {
-	    font-size: 12px;
-		line-height: 16px;
+	    font-size: 18px;
+		line-height: 20px;
 		letter-spacing: -0.2px;
 		color: #000000;
 	}
@@ -78,17 +79,55 @@
 	    width: 100%;
 		overflow: auto;
 		border-bottom: 1px solid #ececec;
+		padding-bottom: 12px;
 	}
 	.singleBtmArea {
-	    width: 100%;
 		overflow: auto;
 		margin-top: 12px;
-	}
-	.singleBtmArea div {
-	    float: left;
+		float: left;
+		margin-right: 10px;
 	}
 	.singleBtmArea p {
-	    line-height: 30px;
+	    line-height: 25px;
+	    color: #ffffff;
+	    font-size: 20px;
+	}
+	.buttonDiv1 {
+	    height: 50px;
+	    background: #ff496d;
+	    border-radius: 5px;
+	    padding-top: 13px;
+	    padding-left: 15px;
+	    padding-right: 15px;
+	    cursor: pointer;
+	    opacity: 0.8;
+	}
+	.buttonDiv1:hover {
+	    opacity: 1;
+	}
+	.buttonDiv2 {
+	    height: 50px;
+	    background: #ffffff;
+	    border-radius: 5px;
+	    padding-top: 13px;
+	    padding-left: 7px;
+	    padding-right: 7px;
+	    border: 1px solid #ccc;
+	    cursor: pointer;
+	}
+	.buttonDiv2:hover {
+	    background: #ccc!important;;
+	}
+	.buttonDiv2 p {
+	    color: #000000;
+	}
+	.buttonDiv img {
+	    widht: 20px;
+	    height: 20px;
+	}
+	.buttonDiv div {
+	    float: left;
+	    margin-left: 2px;
 	}
 	.addToCart {
 	    width: 153px;
@@ -108,11 +147,9 @@
 		border: 1px solid #d7d7d7;
 	}
 	.subTitle {
-	    color: #5a5a5a;
+	    color: #5a5a5a!important;
 		font-size: 8px;
-	}
-	.buttonDiv {
-	    padding-left: 16px;
+		margin-top: -9px;
 	}
 	#provider {
 	    width: 100%;
@@ -297,6 +334,10 @@
 		color: #ffffff;
 		border: none;
 	}
+	#subTitleDiv {
+	    width: 100%;
+	    padding-top: 16px;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []),
@@ -321,11 +362,13 @@ app.controller('products', function($scope, $http) {
 		    <h1>{{wish.wishName}}</h1>
 			<div id="priceArea">
 			    <div class="mainPrice">
-				    <h1>￥{{wish.price}}</h1>
+				    <h1>￥{{wish.sellingPrice}}</h1>
 				</div>
+			</div>
+			<div id="priceArea">
 				<div class="priceContainer">
 				    <p class="ptitle">市场价</p>
-					<p class="pnumber">￥{{wish.sellingPrice.toFixed(0)}}</p>
+					<p class="pnumber">￥{{wish.xianenPrice.toFixed(0)}}</p>
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">您将节省</p>
@@ -338,22 +381,20 @@ app.controller('products', function($scope, $http) {
 			</div>
 			<div class="buttonArea">
 			    <div class="singleBtmArea">
-				    <div>
-					    <p class="pnumber">直接网上购买</p>
-					</div>
-					<div class="buttonDiv">
-					    <button class="addToCart"><span class="glyphicon glyphicon-shopping-cart"></span>添加到购物车</button>
+					<div class="buttonDiv1 buttonDiv">
+					    <div class="buttonImgDiv"><img src="/funeral/js/images/shopping_white.png"></img></div>
+					    <div class="buttonTextDiv"><p>添加到购物车</p></div>
 					</div>
 				</div>
 				<div class="singleBtmArea">
-				    <div>
-					    <p class="pnumber">加入葬礼定制</p>
-					</div>
-					<div class="buttonDiv">
-					    <button class="addToCart addToWish"><span class="glyphicon glyphicon glyphicon-list-alt"></span>添加到愿望清单</button>
-						<p class="subTitle">可再节省￥1200以上</p>
+					<div class="buttonDiv2 buttonDiv">
+					    <div class="buttonImgDiv"><img src="/funeral/js/images/wishlist@2x.png"></img></div>
+					    <div class="buttonTextDiv"><p>加入愿望清单</p></div>
 					</div>
 				</div>
+			</div>
+			<div id="subTitleDiv">
+				<p class="subTitle">可再节省￥1200以上</p>
 			</div>
 			<div id="provider">
 			    <p class="pnumber">服务提供</p>
