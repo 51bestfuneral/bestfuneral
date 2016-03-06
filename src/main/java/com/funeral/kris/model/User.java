@@ -74,7 +74,12 @@ public class User {
 	private String identifier;
 	@Column(name="pwd")
 	private String password;
-	
+	@Column(name="request_date")
+	private String requestDate;
+	@Column(name="request_cemetery")
+	private String requestCemetery;
+	@Column(name="request_phone")
+	private String requestPhone;
 	public Integer getUserType() {
 		return userType;
 	}
@@ -331,5 +336,29 @@ public class User {
 	public void setContactorRelate(String contactorRelate) {
 		this.contactorRelate = contactorRelate;
 	}
-	
+
+	public String getRequestDate() {
+		return requestDate;
+	}
+
+	public void setRequestDate(String requestDate) {
+		this.requestDate = requestDate;
+	}
+
+	public String getRequestCemetery() {
+		return requestCemetery;
+	}
+
+	public void setRequestCemetery(String requestCemetery) {
+		this.requestCemetery = requestCemetery;
+	}
+
+	public String getRequestPhone() {
+		return requestPhone;
+	}
+
+	public void setRequestPhone(String requestPhone) {
+		this.requestPhone = requestPhone;
+	}
 }
+

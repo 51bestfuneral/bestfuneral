@@ -419,12 +419,12 @@ function muskPage() {
 				$(this).fadeTo('slow', 0.5); 
 		});
 }
-function muskPageForProduct(id) {
+function muskPageForProduct(id, type) {
 	    var parentWidth = $(".coverDiv").width(),
 		    frameWidth = $(".detailFrame").width();
 				
 		muskPage();
-		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
+		$(".detailFrame").attr("src","component/productDetail"+ type +".html?id="+id);
 		$(".closeCoverDiv").css({
 			right: (parentWidth-frameWidth)/2 - 30,
 			left: 'auto',
@@ -554,31 +554,12 @@ app.controller('products', function($scope, $http) {
 </div>
 <div id="overview">
     <div class="carousel slide" id="overviewCarousel">
-	    <ol class="carousel-indicators">
-			<li data-target="#overviewCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#overviewCarousel" data-slide-to="1"></li>
-			<li data-target="#overviewCarousel" data-slide-to="2"></li>
-		</ol>
 	    <div class="carousel-inner">
 		    <div class="item active">
 			    <div class="overviewItem">
 			        <h1>全网独家销售</h1>
 				    <h2>日系骨灰盒系列</h2>
 				   <a href="/funeral/pages/catagoryProduct.html?cata=II-JJ"><h3>了解更多</h3></a>
-				</div>
-			</div>
-			<div class="item">
-			    <div class="overviewItem">
-			        <h1>全网独家销售</h1>
-				    <h2>日系骨灰盒系列</h2>
-				    <a href="/funeral/pages/catagoryProduct.html?cata=II-JJ"><h3>了解更多</h3></a>
-				</div>
-			</div>
-			<div class="item">
-			    <div class="overviewItem">
-			        <h1>全网独家销售</h1>
-				    <h2>日系骨灰盒系列</h2>
-				    <a href="/funeral/pages/catagoryProduct.html?cata=II-JJ"><h3>了解更多</h3></a>
 				</div>
 			</div>
 		</div>
@@ -588,11 +569,11 @@ app.controller('products', function($scope, $http) {
     <div id="leftGuide">
 	    <div class="guideIcon wishListGuide">
 		    <img src="/funeral/js/images/monitor.png"></img>
-			<p>愿望清单</p>
+			<p>智能定制</p>
 		</div>
-		<div class="guideIcon">
+		<div class="guideIcon purchaseGuide">
 		    <img src="/funeral/js/images/film.png"></img>
-			<p>购物篮</p>
+			<p>直接购买</p>
 		</div>
 	</div>
 	<div id="rightGuide">
@@ -630,7 +611,7 @@ window.onload=function(){
     $("#productFrame").attr("src","component/productLine2.html?feature=1&showInFront=1");
 	$("#serviceFrame").attr("src","component/productLine2.html?feature=2&showInFront=1");
     $(".wishListGuide").on("click", function () {
-	    window.location.href='wishList.html';
+	    window.location.href='designProposal.html';
 	});
     $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
@@ -651,6 +632,9 @@ window.onload=function(){
 		$(".productItem").css({
 			 opacity: 1
 		});
+	});
+	$(".purchaseGuide").click(function () {
+		window.location.href='wishList.html';
 	});
 };
 </script>

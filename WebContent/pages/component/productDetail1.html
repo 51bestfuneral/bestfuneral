@@ -240,7 +240,7 @@
 		text-align: right;
 	}
 	.detailTitle p{
-	    font-size: 12px;
+	    font-size: 16px;
 		letter-spacing: -0.2px;
 		line-height: 35px;
 		margin: 0px;
@@ -255,7 +255,7 @@
 		text-align: left;
 	}
 	.detailContent p{
-	    font-size: 12px;
+	    font-size: 15px;
 		letter-spacing: -0.2px;
 		line-height: 35px;
 		margin: 0px;
@@ -508,17 +508,6 @@ function addToWishlist() {
 			<div id="subTitleDiv">
 				<p class="subTitle">可再节省￥1200以上</p>
 			</div>
-			<div id="provider">
-			    <p class="pnumber">服务提供</p>
-				<div id="servProvider">
-				    <div id="providerIcon">
-					    <span class="glyphicon glyphicon-user"></span>
-					</div>
-					<div id="providerInfo">
-					    <p class="ptitle">该服务将会由念念亲自打理。念念会在您完成购买之后跟您联系讨论服务细节</p>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 	<div id="productText">
@@ -527,7 +516,7 @@ function addToWishlist() {
 			    <span class="glyphicon glyphicon-tags"></span>
 			</div>
 			<div class="textContent">
-			    <h1>服务描述</h1>
+			    <h1>产品描述</h1>
 				<div class="contentDiv">
 				    <p class="textContentFont">{{wish.remark}}</p>
 				</div>
@@ -538,11 +527,11 @@ function addToWishlist() {
 			    <span class="glyphicon glyphicon-info-sign"></span>
 			</div>
 			<div class="textContent">
-			    <h1>服务细节</h1>
+			    <h1>产品细节</h1>
 				<div class="contentDiv">
 				    <div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>服务名称</p>
+						    <p>产品名称</p>
 						</div>
 						<div class="detailContent">
 						    <p>{{wish.wishName}}</p>
@@ -550,15 +539,7 @@ function addToWishlist() {
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>服务提供商</p>
-						</div>
-						<div class="detailContent">
-						    <p>念念</p>
-						</div>
-					</div>
-					<div class="singleDetail">
-					    <div class="detailTitle">
-						    <p>服务分类</p>
+						    <p>产品分类</p>
 						</div>
 						<div class="detailContent">
 						    <p>{{wish.subCategory}}</p>
@@ -566,34 +547,18 @@ function addToWishlist() {
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>服务人数</p>
+						    <p>产品规格</p>
 						</div>
 						<div class="detailContent">
-						    <p>N/A</p>
+						    <p>{{wish.size}}</p>
 						</div>
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>服务套系</p>
+						    <p>产品材质</p>
 						</div>
 						<div class="detailContent">
 						    <p>{{wish.material}}</p>
-						</div>
-					</div>
-					<div class="singleDetail">
-					    <div class="detailTitle">
-						    <p>服务时长</p>
-						</div>
-						<div class="detailContent">
-						    <p>{{wish.salesChannel}}</p>
-						</div>
-					</div>
-					<div class="singleDetail">
-					    <div class="detailTitle">
-						    <p>服务编号</p>
-						</div>
-						<div class="detailContent">
-						    <p></p>
 						</div>
 					</div>
 				</div>
@@ -604,7 +569,7 @@ function addToWishlist() {
 			    <span class="glyphicon glyphicon-picture"></span>
 			</div>
 			<div class="textContent">
-			    <h1>服务展示</h1>
+			    <h1>产品展示</h1>
 				<div class="contentDiv">
 				    <img src="/funeral/js/images/{{wish.imgUrl}}"></img>
 				</div>
@@ -616,7 +581,7 @@ function addToWishlist() {
 			    <span class="glyphicon glyphicon-comment"></span>
 			</div>
 			<div class="textContent">
-			    <h1>服务评论</h1>
+			    <h1>产品评论</h1>
 				<div class="contentDiv">
 				    <div id="comments">
 						<div class="singleComment" ng-repeat="comment in comments">

@@ -483,12 +483,12 @@ function muskPage() {
 				$(this).fadeTo('slow', 0.5); 
 		});
 }
-function muskPageForProduct(id) {
+function muskPageForProduct(id, type) {
 	    var parentWidth = $(".coverDiv").width(),
 		    frameWidth = $(".detailFrame").width();
 				
 		muskPage();
-		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
+		$(".detailFrame").attr("src","component/productDetail"+ type +".html?id="+id);
 		$(".closeCoverDiv").css({
 			right: (parentWidth-frameWidth)/2 - 30,
 			left: 'auto',
@@ -498,7 +498,7 @@ function muskPageForProduct(id) {
 };
 var catas = [{
     cataId: 'II-JJ',
-	cataName: '骨灰',
+	cataName: '骨灰盒',
 	cataDesc: '繁花落尽君辞去历尽铅华归于斯',
 	cataPic: '/funeral/js/images/noun_187249_cc.png',
 	iconPic: '/funeral/js/images/box@2x.png',
@@ -511,40 +511,40 @@ var catas = [{
 	iconPic: '/funeral/js/images/clothes@2x.png',
 	textPic: '/funeral/js/images/112.png'
 }, {
-    cataId: 'M',
+    cataId: 'M-S-W',
 	cataName: '祭祀随葬',
 	cataDesc: '升幡登坛祭几回情深思切忆相随',
 	cataPic: '/funeral/js/images/Mask + Rectangle 77.png',
 	iconPic: '/funeral/js/images/clothes copy@2x.png',
 	textPic: '/funeral/js/images/113.png'
 }, {
-    cataId: 'G-H-L',
+    cataId: 'G-H-L-T',
 	cataName: '礼仪服务',
 	cataDesc: '殚精竭虑誓不悔浓情暖意拂心扉',
 	cataPic: '/funeral/js/images/Group.png',
 	iconPic: '/funeral/js/images/clothes copy 2@2x.png',
 	textPic: '/funeral/js/images/114.png'
 }, {
-    cataId: 'VV',
+    cataId: 'VV-O',
 	cataName: '祭扫用品',
 	cataDesc: '冢荒碑残殇未歇洒酒折菊栖冥蝶',
 	cataPic: '/funeral/js/images/noun_193115_cc.png',
 	iconPic: '/funeral/js/images/clothes copy 3@2x.png',
 	textPic: '/funeral/js/images/115.png'
 }, {
-    cataId: 'P',
+    cataId: 'P-Q-R',
 	cataName: '套装产品',
 	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 	cataPic: '/funeral/js/images/1452911054_inspiration_Vol.1-61.png',
 	iconPic: '/funeral/js/images/clothes copy 4@2x.png',
-	textPic: '/funeral/js/images/115.png'
+	textPic: '/funeral/js/images/1459802223_771171.png'
 }, {
-    cataId: 'NN',
+    cataId: 'NN-X-N',
 	cataName: '其他服务',
 	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 	cataPic: '/funeral/js/images/noun_27116.png',
-	iconPic: '',
-	textPic: '/funeral/js/images/115.png'
+	iconPic: '/funeral/js/images/clothes copy 4@2x.png',
+	textPic: '/funeral/js/images/otherText.png'
 }
 ];
 cata = findCata(type, catas);

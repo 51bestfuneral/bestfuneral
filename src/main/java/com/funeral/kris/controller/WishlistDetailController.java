@@ -364,7 +364,7 @@ public class WishlistDetailController {
 		while (iterator.hasNext()) {
 			WishlistDetail detail = (WishlistDetail) iterator.next();
 
-			if (detail.getSelected().intValue() == 1) {
+			if (detail.getSelected()!= null && detail.getSelected().intValue() == 1) {
 				count = count + detail.getCount();
 				selectedWishDetailIdList.add(detail.getWishlistDetailId());
 

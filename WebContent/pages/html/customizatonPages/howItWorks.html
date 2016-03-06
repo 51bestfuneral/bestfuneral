@@ -132,7 +132,7 @@
 
  	<div id="downloadButton">
  		
- 		<a href="/funeral/template/test.pdf"  download="调查问卷.pdf">点击下载</a>
+ 		<a disabled>点击下载</a>
  		
  		</div>
 
@@ -358,7 +358,8 @@ left:120px;
 top:150px;
 border-radius: 5px ;
 text-align:center;	
-
+opacity: 0.5;
+cursor default;
 }
 
 #serviceMessage:hover{ cursor:pointer;	}
@@ -379,6 +380,7 @@ background-color: #ec4a82;;
 float:left;
 position:relative; 
 left:10px;
+cursor: default;
 }
 
 #serviceintro p{
@@ -446,6 +448,7 @@ left:10px;
 top:16px;
 text-align:center;	
 float:left;
+cursor: default;
 }	
 		
 
@@ -592,8 +595,9 @@ position:relative;
 left:120px;
 top:120px;
 border-radius: 5px ;
-text-align:center;	
-
+text-align:center;
+cursor: default;
+opacity: 0.5;
 }
 
 
@@ -604,6 +608,7 @@ font-family: STHeitiSC-Light;
 font-size:21px;
 line-height:48px;
 text-decoration:none;
+cursor: default;
 	}
 
 #downloadButton:hover{ cursor:pointer;	}

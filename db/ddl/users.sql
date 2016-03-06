@@ -25,6 +25,8 @@ CREATE TABLE users (
   contactor_mail  varchar(200),
   contactor_phone  varchar(20),
   contactor_address varchar(100),
-  contactor_relate varchar(20)
+  contactor_relate varchar(20),
+  request_date varchar(20),
+  request_cemetery varchar(20)
   PRIMARY KEY (user_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

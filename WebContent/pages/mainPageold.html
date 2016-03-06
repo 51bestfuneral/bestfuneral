@@ -728,12 +728,12 @@ function muskPage() {
 				$(this).fadeTo('slow', 0.5); 
 		});
 }
-function muskPageForProduct(id) {
+function muskPageForProduct(id, type) {
 	    var parentWidth = $(".coverDiv").width(),
 		    frameWidth = $(".detailFrame").width();
 				
 		muskPage();
-		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
+		$(".detailFrame").attr("src","component/productDetail"+ type +".html?id="+id);
 		$(".closeCoverDiv").css({
 			right: (parentWidth-frameWidth)/2,
 			left: 'auto',

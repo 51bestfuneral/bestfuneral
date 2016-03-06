@@ -607,16 +607,18 @@ body {
 	    margin-left: 55%;
 		overflow: auto;
 	}
+	#memberDesc1 .memberDesc {
+	    margin-left: 31%;
+	}
 	.memberState {
 	    margin-top: 52px;
-	    width: 327px;
-		height: 170px;
+	    width: 427px;
+		height: 250px;
 		padding-left: 30px;
 		padding-top: 42px;
 		padding-right: 35px;
-		box-shadow: 5px 5px 3px 0px #c7c7c7;
 		text-align: left;
-		background: #ffffff;
+		background: transparent;
 	}
 	#memberDesc4 .memberState {
 	    margin-top: 102px;
@@ -628,13 +630,16 @@ body {
 	    margin-left: 40%;
 	}
 	#memberDesc3 .memberState {
-	    height: 200px;
+	    height: 220px;
+	}
+	#memberDesc1 .memberState {
+	    height: 160px;
 	}
 	.memberState p {
-	    font-size: 17px;
+	    font-size: 20px;
 		color: #3d4351;
 		line-height: 21px;
-		font-weight: lighter;
+		font-weight: bold;
 	}
 	.membersSelect {
         overflow: auto;
@@ -1021,6 +1026,11 @@ body {
 	    border-radius: 5px;
 	    margin-right: 270px;
 	    margin-top: 50px;
+	    opacity: 0.8;
+	    cursor: pointer;
+	}
+	#detailCalculator:hover {
+	    opacity: 1;
 	}
 	#detailCalculator p {
 	    font-size: 25px;
@@ -1189,12 +1199,12 @@ function muskPage() {
 				$(this).fadeTo('slow', 0.5); 
 		});
 }
-function muskPageForProduct(id) {
+function muskPageForProduct(id, type) {
 	    var parentWidth = $(".coverDiv").width(),
 		    frameWidth = $(".detailFrame").width();
 				
 		muskPage();
-		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
+		$(".detailFrame").attr("src","component/productDetail"+ type +".html?id="+id);
 		$(".closeCoverDiv").css({
 			right: (parentWidth-frameWidth)/2 - 30,
 			left: 'auto',
@@ -1232,12 +1242,12 @@ function muskPageForProduct(id) {
 			<div id="calculator">
 			    <div id="normalFee">
 			        <h2>一般葬礼花费</h2>
-			        <h1>￥12345</h1>
+			        <h1>￥<span id="otherPrice">11000</span></h1>
 			    </div>
 			    <div id="nianFee">
 			        <h2>念念花费</h2>
-			        <h1>￥2345</h1>
-			        <h3>（节省¥10000）</h3>
+			        <h1>￥<span id="nianPrice">8000</span></h1>
+			        <h3>（节省¥<span id="savePrice">3000</span>）</h3>
 			    </div>
 			    <div id="calculatorBar">
 			        <div class="statusBarPoint" id="1">
@@ -1263,8 +1273,8 @@ function muskPageForProduct(id) {
 		<div id="statusBarDesc">
 		    <div id="firstDiv"><p>+基础葬礼</p></div>
 		    <div><p>+入殓师</p></div>
-		    <div><p>+净身服务</p></div>
-		    <div><p>+寺庙服务</p></div>
+		    <div><p>+法事服务</p></div>
+		    <div><p>+告别式</p></div>
 		</div>
 		<div id="detailCalculator"><p>详细计算</p></div>
 	</div>
@@ -1281,21 +1291,21 @@ function muskPageForProduct(id) {
 		<div class="membersContent" id="memberDesc2">
 			<div class="memberDesc">
 				<div class="memberState">
-					<p>我以前不会上网，每次要买点什么都得让老伴去店里买，现在方便了，儿子教我们上念念网，轻松一点，很快就送到了。而且，同样的东西，在念念买便宜了将近一半，真是让我们二老又省钱又省心。</p>
+					<p>我先生几年前过世了，对全家人来说是晴天霹雳，我和孩子们都沉浸在无尽的悲痛之中，生活负担更是变得沉重起来，一直持续了好多年，才慢慢走出阴霾。现在有了念念能够为我进行提前规划，这样也彻底免去了我将来的后顾之忧，我和儿女们就都可以放心了。</p>
 				</div>
 			</div>
 		</div>
 		<div class="membersContent" id="memberDesc3">
 			<div class="memberDesc">
 				<div class="memberState">
-					<p>我以前不会上网，每次要买点什么都得让老伴去店里买，现在方便了，儿子教我们上念念网，轻松一点，很快就送到了。而且，同样的东西，在念念买便宜了将近一半，真是让我们二老又省钱又省心。</p>
+					<p>以往每到清明、冬至要准备点什么都得让老伴去店里买。后来儿子教我们，只要上念念网，轻轻松松鼠标一点，要的东西很快就送到了。而且，同样的东西，在念念买便宜很多，真是让我们两老省钱又省心！</p>
 				</div>
 			</div>
 		</div>
 		<div class="membersContent" id="memberDesc4">
 			<div class="memberDesc">
 				<div class="memberState">
-					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+					<p>老伴过世后，心里总是空荡荡的，经常想起她。但岁数越来越大了，儿子儿媳又在国外忙于工作，每到老伴的忌日，想去探望她就成了我的烦心事。好在有念念的一群孩子们，每次只要我打一个电话，他们马上就会为我准备好一切，并专人专车接送我，真的很感谢他们！</p>
 				</div>
 			</div>
 		</div>
@@ -1376,7 +1386,7 @@ function muskPageForProduct(id) {
 		</div>
 
 		<div class="block">
-			<p>通过网上定制告诉我们您的需求</p>
+			<p>告诉我们您的需求</p>
 			<button type="button" class="btn btn-default contactButton" id="startButton">开始定制</button>
 			<div id="askGroupRight">
 				<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
@@ -1410,6 +1420,9 @@ $("#topHalfLevel").css({
 	"background-image": "url('../js/images/"+picName+"')"
 });
 $(function() {
+	$("#message").click(function() {
+		window.location.href = "funeralDesignPage.html";
+	});
     $('.ck-slide').ckSlide({
 				autoPlay: true,//默认为不自动播放，需要时请以此设置
 				dir: 'x',//默认效果淡隐淡出，x为水平移动，y 为垂直滚动
@@ -1524,9 +1537,31 @@ window.onload=function(){
 		var id = parseInt($(this)[0].id) - 1,
 		    left = id* 175 - 15;
 		$("#cursorPoint").animate({'margin-left': left+'px'});
-
+		if (id === 0) {
+        	$("#otherPrice")[0].innerText = '11000';
+        	$("#nianPrice")[0].innerText = '8000';
+        	$("#savePrice")[0].innerText = '3000';
+        }
+        if (id === 1) {
+        	$("#otherPrice")[0].innerText = '14500';
+        	$("#nianPrice")[0].innerText = '10000';
+        	$("#savePrice")[0].innerText = '4500';
+        }
+        if (id === 2) {
+        	$("#otherPrice")[0].innerText = '18000';
+        	$("#nianPrice")[0].innerText = '13000';
+        	$("#savePrice")[0].innerText = '5000';
+        }
+        if (id === 3) {
+        	$("#otherPrice")[0].innerText = '23000';
+        	$("#nianPrice")[0].innerText = '17000';
+        	$("#savePrice")[0].innerText = '6000';
+        }
 	});
 };
+$("#detailCalculator").click(function() {
+	window.location.href='/funeral/pages/designProposal.html';
+});
 $("body").on("click",".singleMember",function() {
 	var id = $(this)[0].id;
     $(".membersContent").fadeOut();

@@ -85,6 +85,25 @@ public class UserController {
 		return 0;
 	}
 
+	@ResponseBody
+	@RequestMapping(value="/editCemeteryRequest", method=RequestMethod.POST)
+	public Integer edditingUserRequest(@RequestBody User user, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session!=null &&session.getAttribute(LoginConstants.LoginStatus) !=null && 
+				session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
+			User userInsession = (User)session.getAttribute("user");
+			userInsession.setRequestCemetery(user.getRequestCemetery());
+			userInsession.setRequestDate(user.getRequestDate());
+			userInsession.setRequestPhone(user.getRequestPhone());
+			userService.updateResource(userInsession);
+			session.setAttribute("user", userInsession);
+		}
+		else {
+		    return 1;
+		}
+		return 0;
+	}
+
 	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
 	public ModelAndView deleteUser(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("home");

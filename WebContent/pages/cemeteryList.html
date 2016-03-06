@@ -128,13 +128,14 @@
 </style>
 <script type="text/javascript">
 
-	var app = angular.module('myApp', []);
+	var app = angular.module('myApp', []),
+	    cemeteryListBean;
 	 app.controller('cemetery', function($scope, $http) {
 	 	
 	 	$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
        	
   $scope.cemeteryBeans=response;
-  
+  cemeteryListBean = response;
  }) 	
  	 
  		 	$http.get("/funeral/cemetery/listAllTemple").success(function(response) {
@@ -177,7 +178,7 @@
 	<div id="visitButton">
 	    <p>在线预约</p>
 	</div>
-	<p>我们会帮您安排参观访�?/p>
+	<p>我们会帮您安排参观访问</p>
 </div>
 <div id="cemeteryList">
     <div class="listTitle">
@@ -221,8 +222,10 @@
 </div>
 </body>
 <script>
-	
-	
-	
+window.onload=function() {
+	$("#visitButton").click(function() {
+		popupRequestPage();
+	});
+}
 </script>
 </html>

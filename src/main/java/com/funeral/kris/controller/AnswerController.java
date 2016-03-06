@@ -83,9 +83,6 @@ public class AnswerController {
 		Integer level = Integer.valueOf(request.getParameter("level"));
 		String ansListId = userId +"-"+ String.valueOf(a.getTime());
 		for (Answer answer : answers) {
-			answer.setAnsListId(ansListId);
-			answer.setUserId(userId);
-		    answerService.addResource(answer);
 
 		    if (answer.getOptionId() != null && answer.getOptionId()>0) {
 		        generateOptionRule(answer.getOptionId(), level);
@@ -157,7 +154,7 @@ public class AnswerController {
 		for (WishlistDetail detail: restDetails) {
 			if (detail.getSourceId()!= null && detail.getSourceId().equals(1)) {
 			wishlist.setPrice(wishlist.getPrice().add(detail.getPrice()));
-			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(detail.getOriginalPrice()));
+			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(detail.getOriginalPrice()==null?BigDecimal.ZERO:detail.getOriginalPrice()));
 			}
 		}
 		BigDecimal typePrice = BigDecimal.ZERO;
