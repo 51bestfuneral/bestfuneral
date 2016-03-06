@@ -40,9 +40,6 @@
 </div>
 
 <div id="companyIntroduction">
-	<div class="section_title_white">
-		<h2>为什么选择我们？</h2>
-	</div>
 	<div id="companyIntroductionDetail">
 		<div class="block">
 			<div id="icon1"></div>
@@ -64,7 +61,89 @@
 	</div>
 </div>
 
+<div id="companyIntroduction" class="service">
+	<div class="section_title">
+		<h2>我们的主要服务有哪些？</h2>
+	</div>
+	<div id="companyIntroductionDetail">
+		<div class="block">
+			<div class="pic">
+				<img  src="/funeral/pages/html/customizatonPages/assets/images/support.png">		
+			</div>
+			<div id="label1"><p>咨询服务</p></div>
+			<div id="detail1"><p>和葬礼有关的一切，无论您有任何疑问，都可以随时联系念念。我们的顾问团队将会第一时间为您暖心解答。所有的咨询环节都是免费的</p></div>	
+		</div>
+
+		<div class="block">
+			<div class="pic">
+				<img  src="/funeral/pages/html/customizatonPages/assets/images/FuneralCustomization.png">		
+			</div>
+			<div id="label2"><p>葬礼定制</p></div>
+			<div id="detail2"><p>不了解“葬礼定制”？没关系，在念念，您只需花上一点时间，回答几个简单的问题，就能得到一套专属于您的葬礼方案；当然，您也可以直接选购您需要的所有产品和服务。</p></div>	
+		</div>
+
+		<div class="block">
+			<div class="pic">
+				<img  src="/funeral/pages/html/customizatonPages/assets/images/shopping-cart.png">		
+			</div>
+			<div id="label3"><p>产品购买</p></div>
+			<div id="detail3"><p>通过我们，您可以在线采购各类殡葬祭祀产品。我们会将最精致实惠的产品，以最快的速度，妥善递送到您的手上。</p></div>		
+		</div>
+	</div>
+	<div id="companyIntroductionDetail">
+		<div class="block">
+			<div class="pic">
+				<img  src="/funeral/pages/html/customizatonPages/assets/images/Service.png">		
+			</div>
+			<div id="label1"><p>服务定制</p></div>
+			<div id="detail1"><p>联系我们，您可以选择您需要的殡葬祭祀服务。我们会充分尊重您的意愿，给您最贴心的建议和指导，并提供最符合您需求的服务。</p></div>	
+		</div>
+
+		<div class="block">
+			<div class="pic">
+				<img  src="/funeral/pages/html/customizatonPages/assets/images/grave.png">		
+			</div>
+			<div id="label2"><p>墓地选购</p></div>
+			<div id="detail2"><p>我们与多家墓地陵园都建立了战略合作关系，这里有关于墓地陵园的一切信息，您可以在念念自由地进行浏览和选择。一旦有了选择意向，我们将会有免费专车接送您实地选购。</p></div>	
+		</div>
+
+		<div class="block">
+			<div class="pic">
+				<img  src="/funeral/pages/html/customizatonPages/assets/images/atm.png">		
+			</div>
+			<div id="label3"><p>葬礼金融</p></div>
+			<div id="detail3"><p>从来没想过“葬礼”和“金融”这两者之间可以产生关联？没错，念念为您提供一整套灵活可变的金融方案来应对解决葬礼开销。让您的财产享有最大程度的保值增值空间，而不过度增加您的费用负担。</p></div>		
+		</div>
+	</div>	
 </div>
+
+<div id="companyIntroduction" class="contact">
+	<div class="section_title">
+		<h2>如何联系我们？</h2>
+	</div>
+	<div id="companyIntroductionDetail">
+		<div class="block">
+			<p>给我们打电话</p>
+			<h1 style="color: #ec4a82;">400-166-0030</h1>
+		</div>
+
+		<div class="block">
+			<p>通过网上定制告诉我们您的需求</p>
+			<button type="button" class="btn btn-default contactButton" id="startButton">开始定制</button>
+			<div id="askGroupRight">
+				<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
+			</div>
+		</div>
+
+		<div class="block">
+			<p>跟我们的客服在线聊天</p>
+			<div id="contactButtonGroup">
+			    <button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--
 
 <div class="serviceIntroduction">
 	我们的主要服务有哪些？
@@ -149,8 +228,7 @@
 		</div>
 </div>
 
-
-<!--<div class="location"></div> -->
+<div class="location"></div> 
 		
 <div id="contactInfo">
 <div id="contactInformation">
@@ -192,7 +270,9 @@
         <button type="button" class="btn btn-default contactButton" id="messageButton">提交</button>
 	</div>
 </div>
-</div>			
+</div>
+
+-->			
 <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 
 			
@@ -293,6 +373,43 @@ left:0px;
 right:0%;
 top:-5px;
 background:#ed4b83;
+padding-top: 20px;
+}	
+
+#companyIntroduction.service{
+width:100%;
+position:relative; 
+left:0px; 
+right:0%;
+top:-5px;
+background: white;
+padding-top: 20px;
+}	
+
+#companyIntroduction.service p{
+color: #777777;
+}	
+
+#companyIntroduction.contact{
+width:100%;
+position:relative; 
+left:0px; 
+right:0%;
+top:-5px;
+background: #F7F9FA;
+padding-top: 20px;
+padding-bottom: 20px;
+}	
+
+#companyIntroduction.contact p{
+color: #777777;
+font-size: 16px;
+}	
+
+#companyIntroduction.contact .block{
+background-color: white;
+font-size: 16px;
+padding-top: 50px;
 }	
 
 .section_title_white {
@@ -303,6 +420,12 @@ background:#ed4b83;
 	text-align: center;
 }
 
+.section_title {
+	display: block;
+	margin: 20px auto;
+	float: center;
+	text-align: center;
+}
 
 #companyIntroductionDetail
 {
@@ -311,10 +434,7 @@ background:#ed4b83;
     table-layout: fixed; /*Optional*/
     border-spacing: 10px; /*Optional*/
 }
-.block
-{
-    display: table-cell;
-}
+
 	
 #companyIntroductionDetail{
 border:0px solid #ff5274;
@@ -335,13 +455,13 @@ width: 42px;
 height: 43px;
 border: solid 0px #ffffff;	
 position:relative; 
-margin: 0 auto;
+margin: 20px auto;
 background:url(/funeral/pages/html/customizatonPages/assets/images/aboutUs/head.png) ;
 background-repeat:no-repeat;
 }	
 	
 #icon2{
-margin: 0 auto;
+margin: 20px auto;
 width: 42px;
 height: 43px;
 border: solid 0px #ffffff;	
@@ -351,7 +471,7 @@ background-repeat:no-repeat;
 }	
 
 #icon3{
-margin: 0 auto;
+margin: 20px auto;
 width: 42px;
 height: 43px;
 border: solid 0px #ffffff;	
@@ -359,6 +479,8 @@ position:relative;
 background:url(/funeral/pages/html/customizatonPages/assets/images/aboutUs/price.png) ;
 background-repeat:no-repeat;
 }		
+
+
 		
 #label1{
 float:center;
@@ -423,8 +545,10 @@ position:relative;
 left:0%; 
 top:10px;
 text-align:center;
-line-height:44px;overflow:hidden;
-color:#707070; font-family: STHeitiSC-Light; font-size:32px;
+line-height:44px;
+color:#707070; 
+font-family: STHeitiSC-Light; 
+font-size:32px;
 background:#ffffff;
 padding-top:20px;
 	}	
@@ -472,13 +596,10 @@ border:0px solid #ff5274;
 
 }
 
-#pic1{
-margin:0 auto;
-width:47px;
-height:52px;
+.block .pic{
+margin:20px auto;
 position:relative; 
-left:0%; 
-right:0%;
+
 }
 
 #title1{
@@ -789,11 +910,7 @@ line-height:20px;overflow:hidden;
 color:#777777; face: "OpenSans-Light"; font-size:16px;
 }	
 
-
-
-
-
-		
+	
 .location{
 width:100%;
 height:685px;
@@ -888,8 +1005,8 @@ background-repeat:no-repeat;
     -o-transition:opacity 0.5s;
 }
 #startButton {
-    width: 118px;
-	float: left;
+    width: 70%;
+	float: center;
 	height: 44px;
 	background-color: #ec4a82;
 	margin: 0px;
@@ -904,15 +1021,14 @@ background-repeat:no-repeat;
 	color: #ffffff;
 }
 #askGroupRight {
-    float: left;
-	height: 44px;
-	width: 150px;
-	padding-left: 10px;
-	color: #a9aeb0;
-	padding-top: 7px;
+	float: center;
+    height: 44px;
+    color: #a9aeb0;
+    padding-top: 5px;
+    margin: 0 auto;
 }
-#askGroupRight p{
-    font-size: 12px;
+#askGroupRight h5{
+    font-size: 10px;
 	line-height: 20px;
 	margin: 0px;
 }
@@ -1019,6 +1135,7 @@ background-repeat:no-repeat;
     background-color: #ccc;
     opacity: 0.5;
 }
+
 #wechatFrame {		
 		position:relative;
 		left:410px;
@@ -1046,7 +1163,8 @@ background-repeat:no-repeat;
 	<h6>微信公众号</h6>
 	<img src="/funeral/js/images/erCode.jpg"></img>
 </div>
-	
+
+
 	
 <script>
 
