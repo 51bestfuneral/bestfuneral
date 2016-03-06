@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.funeral.kris.model.Cart;
+import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
-import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.AlipayService;
+import com.funeral.kris.service.CartDetailService;
+import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.ExpressInfoService;
 import com.funeral.kris.service.FeeCollectionService;
 import com.funeral.kris.service.MailService;
@@ -46,6 +49,10 @@ public class AlipayController {
 	@Autowired
 	private FeeCollectionService feeCollectionService;
 	
+	@Autowired
+	private CartService cartService;
+	@Autowired
+	private CartDetailService cartDetailService;
 	@Autowired
 	private MailService mailService;
 	
@@ -71,30 +78,12 @@ public class AlipayController {
 
 		Order order = orderService.getOpenByUserId(user.getUsrId());
 
-		List<Wishlist> wishlist = wishlistService.getResources();
-
-		Iterator iterator = wishlist.iterator();
-
-		Wishlist wishs = new Wishlist();
-
-		while (iterator.hasNext()) {
-
-			wishs = (Wishlist) iterator.next();
-
-			if (wishs.getUserId().intValue() == user.getUsrId().intValue()) {
-
-				break;
-
-			}
-
-		}
-
 		
-		System.out.println("------getWishlistId  "+wishs.getWishlistId());
+        int cartId=user.getCartId();
 		
 		
-		List<WishlistDetail> detailList = wishlistDetailService
-				.getSelectedWishlistDetailByWishListId(wishs.getWishlistId());
+		
+		List<CartDetail> detailList = cartDetailService.getResourceByCartId(cartId);
 
 		BigDecimal cost = BigDecimal.ZERO;
 
@@ -111,7 +100,7 @@ public class AlipayController {
 
 			while (it.hasNext()) {
 
-				WishlistDetail detail = (WishlistDetail) it.next();
+				CartDetail detail = (CartDetail) it.next();
 
 				cost = cost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
 
@@ -152,7 +141,7 @@ public class AlipayController {
 			mailService.send(messageInfo);
 			// send SMS
 			Map<String ,String> smsInfo = new HashMap<String,String>();
-			smsInfo.put("phone", "13771164045");
+			smsInfo.put("phone", "18762605155");
 			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
@@ -179,16 +168,15 @@ public class AlipayController {
 	@ResponseBody
 	@RequestMapping(value = "/getTotalPay", method = RequestMethod.GET)
 	public BigDecimal getTotalPay(HttpServletRequest request) {
-		String wishlistId = request.getParameter("wishlistId");
+		String cartId = request.getParameter("cartId");
 
-		Wishlist wishlist = wishlistService.getResource(Integer.parseInt(wishlistId));
+		Cart cart = cartService.getResource(Integer.parseInt(cartId));
 
-		System.out.println(" ------wishlist=" + wishlist);
 
-		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(wishlist.getUserId());
+		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(cart.getUserId());
 		System.out.println(" ------expressInfo=" + expressInfo);
 
-		BigDecimal wishFee = wishlist.getPrice();
+		BigDecimal cartFee = cart.getPrice();
 		BigDecimal expressFee;
 		if(expressInfo.getExpressFee()==null)
 		{
@@ -199,7 +187,7 @@ public class AlipayController {
 			expressFee=	expressInfo.getExpressFee();
 		}
 
-		BigDecimal totalPay = wishFee.add(expressFee);
+		BigDecimal totalPay = cartFee.add(expressFee);
 
 		return totalPay;
 

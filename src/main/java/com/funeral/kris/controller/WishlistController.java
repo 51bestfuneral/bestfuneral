@@ -260,21 +260,7 @@ public class WishlistController {
 		return wishlists;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/listCart", method = RequestMethod.GET, produces = "application/json")
-	public Cart listOfCart(HttpServletRequest request) {
-
-		HttpSession session = request.getSession(true);
-		User user = (User) session.getAttribute("user");
-		if (user != null) {
-		    Integer cartId = user.getCartId();
-		    Cart cart = cartService.getResource(cartId);
-		    return cart;
-		}
-		else {
-			return null;
-		}
-	}
+	
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editWishlistPage(@PathVariable Integer id) {

@@ -12,13 +12,21 @@ public class CartlistJson {
 	private Integer cartDetailId;
 	private Integer cartId;
 	private BigDecimal originalPrice;
-	private BigDecimal sumPrice;
+	private BigDecimal selectedPrice;
+	private Integer selected;
+	 
 
-	public BigDecimal getSumPrice() {
-		return sumPrice;
+	public Integer getSelected() {
+		return selected;
 	}
-	public void setSumPrice(BigDecimal sumPrice) {
-		this.sumPrice = sumPrice;
+	public void setSelected(Integer selected) {
+		this.selected = selected;
+	}
+	public BigDecimal getSelectedPrice() {
+		return selectedPrice;
+	}
+	public void setSelectedPrice(BigDecimal selectedPrice) {
+		this.selectedPrice = selectedPrice;
 	}
 	public String getWishName() {
 		return wishName;

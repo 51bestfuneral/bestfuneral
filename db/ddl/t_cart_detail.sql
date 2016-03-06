@@ -9,5 +9,6 @@ CREATE TABLE t_cart_detail (
   updated_date  datetime default  NOW(),
   source_id    integer,
   wish_id    integer,
+  selected    integer default 0,
   PRIMARY KEY (cart_detail_id)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

@@ -1,6 +1,8 @@
 package com.funeral.kris.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.funeral.kris.bean.WishCateBean;
 import com.funeral.kris.dao.TWishCategoryDAO;
 import com.funeral.kris.model.TWishCategory;
+import com.funeral.kris.model.TWishCategorySub;
+import com.funeral.kris.service.TWishCategorySubServiceImpl.SortByAge;
 
 @Service
 @Transactional
@@ -93,6 +97,8 @@ public class TWishCategoryServiceImpl implements TWishCategoryService {
 
 			List subwishList = tWishCategorySubService.loadByCateId(tWishCategory.getCateId().intValue());
 
+
+			
 			wishCateBean.setSubwishList(subwishList);
 
 			wishCateBean.setSubCateSize(subwishList.size());
@@ -111,5 +117,7 @@ public class TWishCategoryServiceImpl implements TWishCategoryService {
 
 		return wishCateBeanList;
 	}
+	
+	
 
 }

@@ -76,7 +76,7 @@
 		</div>
 
 		<div class="block">
-			<div class="pic">
+			<div class="pic"   id='design_'>
 				<img  src="/funeral/pages/html/customizatonPages/assets/images/FuneralCustomization.png">		
 			</div>
 			<div id="label2"><p>葬礼定制</p></div>
@@ -84,7 +84,7 @@
 		</div>
 
 		<div class="block">
-			<div class="pic">
+			<div class="pic"   id='shopping_'>
 				<img  src="/funeral/pages/html/customizatonPages/assets/images/shopping-cart.png">		
 			</div>
 			<div id="label3"><p>产品购买</p></div>
@@ -93,7 +93,7 @@
 	</div>
 	<div id="companyIntroductionDetail">
 		<div class="block">
-			<div class="pic">
+			<div class="pic"  id='service_'>
 				<img  src="/funeral/pages/html/customizatonPages/assets/images/Service.png">		
 			</div>
 			<div id="label1"><p>服务定制</p></div>
@@ -101,7 +101,7 @@
 		</div>
 
 		<div class="block">
-			<div class="pic">
+			<div class="pic" id='cemetery_'>
 				<img  src="/funeral/pages/html/customizatonPages/assets/images/grave.png">		
 			</div>
 			<div id="label2"><p>墓地选购</p></div>
@@ -607,7 +607,7 @@ border:0px solid #ff5274;
 .block .pic{
 margin:20px auto;
 position:relative; 
-
+cursor:pointer;
 }
 
 #title1{
@@ -1176,6 +1176,16 @@ background-repeat:no-repeat;
 
 	
 <script>
+
+ $("#design_").click(function() {
+    	window.location.href = "/funeral/pages/designProposal.html";
+    });
+ $("#shopping_").click(function() {
+    	window.location.href = "/funeral/pages/productAndService.html";
+    });
+  $("#cemetery_").click(function() {
+    	window.location.href = "/funeral/pages/cemeteryList.html";
+    });
 
     $("#startButton").click(function() {
     	window.location.href = "/funeral/pages/designProposal.html";
