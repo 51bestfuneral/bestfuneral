@@ -194,7 +194,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 	}
 
 	if (me[0].id === 'nextStep') {
-		$.ajax({
+/* 		$.ajax({
 		    url: '/funeral/wishlist/add?wishlistId='+parent.wishlistId,
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
@@ -213,8 +213,8 @@ $(document.body).on("click",".operatorButton", function( event ) {
 			error: function(error) {
 				//$("#messageSent")[0].value = '';
 			}
-		});
-	    window.parent.location.href='/funeral/pages/paymentInfo.html';;
+		}); */
+	    window.parent.location.href='/funeral/pages/wishList.html';;
 	}
 	else {
 	    $(".questionCenter").each(function(){
