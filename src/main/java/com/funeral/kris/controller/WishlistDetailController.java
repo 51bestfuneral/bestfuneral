@@ -106,7 +106,6 @@ public class WishlistDetailController {
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
 		Integer wishId = Integer.valueOf(request.getParameter("wishId"));
 		
-		
 		Wishlist wishlist = wishlistService.getResource(wishlistId);
 		Date sysDate = new Date();
 		if (wishsMap == null) {

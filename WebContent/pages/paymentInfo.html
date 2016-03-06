@@ -3,7 +3,7 @@
 <head id="head"><title>
     支付信息
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers᾿
+								deliver smart solutions, helping you to exceed your customers�?
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -348,9 +348,9 @@ span {
 				<div class="fieldContent">
 				  <select class="form-control"  style=" font-size: 19px;line-height: 44px;font-weight: bold;"  id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
 							<option>请选择</option>
-						<option value='1'  ><p  class="form-control">江苏省</p></option>
-					  <option value='2'  ><p  class="form-control">上海市</p></option>
-					  <option value='3'  ><p  class="form-control">浙江省</p></option>
+						<option value='1'  ><p  class="form-control">江苏�?/p></option>
+					  <option value='2'  ><p  class="form-control">上海�?/p></option>
+					  <option value='3'  ><p  class="form-control">浙江�?/p></option>
 
 					</select>   
 				    
@@ -400,7 +400,7 @@ span {
 		
 			<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人姓名<font size="3" color="red">*</font></p>
+				    <p>备用联系人姓�?font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input  id="backupName" style=" font-size: 19px;line-height: 44px;font-weight: bold;"  type="text" class="form-control" ng-model="currentContacter.backupName"></input>
@@ -411,7 +411,7 @@ span {
 					
 				<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人电话<font size="3" color="red">*</font></p>
+				    <p>备用联系人电�?font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input id="backupPhone" style=" font-size: 19px;line-height: 44px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
@@ -433,32 +433,32 @@ span {
 		<div class="shippingMethod">
 		    <p>推荐方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod1"  value="1" checked>
-			<span class="radioDesc">暂存在念念</span>
+			<span class="radioDesc">暂存在念�?/span>
 			<span class="normalDesc">（我们会暂时替您保管，在需要的时候提供给怿）</span>
 	    </div>
 		<div class="shippingMethod">
 		    <p>传统方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod2" value="2">
 			<span class="radioDesc">标准</span>
-			<span class="normalDesc">（免费, 2-3日送达）</span>
+			<span class="normalDesc">（免�? 2-3日送达�?/span>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod3" value="3">
-			<span class="radioDesc">快递</span>
-			<span class="normalDesc">（1日送达，20块钱快递费用）</span>
+			<span class="radioDesc">快�?/span>
+			<span class="normalDesc">�?日送达�?0块钱快递费用）</span>
 	    </div>
 	</div>
 	<div id="footerContain">
 	    <div id="footer">
 	    	
 	    	 <div id="prevButton">
-			    <p>上一步</p>
+			    <p>上一�?/p>
 			</div>
 		    <div id="nextButton">
-			    <p>下一步</p>
+			    <p>下一�?/p>
 			</div>
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
@@ -559,7 +559,7 @@ function validatemobile(vid)
         }    
         if(mobile.value.length!=11)
         {
-            alert('请输入11位有效的手机号码！');
+            alert('请输�?1位有效的手机号码�?);
             mobile.focus();
             return false;
         }
@@ -571,7 +571,7 @@ $("#nextButton").click(function () {
 	
 
 if( $scope.currentContacter.contactName==null||$scope.currentContacter.contactName==""){
-	alert("请输入联系人姓名！");
+	alert("请输入联系人姓名�?);
 	var contactName = document.getElementById("contactName");
   contactName.focus();
 	return;
@@ -579,7 +579,7 @@ if( $scope.currentContacter.contactName==null||$scope.currentContacter.contactNa
 
 
 if( $scope.currentContacter.phone==null||$scope.currentContacter.phone==""){
-	alert("请输入联系人电话！");
+	alert("请输入联系人电话�?);
 	var contactPhone = document.getElementById("contactPhone");
   contactPhone.focus();
 	return;
@@ -602,7 +602,7 @@ if( $scope.currentContacter.phone==null||$scope.currentContacter.phone==""){
 	}
 		
 	if( $scope.currentContacter.province==null||$scope.currentContacter.province==""||$scope.currentContacter.province=="请选择"){
-	alert("请选择省份！");
+	alert("请选择省份�?);
 	var provinceSelect = document.getElementById("provinceSelect");
   provinceSelect.focus();
 	return;
@@ -616,7 +616,7 @@ if( $scope.currentContacter.phone==null||$scope.currentContacter.phone==""){
 	}
 
 if( $scope.currentContacter.detailAddress==null||$scope.currentContacter.detailAddress==""){
-	alert("请输入详细地址！");
+	alert("请输入详细地址�?);
 	var address = document.getElementById("address");
   address.focus();
 	return;
@@ -624,7 +624,7 @@ if( $scope.currentContacter.detailAddress==null||$scope.currentContacter.detailA
 		var address = document.getElementById("address");
 		
 		if(address.value.length<10){
-				alert("详细地址至少10个字！");
+				alert("详细地址至少10个字�?);
 
 			
   address.focus();
@@ -633,14 +633,14 @@ if( $scope.currentContacter.detailAddress==null||$scope.currentContacter.detailA
 		}
 
 if( $scope.currentContacter.backupName==null||$scope.currentContacter.backupName==""){
-	alert("请输入备用联系人姓名！");
+	alert("请输入备用联系人姓名�?);
 	var backupName = document.getElementById("backupName");
   backupName.focus();
 	return;
 	}
 
 if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPhone==""){
-	alert("请输入备用联系人电话！");
+	alert("请输入备用联系人电话�?);
 	var backupPhone = document.getElementById("backupPhone");
   backupPhone.focus();
 	return;

@@ -486,7 +486,6 @@ function handleCursor(tab, move) {
 function handleFinished(tabPage) {
     var count = $(".productTab").length;
 	var me = tabPage,
-		otherText = tabPage.find("#messageSent")[0].value,
 		tabId = tabPage[0].id.replace('-content', '');
 		    if (tabPage.find(".selected").length > 0 || otherText !== "") {
 		    	$("#"+tabId).find(".finishedIcon").fadeIn();
@@ -505,8 +504,7 @@ function generateQuestionList(answetList) {
     $(".questionCenter").each(function() {
 	    var answer = {
 		    questionId: $(this)[0].id.replace('-content',''),
-			optionId: $(this).find(".selected")[0].id,
-			answerDesc: $(this).find("#messageSent")[0].value
+			optionId: $(this).find(".selected")[0].id
 		};
 
 		answetList.push(answer);

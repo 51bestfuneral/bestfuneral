@@ -260,11 +260,8 @@
 		line-height: 35px;
 		margin: 0px;
 	}
-		#comments {
-	    padding-top: 50px;
-	}
 	.singleComment {
-	    width: 600px;
+	    width: 100%;
 		margin: 0 auto;
 		padding: 25px;
 	}
@@ -338,19 +335,134 @@
 	    width: 100%;
 	    padding-top: 16px;
 	}
+	.disableDiv {
+	   opacity: 0.4;
+	   cursor: default!important;
+	}
+	.disableDiv:hover {
+	    opacity: 0.4;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []),
     length = location.search.length,
-	type = location.search.substring(4, length);
+	type = location.search.substring(4, length),
+	wishInLocal,
+	wishlistId;
 app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wish/list?wishId="+type).success(function(response) {
 	    $scope.wish = response[0];
+	    wishInLocal = response[0];
 	});
 	$http.get("/funeral/comment/list?wishId="+type).success(function(response) {
 	    $scope.comments = response;
 	});
 });
+function unmusk() {
+	$(".jquery_addmask").remove();
+	$(".loadingShow").remove();
+}
+function validateInList() {
+	$.ajax({
+		url: '/funeral/wishlist/list',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+	        var resultCode =data;
+			if (data.length >= 0) {
+	            wishlistId = data[0].wishlistId;
+			}
+		    $.ajax({
+				url: '/funeral/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
+				type: 'get',
+				success:function(data){
+					var response = data;
+					for (var i=0;i<response.length;i++) {
+					    if (response[i].wishId === wishInLocal.wishId) {
+					    	$(".buttonDiv").addClass("disableDiv");
+					    	$(".buttonDiv").find("p")[0].innerText = "已加入购物车";
+					    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
+					    }
+					}
+				},
+				error: function(error) {
+					var response = error;
+					//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+				}
+			});
+		},
+		error: function(error) {
+		}
+	});
+}
+function muskCurrentPage() {
+    $(this).css({
+	    opacity: 0.5
+	});
+	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+		'z-index': 1000, 
+		width: $(document).width(), 
+		height: $(document).height(), 
+		'background-color': '#ccc', 
+		opacity: 0.5
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	var topLoading = (document.documentElement.clientHeight/2)-50;
+	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: topLoading+'px',
+		left: '0px',
+		'z-index': 1001, 
+		width: $(document).width(), 
+		height: '100px',
+		'text-align': 'center'
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	$(".loadingShow").show();
+}
+function addToWishlistAfterCheck(object) {
+	var data = {
+		"wishId": wishInLocal.wishId
+	},
+	dataList = [];
+	dataList.push(data);
+		$.ajax({
+			url: '/funeral/wishlistDetail/addSingle?wishlistId='+wishlistId+"&wishId="+wishInLocal.wishId,
+			type: 'post',
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(dataList),
+			dataType:'json',
+			success:function(data){
+				$(".buttonDiv").addClass("disableDiv");
+		    	$(".buttonDiv").find("p")[0].innerText = "已加入购物车";
+		    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
+				alert("已加入购物车！");
+				unmusk();
+			},
+			error: function(error) {
+				alert("加入购物车失败！");
+				unmusk();
+			}
+		});
+}
+function addToWishlist() {
+	muskCurrentPage();
+
+	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+		addToWishlistAfterCheck();
+	}
+	else {
+		window.parent.popupLogInPage();
+		unmusk();
+	}
+}
 </script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
 <div id="productDetail">
@@ -542,5 +654,13 @@ app.controller('products', function($scope, $http) {
 </div>
 </body>
 <script type="text/javascript">
+window.onload = function() {
+	validateInList();
+	$(".buttonDiv").click(function() {
+		if (!$(this).hasClass("disableDiv")){
+		    addToWishlist();
+		}
+	});
+}
 </script>
 </html>
