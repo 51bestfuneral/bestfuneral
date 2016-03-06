@@ -1050,6 +1050,128 @@ body {
 	    line-height: 60px;
 	    color: #ffffff;
 	}
+	.section_title {
+		display: block;
+		margin: 20px auto;
+		float: center;
+		text-align: center;
+	}
+	#companyIntroduction{
+	width:100%;
+	position:relative; 
+	left:0px; 
+	right:0%;
+	top:-5px;
+	background:#ed4b83;
+	padding-top: 20px;
+	}	
+
+	#companyIntroduction.contact{
+	width:100%;
+	position:relative; 
+	left:0px; 
+	right:0%;
+	top:-5px;
+	background: #F7F9FA;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	}	
+
+	#companyIntroduction.contact p{
+	color: #777777;
+	font-size: 16px;
+	}	
+
+	#companyIntroduction.contact .block{
+	background-color: white;
+	font-size: 16px;
+	padding-top: 50px;
+	}	
+
+	.block
+	{
+	    display: table-cell;
+	}
+
+	#companyIntroductionDetail
+	{
+	    display: table;
+	    width: 80%; /*Optional*/
+	    table-layout: fixed; /*Optional*/
+	    border-spacing: 10px; /*Optional*/
+	}
+
+		
+	#companyIntroductionDetail{
+	border:0px solid #ff5274;
+	position:relative; 
+	width: 70%;
+	text-align:center;
+	margin: 0 auto;
+	}	
+
+	#companyIntroductionDetail p{
+	margin: 0 20% 20px 20%; 
+	line-height: 1.5;
+	font-size: 14
+	}
+	
+		#askGroup {
+	    width: 268px;;
+		height: 44px;
+	}
+	#askGroupLeft {
+	    width: 118px;
+	    float: left;
+		height: 44px;
+		border-radius: 5px;
+		background: #ec4a82;
+		color: #ffffff;
+		text-align: center;
+		cursor: pointer;
+	    transition:opacity 0.5s;
+		-moz-transition:opacity 0.5s;
+	    -webkit-transition:opacity 0.5s;
+	    -o-transition:opacity 0.5s;
+	}
+	#startButton {
+	    width: 70%;
+		float: center;
+		height: 44px;
+		background-color: #ec4a82;
+		margin: 0px;
+		border-radius: 5px;
+		color: #ffffff;
+		text-align: center;
+		box-shadow: none!important;
+	}
+	#startButton p {
+	    font-size: 19px;
+		margin: 0px;
+		color: #ffffff;
+	}
+	#askGroupRight {
+		float: center;
+	    height: 44px;
+	    color: #a9aeb0;
+	    padding-top: 5px;
+	    margin: 0 auto;
+	}
+	#askGroupRight h5{
+	    font-size: 10px;
+		line-height: 20px;
+		margin: 0px;
+	}
+
+	.arrow-up {
+		width: 0; 
+		height: 0; 
+		border-left: 5px solid transparent;
+		border-right: 5px solid transparent;
+		
+		border-bottom: 5px solid black;
+	}
+
 </style>
 <script type="text/javascript">
 function GetRandomNum(Min,Max)
@@ -1244,6 +1366,7 @@ function muskPageForProduct(id) {
 		<div class="startPurchseBtn">
 		    <p>开始选购</p>
 		</div>
+		<div class="arrow-up"></div>
 	</div>
 </div>
 <div id="designProcessShow">
@@ -1260,50 +1383,28 @@ function muskPageForProduct(id) {
 		</div>
 	</div>
 </div>
-<div id="contactInfo">
-    <div id="contactInfoCoat">
-		<div id="contactInformation">
-    		<h2>联系我们</h2>
+<div id="companyIntroduction" class="contact">
+	<div class="section_title">
+		<h2>如何联系我们？</h2>
+	</div>
+	<div id="companyIntroductionDetail">
+		<div class="block">
+			<p>给我们打电话</p>
+			<h1 style="color: #ec4a82;">400-166-0030</h1>
 		</div>
-	    <div id="topContactInfo">
-			<div class="topContactInfoLeft">
-				<h2>给我们打电话</h2>
-				<h1>400-166-0030</h1>
-			</div>
-			<div class="topContactInfoRight">
-				<h2>告诉我们您的需求，我们来联系您</h2>
-		
-				<div id="askGroup">
-		    		<button type="button" class="btn btn-default contactButton" id="startButton"><p>开始</p></button>
-					<div id="askGroupRight">
-		        		<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
-					</div>
-				</div>
+
+		<div class="block">
+			<p>通过网上定制告诉我们您的需求</p>
+			<button type="button" class="btn btn-default contactButton" id="startButton">开始定制</button>
+			<div id="askGroupRight">
+				<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
 			</div>
 		</div>
-		<div id="bottomContactInfo">
-			<div id="bottomContactInfoLeft">
-				<h2>在线聊天</h2>
-		
-				<div id="contactButtonGroup">
-		    		<button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
-				</div>
-			</div>
-			<div id="wechatFrame" hidden>
-                <h6>微信公众号</h6>
-                <img src="../js/images/erCode.jpg"></img>
-	        </div>
-			<div id="bottomContactInfoRight">
-				<h2>直接给我们留言</h2>
-				<div id="messageUs">
-		    		<div id="messageUsLeft">
-			    		<span class="glyphicon glyphicon-comment"></span>
-					</div>
-					<div id="messageUsRight">
-			    		<input type="text" class="form-control" placeholder="留下任何您想跟我们说的话..." id="messageSent">
-					</div>
-				</div>
-        		<button type="button" class="btn btn-default contactButton" id="messageButton">提交</button>
+
+		<div class="block">
+			<p>跟我们的客服在线聊天</p>
+			<div id="contactButtonGroup">
+			    <button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
 			</div>
 		</div>
 	</div>
