@@ -131,7 +131,7 @@ cata = findCata(type, catas);
 	<div class="carouselProduct" ng-repeat="layouts in subLayouts">
 	    <div class="carousel slide productCarousel" id="referenceCarousel{{$index}}">
 			<ol class="carousel-indicators">
-				<li data-target="#referenceCarousel" data-slide-to="{{$index}}" class="{{layout.active}}" ng-repeat="layout in layouts track by $index"></li>
+				<li data-target="#referenceCarousel{{$parent.$index}}" data-slide-to="{{$index}}" class="{{layout.active}}" ng-repeat="layout in layouts track by $index"></li>
 			</ol>
             <div class="carousel-inner">
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">

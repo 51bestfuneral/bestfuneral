@@ -78,8 +78,7 @@ public class WishlistDetailController {
 		Wishlist wishlist = wishlistService.getResource(wishlistId);
 		wishlist.setPrice(BigDecimal.ZERO);
 		wishlist.setOriginalPirce(BigDecimal.ZERO);
-		wishlistDetailService.deleteAllResources("wishlist_id=" + wishlistId
-				+ " and recommend= 1");
+		wishlistDetailService.deleteAllResources("wishlist_id=" + wishlistId);
 		Date sysDate = new Date();
 		if (wishsMap == null) {
 			initialWishMap();
