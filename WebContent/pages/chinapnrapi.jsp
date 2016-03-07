@@ -22,8 +22,8 @@
     
     String 	CurCode			= "RMB";
     String 	Pid				= "";//request.getParameter("Pid").trim();
-    String 	RetUrl			= "http://121.42.182.117/funeral/pages/paymentFinal.html";
-    String 	BgRetUrl		= "http://121.42.182.117/funeral/pages/Buy_notify_url.jsp";
+    String 	RetUrl			= "http://www.365niannian.com/funeral/pages/paymentFinal.html";
+    String 	BgRetUrl		= "http://www.365niannian.com/funeral/pages/Buy_notify_url.jsp";
     String 	MerPriv			= ChinapnrUtil.merPriv;
     String 	GateId			= ChinapnrUtil.gateId;
     String 	UsrMp			= request.getParameter("UsrMp").trim();

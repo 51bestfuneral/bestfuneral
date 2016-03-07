@@ -68,12 +68,16 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 
 	@Override
 	public int completeCollection(Map<String, String> params) {
+		String orderNo = "";
+		
+	
+		
 		
 		
 		System.out.println(this.getClass()+"   completeCollection    params="+params);
 
 
-		String orderNo = params.get("out_trade_no");
+		orderNo=params.get("out_trade_no");
 		
 		
 		System.out.println(this.getClass()+"   completeCollection    orderNo="+orderNo);
@@ -95,7 +99,7 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		
 		
 		System.out.println(this.getClass()+"   completeCollection    ------------------");
-		
+		feeCollection.setStatusId(COLLECTION.collection_pay_success);
 //		feeCollection.setOrderId(orderId);
 		feeCollection.setOrderNo(orderNo);
 		feeCollection.setNotifyTime(params.get("notify_time"));
@@ -119,6 +123,7 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 //		feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));
 		feeCollection.setUseCoupon(params.get("use_coupon"));
 		feeCollection.setIsTotalFeeAdjust(params.get("is_total_fee_adjust"));
+		feeCollection.setCollectionType(Integer.parseInt(params.get("collection_type")));
 		dao.saveFeeCollection(feeCollection);
 		
 		

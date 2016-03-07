@@ -7,7 +7,7 @@ CREATE TABLE wishlist_details (
   source_id integer,  
   count  varchar(20),
   price DECIMAL(20,2) DEFAULT 0,
-  sourceId integer,
+  recommend  integer,
   selected integer DEFAULT 0,
   original_price DECIMAL(20,2) DEFAULT 0,
   createdate  datetime default NOW(),
@@ -17,3 +17,4 @@ CREATE TABLE wishlist_details (
 
 alter table wishlist_details add COLUMN selected integer DEFAULT 0; 
 alter table wishlist_details add COLUMN selected_price integer DEFAULT 0; 
+alter table wishlist_details change sourceId recommend integer;

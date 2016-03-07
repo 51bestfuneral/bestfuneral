@@ -21,8 +21,6 @@ import com.mysql.jdbc.StringUtils;
 
 @Component
 public class LoginCheckFilter implements Filter {
-	
-	
 
 	private static List<String> URIsList = new ArrayList<String>();
 
@@ -43,46 +41,44 @@ public class LoginCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		
-		
-		
-		
-		
-		String js="<script src='../js/generalUsage.js'></script><script>popupLogInPage();</script>";
-		
-		if(URIsList.isEmpty()){
+
+		String js = "<script src='../js/generalUsage.js'></script><script>popupLogInPage();</script>";
+
+		if (URIsList.isEmpty()) {
 			initUrls();
 		}
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
-		
 
 		String requestURL = request.getRequestURL().toString();
-		String url = response.encodeRedirectURL(request.getRequestURL().toString()) ;
+		String url = response.encodeRedirectURL(request.getRequestURL().toString());
+		if (url.indexOf("www.niannian.com") > 0) {
+
+			url = "http://www.365niannian.com";
+		}
 
 		if (!needCheck(requestURL)) {
 
 			chain.doFilter(req, res);
-		} else if (session != null && session.getAttribute(LoginConstants.LoginStatus) != null && session.getAttribute("user") != null
-				&& !StringUtils.isNullOrEmpty(session.getAttribute(LoginConstants.LoginStatus).toString())
-				) {
-
+		} else if (session != null && session.getAttribute(LoginConstants.LoginStatus) != null
+				&& session.getAttribute("user") != null
+				&& !StringUtils.isNullOrEmpty(session.getAttribute(LoginConstants.LoginStatus).toString())) {
 
 			if (session.getAttribute(LoginConstants.LoginStatus).toString().equals(LoginConstants.login)) {
 
 				chain.doFilter(req, res);
 			} else {
 
-
 				response.setContentType("text/html;charset=utf-8");
-				response.sendRedirect("mainPage.html?returnUrl="+url);
+
+				response.sendRedirect("mainPage.html?returnUrl=" + url);
 			}
 
 		} else {
 
 			response.setContentType("text/html;charset=utf-8");
-			response.sendRedirect("needLogIn.html?returnUrl="+url);
+			response.sendRedirect("needLogIn.html?returnUrl=" + url);
 
 		}
 

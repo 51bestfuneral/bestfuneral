@@ -11,10 +11,10 @@ jQuery(document).ready(function($){
 	
 	showServiceOnline();
 	$("#qq1").click(function(){
-		$("#qqIframe").attr("src","tencent://message/?Menu=yes&uin=429105398&site=qq&menu=yes");
+		$("#qqIframe").attr("src","tencent://message/?Menu=yes&uin=2432340482&site=qq&menu=yes");
 	});
 	$("#qq2").click(function(){
-		$("#qqIframe").attr("src","tencent://message/?Menu=yes&uin=429105398&site=qq&menu=yes");
+		$("#qqIframe").attr("src","tencent://message/?Menu=yes&uin=2750143174&site=qq&menu=yes");
 	});
 });
 

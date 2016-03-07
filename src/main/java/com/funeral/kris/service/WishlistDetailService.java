@@ -17,5 +17,5 @@ public interface WishlistDetailService {
 	public List<WishlistDetail> getResources(HttpServletRequest request);
 	public List<WishlistDetail> getSelectedWishlistDetailByWishListId(int wishListId);
     public void deleteAllResources(String condition);
-    
+    public List<WishlistDetail> getDirectWishlistDetailByWishListId(int wishListId);
 }

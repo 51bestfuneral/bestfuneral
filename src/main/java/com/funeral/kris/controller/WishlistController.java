@@ -261,12 +261,13 @@ public class WishlistController {
 			detail.setPrice(randomWish.getSellingPrice());
 			detail.setOriginalPrice(randomWish.getXianenPrice());
 			detail.setCount(1);
-			detail.setSourceId(1);
+			detail.setSelected(0);//not picked up to pay
 			detail.setWishlistId(wishList.getWishlistId());
 			detail.setWishType(randomWish.getGeneralCode());
 			detail.setCreateDate(new Date());
 			detail.setUpdatedDate(new Date());
-			detail.setSourceId(1);
+			detail.setSourceId(2);// change from 1 to two, in order to put them into shopping cart
+			detail.setRecommend(1);//by design
 			wishlistDetailService.addResource(detail);
 			totalPrice = totalPrice.add(detail.getPrice() == null? BigDecimal.ZERO:detail.getPrice());
 			originalPrice = originalPrice.add(randomWish.getXianenPrice() == null? BigDecimal.ZERO:randomWish.getXianenPrice());

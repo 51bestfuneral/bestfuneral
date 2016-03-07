@@ -21,10 +21,12 @@ import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
+import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.AlipayService;
 import com.funeral.kris.service.ExpressInfoService;
 import com.funeral.kris.service.FeeCollectionService;
 import com.funeral.kris.service.OrderService;
+import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
 
@@ -35,7 +37,8 @@ public class AlipayController {
 	private OrderService orderService;
 	@Autowired
 	private WishlistService wishlistService;
-	
+	@Autowired
+	private WishlistDetailService wishlistDetailService;
 	@Autowired
 	private ExpressInfoService expressInfoService;
 	@Autowired
@@ -46,7 +49,6 @@ public class AlipayController {
 	public int confirmPay(HttpServletRequest request) {
 		return 1;
 	}
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
@@ -55,8 +57,6 @@ public class AlipayController {
 		HttpSession session = request.getSession(true);
 
 		User user = (User) session.getAttribute("user");
-		
-		
 
 		List<Order> list = orderService.getResources();
 
@@ -80,6 +80,47 @@ public class AlipayController {
 
 		}
 
+		
+		System.out.println("------getWishlistId  "+wishs.getWishlistId());
+		
+		
+		List<WishlistDetail> detailList = wishlistDetailService
+				.getSelectedWishlistDetailByWishListId(wishs.getWishlistId());
+
+		BigDecimal cost = BigDecimal.ZERO;
+
+		if (detailList == null) {
+			cost = BigDecimal.ZERO;
+			System.out.println("---1---detailList  "+detailList);
+	
+			
+		} else {
+
+			System.out.println("--2----detailList  "+detailList);
+
+			Iterator it = detailList.iterator();
+
+			while (it.hasNext()) {
+
+				WishlistDetail detail = (WishlistDetail) it.next();
+
+				cost = cost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
+
+			}
+
+		}
+		
+		
+		
+
+		 ExpressInfo   expressInfo= expressInfoService.getUsingExpressInfo(user.getUsrId());
+		
+		 
+			System.out.println("---------cost  "+cost);
+ 
+		 
+		cost=cost.add(expressInfo.getExpressFee());
+
 		List<Order> orderList = orderService.listOrderByUserId(user.getUsrId());
 
 		int index = orderList.size() + 1;
@@ -91,18 +132,18 @@ public class AlipayController {
 			order.setUserId(user.getUsrId());
 			order.setOrderNo(orderNo);
 			order.setSubject(orderNo);
-			order.setPayableAmount(wishs.getPrice());
+			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 
 		} else {
 
 			order.setUserId(user.getUsrId());
-			order.setPayableAmount(wishs.getPrice());
+			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 		}
-		
+
 		feeCollectionService.initFeeCollection(order.getOrderNo());
 
 		return order;
@@ -140,13 +181,6 @@ public class AlipayController {
 
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String pay(ServletRequest request) {
-		
-		
-		 
-		 
-		 
-		 
-		 
 
 		try {
 
