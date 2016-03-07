@@ -54,9 +54,9 @@ public class WishlistDetailController {
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public List<WishlistDetail> addingWishlistDetail(@RequestBody List<Wish> wishs, HttpServletRequest request) {
+	public List<WishListJson> addingWishlistDetail(@RequestBody List<Wish> wishs, HttpServletRequest request) {
 
-		List<WishlistDetail> successList = new ArrayList<WishlistDetail>();
+		List<WishListJson> successList = new ArrayList<WishListJson>();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
 		wishlistDetailService.deleteAllResources("wishlist_id=" + wishlistId);
 		Date sysDate = new Date();
@@ -66,6 +66,7 @@ public class WishlistDetailController {
 
 		for (Wish wish : wishs) {
 			WishlistDetail wishlistDetail = new WishlistDetail();
+			WishListJson detailJson = new WishListJson();
 			wish = wishsMap.get(wish.getWishId());
 			wishlistDetail.setWishId(wish.getWishId());
 			wishlistDetail.setCount(1);
@@ -77,7 +78,14 @@ public class WishlistDetailController {
 			wishlistDetail.setCreateDate(sysDate);
 			wishlistDetail.setUpdatedDate(sysDate);
 			wishlistDetailService.addResource(wishlistDetail);
-			successList.add(wishlistDetail);
+			detailJson.setAmount(wishlistDetail.getCount());
+			detailJson.setImageUrl(wish.getImgUrl());
+			detailJson.setOriginalPrice(wish.getXianenPrice());
+			detailJson.setPrice(wish.getSellingPrice());
+			detailJson.setWishId(wish.getWishId());
+			detailJson.setWishName(wish.getWishName());
+			detailJson.setWishlistId(wishlistId);
+			successList.add(detailJson);
 		}
 
 		return successList;

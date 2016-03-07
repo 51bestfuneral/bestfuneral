@@ -58,7 +58,12 @@ public class QuestionController {
 		    User user = (User)request.getSession().getAttribute("user");
 		    if (user != null) {
 		    	gender = user.getGender();
-		    	genderControll = true;
+		    	if (gender == null) {
+		    		genderControll = false;
+		    	}
+		    	else {
+		    	    genderControll = true;
+		    	}
 		    }
 		}
 		List<Question> questions = questionService.getResources(request);

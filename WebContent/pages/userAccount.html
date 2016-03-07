@@ -335,7 +335,8 @@ app.controller('products', function($scope, $http) {
         	else {
     			var user = $scope.user,
 			    	users = [];
-			
+
+    			user.birthday = $("#datetimepicker1").find("input")[0].value;
 				if (user.gender === "女") {
 					user.gender = 0;
 				}
@@ -411,7 +412,7 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="questionArea">
 		<span>我今年</span>
-		   <input value="{{user.age}}" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
+		   <input ng-model="user.age" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
 		   
 			
 		
