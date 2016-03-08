@@ -287,8 +287,8 @@ public class WishlistDetailController {
 		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
 		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResources(request);
 		for (WishlistDetail wishlistDetail : wishlistDetails) {
-			if (wishlistDetail.getSourceId() != null
-					&& wishlistDetail.getSourceId().intValue() == WishConstants.wish_source_set) {
+			if (wishlistDetail.getRecommend() != null
+					&& wishlistDetail.getRecommend().intValue() == WishConstants.wish_source_set) {
 				WishListJson wishListJson = new WishListJson();
 				Integer wishId = wishlistDetail.getWishId();
 				Wish wish = wishsMap.get(wishId);

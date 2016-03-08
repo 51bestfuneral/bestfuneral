@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="head"><title>
-	念念
-</title><meta name="description" content="Bleum provides high performance software development teams that
+<head id="head">
+<title>念念</title>
+<meta name="description" content="Bleum provides high performance software development teams that
 								deliver smart solutions, helping you to exceed your customers’
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
@@ -10,18 +10,30 @@
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
-<script src="/funeral/js/util.js"></script>
-<script src="/funeral/js/generalUsage.js"></script>
-<script src="/funeral/js/serviceonline.js"></script>
 <link href="/funeral/js//css/serviceonline.css" rel="stylesheet">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e9e8b7642f169d1d0fdd840ceaccf2dc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-75999093-1', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
 </head>
 <style>
 html {
@@ -31,9 +43,10 @@ body {
     margin: 0;
 	text-align: center;
 	height: 100%;
-	background-color:#102430;
+	background-color: white;
 }
 #topHalfLevel {
+    margin-top: -2px;
 	padding-bottom: 3%;
 	background-repeat: no-repeat;
     background-size: 1920px 1180px;
@@ -65,6 +78,7 @@ body {
 	margin-top: 30px;
 	font-weight: lighter;
 	width: 570px;
+	line-height: 20px;
 }
 .subtext {
     font-size: 12px;
@@ -604,11 +618,11 @@ body {
 	    background-size: 100%;
 	}
 	.memberDesc {
-	    margin-left: 55%;
+	    margin-left: 50%;
 		overflow: auto;
 	}
 	#memberDesc1 .memberDesc {
-	    margin-left: 31%;
+	    margin-left: 34%;
 	}
 	.memberState {
 	    margin-top: 52px;
@@ -619,12 +633,13 @@ body {
 		padding-right: 35px;
 		text-align: left;
 		background: transparent;
+		overflow: hidden;
 	}
 	#memberDesc4 .memberState {
 	    margin-top: 102px;
 	}
 	#memberDesc2 .memberDesc{
-	    margin-left: 25%;
+	    margin-left: 23%;
 	}
 	#memberDesc3 .memberDesc{
 	    margin-left: 40%;
@@ -637,9 +652,11 @@ body {
 	}
 	.memberState p {
 	    font-size: 20px;
-		color: #3d4351;
-		line-height: 21px;
-		font-weight: bold;
+	    color: #FFFFFF;
+	    line-height: 25px;
+	    font-weight: lighter;
+	    background-color: rgba(0, 0, 0, 0.3);
+	    padding: 20px;
 	}
 	.membersSelect {
         overflow: auto;
@@ -672,9 +689,9 @@ body {
 	}
 	#designShow {
 	    width: 100%;
-		background-color: #ed4b83;
-		overflow: auto;
-		height: 747px;
+		background-image:url('../js/images/pink_pattern.jpg');
+		overflow: inherit;
+		height: auto;
 		padding-top: 40px;
 		margin-top: 10px;
 	}
@@ -718,7 +735,7 @@ body {
 	    background-color: #102430;
 	    width: 100%;
 	    height: 457px;
-	    margin-top: -100px;
+	    margin-top: -30px;
 	}
 	#productShowCoat {
 	    width: 1300px;
@@ -807,6 +824,9 @@ body {
 	    font-size: 13px;
 		margin: 0xp;
 		margin-top: 24px;
+		color: white;
+	    width: 70%;
+	    line-height: 20px;
 	}
 	#goToProduct .startPurchseBtn {
 	    width: 136px;
@@ -815,7 +835,6 @@ body {
 		border: 1px solid #ed4b83;
 		margin-top: 35px;
 		background: #102430;
-		opacity: 0.8;
 	}
 	.startPurchseBtn:hover {
 	    opacity: 1!important;
@@ -845,6 +864,8 @@ body {
 	    color: #ffffff;
 		font-size: 28px;
 		margin-bottom: 24px;
+		margin-top: 30px;
+		line-height: 0;
 	}
 	#cemeteryInfo h3 {
 	    color: #ffffff;
@@ -1024,9 +1045,8 @@ body {
 	    float: right;
 	    background: #ed4b83;
 	    border-radius: 5px;
-	    margin-right: 270px;
+	    margin-right: 200px;
 	    margin-top: 50px;
-	    opacity: 0.8;
 	    cursor: pointer;
 	}
 	#detailCalculator:hover {
@@ -1063,6 +1083,7 @@ body {
 	background: #F7F9FA;
 	padding-top: 20px;
 	padding-bottom: 20px;
+	margin-bottom: -5px;
 	}	
 
 	#companyIntroduction.contact p{
@@ -1150,21 +1171,13 @@ body {
 		line-height: 20px;
 		margin: 0px;
 	}
-
-	.arrow-up {
-		width: 0; 
-		height: 0; 
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		border-bottom: 5px solid black;
-	}
     #cemeteryImage {
         float: right;
     }
     #cemeteryImage img {
         width: 1000px;
-        margin-left: 510px;
-        margin-top: -320px;
+        margin-left: 310px;
+        margin-top: -200px;
     }
     #cemeteryInfoCoat {
         width: 1200px;
@@ -1172,6 +1185,9 @@ body {
     }
     video {
         margin-top: 30px;
+        width: 50%;
+        position: relative;
+        min-width: 800px;
     }
 </style>
 <script type="text/javascript">
@@ -1220,21 +1236,23 @@ function muskPageForProduct(id, type) {
 <!--    <div class="pictureMaskDiv"></div> -->
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
-		<h5 color="white">念念提供综合全面，一站式的殡葬服务体验。告诉我们您的需求，我们帮助您定制最符合您的服务</h5>
+		<h5 color="white">念念提供综合性一站式殡葬服务体验。<br>
+		告诉我们需求，我们为您定制最适合的服务。</h5>
+		
 	</div>
 	<div id="howToHelp">
 	    <div id="message">
 			<p>开始定制</p>
 		</div>
     </div>
-	<p class="subtext">或者直接给我们打电话<span>400-166-0030</span></p>
+	<p class="subtext">或直接致电我们 <span>400-166-0030</span></p>
 </div>
 <div id = "mainContent3">
     <div id="content3Container">
 	    <div id="subContentLeft">
 			<div class="singleTip">
 				<h2>你知道</h2>
-				<h1>40%</h1>
+				<h1>60%</h1>
 				<p>葬礼花费可以因为合理的安排的省去吗？</p>
 			</div>
 		</div>
@@ -1271,27 +1289,27 @@ function muskPageForProduct(id, type) {
 			</div>
 		</div>
 		<div id="statusBarDesc">
-		    <div id="firstDiv"><p>+基础葬礼</p></div>
-		    <div><p>+入殓师</p></div>
-		    <div><p>+法事服务</p></div>
-		    <div><p>+告别式</p></div>
+		    <div id="firstDiv"><p>+ 基础葬礼</p></div>
+		    <div><p>+ 入殓师</p></div>
+		    <div><p>+ 法事服务</p></div>
+		    <div><p>+ 告别式</p></div>
 		</div>
 		<div id="detailCalculator"><p>详细计算</p></div>
 	</div>
 </div>
 <div id="members">
     <div id="memebersCoat">
-		<div class="membersContent" id="memberDesc1">
-			<div class="memberDesc">
-				<div class="memberState">
-					<p>我是独生子女，亲戚们也都不在身边，幸亏有念念的帮助，不然我父亲去世的时候，真要手无足措了！</p>
-				</div>
-			</div>
-		</div>
 		<div class="membersContent" id="memberDesc2">
 			<div class="memberDesc">
 				<div class="memberState">
 					<p>我先生几年前过世了，对全家人来说是晴天霹雳，我和孩子们都沉浸在无尽的悲痛之中，生活负担更是变得沉重起来，一直持续了好多年，才慢慢走出阴霾。现在有了念念能够为我进行提前规划，这样也彻底免去了我将来的后顾之忧，我和儿女们就都可以放心了。</p>
+				</div>
+			</div>
+		</div>		
+		<div class="membersContent" id="memberDesc1">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>我是独生子女，亲戚们也都不在身边，幸亏有念念的帮助，不然我父亲去世的时候，真要手无足措了！</p>
 				</div>
 			</div>
 		</div>
@@ -1311,11 +1329,11 @@ function muskPageForProduct(id, type) {
 		</div>
 	</div>
 	<div class="membersSelect">
-	    <div class="singleMember" id="1" style ="background-image:url('../js/images/Bitmap1@2x.jpg');background-size:100% 224px;">
+		<div class="singleMember" id="2" style ="background-image:url('../js/images/Bitmap@2x.jpg');background-size:100% 224px;">
 		    <div class="memeberPicMask">
 			</div>
 		</div>
-		<div class="singleMember" id="2" style ="background-image:url('../js/images/Bitmap@2x.jpg');background-size:100% 224px;">
+	    <div class="singleMember" id="1" style ="background-image:url('../js/images/Bitmap1@2x.jpg');background-size:100% 224px;">
 		    <div class="memeberPicMask">
 			</div>
 		</div>
@@ -1332,7 +1350,7 @@ function muskPageForProduct(id, type) {
 <div id="designShow">
     <h4>念念葬礼定制工具</h4>
 	<div class="pcoat">
-	    <p>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</p>
+	    <p>我们不是简单的葬礼服务商，我们了解传统殡葬过程的种种弊病，并希望凭借自身不断的努力和独特的服务方式，以帮助更多的人获取最合适的告别方式。</p>
 	</div>
 	<div class="startDesignButton">
 	    <p>开始定制</p>
@@ -1350,7 +1368,11 @@ function muskPageForProduct(id, type) {
 		</div>
 		<div id="goToProduct">
 		    <h3>选购产品和服务</h3>
-			<h4>除了直接定制葬礼，我们也给您</h4>
+			<h4>葬礼有些遥远，只想看看产品和服务？</h4>
+
+			<!--<h4>通过我们，您可以在线采购各类殡葬祭祀产品和服务。我们会将最精致实惠的产品，以最快的速度，妥善递送到您的手上。我们会充分尊重您的意愿，给您最贴心的建议和指导，并提供最符合
+您需求的服务。</h4>-->
+
 			<div class="startPurchseBtn">
 			    <p>开始选购</p>
 			</div>
@@ -1365,7 +1387,7 @@ function muskPageForProduct(id, type) {
     <div id="cemeteryInfoCoat">
 	    <div id="cemeteryInfo">
 		    <h2>墓地和寺庙信息汇总</h2>
-			<h3>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</h3>
+			<h3>人生后花园的渡口，点击前往！</h3>
 			<div class="cemeteryBtn">
 			    <p>了解更多</p>
 			</div>
@@ -1410,8 +1432,18 @@ function muskPageForProduct(id, type) {
 <IFRAME class="detailFrame" width=1170px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
-<div id="serviceOnline"></div>	
+
+<!--<div id="serviceOnline"></div>	-->
 </body>
+
+<script src="/funeral/js/util.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
+<script src="/funeral/js/serviceonline.js"></script>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script>
 var imageArray = ['Bitmap.jpg', 'wrist-watch-free-license-cc0.jpg', '1-tulip-tree-leaf.jpg'];
 var number = GetRandomNum(1, 3);

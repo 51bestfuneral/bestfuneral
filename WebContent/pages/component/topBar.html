@@ -3,8 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<script src="../../js/jquery-2.1.4.js"></script>
-<script src="/funeral/js/generalUsage.js"></script>
 <link href="../../js/Bootstrap/boot.css" rel="stylesheet">
 
 <style>
@@ -145,6 +143,7 @@
 	#rightSideLink {
 	    overflow: auto;
 		margin-top: -65px;
+		margin-right: 20px;
 	}
 	.sideLink {
 	    width: 120px;
@@ -197,7 +196,8 @@
 	</div>
    
 </body>
-
+<script src="../../js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
 <script type="text/javascript">
     var length = location.search.length,
 	type = location.search.substring(5, length);
@@ -528,7 +528,7 @@
         }
         else {
             $(".sideIcon").css({
-                'opacity': '0.5',
+                'opacity': '1',
                 'cursor': 'default'
             });
         }

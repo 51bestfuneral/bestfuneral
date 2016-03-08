@@ -10,18 +10,8 @@
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
-<script src="/funeral/js/jquery-2.1.4.js"></script>
-<script src="/funeral/js/jquery-ui.js"></script>
-<script src="/funeral/js/sliderx.js"></script>
-<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
-<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
-<script src="/funeral/js/Bootstrap/boot.js"></script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
-<script src="/funeral/js/generalUsage.js"></script>
 </head>
 
 
@@ -474,6 +464,126 @@ width: 100%;
 	height:13px;
 }
 </style>
+
+<body ng-app="productApp" ng-controller="cemetery">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
+<div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
+    <div id="leftTop">
+	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
+	</div>
+	<div id="centerText">
+        <h1>{{cemeteryBean.cemeteryName}}</h1>
+	    <h2>{{cemeteryBean.district}}</h2>
+	</div>
+	<div id="labelsArea">
+		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
+		
+	</div>
+</div>
+<div class="container">
+<div class="redline" id="redline1"></div>
+<div class="redline" id="redline2"></div>
+<div class="redline" id="redline3"></div>
+<div class="redline" id="redline4"></div>
+<div class="redline" id="redline5"></div>
+<div class="redline" id="redline6"></div>
+<div id="cemeteryFilter">
+    <div id="filter">
+		<div id="filterCata">
+			<div class="filterCata">
+			    <p>墓穴</p>
+			</div>
+			<div class="filterCata">
+			    <p>碑文样式</p>
+			</div>
+			<div class="filterCata">
+			    <p>区域</p>
+			</div>
+		</div>
+		<div id="filterContent">
+			<div class="filterContent">
+			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
+				    <p>{{graveStyle.description}}</p>
+				</div>
+			
+			</div>
+			<div class="filterContent">
+			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
+				    <p>{{epigraphStyle.style}}</p>
+				</div>
+				
+			</div>
+			<div class="locationContent">
+			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
+				    <p>{{graveZone.zone}}</p>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+	<div id="reserver">
+	    <h1>最低价格</h1>
+		<h2>￥{{cemeteryBean.price}}</h2>
+		<button class="reserverBtn">在线预约</button>
+		<p>我们会帮您安排参观访问</p>
+	</div>
+</div>
+<div id="features">
+    <div id="featureContent">
+	    <div id="singleFeature">
+		    <div id="mainFeature">
+			    <div class="leftFeatureImg" >
+			    	
+			    <img src={{cemeteryBean.descImgUrl}}></img>
+				</div>
+				<div class="rightFeatureText">
+				    <h1>简介</h1>
+				    <p>{{cemeteryBean.cemeteryDesc}}</p>
+				</div>
+			</div>
+			<div id="locationFeature">
+			    <div class="leftlocationText">
+				     <h1>特色</h1>
+<p>{{cemeteryBean.feature}}</p>				</div>
+				<div class="rightlocationImg">
+					 <img src={{cemeteryBean.featureImgUrl}}></img>
+				</div>
+			</div>
+			<div id="equipmentFeature">
+			    <div class="leftEquipmentImg">
+			    	
+					 <img src={{cemeteryBean.locationImgUrl}}></img>
+			
+				</div>
+				<div class="rightEquipmentText">
+				    <h1>交通信息</h1>
+				    <p>{{cemeteryBean.trafficInfo}}</p>
+				</div>
+			</div>
+			
+		
+			
+		</div>
+	</div>
+</div>
+<div id="cemeteryMap">
+<div id="cemeteryMapContext">
+  </div>
+</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<script src="/funeral/js/Bootstrap/boot.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
 <script>
 	var length = location.search.length,
 id = location.search.substring(4, length);
@@ -751,117 +861,4 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 
 
 </script>
-
-
-
-<body ng-app="productApp" ng-controller="cemetery">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
-<div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
-    <div id="leftTop">
-	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
-	</div>
-	<div id="centerText">
-        <h1>{{cemeteryBean.cemeteryName}}</h1>
-	    <h2>{{cemeteryBean.district}}</h2>
-	</div>
-	<div id="labelsArea">
-		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
-		
-	</div>
-</div>
-<div class="container">
-<div class="redline" id="redline1"></div>
-<div class="redline" id="redline2"></div>
-<div class="redline" id="redline3"></div>
-<div class="redline" id="redline4"></div>
-<div class="redline" id="redline5"></div>
-<div class="redline" id="redline6"></div>
-<div id="cemeteryFilter">
-    <div id="filter">
-		<div id="filterCata">
-			<div class="filterCata">
-			    <p>墓穴</p>
-			</div>
-			<div class="filterCata">
-			    <p>碑文样式</p>
-			</div>
-			<div class="filterCata">
-			    <p>区域</p>
-			</div>
-		</div>
-		<div id="filterContent">
-			<div class="filterContent">
-			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
-				    <p>{{graveStyle.description}}</p>
-				</div>
-			
-			</div>
-			<div class="filterContent">
-			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
-				    <p>{{epigraphStyle.style}}</p>
-				</div>
-				
-			</div>
-			<div class="locationContent">
-			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
-				    <p>{{graveZone.zone}}</p>
-				</div>
-			
-			</div>
-		</div>
-	</div>
-	<div id="reserver">
-	    <h1>最低价格</h1>
-		<h2>￥{{cemeteryBean.price}}</h2>
-		<button class="reserverBtn">在线预约</button>
-		<p>我们会帮您安排参观访问</p>
-	</div>
-</div>
-<div id="features">
-    <div id="featureContent">
-	    <div id="singleFeature">
-		    <div id="mainFeature">
-			    <div class="leftFeatureImg" >
-			    	
-			    <img src={{cemeteryBean.descImgUrl}}></img>
-				</div>
-				<div class="rightFeatureText">
-				    <h1>简介</h1>
-				    <p>{{cemeteryBean.cemeteryDesc}}</p>
-				</div>
-			</div>
-			<div id="locationFeature">
-			    <div class="leftlocationText">
-				     <h1>特色</h1>
-<p>{{cemeteryBean.feature}}</p>				</div>
-				<div class="rightlocationImg">
-					 <img src={{cemeteryBean.featureImgUrl}}></img>
-				</div>
-			</div>
-			<div id="equipmentFeature">
-			    <div class="leftEquipmentImg">
-			    	
-					 <img src={{cemeteryBean.locationImgUrl}}></img>
-			
-				</div>
-				<div class="rightEquipmentText">
-				    <h1>交通信息</h1>
-				    <p>{{cemeteryBean.trafficInfo}}</p>
-				</div>
-			</div>
-			
-		
-			
-		</div>
-	</div>
-</div>
-<div id="cemeteryMap">
-<div id="cemeteryMapContext">
-  </div>
-</div>
-</div>
-</div>
-<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
-</body>
-
 </html>

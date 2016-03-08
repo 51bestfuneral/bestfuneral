@@ -1194,10 +1194,10 @@ p {
   font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 span {
-	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+  font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 a {
-	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+  font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 h1 small,
 h2 small,
@@ -6336,7 +6336,6 @@ button.close {
   font-size: 20px;
   color: #fff;
   text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, .6);
   background-color: rgba(0, 0, 0, 0);
   filter: alpha(opacity=50);
   opacity: .5;
@@ -6415,19 +6414,18 @@ button.close {
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin: 1px;
+  margin: 5px;
   text-indent: -999px;
   cursor: pointer;
   background-color: #000 \9;
   background-color: rgba(0, 0, 0, 0);
-  border: 1px solid #fff;
   border-radius: 10px;
 }
 .carousel-indicators .active {
-  width: 12px;
-  height: 12px;
-  margin: 0;
-  background-color: #fff;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  background-color: #ED4B83;
 }
 .carousel-caption {
   position: absolute;

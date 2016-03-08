@@ -7,6 +7,9 @@
 <title>
 葬礼定制
 </title>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<script src="/funeral/js/generalUsage.js"></script>
 <script src="/funeral/js/jquery-2.1.4.js"></script>
 <script src="/funeral/js/jquery-ui.js"></script>
 <script src="/funeral/js/sliderx.js"></script>
@@ -16,9 +19,6 @@
 <script src="/funeral/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="/funeral/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <script src="../js/generalUsage.js"></script>
-<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
-<link href="/funeral/js/personal.css" rel="stylesheet">
-<script src="/funeral/js/generalUsage.js"></script>
 </head>
 <style>
 .headerAddtion {
@@ -27,8 +27,14 @@
 	text-align: center;
 	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 }
+.second_nav {
+	width: 100%;
+	background: #f2f2f2;
+    box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
+    z-index: 200;
+}
 #subNavilink {
-    width: 525px;
+    width: 555px;
     margin: 0px auto;
     overflow: auto;
     height: 52px;
@@ -109,14 +115,18 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <body>
-<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "67px"></IFRAME>
-<div class="container" >
-<div id="line0"></div>
-<div id="subNavilink">
- <link1><a href="/funeral/pages/funeralDesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
- <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
- <link4><a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制  </a>  </link4>
-</div>
+
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
+   	<div class="container">
+
+   	<div class="second_nav">
+		<div id="subNavilink">
+		 <link1><a href="/funeral/pages/funeralDesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
+		 <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
+		 <link4><a href="/funeral/pages/designProposal.html" style="font-weight:900;">选择定制方案</a>  </link4>
+		</div>  
+	</div>
+
 <div id="mainContent">
    
     <div class="topContent">
