@@ -79,11 +79,8 @@ public class WishTypeController {
 		User user = (User)request.getSession().getAttribute("user");
 		Integer userId = user.getUsrId();
 		params.put("userId", userId.toString());
-		
 
-		
-		
-		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResourceByWishListId(Integer.valueOf(wishlistId));
+		List<WishlistDetail> wishlistDetails = wishlistDetailService.getRecommendWishlistDetailByWishListId(Integer.valueOf(wishlistId));
 		for (WishlistDetail wishlistDetail: wishlistDetails) {
 			if (wishTypeMap.containsKey(wishlistDetail.getWishType())) {
 				finalWishTypes.add(wishTypeMap.get(wishlistDetail.getWishType()));

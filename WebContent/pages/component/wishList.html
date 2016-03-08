@@ -187,6 +187,9 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 app.controller('products', function($scope, $http) {
 	wishList = parent.wishList;
 	$scope.tabs = parent.wishList;
+	if (parent.wishList.length === 0) {
+		window.parent.unmusk();
+	}
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
 		  window.parent.iFrameHeight(3);
 		  window.parent.unmusk();

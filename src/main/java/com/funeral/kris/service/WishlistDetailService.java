@@ -18,4 +18,5 @@ public interface WishlistDetailService {
 	public List<WishlistDetail> getSelectedWishlistDetailByWishListId(int wishListId);
     public void deleteAllResources(String condition);
     public List<WishlistDetail> getDirectWishlistDetailByWishListId(int wishListId);
+    public List<WishlistDetail> getRecommendWishlistDetailByWishListId(int wishListId);
 }

@@ -58,7 +58,10 @@ public class WishlistDetailController {
 
 		List<WishListJson> successList = new ArrayList<WishListJson>();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
-		wishlistDetailService.deleteAllResources("wishlist_id=" + wishlistId);
+		Wishlist wishlist = wishlistService.getResource(wishlistId);
+		wishlist.setPrice(BigDecimal.ZERO);
+		wishlist.setOriginalPirce(BigDecimal.ZERO);
+		wishlistDetailService.deleteAllResources("wishlist_id=" + wishlistId + " and recommend= 1");
 		Date sysDate = new Date();
 		if (wishsMap == null) {
 			initialWishMap();
@@ -73,6 +76,7 @@ public class WishlistDetailController {
 			wishlistDetail.setPrice(wish.getSellingPrice());
 			wishlistDetail.setOriginalPrice(wish.getXianenPrice());
 			wishlistDetail.setSourceId(1);
+			wishlistDetail.setRecommend(1);
 			wishlistDetail.setWishType(wish.getGeneralCode());
 			wishlistDetail.setWishlistId(wishlistId);
 			wishlistDetail.setCreateDate(sysDate);
@@ -86,8 +90,10 @@ public class WishlistDetailController {
 			detailJson.setWishName(wish.getWishName());
 			detailJson.setWishlistId(wishlistId);
 			successList.add(detailJson);
+			wishlist.setPrice(wishlist.getPrice().add(wish.getSellingPrice()));
+			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(wish.getXianenPrice()));
 		}
-
+		wishlistService.updateResource(wishlist);
 		return successList;
 	}
 
