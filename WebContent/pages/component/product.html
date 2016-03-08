@@ -450,7 +450,7 @@ app.controller('products', function($scope, $http) {
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in tab.layouts track by $index">
 	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src={{'/funeral/js/images/'+itemLayout.imgUrl}}   class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">

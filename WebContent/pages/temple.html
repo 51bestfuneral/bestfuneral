@@ -52,7 +52,7 @@
 }
 #leftTop {
     width: 100%;
-	padding-top: 10px;
+	padding-top: 30px;
 	padding-left: 120px;
 	text-align: left;
 }
@@ -79,6 +79,7 @@
 	font-family: "Microsoft Yahei";
 	font-weight: lighter;
 	padding: .4em .9em .4em;
+	margin-right: 5px;
 }
 #labelsArea {
     width: 100%;
@@ -94,11 +95,9 @@
 	padding-bottom: 60px;
 }
 #featureContent {
-    width: 100%;
+    width: 1000px;
 	overflow: auto;
 	margin: 0px auto;
-	position:relative;
-	right:160px;
 }
 #singleFeature {
     float: right;
@@ -132,7 +131,7 @@
 	line-height: 80px;
 	color: #3d3d3d;
 	position: relative;
-		left: -56px;
+		left: 0px;
 
 }
 .rightFeatureText p {
@@ -207,7 +206,7 @@
 .rightEquipmentText h1 {
     margin: 0px;
 	position: relative;
-	left: -56px;
+	left: 0px;
 	font-size: 60px;
 	line-height: 80px;
 	color: #3d3d3d;
@@ -287,10 +286,12 @@
 	margin-top: 176px;
 }
 #cemeteryFilter {
-    width: 85%;
+    width: 1349px;
 	overflow: auto;
 	padding-top: 16px;
 	margin: 0px auto;
+	padding-left: 50px;
+	padding-right: 50px
 }
 #filterContent {
 	overflow: auto;
@@ -403,7 +404,7 @@
   object-fit: contain;
 }
 #cemeteryMapContext{
-width: 1350px;
+width: 100%;
   height: 479px;
   object-fit: contain;
 }
@@ -434,6 +435,46 @@ width: 1350px;
 	margin: 0px;
 		
 }
+.redline{
+	border-bottom:2px solid #ff5274;
+	-webkit-transform: rotate(115deg);/*Safari 4+,Google Chrome 1+  */
+	-moz-transform: rotate(115deg);/*Firefox 3.5+*/
+	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=1.1);
+	position: absolute;
+	z-index: 10;
+}
+#redline1 {
+    margin-left: 460px;
+	margin-top: 300px;
+	width:300px;height:13px;
+}
+#redline2 {
+	margin-left: 870px;
+	margin-top: 710px;
+	width:200px;height:13px;
+}
+#redline3 {
+	margin-left: 0px;
+	margin-top: 920px;
+	width:400px;height:13px;
+}
+#redline4 {
+	margin-left: 860px;
+	margin-top: 1370px;
+	width:250px;height:13px;
+}
+#redline5 {
+	margin-left: 460px;
+	margin-top: 1470px;
+	width:250px;height:13px;
+}
+#redline6 {
+	margin-left: 860px;
+	margin-top: 1870px;
+	width:250px;
+	height:13px;
+}
+
 </style>
 <script>
 	var length = location.search.length,
@@ -496,56 +537,10 @@ $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 });
 
-var zoomList =[{cemetery:'清竹园',zoom:15},{cemetery:'汇龙园',zoom:17},{cemetery:'华南陵园',zoom:18},
-               {cemetery:'海港陵园（福寿园）',zoom:18},{cemetery:'天逸静园玫瑰园',zoom:18},{cemetery:'福寿园',zoom:20},
-               {cemetery:'至尊园',zoom:17},{cemetery:'淀山湖归园',zoom:17},{cemetery:'九天陵园',zoom:18},
-               {cemetery:'福泉山留园',zoom:17},{cemetery:'滨海古园',zoom:17},{cemetery:'海湾寝园',zoom:21},{cemetery:'永福园陵',zoom:21},
-               {cemetery:'华夏公墓',zoom:17},{cemetery:'瀛新古园',zoom:21}];
+var zoomList =[{cemetery:'青龙古寺',zoom:17},{cemetery:'松隐禅寺',zoom:18}];
 
-var polygonPoints=[{'cemetery': '清竹园', 'points':[{point:"121.187644|31.37094"},{point:"121.197131|31.374362"},{point:"121.200149|31.375318"}
-					,{point:"121.206114|31.375595"},{point:"121.210749|31.37383"},{point:"121.216462|31.372196"},{point:"121.217971|31.371302"},{point:"121.219157|31.370901"},{point:"121.199712|31.356397"}]}, 
-                   {'cemetery': '汇龙园', 'points': [{point:"121.849054|31.088793"},{point:"121.849099|31.088885"},{point:"121.850438|31.08938"},{point:"121.852293|31.086036"}
-                   	,{point:"121.852293|31.086036"},{point:"121.852293|31.086036"},{point:"121.853582|31.083361"},{point:"121.852486|31.082975"},{point:"121.852338|31.083029"},{point:"121.850451|31.086164"}]},     
-                   {'cemetery': '华南陵园', 'points': [{point:"121.187644|31.37094"}]},
-                   {'cemetery': '海港陵园（福寿园）', 'points': [{point:"121.187644|31.37094"}]},
-                   {'cemetery': '天逸静园玫瑰园', 'points': [{point:"121.72363|31.28543"},{point:"121.725004|31.286464"},{point:"121.727016|31.283748"},{point:"121.725516|31.282707"}]},
-                   {'cemetery': '福寿园', 'points': [{point:"121.187644|31.37094"}]},
-                   {'cemetery': '至尊园', 'points': [{point:"121.051878|31.087222"},{point:"121.051357|31.087562"},{point:"121.052453|31.088892"},{point:"121.057753|31.090423"},{point:"121.057933|31.088057"}]},
-                   {'cemetery': '滨海古园', 'points': [{point:"121.72531|30.85994"},{point:"121.72558|30.860033"},{point:"121.72664|30.859816"},{point:"121.726729|30.859335"},{point:"121.727484|30.858731"},{point:"121.727017|30.858188"},{point:"121.726909|30.857925"},
-                                                   {point:"121.72664|30.857739"},{point:"121.726586|30.857382"},{point:"121.725795|30.857258"},{point:"121.725166|30.857894"},{point:"121.724807|30.858591"}]}];
 
-var labelPoints=[{'cemetery': '清竹园','point':"121.140394|31.356897"},
-                 {'cemetery': '汇龙园','point':"121.837893|31.081058"},
-                 {'cemetery': '华南陵园','point':"121.61201|31.01679"},
-                 {'cemetery': '海港陵园（福寿园）','point':"121.893606|30.933152"},
-                 {'cemetery': '天逸静园玫瑰园','point':"121.717283|31.283397"},
-                 {'cemetery': '福寿园','point':"121.130293|31.116528"},
-                 {'cemetery': '至尊园','point':"121.039069|31.086194"},
-                 {'cemetery': '淀山湖归园','point':"121.056909|31.13911"},
-                 {'cemetery': '九天陵园','point':"121.429602|31.213815"},
-                 {'cemetery': '滨海古园','point':"121.710921|30.857715"},
-                 {'cemetery': '永福园陵','point':"121.703847|30.924375"},
-                 {'cemetery': '华夏公墓','point':"121.115137|31.057752"},
-                 {'cemetery': '瀛新古园','point':"121.525893|31.63593"}
-                 
-                 ];
-                 
-var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
-                 {'cemetery': '汇龙园','point':"121.851893|31.085058"},
-                 {'cemetery': '华南陵园','point':"121.614093|31.017948"},
-                 {'cemetery': '海港陵园（福寿园）','point':"121.896606|30.934152"},
-                 {'cemetery': '天逸静园玫瑰园','point':"121.725283|31.284597"},
-                 {'cemetery': '福寿园','point':"121.137293|31.117528"},
-                 {'cemetery': '至尊园','point':"121.05552|31.088965"},
-                 {'cemetery': '淀山湖归园','point':"121.072981|31.141163"},
-                 {'cemetery': '九天陵园','point':"121.436602|31.214915"},
-                 {'cemetery': '滨海古园','point':"121.725921|30.858715"},
-                 {'cemetery': '海湾寝园','point':"121.519805|30.821643"},
-                 {'cemetery': '永福园陵','point':"121.710847|30.924975"},
-                 {'cemetery': '华夏公墓','point':"121.130137|31.059752"},
-                 {'cemetery': '瀛新古园','point':"121.532893|31.63693"}
-                 
-                 ];
+
 
 
 function loadScript() {
@@ -558,7 +553,7 @@ function initMap(cemeteryName,cemeteryAddress){
 	cemeteryAddress =$.trim(cemeteryAddress);
     createMap();//创建地图
     setMapEvent();//设置地图事件
-    //addMapControl();//向地图添加控件
+    addMapControl();//向地图添加控件
     
     //清竹园  上海市嘉定区外冈镇嘉松北路633号
     //上海市浦东新区朝阳农场军港公路388号 汇龙园  18
@@ -582,7 +577,7 @@ function initMap(cemeteryName,cemeteryAddress){
 	    	                	
 	    	 		 			var x =results.getPoi(i).point.lng;
 	    	 		 			var y =results.getPoi(i).point.lat;
-	    	 		 			resetCenterAndZoom(x,y,cemeteryName);
+	    	 		 			resetCenterAndZoom(x,y,cemeteryName,cemeteryAddress);
 	    	 		 			addRemark(x,y,cemeteryName,cemeteryAddress);//向地图中添加文字标注
 	    	 					break;	
 	    	                 }
@@ -605,7 +600,7 @@ function createMap(){
 //地图事件设置函数：
 function setMapEvent(){
    // map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
-   // map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+    map.enableScrollWheelZoom();//启用地图滚轮放大缩小
   //  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
    // map.enableKeyboard();//启用键盘上下左右键移动地图
 }
@@ -625,9 +620,13 @@ map.addControl(ctrl_sca);
 
 //向地图中添加标注
 function addRemark(x,y,title,address){
+	var marker = new BMap.Marker(new BMap.Point(x,y));  // 创建标注
+    map.addOverlay(marker);
+}
+
+function resetCenterAndZoom(x,y,cemeteryName,address){
 	var displayAddress=address;
 	var index = address.indexOf('区');
-	
 	if(index!=-1){
 		displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
 	}else{
@@ -641,63 +640,21 @@ function addRemark(x,y,title,address){
 			}
 		}
 	}
-	var displayName = title;
+	var displayName = cemeteryName;
 	if(displayName.length>6){
-		displayName = title.substring(0,4)+"<br>"+title.substring(4,title.length);
+		displayName = cemeteryName.substring(0,4)+"<br>"+cemeteryName.substring(4,cemeteryName.length);
 	}
-	for(var i=0;i<labelPoints.length;i++){
-		 var json = labelPoints[i];
-		 var cemetery= json.cemetery;
-		 var point = json.point;
-		 if(cemetery==title){
-				 var p1 = point.split("|")[0];
-			     var p2 = point.split("|")[1];
-			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(-60,-60)});
-			      map.addOverlay(label);
-			      label.setStyle({borderColor:"#999"});
-		 }  
-	}
-
-	for(var i=0;i<markerPoints.length;i++){
-		 var json = markerPoints[i];
-		 var cemetery= json.cemetery;
-		 var point = json.point;
-		 if(cemetery==title){
-				 var p1 = point.split("|")[0];
-			     var p2 = point.split("|")[1];
-			     var marker = new BMap.Marker(new BMap.Point(p1,p2));  // 创建标注
-			     map.addOverlay(marker);
-		 }  
-	}
-
-
-var pointsArray =[];
-for(var i=0;i<polygonPoints.length;i++){
- var json = polygonPoints[i];
- var cemetery= json.cemetery;
- var points = json.points;
- if(cemetery==title){
-	 for(var j=0;j<points.length;j++){
-		 var p1 = points[j].point.split("|")[0];
-	     var p2 = points[j].point.split("|")[1];
-	 	 pointsArray.push(new BMap.Point(p1, p2));
-	 }
- }
-     
-}
-var polygon = new BMap.Polygon(pointsArray,{strokeColor:"#FFBBC1", strokeWeight:2, strokeOpacity:0.3,fillColor:"#FFBBC1"});  //创建多边形
-map.addOverlay(polygon);
-}
-
-function resetCenterAndZoom(x,y,cemeteryName){
-	var point = new BMap.Point(x,y);//定义一个中心点坐标
+	var centerPoint = new BMap.Point(x,y);//定义一个中心点坐标
 	for(var i=0;i<zoomList.length;i++){
 		var json = zoomList[i];
 		 var cemetery= json.cemetery;
 		 if(cemetery==cemeteryName){
 			 
 		 	 var zoom = json.zoom;
-			 map.centerAndZoom(point,zoom);
+			 map.centerAndZoom(centerPoint,zoom);
+			 var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:centerPoint,offset:new BMap.Size(-800,200)});
+			 map.addOverlay(label);
+			 label.setStyle({borderColor:"#999"});
 			 return;
 		 }
 	}
@@ -810,7 +767,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
  
    </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 </div>
 </body>

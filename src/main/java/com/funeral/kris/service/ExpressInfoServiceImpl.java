@@ -1,5 +1,6 @@
 package com.funeral.kris.service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -102,6 +103,11 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 				ExpressInfo info = (ExpressInfo) iter.next();
 				if (info.getUserId().intValue() == useId && info.getStatusId().intValue() == 1) {
 
+					if(info.getDeliveryMethod().intValue()!=3){
+						info.setExpressFee(BigDecimal.ZERO);
+						
+					}
+					
 					return info;
 				}
 
