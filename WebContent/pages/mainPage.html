@@ -1419,6 +1419,31 @@ var picName = imageArray[number-1];
 $("#topHalfLevel").css({
 	"background-image": "url('../js/images/"+picName+"')"
 });
+$(".statusBarPoint").click(function() {
+	var id = parseInt($(this)[0].id) - 1,
+	    left = id* 175 - 15;
+	$("#cursorPoint").animate({'margin-left': left+'px'});
+	if (id === 0) {
+    	$("#otherPrice")[0].innerText = '11000';
+    	$("#nianPrice")[0].innerText = '8000';
+    	$("#savePrice")[0].innerText = '3000';
+    }
+    if (id === 1) {
+    	$("#otherPrice")[0].innerText = '14500';
+    	$("#nianPrice")[0].innerText = '10000';
+    	$("#savePrice")[0].innerText = '4500';
+    }
+    if (id === 2) {
+    	$("#otherPrice")[0].innerText = '18000';
+    	$("#nianPrice")[0].innerText = '13000';
+    	$("#savePrice")[0].innerText = '5000';
+    }
+    if (id === 3) {
+    	$("#otherPrice")[0].innerText = '23000';
+    	$("#nianPrice")[0].innerText = '17000';
+    	$("#savePrice")[0].innerText = '6000';
+    }
+});
 $(function() {
 	$("#message").click(function() {
 		window.location.href = "funeralDesignPage.html";
@@ -1505,7 +1530,6 @@ $(function() {
 	$(".cemeteryBtn").click(function() {
 	    window.location.href='/funeral/pages/cemeteryList.html';
 	});
-
 })
 window.onload=function(){
 	$(".productItem").click(function() {
@@ -1532,31 +1556,6 @@ window.onload=function(){
 		$(".productItem").css({
 			 opacity: 1
 		});
-	});
-	$(".statusBarPoint").click(function() {
-		var id = parseInt($(this)[0].id) - 1,
-		    left = id* 175 - 15;
-		$("#cursorPoint").animate({'margin-left': left+'px'});
-		if (id === 0) {
-        	$("#otherPrice")[0].innerText = '11000';
-        	$("#nianPrice")[0].innerText = '8000';
-        	$("#savePrice")[0].innerText = '3000';
-        }
-        if (id === 1) {
-        	$("#otherPrice")[0].innerText = '14500';
-        	$("#nianPrice")[0].innerText = '10000';
-        	$("#savePrice")[0].innerText = '4500';
-        }
-        if (id === 2) {
-        	$("#otherPrice")[0].innerText = '18000';
-        	$("#nianPrice")[0].innerText = '13000';
-        	$("#savePrice")[0].innerText = '5000';
-        }
-        if (id === 3) {
-        	$("#otherPrice")[0].innerText = '23000';
-        	$("#nianPrice")[0].innerText = '17000';
-        	$("#savePrice")[0].innerText = '6000';
-        }
 	});
 };
 $("#detailCalculator").click(function() {
