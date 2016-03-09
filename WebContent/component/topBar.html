@@ -1,0 +1,705 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="../js/Bootstrap/boot.css" rel="stylesheet">
+
+<style>
+    body {
+	    margin: 0;
+	    background-color: transparent;
+	    height: 67px;
+	}
+    .topBar {
+	    width: 100%;
+		margin:0px auto;
+		height:65px;
+		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+		background: #ffffff;
+	}
+	.linkList {
+	    width: 575px;
+		margin:0px auto;
+		height:100%;
+		overflow:auto;
+	}
+	.linkList .includeLink {
+	    float: left;
+		width: 115px;
+		text-align: center;
+	}
+	.includeLink {
+		cursor:pointer;
+		height: 65px;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+	}
+	.logo_section {
+		float: left;
+		height: auto;
+		margin-left: 30px;
+		position: absolute;
+	}
+	.logo_section img {
+	    width: 180px;
+	}
+	.includeLink p {
+	    margin-top: 21px;
+		font-size: 18px;
+	}
+	.choose {
+		background: rgb(244,244,244);
+		border-bottom: 3px solid #B5AFAF;
+	}
+	.barSelect {
+	    border-bottom: 3px solid #ED4B83;
+	    color: #ED4B83;
+	    font-weight: bold;
+	}
+	#leftSide {
+	    width: 25%;
+		float: left;
+		text-align: center;
+		margin-top: 22px;
+	}
+	#rightSide {
+	    width: 75%;
+		height: 100%;
+		float: left;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap;
+	}
+    #rightSide p {
+	    width: 90%;
+		height: 100%;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap;
+	}
+    .tickImg {
+		margin: 0px;
+        padding: 0px;
+		width: 20px;
+		height: 20px;
+	}
+	.sideIcon {
+	    width: 20px;
+		height: 20px;
+		float: right;
+		margin-top: 22px;
+		margin-right: 20px;
+		cursor: pointer;
+	}
+	.sideIcon img {
+	    width: 100%;
+		height: 100%;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	.subIcon2 {
+	    position: absolute;
+		width: 16px;
+		height: 14px;
+		border-radius: 7px;
+		background: #f62f5e;
+		margin-left: 22px;
+		margin-top: -4px;
+	}
+	.subIcon2 p {
+	    color: #ffffff;
+		line-height: 14px;
+		margin: 0px;
+		text-align: center;
+		font-size: 5px;
+	}
+	.subIcon {
+	    position: absolute;
+		width: 14px;
+		height: 14px;
+		border-radius: 7px;
+	}
+	.subIcon1 {
+	    position: absolute;
+		width: 14px;
+		height: 14px;
+		border-radius: 7px;
+		background: #f62f5e;
+		margin-left: 20px;
+		margin-top: -4px;
+	}
+	.subIcon1 span {
+	    color: #ffffff;
+	}
+	.subIcon1 p {
+	    color: #ffffff;
+		line-height: 14px;
+		margin: 0px;
+		text-align: center;
+	}
+	#rightSideLink {
+	    overflow: auto;
+		margin-top: -65px;
+		margin-right: 20px;
+	}
+	.sideLink {
+	    width: 120px;
+		float: right;
+	}
+</style>
+
+<body>
+
+<div class = "topBar">
+	<div class='linkList'>
+	    <div class="includeLink" id="design">
+	        <p>葬礼定制</p>
+		</div>
+		<div class="includeLink" id="product">
+		    <p>产品及服务</p>
+		</div>
+		<div class="includeLink" id="cemetery">
+	        <p>墓地信息</p>
+		</div>
+		<div class="includeLink" id="aboutUs">
+		    <p>关于我们</p>
+		</div>
+		<div class="includeLink" id="question">
+		    <p>常见问题</p>
+		</div>
+	</div>
+	<div id="rightSideLink">
+	    <div class="sideIcon" id="wishlistIcon">
+		    <div class="subIcon1" hidden>
+			    <p hidden>&#10004;</p>
+                <span class="glyphicon glyphicon-pencil" hidden></span>
+			</div>
+			<img src="../js/images/wishlist@2x.png" class="tickImg"></img>
+		</div>
+		<div class="sideIcon" id="shoppingCartIcon">
+		    <div class="subIcon2" hidden>
+			    <p>0</p>
+			</div>
+			<img src="../js/images/shopping@2x.png" class="tickImg"></img>
+		</div>
+		<div class="includeLink sideLink" id="side2">
+			<div id="leftSide">
+				<img src="../js/images/account@2x.png" class="tickImg"></img>
+			</div>
+			<div id="rightSide">
+				<p>登录/注册</p>
+			</div>
+		</div>
+	</div>
+   
+</body>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script type="text/javascript">
+    var length = location.search.length,
+	type = location.search.substring(5, length);
+	$("#"+type).addClass("barSelect");
+	$(".includeLink").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".includeLink").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+	$("#design").on("click", function () {
+	    if (type !== 'design') {
+            window.parent.location.href='../funeralDesignPage.html';
+		}
+	});
+	$("#product").on("click", function () {
+	    if (type !== 'product') {
+            window.parent.location.href='../productAndService.html';
+		}
+	});
+	$("#cemetery").on("click", function () {
+	    if (type !== 'cemetery') {
+            window.parent.location.href='../cemeteryList.html';
+		}
+	});
+	$("#aboutUs").on("click", function () {
+	    if (type !== 'aboutUs') {
+            window.parent.location.href='/aboutUs.html';
+		}
+	});
+	$("#question").on("click", function () {
+	    if (type !== 'question') {
+            window.parent.location.href='/questionAndAnswer.html';
+		}
+	});
+	function addCountOfShoppingCart() {
+		var count = $('#shoppingCartCount', parent.document)[0].innerText;
+
+		count = parseInt(count) + 1;
+		$('#shoppingCartCount', parent.document)[0].innerText = count;
+		$(".subIcon2").find("p")[0].innerText = count;
+	}
+	function updateShoppingCartCount(count) {
+		$('#shoppingCartCount', parent.document)[0].innerText = count;
+		$(".subIcon2").find("p")[0].innerText = count;
+	}
+    function adjustWishlistLayout(status) {
+    	$("#wishlistIcon").hover(function() {
+    		$("#wishlistIcon").find("img").attr("src", "../js/images/wishlist-red@2x.png");
+    	}, function() {
+    		$("#wishlistIcon").find("img").attr("src", "../js/images/wishlist@2x.png");
+    	});
+    	$("#wishlistIcon").mouseenter(function () {
+			var parent = $(window.parent.document.body),
+				top = $('.topBar').height(),
+				totalWidth = parent.width(),
+				clientWidth = parent.find('.container').width(),
+				right = 0,
+                wishlistInfo,
+                buttonInfo,
+                navigateInfo;
+				
+			//	alert("parent="+parent+"  totalWidth= "+totalWidth+"  clientWidth="+clientWidth+"  right="+right);
+			if (status === "N") {
+                wishlistInfo = "您尚未定制愿望清单";
+                buttonInfo = "开始定制";
+                navigateInfo = "designProposal.html";
+            }
+            else if (status === "I") {
+                wishlistInfo = "您尚未完成愿望清单定制";
+                buttonInfo = "点击继续定制";
+                navigateInfo = "designProcess.html";
+                $("")
+            }
+            else if (status === "F") {
+                wishlistInfo = "您已完成愿望清单配置";
+                buttonInfo = "查看愿望清单";
+                navigateInfo = "wishList.html";
+            }
+			parent.append("<div id='wishlistSub' hidden></div><div id='wishlistInfo' hidden><h3>愿望清单</h3><h4>"+wishlistInfo+"</h4><div class='navigateButton'><p>"+buttonInfo+"</p></div></div>");
+			parent.find("#wishlistInfo").css({
+				'width': '185px',
+				'height': '107px',
+				'position': 'absolute',
+				'right': right,
+				'top': top,
+				'overflow': 'hidden',
+				'z-index': '20',
+				'padding-left': '13px',
+				'box-shadow': '0 5px 30px 0 rgba(0, 0, 0, 0.3)',
+				'background': '#ffffff'
+			});
+			parent.find("#wishlistInfo").find("h3").css({
+				'font-size': '16px',
+				'color': '#000000',
+				'margin': '0px',
+				'margin-top': '14px'
+			});
+			parent.find("#wishlistInfo").find("h4").css({
+				'font-size': '11px',
+				'color': '#7f7f7f',
+				'margin': '0px',
+				'margin-top': '5px'
+			});
+			parent.find("#wishlistSub").css({
+				'width': '0px',
+				'height': '0px',
+				'position': 'absolute',
+				'right': right+5,
+				'top': top-12,
+				'overflow': 'hidden',
+				'border-left': '18px solid transparent',
+				'border-right': '18px solid transparent',
+				'border-bottom': '20px solid #ffffff',
+				'z-index': 21
+			});
+			parent.find(".navigateButton").css({
+				'width': '159px',
+				'height': '26px',
+				'background': '#ed4b83',
+				'border-radius': '5px;',
+				'z-index': '21',
+				'margin-top': '9px',
+				'cursor': 'pointer'
+			});
+            parent.find(".navigateButton").click(function() {
+                window.parent.location.href = navigateInfo;
+            });
+			parent.find(".navigateButton").find("p").css({
+				'line-height': '26px',
+				'text-align': 'center',
+				'color': '#ffffff'
+			});
+			parent.find("#wishlistInfo").fadeIn();
+			parent.find("#wishlistSub").fadeIn();
+			parent.find("#wishlistInfo").addClass("tempAdd");
+			parent.find("#wishlistInfo").mouseenter(function () {
+				$(this).addClass("tempAdd");
+			});
+			parent.find("#wishlistInfo").mouseleave(function () {
+				$(this).removeClass("tempAdd");
+				setTimeout (function () {
+					if (!parent.find("#wishlistInfo").hasClass('tempAdd')) {
+						parent.find("#wishlistInfo").hide();
+						parent.find("#wishlistSub").hide();
+					}
+				}, 100);
+			});
+			parent.find("#wishlistSub").mouseenter(function () {
+				parent.find("#wishlistInfo").addClass("tempAdd");
+			});
+		});
+		$("#wishlistIcon").mouseleave(function (e) {
+			var parent = $(window.parent.document.body);
+			parent.find("#wishlistInfo").removeClass('tempAdd');
+			setTimeout (function () {
+				if (!parent.find("#wishlistInfo").hasClass('tempAdd')) {
+					parent.find("#wishlistInfo").hide();
+					parent.find("#wishlistSub").hide();
+				}
+			}, 100);
+		});
+    }
+    function adjustShoppingLayout(count) {
+    	$("#shoppingCartIcon").hover(function() {
+    		$("#shoppingCartIcon").find("img").attr("src", "../js/images/shopping-red@2x.png");
+    	}, function() {
+    		$("#shoppingCartIcon").find("img").attr("src", "../js/images/shopping@2x.png");
+    	});
+    	if (count > 0) {
+    	    $("#shoppingCartIcon").find("img").attr("src", "../js/images/shopping-red@2x.png");
+    	}
+        if (count === 0) {
+        	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton'><p>开始购物</p></div></div>");
+        }
+        else {
+        	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton' id='navigateButton1'><p>前去购物袋</p></div><div class='navigateButton' id='navigateButton2'><p>直接结算</p></div></div>");
+		    $("#shoppingCartIcon").find("img").attr("src", "../js/images/shopping-red@2x.png");
+        }
+		$("#shoppingCartIcon").mouseenter(function () {
+			var parent = $(window.parent.document.body),
+				top = $('.topBar').height(),
+				totalWidth = parent.width(),
+				clientWidth = parent.find('.container').width(),
+				right = 0;
+
+			parent.find("#shoppingInfo").css({
+				'width': '185px',
+				'height': '84px',
+				'position': 'absolute',
+				'right': right,
+				'top': top,
+				'overflow': 'hidden',
+				'z-index': 20,
+				'padding-left': '13px',
+				'box-shadow': '0 5px 30px 0 rgba(0, 0, 0, 0.3)',
+				'background': '#ffffff'
+			});
+			parent.find("#shoppingInfo").find("h3").css({
+				'font-size': '16px',
+				'color': '#000000',
+				'margin': '0px',
+				'margin-top': '14px'
+			});
+			parent.find("#shoppingSub").css({
+				'width': '0px',
+				'height': '0px',
+				'position': 'absolute',
+				'right': right+40,
+				'top': top-12,
+				'overflow': 'hidden',
+				'border-left': '18px solid transparent',
+				'border-right': '18px solid transparent',
+				'border-bottom': '20px solid #ffffff',
+				'z-index': 21
+			});
+            if (count === 0) {
+                parent.find(".navigateButton").css({
+					'width': '159px',
+					'height': '26px',
+					'background': '#ed4b83',
+					'border-radius': '5px',
+					'z-index': 21,
+					'margin-top': '9px',
+					'cursor': 'pointer'
+			    });
+				parent.find(".navigateButton").click(function() {
+					window.parent.location.href = "productAndService.html";
+				});
+            }
+            else {
+                parent.find("#navigateButton1").css({
+					'width': '93px',
+					'height': '26px',
+					'background': '#ed4b83',
+					'border-radius': '5px',
+					'z-index': 21,
+					'margin-top': '9px',
+					'cursor': 'pointer',
+                    'float': 'left',
+                    'margin-right': '5px'
+			    });
+                parent.find("#navigateButton2").css({
+					'width': '67px',
+					'height': '26px',
+					'background': '#ed4b83',
+					'border-radius': '5px',
+					'z-index': 21,
+					'margin-top': '9px',
+					'cursor': 'pointer',
+                    'float': 'left'
+			    });
+				parent.find("#navigateButton1").click(function() {
+					window.parent.location.href = "wishList.html";
+				});
+				parent.find("#navigateButton2").click(function() {
+					window.parent.location.href = "paymentInfo.html";
+				});
+            }
+            parent.find(".navigateButton").find("p").css({
+				'line-height': '26px',
+				'text-align': 'center',
+				'color': '#ffffff'
+			});
+			parent.find("#shoppingInfo").fadeIn();
+			parent.find("#shoppingSub").fadeIn();
+			parent.find("#shoppingInfo").addClass("tempAdd");
+			parent.find("#shoppingInfo").mouseenter(function () {
+				$(this).addClass("tempAdd");
+			});
+			parent.find("#shoppingInfo").mouseleave(function () {
+				$(this).removeClass("tempAdd");
+				setTimeout (function () {
+					if (!parent.find("#shoppingInfo").hasClass('tempAdd')) {
+						parent.find("#shoppingInfo").hide();
+						parent.find("#shoppingSub").hide();
+					}
+				}, 100);
+			});
+			parent.find("#shoppingSub").mouseenter(function () {
+				parent.find("#shoppingInfo").addClass("tempAdd");
+			});
+		});
+		$("#shoppingCartIcon").mouseleave(function (e) {
+			var parent = $(window.parent.document.body);
+			parent.find("#shoppingInfo").removeClass('tempAdd');
+			setTimeout (function () {
+				if (!parent.find("#shoppingInfo").hasClass('tempAdd')) {
+					parent.find("#shoppingInfo").hide();
+					parent.find("#shoppingSub").hide();
+				}
+			}, 100);
+		});
+    }
+	function adjustLayout(user) {
+        var url;
+        if (user !== null && user != undefined && user != '') {
+            url = '/wishlist/list?userId='+user.usrId;
+            $.ajax({
+				url: url,
+				type: 'GET',
+				contentType: "application/json; charset=UTF-8",
+				success:function(data){
+					var wishlist;
+
+					if (data.length > 0) {
+						wishlist =data[0];
+						if (wishlist.status === "I") {
+							$(".subIcon1").find("p").hide();
+							$(".subIcon1").find("span").fadeIn();
+							$(".subIcon1").fadeIn();
+						}
+						else if (wishlist.status === "F"){
+							$(".subIcon1").find("span").hide();
+							$(".subIcon1").find("p").fadeIn();
+							$(".subIcon1").fadeIn();
+						}
+						adjustWishlistLayout(wishlist.status);
+						url = "/wishlistDetail/listCount?wishlistId="+wishlist.wishlistId;
+						$.ajax({
+							url: url,
+							type: 'GET',
+							contentType: "application/json; charset=UTF-8",
+							success:function(count){
+								$(".subIcon2").find("p")[0].innerText = count;
+								$(".subIcon2").fadeIn();
+								adjustShoppingLayout(count);
+							},
+							error: function(error) {
+							}
+						});
+					}
+				},
+				error: function(error) {
+				}
+			});
+        }
+        else {
+            $(".sideIcon").css({
+                'opacity': '1',
+                'cursor': 'default'
+            });
+        }
+        $("#side2").hover(function() {
+    		$("#side2").find("img").attr("src", "../js/images/account red@2x.png");
+    	}, function() {
+    		$("#side2").find("img").attr("src", "../js/images/account@2x.png");
+    	});
+		if (user !== undefined && user!= null && user.userName !== null && user.userName !== undefined) {
+			$("#side2").find("p")[0].innerText = user.userName;
+			$("#side2").mouseenter(function () {
+				var parent = $(window.parent.document.body),
+					top = $('.topBar').height(),
+					totalWidth = parent.width(),
+					clientWidth = parent.find('.container').width(),
+					right = 0;
+					
+				//	alert("parent="+parent+"  totalWidth= "+totalWidth+"  clientWidth="+clientWidth+"  right="+right);
+				parent.append("<div id='userSub' hidden></div><div id='userInfo' hidden><div class='singleNav' id='personalAcount'><p>个人账户</p></div><div class='singleNav' id='wishListNavi'><p>愿望清单</p></div><div class='singleNav' id='logout'><p>退出</p></div></div>");
+				parent.find("#userInfo").css({
+					'width': '106px',
+					'position': 'absolute',
+					'right': right+110,
+					'top': top,
+					'overflow': 'auto',
+					'z-index': 20,
+					'box-shadow': '0 5px 30px 0 rgba(0, 0, 0, 0.3)',
+					'padding-top': '5px',
+					'padding-bottom': '5px',
+					'background': '#ffffff'
+				});
+				parent.find(".singleNav").css({
+					'width': '100%',
+					'overflow': 'auto',
+					'cursor': 'pointer'
+				});
+				parent.find(".singleNav").find("p").css({
+					'text-align': 'center',
+					'overflow': 'auto',
+					'line-height': '26px',
+					'margin': '0px',
+					'color': "#000000"
+				});
+				parent.find(".singleNav").hover(function() {
+					$(this).css({
+						'box-shadow': '0 5px 30px 0 rgba(0, 0, 0, 0.3)'
+					});
+				}, function() {
+					$(this).css({
+						'box-shadow': 'none'
+					});
+				});
+				parent.find("#personalAcount").click(function() {
+					window.parent.location.href='/AccountInfo.html';
+				});
+				parent.find("#wishListNavi").click(function() {
+					window.parent.location.href='/wishList.html';
+				});
+				parent.find("#logout").click(function() {
+					$.ajax({
+					    url: '/login/logoff',
+						type: 'GET',
+						contentType: "application/json; charset=UTF-8",
+						success:function(data){
+							window.parent.location.reload();
+						},
+						error: function(error) {
+					    }
+					});
+				});
+				parent.find("#userSub").css({
+					'width': '0px',
+					'height': '0px',
+					'position': 'absolute',
+					'right': right+110,
+					'top': top-12,
+					'overflow': 'hidden',
+					'border-left': '18px solid transparent',
+					'border-right': '18px solid transparent',
+					'border-bottom': '20px solid #ffffff',
+					'z-index': 21
+				});
+				parent.find("#userInfo").fadeIn();
+				parent.find("#userSub").fadeIn();
+				parent.find("#userInfo").addClass("tempAdd");
+				parent.find("#userInfo").mouseenter(function () {
+					$(this).addClass("tempAdd");
+				});
+				parent.find("#userInfo").mouseleave(function () {
+					$(this).removeClass("tempAdd");
+					setTimeout (function () {
+						if (!parent.find("#userInfo").hasClass('tempAdd')) {
+							parent.find("#userInfo").hide();
+							parent.find("#userSub").hide();
+						}
+					}, 100);
+				});
+				parent.find("#userSub").mouseenter(function () {
+					parent.find("#userInfo").addClass("tempAdd");
+				});
+			});
+			$("#side2").mouseleave(function (e) {
+				var parent = $(window.parent.document.body);
+				parent.find("#userInfo").removeClass('tempAdd');
+				setTimeout (function () {
+					if (!parent.find("#userInfo").hasClass('tempAdd')) {
+						parent.find("#userInfo").hide();
+						parent.find("#userSub").hide();
+					}
+				}, 100);
+			});
+		}
+		else {
+		    $("#side2").click(function() {
+			    window.parent.popupLogInPage();
+			});
+		}
+	}
+	$.ajax({
+		url: '/login/validateLogin',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+            var resultCode =data;
+
+			if (resultCode === "") {
+	            adjustLayout();
+			}
+			else {
+				adjustLayout(data);
+			}
+		},
+		error: function(error) {
+		}
+	});
+	$(window.parent.document.body).append("<div class='logo_section'><img src='/js/images/logo_pink.png' alt='logo'></div>");
+	$(window.parent.document.body).find(".logo_section").css({
+	    'position': 'absolute',
+	    'top': '0px',
+	    'left': '20px',
+		'transition' : 'box-shadow 0.3s',
+        '-moz-transition':'box-shadow 0.3s',
+        '-webkit-transition':'box-shadow 0.3s',
+        '-o-transition' : 'box-shadow 0.3s',
+        'cursor': 'pointer'
+	});
+	$(window.parent.document.body).find(".logo_section").find("img").css({
+		'width': '180px'
+	});
+	$(window.parent.document.body).find(".logo_section").hover(function() {
+		$(this).css({
+	        'box-shadow': '0px 10px 20px 0px #ec4a82'
+		});
+	}, function() {
+		$(this).css({
+	        'box-shadow': 'none'
+		});
+	});
+	$(window.parent.document.body).find(".logo_section").click(function() {
+		window.parent.location.href = "/mainPage.html";
+	});
+</script>
+</html>

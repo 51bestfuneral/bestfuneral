@@ -14,7 +14,7 @@ public class CartlistJson {
 	private BigDecimal originalPrice;
 	private BigDecimal selectedPrice;
 	private Integer selected;
-	 
+	private BigDecimal sumPrice;
 
 	public Integer getSelected() {
 		return selected;
@@ -82,5 +82,10 @@ public class CartlistJson {
 	public void setCartId(Integer cartId) {
 		this.cartId = cartId;
 	}
-	
+	public BigDecimal getSumPrice() {
+		return sumPrice;
+	}
+	public void setSumPrice(BigDecimal sumPrice) {
+		this.sumPrice = sumPrice;
+	}
 }

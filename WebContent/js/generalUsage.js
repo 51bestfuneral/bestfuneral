@@ -16,7 +16,7 @@ function muskCurrentPage() {
 	    $(this).fadeTo('slow', 0.5); 
 	});
 	var topLoading = (document.documentElement.clientHeight/2)-50;
-	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+	$('<div class="loadingShow"><img src="/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
 		position: 'fixed',
 		top: topLoading+'px',
 		left: '0px',
@@ -75,7 +75,7 @@ function popupLogInPage() {
 			}).fadeIn('slow', function(){ 
 				$(this).fadeTo('slow', 0.5); 
 		});
-		$('<div id="loginFrameCoat" hidden><iframe src="/funeral/pages/component/logIn.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
+		$('<div id="loginFrameCoat" hidden><iframe src="/component/logIn.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
 			width: '100%',
 			top: centerTop+'px',
@@ -109,7 +109,7 @@ function popupSignInPage() {
 			}).fadeIn('slow', function(){ 
 				$(this).fadeTo('slow', 0.5); 
 		});
-		$('<div id="loginFrameCoat" hidden><iframe src="/funeral/pages/component/signIn.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
+		$('<div id="loginFrameCoat" hidden><iframe src="/component/signIn.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
 			width: '100%',
 			top: centerTop+'px',
@@ -130,7 +130,7 @@ function popupSignInPage() {
 
 function checkUserLogin(flag) {
 	$.ajax({
-		url: '/funeral/login/validateLogin',
+		url: '/login/validateLogin',
 		type: 'GET',
 		contentType: "application/json; charset=UTF-8",
 		async: false,
@@ -163,7 +163,7 @@ function popupRequestPage() {
 			}).fadeIn('slow', function(){ 
 				$(this).fadeTo('slow', 0.5); 
 		});
-		$('<div id="loginFrameCoat" hidden><iframe src="/funeral/pages/component/visitRequest.html" id="requestFrame"></iframe></div>').appendTo(document.body).css({ 
+		$('<div id="loginFrameCoat" hidden><iframe src="/component/visitRequest.html" id="requestFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
 			width: '100%',
 			top: centerTop+'px',
@@ -197,7 +197,7 @@ function popupchangePassWordPage() {
 			}).fadeIn('slow', function(){ 
 				$(this).fadeTo('slow', 0.5); 
 		});
-		$('<div id="loginFrameCoat" hidden><iframe src="/funeral/pages/component/changePassword.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
+		$('<div id="loginFrameCoat" hidden><iframe src="/component/changePassword.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
 			width: '100%',
 			top: centerTop+'px',
@@ -217,7 +217,7 @@ function popupchangePassWordPage() {
 }
 
 function floatAlertBar() {
-	$('<div class="alertBar"><i class="fa fa-check-circle"></i></span>&nbsp;个人资料更新成功&nbsp;<a href="/funeral/pages/mainPage.html">回到首页</a>&nbsp;|&nbsp;<a href="/funeral/pages/designProposal.html">开始定制</a><div class="floatRightClose"><i class="fa fa-times"></i></div></div>').appendTo(document.body).css({ 
+	$('<div class="alertBar"><i class="fa fa-check-circle"></i></span>&nbsp;个人资料更新成功&nbsp;<a href="/mainPage.html">回到首页</a>&nbsp;|&nbsp;<a href="/designProposal.html">开始定制</a><div class="floatRightClose"><i class="fa fa-times"></i></div></div>').appendTo(document.body).css({ 
 		position: 'fixed',
 		top: '0px',
 		'z-index': 1000, 

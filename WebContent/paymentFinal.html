@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head">
+<title>念念--付款成功</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/js/generalUsage.js"></script>
+<style>
+@media (min-width: 900px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+	background-color: #F7F7F7;
+  }
+}
+p {
+    margin: 0px;
+}
+span {
+    font-family: "Microsoft Yahei";
+}
+#paymentContain {
+    width: 81%;
+	overflow: auto;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+	background: #ffffff;
+	margin: 0px auto;
+	margin-top: 35px;
+	text-align: center;
+	padding-bottom: 75px;
+}
+#infoContain {
+	overflow: auto;
+	width: 908px;
+	margin: 0px auto;
+	padding-top: 54px;
+	padding-bottom: 26px;
+}
+.statusPointer {
+    width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #eeeeee;
+	float: left;
+}
+.statusBar {
+    width: 270px;
+	height: 7px;
+	background: #eeeeee;
+	margin-left: 3px;
+	margin-right: 3px;
+	float: left;
+	margin-top: 6px;
+}
+#paymentStatusDesc {
+    width: 100%;
+	margin-top: 27px;
+	overflow: auto;
+	padding-bottom: 28px;
+}
+.descDiv {
+    overflow: auto;
+	float: left;
+}
+.first {
+    margin-right: 250px;
+}
+.second {
+    margin-right: 260px;
+}
+.last {
+    float: right!important;
+	margin-right: 0px!important;
+}
+.descDiv p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: #2e2e2e;
+	font-weight: bold;
+}
+#paymentStatusDesc .selected {
+    color: #f62f5e;
+}
+#paymentStatus .selected {
+	background: #f62f5e;
+}
+#confirmed {
+    width: 174px;
+	height: 174px;
+	border-radius: 87px;
+	border: solid 2px #2c9676;
+	margin: 0px auto;
+	text-align: center;
+}
+#confirmed span {
+    font-family: "";
+	line-height: 174px;
+	font-size: 140px;
+	color: #2c9676;
+}
+.success {
+    font-size: 40px;
+    line-height: 1.5;
+    letter-spacing: 2px;
+    color: #2e2e2e;
+}
+.soon {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #2e2e2e;
+}
+#confirmedButton {
+    width: 186px;
+    height: 50px;
+    border-radius: 84px;
+    background-color: #f62f5e;
+	text-align: center;
+	margin: 0px auto;
+	margin-top: 23px;
+	cursor: pointer;
+}
+#confirmedButton:hover {
+    opacity: 0.8;
+}
+#confirmedButton span {
+    font-size: 13px;
+    line-height: 50px;;
+    color: #ffffff;
+}
+</style>
+
+<body ng-app="PaymentApp" ng-controller="alipay">
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
+<div class="container">
+<div id="paymentContain">
+    <div id="infoContain">
+	    <div id="paymentStatus">
+		     <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+		</div>
+		<div id="paymentStatusDesc">
+		     <div class="descDiv first">
+			     <p class="selected">寄送</p>
+			 </div>
+			 <div class="descDiv second">
+			     <p class="selected">确认</p>
+			 </div>
+			 <div class="descDiv">
+			     <p class="selected">支付</p>
+			 </div>
+			 <div class="descDiv last">
+			     <p class="selected">核对</p>
+			 </div>
+		</div>
+	</div>
+	<div id="confirmed">
+	    <span>&#10004;</span>
+	</div>
+	<h1 class="success">付款成功</h1>
+	<p class="soon">您的物品我们会尽快寄出，请注意查收</p>
+	<div id="confirmedButton">
+	    <span>回到首页</span>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
+<script type="text/javascript">
+
+	
+var app = angular.module('PaymentApp', []);
+app.controller('alipay', function($scope, $http) {
+	
+ 
+ 
+
+});
+</script>
+</html>

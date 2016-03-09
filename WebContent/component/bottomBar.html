@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<style>
+    @media (max-width: 1380px) {
+        #certificate {
+            width: 1000px!important;
+        }
+        #bottomDivCoat {
+            width: 1000px!important;
+        }
+    }
+    html {
+	    -webkit-text-size-adjust: none;
+	}
+    #bottomBar {
+	    width: 100%;
+		overflow: auto;
+		color: #ffffff;
+		background-color: #3d4351;
+	}
+	#bottomLeft {
+	    width: 42%;
+		background-color: #3d4351;
+		float: left;
+		height: 200px;
+	}
+	#bottomRight {
+	    width: 58%;
+		background-color: #3d4351;
+		float: left;
+		height: 205px;
+		padding-left: 80px;
+	}
+	#bottomLeftMain {
+		text-align: left;
+        margin-top: 33px;
+		padding-top: 20px;
+        padding-bottom: 25px;
+        border-right: 1px solid #767676;
+	}
+	#bottomLeftMain img {
+	    width: 120px;
+        height: 45px;
+	}
+	#bottomLeftMain h2 {
+	    font-size: 17px;
+        line-height: 12px;
+		margin: 0px;
+        margin-top: 10px;
+	}
+	#rightTop {
+	    width: 100%;
+		padding-top: 67px;
+		margin: 0px;
+        overflow: auto;
+	}
+	#rightTop a {
+	    
+		margin: 0px;
+		margin-right: 26px;
+	
+	}
+	#adjustFontDiv {
+		background: #495061;
+		padding-left: 20%;
+	}
+	#adjustFontDiv span {
+	    line-height: 48px;
+		margin-right: 3px;
+		color: #ffffff;
+		font-size: 12px;
+		cursor: pointer;
+	}
+	#adjustFontDiv span:hover {
+	    color: #ff5274;
+	}
+	#sloganDiv {
+	    width: 965px;
+		height: 72px;
+		margin: 0px auto;
+		border-bottom: 0px solid #767676;
+		padding-left: 75px;
+		overflow: hidden;
+	}
+	.singleSlogan {
+	    width: 165px;
+		height: 100%;
+		float: left;
+	}
+	.singleSlogan img {
+		width: 54px;
+		height: 70px;
+	}
+	.singleSlogan span {
+	    font-size: 16px;
+  		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+	}
+	#buttonGroup {
+        margin-top: -25px;
+		width: 100%;
+	}
+	#buttonGroup div {
+	    width: 40px;
+		height: 40px;
+		float: left;
+		margin-right: 8px;
+		cursor: pointer;
+		opacity: 0.8;
+	}
+	#buttonGroup div:hover {
+	    opacity: 1;
+	}
+	#buttonGroup div img {
+	    width: 100%;
+		height: 100%;
+	}
+	.includeLink {
+		float:left;
+		cursor:pointer;
+        overflow: auto;
+        position:relative;
+        top:-40px;
+		transition:background 0.5s;
+		-moz-transition:background 0.5s;
+        -webkit-transition:background 0.5s;
+        -o-transition:background 0.5s;
+        margin-top: 21px;
+		margin-right: 15px;
+	}
+	.includeLink p {
+	  	margin-top: 21px;
+		font-size: 17px;
+  		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+    	color: #ffffff;
+	}
+    #bottomDivCoat {
+        border-bottom: 1px solid #767676;
+        overflow: auto;
+        width: 1200px;
+        margin: 0px auto;
+    }
+	#certificate {
+	    overflow: auto;
+        width: 1200px;
+        margin: 0px auto;
+	}
+	#certificateLeft {
+	    float: left;
+		text-align: left;
+		margin-left: -75px;
+		display: inline;
+	}
+	#certificateLeft p{
+	    font-size: 12px;  
+        -webkit-transform: scale(0.75);
+		line-height: 30px;
+		color: #ffffff;
+	}
+	#certificateRight {
+        -webkit-transform: scale(0.75);
+		line-height: 30px;
+	    float: right;
+		font-size: 5px;
+		line-height: 30px;
+		color: #ffffff;
+		margin-right: -10px;
+		display: inline;
+	}
+	#certificateRight span {
+	    cursor:pointer;
+		opacity: 0.5;
+	}
+	#certificateRight span:hover {
+	    opacity: 1;
+	}
+	#certificateRight p {
+		font-size: 12px;
+	}
+</style>
+<body>
+<div id="bottomBar">
+    <div id="adjustFontDiv">
+	</div>
+<!--	<div id="sloganDiv">
+	    <div class="singleSlogan">
+		    <img src="/js/images/slogan1.png"></img>
+			<span>正品保障</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="/js/images/slogan2.png"></img>
+			<span>极速发货<span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="/js/images/slogan3.png"></img>
+			<span>专业咨询</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="/js/images/slogan4.png"></img>
+			<span>品类齐全</span>
+		</div>
+		<div class="singleSlogan">
+		    <img src="/js/images/slogan5.png"></img>
+			<span>低价省钱</span>
+		</div>
+	</div>
+	-->
+	<div id="bottomDivCoat">
+		<div id="bottomLeft">
+			<div id="bottomLeftMain">
+				<img src="/js/images/logo-white@2x.png"></img>
+				<h2><br>不要让你爱的人走的太匆忙，</br><br>我们是你身边的葬礼助手。</br></h2>
+			</div>
+		</div>
+		<div  id="bottomRight">
+			<div id="rightTop">
+			
+			 <div class="includeLink" id="design">
+				<p>葬礼定制</p>
+			</div>
+				
+				<div class="includeLink" id="product">
+				<p>产品及服务</p>
+			</div>
+				<div class="includeLink" id="cemetery">
+				<p>墓地信息</p>
+			</div>
+			<div class="includeLink" id="contact">
+				<p>关于我们</p>
+			</div>
+			<div class="includeLink" id="questions">
+				<p>常见问题</p>
+			</div>
+			</div>
+			<div id="buttonGroup">
+				<div>
+                    <img src="/js/images/group-3@2x.png"></img>
+                </div>
+                <div>
+                    <img src="/js/images/Group3Copy2@2x.png"></img>
+                </div>
+                <div>
+                    <img src="/js/images/Group3Copy@2x.png"></img>
+                </div>
+			</div>
+		</div>
+    </div>
+	<div id="certificate">
+	    <div id="certificateLeft">
+	        <p>版权所有 © 2016-2017 上海菲诺文化创意有限公司365NIANNIAN.COM (念念网) 保留一切权利  沪ICP备16007794号</p>
+		</div>
+		<div id="certificateRight">
+		    <p><span id="quick"> 快捷支付协议 </span>| <span id="secret"> 隐私声明 </span> | <span id="law"> 法律声明 </span> | <span id="clause"> 服务条款 </span></p>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+	  var currentLevel=1;
+
+	
+    function changeAllLayout(level) {
+    	
+    	
+    	
+	  
+		for (i=0; i<frames.length;i++) {
+		    $(frames[i].contentWindow.document.body).css({
+		        'zoom': level,
+			    '-moz-transform':'scale('+level+')',
+			    '-moz-transform-origin':'top left'
+		    });
+		}
+		$('body', window.parent.document).css({
+		    'zoom': level,
+			'-moz-transform':'scale('+level+')',
+			'-moz-transform-origin':'top left'
+		});
+		
+		if(level=='1.1'){
+			return;
+			}
+			
+				if(level=='2'){
+					
+					
+			return;
+			}
+		
+	}
+	
+</script>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script type="text/javascript">
+    var length = location.search.length,
+	type = location.search.substring(5, length);
+	$("#"+type).addClass("barSelect");
+	$(".includeLink").hover(function () {
+        var $this = $(this);
+        $this.addClass("choose");
+	});
+	$(".includeLink").on("mouseleave", function () {
+        var $this = $(this);
+        $this.removeClass("choose");
+	});
+	$("#main").on("click", function () {
+	    if (type !== 'main') {
+            window.parent.location.href='/mainPage.html';
+		}
+	});
+	$("#design").on("click", function () {
+	    if (type !== 'design') {
+            window.parent.location.href='funeralDesignPage.html';
+		}
+	});
+	$("#product").on("click", function () {
+	    if (type !== 'product') {
+            window.parent.location.href='/productAndService.html';
+		}
+	});
+	$("#cemetery").on("click", function () {
+	    if (type !== 'cemetery') {
+            window.parent.location.href='/cemeteryList.html';
+		}
+	});
+	$("#questions").on("click", function() {
+		if (type !== 'questions') {
+            window.parent.location.href='/questionAndAnswer.html';
+		}
+	});
+	$("#contact").on("click", function () {
+	    if (type !== 'contact') {
+            window.parent.location.href='/aboutUs.html';
+		}
+	});
+	$("#certificateRight").find("span").click(function() {
+	    var id = $(this)[0].id;
+		if (id === "quick") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else if (id === "secret") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else if (id === "law") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+	});
+</script>
+</html>

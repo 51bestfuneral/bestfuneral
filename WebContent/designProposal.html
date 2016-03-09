@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>念念--葬礼定制</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
-<link href="/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/js/personal.css" rel="stylesheet">
 <script src="/js/generalUsage.js"></script>
 <script src="/js/jquery-2.1.4.js"></script>
@@ -83,42 +83,6 @@
     margin-bottom: 20px;
 }
 </style>
-<script type="text/javascript">
-var app = angular.module('myApp', []);
-function buildObject(level) {
-    var levelOwnList = [];
-	for (i=0 ; i < level.length; i++) {
-	    var levelOwn;
-
-	    if (level[i] === "0") {
-		    levelOwn = {
-			    hidden: "hidden"
-			}
-		}
-		else {
-		    levelOwn = {
-			    hidden: ""
-			}
-		}
-		levelOwnList.push(levelOwn);
-	}
-    return levelOwnList;
-}
-app.controller('wishTypeLevels', function($scope, $http) {
-	
-	$http.get("/displayWishType/listWishCategory").success(function(response) {
-	    $scope.wishCates = response;
-	});
-	
-	 $http.get("/displayWishType/listWishCategorySub").success(function(response) {
-	    $scope.cateSubs = response;
-	});
-	
-    $http.get("/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-});
-</script>
 <link href="/js/personal.css" rel="stylesheet">
 <body>
 
@@ -127,9 +91,9 @@ app.controller('wishTypeLevels', function($scope, $http) {
 
    	<div class="second_nav">
 		<div id="subNavilink">
-		 <link1><a href="/pagesDesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
-		 <link2><a href="/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
-		 <link4><a href="/pages/designProposal.html" style="font-weight:900;">选择定制方案</a>  </link4>
+		 <link1><a href="DesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
+		 <link2><a href="/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
+		 <link4><a href="/designProposal.html" style="font-weight:900;">选择定制方案</a>  </link4>
 		</div>  
 	</div>
 
@@ -397,6 +361,42 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
+var app = angular.module('myApp', []);
+function buildObject(level) {
+    var levelOwnList = [];
+	for (i=0 ; i < level.length; i++) {
+	    var levelOwn;
+
+	    if (level[i] === "0") {
+		    levelOwn = {
+			    hidden: "hidden"
+			}
+		}
+		else {
+		    levelOwn = {
+			    hidden: ""
+			}
+		}
+		levelOwnList.push(levelOwn);
+	}
+    return levelOwnList;
+}
+app.controller('wishTypeLevels', function($scope, $http) {
+	
+	$http.get("/displayWishType/listWishCategory").success(function(response) {
+	    $scope.wishCates = response;
+	});
+	
+	 $http.get("/displayWishType/listWishCategorySub").success(function(response) {
+	    $scope.cateSubs = response;
+	});
+	
+    $http.get("/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+});
+</script>
+<script type="text/javascript">
 $.ajax({
 	url: '/wishlist/list',
 	data: [],
@@ -431,7 +431,7 @@ function generateWishlistByLevel(wishlistId, level) {
 		type: 'post',
 		dataType:'json',
 		success:function(data){
-			window.location.href='/pages/designProcess.html';
+			window.location.href='/designProcess.html';
 		},
 		error: function(error) {
 		}

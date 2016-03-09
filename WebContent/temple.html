@@ -1,0 +1,778 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+    寺庙
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers’
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<script src="/js/Bootstrap/boot.js"></script>
+<link href="/js/personal.css" rel="stylesheet">
+<link href="/component/css/secondLevelMenu.css" rel="stylesheet">
+
+</head>
+
+
+
+
+		
+
+<style>
+
+
+#mainHeader {
+    text-align: center;
+	width: 100%;
+	height: 380px;
+	background-color: rgba(0, 0, 0, 0.49);
+}
+#mainHeader h1 {
+    font-size: 45px;
+	line-height: 55px;
+	color: #ffffff;
+	margin: 0px;
+}
+#mainHeader h2 {
+    font-size: 20px;
+	line-height: 24px;
+	color: #ffffff;
+	margin: 0px;
+}
+#leftTop {
+    width: 100%;
+	padding-top: 30px;
+	padding-left: 120px;
+	text-align: left;
+}
+#leftTop p{
+    font-size: 12px;
+	line-height: 16px;
+	color: #ffffff;
+	margin: 0px;
+}
+#leftTop span {
+    color: #ff5274
+}
+#centerText {
+    width: 100%;
+	overflow: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 130px;
+}
+
+.label {
+    font-size: 20px;
+	line-height: 20px;
+	font-family: "Microsoft Yahei";
+	font-weight: lighter;
+	padding: .4em .9em .4em;
+	margin-right: 5px;
+}
+#labelsArea {
+    width: 100%;
+	heigth: 42px;
+	margin-top: 60px;
+}
+#features {
+    width: 100%;
+	overflow: auto;
+	padding-top: 48px;
+	background-image:url(/js/images/cemeteryBackground.jpg); 
+    background-repeat: repeat;
+	padding-bottom: 60px;
+}
+#featureContent {
+    width: 1000px;
+	overflow: auto;
+	margin: 0px auto;
+}
+#singleFeature {
+    float: right;
+	overflow: auto;
+}
+
+.leftFeatureImg{
+	width: 500px;
+	float: left;
+	height: 500px;
+	background: #ccc;
+	opacity: 1;
+
+	}
+.leftFeatureImg img{
+	max-width:600px;_width:expression(this.width > 600 ? "600px" : 100%);
+  height: 100%;
+  width: 100%;
+	}
+
+.rightFeatureText {
+    width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+}
+.rightFeatureText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+	position: relative;
+		left: 0px;
+
+}
+.rightFeatureText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+.leftlocationText{
+	width: 500px;
+	overflow: auto;
+	float: left;
+	}
+	
+	.leftlocationText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+	text-align:right;
+		padding-left:60px;
+
+}
+.leftlocationText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+	
+}
+
+.rightlocationImg{
+	width: 485px;
+	height: 330px;
+	background-color: #ccc;
+	float: left;
+	opacity: 1;	
+	margin:0 auto; overflow:hidden;
+	}
+	
+.rightlocationImg img{
+		max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+   width: 100%;
+	}	
+	
+
+.leftEquipmentImg{
+	width: 485px;
+	float: left;
+	height: 485px;
+	background: #ccc;
+	opacity: 1;
+	border:0px solid red;
+	}
+	
+	.leftEquipmentImg img{
+	max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+   width: 100%;
+	}
+	
+.rightEquipmentText{
+	width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+	}	
+
+.rightEquipmentText h1 {
+    margin: 0px;
+	position: relative;
+	left: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.rightEquipmentText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+
+.leftImg {
+    width: 485px;
+	float: left;
+	height: 485px;
+	background: #ccc;
+	opacity: 0.5;
+	border:0px solid red;
+}
+.rightText {
+    width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+}
+.rightText h1 {
+    margin: 0px;
+	position: relative;
+	left: -56px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.rightText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+.leftText {
+    width: 500px;
+	padding-left: 120px;
+	overflow: auto;
+	float: left;
+}
+.leftText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.leftText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+.rightImg {
+    width: 512px;
+	height: 330px;
+	background-color: #ccc;
+	margin-left: 24px;
+	float: left;
+	opacity: 0.5;
+}
+#mainFeature {
+    overflow: auto;
+}
+#locationFeature {
+    overflow: auto;
+	margin-top: 188px;
+}
+#equipmentFeature {
+    overflow: auto;
+	margin-top: 176px;
+}
+#cemeteryFilter {
+    width: 1349px;
+	overflow: auto;
+	padding-top: 16px;
+	margin: 0px auto;
+	padding-left: 50px;
+	padding-right: 50px
+}
+#filterContent {
+	overflow: auto;
+}
+#filterCata {
+	overflow: auto;
+	float: left;
+	margin-right: 5px;
+}
+#filter {
+    padding-top: 6px;
+	overflow: auto;
+	float: left;
+	padding-right: 20px;
+}
+.filterCata {
+    text-align: left;
+	width: 75px;
+	height: 35px;
+	margin-bottom: 5px;
+}
+.filterContent {
+    text-align: center;
+	overflow: auto;
+	margin-bottom: 5px;
+}
+.locationContent {
+    text-align: center;
+	overflow: auto;
+}
+.filterContent div {
+    float: left;
+	width: 68px;
+	height: 35px;
+	background: #f5f5f5;
+	cursor: pointer;
+	margin-right: 6px;
+	border-radius: 2px;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.filterContent div:hover {
+    background: #7E7E7E;
+}
+.locationContent div {
+    float: left;
+	overflow: auto;
+	height: 35px;
+	padding-left: 8px;
+	padding-right: 8px;
+	background: #f5f5f5;
+	cursor: pointer;
+	margin-right: 6px;
+	border-radius: 2px;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.locationContent div:hover {
+    background: #7E7E7E;
+}
+#filter p{
+    font-size: 16px;
+	line-height: 35px;
+	margin: 0px;
+}
+#reserver {
+    float: right;
+	overflow: auto;
+	padding-top: 8px;
+	width: 250px;
+	text-align: center;
+}
+#reserver h1 {
+    font-size: 20px;
+	line-height: 20px;
+	margin: 0px;
+	color: #3d3d3d;
+}
+#reserver h2 {
+    font-size: 40px;
+	line-height: 70px;
+	margin: 0px;
+	color: #3d3d3d;
+}
+#reserver p {
+    font-size: 11px;
+	line-height: 18px;
+	color: #5a5a5a;
+	margin: 0px;
+}
+.reserverBtn {
+    background-color: #ff5274;
+	color: #ffffff;
+	font-size: 18px;
+	width: 152px;
+	height: 30px;
+	border: none;
+	border-radius: 4px;
+}
+.reserverBtn:hover {
+    background: #ff496d;
+}
+#cemeteryMap {
+    width: 100%;
+  height: 479px;
+  object-fit: contain;
+}
+#cemeteryMapContext{
+width: 100%;
+  height: 479px;
+  object-fit: contain;
+}
+#cemeteryMap img {
+    width: 100%;
+}
+.commentMap {
+    width: 250px;
+	height: 250px;
+	background: #000000;
+	opacity: 0.5;
+	text-align: center;
+	padding-top: 25px;
+	position: absolute;
+	margin-top: -295px;
+	margin-left: 402px;
+}
+.commentMap h1 {
+    font-size: 44px;
+	line-height: 66px;
+	color: #ffffff;
+	margin-bottom: 12px;
+}
+.commentMap h2 {
+    font-size: 20px;
+	line-height: 32px;
+	color: #ffffff;
+	margin: 0px;
+		
+}
+.redline{
+	border-bottom:2px solid #ff5274;
+	-webkit-transform: rotate(115deg);/*Safari 4+,Google Chrome 1+  */
+	-moz-transform: rotate(115deg);/*Firefox 3.5+*/
+	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=1.1);
+	position: absolute;
+	z-index: 10;
+}
+#redline1 {
+    margin-left: 460px;
+	margin-top: 300px;
+	width:300px;height:13px;
+}
+#redline2 {
+	margin-left: 870px;
+	margin-top: 710px;
+	width:200px;height:13px;
+}
+#redline3 {
+	margin-left: 0px;
+	margin-top: 920px;
+	width:400px;height:13px;
+}
+#redline4 {
+	margin-left: 860px;
+	margin-top: 1370px;
+	width:250px;height:13px;
+}
+#redline5 {
+	margin-left: 460px;
+	margin-top: 1470px;
+	width:250px;height:13px;
+}
+#redline6 {
+	margin-left: 860px;
+	margin-top: 1870px;
+	width:250px;
+	height:13px;
+}
+
+</style>
+<script>
+	var length = location.search.length,
+id = location.search.substring(4, length);
+	
+	var app = angular.module('productApp', []);
+	 app.controller('cemetery', function($scope, $http) {
+	 	
+	 	$http.get("/cemetery/findOneCemetery?id="+id).success(function(response) {
+	 		$scope.cemeteryBean=response;
+       	initMap(response.cemeteryName,response.address);
+  		
+  
+ }) 	
+ 	 		
+	});
+
+app.controller('products', function($scope, $http) {
+	$http.get("/wish/list").success(function(response) {
+	    var j = 1,
+		    counter = 1,
+		    numberInRow = 4,
+			objectsInRow = [],
+			layouts = [];
+		for (var i=0;i<response.length;i++) {
+		    var singleProduct = response[i];
+
+			if (j <= numberInRow) {
+			    objectsInRow.push(singleProduct);
+			}
+
+			if (j === numberInRow) {
+			    var layout = {},
+				    active = '',
+					itemLayout = objectsInRow;
+					
+				if (counter === 1) {
+				    active = 'active'
+				}
+				layout = {
+				    'index': counter,
+					'active': active,
+					'itemLayout': itemLayout
+				};
+				layouts.push(layout);
+			    j = 0;
+				counter++;
+				objectsInRow = [];
+			}
+			j++;
+		}
+		$scope.layouts = layouts;
+	});
+	$http.get("/message/list").success(function(response) {
+	    response[0].active = 'active';
+	    $scope.messages = response;
+	});
+});
+$("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
+});
+
+var zoomList =[{cemetery:'青龙古寺',zoom:17},{cemetery:'松隐禅寺',zoom:18}];
+
+
+
+
+
+function loadScript() {
+	 //var script = document.createElement("script"); //创建script标签
+	 //script.src = "http://api.map.baidu.com/api?v=1.2&callback=setMap"; //异步加载的关键
+	 //document.body.appendChild(script); //添加到页面
+	}
+function initMap(cemeteryName,cemeteryAddress){
+	cemeteryName=$.trim(cemeteryName);
+	cemeteryAddress =$.trim(cemeteryAddress);
+    createMap();//创建地图
+    setMapEvent();//设置地图事件
+    addMapControl();//向地图添加控件
+    
+    //清竹园  上海市嘉定区外冈镇嘉松北路633号
+    //上海市浦东新区朝阳农场军港公路388号 汇龙园  18
+    //华南陵园     上海市浦东新区航头镇航都南路668号 
+    //海港陵园（福寿园）  浦东新区南汇新城书院镇杞青路1717号  20
+    //天逸静园玫瑰园  上海市浦东新区曹路镇龚卫路388号
+    //福寿园  上海市外青松公路7270弄600号 
+    //至尊园  朱枫公路1128号
+    //淀山湖归园  青浦区港周路1111号
+    //九天陵园  上海市长宁区平武路38号仁达商务楼411室 ---
+    //福泉山留园 上海市漕溪路210号龙华殡仪馆业务大厅二楼福泉山留园办事处  ---  
+    //滨海古园   上海市奉贤区海湾镇五四农场海古路755号
+    //海湾寝园   上海奉贤海湾旅游区海乐路200号
+    //永福园陵    上海市奉贤区洪庙镇洪庙洪东路333号
+    //华夏公墓    上海市松江区小昆山镇荡湾村永昆公路482号
+    //瀛新古园    上海市崇明县新河镇草港公路3188号
+	    	var options = {
+	    	        onSearchComplete: function(results){
+	    	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){
+	    	                for (var i = 0; i < results.getCurrentNumPois(); i ++){
+	    	                	
+	    	 		 			var x =results.getPoi(i).point.lng;
+	    	 		 			var y =results.getPoi(i).point.lat;
+	    	 		 			resetCenterAndZoom(x,y,cemeteryName,cemeteryAddress);
+	    	 		 			addRemark(x,y,cemeteryName,cemeteryAddress);//向地图中添加文字标注
+	    	 					break;	
+	    	                 }
+	    	             }
+	    	      }
+	    	    };
+	    	var local = new BMap.LocalSearch(map, options);
+	    	local.search(cemeteryAddress);
+}
+
+//创建地图函数：
+function createMap(){
+    var map = new BMap.Map("cemeteryMapContext");//在百度地图容器中创建一个地图
+    var point = new BMap.Point(121.194109,31.369983);//定义一个中心点坐标
+    map.centerAndZoom(point,15);//设定地图的中心点和坐标并将地图显示在地图容器中
+    window.map = map;//将map变量存储在全局 
+
+}
+
+//地图事件设置函数：
+function setMapEvent(){
+   // map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+    map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+  //  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+   // map.enableKeyboard();//启用键盘上下左右键移动地图
+}
+
+//地图控件添加函数：
+function addMapControl(){
+    //向地图中添加缩放控件
+var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+map.addControl(ctrl_nav);
+    //向地图中添加缩略图控件
+var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+map.addControl(ctrl_ove);
+    //向地图中添加比例尺控件
+var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+map.addControl(ctrl_sca);
+}
+
+//向地图中添加标注
+function addRemark(x,y,title,address){
+	var marker = new BMap.Marker(new BMap.Point(x,y));  // 创建标注
+    map.addOverlay(marker);
+}
+
+function resetCenterAndZoom(x,y,cemeteryName,address){
+	var displayAddress=address;
+	var index = address.indexOf('区');
+	if(index!=-1){
+		displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+	}else{
+		index=address.indexOf('县');
+		if(index!=-1){
+			displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+		}else{
+			index=address.indexOf('市');
+			if(index!=-1){
+				displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+			}
+		}
+	}
+	var displayName = cemeteryName;
+	if(displayName.length>6){
+		displayName = cemeteryName.substring(0,4)+"<br>"+cemeteryName.substring(4,cemeteryName.length);
+	}
+	var centerPoint = new BMap.Point(x,y);//定义一个中心点坐标
+	for(var i=0;i<zoomList.length;i++){
+		var json = zoomList[i];
+		 var cemetery= json.cemetery;
+		 if(cemetery==cemeteryName){
+			 
+		 	 var zoom = json.zoom;
+			 map.centerAndZoom(centerPoint,zoom);
+			 var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:centerPoint,offset:new BMap.Size(-800,200)});
+			 map.addOverlay(label);
+			 label.setStyle({borderColor:"#999"});
+			 return;
+		 }
+	}
+}
+
+window.onload=function() {
+	$("#visitButton").click(function() {
+		popupRequestPage();
+	});
+}
+</script>
+
+
+
+<body ng-app="productApp" ng-controller="cemetery">
+<div class="container">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>  
+
+<div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
+    <div id="leftTop">
+     <p><span ><a href="cemeteryList.html">寺庙信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
+	</div>
+	<div id="centerText">
+        <h1>{{cemeteryBean.cemeteryName}}</h1>
+	    <h2>{{cemeteryBean.district}}</h2>
+	</div>
+	<div id="labelsArea">
+		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
+		
+	</div>
+</div>
+
+<div id="cemeteryFilter">
+    <div id="filter">
+	<!--	<div id="filterCata">
+			<div class="filterCata">
+			    <p>墓穴</p>
+			</div>
+			<div class="filterCata">
+			    <p>碑文样式</p>
+			</div>
+			<div class="filterCata">
+			    <p>区域</p>
+			</div>-->
+		</div>
+		<div id="filterContent">
+			<div class="filterContent">
+			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
+				    <p>{{graveStyle.description}}</p>
+				</div>
+			
+			</div>
+	<!--		<div class="filterContent">
+			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
+				    <p>{{epigraphStyle.style}}</p>
+				</div>
+				
+			</div>
+			<div class="locationContent">
+			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
+				    <p>{{graveZone.zone}}</p>
+				</div>-->
+			
+			</div>
+		</div>
+	</div>
+	<div id="reserver">
+	    <h1>莲位最低价格</h1>
+		<h2>￥{{cemeteryBean.price}}起</h2>
+		<button class="reserverBtn" id="visitButton">在线预约</button>
+		<p>我们会帮您安排参观访问</p>
+	</div>
+</div>
+<div id="features">
+    <div id="featureContent">
+	    <div id="singleFeature">
+		    <div id="mainFeature">
+			    <div class="leftFeatureImg" >
+			    	
+			    <img src={{cemeteryBean.descImgUrl}}></img>
+				</div>
+				<div class="rightFeatureText">
+				    <h1>简介</h1>
+				    <p>{{cemeteryBean.cemeteryDesc}}</p>
+				</div>
+			</div>
+			<div id="locationFeature">
+			    <div class="leftlocationText">
+				     <h1>特色</h1>
+<p>{{cemeteryBean.feature}}</p>				</div>
+				<div class="rightlocationImg">
+					 <img src={{cemeteryBean.featureImgUrl}}></img>
+				</div>
+			</div>
+			<div id="equipmentFeature">
+			    <div class="leftEquipmentImg">
+			    	
+					 <img src={{cemeteryBean.locationImgUrl}}></img>
+			
+				</div>
+				<div class="rightEquipmentText">
+				    <h1>交通信息</h1>
+				    <p>{{cemeteryBean.trafficInfo}}</p>
+				</div>
+			</div>
+			
+		
+			
+		</div>
+	</div>
+</div>
+<div id="cemeteryMap">
+<div id="cemeteryMapContext">
+   </div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+</div>
+</body>
+
+</html>

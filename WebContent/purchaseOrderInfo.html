@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>念念--订单列表</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script src="/js/idCheck.js"></script>
+<link rel="stylesheet" href="/js/Font-Awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/js/AccountInfo.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+.clickable {
+    cursor: pointer;
+}
+.clickable:hover {
+    background-color: #DCDCDC;
+}
+.clickableItem {
+    cursor: pointer;
+}
+.clickableItem:hover {
+    background-color: #F5F5F5;
+}
+.orderNumber {
+    font-size: 16px;
+	text-decoration: none;
+	color: #ff5274;
+}
+.valuehiddenDiv {
+    overflow: hidden;
+	height: 0px;
+    -moz-transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+    -o-transition: height 0.5s;
+}
+.detailhiddenDiv {
+    overflow: hidden;
+	height: 0px;
+    -moz-transition: height 0.5s;
+    -webkit-transition: height 0.5s; 
+    -o-transition: height 0.5s;
+}
+.spreadIcon {
+    float: right;
+    margin-top: -26px;
+}
+.containerClass {
+    overflow: auto;
+	width: 738px;
+	-moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+	border-right: 1px solid #dce0e0;
+}
+.detailView {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.th1 {
+    width: 500px;
+}
+.th2 {
+    width: 300px;
+}
+.th3 {
+    width: 300px;
+}
+.th4 {
+    width: 300px;
+}
+.th5 {
+    width: 300px;
+}
+.totalPriceSpan {
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+<body onselectstart="return false" ng-app="productApp" ng-controller="products">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
+<div id="accountInfoMain">
+    <div id="leftTabs">
+	    <div class="singleTab">
+		    <a href="AccountInfo.html"><p class="normalText">编辑个人资料</p></a>
+		</div>
+		<div class="singleTab selectedTab">
+		    <a href="#"><p class="normalText">您的订单</p></a>
+		</div>
+		<div class="singleTab">
+		    <a href="orderInfo.html"><p class="normalText">预约记录</p></a>
+		</div>
+		<div class="singleTab">
+		    <p class="normalText">愿望清单</p>
+		</div>
+    </div>
+<div id="rightContentsMain">
+	<div id="rightContents" ng-repeat="order in orders">
+	    <div class="contentHeader clickable">
+		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
+			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
+		</div>
+		<div class="containerClass" ng-repeat="detail in order.detailJson track by $index">
+			<div class="valuehiddenDiv">
+				<div class="contentValue clickableItem">
+					<table>
+						<thead>
+							<tr>
+								<th class="th1">商品名称</th>
+								<th class="th2">商品价格</th>
+								<th class="th3">数量</th>
+								<th class="th4">小计</th>
+								<th class="th5"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{detail.wishName}}</td>
+								<td>{{detail.price}}</td>
+								<td>{{detail.count}}</td>
+								<td>{{detail.sumPirce}}</td>
+								<td><a href="/productDetail3.html?id={{detail.wishId}}">查看详情</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
+				</div>
+			</div>
+			<div class="detailhiddenDiv">
+				<div class="detailVeiw">
+					<div class="imageBox" style="background-image: url('/js/images/{{detail.imgUrl}}')">
+					</div>
+					<div class="cemeteryDescDiv">
+						<h3>{{detail.wishName}}</h3>
+						<span>{{detail.wishDesc}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script>
+var app = angular.module('productApp', []);
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+app.controller('products', function($scope, $http) {
+    $http.get("/wishlistDetail/listWishOrder").success(function(response) {
+        $scope.orders = response;
+    });
+});
+</script>
+<script>
+    $("body").on("click", ".clickable", function() {
+	    var parentDiv = $(this).closest("#rightContents"),
+		    currentHeight = parentDiv.find(".valuehiddenDiv")[0].offsetHeight;
+
+	    if (currentHeight === 0) {
+		    changeToHeight = '95px';
+		}
+		else {
+		    changeToHeight = '0px';
+		}
+		parentDiv.find(".valuehiddenDiv").css({
+		    height: changeToHeight
+		});
+
+		if (changeToHeight === '0px') {
+		    parentDiv.find(".detailhiddenDiv").css({
+		        height: changeToHeight
+		    });
+		}
+	});
+    $("body").on("click",".clickableItem", function() {
+	    var parentDiv = $(this).closest(".containerClass"),
+		    hiddenDiv = parentDiv.find(".detailhiddenDiv"),
+			currentHeight = parentDiv.find(".detailhiddenDiv")[0].offsetHeight;
+
+	    if (currentHeight === 0) {
+		    changeToHeight = '300px';
+		}
+		else {
+		    changeToHeight = '0px';
+		}
+		parentDiv.find(".detailhiddenDiv").css({
+		    height: changeToHeight
+		});
+	});
+</script>
+</html>

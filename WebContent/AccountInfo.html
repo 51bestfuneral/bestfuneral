@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>念念--个人信息</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script src="/js/idCheck.js"></script>
+<link rel="stylesheet" href="/js/Font-Awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/js/AccountInfo.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+</style>
+<body onselectstart="return false" ng-app="productApp" ng-controller="products">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
+<div id="accountInfoMain">
+    <div id="leftTabs">
+	    <div class="singleTab selectedTab">
+		    <p class="normalText">编辑个人资料</p>
+		</div>
+		<div class="singleTab">
+		    <a href="purchaseOrderInfo.html"><p class="normalText">您的订单</p></a>
+		</div>
+		<div class="singleTab">
+		     <a href="orderInfo.html"><p class="normalText">预约记录</p></a>
+		</div>
+		<div class="singleTab">
+		    <p class="normalText">愿望清单</p>
+		</div>
+		<div class="saveBtn submitInfo">
+		    <p class="normalText">保存您的信息</p>
+		</div>
+    </div>
+<div id="rightContentsMain">
+	<div id="rightContents">
+	    <div class="contentHeader">
+		    <p class="normalText">必填</p>
+		</div>
+		<div class="contentValue">
+		    <div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>用户名</p>
+				</div>
+				<div class="normalFieldValue">
+				    <input id="userName" class="normalTextField" placeholder="用户名" ng-model="user.userName"></input>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>年龄</p>
+				</div>
+				<div class="normalFieldValue">
+				    <input id="userName" class="normalTextField" placeholder="年龄" ng-model="user.age"></input>
+					<div class="fieldDesc">这个信息将成为定制的重要决定因素</div>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>我是</p>
+				</div>
+				<div class="normalFieldValue">
+				    <select class="normalSelect" ng-model="user.gender">
+					    <option value selected="selected">性别</option>
+						<option value=1>男性</option>
+						<option value=2>女性</option>
+					</select>
+					<div class="fieldDesc">这个信息将成为定制的重要决定因素</div>
+				</div>
+			</div>
+            <div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>我是为了</p>
+				</div>
+				<div class="normalFieldValue">
+				    <select class="normalSelect" ng-model="user.forSelf">
+						<option value=0>我爱的人</option>
+						<option value=1 selected="selected">我自己</option>
+					</select>定制葬礼
+					<div class="fieldDesc">这个信息将成为定制的重要决定因素</div>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>出生日期</p>
+				</div>
+				<div class="normalFieldValue">
+					    <select class="normalSelect" ng-model="birthmonth" id="birthoptionmonth">
+							<option value="01" >一月</option>
+							<option value="02">二月</option>
+							<option value="03">三月</option>
+							<option value="04">四月</option>
+							<option value="05">五月</option>
+							<option value="06">六月</option>
+							<option value="07">七月</option>
+							<option value="08">八月</option>
+							<option value="09">九月</option>
+							<option value="10">十月</option>
+							<option value="11">十一月</option>
+							<option value="12">十二月</option>
+						</select>
+					    <select class="normalSelect" id="birthoptionday">
+							<option ng-repeat="day in days" class="{{day.optionSelected}}">{{day.optionValue}}</option>
+						</select>
+					    <select class="normalSelect" id="birthoptionyear">
+							<option ng-repeat="year in years" class="{{year.optionSelected}}" on-finish-render-filters>{{year.optionValue}}</option>
+						</select>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>电子邮件</p>
+				</div>
+				<div class="normalFieldValue">
+				    <input id="userName" class="normalTextField mailField" placeholder="Email" ng-model="user.email"></input>
+				    <div class="fieldDesc warning"></div>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>手机号码</p>
+				</div>
+				<div class="normalFieldValue">
+				    <input id="phone" class="normalTextField phoneField" placeholder="Email" ng-model="user.phone" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "></input>
+				    <div class="fieldDesc warning"></div>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>紧急联系人</p>
+				</div>
+				<div class="normalFieldValue">
+				    <div class="addEmergency">
+					    + 添加联系人
+					</div>
+					<div class="fieldDesc">我们需要一个您最信赖的紧急联系人，以便在任何情况都可以联系。</div>
+				</div>
+			</div>
+			<div id="emergencyContactInfo" hidden>
+			    <div class="normalField">
+					<div class="normalFieldTitle">
+						 <p>姓名</p>
+					</div>
+					<div class="normalFieldValue">
+						<input id="contactor" class="normalTextField" placeholder="紧急联系人的姓名" ng-model="user.contactor"></input>
+					</div>
+				</div>
+				<div class="normalField">
+					<div class="normalFieldTitle">
+						 <p>联系电话</p>
+					</div>
+					<div class="normalFieldValue">
+						<input id="contactorPhone" class="normalTextField phoneField" placeholder="紧急联系人的联系电话" ng-model="user.contactorPhone"></input>
+						<div class="fieldDesc warning"></div>
+                        <div class="fieldDesc">作为紧急情况联系使用，我们承诺没有非必要的骚扰</div>
+					</div>
+				</div>
+				<div class="normalField">
+					<div class="normalFieldTitle">
+						 <p>电子邮件</p>
+					</div>
+					<div class="normalFieldValue">
+						<input id="contactorEmail" class="normalTextField mailField" placeholder="电子邮件" ng-model="user.contactorMail"></input>
+						<div class="fieldDesc warning"></div>
+                        <div class="fieldDesc">我们会为您推送一些您可能感兴趣的消息</div>
+					</div>
+				</div>
+				<div class="normalField">
+					<div class="normalFieldTitle">
+						 <p>与您的关系</p>
+					</div>
+					<div class="normalFieldValue">
+						<input id="userName" class="normalTextField" placeholder="您与他或她的关系" ng-model="user.contactorRelate"></input>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="rightContents">
+	    <div class="contentHeader">
+		    <p class="normalText">选填</p>
+		</div>
+		<div class="contentValue">
+		    <div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>家庭住址</p>
+				</div>
+				<div class="normalFieldValue">
+				    <input id="address" class="normalTextField" placeholder="您的家庭住址" ng-model="user.address"></input>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>身份证号</p>
+				</div>
+				<div class="normalFieldValue">
+				    <input id="identifyNumber" class="normalTextField" placeholder="身份证号" ng-model="user.identifier"></input>
+				    <div id="identifyNumberWarn" class="warning"></div>
+					<div class="fieldDesc">我们不会以任何形式泄露您的个人资料</div>
+				</div>
+			</div>
+			<div class="normalField">
+			    <div class="normalFieldTitle">
+				     <p>工作情况</p>
+				</div>
+				<div class="normalFieldValue">
+				    <select class="normalSelect" ng-model="user.work">
+					    <option value=0 selected="selected">退休</option>
+						<option value=1>待业</option>
+						<option value=2>在职</option>
+					</select>
+					<div class="fieldDesc">我们将根据您的情况为您推荐合适的方案</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="saveBtnBottom submitInfo">保存</button>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script>
+var app = angular.module('productApp', []);
+function translateResponse(response) {
+    if (response.forSelf === 0) {
+    	response.forSelf = "0";
+    }
+    else {
+    	response.forSelf = "1";
+    }
+    if (response.gender === 0) {
+    	response.gender = "0";
+    }
+    else {
+    	response.gender = "1";
+    }
+    if (response.work === 0) {
+    	response.work = "0";
+    }
+    else if (response.work === 1){
+    	response.work = "1";
+    }
+    else {
+        response.work = "2";
+    }
+}
+function validateInfomation () {
+	var emailFilter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+    phoneFilter = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/,
+    checkFailed = true;
+	
+	$(".warning").each(function() {
+		$(this)[0].innerText = "";
+	});
+	$(".mailField").each(function() {
+		var me = $(this),
+		    msgFiled = me.closest('.normalFieldValue').find(".warning");
+	
+		if (me[0].value !== "" && !emailFilter.test(me[0].value)) {
+			me[0].focus();
+			msgFiled[0].innerText = "邮箱格式不正确,看看是不是填错了";
+			checkFailed = false;
+			return false;
+		}
+	});
+	$(".phoneField").each(function() {
+		var me = $(this),
+		    msgFiled = me.closest('.normalFieldValue').find(".warning");
+	
+		if (me[0].value !== "" && !phoneFilter.test(me[0].value)) {
+			me[0].focus();
+			msgFiled[0].innerText = "手机号码必须是11位";
+			checkFailed = false;
+			return false;
+		}
+	});
+	var identifyNumberFiled = $("#identifyNumber"),
+	    identifyNumber;
+	
+	if (identifyNumberFiled.length > 0) {
+		identifyNumber = identifyNumberFiled[0].value;
+	    if (identifyNumber!=='' && identifyNumber!==null && !nunber(identifyNumber)) {
+	    	identifyNumberFiled[0].focus();
+	    	checkFailed = false;
+	    	return false;
+	    }
+	}
+	return checkFailed;
+}
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+app.controller('products', function($scope, $http) {
+    var days = [],
+	    years = [];
+    $http.get("/user/list").success(function(response) {
+        var birthday = response.birthday,
+            birthdayOption,
+            birthmonthOption,
+            birthyearOption;
+        translateResponse(response);
+        if (response.birthday) {
+        birthyearOption = birthday.substring(0,4);
+        $scope.birthmonth = birthday.substring(5,7);
+        birthdayOption = birthday.substring(8, 10);
+        }
+
+		for (var i=1;i<= 31; i++) {
+            if (i === parseInt(birthdayOption)) {
+			    days.push({
+                    optionValue: i,
+                    optionSelected: 'selected'
+                });
+            }
+            else {
+                days.push({
+                    optionValue: i,
+                    optionSelected: ''
+                });
+            }
+		}
+		for (var j=1901;j<= 2016; j++) {
+            if (j === parseInt(birthyearOption)) {
+			    years.push({
+                    optionValue: j,
+                    optionSelected: 'selected'
+                });
+            }
+            else {
+                years.push({
+                    optionValue: j,
+                    optionSelected: ''
+                });
+            }
+		}
+        $scope.days=days;
+	    $scope.years=years;
+    	$scope.user = response;
+    });
+    $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+          $(".selected").attr("selected",true);
+    });
+    $(".submitInfo").click(function() {
+    	var user = $scope.user,
+    	    birthday='',
+    	    birthoptionday = $("#birthoptionday")[0].value,
+    	    birthoptionyear = $("#birthoptionyear")[0].value,
+    	    birthoptionmonth = $("#birthoptionmonth")[0].value;
+
+    	if (!validateInfomation()) {
+    		return false;
+    	}
+    	if (birthoptionday.length === 1) {
+    		birthoptionday = '0' + birthoptionday;
+    	}
+    	birthday = birthoptionyear+'-'+birthoptionmonth+'-'+birthoptionday;
+    	user.birthday = birthday;
+    	$.ajax({
+	    	url: '/user/edit',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType: 'json',
+			data: JSON.stringify(user),
+			success:function(data){
+				if (data === 1) {
+                	window.location.reload();
+        		}
+        		else {
+        			floatAlertBar();
+        		}
+	    	},
+		    error: function(error) {
+			    alert(error);
+		    }
+	    });
+    });
+});
+</script>
+<script>
+    $(".addEmergency").click(function() {
+	    if ($("#emergencyContactInfo").is(":hidden")) {
+		    $("#emergencyContactInfo").fadeIn();
+		}
+		else {
+		    $("#emergencyContactInfo").fadeOut();
+		}
+	});
+</script>
+</html>

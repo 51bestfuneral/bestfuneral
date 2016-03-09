@@ -136,15 +136,15 @@
 	    background-size: 20px 20px;
 	}
 	#taocanIconBetter {
-	    background-image: url(/funeral/js/images/PatternImage-good-min.jpg);
+	    background-image: url(/js/images/PatternImage-good-min.jpg);
 	    background-size: 20px 20px;
 	}
 	#taocanIconBest {
-	    background-image: url(/funeral/js/images/PatternImage-better-min.jpg);
+	    background-image: url(/js/images/PatternImage-better-min.jpg);
 	    background-size: 20px 20px;
 	}
 	#taocanIconBestBest {
-	    background-image: url(/funeral/js/images/PatternImage-most-min.jpg);
+	    background-image: url(/js/images/PatternImage-most-min.jpg);
 	    background-size: 20px 20px;
 	}
 	.taocanIconDiv #h5 {
@@ -154,7 +154,7 @@
 		width: 43%;
 		margin: 0px auto;
 		overflow: hidden;
-		background-image: url(/funeral/js/images/LogoWhite@2x-min.jpg);
+		background-image: url(/js/images/LogoWhite@2x-min.jpg);
 		margin-top: 40px;
 	}
 	.header {
@@ -600,30 +600,30 @@
 		background: #F4548B;
 	}
 	.includeDataDivGood .headerLine {
-		background-image: url(/funeral/js/images/PatternImage-good-min.jpg);
+		background-image: url(/js/images/PatternImage-good-min.jpg);
 	    background-size: 20px 20px; 
 	}
 	.includeDataDivBest .headerLine {
-		background-image: url(/funeral/js/images/PatternImage-most-min.jpg);
+		background-image: url(/js/images/PatternImage-most-min.jpg);
 	    background-size: 20px 20px;
 	}
 	.includeDataDivBetter .headerLine {
-		background-image: url(/funeral/js/images/PatternImage-better-min.jpg);
+		background-image: url(/js/images/PatternImage-better-min.jpg);
 	    background-size: 20px 20px;
 	}
 	#lockedTocanDiv .basic {
 		background: #F4548B;
 	}
 	#lockedTocanDiv .good {
-		background-image: url(/funeral/js/images/PatternImage-good-min.jpg);
+		background-image: url(/js/images/PatternImage-good-min.jpg);
 	    background-size: 20px 20px; 
 	}
 	#lockedTocanDiv .better {
-		background-image: url(/funeral/js/images/PatternImage-better-min.jpg);
+		background-image: url(/js/images/PatternImage-better-min.jpg);
 	    background-size: 20px 20px; 
 	}
 	#lockedTocanDiv .best {
-		background-image: url(/funeral/js/images/PatternImage-most-min.jpg);
+		background-image: url(/js/images/PatternImage-most-min.jpg);
 	    background-size: 20px 20px; 
 	}
 	#lockedTocanDiv .headerLine {

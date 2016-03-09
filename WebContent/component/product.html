@@ -1,0 +1,655 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/Bootstrap/boot.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<link href="/js/Bootstrap/boot.css" rel="stylesheet">
+<style>
+    body {
+	    text-align: center;
+	}
+    #productMain {
+	    width: 960px;
+		overflow: auto;
+	}
+    #tabCarousel {
+	    width: 100%;
+		height: 50px;
+		border-bottom: 1px solid #e7e7e7
+	}
+    .productTab {
+	    width: 120px;
+		height: 50px;
+		float: left;
+		transition:background 0.2s;
+		-moz-transition:background 0.2s;
+        -webkit-transition:background 0.2s;
+        -o-transition:background 0.2s;
+	}
+	.productTab:hover {
+	    background-color: #B5AFAF;
+	}
+	.productTab p {
+	    font-size: 20px;
+		line-height: 50px;
+		cursor: pointer;
+		color: #707070;
+	}
+	.carousel-control {
+	    width: 15px;
+		background-image: none !important;
+	}
+	.headerArrow {
+	    margin-top: 8px;
+	}
+	.index {
+	    width:54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+		margin: 0 auto;
+		margin-top: 28px;
+	}
+	.index p {
+	    line-height: 54px;
+		color: #707070;
+		margin: 0px;
+	}
+	.productCenter{
+	    padding-bottom: 100px;
+		display: none;
+		height: 647px;
+	}
+	.productCenter h1,h3 {
+	    color: #707070;
+	}
+	.productCarousel {
+	    width: 820px;
+		margin: 0 auto;
+		padding-top: 40px;
+		cursor: pointer;
+		padding-bottom: 20px;
+	}
+	.productCarousel .carousel-inner {
+	    padding-bottom: 20px;
+        height: 400px;
+	}
+	.productItem {
+	    width: 204px;
+		float: left;
+		margin-left: 50px;
+		border-bottom: 1px solid #ededed;
+		box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.15);
+		overflow: hidden;
+		border-radius: 4px;
+	}
+	.productCarousel .carousel-control {
+	    height: 54px;
+		width: 54px;
+        top: 160px;
+	}
+	.productCarousel .carousel-control.left {
+	    left: -30px;
+	}
+    .productCarousel .carousel-control.right {
+	    right: -20px;
+	}
+	.arrowCoat {
+	    width: 54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+	}
+	.arrowCoat .headerArrow {
+	    line-height: 45px;
+		color: #c6c6c6;
+		font-size: 50px;
+		margin: 0;
+	}
+	.image {
+	    width: 100%;
+		height: 100%;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		padding-right: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		height: 14px;
+	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ff5274;
+		padding-left: 7px;
+	}
+	.addWishButton:hover {
+	    background-color: #ff496d;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	.productText {
+	    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.15);
+	}
+	.alreadyInFoot {
+	    box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.15);
+		background-color: #d9d9d9;
+		transition:height 0.5s;
+		-moz-transition:height 0.5s;
+        -webkit-transition:height 0.5s;
+        -o-transition:height 0.5s;
+		height: 0px;
+		overflow: hidden;
+	}
+	.alreadyInFoot p {
+	    font-size: 13px;
+		line-height: 18px;
+		color: #6d6d6d;
+		margin-top: 10px;
+	}
+	.chooseProduct {
+	    border: 2px solid #ff5274;
+	}
+	.chooseProduct .alreadyInFoot {
+	    height: 56px;
+	}
+	#rightFooter {
+		width: 100%;
+		overflow: auto;
+		background: #fafafa;
+		padding-top: 31px;
+		padding-bottom: 31px;
+		padding-left: 55px;
+		padding-right: 55px;
+	}
+	#prevStep {
+		float: left;
+		width: 61px;
+		height: 60px;
+		background: 
+	}
+	#nextStep {
+		float: right;
+		width: 144px;
+		height: 60px;
+	}
+	.operatorButton {
+		background: #d6d6d6;
+		border-radius: 4px;
+		box-shadow: 0 4px 0px 0 #c5c5c5;
+		text-align: center;
+		cursor: pointer;
+	}
+	.operatorButton:hover {
+		box-shadow: none;
+		background: #ff5274;
+		box-shadow: 0 4px 0px 0 #e6385a;
+	}
+	.operatorButton p {
+		margin: 0px;
+		line-height: 60px;
+		color: #ffffff;
+		font-size: 24px;
+	}
+    .disabled {
+	    opacity: 0.5;
+		cursor: default;
+		background: #d6d6d6!important;
+		box-shadow: 0 4px 0px 0 #c5c5c5!important;
+	}
+	#moveCursor {
+	    width: 120px;
+		height: 2px;
+		position: absolute;
+		background: #ff5274;
+	}
+    .carousel-indicators li .active {
+        background-color: #A76009!important;
+    }
+    .carousel-indicators li{
+        background-color: #D9D9D9!important;
+        position: relative;
+    }
+    #tabSoLong {
+        width: 100%;
+        overflow: hidden;
+        height: 50px;
+    }
+    #tabSoLong .right {
+        left: 930px;
+        right: auto;
+    }
+    #tabSoLong .carousel-control {
+        width: 30px;
+    }
+    .imageDiv {
+        height: 140px;
+    }
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []),
+    tabs = [];
+function validateInList() {
+    var data = parent.wishList;
+	for (var i=0;i<data.length;i++) {
+		var wishInList = data[i];
+		if ($("#"+wishInList.wishId).length > 0) {
+			$("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
+			$("#"+wishInList.wishId).addClass("chooseProduct");
+		}
+	}
+	if ($(".disableDiv").length>0) {
+		for (var i=0;i<$(".disableDiv").length;i++) {
+			$(".disableDiv").find("p")[i].innerText = "我们为您选择的";
+		}
+	}
+};
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+function pickToFirst (data) {
+	var wishlist = parent.wishList;
+	for (var i=0;i<data.length;i++) {
+		var me = data[i];
+
+		for (var j=0;j<wishlist.length;j++) {
+			if (me.wishId === wishlist[j].wishId) {
+				data.splice(i, 1);
+				data.unshift(me);
+			}
+		}
+	}
+}
+app.controller('products', function($scope, $http) {
+	$http.get("/wishType/listInWish?wishlistId="+parent.wishlistId).success(function(tabResponse) {
+		var count = tabResponse.length,
+		    singleTabWidth = 120;
+		if (count === 0) {
+			window.parent.iFrameHeight(2);
+			window.parent.flowToIndex(2);
+			window.parent.unmusk();
+		}
+		else {
+		    $("#tabCarousel").css({
+		    	'width': count*singleTabWidth+"px"
+		    });
+		    $("#tabCarousel").find(".right").click(function(event) {
+		    	var length = $("#tabCarousel").find(".productTab").length;
+	
+		    	for (var i = 0; i<length; i++) {
+		    		var me = $($("#tabCarousel").find(".productTab")[i]);
+		    		if (!me.is(':hidden') && i !== length-1) {
+		    			me.hide();
+		    			handleCursor($(".cursoredTab"));
+		    			return false;
+		    		}
+		    	}
+		    });
+	        $("#tabCarousel").find(".left").click(function(event) {
+	        	$("#tabCarousel").find(".productTab").each(function(idx) {
+		    		var me = $(this);
+		    		if (!me.is(':hidden')) {
+		    			if (idx > 0) {
+		    				me.prev().show();
+		    				handleCursor($(".cursoredTab"));
+		    				return false;
+		    			}
+		    		}
+		    	});
+		    });
+		    for (var i=1;i<=tabResponse.length;i++) {
+			    var object = tabResponse[i-1],
+			        wishlist = parent.wishList;;
+	
+	            $http.get("/wish/listForDesign?generalCode="+object.wishType).success(function(response, retStatus, method, request) {
+					var j = 1,
+						counter = 1,
+						numberInRow = 3,
+						objectsInRow = [],
+						layouts = [],
+						url = request.url,
+						tab;
+	
+				    for (var m =0;m<tabResponse.length;m++) {
+					    var requestType = url.substring(url.indexOf("=")+1,url.length);
+					    if (tabResponse[m].wishType === requestType) {
+					        tab = {
+							    index: m+1,
+					            typeName: tabResponse[m].wishTypeDesc,
+					            tabId: tabResponse[m].wishType
+							}
+					    }
+					}
+	                pickToFirst(response);
+				    for (var i=0;i<response.length;i++) {
+							var singleProduct = response[i];
+	
+							if (j <= numberInRow) {
+								objectsInRow.push(singleProduct);
+							}
+	
+							if (j === numberInRow || i === response.length-1) {
+								var layout = {},
+									active = '',
+									itemLayout = objectsInRow;
+									
+								if (counter === 1) {
+									active = 'active'
+								}
+								layout = {
+									'index': counter,
+									'active': active,
+									'itemLayout': itemLayout
+								};
+								layouts.push(layout);
+								j = 0;
+								counter++;
+								objectsInRow = [];
+							}
+							j++;
+				    }
+					tab.layouts = layouts;
+					tabs.push(tab);
+	
+					$scope.totalCount = tabs.length;
+					if (tabs.length === tabResponse.length) {
+					    tabs.sort(function(a, b) {
+						    return a.index>b.index ? 1:-1;
+						});
+						$scope.tabs = tabs;
+					}
+				});
+			}
+		}
+	});
+	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+          $(".productCenter").first().fadeIn();
+		  validateInList();
+		  handleCursor($(".productTab").first());
+		  window.parent.iFrameHeight(2);
+		  window.parent.flowToIndex(2);
+		  window.parent.unmusk();
+    });
+});
+</script>
+<body ng-app="productApp" ng-controller="products" onselectstart="return false">
+<div id="productMain">
+<div id="tabSoLong">
+<div id="tabCarousel" class="carousel slide">
+<div class="carousel-inner">
+    <div class="item active" alt="First slide">
+		<div class="productTab" ng-repeat="tab in tabs" id="{{tab.tabId}}">
+		    <p>{{tab.typeName}}</p>
+		</div>
+    </div>
+</div>
+<a class="carousel-control left" href="#tabCarousel" 
+    data-slide="prev"><p class="headerArrow">&lsaquo;</p></a>
+<a class="carousel-control right" href="#tabCarousel" 
+    data-slide="next"><p class="headerArrow">&rsaquo;</p></a>
+</div>
+<div id="moveCursor">
+</div>
+</div>
+<div class="productCenter" id="{{tab.tabId}}-content" ng-repeat="tab in tabs" on-finish-render-filters>
+    <div class="index">
+	    <p><b>{{$index+1}}</b>/{{totalCount}}</p>
+	</div>
+	<h1>{{tab.typeName}}选择</h1>
+	<h3>按照您当前的套餐选择，给您推荐以下产品:</h3>
+	<div class="carouselProduct">
+	    <div class="carousel slide productCarousel" id="{{tab.tabId}}Carousel">
+            <div class="carousel-inner">
+				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in tab.layouts track by $index">
+	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
+		                <div class="imageDiv">
+						    <img src={{'/js/images/'+itemLayout.imgUrl}}   class="image"></img>
+						</div>
+						<div class="productText">
+						    <div class="productInfo">
+							    <p class="header">{{itemLayout.wishName}}</p>
+								<p class="detail">(售价:￥<span>{{itemLayout.sellingPrice}}</span>)</p>
+                                <p class="originalPrice" hidden>{{itemLayout.xianenPrice}}</p>
+								<div class="addWishButton">
+								    <img src="/js/images/addWish.png"></img>
+								    <p>选择它来替换</p>
+								</div>
+							</div>
+						</div>
+						<div class="alreadyInFoot">
+						    <p>根据您之前提供的信息</br>推荐该产品给您</p>
+						</div>
+		            </div>
+                </div>
+            </div>
+            <a class="carousel-control left" href="#{{tab.tabId}}Carousel" 
+                data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
+            <a class="carousel-control right" href="#{{tab.tabId}}Carousel" 
+                data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
+            <ol class="carousel-indicators">
+				<li data-target="#{{tab.tabId}}Carousel" data-slide-to="{{$index}}" class="{{layout.active}}" ng-repeat="layout in tab.layouts"></li>
+			</ol>
+        </div>
+	</div>
+</div>
+	<div id="rightFooter">
+	    <div id="prevStep" class="operatorButton">
+		    <p>&#60;</p>
+		</div>
+		<div id="nextStep" class="operatorButton">
+		    <p>下一步</p>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+function handleButton() {
+    var count = $(".productCenter").length,
+	    firstSlide = $($(".productCenter")[0]),
+		lastSlide = $($(".productCenter")[count]);
+    if (!firstSlide.is(':hidden')) {
+	    $("#prevStep").addClass("disabled");
+	}
+	else {
+	    if ($("#prevStep").hasClass("disabled")) {
+		    $("#prevStep").removeClass("disabled");
+		}
+	}
+
+	if (!lastSlide.is(':hidden')) {
+	    $("#nextStep").addClass("disable");
+	}
+    else {
+	    if ($("#nextStep").hasClass("disabled")) {
+		    $("#nextStep").removeClass("disabled");
+		}
+	}
+}
+function handleCursor(tab, move) {
+    var me = tab,
+        length = $("#tabCarousel").find(".productTab").length;
+    $(".productTab").removeClass("cursoredTab");
+    me.addClass("cursoredTab");
+    if (!me.is(':hidden')) {
+    	$("#moveCursor").show();
+    	if (tab.position().left > 900) {
+    		if (move === 1) {
+	    		var needCancelCount = 8;
+	    		$("#tabCarousel").find(".productTab").each(function(idx) {
+		    		var me = $(this);
+		    		if (!me.is(':hidden')) {
+		    			if (needCancelCount > 0 && idx < length - 1) {
+		    			    me.hide();
+		    			    needCancelCount = needCancelCount - 1;
+		    			}
+		    			else {
+		    				$("#moveCursor").animate({left:'0px'});
+		    				return false;
+		    			}
+		    		}
+		    	});
+    		}
+    		else {
+    			$("#moveCursor").hide();
+    		}
+    	}
+    	else {
+    		$("#moveCursor").animate({left:tab.position().left+'px'});
+    	}
+    }
+    else {
+    	if (move === 1) {
+    		var needCancelCount = 8;
+    		$("#tabCarousel").find(".productTab").each(function(idx) {
+	    		var me = $(this);
+	    		if (!me.is(':hidden')) {
+	    			if (idx >= 0 && needCancelCount > 0) {
+	    				while(needCancelCount > 0) {
+	    				    me.prev().show();
+	    				    me = me.prev();
+	    				    needCancelCount = needCancelCount -1;
+	    				}
+	    			}
+	    			else {
+	    				$("#moveCursor").animate({left:'840px'});
+	    				return false;
+	    			}
+	    		}
+	    	});
+    	}
+    	else {
+    	    $("#moveCursor").hide();
+    	}
+    }
+}
+$(document.body).on("click",".operatorButton", function( event ) {
+	var me = $(this);
+
+	if (me.hasClass("disabled")) {
+	    return;
+	}
+
+	if (me[0].id === 'nextStep') {
+	    $(".productCenter").each(function(){
+		    if (!$(this).is(':hidden')) {
+                var me = $(this);
+				if ($(this).next().hasClass('productCenter')) {
+				    var tabId = $(this).next()[0].id.replace('-content', '');
+                    me.hide();
+				    handleCursor($("#"+tabId), 1);
+	                $(this).next().fadeIn();
+				}
+				else {
+					window.parent.muskCurrentPage();
+				    window.parent.nextTab();
+				}
+				return false;        
+			}
+	    });
+	}
+	else {
+	    $(".productCenter").each(function(){
+		    if (!$(this).is(':hidden')) {
+	            $(this).hide();
+				var tabId = $(this).prev()[0].id.replace('-content', '');
+				handleCursor($("#"+tabId), 1);
+	            $(this).prev().fadeIn();
+				return false;
+			}
+	    });
+	}
+	window.parent.iFrameHeight(2);
+	handleButton();
+});
+window.onload=function(){
+    $(".productCarousel").carousel({
+        interval: false
+    });
+};
+$(document.body).on("click",".productItem", function( event ) {
+    var priceChange = parseInt($(this).find('.detail').find('span')[0].innerText, 10),
+        originalPriceChange = $(this).find('.originalPrice')[0].innerText;
+	if ($(this).hasClass("chooseProduct")) {
+        $(this).removeClass("chooseProduct");
+		$(this).find(".addWishButton").find('p')[0].innerText = '已取消选择';
+        window.parent.updatePrice(0-priceChange, priceChange - originalPriceChange, '+');
+	}
+	else {
+	    $(this).addClass("chooseProduct");
+		$(this).find(".addWishButton").find('p')[0].innerText = '选择为愿望清单';
+        window.parent.updatePrice(priceChange, originalPriceChange - priceChange, '+');
+	}
+	event.preventDefault();
+});
+$(document.body).on("click",".productTab", function( event ) {
+	var contentId = $(this)[0].id + "-content";
+
+	handleCursor($(this));
+	$(".productCenter").each(function(){
+	    var me = $(this);
+		
+		if (me[0].id === contentId) {
+		    if (me.is(':hidden')) {
+		        me.fadeIn();
+			}
+			else {
+			    return false;
+			}
+		}
+		else if (me[0].id !== contentId && !me.is(':hidden')) {
+		    me.hide();
+		}
+	});
+});
+</script>
+</html>

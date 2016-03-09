@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head">
+<title>念念--购物车</title>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/js/generalUsage.js"></script>
+</head>
+<style>
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}
+@media (min-width: 900px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.container {
+    background: #F7F7F7;
+}
+#decorContainer {
+    width: 1040px;
+	margin: 0px auto;
+	overflow: auto;
+}
+#tableHeader {
+    width: 100%;
+	overflow: auto;
+}
+#headerLeft {
+    float: left;
+	overflow: auto;
+	text-align: left;
+}
+#headerLeft h1 {
+    font-size: 32px;
+	line-height: 95px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+#headerRight {
+    float: right;
+	overflow: auto;
+}
+.rightImg {
+    overflow: auto;
+	float: right;
+	height: 100%;
+	margin-left: 10px;
+}
+.fakeImg {
+	height: 95px;
+}
+.realImg {
+    vertical-align: middle;
+}
+#shopTable {
+    width: 100%;
+	overflow: auto;
+	padding-bottom: 22px;
+	background: #ffffff;
+	min-height: 400px;
+}
+#tableHeader {
+    width: 100%;
+	overflow: auto;
+	background: #f2f2f2;
+	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+}
+#tableHeader div {
+    float: left;
+	text-align: center;
+	height: 55px;
+}
+.tableContent {
+    width: 100%;
+	margin-top: 22px;
+	overflow: auto;
+}
+.tableContent div {
+	text-align: center;
+	float: left;
+}
+.checkBox {
+    width: 58px;
+}
+#tableHeader .checkBox input {
+	margin-top: 22px;
+}
+.tableContent .checkBox input {
+	margin:auto;
+	margin-top: 32px;
+}
+.itemName {
+    width: 422px;
+	text-align: left!important;
+}
+.itemPrice {
+    width: 140px;
+}
+.itemAmout {
+    width: 140px;
+}
+.totalPrice {
+    width: 140px;
+}
+.operation {
+    width: 140px;
+}
+.operation span {
+    color: #a6a6a6;
+	font-size: 20px;
+	cursor: pointer;
+}
+.title {
+    font-size: 16px;
+	color: #5b5b5b;
+	margin: 0px;
+	font-weight: bold;
+}
+.subTitle {
+    font-size: 12px;
+	color: #1c3653;
+	line-height: 20px;
+	margin: 0px;
+}
+#tableHeader .title {
+    line-height: 55px;
+}
+.itemImg {
+    width: 78px;
+	height: 78px;
+	background: #d8d8d8;
+	cursor: pointer;
+}
+.itemImg:hover {
+    border: 0px solid #ff5274;
+}
+
+.itemImg img{
+	  width: 78px;
+	height: 78px;
+	}
+.inputContent {
+    padding-top: 14px;
+}
+.itemDesc {
+    text-align: left!important;
+	padding-left: 18px;
+}
+.itemDesc .title {
+    cursor: pointer;
+}
+.itemDesc .title:hover {
+    color: red;
+}
+#shopSumm {
+    padding-left: 59px;
+	padding-right: 71px;
+	padding-bottom: 39px;
+	padding-top: 24px;
+	overflow: auto;
+	background: #f2f2f2;
+}
+#leftSumm {
+    float: left;
+	width: 100%;
+	margin-top: 15px;
+}
+.continue {
+    overflow: auto;
+	float: left;
+}
+.continue button {
+    border: 1px solid #d7d7d7;
+	background: #fff;
+	color: #ff5274;
+	border-radius: 4px;
+	margin: 0px;
+	font-size: 18px;
+	width: 142px;
+	height: 44px;
+	font-family: "Microsoft Yahei";
+}
+#rightSumm {
+    float: right;
+	overflow: auto;
+	width: 100%;
+}
+#rigthTop {
+    overflow: auto;
+	width: 100%;
+}
+#rigthTop div {
+    float: right;
+	text-align: right;
+}
+#rigthBottom {
+    overflow: auto;
+	text-align: right;
+}
+.next {
+    overflow: auto;
+    float: right;
+}
+.next button {
+    width: 178px;
+	height: 44px;
+	border-radius: 4px;
+	background: #ff5274;
+	color: #ffffff;
+	font-size: 18px;
+	border: none;
+	float: right;
+	font-family: "Microsoft Yahei";
+}
+.next button:hover {
+    background: #ff496d;
+}
+.summTitle {
+    font-size: 20px;
+	color: #5b5b5b;
+	font-weight: bold;
+	margin: 0px;
+}
+.titleNumber {
+    color: #ff5274;
+	padding-top: 0.4px;
+}
+
+
+.titleNumbere {
+    color: #ff5274;
+	padding-top: 0.4px;
+}
+
+.titleNumber {
+    color: #ff5274;
+	padding-top: 0.4px;
+}
+
+#rigthTopContent {
+    padding-right: 18px;
+}
+.oneThird {
+    width: 33.33%;
+	height: 100%;
+    float: left;
+}
+.changeButton {
+    background: #ccc;
+	width: 20px;
+	height: 20px!important;
+	border-radius: 10px;
+	cursor: pointer;
+}
+.changeButton:hover {
+    opacity: 0.6;
+}
+.minusButton {
+    float: right!important;
+}
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+}
+.closeCoverDiv:hover {
+	color: yellow;
+	border: 2px solid yellow;
+}
+.coverImageDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+#noAnyProduct{
+	text-align:center;
+	}
+
+#noAnyProduct h1 {
+    line-height: 200px;
+	margin:0px;
+	
+
+}
+#goShoppingButton {
+    width: 220px;
+	height: 70px;
+	background: #ff5274;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: -50px;
+	cursor:pointer;
+	opacity: 0.8;
+	position:relative;
+	left:40%;
+}
+#goShoppingButton:hover {
+    opacity: 1;
+}
+#goShoppingButton h2 {
+    line-height: 70px;
+	margin: 0px;
+	color: #ffffff;
+}
+</style>
+<body ng-app="productApp" ng-controller="product">
+<div class="topBarDiv">
+    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
+</div>
+<div class="container"  ng-cloak>
+    <div id="decorContainer">
+	    <div id="pageHeader">
+		    <div id="headerLeft">
+			    <h1>您的购物车</h1>
+			</div>
+			<div id="headerRight">
+			    <div class="rightImg">
+				    <img class="fakeImg"></img>
+				    <img src="/js/images/5.png" class="realImg"></img>
+				</div>
+				<div class="rightImg">
+				    <img class="fakeImg"></img>
+				    <img src="/js/images/2.png" class="realImg"></img>
+				</div>
+				<div class="rightImg">
+				    <img class="fakeImg"></img>
+				    <img src="/js/images/1.png" class="realImg"></img>
+				</div>
+			</div>
+		</div>
+		<div id="shopTable" >
+			<div id="tableHeader">
+				<div class="checkBox" >
+					<input type="checkbox" id="topCheckBox" ng-click="selectAll();">
+				</div>
+				<div class="itemName">
+				    <p class="title">产品和服务</p>
+				</div>
+				<div class="itemPrice">
+				    <p class="title">念念价格(元)</p>
+				</div>
+				<div class="itemAmout">
+				    <p class="title">数量</p>
+				</div>
+				<div class="totalPrice">
+				    <p class="title">小计(元)</p>
+				</div>
+				<div class="operation">
+				    <p class="title">操作</p>
+				</div>
+			</div>
+			<div id="noAnyProduct" hidden>
+	            <h1>您的购物车里还没有任何物品</h1>
+				<div id="goShoppingButton"><h2>去别的地方看看</h2></div>
+	        </div>
+			<div class="tableContent"  id={{wishListDetail.wishDetailId+'_'}} ng-repeat="wishListDetail in wishListDetails">
+				<div class="checkBox">
+				    <input type="checkbox" name="checkbox"  id="{{wishListDetail.cartDetailId}}" class="contentCheckBox">
+				</div>
+				<div class="itemName">
+				    <div class="itemImg">
+					    <img src="/js/images/{{wishListDetail.imageUrl}}"></img>
+					</div>
+					<div class="itemDesc inputContent">
+					    <p class="title">{{wishListDetail.wishName}}</p>
+						<p class="subTitle">{{wishListDetail.wishDesc}}</p>
+					</div>
+				</div>
+				<div class="itemPrice inputContent">
+				    <p class="title">{{wishListDetail.price}}</p>
+				</div>
+				<div class="itemAmout inputContent">
+				    <div class="oneThird">
+					    <div class="changeButton minusButton" ng-click="subtractAmount($index)">
+						    <span>-</span>
+						</div>
+					</div>
+					<div class="oneThird">
+				        <p class="title titleNumber wishAmountCoat" ng-bind="wishListDetail.amount"></p>
+					</div>
+					<div class="oneThird">
+					    <div class="changeButton" ng-click="addAmount($index)">
+						    <span>+</span>
+						</div>
+					</div>
+				</div>
+				<div class="totalPrice inputContent">
+				    <p class="title titleNumber">{{wishListDetail.sumPrice}}</p>
+
+				</div>
+				<div class="operation inputContent">
+				    <span class="glyphicon glyphicon-trash deleteButton" ng-click="deleteSource($index)"></span>
+				</div>
+			</div>
+		</div>
+		<div id="shopSumm">
+			<div id="rightSumm">
+			    <div id="rigthTop">
+				    <div id="rigthTopTitle">
+					    <p class="title titleNumber"></p>
+					
+					</div>
+					<div id="rigthTopContent">
+					    <p class="title">共{{wishListDetails.length}}件商品，共计￥：{{allTotalPrice}}</p>
+					
+					</div>
+				</div>
+			</div>
+			<div id="leftSumm">
+			    <div class="continue">
+			    <button>继续购物</button>
+				</div>
+				<div class="next">
+				<button id="nextButton" ng-click="goToPurchase()">去结算</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script type="text/javascript">
+var app = angular.module('productApp', []),
+    saveFunction,
+    saved = false;
+app.controller('product', function($scope, $http) {
+    $http.get("/wishlistDetail/getDirectWishListForShoppingCart").success(function(response) {
+    	var totalPrice = 0;
+		$scope.wishListDetails = response;
+		for (var i=0;i<response.length;i++) {
+			totalPrice = totalPrice + response[i].sumPrice
+		}
+		$scope.allTotalPrice = totalPrice;
+		unmusk();
+    });
+    $scope.selectAll = function() {
+        if ($("#topCheckBox")[0].checked === true) {
+    	    $(".contentCheckBox").each(function() {
+    	        $(this)[0].checked = true;
+    	    });
+        }
+        else {
+        	$(".contentCheckBox").each(function() {
+    	        $(this)[0].checked = false;
+    	    });
+        }
+    }
+    $scope.addAmount = function(index) {
+    	var me = $(this);
+        
+    	$scope.wishListDetails[index].amount = $scope.wishListDetails[index].amount + 1;
+    	$scope.wishListDetails[index].sumPrice = $scope.wishListDetails[index].amount* $scope.wishListDetails[index].price;
+    	$scope.allTotalPrice = $scope.allTotalPrice + $scope.wishListDetails[index].price;
+    }
+    $scope.subtractAmount = function(index) {
+    	var me = $(this);
+
+    	if ($scope.wishListDetails[index].amount > 0) {
+            $scope.wishListDetails[index].amount = $scope.wishListDetails[index].amount - 1;
+            $scope.wishListDetails[index].sumPrice = $scope.wishListDetails[index].amount* $scope.wishListDetails[index].price;
+            $scope.allTotalPrice = $scope.allTotalPrice - $scope.wishListDetails[index].price;
+    	}
+    }
+    $scope.deleteSource = function(index) {
+    	$scope.allTotalPrice = $scope.allTotalPrice - $scope.wishListDetails[index].sumPrice;
+    	$scope.wishListDetails.splice(index, 1);
+    }
+	$scope.goToPurchase = function() {
+		muskCurrentPage();
+		var changedCartList = $scope.wishListDetails,
+		    selectedCartList = [];
+    	for (var i=0;i<changedCartList.length;i++) {
+    		if ($(".tableContent").find(".contentCheckBox")[i].checked === true) {
+    		    delete changedCartList[i].$$hashKey;
+    		    selectedCartList.push(changedCartList[i]);
+    		}
+    	}
+		$.ajax({
+		    url: '/wishlist/generateOrderByCart',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(selectedCartList),
+			success:function(data){
+				window.location.href='paymentInfo.html?orderId='+data.orderId;
+				unmusk();
+		    },
+			error: function(error) {
+				//$("#messageSent")[0].value = '';
+			}
+		});
+	};
+    saveFunction = function() {
+    	var changedCartList = $scope.wishListDetails;
+    	for (var i=0;i<changedCartList.length;i++) {
+    		delete changedCartList[i].$$hashKey;
+    	}
+    	$.ajax({
+		    url: '/wishlistDetail/saveCart',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(changedCartList),
+			async: false,
+			success:function(data){
+		    },
+			error: function(error) {
+				//$("#messageSent")[0].value = '';
+			}
+		});
+    }
+});
+</script>
+<script>
+window.onunload = function(event) {
+	if (!saved) {
+	    saveFunction();
+        saved = true;
+	}
+};
+$(".continue").click(function() {
+	saveFunction();
+});
+$("#goShoppingButton").click(function() {
+	window.location.href='/productAndService.html';
+});
+</script>
+</html>
