@@ -35,10 +35,15 @@ public class ContactInfoController {
 	@ResponseBody
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public void add(@RequestBody ContactInfo contactInfo) {
+	public void add(@RequestBody ContactInfo contactInfo,HttpServletRequest request) {
 
-		System.out.println(" ----   add  contactInfo =" + contactInfo);
 
+		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+
+		System.out.println(" ----   add  contactInfo =" + contactInfo+" currentWishOrderId="+currentWishOrderId);
+
+		contactInfo.setWishOrderId(currentWishOrderId);
+		
 		int userId = contactInfo.getUserId();
 
 		System.out.println("  ----   userId  = " + userId);
@@ -159,11 +164,13 @@ public class ContactInfoController {
 	@RequestMapping(value = "/getUsingContacterByWishOrderId", method = RequestMethod.GET, produces = "application/json")
 	public ContactInfo getUsingContacterByWishOrderId(HttpServletRequest request) {
 
-		String wishOrderId = request.getParameter("wishOrderId");
+		
+		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
 
-		System.out.println("  --getUsingContacterByWishOrderId--   wishOrderId  = " + wishOrderId);
 
-		ContactInfo ContactInfo = contactInfoService.getContacterByWishOrderId(Integer.parseInt(wishOrderId));
+		System.out.println("  --getUsingContacterByWishOrderId--   currentWishOrderId  = " + currentWishOrderId);
+
+		ContactInfo ContactInfo = contactInfoService.getContacterByWishOrderId(currentWishOrderId);
 		return ContactInfo;
 
 	}

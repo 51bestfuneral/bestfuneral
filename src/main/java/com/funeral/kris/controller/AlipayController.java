@@ -74,9 +74,12 @@ public class AlipayController {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
-		String wishOrderId = request.getParameter("wishOrderId");
+//		String wishOrderId = request.getParameter("wishOrderId");
+		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+
+		Integer setWishOrderId=(Integer) session.getAttribute("setWishOrderId");
 		
-		String setWishOrderId = request.getParameter("setWishOrderId");
+//		String setWishOrderId = request.getParameter("setWishOrderId");
 
 		
 		
@@ -85,23 +88,21 @@ public class AlipayController {
 		
 		
 
-		WishOrder wishOrder = wishOrderService.getResource(Integer
-				.parseInt(wishOrderId));
+		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
 		
 		//要考虑是只支付购物车还是同时支付套餐
 		
 		
 		if(wishOrder.getPayMethod().intValue()==WishConstants.wishorder_paymethod_wishListOnly){
 			
-			wishOrder.setPayWishOrderId(Integer.parseInt(setWishOrderId));
+			wishOrder.setPayWishOrderId(setWishOrderId);
 			
 			
 		}
 		
 		
 
-		Order order = orderService.getOrderByWishOrderId(Integer
-				.parseInt(wishOrderId));
+		Order order = orderService.getOrderByWishOrderId(currentWishOrderId);
 
 		if (order != null
 				&& order.getStatusId().intValue() == AlipayUtil.order_completed) {
@@ -131,7 +132,7 @@ throw new Exception(" ---");
 			order.setOrderNo(orderNo);
 			order.setSubject(orderNo);
 			order.setPayableAmount(cost);
-			order.setWishOrderId(Integer.parseInt(wishOrderId));
+			order.setWishOrderId(currentWishOrderId);
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 			// send mail
@@ -147,7 +148,7 @@ throw new Exception(" ---");
 			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
-			order.setWishOrderId(Integer.parseInt(wishOrderId));
+			order.setWishOrderId(currentWishOrderId);
 			order.setUserId(user.getUsrId());
 			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);

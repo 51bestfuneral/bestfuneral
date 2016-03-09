@@ -62,7 +62,7 @@ float:left;
 border:0px solid black;
 position:relative; 
 top:180px;
-background:url(/html/customizatonPages/assets/images/howItWorks/preview.png);
+background:url(/pages/html/customizatonPages/assets/images/howItWorks/preview.png);
 
 background-repeat:no-repeat;
 }	
@@ -144,7 +144,7 @@ float:left;
 border:0px solid black;
 position:relative; 
 top:80px;
-background:url(/html/customizatonPages/assets/images/howItWorks/service.png);
+background:url(/pages/html/customizatonPages/assets/images/howItWorks/service.png);
 
 background-repeat:no-repeat;
 }	
@@ -252,7 +252,7 @@ top:120px;
 border:0px solid black; 
 height:31px;
 width:31px;
-background:url(/html/customizatonPages/assets/images/howItWorks/phone.png);
+background:url(/pages/html/customizatonPages/assets/images/howItWorks/phone.png);
 background-repeat:no-repeat;
 position:relative; 
 left:10px;
@@ -282,7 +282,7 @@ top:20px;
 border:0px solid black; 
 height:29px;
 width:20px;
-background:url(/html/customizatonPages/assets/images/howItWorks/mail.png);
+background:url(/pages/html/customizatonPages/assets/images/howItWorks/mail.png);
 background-repeat:no-repeat;
 position:relative; 
 left:10px;
@@ -320,7 +320,7 @@ text-align:center;
 border:0px solid black; 
 height:48px;
 width:19px;
-background:url(/html/customizatonPages/assets/images/howItWorks/qq.png);
+background:url(/pages/html/customizatonPages/assets/images/howItWorks/qq.png);
 background-repeat:no-repeat;
 position:relative; 
 left:10px;
@@ -376,7 +376,7 @@ float:left;
 border:0px solid black;
 position:relative; 
 top:80px;
-background:url(/html/customizatonPages/assets/images/howItWorks/template.png);
+background:url(/pages/html/customizatonPages/assets/images/howItWorks/template.png);
 
 background-repeat:no-repeat;
 }	

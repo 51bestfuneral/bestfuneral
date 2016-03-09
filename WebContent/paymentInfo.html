@@ -20,7 +20,7 @@
 <body ng-app="contactInfo" ng-controller="contactInfoController">
 <div class="container">
 <div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=product" frameborder = 0 height = "70px"></IFRAME>
 </div>
 <div id="paymentContain">
     <div id="infoContain">
@@ -62,7 +62,7 @@
 				    <p>姓名<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input id="contactName"    style=" font-size: 19px;line-height: 44px;font-weight: bold;"     type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
+				    <input id="contactName"    style=" font-size: 19px;line-height: 19px;font-weight: bold;"     type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
 				    <input type="hidden"  ng-model="currentContacter.userId"  vaule={{$scope.user.userId}}></input>
 
 				</div>
@@ -76,7 +76,7 @@
 				    <p>从联系人中选择*</p>
 				</div>
 				<div class="fieldContent">
-				    <select class="form-control"   id="contacterSelect"  style=" font-size: 19px;line-height: 44px;font-weight: bold;" >
+				    <select class="form-control"   id="contacterSelect"  style=" font-size: 19px;line-height: 19px;font-weight: bold;" >
 				    	<option>请选择</option>
 						<option ng-repeat="contacter in contactInfos "  value={{contacter.contactId}}><p style="font-size:10px;">{{contacter.contactName+':'+contacter.city+':'+contacter.phone}}</p></option>
 					
@@ -91,7 +91,7 @@
 				    <p>手机号码<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input id="contactPhone" style=" font-size: 19px;line-height: 44px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
+				    <input id="contactPhone" style=" font-size: 19px;line-height: 19px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
 				</div>
 				<p class="subTitle">我们会确保你的隐私，谨慎使用您的手机号码</p>	
 			</div>
@@ -103,7 +103,7 @@
 				    <p>省份<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				  <select class="form-control"  style=" font-size: 19px;line-height: 44px;font-weight: bold;"  id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
+				  <select class="form-control"  style=" font-size: 19px;line-height: 19px;font-weight: bold;"  id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
 							<option>请选择</option>
 						<option value='1'  ><p  class="form-control">江苏省</p></option>
 					  <option value='2'  ><p  class="form-control">上海市</p></option>
@@ -123,7 +123,7 @@
 				    <p>城市<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input id="city" type="text" style=" font-size: 19px;line-height: 44px;font-weight: bold;"  class="form-control"  ng-model="currentContacter.city"></input>
+				    <input id="city" type="text" style=" font-size: 19px;line-height: 19px;font-weight: bold;"  class="form-control"  ng-model="currentContacter.city"></input>
 				</div>
 			</div>
 			
@@ -133,7 +133,7 @@
 				    <p>详细地址<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input  id="address" type="text"  style=" font-size: 19px;line-height: 44px;font-weight: bold;" class="form-control" ng-model="currentContacter.detailAddress"></input>
+				    <input  id="address" type="text"  style=" font-size: 19px;line-height: 19px;font-weight: bold;" class="form-control" ng-model="currentContacter.detailAddress"></input>
 				</div>
 		
 			</div>
@@ -233,8 +233,8 @@ var deliverMethod;;
 	
 var app = angular.module('contactInfo', []);
 
-var length = location.search.length;
-var wishOrderId= location.search.substring(13, length);
+//var length = location.search.length;
+//var wishOrderId= location.search.substring(13, length);
 
 
 
@@ -242,17 +242,17 @@ app.controller('contactInfoController', function($scope, $http) {
 $scope.currentContacter;
 $scope.currenctExpress;
 $scope.contactorId;
-
+$scope.user ;
  $http.get("/login/getCurrentUser").success(function(response) {
 	  $scope.user = response;
 	  });
 
 
 
-	    	     $http.get("/contactInfo/getUsingContacterByWishOrderId?wishOrderId="+wishOrderId).success(function(response) {
+	    	     $http.get("/contactInfo/getUsingContacterByWishOrderId").success(function(response) {
 	    $scope.currentContacter = response;
 	    });
-	   $http.get("/expressController/getExpressInfoByWishOrderId?wishOrderId="+wishOrderId).success(function(response) {
+	   $http.get("/expressController/getExpressInfoByWishOrderId").success(function(response) {
 	    $scope.currenctExpress = response;
 	    	    var datadata = JSON.stringify($scope.currenctExpress);
 	    //	 alert("----currenctExpress---"+datadata+"  deliveryMethod= "+datadata.deliveryMethod);
@@ -442,7 +442,7 @@ if(deliverMethod==null){
 	}
 
      $scope.currentContacter.userId=$scope.user.usrId;
-	     $scope.currentContacter.wishOrderId=wishOrderId;
+	    // $scope.currentContacter.wishOrderId=wishOrderId;
 	    $scope.currentContacter.expressMethod=deliverMethod;
 		
 	    var datadata = JSON.stringify($scope.currentContacter);
@@ -461,7 +461,7 @@ if(deliverMethod==null){
   
           });
  
- window.location.href='/paymentConfirm.html?wishOrderId='+wishOrderId; 
+ window.location.href='paymentConfirm.html'; 
          });
 
 $("#deliveryMethod1").click(function () {

@@ -124,4 +124,13 @@ public class WishlistServiceImpl implements WishlistService {
 		return wishList;
 	}
 
+	@Override
+	public List<Wishlist> getWishListByUserId(int userId) {
+		String a = null;
+		a = "select p from Wishlist p where p.userId = " + userId;
+		Query query = em.createQuery(a);
+		List<Wishlist> wishList = query.getResultList();
+		return wishList;
+	}
+
 }

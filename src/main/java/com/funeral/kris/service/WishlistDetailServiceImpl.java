@@ -179,10 +179,6 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 		 
 		return list;
 		
-		
-		
-		
-		
 	}
 	@Override
 	public List<WishlistDetail> getDirectWishlistDetailByWishListId(int wishListId) {

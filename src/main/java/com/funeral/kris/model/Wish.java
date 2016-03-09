@@ -97,6 +97,8 @@ public class Wish {
 	private String size;
 
 	public String getImgUrl() {
+		
+		
 		return ImgUrl;
 	}
 

@@ -63,7 +63,7 @@ public class WishConfigController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public List<Wish> list(HttpServletRequest request) {
 
-		List<Wish> wishList = wishService.getResources(request);
+		List<Wish> wishList = wishService.getResources();
 
 		return wishList;
 	}

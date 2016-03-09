@@ -39,7 +39,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 	private void initialWishMap() {
 		HttpServletRequest fakeRequest = null;
-		List<Wish> wishs = wishService.getResources(fakeRequest);
+		List<Wish> wishs = wishService.getResources();
 		wishsMap = new HashMap<Integer, Wish>();
 		for (Wish wish : wishs) {
 			wishsMap.put(wish.getWishId(), wish);

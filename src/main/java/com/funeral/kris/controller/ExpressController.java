@@ -16,13 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funeral.kris.busModel.ExpressBean;
+import com.funeral.kris.constants.WishConstants;
+import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.User;
+import com.funeral.kris.model.WishOrder;
+import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.ContactInfoService;
 import com.funeral.kris.service.ExpressInfoService;
 import com.funeral.kris.service.ExpressService;
 import com.funeral.kris.service.MailService;
+import com.funeral.kris.service.WishOrderService;
 
 @Controller
 @RequestMapping(value = "/expressController")
@@ -30,33 +35,31 @@ public class ExpressController {
 
 	public static String express_method_saved_in_niannian_title = "暂存在念念 ";
 	public static String express_method_saved_in_niannian_description = "(我们会暂时替您保管，在需要的时候提供给您!)";
-	
-	
-	
+
 	public static String express_method_standard_title = "标准 ";
 	public static String express_method_standard_description = "(免邮费, 2-3日送达)";
-	
-	
-	
-	public static String express_method_express_title = "快递 ";
-	public static String express_method_express_description  = "(1日送达，20块钱快递费用)";
-	
-	
-	public static String province_SH="上海";
-	public static String province_JS="江苏省";
-	public static String province_ZJ="浙江省";
 
+	public static String express_method_express_title = "快递 ";
+	public static String express_method_express_description = "(1日送达，20块钱快递费用)";
+
+	public static String province_SH = "上海";
+	public static String province_JS = "江苏省";
+	public static String province_ZJ = "浙江省";
+	@Autowired
+	private WishOrderService wishOrderService;
 	@Autowired
 	private ExpressInfoService expressInfoService;
 
 	@Autowired
 	private ContactInfoService contactInfoService;
-	
+
 	@Autowired
 	private MailService mainService;
 
 	@Autowired
 	private ExpressService expressService;
+	@Autowired
+	private CartDetailService cartDetailService;
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -65,13 +68,14 @@ public class ExpressController {
 		String contactId = request.getParameter("contactId");
 		String deliveryMethod = request.getParameter("deliveryMethod");
 		Integer method = Integer.parseInt(deliveryMethod);
-		ContactInfo contactInfo = contactInfoService.getResource(Integer.parseInt(contactId));
+		ContactInfo contactInfo = contactInfoService.getResource(Integer
+				.parseInt(contactId));
 
-		
 		HttpSession session = request.getSession();
 
 		User user = (User) session.getAttribute("user");
-		List<ExpressInfo> expressInfoList = expressInfoService.getByUserId(user.getUsrId());
+		List<ExpressInfo> expressInfoList = expressInfoService.getByUserId(user
+				.getUsrId());
 
 		if (expressInfoList != null && expressInfoList.size() > 0) {
 
@@ -90,6 +94,7 @@ public class ExpressController {
 		expressInfo.setCity(contactInfo.getCity());
 		expressInfo.setProvince(contactInfo.getProvince());
 		expressInfo.setStatusId(1);
+		expressInfo.setWishOrderId(contactInfo.getWishOrderId());
 
 		expressInfo.setDeliveryMethod(Integer.parseInt(deliveryMethod));
 		if (method == 3) {
@@ -105,16 +110,37 @@ public class ExpressController {
 
 		expressInfo.setUserId(contactInfo.getUserId());
 
-System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMethod+"  getContactName="+contactInfo.getContactName());
+		System.out.println("-----  contactId=" + contactId
+				+ "  deliveryMethod=" + deliveryMethod + "  getContactName="
+				+ contactInfo.getContactName());
 		expressInfoService.addResource(expressInfo);
-		
+
+		Integer currentCartId = (Integer) request.getSession().getAttribute(
+				"currentCartId");
+
+		System.out
+				.println(this.getClass() + "  currentCartId=" + currentCartId);
+
+		List<CartDetail> cartList = cartDetailService
+				.getSelectedCartDetailsByCartId(currentCartId);
+
+		WishOrder wishOrder = wishOrderService.getResource(contactInfo
+				.getWishOrderId());
+		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_shoppingCartOnly
+				|| wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_together) { // 如果支付组合里面包含了支付购物车，则在此处清空购物车
+			for (CartDetail cartDetail : cartList) {
+
+				cartDetailService.deleteResource(cartDetail.getCartDetailId());
+			}
+		}
+
 		// send email
-		Map<String,String> messageInfo = new HashMap<String,String>();
+		Map<String, String> messageInfo = new HashMap<String, String>();
 		messageInfo.put("to", "li.yuan@ebaotech.com");
 		messageInfo.put("subject", "你有一笔新的订单");
 		messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
 		mainService.send(messageInfo);
-		
+
 	}
 
 	@ResponseBody
@@ -130,7 +156,8 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 
 	@ResponseBody
 	@RequestMapping(value = "/getUncompledExpressInfoByUserId", method = RequestMethod.GET, produces = "application/json")
-	public List<ExpressInfo> getUncompledExpressInfoByUserId(HttpServletRequest request) {
+	public List<ExpressInfo> getUncompledExpressInfoByUserId(
+			HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
 
@@ -139,8 +166,8 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 		String statusId = request.getParameter("statusId");
 		System.out.println(" ---------------- statusId=" + statusId);
 
-		return expressInfoService.getUncompledExpressInfoByUserId(user.getUsrId().intValue(),
-				Integer.parseInt(statusId));
+		return expressInfoService.getUncompledExpressInfoByUserId(user
+				.getUsrId().intValue(), Integer.parseInt(statusId));
 
 	}
 
@@ -155,14 +182,16 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 		return expressInfoService.getUsingExpressInfo(user.getUsrId());
 
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/getExpressInfoByWishOrderId", method = RequestMethod.GET, produces = "application/json")
 	public ExpressInfo getExpressInfoByWishOrderId(HttpServletRequest request) {
-		
-		String wishOrderId=request.getParameter("wishOrderId");
-		
-		return expressInfoService.getExpressInfoByWishOrderId(Integer.parseInt(wishOrderId));
-		
+		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+
+//		String wishOrderId = request.getParameter("wishOrderId");
+
+		return expressInfoService.getExpressInfoByWishOrderId(currentWishOrderId);
+
 	}
 
 	@ResponseBody
@@ -173,9 +202,8 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 
 		User user = (User) session.getAttribute("user");
 
-		
-		
-		ExpressInfo info = expressInfoService.getUsingExpressInfo(user.getUsrId());
+		ExpressInfo info = expressInfoService.getUsingExpressInfo(user
+				.getUsrId());
 
 		ExpressBean bean = new ExpressBean();
 
@@ -188,45 +216,40 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 
 			bean.setExpressTitle(this.express_method_standard_title);
 			bean.setExpressDescription(this.express_method_standard_description);
-			
-		
+
 		} else {
 
 			bean.setExpressTitle(this.express_method_express_title);
 			bean.setExpressDescription(this.express_method_express_description);
 		}
 
-		
-		if(info.getProvince().equals("1")){
-			
+		if (info.getProvince().equals("1")) {
+
 			bean.setProvince(this.province_JS);
-		}else if(info.getProvince().equals("2")){
+		} else if (info.getProvince().equals("2")) {
 			bean.setProvince(this.province_SH);
-		}else{
+		} else {
 			bean.setProvince(this.province_ZJ);
 		}
-		
-		
-		
+
 		return bean;
 
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getProcess", method = RequestMethod.GET)
 	public String getExpressProcess(HttpServletRequest request) {
-		try{
-		String orderNo = request.getParameter("orderNo");
-		String expressNo = request.getParameter("expressNo");
-		String expressCompany = request.getParameter("expressCompany");
-		return expressService.searchExpress(orderNo,expressNo, expressCompany);
-		} catch(Exception e){
-			
+		try {
+			String orderNo = request.getParameter("orderNo");
+			String expressNo = request.getParameter("expressNo");
+			String expressCompany = request.getParameter("expressCompany");
+			return expressService.searchExpress(orderNo, expressNo,
+					expressCompany);
+		} catch (Exception e) {
+
 		}
 		return null;
-		
-		
-		
+
 	}
 
 }

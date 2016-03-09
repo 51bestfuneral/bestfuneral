@@ -39,6 +39,9 @@ public class WishConstants {
 	public  static int wishorder_paymethod_together=1;
 	public  static int wishorder_paymethod_shoppingCartOnly=2;
 	public  static int wishorder_paymethod_wishListOnly=3;
+	
+	public  static String img_base_folder="/js/images/";
+
 
 
 }
