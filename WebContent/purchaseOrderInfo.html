@@ -39,7 +39,7 @@
 			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
 		
 		
-			<div class="removeBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
+			<div class="sideBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
 			<div class="processIcon" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
 			<div id="{{'_'+order.wishOrderId}}"   style={{order.style}} class="normalText goToPay"  ng-click="goToPay(order.wishOrderId)"><p  style="font-size: 17px;line-height: 1;color: #f62f5e;font-weight: bold;">继续支付</p></div>
 		</div>
@@ -137,7 +137,7 @@ app.controller('products', function($scope, $http) {
 	
 	
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-		$(".removeBtn").hover(function() {
+		$(".sideBtn").hover(function() {
 			if (!$(this).hasClass('disabled')) {
 			    $(this).css({
 				    'background': '#ccc'
@@ -148,7 +148,7 @@ app.controller('products', function($scope, $http) {
 				'background': 'transparent'
 			});
 		});
-	    $(".removeBtn").click(function(event) {
+	    $(".sideBtn").click(function(event) {
 	    	var wishOrderId = $(this).closest(".clickable")[0].id,
 	    	    index = $(this)[0].id;
 	    	if ($(this).hasClass("disabled")) {
@@ -170,13 +170,14 @@ app.controller('products', function($scope, $http) {
 						if ($(".rightContents").length ===0) {
 							$("#noContent").fadeIn();
 						}
+						clearWarningmusk();
 						floatAlertBar('订单取消成功');
 					},
 					error: function(error) {
 					}
 				});
 	    	};
-	    	popupWarningMessagePage("確定要刪除嗎？", callback);
+	    	popupWarningMessagePage("確定要刪除嗎？", callback, "提示信息");
 	        event.stopPropagation();
 	    });
     });

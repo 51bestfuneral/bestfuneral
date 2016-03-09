@@ -36,8 +36,8 @@
 	    <div class="contentHeader clickable" id="{{order.wishOrderId}}">
 		    <p class="normalText">愿望清单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
 			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
-			<div class="removeBtn" id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-			<div class="processIcon" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+			<div class="sideBtn" id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+			<div class="sideBtn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
 		</div>
 		<div class="containerClass" ng-repeat="detail in order.detailJson track by $index" on-finish-render-filters>
 			<div class="valuehiddenDiv">
@@ -108,7 +108,7 @@ app.controller('products', function($scope, $http) {
         unmusk();
     });
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-		$(".removeBtn").hover(function() {
+		$(".sideBtn").hover(function() {
 			if (!$(this).hasClass('disabled')) {
 			    $(this).css({
 				    'background': '#ccc'
@@ -119,8 +119,30 @@ app.controller('products', function($scope, $http) {
 				'background': 'transparent'
 			});
 		});
-	    $(".removeBtn").click(function(event) {
+	    $($(".sideBtn")[0]).click(function(event) {
 	    	window.location.href = "designProcess.html";
+	        event.stopPropagation();
+	    });
+	    $($(".sideBtn")[1]).click(function(event) {
+	    	var callback = function() {
+	    		$.ajax({
+				    url: '/wishlist/generateOrderByWish',
+					type: 'POST',
+					contentType: "application/json; charset=UTF-8",
+					dataType:'json',
+					data: [],
+					success:function(data){
+						$http.get("/shoppingCartController/linkToPaymentInfo?wishOrderId="+data.wishOrderId).success(function(response) {
+						    window.location.href='/paymentInfo.html';
+						});
+						clearWarningmusk();
+				    },
+					error: function(error) {
+						//$("#messageSent")[0].value = '';
+					}
+				});
+	    	}
+	    	popupWarningMessagePage("之后愿望清单将被清空，你可以在您的订单里找到它", callback, "购买此愿望清单？");
 	        event.stopPropagation();
 	    });
     });
