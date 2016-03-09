@@ -41,7 +41,6 @@ text-align:center;
 }
 #introduction p{
 color:#4b4b4b;
-font-family: HelveticaNeue-Thin;
 font-size:60px;
 line-height:209px;	
 margin:0px auto;
@@ -90,7 +89,6 @@ border:0px solid black;
 }
 #netTitle p{
 	  color:#3d4351;
-	 font-family: helvetica; 
 	 font-size:35px;
 	 font-weight: 100;
 	
@@ -109,7 +107,6 @@ font-weight: 100;
 
 #netComments p{
 	color:#3d4351;
-	 font-family: STHeitiSC-Light; 
 	 font-size:25px;
 	 line-height:35px;
 	
@@ -131,7 +128,6 @@ text-align:center;
 	}
 #netStart p{
 color:#ffffff;
-font-family: STHeitiSC-Light; 
 font-size:21px;
 line-height:55px;
 }	
@@ -175,7 +171,6 @@ border:0px solid black;
 }
 #serviceTitle p{
 color:#3d4351;
-font-family: Helvetica;
 font-size:35px;
 font-weight: 100;
 }
@@ -193,7 +188,6 @@ text-align:left;
 
 #serviceComments p{
 	color:#3d4351;
-	 font-family: Helvetica;
 	 font-size:25px;
 	 line-height:35px;
 	 font-weight: 100;
@@ -216,7 +210,6 @@ cursor default;
 
 #serviceMessage p{
 	color:#ffffff;
-	 font-family: STHeitiSC-Light ; 
 	 font-size:15px;
 	 line-height:48px;
 	
@@ -235,7 +228,6 @@ cursor: default;
 
 #serviceintro p{
 	color:#ffffff;
-	 font-family: PingFangSC-Light ; 
 	 font-size:15px;
 	 line-height:48px;
 	
@@ -281,7 +273,6 @@ top:20px;
 	
 #phoneGrounpNumber p{
 	 color:#ec4a82;
-	 font-family: "OpenSans-Light"; 
 	 font-size:30px;
 	 line-height:0px;}			
 	
@@ -319,7 +310,6 @@ text-align:center;
 
 #serviceChat p{
 	color:#ffffff;
-	 font-family: PingFangSC-Light;
 	 font-size:15px;
 	 line-height:48px;
 	}		
@@ -366,7 +356,6 @@ float:left;
 	
 #serviceChatMessage p{
 	color:#ffffff;
-	font-family: PingFangSC-Light ;
 	font-size:15px;
 	line-height:18px;
 	}		
@@ -413,7 +402,6 @@ border:0px solid black;
 }
 #downloadTitle p{
 	  color:#3d4351;
-	 font-family: Helvetica;
 	 font-size:35px;
 	 font-weight: 100;
 	}
@@ -431,7 +419,6 @@ text-align:left;
 
 #downloadComments p{
 	color:#3d4351;
-	 font-family: Helvetica; 
 	 font-size:25px;
 	 line-height:35px;
 	 font-weight: 100;
@@ -454,7 +441,6 @@ opacity: 0.5;
 #downloadButton a{
 	
 	color:#ffffff;
-font-family: STHeitiSC-Light; 
 font-size:21px;
 line-height:48px;
 text-decoration:none;
@@ -465,7 +451,6 @@ cursor: default;
 
 #downloadButton p{
 color:#ffffff;
-font-family: STHeitiSC-Light; 
 font-size:21px;
 line-height:48px;
 }		
