@@ -258,41 +258,6 @@
 	</div>
 </div>
 </body>
-<script>
-	  var currentLevel=1;
-
-	
-    function changeAllLayout(level) {
-    	
-    	
-    	
-	  
-		for (i=0; i<frames.length;i++) {
-		    $(frames[i].contentWindow.document.body).css({
-		        'zoom': level,
-			    '-moz-transform':'scale('+level+')',
-			    '-moz-transform-origin':'top left'
-		    });
-		}
-		$('body', window.parent.document).css({
-		    'zoom': level,
-			'-moz-transform':'scale('+level+')',
-			'-moz-transform-origin':'top left'
-		});
-		
-		if(level=='1.1'){
-			return;
-			}
-			
-				if(level=='2'){
-					
-					
-			return;
-			}
-		
-	}
-	
-</script>
 <script src="/js/jquery-2.1.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
