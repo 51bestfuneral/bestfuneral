@@ -34,18 +34,11 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	public List<ExpressInfo> getByUserId(int userId) {
 
 		List<ExpressInfo> list = expressInfoDAO.findListByUserId(userId);
-		Iterable<ExpressInfo> iter = expressInfoDAO.findAll();
-		if (iter == null) {
+		if (list == null) {
 
-			return list;
+			return new ArrayList<ExpressInfo>();
 		}
 
-		Iterator<ExpressInfo> iterator = iter.iterator();
-		while (iterator.hasNext()) {
-			ExpressInfo expressInfo = iterator.next();
-			if (expressInfo.getUserId().intValue() == userId)
-				list.add(expressInfo);
-		}
 		return list;
 
 	}
