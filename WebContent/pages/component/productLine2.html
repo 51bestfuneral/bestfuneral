@@ -25,6 +25,7 @@ body {
     margin: 0;
 	text-align: center;
 	height: 100%;
+	background: transparent;
 }
 .carousel-control {
     background-image: none!important;
@@ -55,17 +56,34 @@ body {
     background-color: #ccc;
     opacity: 0.5;
 }
-@media (min-width: 900px) {
+@media (max-width: 1380px) {
   .container {
     width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
   body {
-    width: 1349px;
-	padding: 0px;
-	min-width: 1000px;
-	background: transparent;
+	  padding: 0px;
+	  min-width: 1000px;
+  }
+  .productItem  {
+      width: 280px!important;
+  }
+  .imageDiv {
+      height: 236px!important;
+  }
+  .productCarousel {
+      width: 1022px!important;
+  }
+  #cemeteryImage img {
+      width: 900px!important;
+  }
+  .productCarousel {
+      padding-top: 30px!important;
+      height: auto!important;
+  }
+  .productCarousel .carousel-control {
+      top: 195px!important;
   }
 }
 .coverDiv {
@@ -109,28 +127,32 @@ body {
 	margin-left: 15px;
 	font-size: 20px;
 	line-height: 40px;
+	padding-top: 100px;
 }
 	.productCarousel {
 	    width: 1192px;
 		margin: 0 auto;
-		padding-top: 84px;
+		paddi]top: 84px;
 		height: 516px;
+		padding-top: 100px;
 	}
 	.productItem {
 	    width: 336px;
 		float: left;
 		margin-left: 42px;
-		border-bottom: 1px solid #ededed;
+		border: 1px solid #ededed;
 		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
 		background-color: #ffffff;
 		border-radius: 4px;
 		overflow: hidden;
 		cursor: pointer;
-		transition:box-shadow 0.3s;
-	    -moz-transition:box-shadow 0.3s;
-        -webkit-transition:box-shadow 0.3s;
-        -o-transition:box-shadow 0.3s;
         margin-top: 10px;
+	}
+	.productItem:hover {
+	    box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.15);
+	}
+	.productWishShadow {
+	    box-shadow: none!important;
 	}
 	.lastProduct {
 	    margin-right: 0px!important;
@@ -304,6 +326,10 @@ app.controller('products', function($scope, $http) {
 window.onload=function(){
 	$("body").on("click",".productItem",function() {
         window.parent.muskPageForProduct($(this)[0].id, $(this).find("#feature")[0].innerText);
+        $(this).removeClass("productWishShadow");
+	});
+	$("body").on("mousedown",".productItem",function() {
+        $(this).addClass("productWishShadow");
 	});
 }
 </script>

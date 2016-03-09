@@ -249,7 +249,7 @@ var app = angular.module('productApp', []);
 var user;
 function validateInput(tab) {
 	var emailFilter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
-        phoneFilter = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/,
+        phoneFilter = /^1\d{10}$/,
         checkFailed = true;
 	handleFinished(tab);
 	tab.find(".mandantory").each(function() {

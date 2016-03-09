@@ -16,6 +16,7 @@
 <link href="../../js/timepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
 <script src="../../js/timepicker/js/moment-with-locales.js"></script>
 <script src="../../js/timepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="../../js/idCheck.js"></script>
 <style>
     body {
 	    text-align: center;
@@ -94,7 +95,6 @@
 		height: 30px;
 		display: inline;
 		padding: 0px;
-		margin-bottom: 10px;
 	}
 	.questionText {
 		text-align: center;
@@ -185,7 +185,8 @@
 	}
 	.subQuestionArea {
 	    text-align: center;
-		width: 100%;
+		width: 310px;
+		margin: 0px auto;
 	}
 	.subQuestionArea span {
 	    font-size: 23px;
@@ -218,23 +219,76 @@
 	    float: left;
 		overflow: auto;
 		margin-left: 20px;
+		padding-right: 20px;
+	}
+	.warningMsg {
+	    width: 100%;
+	    height: 25px;
+	    color: red;
+	    text-align: left;
 	}
     .spanCoat {
 	    float: left;
 		width: 110px;
 		text-align: left;
 	}
-	.singleQuestion .form-control {
+	.form-control {
 	    float: left;
 		width: 200px;
 		font-family: "Microsoft Yahei";
 		margin-bottom: 5px;
+		border: none;
+		box-shadow: none;
+		border-bottom: 1px solid #ccc;
 	}
 	#datetimepicker1 {
 	    width: 200px;
 		height: 26px;
 		padding: 0px;
 		float: left;
+		margin-top: 25px;
+	}
+	.input-group-addon {
+	    border: none;
+	    border-bottom: 1px solid #ccc;
+	    background: #ffffff;
+	}
+	.longField {
+	    width: 400px;
+	}
+	#questionContent {
+	    width: 600px;
+	    margin: 0px auto;
+	    overflow: auto;
+	}
+	#questionContent div {
+	    float: left;
+	}
+	.subQuestionArea div {
+	    float: left;
+	}
+	.errorMsgLine {
+	    width: 100%;
+	    height: 30px;
+	}
+	.subQuestionCoat {
+	    width: 100%;
+	}
+	.errorMsgLine span {
+	    font-size: 8px;
+	    color: red;
+	}
+	#singleMsgAge {
+	    padding-left: 82px;
+	}
+	#singleMsgWork {
+	    padding-left:260px;
+	}
+	#singleMsgDistrict {
+	    padding-left: 470px;
+	}
+	#singleMsgWho {
+	    padding-left: 95px;
 	}
 </style>
 <script type="text/javascript">
@@ -245,25 +299,52 @@ function validateInput(tab) {
         phoneFilter = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/,
         checkFailed = true;
 	handleFinished(tab);
-	tab.find(".mandantory").each(function() {
-		var me = $(this);
+	if (tab[0].id === "1-content") {
+		tab.find(".mandantory").each(function() {
+			var me = $(this),
+			    id = me[0].id,
+			    msgFiled = $("#singleMsg"+id);
 
-		if (me[0].value === "") {
-			me[0].focus();
-			alert("请填写这个字段");
-			checkFailed = false;
-			return false;
-		}
-	});
+			if (me[0].value === "" || me[0].value.length > 10) {
+				me[0].focus();
+				msgFiled.find("span").fadeIn();
+				checkFailed = false;
+				return false;
+			}
+			else {
+				msgFiled.find("span").hide();
+			}
+		});
+	}
+	else {
+		tab.find(".mandantory").each(function() {
+			var me = $(this),
+			    msgFiled = me.closest('.singleQuestion').find(".warningMsg");
+
+			if (msgFiled.length === 0 && me.closest('#datetimepicker1').length > 0) {
+				msgFiled = $("#datetimepicker1Msg");
+			}
+			if (me[0].value === "") {
+				me[0].focus();
+				msgFiled[0].innerText = "请填写这个字段";
+				checkFailed = false;
+				return false;
+			}
+			else {
+				 msgFiled[0].innerText = "";
+			}
+		});
+	}
 	if (!checkFailed) {
 		return false;
 	}
 	tab.find(".mailField").each(function() {
-		var me = $(this);
+		var me = $(this),
+		    msgFiled = me.closest('.singleQuestion').find(".warningMsg");
 
 		if (me[0].value !== "" && !emailFilter.test(me[0].value)) {
 			me[0].focus();
-			alert("请填写正确的邮箱格式");
+			msgFiled[0].innerText = "Format Error";
 			checkFailed = false;
 			return false;
 		}
@@ -272,11 +353,12 @@ function validateInput(tab) {
 		return false;
 	}
 	tab.find(".phoneField").each(function() {
-		var me = $(this);
+		var me = $(this),
+		    msgFiled = me.closest('.singleQuestion').find(".warningMsg");
 
 		if (me[0].value !== "" && !phoneFilter.test(me[0].value)) {
 			me[0].focus();
-			alert("电话号码格式不正确");
+			msgFiled[0].innerText = "电话号码格式不正确";
 			checkFailed = false;
 			return false;
 		}
@@ -354,11 +436,9 @@ app.controller('products', function($scope, $http) {
 					data: JSON.stringify(user),
 					success:function(data){
 						if (data === 1) {
-		                	alert("请登录");
 		                	window.location.reload();
 		        		}
 		        		else {
-		        			alert("修改成功");
 		        			window.parent.nextTab();
 		        		}
 			    	},
@@ -409,35 +489,73 @@ app.controller('products', function($scope, $http) {
 	    <h1>告诉我们一些您的个人信息</h1>
 	</div>
 	<div class="questionArea">
-		<span>我今年</span>
-		   <input ng-model="user.age" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
-		   
-			
-		
-		<span>岁，现在</span>
-		<select ng-model="user.work" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center;">
-		    <option default></option>
-			<option>已退休</option>
-			<option>在工作</option>
-		</select>
-		<span>家住上海</span>
-		<select ng-model="user.district" class="mandantory" ng-model="user.district" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
-		    <option default></option>
-			<option>长宁区</option>
-			<option>黄浦区</option>
-			<option>静安区</option>
-			<option>杨浦区</option>
-			<option>宝山区</option>
-		</select>
+		<div id="questionContent">
+		    <div class="inputTitle">
+			    <span>我今年</span>
+			</div>
+			<div class="singleQuestion">
+			    <input id="Age" ng-model="user.age" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
+			    </input>
+			</div>
+			<div class="inputTitle">
+			    <span>岁，现在</span>
+			</div>
+			<div>
+				<select id="Work" ng-model="user.work" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center;">
+					<option default>已退休</option>
+					<option>未退休</option>
+				</select>
+			</div>
+			<div class="inputTitle">
+			    <span>家住上海</span>
+			</div>
+			<div>
+				<select id="District" ng-model="user.district" class="mandantory" ng-model="user.district" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+					<option default>长宁区</option>
+					<option>黄浦区</option>
+					<option>静安区</option>
+					<option>杨浦区</option>
+					<option>宝山区</option>
+					<option>静安区</option>
+					<option>浦东新区</option>
+					<option>闸北区</option>
+					<option>普陀区</option>
+					<option>青浦区</option>
+				</select>
+			</div>
+			<div class="errorMsgLine">
+			    <div id="singleMsgAge" class="singleMsgUnder">
+			        <span hidden>请输入年龄</span>
+			    </div>
+			    <div id="singleMsgWork" class="singleMsgUnder">
+			        <span hidden>请输入工作状态</span>
+			    </div>
+			    <div id="singleMsgDistrict" class="singleMsgUnder">
+			        <span hidden>请输入区</span>
+			    </div>
+			</div>
+		</div>
 	</div>
 	<div class="subQuestionArea">
-	    <span>我是为了</span>
-	    <select ng-model="user.forSelf" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
-		    <option default></option>
-			<option>我自己</option>
-			<option>我爱的人</option>
-		</select>
-		<span>定制葬礼</span>
+		<div class="subQuestionCoat">
+		    <div class="inputTitle">
+		    <span>我是为了</span>
+		    </div>
+		    <div>
+		    <select id="Who" ng-model="user.forSelf" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+				<option default>我自己</option>
+				<option>我爱的人</option>
+			</select>
+			</div>
+			<div class="inputTitle">
+			<span>定制葬礼</span>
+			</div>
+		</div>
+		<div class="errorMsgLine">
+		    <div id="singleMsgWho" class="singleMsgUnder">
+		        <span hidden>请输入为谁定制</span>
+		    </div>
+		</div>
 	</div>
 </div>
 <div class="questionCenter" hidden id="2-content">
@@ -449,10 +567,12 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
+	        <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>姓名*</span></div>
 			<input type="text" class="form-control mandantory" ng-model="user.name"></input>
 		</div>
 		<div class="singleQuestion">
+		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>性别*</span></div>
 			<select type="text" class="form-control mandantory" ng-model="user.gender">
 			    <option default></option>
@@ -461,32 +581,33 @@ app.controller('products', function($scope, $http) {
 			</select>
 		</div>
 		<div class="singleQuestion">
+		    <div class="warningMsg" id="datetimepicker1Msg"><span></span></div>
 			<div class="spanCoat"><span>出生日期*</span></div>
 		</div>
-        <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control mandantory" ng-model="user.birthday"/>
-            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
+		<div class='input-group date' id='datetimepicker1'>
+		        <input type='text' class="form-control mandantory" ng-model="user.birthday"/>
+		        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+		        </span>
+	    </div>
 		<div class="singleQuestion">
+		    <div class="warningMsg" id="identifyNumberWarn"><span></span></div>
 			<div class="spanCoat"><span>身份证号</span></div>
-			<input type="text" class="form-control" ng-model="user.identifier"></input>
+			<input type="text" class="form-control" ng-model="user.identifier" id="identifyNumber"></input>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat"><span>地址</span></div>
-			<input type="text" class="form-control" ng-model="user.address"></input>
-		</div>
-		<div class="singleQuestion">
+		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>联系电话*</span></div>
 			<input type="text" class="form-control mandantory phoneField" ng-model="user.phone"></input>
 		</div>
 		<div class="singleQuestion">
+		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电子邮箱</span></div>
 			<input type="text" class="form-control mailField" ng-model="user.email"></input>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat"><span>出生地</span></div>
-			<input type="text" class="form-control" ng-model="user.birthPlace"></input>
+		    <div class="warningMsg"><span></span></div>
+			<div class="spanCoat"><span>地址</span></div>
+			<input type="text" class="form-control longField" ng-model="user.address"></input>
 		</div>
 	</div>
 </div>
@@ -499,24 +620,29 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
+	        <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>姓名*</span></div>
 			<input type="text" class="form-control mandantory" ng-model="user.contactor"></input>
 		</div>
 		<div class="singleQuestion">
+		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电话*</span></div>
 			<input type="text" class="form-control mandantory phoneField" ng-model="user.contactorPhone"></input>
 		</div>
 		<div class="singleQuestion">
+		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电子邮件</span></div>
 			<input type="text" class="form-control mailField" ng-model="user.contactorMail"></input>
 		</div>
 		<div class="singleQuestion">
+		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>地址</span></div>
 			<input type="text" class="form-control" ng-model="user.contactorAddress"></input>
 		</div>
 		<div class="singleQuestion">
-			<div class="spanCoat"><span>关系</span></div>
-			<input type="text" class="form-control" ng-model="user.contactorRelate"></input>
+		    <div class="warningMsg"><span></span></div>
+			<div class="spanCoat"><span>关系*</span></div>
+			<input type="text" class="form-control mandantory" ng-model="user.contactorRelate"></input>
 		</div>
 	</div>
 </div>
@@ -576,7 +702,7 @@ function handleFinished(tabPage) {
 	    	finished = false;
 	    }
 		mustFields.each(function() {
-			if ($(this)[0].value === "") {
+			if ($(this)[0].value === "" || $(this)[0].value.length > 20) {
 				finished = false;
 				return false;
 			}
@@ -631,7 +757,21 @@ $(document.body).on("click",".productTab", function( event ) {
 });
 $(document.body).on("blur",".mandantory", function( event ) {
     var tabPage = $(this).closest(".questionCenter");
+	var me = $(this),
+			    id = me[0].id,
+			    msgFiled = $("#singleMsg"+id);
+	if (me[0].value !== "" && me[0].value.length < 10) {
+	    msgFiled.find("span").hide();
+	}
 	handleFinished(tabPage);
+});
+$("#identifyNumber").on("blur", function( event ) {
+    var identifyNumber =$(this)[0].value,
+        msgFiled = $(this).closest('.singleQuestion').find(".warningMsg");
+
+    if (!nunber(identifyNumber)) {
+    	
+    }
 });
 window.onload=function(){
 	$('#datetimepicker1').datetimepicker({

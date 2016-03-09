@@ -12,7 +12,6 @@
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
-
 </head>
 
 <header>
@@ -393,7 +392,6 @@
 	}
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
 function muskPage() {
 	    $(this).css({
 			    opacity: 0.5
@@ -425,48 +423,8 @@ function muskPageForProduct(id, type) {
 		});
 		$(".coverDiv").fadeIn(1000);
 };
-app.controller('products', function($scope, $http) {
-    var layouts = [{
-	            index: 1,
-				active: 'active'
-	        }, {
-	    	    index: 2,
-				active: ''
-	    	}, {
-	    	    index: 3,
-				active: ''
-	    	}];
-		
-	    for(var i=0;i<layouts.length;i++){
-            var layout = layouts[i],
-	    	    itemLayout = [{
-	    		    itemName: '镶金楠木棺材',
-					itemPrice: '5000',
-					itemUrl: 'www.baidu1.com',
-					id: '1'
-	    		}, {
-	    		    itemName: '紫檀木棺材',
-					itemPrice: '10000',
-					itemUrl: 'www.baidu2.com',
-					id: '2'
-	    		}, {
-	    		    itemName: '樟木棺材',
-					itemPrice: '2000',
-					itemUrl: 'www.baidu3.com',
-					id: '3'
-	    		}, {
-	    		    itemName: '樟木棺材',
-					itemPrice: '2000',
-					itemUrl: 'www.baidu3.com',
-					id: '4'
-	    		}];
-
-	    	layout.itemLayout = itemLayout;
-        }
-	$scope.layouts = layouts;
-});
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body>
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 <div class="containerProduct">
 <div id="filter">
@@ -603,9 +561,6 @@ app.controller('products', function($scope, $http) {
 </body>
 <script src="/funeral/js/jquery-2.1.4.js"></script>
 <script src="/funeral/js/jquery-ui.js"></script>
-<script src="/funeral/js/sliderx.js"></script>
-<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../js/generalUsage.js"></script>
 <script src="/funeral/js/generalUsage.js"></script>
 <script src="/funeral//js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script type="text/javascript">

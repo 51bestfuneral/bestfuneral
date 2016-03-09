@@ -11,6 +11,7 @@
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
 <style>
     p {
 	    margin: 0px;
@@ -349,10 +350,12 @@ var app = angular.module('productApp', []),
 	type = location.search.substring(4, length),
 	wishInLocal,
 	wishlistId;
+window.parent.muskCurrentPage();
 app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wish/list?wishId="+type).success(function(response) {
 	    $scope.wish = response[0];
 	    wishInLocal = response[0];
+	    window.parent.unmusk();
 	});
 	$http.get("/funeral/comment/list?wishId="+type).success(function(response) {
 	    $scope.comments = response;
@@ -443,6 +446,7 @@ function addToWishlistAfterCheck(object) {
 				$(".buttonDiv").addClass("disableDiv");
 		    	$(".buttonDiv").find("p")[0].innerText = "已加入购物车";
 		    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
+		    	window.parent.frames[0].addCountOfShoppingCart();
 				alert("已加入购物车！");
 				unmusk();
 			},
@@ -474,21 +478,21 @@ function addToWishlist() {
 		    <h1>{{wish.wishName}}</h1>
 			<div id="priceArea">
 			    <div class="mainPrice">
-				    <h1>￥{{wish.sellingPrice}}</h1>
+				    <h1 ng-bind="'￥'+wish.sellingPrice"></h1>
 				</div>
 			</div>
 			<div id="priceArea">
 				<div class="priceContainer">
 				    <p class="ptitle">市场价</p>
-					<p class="pnumber">￥{{wish.xianenPrice.toFixed(0)}}</p>
+					<p class="pnumber" ng-bind ="'￥' + wish.xianenPrice.toFixed(0)"></p>
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">您将节省</p>
-					<p class="pnumber">￥{{wish.xianenPrice.toFixed(0) - wish.sellingPrice.toFixed(0)}}</p>
+					<p class="pnumber" ng-bind="'￥'+(wish.xianenPrice.toFixed(0) - wish.sellingPrice.toFixed(0))"></p>
 				</div>
 				<div class="priceContainer">
 				    <p class="ptitle">折扣</p>
-					<p class="pnumber">{{((wish.sellingPrice/wish.xianenPrice)*100).toFixed(0)}}%</p>
+					<p class="pnumber" ng-bind="((wish.sellingPrice/wish.xianenPrice)*100).toFixed(0)+'%'"></p>
 				</div>
 			</div>
 			<div class="buttonArea">
@@ -506,7 +510,6 @@ function addToWishlist() {
 				</div>
 			</div>
 			<div id="subTitleDiv">
-				<p class="subTitle">可再节省￥1200以上</p>
 			</div>
 		</div>
 	</div>
@@ -518,7 +521,7 @@ function addToWishlist() {
 			<div class="textContent">
 			    <h1>产品描述</h1>
 				<div class="contentDiv">
-				    <p class="textContentFont">{{wish.remark}}</p>
+				    <p class="textContentFont" ng-bind="wish.remark"></p>
 				</div>
 			</div>
 		</div>
@@ -534,7 +537,7 @@ function addToWishlist() {
 						    <p>产品名称</p>
 						</div>
 						<div class="detailContent">
-						    <p>{{wish.wishName}}</p>
+						    <p ng-bind="wish.wishName"></p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -542,7 +545,7 @@ function addToWishlist() {
 						    <p>产品分类</p>
 						</div>
 						<div class="detailContent">
-						    <p>{{wish.subCategory}}</p>
+						    <p ng-bind="wish.subCategory"></p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -550,7 +553,7 @@ function addToWishlist() {
 						    <p>产品规格</p>
 						</div>
 						<div class="detailContent">
-						    <p>{{wish.size}}</p>
+						    <p ng-bind="wish.size"></p>
 						</div>
 					</div>
 					<div class="singleDetail">
@@ -558,7 +561,7 @@ function addToWishlist() {
 						    <p>产品材质</p>
 						</div>
 						<div class="detailContent">
-						    <p>{{wish.material}}</p>
+						    <p ng-bind="wish.material"></p>
 						</div>
 					</div>
 				</div>
@@ -573,7 +576,7 @@ function addToWishlist() {
 				<div class="contentDiv">
 				    <img src="/funeral/js/images/{{wish.imgUrl}}"></img>
 				</div>
-				<h2>{{wish.model}}</h2>
+				<h2 ng-bind="wish.model"></h2>
 			</div>
 		</div>
 		<div class="textTitle">

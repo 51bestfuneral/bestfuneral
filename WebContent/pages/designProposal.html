@@ -267,7 +267,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 			<li>
 			    <div class="submitArea">
-				    <button id="basicButton"><p>选择该套餐</p></button>
+				    <button id="basicButton"><p>电话咨询</p></button>
 				</div>
 			</li>
 		
@@ -311,7 +311,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button id="goodButton"><p>选择该套餐</p></button>
+				    <button id="goodButton"><p>电话咨询</p></button>
 				</div>
 			</li>
 		</ul>
@@ -348,7 +348,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button id="betterButton"><p>选择该套餐</p></button>
+				    <button id="betterButton"><p>电话咨询</p></button>
 				</div>
 			</li>
 		</ul>
@@ -388,7 +388,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</li>
 			<li>
 			    <div class="submitArea">
-				    <button  id="bestButton" ><p>选择该套餐</p></button>
+				    <button  id="bestButton" ><p>电话咨询</p></button>
 				</div>
 			</li>
 		</ul>
@@ -399,38 +399,6 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
-function muskCurrentPage() {
-    $(this).css({
-	    opacity: 0.5
-	});
-	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
-		position: 'absolute',
-		top: '0px',
-		left: '0px',
-		'z-index': 1000, 
-		width: $(document).width(), 
-		height: $(document).height(), 
-		'background-color': '#ccc', 
-		opacity: 0.5
-	}).fadeIn('slow', function(){ 
-// 淡入淡出效果 
-	    $(this).fadeTo('slow', 0.5); 
-	});
-	var topLoading = (document.documentElement.clientHeight/2)-50;
-	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
-		position: 'fixed',
-		top: topLoading+'px',
-		left: '0px',
-		'z-index': 1001, 
-		width: $(document).width(), 
-		height: '100px',
-		'text-align': 'center'
-	}).fadeIn('slow', function(){ 
-// 淡入淡出效果 
-	    $(this).fadeTo('slow', 0.5); 
-	});
-	$(".loadingShow").show();
-}
 function generateWishlistByLevel(wishlistId, level) {
     var paras = '&wishlistId='+wishlistId+'&level='+level;
     $.ajax({
@@ -468,6 +436,7 @@ function getWishlistByLevel(level) {
             var resultCode =data;
 
 			if (resultCode === "") {
+				unmusk();
 	            popupLogInPage();
 			}
 			else {
@@ -544,7 +513,7 @@ $("#bestButton").on("click", function () {
 	});
 $(window).scroll(function(){
 	var topPosition = document.body.scrollTop;
-	if (topPosition > 500) {
+	if (topPosition > 600) {
 		$("#lockedTocanDiv").show();
 	}
 	else {

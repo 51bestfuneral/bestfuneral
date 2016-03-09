@@ -12,15 +12,9 @@
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<script src="/funeral/js/generalUsage.js"></script>
 </head>
-
-
-
-
-		
-
 <style>
-
 #mainHeader {
     text-align: center;
 	width: 100%;
@@ -433,32 +427,32 @@ width: 100%;
 	z-index: 10;
 }
 #redline1 {
-    margin-left: 460px;
+    margin-left: 35%;
 	margin-top: 300px;
 	width:300px;height:13px;
 }
 #redline2 {
-	margin-left: 870px;
+	margin-left: 60%;
 	margin-top: 710px;
 	width:200px;height:13px;
 }
 #redline3 {
-	margin-left: 0px;
+	margin-left: 10%;
 	margin-top: 920px;
 	width:400px;height:13px;
 }
 #redline4 {
-	margin-left: 860px;
+	margin-left: 63%;
 	margin-top: 1370px;
 	width:250px;height:13px;
 }
 #redline5 {
-	margin-left: 460px;
+	margin-left: 35%;
 	margin-top: 1470px;
 	width:250px;height:13px;
 }
 #redline6 {
-	margin-left: 860px;
+	margin-left: 63%;
 	margin-top: 1870px;
 	width:250px;
 	height:13px;
@@ -469,14 +463,14 @@ width: 100%;
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
 <div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
-	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
+	    <p><span ><a href="cemeteryList.html">墓地信息／</a></span><span ng-bind="cemeteryBean.cemeteryName"></span></p>
 	</div>
 	<div id="centerText">
-        <h1>{{cemeteryBean.cemeteryName}}</h1>
-	    <h2>{{cemeteryBean.district}}</h2>
+        <h1 ng-bind="cemeteryBean.cemeteryName"></h1>
+	    <h2 ng-bind="cemeteryBean.district"></h2>
 	</div>
 	<div id="labelsArea">
-		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
+		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList" ng-bind="keyword.keyword"></span>
 		
 	</div>
 </div>
@@ -503,19 +497,19 @@ width: 100%;
 		<div id="filterContent">
 			<div class="filterContent">
 			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
-				    <p>{{graveStyle.description}}</p>
+				    <p ng-bind="graveStyle.description"></p>
 				</div>
 			
 			</div>
 			<div class="filterContent">
 			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
-				    <p>{{epigraphStyle.style}}</p>
+				    <p ng-bind="epigraphStyle.style"></p>
 				</div>
 				
 			</div>
 			<div class="locationContent">
 			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
-				    <p>{{graveZone.zone}}</p>
+				    <p ng-bind="graveZone.zone"></p>
 				</div>
 			
 			</div>
@@ -523,7 +517,7 @@ width: 100%;
 	</div>
 	<div id="reserver">
 	    <h1>最低价格</h1>
-		<h2>￥{{cemeteryBean.price}}</h2>
+		<h2>￥<span ng-bind="cemeteryBean.price"></span></h2>
 		<button class="reserverBtn">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 	</div>
@@ -538,13 +532,13 @@ width: 100%;
 				</div>
 				<div class="rightFeatureText">
 				    <h1>简介</h1>
-				    <p>{{cemeteryBean.cemeteryDesc}}</p>
+				    <p ng-bind="cemeteryBean.cemeteryDesc"></p>
 				</div>
 			</div>
 			<div id="locationFeature">
 			    <div class="leftlocationText">
 				     <h1>特色</h1>
-<p>{{cemeteryBean.feature}}</p>				</div>
+<p ng-bind="cemeteryBean.feature"></p>				</div>
 				<div class="rightlocationImg">
 					 <img src={{cemeteryBean.featureImgUrl}}></img>
 				</div>
@@ -557,7 +551,7 @@ width: 100%;
 				</div>
 				<div class="rightEquipmentText">
 				    <h1>交通信息</h1>
-				    <p>{{cemeteryBean.trafficInfo}}</p>
+				    <p ng-bind="cemeteryBean.trafficInfo"></p>
 				</div>
 			</div>
 			
@@ -585,7 +579,8 @@ width: 100%;
 <script src="/funeral/js/Bootstrap/boot.js"></script>
 <script src="/funeral/js/generalUsage.js"></script>
 <script>
-	var length = location.search.length,
+muskCurrentPage();
+	var length = location.search.length;
 id = location.search.substring(4, length);
 	
 	var app = angular.module('productApp', []);
@@ -594,53 +589,11 @@ id = location.search.substring(4, length);
 	 	$http.get("/funeral/cemetery/findOneCemetery?id="+id).success(function(response) {
 	 		$scope.cemeteryBean=response;
        	initMap(response.cemeteryName,response.address);
-  		
+       	unmusk();
   
  }) 	
  	 		
 	});
-
-app.controller('products', function($scope, $http) {
-	$http.get("/funeral/wish/list").success(function(response) {
-	    var j = 1,
-		    counter = 1,
-		    numberInRow = 4,
-			objectsInRow = [],
-			layouts = [];
-		for (var i=0;i<response.length;i++) {
-		    var singleProduct = response[i];
-
-			if (j <= numberInRow) {
-			    objectsInRow.push(singleProduct);
-			}
-
-			if (j === numberInRow) {
-			    var layout = {},
-				    active = '',
-					itemLayout = objectsInRow;
-					
-				if (counter === 1) {
-				    active = 'active'
-				}
-				layout = {
-				    'index': counter,
-					'active': active,
-					'itemLayout': itemLayout
-				};
-				layouts.push(layout);
-			    j = 0;
-				counter++;
-				objectsInRow = [];
-			}
-			j++;
-		}
-		$scope.layouts = layouts;
-	});
-	$http.get("/funeral/message/list").success(function(response) {
-	    response[0].active = 'active';
-	    $scope.messages = response;
-	});
-});
 
 var zoomList =[{cemetery:'清竹园',zoom:15},{cemetery:'汇龙园',zoom:16},{cemetery:'华南陵园',zoom:17},
                {cemetery:'海港陵园（福寿园）',zoom:18},{cemetery:'天逸静园玫瑰园',zoom:16},{cemetery:'福寿园',zoom:20},
@@ -853,8 +806,9 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 		 }
 	}
 }
-
-//initMap();//创建和初始化地图
+$(".reserverBtn").click(function() {
+	popupRequestPage();
+});
 
 
 

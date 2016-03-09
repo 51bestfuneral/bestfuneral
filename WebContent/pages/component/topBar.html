@@ -235,6 +235,17 @@
             window.parent.location.href='/funeral/pages/questionAndAnswer.html';
 		}
 	});
+	function addCountOfShoppingCart() {
+		var count = $('#shoppingCartCount', parent.document)[0].innerText;
+
+		count = parseInt(count) + 1;
+		$('#shoppingCartCount', parent.document)[0].innerText = count;
+		$(".subIcon2").find("p")[0].innerText = count;
+	}
+	function updateShoppingCartCount(count) {
+		$('#shoppingCartCount', parent.document)[0].innerText = count;
+		$(".subIcon2").find("p")[0].innerText = count;
+	}
     function adjustWishlistLayout(status) {
     	$("#wishlistIcon").hover(function() {
     		$("#wishlistIcon").find("img").attr("src", "../../js/images/wishlist-red@2x.png");
@@ -332,8 +343,8 @@
 				$(this).removeClass("tempAdd");
 				setTimeout (function () {
 					if (!parent.find("#wishlistInfo").hasClass('tempAdd')) {
-						parent.find("#wishlistInfo").fadeOut();
-						parent.find("#wishlistSub").fadeOut();
+						parent.find("#wishlistInfo").hide();
+						parent.find("#wishlistSub").hide();
 					}
 				}, 100);
 			});
@@ -346,8 +357,8 @@
 			parent.find("#wishlistInfo").removeClass('tempAdd');
 			setTimeout (function () {
 				if (!parent.find("#wishlistInfo").hasClass('tempAdd')) {
-					parent.find("#wishlistInfo").fadeOut();
-					parent.find("#wishlistSub").fadeOut();
+					parent.find("#wishlistInfo").hide();
+					parent.find("#wishlistSub").hide();
 				}
 			}, 100);
 		});
@@ -361,6 +372,13 @@
     	if (count > 0) {
     	    $("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping-red@2x.png");
     	}
+        if (count === 0) {
+        	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton'><p>开始购物</p></div></div>");
+        }
+        else {
+        	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton' id='navigateButton1'><p>前去购物袋</p></div><div class='navigateButton' id='navigateButton2'><p>直接结算</p></div></div>");
+		    $("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping-red@2x.png");
+        }
 		$("#shoppingCartIcon").mouseenter(function () {
 			var parent = $(window.parent.document.body),
 				top = $('.topBar').height(),
@@ -368,13 +386,6 @@
 				clientWidth = parent.find('.container').width(),
 				right = 0;
 
-            if (count === 0) {
-                parent.append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物袋("+count+")</h3><div class='navigateButton'><p>开始购物</p></div></div>");
-            }
-            else {
-			    parent.append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物袋("+count+")</h3><div class='navigateButton' id='navigateButton1'><p>前去购物袋</p></div><div class='navigateButton' id='navigateButton2'><p>直接结算</p></div></div>");
-			    $("#shoppingCartIcon").find("img").attr("src", "../../js/images/shopping-red@2x.png");
-            }
 			parent.find("#shoppingInfo").css({
 				'width': '185px',
 				'height': '84px',
@@ -463,8 +474,8 @@
 				$(this).removeClass("tempAdd");
 				setTimeout (function () {
 					if (!parent.find("#shoppingInfo").hasClass('tempAdd')) {
-						parent.find("#shoppingInfo").fadeOut();
-						parent.find("#shoppingSub").fadeOut();
+						parent.find("#shoppingInfo").hide();
+						parent.find("#shoppingSub").hide();
 					}
 				}, 100);
 			});
@@ -477,8 +488,8 @@
 			parent.find("#shoppingInfo").removeClass('tempAdd');
 			setTimeout (function () {
 				if (!parent.find("#shoppingInfo").hasClass('tempAdd')) {
-					parent.find("#shoppingInfo").fadeOut();
-					parent.find("#shoppingSub").fadeOut();
+					parent.find("#shoppingInfo").hide();
+					parent.find("#shoppingSub").hide();
 				}
 			}, 100);
 		});
@@ -551,7 +562,7 @@
 				parent.find("#userInfo").css({
 					'width': '106px',
 					'position': 'absolute',
-					'right': right+90,
+					'right': right+110,
 					'top': top,
 					'overflow': 'auto',
 					'z-index': 20,
@@ -582,10 +593,10 @@
 					});
 				});
 				parent.find("#personalAcount").click(function() {
-					window.parent.location.href='userAccount.html';
+					window.parent.location.href='/funeral/pages/userAccount.html';
 				});
 				parent.find("#wishListNavi").click(function() {
-					window.parent.location.href='wishList.html';
+					window.parent.location.href='/funeral/pages/wishList.html';
 				});
 				parent.find("#logout").click(function() {
 					$.ajax({
@@ -603,7 +614,7 @@
 					'width': '0px',
 					'height': '0px',
 					'position': 'absolute',
-					'right': right+90,
+					'right': right+110,
 					'top': top-12,
 					'overflow': 'hidden',
 					'border-left': '18px solid transparent',
@@ -621,8 +632,8 @@
 					$(this).removeClass("tempAdd");
 					setTimeout (function () {
 						if (!parent.find("#userInfo").hasClass('tempAdd')) {
-							parent.find("#userInfo").fadeOut();
-							parent.find("#userSub").fadeOut();
+							parent.find("#userInfo").hide();
+							parent.find("#userSub").hide();
 						}
 					}, 100);
 				});
@@ -635,8 +646,8 @@
 				parent.find("#userInfo").removeClass('tempAdd');
 				setTimeout (function () {
 					if (!parent.find("#userInfo").hasClass('tempAdd')) {
-						parent.find("#userInfo").fadeOut();
-						parent.find("#userSub").fadeOut();
+						parent.find("#userInfo").hide();
+						parent.find("#userSub").hide();
 					}
 				}, 100);
 			});

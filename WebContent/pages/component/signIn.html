@@ -236,9 +236,32 @@ function validateValid(content) {
 	    $("#errorContent").fadeOut();
 	    return true;
 	}
-	$("#errorContent").find("p")[0].innerText = '您的用户名格式不正确';
+	$("#errorContent").find("p")[0].innerText = '用户名必须为邮箱或手机号';
 	$("#errorContent").fadeIn();
 	$("#userName")[0].focus();
+	return false;
+}
+function validatePasswordValid(content) {
+    var passwordFilter  = /^[a-zA-Z0-9]{6,10}$/,
+        pureNumber = /^\d+$/,
+		message;
+	if (content === "") {
+	    return true;
+	}
+	if (pureNumber.test(content)) {
+		$("#errorContent").find("p")[0].innerText = '密码不能为纯数字';
+		$("#errorContent").fadeIn();
+		$("#userPwd")[0].focus();
+		return false;
+	}
+    if (passwordFilter.test(content)) {
+	    $("#errorContent").fadeOut();
+	    return true;
+	}
+
+	$("#errorContent").find("p")[0].innerText = '密码必须为6-10位的数组和字母组成';
+	$("#errorContent").fadeIn();
+	$("#userPwd")[0].focus();
 	return false;
 }
 window.onload = function() {
@@ -249,6 +272,11 @@ window.onload = function() {
 	    parent.removeSelf(1);
 	});
 	$("#loginFrameCoat",window.parent.document).fadeIn();
+	$("#userPwd").blur(function() {
+        if (!validatePasswordValid($(this)[0].value)) {
+		    return false;
+		}
+	});
 	$("#userName").blur(function() {
 
 		if (!validateValid($(this)[0].value)) {

@@ -626,7 +626,7 @@ public class WishlistDetailController {
 
 		String wishlistId = request.getParameter("wishlistId");
 		List<WishlistDetail> wishlistDetails = wishlistDetailService
-				.getSelectedWishlistDetailByWishListId(Integer.parseInt(wishlistId));
+				.getDirectWishlistDetailByWishListId(Integer.parseInt(wishlistId));
 
 		if (wishlistDetails == null) {
 

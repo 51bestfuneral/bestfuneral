@@ -206,6 +206,11 @@
 </div>
 </body>
 <script>
+$("body").keydown(function() {
+    if (event.keyCode == "13") {//keyCode=13是回车键
+        $('#submit').click();
+    }
+}); 
 function setCookie(name,value,hours,path){  
     var name = escape(name);  
     var value = escape(value);  
@@ -296,6 +301,11 @@ window.onload = function() {
 			}
 		});
 	});
+	$("#password").blur(function() {
+        if (!validatePasswordValid($(this)[0].value)) {
+		    return false;
+		}
+	});
 	$("#submit").click (function() {
         var userNameValue = $("#userName")[0].value;
         var passwordValue = $("#password")[0].value;
@@ -339,6 +349,11 @@ window.onload = function() {
 				}
 				else if (resultCode === -3) {
 					$("#errorContent").find("p")[0].innerText = '账号密码不匹配';
+	                $("#errorContent").fadeIn();
+					$("#userName")[0].focus();
+				}
+				else {
+					$("#errorContent").find("p")[0].innerText = '账号不存在';
 	                $("#errorContent").fadeIn();
 					$("#userName")[0].focus();
 				}

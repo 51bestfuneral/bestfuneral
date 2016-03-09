@@ -67,6 +67,7 @@
 		overflow: auto;
 		text-align: center;
 		padding-bottom: 50px;
+		height: 700px;
 	}
 	.questionCenter h1{
 	    font-size: 38px;
@@ -79,6 +80,7 @@
 		margin: 0px auto;
 		margin-top: 10px;
 		margin-bottom: 10px;
+		height: 90px;
 	}
 	.questionTwo {
 	    margin-top: 37px;
@@ -108,7 +110,7 @@
 		color: #707070;
 	}
 	.questionThree {
-	    margin-top: 92px;
+	    margin-top: 75px;
 		overflow: auto;
 		margin-left: 40px;
 		float: left;
@@ -135,7 +137,7 @@
 		color: #707070;
 	}
 	.questionFour {
-	    margin-top: 61px;
+	    margin-top: 105px;
 		overflow: auto;
 		margin-left: 71px;
 		float: left;
@@ -487,7 +489,7 @@ function handleFinished(tabPage) {
     var count = $(".productTab").length;
 	var me = tabPage,
 		tabId = tabPage[0].id.replace('-content', '');
-		    if (tabPage.find(".selected").length > 0 || otherText !== "") {
+		    if (tabPage.find(".selected").length > 0) {
 		    	$("#"+tabId).find(".finishedIcon").fadeIn();
 		    	$("#"+tabId).addClass("finished");
 			}
@@ -589,6 +591,8 @@ $(document.body).on("click",".optionIcon", function( event ) {
 	    count = $(".questionCenter").length;
     if ($(this).hasClass("selected")) {
 	    $(this).removeClass("selected");
+	    handleFinished(tabPage);
+	    return false;
 	}
 	else {
 	    tabPage.find(".optionIcon").removeClass("selected");
@@ -620,8 +624,8 @@ $(document.body).on("blur","input", function( event ) {
 });
 $(document.body).on("click",".finishedButton", function( event ) {
     var answetList = [];
-    window.parent.muskCurrentPage();
     if (!$(this).hasClass("disabled")) {
+        window.parent.muskCurrentPage();
         var paras = 'wishlistId=' + parent.wishlistId + '&level='+ parent.level;
 	    generateQuestionList(answetList);
 		$.ajax({
