@@ -12,6 +12,8 @@ CREATE TABLE t_user (
   last_loginTime datetime,
   invalid_loginTimes integer,
   age integer,
+  userType integer,
+  status integer,
   wishlist_id integer,
   cart_id integer,
   work varchar(20),
@@ -28,7 +30,10 @@ CREATE TABLE t_user (
   contactor_phone  varchar(20),
   contactor_address varchar(100),
   contactor_relate varchar(20),
-  identifier varchar(30)
+  identifier varchar(30),
+  request_cemetery varchar(300),
+  request_date varchar(100),
+  request_phone varchar(100),
   PRIMARY KEY (user_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

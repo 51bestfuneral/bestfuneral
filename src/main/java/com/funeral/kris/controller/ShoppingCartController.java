@@ -66,15 +66,13 @@ public class ShoppingCartController {
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
-		
-		
+
 		return user.getCartId();
 	}
-	
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/getDirectWishListForShoppingCart", method = RequestMethod.GET, produces = "application/json")
-	public List<CartlistJson> getDirectWishListForShoppingCart(HttpServletRequest request) {
+	@RequestMapping(value = "/getAllGoodsForShoppingCart", method = RequestMethod.GET, produces = "application/json")
+	public List<CartlistJson> getAllGoodsForShoppingCart(HttpServletRequest request) {
 
 		User user = (User) request.getSession().getAttribute("user");
 		Integer cartId = user.getCartId();
@@ -82,6 +80,7 @@ public class ShoppingCartController {
 		List<CartlistJson> cartlistJsons = new ArrayList<CartlistJson>();
 		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(cartId);
 		for (CartDetail cartDetail : cartDetails) {
+
 			CartlistJson cartListJson = new CartlistJson();
 			Integer wishId = cartDetail.getWishId();
 
@@ -100,11 +99,12 @@ public class ShoppingCartController {
 			cartListJson.setCartDetailId(cartDetail.getCartDetailId());
 			cartListJson.setCartId(cartId);
 			cartListJson.setSelected(cartDetail.getSelected());
+			cartListJson.setSelectedPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
 			cartlistJsons.add(cartListJson);
 		}
 		return cartlistJsons;
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getDirectWishListForPaymnetConfirm", method = RequestMethod.GET, produces = "application/json")
 	public List<CartlistJson> getCartDetailsForPaymnetConfirm(HttpServletRequest request) {
@@ -117,14 +117,15 @@ public class ShoppingCartController {
 		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(Integer.parseInt(cartId));
 
 		for (CartDetail cartDetail : cartDetails) {
-			if (cartDetail.getSelected()!=null&&cartDetail.getSelected().intValue()==1) {
+			if (cartDetail.getSelected() != null && cartDetail.getSelected().intValue() == 1) {
 				CartlistJson cartlistJson = new CartlistJson();
 				Integer wishId = cartDetail.getWishId();
 				Wish wish = wishsMap.get(wishId);
-				
+
 				cartlistJson.setCartId(Integer.parseInt(cartId));
 				cartlistJson.setCartDetailId(cartDetail.getCartDetailId());
-				cartlistJson.setOriginalPrice(cartDetail.getOriginalPrice().multiply(new BigDecimal(cartDetail.getCount())));
+				cartlistJson.setOriginalPrice(
+						cartDetail.getOriginalPrice().multiply(new BigDecimal(cartDetail.getCount())));
 				cartlistJson.setPrice(cartDetail.getPrice().multiply(new BigDecimal(cartDetail.getCount())));
 				cartlistJson.setSelected(cartDetail.getSelected());
 				cartlistJson.setWishName(wish.getWishName());
@@ -137,27 +138,38 @@ public class ShoppingCartController {
 
 	@ResponseBody
 	@RequestMapping(value = "/selectOneItem", method = RequestMethod.GET, produces = "application/json")
-	public ShoppingCart selectOneItem(HttpServletRequest request) {
-		return null;
+	public void selectOneItem(HttpServletRequest request) {
 
+		String cartDetailId = request.getParameter("cartDetailId");
+
+		CartDetail detail = cartDetailService.getResource(Integer.parseInt(cartDetailId));
+
+		if (detail != null) {
+			if (detail.getSelected()==null||detail.getSelected().intValue() != 1) {
+				detail.setSelected(1);
+			} else {
+				detail.setSelected(0);
+
+			}
+
+		}
+		cartDetailService.updateResource(detail);
 	}
-	
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/addSingleToCart", method = RequestMethod.POST)
+	@RequestMapping(value = "/addSingleToCart", method = RequestMethod.GET)
 	public List<CartDetail> addingCartSingle(HttpServletRequest request) {
 
 		List<CartDetail> successList = new ArrayList<CartDetail>();
-		User user = (User)request.getSession().getAttribute("user");
+		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
-		    return null;
+			return null;
 		}
 
 		Integer cartId = user.getCartId();
 		Cart cart = cartService.getResource(cartId);
 		Integer wishId = Integer.valueOf(request.getParameter("wishId"));
 		Wish wish = wishService.getResource(wishId);
-
 
 		Date sysDate = new Date();
 		if (wishsMap == null) {
@@ -175,6 +187,7 @@ public class ShoppingCartController {
 		cartDetail.setCartId(cartId);
 		cartDetail.setCreatedDate(sysDate);
 		cartDetail.setUpdatedDate(sysDate);
+		cartDetail.setSelected(0);
 		cartDetailService.addResource(cartDetail);
 		cart.setPrice(cart.getPrice().add(wish.getSellingPrice()));
 		cart.setOriginalPrice(cart.getOriginalPrice().add(wish.getXianenPrice()));
@@ -192,23 +205,24 @@ public class ShoppingCartController {
 
 		User user = (User) session.getAttribute("user");
 
-		String cartId = request.getParameter("cartId");
+		Integer cartId = user.getCartId();
+		// String cartId = request.getParameter("cartId");
 
 		System.out.println(" cartId======== " + cartId);
 
 		// Wishlist wishlist =
 		// wishlistService.getResource(Integer.parseInt(wishlistId));
 		ShoppingCart shoppingCart = new ShoppingCart();
-		if (cartDetailService.isAllSelected(Integer.parseInt(cartId))) {
-			shoppingCart.setAllSelected(1);
-		} else {
+		if (cartDetailService.isAllSelected(cartId)) {
 			shoppingCart.setAllSelected(0);
+		} else {
+			shoppingCart.setAllSelected(1);
 		}
 		Integer count = 0;
 
 		List<Integer> selectedCartDetailIdList = new ArrayList<Integer>();
 
-		List<CartDetail> cartDetailList = cartDetailService.getResourceByCartId(Integer.parseInt(cartId));
+		List<CartDetail> cartDetailList = cartDetailService.getResourceByCartId(cartId);
 
 		Iterator iter = cartDetailList.iterator();
 
@@ -216,26 +230,29 @@ public class ShoppingCartController {
 
 			CartDetail cartDetail = (CartDetail) iter.next();
 
-			if (shoppingCart.getAllSelected().intValue() == 0) {
-				cartDetail.setSelected(0);
+			if (shoppingCart.getAllSelected().intValue() == 1) {
+				cartDetail.setSelected(1);
+				
+				cartDetail.setSelectedPrice(cartDetail.getPrice().multiply(new BigDecimal(cartDetail.getCount())));
 				cartDetailService.updateResource(cartDetail);
 				// price = BigDecimal.ZERO;
 				// originalPrice = BigDecimal.ZERO;
+				selectedCartDetailIdList.add(cartDetail.getCartDetailId());
+
 			}
 
 			else {
-				cartDetail.setSelected(1);
+				cartDetail.setSelected(0);
 				cartDetailService.updateResource(cartDetail);
 				// price=price.add(wishDetail.getPrice().multiply(new
 				// BigDecimal(wishDetail.getCount())));
 				// originalPrice=originalPrice.add(wishDetail.getOriginalPrice().multiply(new
 				// BigDecimal(wishDetail.getCount())));
-				selectedCartDetailIdList.add(cartDetail.getCartDetailId());
 			}
 
 		}
 
-		List<CartDetail> cartDetailLists = cartDetailService.getResourceByCartId(Integer.parseInt(cartId));
+		List<CartDetail> cartDetailLists = cartDetailService.getResourceByCartId(cartId);
 
 		boolean selected = false;
 
@@ -255,13 +272,7 @@ public class ShoppingCartController {
 			}
 		}
 
-		int allSelected = 0;
-
-		if (cartDetailService.isAllSelected(Integer.parseInt(cartId))) {
-			allSelected = 1;
-		}
-
-		shoppingCart.setSelectedWishDetailIdList(selectedCartDetailIdList);
+		shoppingCart.setSelectedCartDetailIdList(selectedCartDetailIdList);
 
 		shoppingCart.setCount(count);
 
@@ -269,11 +280,10 @@ public class ShoppingCartController {
 
 		shoppingCart.setUserId(user.getUsrId());
 
-		shoppingCart.setAllSelected(allSelected);
-
 		return shoppingCart;
 
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public void delete(HttpServletRequest request) {
@@ -287,7 +297,7 @@ public class ShoppingCartController {
 
 		cartService.updateResource(cart);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/oneMore", method = RequestMethod.GET)
 	public ModelAndView oneMore(HttpServletRequest request) {
@@ -374,20 +384,18 @@ public class ShoppingCartController {
 		return cart;
 
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/loadShoppingCart", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart loadShoppingCart(HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
-		String cartId = request.getParameter("cartId");
-		Cart cart = cartService.getResource(Integer.parseInt(cartId));
+		Integer cartId = user.getCartId();
 		ShoppingCart shoppingCart = new ShoppingCart();
-		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(Integer.parseInt(cartId));
-		
+		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(cartId);
+
 		Integer allSelected = 0;
-		boolean selected = false;
 		Integer count = 0;
 		BigDecimal orderTotalCost = BigDecimal.ZERO;
 		List<Integer> selectedCartDetailIdList = new ArrayList<Integer>();
@@ -395,7 +403,7 @@ public class ShoppingCartController {
 		while (iterator.hasNext()) {
 			CartDetail detail = (CartDetail) iterator.next();
 
-			if (detail.getSelected() != null && detail.getSelected().intValue() == 1 ) {
+			if (detail.getSelected() != null && detail.getSelected().intValue() == 1) {
 				count = count + detail.getCount();
 				selectedCartDetailIdList.add(detail.getCartDetailId());
 
@@ -403,15 +411,33 @@ public class ShoppingCartController {
 			}
 		}
 
-		if (cartDetailService.isAllSelected(Integer.parseInt(cartId))) {
+		if (cartDetailService.isAllSelected(cartId)) {
 			allSelected = 1;
 		}
-		shoppingCart.setSelectedWishDetailIdList(selectedCartDetailIdList);
+		shoppingCart.setSelectedCartDetailIdList(selectedCartDetailIdList);
 		shoppingCart.setCount(count);
 		shoppingCart.setGrossFee(orderTotalCost);
 		shoppingCart.setUserId(user.getUsrId());
 		shoppingCart.setAllSelected(allSelected);
 		return shoppingCart;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/listCountOfCart", method = RequestMethod.GET, produces = "application/json")
+	public Integer listCountOfCart(HttpServletRequest request) {
+
+		int count = 0;
+
+		HttpSession session = request.getSession(true);
+		User user = (User) session.getAttribute("user");
+
+		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(user.getCartId());
+
+		if (cartDetails != null) {
+			count = cartDetails.size();
+		}
+
+		return count;
 	}
 
 	@ResponseBody

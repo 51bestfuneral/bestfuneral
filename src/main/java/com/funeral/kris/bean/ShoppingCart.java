@@ -19,14 +19,15 @@ public class ShoppingCart {
 	public void setCount(Integer count) {
 		this.count = count;
 	}
-	public List<Integer> getSelectedWishDetailIdList() {
-		return selectedWishDetailIdList;
-	}
-	public void setSelectedWishDetailIdList(List<Integer> selectedWishDetailIdList) {
-		this.selectedWishDetailIdList = selectedWishDetailIdList;
-	}
+	
 	public BigDecimal getGrossFee() {
 		return grossFee;
+	}
+	public List<Integer> getSelectedCartDetailIdList() {
+		return selectedCartDetailIdList;
+	}
+	public void setSelectedCartDetailIdList(List<Integer> selectedCartDetailIdList) {
+		this.selectedCartDetailIdList = selectedCartDetailIdList;
 	}
 	public void setGrossFee(BigDecimal grossFee) {
 		this.grossFee = grossFee;
@@ -54,7 +55,7 @@ public class ShoppingCart {
 	private BigDecimal grossFee;
 	private BigDecimal expressFee;
 	private BigDecimal netFee;
-	private List<Integer> selectedWishDetailIdList;
+	private List<Integer> selectedCartDetailIdList;
 	private Integer allSelected;
 	
 

@@ -58,7 +58,7 @@ public class CartDetailServiceImpl implements CartDetailService {
 	@Override
 	public List<CartDetail> getResourceByCartId(int cartId) {
 
-		String a = "select q from CartDetail q where wishlistId =" + cartId;
+		String a = "select q from CartDetail q where cartId =" + cartId;
 		Query query = em.createQuery(a);
 		List<CartDetail> CartDetails = query.getResultList();
 		return CartDetails;
@@ -70,6 +70,11 @@ public class CartDetailServiceImpl implements CartDetailService {
 
 		int allSelected = 1;
 		List<CartDetail> cartDetails = getResourceByCartId(cartId);
+		
+		if(cartDetails==null||cartDetails.size()==0){
+			return false;
+		}
+		
 		Iterator itera = cartDetails.iterator();
 
 		while (itera.hasNext()) {

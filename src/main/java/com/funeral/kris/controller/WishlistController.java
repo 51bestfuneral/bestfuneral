@@ -206,7 +206,7 @@ public class WishlistController {
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByCart", method = RequestMethod.POST)
 	@Transactional(propagation=Propagation.REQUIRED) 
-	public WishOrder generateOrderByCart(HttpServletRequest request, @RequestBody List<CartlistJson> cartList) {
+	public WishOrder generateOrderByCart(HttpServletRequest request, @RequestBody List<CartlistJson> cartList) throws Exception {
 		Cart cart = null;
 		WishOrder order = new WishOrder();
 		User user = (User) request.getSession().getAttribute("user");

@@ -299,7 +299,7 @@
 	    height: 67px;
 	}
 </style>
-<body ng-app="myApp" ng-controller="productController">
+<body >
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 <div class="containerProduct">
 <div id="filter">
@@ -442,9 +442,7 @@
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <script src="../js/generalUsage.js"></script>
 <script type="text/javascript">
-app.controller('productController', function($scope, $http) {
-	
-});
+
 window.onload=function(){
     $("#productFrame").attr("src","component/productLine2.html?feature=1&showInFront=1");
 	$("#serviceFrame").attr("src","component/productLine2.html?feature=2&showInFront=1");

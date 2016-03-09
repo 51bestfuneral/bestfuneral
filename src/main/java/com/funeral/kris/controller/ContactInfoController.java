@@ -66,6 +66,9 @@ public class ContactInfoController {
 		contactInfoService.addResource(contactInfo);
 
 		List<ExpressInfo> expressInfoList = expressInfoService.getByUserId(contactInfo.getUserId());
+		
+		System.out.println("  expressInfoList  ------------------");
+		System.out.println("  expressInfoList  size="+expressInfoList.size());
 
 		if (expressInfoList != null && expressInfoList.size() > 0) {
 
