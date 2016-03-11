@@ -23,7 +23,6 @@ import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
-import com.funeral.kris.service.SmsSenderService;
 import com.funeral.kris.service.UserService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.MD5;
@@ -39,9 +38,6 @@ public class SignController {
 	private WishlistService wishlistService;
 	@Autowired
 	private EntityManager em;
-	
-	@Autowired
-	private SmsSenderService smsSenderService;
 
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
@@ -152,7 +148,7 @@ public class SignController {
 		messageInfo.put("phone", phone);
 		messageInfo.put("code", vaildCode);
 		messageInfo.put("product", "念念");
-		int flag = smsSenderService.sendForPassword(messageInfo);
+		int flag = 1;
 		if(flag ==1){
 			return vaildCode;
 		}
