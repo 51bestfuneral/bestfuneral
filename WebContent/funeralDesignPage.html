@@ -7,7 +7,6 @@
 <title>念念--为什么定制葬礼</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
 <meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
-<link href="/css/funeralDesignPage.css" rel="stylesheet">
 <script src="/js/jquery-2.1.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/sliderx.js"></script>
@@ -17,6 +16,7 @@
 <link href="/js/personal.css" rel="stylesheet">
 <link href="/component/css/secondLevelMenu.css" rel="stylesheet">
 <script src="/js/generalUsage.js"></script>
+<link href="/css/funeralDesignPage.css" rel="stylesheet">
 </head>
 
 <header>
@@ -340,19 +340,19 @@
     });
 	$("#rightBack").click(function() {
 		$("#why3Text2").find("p")[0].innerText = "您可能是40、50后，辛苦操劳了大半生，现在既要帮助孩子照顾孙辈，还要面对父辈和自身的双重养老问题，无论经济上和精神上都面临极大的压力。我们可以帮助您提前进行合理规划，最大程度减轻您的负担。";
-		$("#rightFront").fadeIn();
+		$("#rightFront").fadeIn().css("display","inline");
 		$("#middleFront").fadeOut();
 		$("#leftFront").fadeOut();
 	});
 	$("#leftBack").click(function() {
 		$("#why3Text2").find("p")[0].innerText = "您可能是60、70后，忙于事业和家庭，缺少对传统礼数的认知和经历。一旦身边亲人遭遇不可知的变故，便容易不知所措。我们可以帮助您完善地应对所有的事务，解决您的后顾之忧。";
-		$("#leftFront").fadeIn();
+		$("#leftFront").fadeIn().css("display","inline");
 		$("#middleFront").fadeOut();
 		$("#rightFront").fadeOut();
 	});
 	$("#middleBack").click(function() {
 		$("#why3Text2").find("p")[0].innerText = "您可能是80、90后，正值壮年，社会阅历并不丰富，财富积累可能也有限，但这并不妨碍你们享受生命中最美好的时光。我们可以为您提供一种全新模式的金融理财方案，确保您终身收益。";
-		$("#middleFront").fadeIn();
+		$("#middleFront").fadeIn().css("display","inline");
 		$("#rightFront").fadeOut();
 		$("#leftFront").fadeOut();
 	});

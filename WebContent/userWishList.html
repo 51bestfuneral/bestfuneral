@@ -98,12 +98,12 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 });
 app.controller('products', function($scope, $http) {
     $http.get("/wishlistDetail/listWishlistDetail").success(function(response) {
-        $scope.orders = response;
         if (response.length === 0 ||　response[0].detailJson.length === 0) {
         	$("#noContent").show();
         }
         else {
         	$("#noContent").hide();
+        	$scope.orders = response;
         }
         unmusk();
     });

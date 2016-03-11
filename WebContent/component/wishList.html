@@ -246,21 +246,13 @@ app.controller('products', function($scope, $http) {
 </body>
 <script>
 function saveWishList() {
-    if (parent.originalWishlist.length !== wishList.length) {
-        var finalItems = [];
-	    for (var i=0;i<wishList.length;i++) {
-		    var singleItem = wishList[i],
-			    finalItem = {};
-
-			finalItem.wishId = singleItem.wishId;
-			finalItems.push(finalItem);
-		}
+    if (parent.originalWishlist.length !== parent.wishIdList.length) {
 	    $.ajax({
 		    url: '/wishlistDetail/add?wishlistId='+parent.wishlistId,
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
-			data: JSON.stringify(finalItems),
+			data: JSON.stringify(parent.wishIdList),
 			success:function(data){
 			    parent.originalWishlist = [];
 			    for (var i=0;i<data.length;i++) {
@@ -345,6 +337,7 @@ $(document.body).on("click",".operatorCoat p", function( event ) {
 		}
 		setTimeout(function() {
 		    $(this).closest('.wishItem').remove();
+		    window.parent.iFrameHeight(3);
 		}, 1000);
     }
 	else{

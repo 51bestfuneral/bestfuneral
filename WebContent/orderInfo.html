@@ -90,6 +90,9 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 });
 app.controller('products', function($scope, $http) {
     $http.get("/reservation/list").success(function(response) {
+    	for (var i =0;i<response.length;i++) {
+    		response[i].feature = response[i].feature.replace(new RegExp(/(&nbsp)/g),'');
+    	}
         $scope.orders = response;
         if (response.length === 0) {
         	$("#noContent").show();

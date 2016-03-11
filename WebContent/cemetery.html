@@ -150,7 +150,7 @@ var eid;
 	 	$scope.display="";
 	
 	 	
-	 	$http.get("/cemetery/findOneCemetery?id="+id).success(function(response) {
+	 	$http.get("/cemetery/findOneCemetery?cemeteryId="+id).success(function(response) {
 	 		$scope.cemeteryBean=response;
 	 		cemeteryListBean.push(response);
        	initMap(response.cemeteryName,response.address);

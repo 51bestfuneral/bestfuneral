@@ -9,7 +9,6 @@
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
-<link href="/css/temple.css" rel="stylesheet">
 <script src="/js/jquery-2.1.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
@@ -21,6 +20,7 @@
 <link href="/js/personal.css" rel="stylesheet">
 <script src="/js/generalUsage.js"></script>
 <link href="/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/css/temple.css" rel="stylesheet">
 </head>
 <script>
 	var length = location.search.length,
@@ -35,7 +35,7 @@ id = location.search.substring(4, length),
 		});
 	 app.controller('cemetery', function($scope, $http) {
 	 	
-	 	$http.get("/cemetery/findOneCemetery?id="+id).success(function(response) {
+	 	$http.get("/cemetery/findOneCemetery?cemeteryId="+id).success(function(response) {
 	 		$scope.cemeteryBean=response;
 	 		cemeteryListBean.push(response);
        	initMap(response.cemeteryName,response.address);
@@ -45,47 +45,6 @@ id = location.search.substring(4, length),
  	 		
 	});
 
-app.controller('products', function($scope, $http) {
-	$http.get("/wish/list").success(function(response) {
-	    var j = 1,
-		    counter = 1,
-		    numberInRow = 4,
-			objectsInRow = [],
-			layouts = [];
-		for (var i=0;i<response.length;i++) {
-		    var singleProduct = response[i];
-
-			if (j <= numberInRow) {
-			    objectsInRow.push(singleProduct);
-			}
-
-			if (j === numberInRow) {
-			    var layout = {},
-				    active = '',
-					itemLayout = objectsInRow;
-					
-				if (counter === 1) {
-				    active = 'active'
-				}
-				layout = {
-				    'index': counter,
-					'active': active,
-					'itemLayout': itemLayout
-				};
-				layouts.push(layout);
-			    j = 0;
-				counter++;
-				objectsInRow = [];
-			}
-			j++;
-		}
-		$scope.layouts = layouts;
-	});
-	$http.get("/message/list").success(function(response) {
-	    response[0].active = 'active';
-	    $scope.messages = response;
-	});
-});
 $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 });

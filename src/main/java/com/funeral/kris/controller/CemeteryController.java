@@ -99,7 +99,7 @@ public class CemeteryController {
 	@RequestMapping(value = "/findOneCemetery", method = RequestMethod.GET, produces = "application/json")
 	public CemeteryBean findOneCemetery(HttpServletRequest request) {
 
-		int cemeteryId = Integer.parseInt(request.getParameter("id"));
+		int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
 		Cemetery cemetery = cemeteryService.getResource(cemeteryId);
 
 		List<TCemeteryEpigraphStyle> cemeteryEpigraphStyleList = cemeteryEpigraphStyleService
@@ -107,7 +107,7 @@ public class CemeteryController {
 		List<TCemeteryGraveStyle> cemeteryGraveStyleList = cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
 		List<TCemeteryGraveZone> zoneList = cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
 
-		List<TCemeteryKeywords> keywordsList = cemeteryKeywordsService.findByCemeteryId(cemeteryId);
+		List<TCemeteryKeywords> keywordsList = cemeteryKeywordsService.getResources(request);
 
 		CemeteryBean bean = new CemeteryBean();
 
@@ -147,10 +147,7 @@ public class CemeteryController {
 	@ResponseBody
 	@RequestMapping(value = "/listCemeteryKeywords", method = RequestMethod.GET, produces = "application/json")
 	public List<TCemeteryKeywords> listCemeteryKeywords(HttpServletRequest request) {
-
-		int cemeteryId = Integer.parseInt(request.getParameter("id"));
-
-		List<TCemeteryKeywords> keywords = cemeteryKeywordsService.findByCemeteryId(cemeteryId);
+		List<TCemeteryKeywords> keywords = cemeteryKeywordsService.getResources(request);
 
 		return keywords;
 	}
