@@ -2,10 +2,13 @@ package com.funeral.kris.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.model.Message;
 import com.funeral.kris.model.MessageUser;
+import com.funeral.kris.model.Wish;
 import com.funeral.kris.service.MessageService;
 
 @Controller
@@ -29,24 +33,30 @@ public class MessageController {
 		return modelAndView;
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public ModelAndView addingMessage(@ModelAttribute Message message) {
+	public int addingMessage(@RequestBody Message message) {
 		
 		ModelAndView modelAndView = new ModelAndView("home");
-		messageService.addResource(message);
-		
+		if (message.getMessageId() != null && !message.getMessageId().equals(0)) {
+			messageService.updateResource(message);
+		}
+		else {
+			messageService.addResource(message);
+		}
+
 		String alertMessage = "Message was successfully added.";
 		modelAndView.addObject("message", alertMessage);
 		
-		return modelAndView;
+		return message.getMessageId();
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<MessageUser> listOfMessages() {
+	public List<Message> listOfMessages(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("list-of-messages");
 
-		List<MessageUser> messages = messageService.getResources();
+		List<Message> messages = messageService.getResources(request);
 		modelAndView.addObject("messages", messages);
 
 		return messages;

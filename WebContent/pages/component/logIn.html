@@ -301,11 +301,6 @@ window.onload = function() {
 			}
 		});
 	});
-	$("#password").blur(function() {
-        if (!validatePasswordValid($(this)[0].value)) {
-		    return false;
-		}
-	});
 	$("#submit").click (function() {
         var userNameValue = $("#userName")[0].value;
         var passwordValue = $("#password")[0].value;

@@ -363,8 +363,15 @@ function validateInput(tab) {
 			return false;
 		}
 	});
-	if (!checkFailed) {
-		return false;
+	var identifyNumberFiled = tab.find("#identifyNumber"),
+	    identifyNumber;
+
+	if (identifyNumberFiled.length > 0) {
+		identifyNumber = identifyNumberFiled[0].value;
+	    if (!nunber(identifyNumber)) {
+	    	checkFailed = false;
+	    	return false;
+	    }
 	}
 	return true;
 }
@@ -486,7 +493,7 @@ app.controller('products', function($scope, $http) {
 	    <p><b>1</b>/3</p>
 	</div>
 	<div class="questionText">
-	    <h1>告诉我们一些您的个人信息</h1>
+	    <h1>轻轻地，你来了...</h1>
 	</div>
 	<div class="questionArea">
 		<div id="questionContent">
@@ -494,7 +501,7 @@ app.controller('products', function($scope, $http) {
 			    <span>我今年</span>
 			</div>
 			<div class="singleQuestion">
-			    <input id="Age" ng-model="user.age" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
+			    <input id="Age" ng-model="user.age" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') ">
 			    </input>
 			</div>
 			<div class="inputTitle">
@@ -563,13 +570,13 @@ app.controller('products', function($scope, $http) {
 	    <p><b>2</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>请务必准确真实准确填写以下基本资料，这对我们而言非常重要</h1>
+	    <h1>我们希望知道该如何不忘记你...</h1>
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
 	        <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>姓名*</span></div>
-			<input type="text" class="form-control mandantory" ng-model="user.name"></input>
+			<input type="text" class="form-control mandantory" ng-model="user.name" onkeyup="value=value.replace(/[0-9]+/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[0-9]+/g,''))"></input>
 		</div>
 		<div class="singleQuestion">
 		    <div class="warningMsg"><span></span></div>
@@ -597,7 +604,7 @@ app.controller('products', function($scope, $http) {
 		<div class="singleQuestion">
 		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>联系电话*</span></div>
-			<input type="text" class="form-control mandantory phoneField" ng-model="user.phone"></input>
+			<input type="text" class="form-control mandantory phoneField" ng-model="user.phone" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "></input>
 		</div>
 		<div class="singleQuestion">
 		    <div class="warningMsg"><span></span></div>
@@ -616,18 +623,18 @@ app.controller('products', function($scope, $http) {
 	    <p><b>3</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>请填写一位您最信赖的备用联系人，一旦有需要，我们可以通过他（她）及时联系到您</h1>
+	    <h1>你的心里只有他没有其他...</h1>
 	</div>
 	<div class="inputQuestionArea">
 	    <div class="singleQuestion">
 	        <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>姓名*</span></div>
-			<input type="text" class="form-control mandantory" ng-model="user.contactor"></input>
+			<input type="text" class="form-control mandantory" ng-model="user.contactor" onkeyup="value=value.replace(/[0-9]+/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[0-9]+/g,''))"></input>
 		</div>
 		<div class="singleQuestion">
 		    <div class="warningMsg"><span></span></div>
 			<div class="spanCoat"><span>电话*</span></div>
-			<input type="text" class="form-control mandantory phoneField" ng-model="user.contactorPhone"></input>
+			<input type="text" class="form-control mandantory phoneField" ng-model="user.contactorPhone" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "></input>
 		</div>
 		<div class="singleQuestion">
 		    <div class="warningMsg"><span></span></div>

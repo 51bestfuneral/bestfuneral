@@ -1,6 +1,7 @@
 package com.funeral.kris.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,11 +14,12 @@ import javax.persistence.Column;
 public class Message {
 
 	@Id
+	@GeneratedValue
 	@Column(name="message_id")
-	private String messageId;
+	private Integer messageId;
 
-	@Column(name="user_id")
-	private String userId;
+	@Column(name="wish_id")
+	private String wishId;
 
 	@Column(name="content")
 	private String content;
@@ -28,20 +30,20 @@ public class Message {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getMessageId() {
+	public Integer getMessageId() {
 		return messageId;
 	}
 
-	public void setMessageId(String messageId) {
+	public void setMessageId(Integer messageId) {
 		this.messageId = messageId;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getWishId() {
+		return wishId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setWishId(String wishId) {
+		this.wishId = wishId;
 	}
 
 	public String getContent() {

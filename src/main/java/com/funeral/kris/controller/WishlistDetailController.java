@@ -91,7 +91,7 @@ public class WishlistDetailController {
 			detailJson.setWishlistId(wishlistId);
 			successList.add(detailJson);
 			wishlist.setPrice(wishlist.getPrice().add(wish.getSellingPrice()));
-			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(wish.getXianenPrice()));
+			wishlist.setOriginalPirce(wishlist.getOriginalPrice().add(wish.getXianenPrice()==null?BigDecimal.ZERO:wish.getXianenPrice()));
 		}
 		wishlistService.updateResource(wishlist);
 		return successList;

@@ -215,3 +215,59 @@ function popupchangePassWordPage() {
 		});
 		window.onresize = resizeLogin;
 }
+
+function floatAlertBar() {
+	$('<div class="alertBar"><i class="fa fa-check-circle"></i></span>&nbsp;个人资料更新成功&nbsp;<a href="/funeral/pages/mainPage.html">回到首页</a>&nbsp;|&nbsp;<a href="/funeral/pages/designProposal.html">开始定制</a><div class="floatRightClose"><i class="fa fa-times"></i></div></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: '0px',
+		'z-index': 1000, 
+		width: $(document).width(),
+		'background-color': '#ccc', 
+		padding: '15px',
+		'background-color': '#bfeeb0',
+	    'font-size': '14px',
+	    'line-height': '1.43',
+	    'color': '#565a5c',
+	    'border-radius': '2px',
+	    '-moz-box-sizing': 'border-box',
+        '-webkit-box-sizing': 'border-box',
+        'box-sizing': 'border-box',
+        'text-align': 'center',
+        'display': 'none',
+        'margin-top': '-4px'
+	});
+	$(".alertBar").find("a").css({
+		color: '#007a87',
+		'font-weight': 'bold'
+	});
+	$(".alertBar").find(".fa-check-circle").css({
+	    'position': 'relative',
+	    'top': '5px',
+	    'font-size': '30px',
+	    'color': '#8bd275'
+	});
+	$(".alertBar").find(".floatRightClose").css({
+	    'float': 'right',
+        'margin-top': '-8px',
+        'cursor': 'pointer'
+	});
+	$(".alertBar").click(function() {
+		$(".alertBar").fadeOut();
+		setTimeout(function() {
+			$(".alertBar").remove();
+		}, 500);
+	});
+	$(".alertBar").find(".fa-times").css({
+	    'position': 'relative',
+	    'top': '5px',
+	    'font-size': '40px',
+	    'color': '#8bd275'
+	});
+	$(".alertBar").fadeIn();
+	setTimeout(function() {
+		$(".alertBar").fadeOut();
+		setTimeout(function() {
+			$(".alertBar").remove();
+		}, 500);
+	},5000);
+}

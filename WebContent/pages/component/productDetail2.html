@@ -12,7 +12,11 @@
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <script src="/funeral/js/generalUsage.js"></script>
+<script src="/funeral/js/tinymce/tinymce.min.js"></script>
 <style>
+    body{
+    height:100%;
+    }
     p {
 	    margin: 0px;
 	}
@@ -569,18 +573,18 @@ function addToWishlist() {
 					</div>
 					<div class="singleDetail">
 					    <div class="detailTitle">
-						    <p>服务套系</p>
-						</div>
-						<div class="detailContent">
-						    <p ng-bind="wish.material"></p>
-						</div>
-					</div>
-					<div class="singleDetail">
-					    <div class="detailTitle">
 						    <p>服务时长</p>
 						</div>
 						<div class="detailContent">
 						    <p ng-bind="wish.salesChannel"></p>
+						</div>
+					</div>
+					<div class="singleDetail">
+					    <div class="detailTitle">
+						    <p>服务套系</p>
+						</div>
+						<div class="detailContent">
+						    <p ng-bind="wish.material"></p>
 						</div>
 					</div>
 				</div>
@@ -595,7 +599,7 @@ function addToWishlist() {
 				<div class="contentDiv">
 				    <img src="/funeral/js/images/{{wish.imgUrl}}"></img>
 				</div>
-				<h2>{{wish.model}}</h2>
+				<textarea>{{wish.model}}</textarea>
 			</div>
 		</div>
 		<div class="textTitle">
