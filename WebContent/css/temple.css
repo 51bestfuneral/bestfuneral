@@ -30,7 +30,7 @@
 	color: #ffffff;
 	margin: 0px;
 }
-#leftTop span {
+.headerLabel {
     color: #ff5274
 }
 #centerText {
@@ -44,7 +44,7 @@
 .label {
     font-size: 20px;
 	line-height: 20px;
-	font-family: "Microsoft Yahei";
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	font-weight: lighter;
 	padding: .4em .9em .4em;
 	margin-right: 5px;

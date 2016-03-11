@@ -17,7 +17,7 @@
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
 <div id="mainHeader"  style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
-	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
+	    <p><span class="headerLabel"><a href="cemeteryList.html">墓地信息</a></span>／<span  ng-bind="cemeteryBean.cemeteryName"></span></p>
 	</div>
 	<div id="centerText">
         <h1 ng-bind="cemeteryBean.cemeteryName"></h1>
@@ -29,12 +29,12 @@
 	</div>
 </div>
 <div class="container">
-<div class="redline" id="redline1"></div>
+<!-- <div class="redline" id="redline1"></div>
 <div class="redline" id="redline2"></div>
 <div class="redline" id="redline3"></div>
 <div class="redline" id="redline4"></div>
 <div class="redline" id="redline5"></div>
-<div class="redline" id="redline6"></div>
+<div class="redline" id="redline6"></div> -->
 <div id="cemeteryFilter" ng-cloak>
     <div id="filter">
 		<div id="filterCata">
@@ -49,13 +49,13 @@
 		<div id="filterContent">
 			<div class="filterContent">
 			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
-				    <p id={{'g'+graveStyle.id}} ng-click="updatePrice('g',graveStyle.id)">{{graveStyle.description}}</p>
+				    <p id={{'g'+graveStyle.id}} ng-click="updatePrice('g',graveStyle.id)" ng-bind="graveStyle.description"></p>
 				</div>
 			
 			</div>
 			<div class="filterContent">
 			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
-				    <p id={{'e'+epigraphStyle.id}} ng-click="updatePrice('e',epigraphStyle.id)">{{epigraphStyle.style}}</p>
+				    <p id={{'e'+epigraphStyle.id}} ng-click="updatePrice('e',epigraphStyle.id)"  ng-bind="epigraphStyle.style"></p>
 				</div>
 				
 			</div>
@@ -66,7 +66,7 @@
 	</div>
 	<div id="reserver" ng-cloak  style={{display}} >
 		
-		<h3>{{cemeteryPrice.description}}:￥{{cemeteryPrice.price}}</h3>
+		<h3><span ng-bind="cemeteryPrice.description"></span>:￥<span ng-bind="cemeteryPrice.price"></span></h3>
 		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 
@@ -286,22 +286,6 @@ var polygonPoints=[{'cemetery': '清竹园', 'points':[{point:"121.187644|31.370
                    {'cemetery': '至尊园', 'points': [{point:"121.051878|31.087222"},{point:"121.051357|31.087562"},{point:"121.052453|31.088892"},{point:"121.057753|31.090423"},{point:"121.057933|31.088057"}]},
                    {'cemetery': '滨海古园', 'points': [{point:"121.72531|30.85994"},{point:"121.72558|30.860033"},{point:"121.72664|30.859816"},{point:"121.726729|30.859335"},{point:"121.727484|30.858731"},{point:"121.727017|30.858188"},{point:"121.726909|30.857925"},
                                                    {point:"121.72664|30.857739"},{point:"121.726586|30.857382"},{point:"121.725795|30.857258"},{point:"121.725166|30.857894"},{point:"121.724807|30.858591"}]}];
-
-var labelPoints=[{'cemetery': '清竹园','point':"121.140394|31.356897"},
-                 {'cemetery': '汇龙园','point':"121.837893|31.081058"},
-                 {'cemetery': '华南陵园','point':"121.61201|31.01679"},
-                 {'cemetery': '海港陵园（福寿园）','point':"121.929606|30.933152"},
-                 {'cemetery': '天逸静园玫瑰园','point':"121.717283|31.283397"},
-                 {'cemetery': '福寿园','point':"121.130293|31.116528"},
-                 {'cemetery': '至尊园','point':"121.039069|31.086194"},
-                 {'cemetery': '淀山湖归园','point':"121.056909|31.13911"},
-                 {'cemetery': '九天陵园','point':"121.429602|31.213815"},
-                 {'cemetery': '滨海古园','point':"121.710921|30.857715"},
-                 {'cemetery': '永福园陵','point':"121.703847|30.924375"},
-                 {'cemetery': '华夏公墓','point':"121.115137|31.057752"},
-                 {'cemetery': '瀛新古园','point':"121.525893|31.63593"},
-                 {'cemetery': '福泉山留园','point':"121.188725|31.176293"} 
-                 ];
                  
 var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
                  {'cemetery': '汇龙园','point':"121.851893|31.085058"},
@@ -322,10 +306,13 @@ var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
 
 
 function loadScript() {
-	 //var script = document.createElement("script"); //创建script标签
-	 //script.src = "http://api.map.baidu.com/api?v=1.2&callback=setMap"; //异步加载的关键
-	 //document.body.appendChild(script); //添加到页面
+	 var script = document.createElement("script"); //创建script标签
+	 script.type = "text/javascript";
+	 script.src = "http://api.map.baidu.com/api?key=pgOKUoG9Ka9htE13UW9HD6yf&v=1.1&services=true"; //异步加载的关键
+	 document.body.appendChild(script); //添加到页面
 	}
+
+	
 function initMap(cemeteryName,cemeteryAddress){
 	cemeteryName=$.trim(cemeteryName);
 	
@@ -333,23 +320,6 @@ function initMap(cemeteryName,cemeteryAddress){
     createMap();//创建地图
     setMapEvent();//设置地图事件
     addMapControl();//向地图添加控件
-    //清竹园  上海市嘉定区外冈镇嘉松北路633号
-    //上海市浦东新区朝阳农场军港公路388号 汇龙园  18
-    //华南陵园     上海市浦东新区航头镇航都南路668号 
-    //海港陵园（福寿园）  浦东新区南汇新城书院镇杞青路1717号  
-    //天逸静园玫瑰园  上海市浦东新区曹路镇龚卫路388号
-    //福寿园  上海市外青松公路7270弄600号 
-    //至尊园  朱枫公路1128号
-    //淀山湖归园  青浦区港周路1111号
-    //九天陵园  上海市长宁区平武路38号仁达商务楼411室
-    //福泉山留园 上海市漕溪路210号龙华殡仪馆业务大厅二楼福泉山留园办事处    
-    //滨海古园   上海市奉贤区五四农场海古路755号   ---
-    //海湾园   上海市奉贤区海乐路200号 
-    //永福园陵    上海市奉贤区洪庙镇洪庙洪东路333号
-    //华夏公墓    上海市松江区小昆山镇永昆公路482号 ----
-    //瀛新古园    上海市崇明县新河镇草港公路3188号
-    //cemeteryAddress='上海市松江区小昆山镇永昆公路482号';
-    
 	    	var options = {
 	    	        onSearchComplete: function(results){
 	    	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){
@@ -374,13 +344,12 @@ function createMap(){
     var point = new BMap.Point(121.194109,31.369983);//定义一个中心点坐标
     map.centerAndZoom(point,15);//设定地图的中心点和坐标并将地图显示在地图容器中
     window.map = map;//将map变量存储在全局 
-
 }
 
 //地图事件设置函数：
 function setMapEvent(){
    // map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
-    map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+   // map.enableScrollWheelZoom();//启用地图滚轮放大缩小
   //  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
    // map.enableKeyboard();//启用键盘上下左右键移动地图
 }
@@ -391,8 +360,8 @@ function addMapControl(){
 var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
 map.addControl(ctrl_nav);
     //向地图中添加缩略图控件
-var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
-map.addControl(ctrl_ove);
+//var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+//map.addControl(ctrl_ove);
     //向地图中添加比例尺控件
 var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
 map.addControl(ctrl_sca);
@@ -400,22 +369,6 @@ map.addControl(ctrl_sca);
 
 //向地图中添加标注
 function addRemark(x,y,title,address){
-	
-	//var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{"offset":new BMap.Size(-800,300)}); 
-
-	//for(var i=0;i<labelPoints.length;i++){
-	//	 var json = labelPoints[i];
-	//	 var cemetery= json.cemetery;
-	//	 var point = json.point;
-	//	 if(cemetery==title){
-	//			 var p1 = point.split("|")[0];
-	//		     var p2 = point.split("|")[1];
-	//		     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(-60,-60)});
-	//		      map.addOverlay(label);
-	//		      label.setStyle({borderColor:"#999"});
-	//	 }  
-	//}
-
 	for(var i=0;i<markerPoints.length;i++){
 		 var json = markerPoints[i];
 		 var cemetery= json.cemetery;
@@ -425,8 +378,7 @@ function addRemark(x,y,title,address){
 			     var p2 = point.split("|")[1];
 			     var marker = new BMap.Marker(new BMap.Point(p1,p2));  // 创建标注
 			     map.addOverlay(marker);
-		 }
-		 
+		 } 
 	}
 
 

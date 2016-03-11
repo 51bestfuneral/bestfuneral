@@ -14,6 +14,8 @@ public class ReservationJson {
     private String imgUrl;
     private String phoneNumber;
     private String reservDate;
+    private Integer type;
+    
 	public Integer getUserId() {
 		return userId;
 	}
@@ -79,5 +81,11 @@ public class ReservationJson {
 	}
 	public void setReservId(Integer reservId) {
 		this.reservId = reservId;
+	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
 	}
 }

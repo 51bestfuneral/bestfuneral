@@ -58,10 +58,10 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>{{detail.wishName}}</td>
-								<td>{{detail.price}}</td>
-								<td>{{detail.count}}</td>
-								<td>{{detail.sumPirce}}</td>
+								<td ng-bind="detail.wishName"></td>
+								<td ng-bind="detail.price"></td>
+								<td ng-bind="detail.count"></td>
+								<td ng-bind="detail.sumPirce"></td>
 								<td><a class="digToDetail" href="/productDetail3.html?id={{detail.wishId}}">查看详情</a></td>
 
 							</tr>
@@ -75,8 +75,8 @@
 					<div class="imageBox" style="background-image: url('{{detail.imgUrl}}')">
 					</div>
 					<div class="cemeteryDescDiv">
-						<h3>{{detail.wishName}}</h3>
-						<span>{{detail.wishDesc}}</span>
+						<h3 ng-bind="detail.wishName"></h3>
+						<span ng-bind="detail.wishDesc"></span>
 					</div>
 				</div>
 			</div>

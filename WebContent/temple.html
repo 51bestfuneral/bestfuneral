@@ -99,7 +99,7 @@ function createMap(cemeteryName){
 //地图事件设置函数：
 function setMapEvent(){
    // map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
-    map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+    //map.enableScrollWheelZoom();//启用地图滚轮放大缩小
   //  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
    // map.enableKeyboard();//启用键盘上下左右键移动地图
 }
@@ -110,8 +110,8 @@ function addMapControl(){
 var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
 map.addControl(ctrl_nav);
     //向地图中添加缩略图控件
-var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
-map.addControl(ctrl_ove);
+//var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+//map.addControl(ctrl_ove);
     //向地图中添加比例尺控件
 var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
 map.addControl(ctrl_sca);
@@ -168,18 +168,18 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 
 <body ng-app="productApp" ng-controller="cemetery">
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>  
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "68px"></IFRAME>  
 
 <div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
-     <p><span ><a href="cemeteryList.html">寺庙信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
+     <p><span class="headerLabel"><a href="cemeteryList.html">墓地信息</a></span>／<span  ng-bind="cemeteryBean.cemeteryName"></span></p>
 	</div>
 	<div id="centerText">
-        <h1>{{cemeteryBean.cemeteryName}}</h1>
-	    <h2>{{cemeteryBean.district}}</h2>
+         <h1 ng-bind="cemeteryBean.cemeteryName"></h1>
+	    <h2 ng-bind="cemeteryBean.district"></h2>
 	</div>
 	<div id="labelsArea">
-		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
+		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList" ng-bind="keyword.keyword"></span>
 		
 	</div>
 </div>
@@ -200,7 +200,7 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 		<div id="filterContent">
 			<div class="filterContent">
 			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
-				    <p>{{graveStyle.description}}</p>
+				    <p ng-bind="graveStyle.description"></p>
 				</div>
 			
 			</div>
@@ -220,7 +220,7 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 	</div>
 	<div id="reserver">
 	    <h1>莲位最低价格</h1>
-		<h2>￥{{cemeteryBean.price}}起</h2>
+		<h2>￥<span ng-bind="cemeteryBean.price"></span>起</h2>
 		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 	</div>
@@ -235,13 +235,13 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 				</div>
 				<div class="rightFeatureText">
 				    <h1>简介</h1>
-				    <p>{{cemeteryBean.cemeteryDesc}}</p>
+				    <p ng-bind-html="cemeteryBean.cemeteryDesc|trustAsHtml"></p>
 				</div>
 			</div>
 			<div id="locationFeature">
 			    <div class="leftlocationText">
 				     <h1>特色</h1>
-<p>{{cemeteryBean.feature}}</p>				</div>
+<p ng-bind-html="cemeteryBean.feature|trustAsHtml"></p>					</div>
 				<div class="rightlocationImg">
 					 <img src={{cemeteryBean.featureImgUrl}}></img>
 				</div>
@@ -254,7 +254,7 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 				</div>
 				<div class="rightEquipmentText">
 				    <h1>交通信息</h1>
-				    <p>{{cemeteryBean.trafficInfo}}</p>
+				   <p ng-bind-html="cemeteryBean.trafficInfo|trustAsHtml"></p>
 				</div>
 			</div>
 			
