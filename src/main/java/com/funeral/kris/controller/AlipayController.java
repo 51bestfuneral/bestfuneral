@@ -25,7 +25,9 @@ import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.AlipayService;
 import com.funeral.kris.service.ExpressInfoService;
 import com.funeral.kris.service.FeeCollectionService;
+import com.funeral.kris.service.MailService;
 import com.funeral.kris.service.OrderService;
+import com.funeral.kris.service.SmsSenderService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
@@ -43,6 +45,13 @@ public class AlipayController {
 	private ExpressInfoService expressInfoService;
 	@Autowired
 	private FeeCollectionService feeCollectionService;
+	
+	@Autowired
+	private MailService mailService;
+	
+	@Autowired
+	private SmsSenderService smsSenderService;
+
 
 	@ResponseBody
 	@RequestMapping(value = "/confirmPay", method = RequestMethod.GET)
@@ -135,6 +144,16 @@ public class AlipayController {
 			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
+			//send mail
+			Map<String,String> messageInfo = new HashMap<String,String>();
+			messageInfo.put("to", "429105398@qq.com");
+			messageInfo.put("subject", "你有一笔新的订单");
+			messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
+			mailService.send(messageInfo);
+			// send SMS
+			Map<String ,String> smsInfo = new HashMap<String,String>();
+			smsInfo.put("phone", "13771164045");
+			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
 
@@ -145,7 +164,7 @@ public class AlipayController {
 		}
 
 		feeCollectionService.initFeeCollection(order.getOrderNo());
-
+		
 		return order;
 	}
 

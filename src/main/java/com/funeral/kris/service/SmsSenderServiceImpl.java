@@ -32,6 +32,11 @@ public class SmsSenderServiceImpl implements SmsSenderService{
 		messageInfo.put("tempCode", "SMS_7310281");
 		return sendSms(messageInfo);
 	}
+	
+	public int sendRemindSms(Map<String,String> messageInfo){
+		messageInfo.put("tempCode", "SMS_7310281");
+		return sendSms(messageInfo);
+	}
 
 	
 }
