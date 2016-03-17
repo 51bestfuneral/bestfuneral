@@ -15,4 +15,3 @@ CREATE TABLE wishs (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
-insert into wishs (wish_id,wish_name,wish_type,price,count,wish_desc,wish_cata,feature) values(8,'寿衣','clothe','100',1,'shouyi','product',1);

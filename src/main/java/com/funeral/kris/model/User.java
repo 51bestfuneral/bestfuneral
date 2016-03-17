@@ -1,27 +1,27 @@
 package com.funeral.kris.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
 @Entity
-@Table(name="users")
+@Table(name="t_user")
 public class User {
 	
 	@Id
+	@GeneratedValue
 	@Column(name="user_id")
-	private String usrId;
+	private Integer usrId;
 
 	@Column(name="user_name")
 	private String userName;
 	
 	@Column(name="user_type")
-	private String userType;
+	private Integer userType;
 	
 	@Column(name="user_ref")
 	private String userRef;
@@ -29,12 +29,27 @@ public class User {
 	@Column(name="e_mail")
 	private String email;
 	
-	@Column(name="address")
-	private String address;
+	
 
 	@Column(name="pwd")
 	private String password;
 	
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
+	}
+
 	@Column(name="phone")
 	private String phone;
 	
@@ -43,22 +58,52 @@ public class User {
 	
 	@Column(name="updateddate")
 	private Date updatedDate;
+	@Column(name="status")
+	private Integer status;
+	@Column(name="last_loginIp")
+	private String lastLoginIp;
+	@Column(name="last_loginTime")
+	private Date lastLoginTime;
+	@Column(name="invalid_loginTimes")
+	private Integer invalidLoginTimes;
 	
-	@Column(name="contactor")
-	private String contactor;
-
-	@Column(name="contactor_mail")
-	private String contactorMail;
 	
-	@Column(name="contactor_phone")
-	private String contactorPhone;
+	public Integer getStatus() {
+		return status;
+	}
 
-	public String getUsrId() {
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		System.out.print("chuan success lastLoginTime="+lastLoginTime);
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public Integer getInvalidLoginTimes() {
+		return invalidLoginTimes;
+	}
+
+	public void setInvalidLoginTimes(Integer invalidLoginTimes) {
+		
+		System.out.print("chuan success invalidLoginTimes="+invalidLoginTimes);
+
+		this.invalidLoginTimes = invalidLoginTimes;
+	}
+
+	
+	public Integer getUsrId() {
 		return usrId;
 	}
 
-	public void setUsrId(String usrId) {
-		System.out.print("chuan success");
+	public void setUsrId(Integer usrId) {
 		this.usrId = usrId;
 	}
 
@@ -67,25 +112,17 @@ public class User {
 	}
 
 	public void setUserName(String userName) {
-		System.out.print("chuan success");
+		System.out.print("chuan success userName="+userName);
 		this.userName = userName;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		System.out.print("chuan success");
-		this.userType = userType;
-	}
-
+	
 	public String getUserRef() {
 		return userRef;
 	}
 
 	public void setUserRef(String userRef) {
-		System.out.print("chuan success");
+		System.out.print("chuan success userRef="+userRef);
 		this.userRef = userRef;
 	}
 
@@ -94,25 +131,19 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		System.out.print("chuan success");
 		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		System.out.print("chuan success");
-		this.address = address;
 	}
 
 	
 	public String getPassword() {
+		System.out.print("chuan getPassword password="+password);
+
 		return password;
 	}
 
 	public void setPassword(String password) {
+		System.out.print("chuan setPassword password="+password);
+
 		this.password = password;
 	}
 
@@ -140,28 +171,6 @@ public class User {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getContactor() {
-		return contactor;
-	}
-
-	public void setContactor(String contactor) {
-		this.contactor = contactor;
-	}
-
-	public String getContactorMail() {
-		return contactorMail;
-	}
-
-	public void setContactorMail(String contactorMail) {
-		this.contactorMail = contactorMail;
-	}
-
-	public String getContactorPhone() {
-		return contactorPhone;
-	}
-
-	public void setContactorPhone(String contactorPhone) {
-		this.contactorPhone = contactorPhone;
-	}
+	
 
 }

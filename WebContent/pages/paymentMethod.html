@@ -3,10 +3,10 @@
 <head id="head"><title>
     Cemetery
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers¡¯
+								deliver smart solutions, helping you to exceed your customersâ€™
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
-<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
@@ -20,7 +20,7 @@
 <style>
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
 	background-color: #F7F7F7;
@@ -65,6 +65,7 @@ span {
 	background: #f62f5e;
 	text-align: center;
 	float: right;
+	cursor: pointer;
 }
 #nextButton p {
     font-size: 20px;
@@ -222,32 +223,31 @@ span {
 }
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
+var app = angular.module('alipayController', []);
+     
+       
+       	app.controller('alipay', function($scope, $http) {
+      $scope.pay = function(){ 	
+      		alert("test!");	
+    $http.get("/funeral/alipay/pay?WIDout_trade_no=111&WIDsubject=test&WIDtotal_fee=100&WIDbody=222&/funeral/pages/paymentFinal.html").success(function(response) {
+	    
+	})
+	alert("success!");	
+	}
 		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
 });
+       	
+
+           
+
+
+
+
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body ng-app="alipayController" ng-controller="alipay">
 <div class="container">
 <div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 </div>
 <div id="paymentContain">
     <div id="infoContain">
@@ -269,16 +269,16 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		</div>
 		<div id="paymentStatusDesc">
 		     <div class="descDiv first">
-			     <p class="selected">¼ÄËÍ</p>
+			     <p class="selected">å¯„é€</p>
 			 </div>
 			 <div class="descDiv second">
-			     <p class="selected">È·ÈÏ</p>
+			     <p class="selected">ç¡®è®¤</p>
 			 </div>
 			 <div class="descDiv">
-			     <p class="selected">Ö§¸¶</p>
+			     <p class="selected">æ”¯ä»˜</p>
 			 </div>
 			 <div class="descDiv last">
-			     <p>ºË¶Ô</p>
+			     <p>æ ¸å¯¹</p>
 			 </div>
 		</div>
 		<div id="paymentMethod">
@@ -289,7 +289,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				</div>
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-			        <span class="radioDesc">ĞÅÓÃ¿¨Ö§¸¶</span>
+			        <span class="radioDesc">ä¿¡ç”¨å¡æ”¯ä»˜</span>
 				</div>
 			</div>
 			<div class="singleMethod">
@@ -299,7 +299,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				</div>
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-			        <span class="radioDesc">Ö§¸¶±¦Ö§¸¶</span>
+			        <span class="radioDesc">æ”¯ä»˜å®æ”¯ä»˜</span>
 				</div>
 			</div>
 			<div class="singleMethod last">
@@ -309,14 +309,14 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				</div>
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-			        <span class="radioDesc">·ÖÆÚÖ§¸¶</span>
+			        <span class="radioDesc">åˆ†æœŸæ”¯ä»˜</span>
 				</div>
 			</div>
 		</div>
 		<div id="methodInfo">
 		    <div class="longField fieldInd">
 			    <div class="fieldDesc">
-				    <p>ĞÅÓÃ¿¨ÈËĞÕÃû</p>
+				    <p>ä¿¡ç”¨å¡äººå§“å</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -327,7 +327,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="longField fieldInd lastField">
 			    <div class="fieldDesc">
-				    <p>¿¨ºÅ</p>
+				    <p>å¡å·</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -338,7 +338,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="shortField fieldInd">
 			    <div class="fieldDesc">
-				    <p>µ½ÆÚÈÕ</p>
+				    <p>åˆ°æœŸæ—¥</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -363,19 +363,19 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	<div id="footerContain">
 	    <div id="footer">
 		    <div id="prevButton">
-			    <p>·µ»Ø</p>
+			    <p>è¿”å›</p>
 			</div>
-		    <div id="nextButton">
-			    <p>ÏÂÒ»²½</p>
+		    <div id="nextButton"  ng-click="pay()" >
+			    <p>ä¸‹ä¸€æ­¥</p>
 			</div>
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>ÎïÆ·ÏêÏ¸ĞÅÏ¢</h1>
+<h1>ç‰©å“è¯¦ç»†ä¿¡æ¯</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>

@@ -3,10 +3,10 @@
 <head id="head"><title>
     Cemetery
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers¡¯
+								deliver smart solutions, helping you to exceed your customersâ€™
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
-<meta http-equiv="content-type" content="text/html; charset=GBK" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
@@ -20,7 +20,7 @@
 <style>
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
 	background-color: #F7F7F7;
@@ -65,6 +65,7 @@ span {
 	background: #f62f5e;
 	text-align: center;
 	float: right;
+	cursor: pointer;
 }
 #nextButton p {
     font-size: 20px;
@@ -221,10 +222,10 @@ span {
 <script type="text/javascript">
 var app = angular.module('productApp', []);
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+    $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	$http.get("/funeral/wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -244,7 +245,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
 <div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 </div>
 <div id="paymentContain">
     <div id="infoContain">
@@ -266,22 +267,22 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		</div>
 		<div id="paymentStatusDesc">
 		     <div class="descDiv first">
-			     <p class="selected">¼ÄËÍ</p>
+			     <p class="selected">å¯„é€</p>
 			 </div>
 			 <div class="descDiv second">
-			     <p>È·ÈÏ</p>
+			     <p>ç¡®è®¤</p>
 			 </div>
 			 <div class="descDiv">
-			     <p>Ö§¸¶</p>
+			     <p>æ”¯ä»˜</p>
 			 </div>
 			 <div class="descDiv last">
-			     <p>ºË¶Ô</p>
+			     <p>æ ¸å¯¹</p>
 			 </div>
 		</div>
 		<div class= "fieldLine">
 		    <div class="longField fieldInd">
 			    <div class="fieldDesc">
-				    <p>ĞÕÃû*</p>
+				    <p>å§“å*</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -289,18 +290,18 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="shortField fieldInd">
 			    <div class="fieldDesc">
-				    <p>³Æºô*</p>
+				    <p>ç§°å‘¼*</p>
 				</div>
 				<div class="fieldContent">
 				    <select class="form-control">
-						<option>ÏÈÉú</option>
-						<option>Å®Ê¿</option>
+						<option>å…ˆç”Ÿ</option>
+						<option>å¥³å£«</option>
 					</select>
 				</div>
 			</div>
 			<div class="longField fieldInd">
 			    <div class="fieldDesc">
-				    <p>µØÖ·*</p>
+				    <p>åœ°å€*</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -308,7 +309,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="longField fieldInd lastField">
 			    <div class="fieldDesc">
-				    <p>³ÇÊĞ*</p>
+				    <p>åŸå¸‚*</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -316,7 +317,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>Ê¡*</p>
+				    <p>çœ*</p>
 				</div>
 				<div class="fieldContent">
 				    <select class="form-control">
@@ -330,7 +331,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>ÓÊ±à*</p>
+				    <p>é‚®ç¼–*</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -338,25 +339,25 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>ÊÖ»úºÅÂë*</p>
+				    <p>æ‰‹æœºå·ç *</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
 				</div>
-				<p class="subTitle">ÎÒÃÇ»áÈ·±£ÄãµÄÒşË½£¬½÷É÷Ê¹ÓÃÄúµÄµç»°</p>
+				<p class="subTitle">æˆ‘ä»¬ä¼šç¡®ä¿ä½ çš„éšç§ï¼Œè°¨æ…ä½¿ç”¨æ‚¨çš„ç”µè¯</p>
 			</div>
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>±¸ÓÃÁªÏµÈËĞÕÃû</p>
+				    <p>å¤‡ç”¨è”ç³»äººå§“å</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
 				</div>
-				<p class="subTitle">Èç¹ûÖ÷ÒªÁªÏµÈËÒÑÈ¥ÊÀ»òÕß²»·½±ãÁªÏµ</p>
+				<p class="subTitle">å¦‚æœä¸»è¦è”ç³»äººå·²å»ä¸–æˆ–è€…ä¸æ–¹ä¾¿è”ç³»</p>
 			</div>
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>±¸ÓÃÁªÏµÈËµç»°</p>
+				    <p>å¤‡ç”¨è”ç³»äººç”µè¯</p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"></input>
@@ -364,37 +365,37 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 		</div>
 		<div class="shippingMethod">
-		    <h1>ÓÊ¼Ä·½Ê½</h1>
+		    <h1>é‚®å¯„æ–¹å¼</h1>
 		</div>
 		<div class="shippingMethod">
-		    <p>ÍÆ¼ö·½Ê½</p>
+		    <p>æ¨èæ–¹å¼</p>
 			<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-			<span class="radioDesc">Ôİ´æÔÚÄîÄî</span>
-			<span class="normalDesc">(ÎÒÃÇ»áÔİÊ±ÌæÄú±£¹Ü£¬ÔÚĞèÒªµÄÊ±ºòÌá¹©¸øÄú)</span>
+			<span class="radioDesc">æš‚å­˜åœ¨å¿µå¿µ</span>
+			<span class="normalDesc">(æˆ‘ä»¬ä¼šæš‚æ—¶æ›¿æ‚¨ä¿ç®¡ï¼Œåœ¨éœ€è¦çš„æ—¶å€™æä¾›ç»™æ‚¨)</span>
 	    </div>
 		<div class="shippingMethod">
-		    <p>´«Í³·½Ê½</p>
+		    <p>ä¼ ç»Ÿæ–¹å¼</p>
 			<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-			<span class="radioDesc">±ê×¼</span>
-			<span class="normalDesc">(Ãâ·Ñ, 2-3ÈÕ¼Äµ½)</span>
+			<span class="radioDesc">æ ‡å‡†</span>
+			<span class="normalDesc">(å…è´¹, 2-3æ—¥å¯„åˆ°)</span>
 			<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
-			<span class="radioDesc">¿ìËÙ</span>
-			<span class="normalDesc">(£¤20ÓÊ¼Ä·Ñ, 1ÈÕ¼Äµ½)</span>
+			<span class="radioDesc">å¿«é€Ÿ</span>
+			<span class="normalDesc">(ï¿¥20é‚®å¯„è´¹, 1æ—¥å¯„åˆ°)</span>
 	    </div>
 	</div>
 	<div id="footerContain">
 	    <div id="footer">
 		    <div id="nextButton">
-			    <p>ÏÂÒ»²½</p>
+			    <p>ä¸‹ä¸€æ­¥</p>
 			</div>
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>ÎïÆ·ÏêÏ¸ĞÅÏ¢</h1>
+<h1>ç‰©å“è¯¦ç»†ä¿¡æ¯</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>

@@ -34,11 +34,11 @@ public class WordUtils {
 	        configuration.setClassForTemplateLoading(this.getClass(), "/com/funeral/kris/util/");  //FTL文件所存在的位置  
 	        Template t=null;  
 	        try {  
-	            t = configuration.getTemplate("contract.ftl"); //文件名  
+	            t = configuration.getTemplate("funeral_service_contract_template.ftl"); //文件名  
 	        } catch (IOException e) {  
 	            e.printStackTrace();  
 	        }  
-	        File outFile = new File("E:/outFilessa"+Math.random()*10000+".doc");  
+	        File outFile = new File("/funeral/generateFiles/"+Math.random()*10000+".doc");  
 	        Writer out = null;  
 	        try {  
 	            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outFile)));  

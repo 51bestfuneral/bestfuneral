@@ -12,5 +12,7 @@ public interface UserService {
 	public void deleteResource(int id);
 	public List<User> getResources();
 	public List<User> verifyUser(String userName, String pwd, String userType);
-
+	public Integer checkLogin(String account,String pwd);
+	public User getByPhone(String phoneNumber);
+	public User getByEmail(String email) ;
 }

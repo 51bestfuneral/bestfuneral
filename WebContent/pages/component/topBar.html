@@ -20,7 +20,7 @@
 		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 	}
 	.linkList {
-	    width: 50%;
+	    width: 40%;
 		margin:0px auto;
 		height:100%;
 		overflow:auto;
@@ -49,11 +49,11 @@
 		font-size: 18px;
 	}
 	.choose {
-		background: #B5AFAF;
+		background: rgb(244,244,244);
 		border-bottom: 3px solid #B5AFAF;
 	}
 	.barSelect {
-	    background: #B5AFAF;
+	    background: rgb(244,244,244);
 		border-bottom: 3px solid #ff5274;
 	}
 	#leftSide {
@@ -139,7 +139,7 @@
 	});
 	$("#aboutUs").on("click", function () {
 	    if (type !== 'aboutUs') {
-            window.parent.location.href='../aboutUs.html';
+            window.parent.location.href='/funeral/pages/html/customizatonPages/aboutUs.html';
 		}
 	});
 	$("#side").mouseenter(function () {
@@ -148,10 +148,14 @@
 			totalWidth = parent.width(),
 			clientWidth = parent.find('.container').width(),
 			right = (totalWidth - clientWidth)/2;
-		parent.append("<div id='contactSub' hidden></div><div id='contactUsInfo' hidden><iframe src='component/contactUs.html' width=735 height=290 frameborder = 0></iframe></div>");
+			
+			
+		//	alert("parent="+parent+"  totalWidth= "+totalWidth+"  clientWidth="+clientWidth+"  right="+right);
+			
+		parent.append("<div id='contactSub' hidden></div><div id='contactUsInfo' hidden><iframe src='/funeral/pages/component/contactUs.html' width=735 height=290 frameborder = 0></iframe></div>");
 		parent.find("#contactUsInfo").css({
-		    'width': '735px',
-			'height': '288px',
+		    'width': '535px',
+			'height': '240px',
 			'position': 'absolute',
 			'right': right,
 			'top': top,
@@ -200,5 +204,9 @@
 			}
 		}, 100);
 	});
+	
+	
+	
+	
 </script>
 </html>

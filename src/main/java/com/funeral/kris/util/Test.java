@@ -5,13 +5,12 @@ import java.util.Date;
 public class Test {
 
 	public static void main(String[] args) {
+		String id="3";
 		
-		
-	String id="adb_sdsd";	
-		
-	String ids[]=id.split("_");
-		
-         System.out.println(ids[0]+"    "+ids[1]);
+		String rerurnUrl="<script> window.location='/funeral/pages/configuration/cemeteryConfiguration/updateCemetery.html?id=$' ;window.close();</script>";
+		rerurnUrl=rerurnUrl.replaceAll("$", id);
+	
+         System.out.println(rerurnUrl);
 	}
 
 }

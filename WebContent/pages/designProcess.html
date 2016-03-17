@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>¹ØÓÚÎÒÃÇ</title>
-<script src="/js/jquery-2.1.4.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/sliderx.js"></script>
-<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=GBK"/>
+<title>è‘¬ç¤¼å®šåˆ¶</title>
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <style>
 @media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -124,55 +124,55 @@ p {
 <div class="container">
 <div id="mainPage">
 <div class="topBarDiv">
-    <IFRAME NAME="content_frame" width="100%" SRC="/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
+    <IFRAME NAME="content_frame" width="100%" SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 </div>
 <div id="leftTabContent">
     <div class="tabTitle">
-	    <p>ÔáÀñ¶¨ÖÆ</p>
+	    <p>è‘¬ç¤¼å®šåˆ¶</p>
 	</div>
 	<div class="normalTab selectedTab" id="basicInfo">
 	    <div class="circleDiv"></div>
 		<div class="titleDiv">
-	    <p>»ù´¡ĞÅÏ¢</p>
+	    <p>åŸºç¡€ä¿¡æ¯</p>
 		</div>
 	</div>
 	<div class="normalTab" id="story">
 	    <div class="circleDiv"></div>
 		<div class="titleDiv">
-	    <p>ÄúµÄ¹ÊÊÂ</p>
+	    <p>æ‚¨çš„æ•…äº‹</p>
 		</div>
 	</div>
 	<div class="normalTab" id="productAndService">
 	    <div class="circleDiv"></div>
 		<div class="titleDiv">
-	    <p>²úÆ·ºÍ·şÎñ</p>
+	    <p>äº§å“å’ŒæœåŠ¡</p>
 		</div>
 	</div>
 	<div class="normalTab" id="wishList">
 	    <div class="circleDiv"></div>
 		<div class="titleDiv">
-	    <p>Ô¸ÍûÇåµ¥</p>
+	    <p>æ„¿æœ›æ¸…å•</p>
 		</div>
 	</div>
 	<div class="tabTitle">
-	    <p>ÒÑÑ¡ÔñÌ×²Í</p>
+	    <p>å·²é€‰æ‹©å¥—é¤</p>
 	</div>
 	<div class="taocanDiv">
-	    <p class="taocaoDiv">»ù´¡Ì×²Í</p>
-		<p class="priceDiv">£¤ 20,000</p>
+	    <p class="taocaoDiv">åŸºç¡€å¥—é¤</p>
+		<p class="priceDiv">ï¿¥ 20,000</p>
 	</div>
 	<div class="taocanDiv">
-	    <p class="taocaoDiv">½ÚÊ¡½ğ¶î</p>
-		<p class="priceDiv">£¤ 3,400</p>
+	    <p class="taocaoDiv">èŠ‚çœé‡‘é¢</p>
+		<p class="priceDiv">ï¿¥ 3,400</p>
 	</div>
 </div>
 <div id="rightContent">
     <div id="rightDsiplayContent">
-	    <IFRAME width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="questionFrame" src="component/questionsGroup.html" onLoad="iFrameHeight()" hidden></IFRAME>
+	    <IFRAME width=100% height=420 marginwidth=0 marginheight=0 frameborder = 0 id="questionFrame" src="/funeral/pages/component/questionsGroup.html" onLoad="iFrameHeight()" hidden></IFRAME>
 	</div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 </body>
 <script type="text/javascript" language="javascript">
@@ -204,16 +204,16 @@ window.onload=function(){
 	    var destUrl = "";
 	    if (!$(this).hasClass("selectedTab")) {
 		    if ($(this)[0].id === 'productAndService') {
-			    destUrl = "component/product.html";
+			    destUrl = "/funeral/pages/component/product.html";
 			}
 			else if ($(this)[0].id === 'basicInfo') {
-			    destUrl = "component/questionsGroup.html";
+			    destUrl = "/funeral/pages/component/questionsGroup.html";
 			}
 			else if ($(this)[0].id === 'wishList') {
-			    destUrl = "component/wishList.html";
+			    destUrl = "/funeral/pages/component/wishList.html";
 			}
 			else if ($(this)[0].id === 'story') {
-			    destUrl = "component/finished.html";
+			    destUrl = "/funeral/pages/component/finished.html";
 			}
 			$("#questionFrame").attr("src",destUrl);
 			$(".normalTab").removeClass("selectedTab");

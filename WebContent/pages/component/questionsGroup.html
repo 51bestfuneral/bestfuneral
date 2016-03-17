@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-ÔáÀñ¶¨ÖÆ
+è‘¬ç¤¼å®šåˆ¶
 </title>
 </head>
 <script src="../../js/jquery-2.1.4.js"></script>
@@ -212,50 +212,50 @@ var app = angular.module('productApp', []);
 app.controller('products', function($scope, $http) {
     var tabs = [{
 	    index: 1,
-		typeName: 'ÀñÎï',
-		typeDesc: 'Äã¾õµÃ×Ô¼ºÊÇ²»ÊÇÒ»¸ö±ê×¼µÄ´¦Å®×ù£¿',
+		typeName: 'ç¤¼ç‰©',
+		typeDesc: 'ä½ è§‰å¾—è‡ªå·±æ˜¯ä¸æ˜¯ä¸€ä¸ªæ ‡å‡†çš„å¤„å¥³åº§ï¼Ÿ',
 		tabId: 'test1',
 		tabType: 'questionTwo',
 		options: [{
-		    optionTitle: "ÊÇµÄ",
+		    optionTitle: "æ˜¯çš„",
 			optionClass: 'questionTwo questionTwoStart'
 		}, {
-		    optionTitle: "²»ÊÇ",
+		    optionTitle: "ä¸æ˜¯",
 			optionClass: 'questionTwo'
 		}]
 	}, {
 		index: 2,
-		typeName: '¼ÍÄîÆ·',
-		typeDesc: 'Èç¹ûÎÒÓĞ»ú»á£¬ÄÇÃ´ÎÒ»áÇãÏòÓÚÑ¡ÔñÄÄÖÖĞÎÊ½µÄÂÃĞĞ£¿',
+		typeName: 'çºªå¿µå“',
+		typeDesc: 'å¦‚æœæˆ‘æœ‰æœºä¼šï¼Œé‚£ä¹ˆæˆ‘ä¼šå€¾å‘äºé€‰æ‹©å“ªç§å½¢å¼çš„æ—…è¡Œï¼Ÿ',
 		tabId: 'test2',
 		tabType: 'questionThree',
 		options: [{
-		    optionTitle: "¸úÍÅÓÎ",
+		    optionTitle: "è·Ÿå›¢æ¸¸",
 			optionClass: 'questionThree questionThreeStart'
 		}, {
-		    optionTitle: "×ÔÖúÓÎ",
+		    optionTitle: "è‡ªåŠ©æ¸¸",
 			optionClass: 'questionThree'
 		}, {
-		    optionTitle: "ÇîÓÎ",
+		    optionTitle: "ç©·æ¸¸",
 			optionClass: 'questionThree'
 		}]
 	}, {
 		index: 3,
-		typeName: 'ÏÊ»¨',
-		typeDesc: 'ÎÒÏ²»¶ºÈ£¿',
+		typeName: 'é²œèŠ±',
+		typeDesc: 'æˆ‘å–œæ¬¢å–ï¼Ÿ',
 		tabId: 'test3',
 		tabType: 'questionFour',
 		options: [{
-		    optionTitle: "²è",
+		    optionTitle: "èŒ¶",
 			optionClass: 'questionFour questionFourStart'
 		}, {
-		    optionTitle: "¿§·È",
+		    optionTitle: "å’–å•¡",
 			optionClass: 'questionFour'
 		}, {
-		    optionTitle: "°×¿ªË®",
+		    optionTitle: "ç™½å¼€æ°´",
 			optionClass: 'questionFour'
 		}, {
-		    optionTitle: "ÒûÁÏ",
+		    optionTitle: "é¥®æ–™",
 			optionClass: 'questionFour'
 		}]
 	}];
@@ -269,10 +269,10 @@ app.controller('products', function($scope, $http) {
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
 	    <div class="productTab" id="casket">
-		    <p>¹×²Ä</p>
+		    <p>æ£ºæ</p>
 		</div>
 		<div class="productTab" id="urn">
-		    <p>¹Ç»ÒºĞ</p>
+		    <p>éª¨ç°ç›’</p>
 		</div>
 		<div class="productTab" ng-repeat="tab in tabs" id="{{tab.tabId}}">
 		    <p>{{tab.typeName}}</p>
@@ -299,7 +299,7 @@ app.controller('products', function($scope, $http) {
 		</div>
 	</div>
 	<div class="addtionOption">
-	    <input type="text" class="form-control" placeholder="ÇëÌîĞ´ÆäËû´ğ°¸" id="messageSent">
+	    <input type="text" class="form-control" placeholder="è¯·å¡«å†™å…¶ä»–ç­”æ¡ˆ" id="messageSent">
 	</div>
 </div>
 	<div id="rightFooter">
@@ -307,7 +307,7 @@ app.controller('products', function($scope, $http) {
 		    <p>&#60;</p>
 		</div>
 		<div id="nextStep" class="operatorButton">
-		    <p>ÏÂÒ»²½</p>
+		    <p>ä¸‹ä¸€æ­¥</p>
 		</div>
 	</div>
 </div>
