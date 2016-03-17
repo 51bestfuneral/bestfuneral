@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>添加墓地</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="cemetery">
+<header>
+<ul id="nav">
+	<li><a href="addCemetery.html">添加墓地</a></li>
+	<li><a href="updateCemetery.html">修改墓地</a></li>
+</ul>
+</header>
+
+
+
+<div id="addSection">
+	
+	
+	
+
+<contentSection>
+	
+	
+	
+	<table border="0"  width="100%"> 
+		
+	
+		<tr>
+		
+		 <td>
+			
+			<label >墓地名称</label>
+	
+   <input  type='text'    maxlength="30"  ng-model="cemetery.cemeteryName"/>
+			
+			</td>
+			
+		 <td>
+			
+			<label >市场均价</label>
+	
+   <input  type='text'    maxlength="30"  ng-model="cemetery.price"/>
+			
+			</td>	
+			
+			 <td>
+			
+			<label >区</label>
+	
+   <input  type='text'    maxlength="20"  ng-model="currentCemetery.district"/>
+			
+			</td>	
+			<td>
+			
+			<label >简介</label>
+			
+		<textarea   rows="15" cols="30"  ng-model="cemetery.cemeteryDesc" ></textarea>
+	
+			
+			
+			</td>
+			<td>
+			<label >特色</label>
+			
+		<textarea   rows="15" cols="30"  ng-model="cemetery.feature"  ></textarea>
+	
+			
+			
+			</td>
+			
+			<td>
+			<label >交通</label>
+			
+		<textarea   rows="15" cols="30"  ng-model="cemetery.trafficInfo" ></textarea>
+	
+			</td>
+		</tr>
+	
+		
+				
+				<tr> <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td  > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<button id="saveButton" class="nextButton">提交</button>  </td></tr>
+	
+</table>
+		
+	
+</contentSection>
+	
+	
+</div>
+
+
+
+<div id="questionList">
+	
+	<table border="0"  width="100%"> 
+		
+		<tr><td>墓地编号</td><td>墓地名称</td><td>市场均价</td></tr>
+		
+		<tr ng-repeat="x in cemeterys">
+			<td>      {{x.cemeteryId}}</td>		
+	<td><a href={{'updateCemetery.html?id='+x.cemeteryId}}>{{x.cemeteryName}}</a></td>		
+<td>{{x.price}}</td>	
+			
+			</tr>
+		
+		
+	</table>
+	
+	
+	
+	</div>
+
+
+
+
+	<style>
+		
+		
+	#addSection{
+	height:320px;
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0%;
+	}
+
+
+
+#addSection contentSection{	
+	
+float:left;width:100%; height:320px;border:0px ;background:rgba(162, 162, 162, 0.5);
+	}
+	
+	
+	
+	#questionList{
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0% ; top:50;
+	}
+
+#questionList _table{
+	
+	
+	 background-color: #d6d6d6;
+	
+	
+	
+	
+	}
+
+	
+
+	
+
+		
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*ʨ׃˳±껬¹�£ʱ±仯µı³¾°ҕɫ*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
+ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
+ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
+ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
+.nextButton{
+	  background-color: rgba(0, 0, 0, 0.58);
+		width : 70px;
+		height: 30.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:10px 5px 5px 5px;
+   } 
+		
+	</style>
+	
+	<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+	
+	
+	<script>
+	var app = angular.module('myApp', []);
+ 
+	 app.controller('cemetery', function($scope, $http) {
+	
+	
+		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+	       $scope.cemeterys = response;
+			})
+	
+	 	
+	 	
+	 	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.cemetery);
+	    $http({
+            method: "POST",
+            url:"/funeral/cemetery/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+          window.location.reload("/funeral/pages/configuration/cemeteryConfiguration/addCemetery.html");  
+        });
+	});	
+	 	
+	 	
+	 	
+	
+		
+});
+	</script>
+
+</ul>
+</body>
+</html>
