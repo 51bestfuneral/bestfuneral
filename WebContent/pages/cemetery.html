@@ -543,9 +543,9 @@ var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
                  
 
 
-window.onload=function(){
-	loadScript();
-};
+$(document).ready(function(){
+	initMap();
+});
 
 function loadScript() {
 	 //var script = document.createElement("script"); //创建script标签
@@ -651,7 +651,7 @@ function addRemark(x,y,title,address){
 		 if(cemetery==title){
 				 var p1 = point.split("|")[0];
 			     var p2 = point.split("|")[1];
-			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{position:new BMap.Point(p1,p2),offset:new BMap.Size(3,-6)});
+			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(3,-6)});
 			      map.addOverlay(label);
 			      label.setStyle({borderColor:"#999"});
 		 }  
@@ -701,7 +701,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 	}
 }
 
-initMap();//创建和初始化地图
+//initMap();//创建和初始化地图
 </script>
 <body ng-app="productApp" ng-controller="products">
 <div class="container">
