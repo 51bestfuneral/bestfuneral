@@ -62,7 +62,7 @@
 	
 	
 	app.controller('items', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/question/list?questionId=1").success(function(response) {
+	$http.get("/funeral/question/list?questionId=1").success(function(response) {
 	    
 	});
 });

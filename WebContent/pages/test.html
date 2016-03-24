@@ -752,10 +752,10 @@ body {
 <script type="text/javascript">
 var app = angular.module('productApp', []);
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
+    $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
+	$http.get("/funeral/wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -772,7 +772,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/wish/list").success(function(response) {
+	$http.get("/funeral/wish/list").success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,
@@ -807,7 +807,7 @@ app.controller('products', function($scope, $http) {
 		}
 		$scope.layouts = layouts;
 	});
-	$http.get("http://localhost:8080/funeral/message/list").success(function(response) {
+	$http.get("/funeral/message/list").success(function(response) {
 	    response[0].active = 'active';
 	    $scope.messages = response;
 	});
@@ -895,7 +895,7 @@ $(function() {
 
 		if (messageValue && messageValue != '') {
 			$.ajax({
-				url: 'http://localhost:8080/funeral/message/add',
+				url: '/funeral/message/add',
 				data: data,
 				type: 'post',
 				dataType:'json',
@@ -920,7 +920,7 @@ $(function() {
 
 		if (messageValue && messageValue != '') {
 			$.ajax({
-				url: 'http://localhost:8080/funeral/message/add',
+				url: '/funeral/message/add',
 				data: data,
 				type: 'post',
 				dataType:'json',

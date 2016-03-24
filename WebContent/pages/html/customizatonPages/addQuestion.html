@@ -350,7 +350,7 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
  
 	 app.controller('questionManager', function($scope, $http) {
 	 	
-	 	$http.get("http://localhost:8080/funeral/fQuestion/listForUpdate").success(function(response) {
+	 	$http.get("/funeral/fQuestion/listForUpdate").success(function(response) {
 	       $scope.questions = response;
 			})
 	
@@ -360,7 +360,7 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	    alert("  datadata ="+datadata);
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/fQuestion/add",
+            url:"/funeral/fQuestion/add",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'

@@ -241,11 +241,11 @@ window.onload=function(){
 			    destUrl = "/funeral/pages/component/product.html";
 			}
 			else if ($(this)[0].id === 'basicInfo') {
-			    destUrl = "/funeral/pages/component/questionsGroup.html";
+			    destUrl = "/funeral/pages/component/basicInfo.html";
 			}
 			else if ($(this)[0].id === 'wishList') {
 			    if (wishList) {
-			        destUrl = "component/wishList.html";
+			        destUrl = "/funeral/pages/component/wishList.html";
 				}
 				else {
 				    alert("请先完成您的故事，我们会为您生成愿望清单");
@@ -253,7 +253,7 @@ window.onload=function(){
 				}
 			}
 			else if ($(this)[0].id === 'story') {
-			    destUrl = "/funeral/pages/component/finished.html";
+			    destUrl = "/funeral/pages/component/questionsGroup.html";
 			}
 			$("#questionFrame").attr("src",destUrl);
 			$(".normalTab").removeClass("selectedTab");

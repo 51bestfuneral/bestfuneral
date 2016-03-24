@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-ÔáÀñ¶¨ÖÆ
+è‘¬ç¤¼å®šåˆ¶
 </title>
 </head>
 <script src="../../js/jquery-2.1.4.js"></script>
@@ -189,16 +189,16 @@ app.controller('products', function($scope, $http) {
 
 	$scope.questions = [{
 	    questionId: 1,
-		questionTitle: "»ù±¾ĞÅÏ¢",
-		questionContent: "¸æËßÎÒÃÇÒ»Ğ©ÄúµÄ¸öÈËĞÅÏ¢"
+		questionTitle: "åŸºæœ¬ä¿¡æ¯",
+		questionContent: "å‘Šè¯‰æˆ‘ä»¬ä¸€äº›æ‚¨çš„ä¸ªäººä¿¡æ¯"
 	}, {
 	    questionId: 2,
-		questionTitle: "»ù±¾ĞÅÏ¢",
-		questionContent: "¸æËßÎÒÃÇÒ»Ğ©ÄúµÄ¸öÈËĞÅÏ¢"
+		questionTitle: "åŸºæœ¬ä¿¡æ¯",
+		questionContent: "å‘Šè¯‰æˆ‘ä»¬ä¸€äº›æ‚¨çš„ä¸ªäººä¿¡æ¯"
 	}, {
 	    questionId: 3,
-		questionTitle: "»ù±¾ĞÅÏ¢",
-		questionContent: "¸æËßÎÒÃÇÒ»Ğ©ÄúµÄ¸öÈËĞÅÏ¢"
+		questionTitle: "åŸºæœ¬ä¿¡æ¯",
+		questionContent: "å‘Šè¯‰æˆ‘ä»¬ä¸€äº›æ‚¨çš„ä¸ªäººä¿¡æ¯"
 	}];
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
           $(".questionCenter").first().fadeIn();
@@ -246,25 +246,25 @@ app.controller('products', function($scope, $http) {
 	    <h1>{{question.questionContent}}</h1>
 	</div>
 	<div class="questionArea">
-		<span>ÎÒ½ñÄê</span>
+		<span>æˆ‘ä»Šå¹´</span>
 		<select class="form-control">
 		    <option default></option>
 			<option ng-repeat="age in ages">{{age.ageNumber}}</option>
 		</select>
-		<span>Ëê£¬ÏÖÔÚ</span>
+		<span>å²ï¼Œç°åœ¨</span>
 		<select class="form-control">
 		    <option default></option>
-			<option>ÒÑÍËĞİ</option>
-			<option>ÔÚ¹¤×÷</option>
+			<option>å·²é€€ä¼‘</option>
+			<option>åœ¨å·¥ä½œ</option>
 		</select>
-		<span>¡£¼Ò×¡ÉÏº£</span>
+		<span>ã€‚å®¶ä½ä¸Šæµ·</span>
 		<select class="form-control">
 		    <option default></option>
-			<option>³¤ÄşÇø</option>
-			<option>»ÆÆÖÇø</option>
-			<option>¾²°²Çø</option>
-			<option>ÑîÆÖÇø</option>
-			<option>±¦É½Çø</option>
+			<option>é•¿å®åŒº</option>
+			<option>é»„æµ¦åŒº</option>
+			<option>é™å®‰åŒº</option>
+			<option>æ¨æµ¦åŒº</option>
+			<option>å®å±±åŒº</option>
 		</select>
 	</div>
 </div>
@@ -273,7 +273,7 @@ app.controller('products', function($scope, $http) {
 		    <p>&#60;</p>
 		</div>
 		<div id="nextStep" class="operatorButton">
-		    <p>ÏÂÒ»²½</p>
+		    <p>ä¸‹ä¸€æ­¥</p>
 		</div>
 	</div>
 </div>
@@ -310,10 +310,10 @@ function handleButton() {
 	}
 
 	if (count>0 && !lastSlide.is(':hidden')) {
-	    $("#nextStep").find("p")[0].innerText = "Íê³É";
+	    $("#nextStep").find("p")[0].innerText = "å®Œæˆ";
 	}
     else {
-	    $("#nextStep").find("p")[0].innerText = "ÏÂÒ»²½";
+	    $("#nextStep").find("p")[0].innerText = "ä¸‹ä¸€æ­¥";
 	}
 }
 function handleCursor(tab) {

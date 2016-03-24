@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-ÔáÀñ¶¨ÖÆ
+è‘¬ç¤¼å®šåˆ¶
 </title>
 </head>
 <script src="../../js/jquery-2.1.4.js"></script>
@@ -182,7 +182,7 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div id="wishListContent">
 		<div id="wishListHeader">
-			<h1>ÄúµÄÔ¸ÍûÇåµ¥</h1>
+			<h1>æ‚¨çš„æ„¿æœ›æ¸…å•</h1>
 		</div>
 		<div class="wishItem" ng-repeat="tab in tabs" id="{{tab.wishId}}">
 			<div class="picCoat">
@@ -192,22 +192,22 @@ app.controller('products', function($scope, $http) {
 				<p class="wishDesc">{{tab.price}}</p>
 			</div>
 			<div class="operatorCoat">
-			    <p>É¾³ı</p>
+			    <p>åˆ é™¤</p>
 			</div>
 			<div class="selectCoat selected">
 			    <div class="IconContent">
 				    <p class="wishDesc">&radic;</p>
 				</div>
 				<div class="IconDesc selected">
-				    <p class="wishDesc">ÒÑÑ¡Ôñ</p>
+				    <p class="wishDesc">å·²é€‰æ‹©</p>
 				</div>
 			</div>
 			<div class="selectCoat {{tab.selected}}">
 			    <div class="IconContent">
-				    <p class="wishDesc">£¤</p>
+				    <p class="wishDesc">ï¿¥</p>
 				</div>
 				<div class="IconDesc">
-				    <p class="wishDesc">ÒÑÖ§¸¶</p>
+				    <p class="wishDesc">å·²æ”¯ä»˜</p>
 				</div>
 			</div>
 		</div>
@@ -217,7 +217,7 @@ app.controller('products', function($scope, $http) {
 		    <p>&#60;</p>
 		</div>
 		<div id="nextStep" class="operatorButton">
-		    <p>ÏÂÒ»²½</p>
+		    <p>ä¸‹ä¸€æ­¥</p>
 		</div>
 	</div>
 </div>
@@ -242,7 +242,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 			finalItems.push(finalItem);
 		}
 	    $.ajax({
-		    url: 'http://localhost:8080/bestfuneral/wishlistDetail/add?wishlistId='+wishList.wishlistId,
+		    url: '/funeral/wishlistDetail/add?wishlistId='+wishList.wishlistId,
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
@@ -251,7 +251,7 @@ $(document.body).on("click",".operatorButton", function( event ) {
 				window.parent.location.href='../paymentInfo.html';
 		    },
 			error: function(error) {
-				//alert("ÄúµÄĞÅÏ¢ÎÒÃÇÒÑ¾­ÊÕµ½£¡");
+				//alert("æ‚¨çš„ä¿¡æ¯æˆ‘ä»¬å·²ç»æ”¶åˆ°ï¼");
 				//$("#messageSent")[0].value = '';
 			}
 		});
@@ -297,7 +297,7 @@ $(document.body).on("click",".productTab", function( event ) {
 	});
 });
 $(document.body).on("click",".operatorCoat p", function( event ) {
-	if(window.confirm('ÄãÈ·¶¨ÒªÉ¾³ıÕâÒ»ÏîÂğ£¿')){
+	if(window.confirm('ä½ ç¡®å®šè¦åˆ é™¤è¿™ä¸€é¡¹å—ï¼Ÿ')){
         $(this).closest('.wishItem').fadeOut();
 		for (var i=0;i<wishList.selectedItemList.length;i++) {
 		    var oriWish = wishList.selectedItemList[i];

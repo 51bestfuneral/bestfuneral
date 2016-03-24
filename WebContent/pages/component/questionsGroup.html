@@ -1,11 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>
-ÔáÀñ¶¨ÖÆ
+è‘¬ç¤¼å®šåˆ¶
 </title>
 </head>
 <script src="../../js/jquery-2.1.4.js"></script>
@@ -258,7 +258,7 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
-    $http.get("http://localhost:8080/bestfuneral/question/list").success(function(response) {
+    $http.get("/funeral/question/list").success(function(response) {
 		for (var i=0;i<response.length; i++) {
 		    var questionJson = response[i];
 			for (var j=0; j<questionJson.optionList.length;j++) {
@@ -325,7 +325,7 @@ app.controller('products', function($scope, $http) {
 		</div>
 	</div>
 	<div class="addtionOption">
-	    <input type="text" class="form-control" placeholder="ÇëÌîĞ´ÆäËû´ğ°¸" id="messageSent">
+	    <input type="text" class="form-control" placeholder="è¯·å¡«å†™å…¶ä»–ç­”æ¡ˆ" id="messageSent">
 	</div>
 </div>
 	<div id="rightFooter">
@@ -333,7 +333,7 @@ app.controller('products', function($scope, $http) {
 		    <p>&#60;</p>
 		</div>
 		<div id="nextStep" class="operatorButton">
-		    <p>ÏÂÒ»²½</p>
+		    <p>ä¸‹ä¸€æ­¥</p>
 		</div>
 	</div>
 </div>
@@ -370,11 +370,11 @@ function handleButton() {
 	}
 
 	if (count>0 && !lastSlide.is(':hidden')) {
-	    $("#nextStep").find("p")[0].innerText = "Íê³É";
+	    $("#nextStep").find("p")[0].innerText = "å®Œæˆ";
 		$("#nextStep").addClass("finishedButton");
 	}
     else {
-	    $("#nextStep").find("p")[0].innerText = "ÏÂÒ»²½";
+	    $("#nextStep").find("p")[0].innerText = "ä¸‹ä¸€æ­¥";
 		$("#nextStep").removeClass("finishedButton");
 	}
 }
@@ -516,16 +516,16 @@ $(document.body).on("click",".finishedButton", function( event ) {
     if (!$(this).hasClass("disabled")) {
 	    generateQuestionList(answetList);
 		$.ajax({
-		    url: 'http://localhost:8080/bestfuneral/answer/add',
+		    url: '/funeral/answer/add',
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
 			data: JSON.stringify(answetList),
 			success:function(data){
-				//alert("ÄúµÄĞÅÏ¢ÎÒÃÇÒÑ¾­ÊÕµ½£¡");
+				//alert("æ‚¨çš„ä¿¡æ¯æˆ‘ä»¬å·²ç»æ”¶åˆ°ï¼");
 		    },
 			error: function(error) {
-				//alert("ÄúµÄĞÅÏ¢ÎÒÃÇÒÑ¾­ÊÕµ½£¡");
+				//alert("æ‚¨çš„ä¿¡æ¯æˆ‘ä»¬å·²ç»æ”¶åˆ°ï¼");
 				//$("#messageSent")[0].value = '';
 			}
 		});

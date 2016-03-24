@@ -51,8 +51,8 @@ public class AnswerController {
 	public ModelAndView addAnswerPage() {
 		String querySQL ="";
 		Answer answer = new Answer();
-		answer.setAnsListId("����");
-		answer.setAnswerDesc("������Ŷ");
+//		answer.setAnsListId("����");
+//		answer.setAnswerDesc("������Ŷ");
 		answer.setAnswerId("123");
 		answer.setUserId("123");
 		ModelAndView modelAndView = new ModelAndView("add-answer-form");
@@ -167,7 +167,7 @@ public class AnswerController {
 			if (cemeterys!=null && cemeterys.size() > 0) {
 				randomIndex = random.nextInt(cemeterys.size());
 				randomWish = cemeterys.get(randomIndex);
-				detail.setWishId(randomWish.getCemeteryId().toString());
+				detail.setWishId(randomWish.getCemeteryId());
 				detail.setPrice(Double.valueOf(randomWish.getPrice().toString()));
 				detail.setCount(1);
 				detail.setWishlistId(wishListId);

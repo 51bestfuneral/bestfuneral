@@ -479,7 +479,7 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 	 	$scope.currentOption=null;
 	 	$scope.savedOptions=null;
 	 	
-	 	$http.get("http://localhost:8080/funeral/fQuestion/listForUpdate").success(function(response) {
+	 	$http.get("/funeral/fQuestion/listForUpdate").success(function(response) {
 	       $scope.questions = response;
 			})
 			
@@ -496,9 +496,9 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/fQuestion/edit",
+            url:"/funeral/fQuestion/edit",
           
-          // url:"http://localhost:8080/funeral/testQuestionController.test",
+          // url:"/funeral/testQuestionController.test",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'
@@ -525,7 +525,7 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 	    			       //  alert("currentOption="+datadata+"    optionId="+optionId+"  questionId="+questionId); 
 
 
-	 	$http.get("http://localhost:8080/funeral/option/save?questionId="+questionId+"&imgUrl="+imgUrl+"&optionDesc="+optionDesc+"&optionId="+optionId).success(function(response) {
+	 	$http.get("/funeral/option/save?questionId="+questionId+"&imgUrl="+imgUrl+"&optionDesc="+optionDesc+"&optionId="+optionId).success(function(response) {
 			                  	       $scope.savedOptions = response;	 
 
 			})
@@ -542,7 +542,7 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 	    			      //   alert("optionId="+optionId+" questionId="+questionId); 
 
 
-	 	$http.get("http://localhost:8080/funeral/option/deleteOption?optionId="+optionId+"&questionId="+questionId).success(function(response) {
+	 	$http.get("/funeral/option/deleteOption?optionId="+optionId+"&questionId="+questionId).success(function(response) {
 			         alert("delete success!"); 
 			                  	       $scope.savedOptions = response;	 
  
@@ -558,12 +558,12 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 	 $scope.changeQuestion = function( id){
 	 	
             
-   $http.get("http://localhost:8080/funeral/fQuestion/getQuestionById?questionId="+id).success(function(response) {
+   $http.get("/funeral/fQuestion/getQuestionById?questionId="+id).success(function(response) {
 	       $scope.currentQuestion = response;
 	       $scope.currentOption=null;
 			})     
                
- $http.get("http://localhost:8080/funeral/option/getOptionListByQuestionId?questionId="+id).success(function(response) {
+ $http.get("/funeral/option/getOptionListByQuestionId?questionId="+id).success(function(response) {
 	       $scope.savedOptions = response;	 
 	       
 	       
@@ -579,7 +579,7 @@ float:left;width:100%; height:300px;border:0px ;background:rgba(162, 162, 162, 0
 	$scope.changeOption = function( id){
 	 	
    //   alert(" optionId= "+id);      
-   $http.get("http://localhost:8080/funeral/option/getOptionByOptionId?optionId="+id).success(function(response) {
+   $http.get("/funeral/option/getOptionByOptionId?optionId="+id).success(function(response) {
 	       $scope.currentOption = response;
 			})     
                

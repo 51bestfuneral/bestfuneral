@@ -468,7 +468,7 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
  
 	 app.controller('questionManager', function($scope, $http) {
 	 	
-	 	$http.get("http://localhost:8080/funeral/fQuestion/list").success(function(response) {
+	 	$http.get("/funeral/fQuestion/list").success(function(response) {
 	       $scope.questions = response;
 			})
 	
@@ -478,7 +478,7 @@ ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的�
 	    alert("  datadata ="+datadata);
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/fQuestion/add",
+            url:"/funeral/fQuestion/add",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'

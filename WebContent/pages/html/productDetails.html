@@ -164,7 +164,7 @@ $(function() {
 });
 var app = angular.module('myApp', []);
 app.controller('myCtrl', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/user/list").success(function(response) {
+	$http.get("/funeral/user/list").success(function(response) {
 	    var me = response;
 	    $scope.firstName = response[0].userName;
 		$scope.lastName = response[0].password;

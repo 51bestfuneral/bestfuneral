@@ -478,7 +478,7 @@ background:#ffffff;
 	var app = angular.module('myApp', []);
 
 	 app.controller('serviceCategoryDisplay', function($scope, $http) {
-	$http.get("http://localhost:8080/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+	$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
   var datadata = JSON.stringify(response);
   $scope.serviceCategories=response;
     $scope.totalCost=0.00;
@@ -508,7 +508,7 @@ $scope.totalCost =Number( $scope.totalCost) +Number(data);
 	    var datadata = JSON.stringify($scope.curUser);
 	    $http({
             method: "POST",
-            url:"http://localhost:8080/funeral/user/add",
+            url:"/funeral/user/add",
             data: datadata,
 			headers: {
                 'Content-Type': 'application/json'
