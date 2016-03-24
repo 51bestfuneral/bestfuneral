@@ -489,130 +489,6 @@ app.controller('products', function($scope, $http) {
 $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 });
-</script>
-<body ng-app="productApp" ng-controller="products">
-<div class="container">
-
-<div id="mainHeader">
-    <div id="leftTop">
-	    <p><span>墓地信息</span>／清竹园</p>
-	</div>
-	<div id="centerText">
-        <h1>清竹园</h1>
-	    <h2>上海市嘉定区</h2>
-	</div>
-	<div id="labelsArea">
-		<span class="label label-default">清净</span>
-		<span class="label label-default">典雅</span>
-		<span class="label label-default">交通便利</span>
-		<span class="label label-default">设备齐全</span>
-	</div>
-</div>
-<div id="cemeteryFilter">
-    <div id="filter">
-		<div id="filterCata">
-			<div class="filterCata">
-			    <p>墓穴</p>
-			</div>
-			<div class="filterCata">
-			    <p>碑文样式</p>
-			</div>
-			<div class="filterCata">
-			    <p>区域</p>
-			</div>
-		</div>
-		<div id="filterContent">
-			<div class="filterContent">
-			    <div>
-				    <p>单人墓</p>
-				</div>
-				<div>
-				    <p>双人墓</p>
-				</div>
-				<div>
-				    <p>三人墓</p>
-				</div>
-			</div>
-			<div class="filterContent">
-			    <div>
-				    <p>西式</p>
-				</div>
-				<div>
-				    <p>中式</p>
-				</div>
-			</div>
-			<div class="locationContent">
-			    <div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-				<div>
-				    <p>乐百苑1-7排</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="reserver">
-	    <h1>市场均价</h1>
-		<h2>￥1,150,000</h2>
-		<button class="reserverBtn">在线预约</button>
-		<p>我们会帮您安排参观访问</p>
-	</div>
-</div>
-<div id="features">
-    <div id="featureContent">
-	    <div id="singleFeature">
-		    <div id="mainFeature">
-			    <div class="leftFeatureImg">
-				</div>
-				<div class="rightFeatureText">
-				    <h1>特色</h1>
-				    <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
-				</div>
-			</div>
-			<div id="locationFeature">
-			    <div class="leftlocationText">
-				     <h1>地理位置</h1>
-					 <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
-				</div>
-				<div class="rightlocationImg">
-				</div>
-			</div>
-			<div id="equipmentFeature">
-			    <div class="leftEquipmentImg">
-				</div>
-				<div class="rightEquipmentText">
-				    <h1>设施</h1>
-				    <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="cemeteryMap">
-<div id="cemeteryMapContext">
- 
-   </div>
-</div>
-<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
-</div>
-<div class="coverDiv" hidden>
-<div class="titleDiv">
-<h1>物品详细信息</h1>
-</div>
-<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
-<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
-</div>
-</body>
-<script>
 
 var zoomList =[{cemetery:'清竹园',zoom:15},{cemetery:'汇龙园',zoom:17},{cemetery:'华南陵园',zoom:18},
                {cemetery:'海港陵园（福寿园）',zoom:18},{cemetery:'天逸静园玫瑰园',zoom:18},{cemetery:'福寿园',zoom:20},
@@ -775,7 +651,7 @@ function addRemark(x,y,title,address){
 		 if(cemetery==title){
 				 var p1 = point.split("|")[0];
 			     var p2 = point.split("|")[1];
-			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(3,-6)});
+			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{position:new BMap.Point(p1,p2),offset:new BMap.Size(3,-6)});
 			      map.addOverlay(label);
 			      label.setStyle({borderColor:"#999"});
 		 }  
@@ -827,4 +703,126 @@ function resetCenterAndZoom(x,y,cemeteryName){
 
 initMap();//创建和初始化地图
 </script>
+<body ng-app="productApp" ng-controller="products">
+<div class="container">
+
+<div id="mainHeader">
+    <div id="leftTop">
+	    <p><span>墓地信息</span>／清竹园</p>
+	</div>
+	<div id="centerText">
+        <h1>清竹园</h1>
+	    <h2>上海市嘉定区</h2>
+	</div>
+	<div id="labelsArea">
+		<span class="label label-default">清净</span>
+		<span class="label label-default">典雅</span>
+		<span class="label label-default">交通便利</span>
+		<span class="label label-default">设备齐全</span>
+	</div>
+</div>
+<div id="cemeteryFilter">
+    <div id="filter">
+		<div id="filterCata">
+			<div class="filterCata">
+			    <p>墓穴</p>
+			</div>
+			<div class="filterCata">
+			    <p>碑文样式</p>
+			</div>
+			<div class="filterCata">
+			    <p>区域</p>
+			</div>
+		</div>
+		<div id="filterContent">
+			<div class="filterContent">
+			    <div>
+				    <p>单人墓</p>
+				</div>
+				<div>
+				    <p>双人墓</p>
+				</div>
+				<div>
+				    <p>三人墓</p>
+				</div>
+			</div>
+			<div class="filterContent">
+			    <div>
+				    <p>西式</p>
+				</div>
+				<div>
+				    <p>中式</p>
+				</div>
+			</div>
+			<div class="locationContent">
+			    <div>
+				    <p>乐百苑1-7排</p>
+				</div>
+				<div>
+				    <p>乐百苑1-7排</p>
+				</div>
+				<div>
+				    <p>乐百苑1-7排</p>
+				</div>
+				<div>
+				    <p>乐百苑1-7排</p>
+				</div>
+				<div>
+				    <p>乐百苑1-7排</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="reserver">
+	    <h1>市场均价</h1>
+		<h2>￥1,150,000</h2>
+		<button class="reserverBtn">在线预约</button>
+		<p>我们会帮您安排参观访问</p>
+	</div>
+</div>
+<div id="features">
+    <div id="featureContent">
+	    <div id="singleFeature">
+		    <div id="mainFeature">
+			    <div class="leftFeatureImg">
+				</div>
+				<div class="rightFeatureText">
+				    <h1>特色</h1>
+				    <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
+				</div>
+			</div>
+			<div id="locationFeature">
+			    <div class="leftlocationText">
+				     <h1>地理位置</h1>
+					 <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
+				</div>
+				<div class="rightlocationImg">
+				</div>
+			</div>
+			<div id="equipmentFeature">
+			    <div class="leftEquipmentImg">
+				</div>
+				<div class="rightEquipmentText">
+				    <h1>设施</h1>
+				    <p>清竹园空間的最大特色，是因應不同需求，規劃多樣的設計主題面板，及各種極具個性化的塔位創意空間。在施工用料上以最嚴謹的品質，要求施工標準，並合乎國家各項規定，如防震、防火建材，營造最安全的防護機制，是為保障先人隱私及凝聚家族情感的理想住所。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="cemeteryMap">
+<div id="cemeteryMapContext">
+ 
+   </div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=370 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
 </html>
