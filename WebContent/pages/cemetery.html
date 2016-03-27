@@ -433,7 +433,6 @@ width: 1350px;
 }
 </style>
 <script>
-	
 	var length = location.search.length,
 id = location.search.substring(4, length);
 	
@@ -441,15 +440,14 @@ id = location.search.substring(4, length);
 	 app.controller('cemetery', function($scope, $http) {
 	 	
 	 	$http.get("/funeral/cemetery/findOneCemetery?id="+id).success(function(response) {
-       	
-  $scope.cemeteryBean=response;
+	 		$scope.cemeteryBean=response;
+       	initMap(response.cemeteryName,response.address);
+  		
   
  }) 	
- 	 	
-	 	
-	 	
-	 	
+ 	 		
 	});
+
 app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wish/list").success(function(response) {
 	    var j = 1,
@@ -546,20 +544,17 @@ var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
                  
                  ];
 
-$(document).ready(function(){
-	initMap();
-});
-
-
 
 function loadScript() {
 	 //var script = document.createElement("script"); //创建script标签
 	 //script.src = "http://api.map.baidu.com/api?v=1.2&callback=setMap"; //异步加载的关键
 	 //document.body.appendChild(script); //添加到页面
 	}
-function initMap(){
+function initMap(cemeteryName,cemeteryAddress){
+	cemeteryName=$.trim(cemeteryName);
+	cemeteryAddress =$.trim(cemeteryAddress);
     createMap();//创建地图
-    //setMapEvent();//设置地图事件
+    setMapEvent();//设置地图事件
     //addMapControl();//向地图添加控件
     
     //清竹园  上海市嘉定区外冈镇嘉松北路633号
@@ -577,24 +572,22 @@ function initMap(){
     //永福园陵    上海市奉贤区洪庙镇洪庙洪东路333号
     //华夏公墓    上海市松江区小昆山镇荡湾村永昆公路482号
     //瀛新古园    上海市崇明县新河镇草港公路3188号
-    var cemeteryName = '清竹园';
-    var cemeteryAddress = '上海市嘉定区外冈镇嘉松北路633号';
-	var options = {
-	        onSearchComplete: function(results){
-	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){
-	                for (var i = 0; i < results.getCurrentNumPois(); i ++){
-	 		 			var x =results.getPoi(i).point.lng;
-	 		 			var y =results.getPoi(i).point.lat;
-	 		 			resetCenterAndZoom(x,y,cemeteryName);
-	 		 			addRemark(x,y,cemeteryName,cemeteryAddress);//向地图中添加文字标注
-	 					break;	
-	                 }
-	             }
-	      }
-	    };
-	var local = new BMap.LocalSearch(map, options);
-	local.search(cemeteryAddress);
-    
+	    	var options = {
+	    	        onSearchComplete: function(results){
+	    	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){
+	    	                for (var i = 0; i < results.getCurrentNumPois(); i ++){
+	    	                	
+	    	 		 			var x =results.getPoi(i).point.lng;
+	    	 		 			var y =results.getPoi(i).point.lat;
+	    	 		 			resetCenterAndZoom(x,y,cemeteryName);
+	    	 		 			addRemark(x,y,cemeteryName,cemeteryAddress);//向地图中添加文字标注
+	    	 					break;	
+	    	                 }
+	    	             }
+	    	      }
+	    	    };
+	    	var local = new BMap.LocalSearch(map, options);
+	    	local.search(cemeteryAddress);
 }
 
 //创建地图函数：
@@ -608,10 +601,10 @@ function createMap(){
 
 //地图事件设置函数：
 function setMapEvent(){
-    map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
-    map.enableScrollWheelZoom();//启用地图滚轮放大缩小
-    map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
-    map.enableKeyboard();//启用键盘上下左右键移动地图
+   // map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+   // map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+  //  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+   // map.enableKeyboard();//启用键盘上下左右键移动地图
 }
 
 //地图控件添加函数：
@@ -656,7 +649,7 @@ function addRemark(x,y,title,address){
 		 if(cemetery==title){
 				 var p1 = point.split("|")[0];
 			     var p2 = point.split("|")[1];
-			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(3,-6)});
+			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(-60,-60)});
 			      map.addOverlay(label);
 			      label.setStyle({borderColor:"#999"});
 		 }  
@@ -699,6 +692,7 @@ function resetCenterAndZoom(x,y,cemeteryName){
 		var json = zoomList[i];
 		 var cemetery= json.cemetery;
 		 if(cemetery==cemeteryName){
+			 
 		 	 var zoom = json.zoom;
 			 map.centerAndZoom(point,zoom);
 			 return;
