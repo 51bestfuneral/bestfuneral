@@ -3,14 +3,11 @@ package com.funeral.kris.util;
 
 public class AlipayUtil {
 	
-	// 合作身份者ID，以2088开头由16位纯数字组成的字符串
-	public static String partner = "";
+	public static String partner = "2088221356680135";
 	
 	public static String seller_email = "";
 	
-	public static String alipayAccount = "";
-	
-	public static String KEY = "";
+	public static String KEY = "j39zc02yhr2ro0xat888xuibfu90sgkf";
 
 	public static String log_path = "D:\\";
 
@@ -24,7 +21,7 @@ public class AlipayUtil {
 	
 	public static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
 	
-	public static final String PAGE_URL ="";
+	public static final String PAGE_URL ="http://localhost:8080/funeral/pages";
 	
 	
 
