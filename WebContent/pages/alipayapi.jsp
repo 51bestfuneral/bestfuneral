@@ -21,6 +21,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.funeral.kris.util.*"%>
 <%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="com.funeral.kris.service.*"%>
 <%@ page import="java.util.Map"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -53,8 +54,7 @@
 		//付款金额
 		String total_fee = request.getParameter("WIDtotal_fee");
 		//必填
-		//订单描述
-		String body = request.getParameter("WIDbody");
+		String body = request.getParameter("WIDbody");		String body = request.getParameter("WIDbody");
 		//防钓鱼时间戳
 		String anti_phishing_key = "";
 		//若要使用请调用类文件submit中的query_timestamp函数
