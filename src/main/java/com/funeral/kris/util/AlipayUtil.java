@@ -19,6 +19,7 @@ public class AlipayUtil {
 	
 	public static final String HTTPS_VERIFY_URL = "https://mapi.alipay.com/gateway.do?service=notify_verify&";
 	
+	
 	public static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
 	
 	public static final String PAGE_URL ="http://localhost:8080/funeral/pages";

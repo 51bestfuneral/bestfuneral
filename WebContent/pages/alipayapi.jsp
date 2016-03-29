@@ -51,7 +51,6 @@
 		//付款金额
 		String total_fee = request.getParameter("WIDtotal_fee");
 		//必填
-		//订单描述
 		String body = request.getParameter("WIDbody");
 		//防钓鱼时间戳
 		String anti_phishing_key = "";
