@@ -131,6 +131,7 @@ public class CemeteryBean {
 		this.epigraphStyleList = epigraphStyleList;
 	}
 	private String feature;
+	
 	private String TrafficInfo;
 	private String address;
 	private List<TCemeteryKeywords> keywordsList;  

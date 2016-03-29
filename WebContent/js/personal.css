@@ -445,7 +445,7 @@ background: radial-gradient(#ffffff, #373d4a);
   font-size: 23px;
   line-height: 23px;
   color: #5d5d5d;
-  		text-align:right;
+  text-align:right;
 
 	}
 	
@@ -544,15 +544,23 @@ background: radial-gradient(#ffffff, #373d4a);
 	.designHeaderText {
 	    margin-top: 0;
 	}
-	.includeDiv {
+	.includeDiv1 {
 	    width: 15%;
 		overflow:auto;
 		height: auto;
 		float: left;
 		padding-bottom: 1%;
 		margin-top: 20px;
-	border-top: 8px solid #f7f7f7;
-
+	    border-top: 8px solid #f7f7f7;
+	}
+	.includeDiv2 {
+	    width: 15%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		padding-bottom: 1%;
+		margin-top: 20px;
+	    border-top: 8px solid #f7f7f7;
 	}
 	.includeDataDivBasic {
 	    width: 16%;
@@ -599,7 +607,6 @@ border-top: 8px solid #B8860B;
 		margin-left : 1%;
 		margin-top: 20px;
 		cursor:pointer;
-border-top: 8px solid red;
 	}
 		@media (min-width: 900px) {
   .container {

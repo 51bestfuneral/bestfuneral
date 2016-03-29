@@ -10,13 +10,19 @@
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
-<script src="/funeral/js/jquery-2.1.4.js"></script>
-<script src="/funeral/js/jquery-ui.js"></script>
-<script src="/funeral/js/sliderx.js"></script>
-<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
-<link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<script src="/funeral/js/util.js"></script>
+
+
+
+
 
 </head>
 
@@ -29,79 +35,88 @@ body {
     margin: 0;
 	text-align: center;
 	height: 100%;
+	background-color:#102430;
 }
 #topHalfLevel {
-    background-image:url('/funeral/js/images/heroImage031.jpg');
-    background-image:url('/funeral/js/images/Bitmap.png');
+    background-image:url('../js/images/Bitmap.png');
 	padding-bottom: 3%;
 	background-size:100%;
+	width: 100%;
+	height: 700px;
+	overflow:hidden;
+}
+.pictureMaskDiv {
+    width: 1384px;
+	height: 700px;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.6);
 }
 #topHalfLevel h1 {
     padding-top: 180px;
 	margin: 0;
 	color: white;
-	font-size: 59px;
+	font-size: 50px;
+	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
+	font-weight: lighter;
+}
+.mainContent1 {
+    position: relative;
 }
 #topHalfLevel h5 {
-	margin: 0;
+	margin: 0px auto;
 	color: white;
 	padding-bottom: 50px;
-	font-size: 25px;
-	margin-top: 60px;
+	font-size: 17px;
+	margin-top: 30px;
+	font-weight: lighter;
+	width: 570px;
+}
+.subtext {
+    font-size: 12px;
+	color: #ffffff;
+	font-weight: lighter;
+	position: relative;
+	margin-top: 12px;
+}
+.subtext span{
+    color: #ffffff;
+	font-family: 'Microsoft Yahei';
+	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
+	font-size: 23px;
+	font-weight: lighter;
 }
 #topHalfLevel h3 {
 	margin: 0;
 	color: white;
 }
 #howToHelp {
-    width: 260px;
-	height: 40px;
+    width: 271px;
+    overflow: auto;
 	margin:0px auto;
 	border-radius: 5px 0 0 5px;
+	position: relative;
 }
 #message {
-    width: 220px;
-	background-color: #ff5274;
-	height: 50px;
-	border-radius: 5px 0 0 5px;
+    width: 100%;
+	background-color: #ed4b83;
+	height: 60px;
+	border-radius: 5px;
 	float: left;
 	text-align: center;
 	cursor: pointer;
-	transition:opacity 0.5s;
-	-moz-transition:opacity 0.5s;
-    -webkit-transition:opacity 0.5s;
-    -o-transition:opacity 0.5s;
+	transition:background-color 0.3s;
+	-moz-transition:background-color0.3s;
+    -webkit-transition:background-color 0.3s;
+    -o-transition:background-color 0.3s;
 }
 #message:hover {
-    background: #ff496d;
+    background-color: #ff496d;
 }
 #message p {
     font-size: 20px;
 	margin: 0;
-	line-height: 50px;
+	line-height: 60px;
 	color: white
-}
-#option {
-    width: 40px;
-	background-color: #ff5274;
-	height: 50px;
-	border-radius: 0 5px 5px 0;
-	float: left;
-	cursor: pointer;
-	transition:opacity 0.5s;
-	-moz-transition:opacity 0.5s;
-    -webkit-transition:opacity 0.5s;
-    -o-transition:opacity 0.5s;
-}
-#option:hover {
-    background: #ff496d;
-}
-#option span {
-    width: 40px;
-	height: 40px;
-	color: white;
-	font-size: 21px;
-	line-height: 50px;
 }
 #howToHelp h4 {
     line-height: 40px;
@@ -175,15 +190,12 @@ body {
 .singleTip {
     width: 100%;
 	height: 600px;
-	background: -webkit-radial-gradient(#000000, #545454);
-    background: -o-radial-gradient(#000000, #545454);
-    background: -moz-radial-gradient(#000000, #545454);
-    background: radial-gradient(#000000, #545454);
+	background-color: #ec4a82;
 	padding-left: 160px;
 	text-align: left;
 }
 .singleTip h1 {
-    color: #ff5274;
+    color: #ffffff;
 	font-family: "OpenSans-Semibold";
 	font-size: 224px;
 	margin: 0px;
@@ -193,12 +205,14 @@ body {
 	color: #FFFFFF;
 	padding-top: 115px;
 	margin: 0px;
+	font-weight:lighter;
 }
 .singleTip p {
     font-size: 20px;
 	color: #FFFFFF;
 	margin: 0px;
 	margin-left: 8px;
+	font-weight: lighter;
 }
 .reason {
     height: 100px;
@@ -292,7 +306,7 @@ body {
     width: 80px;
 	height: 33px;
 	border-radius: 33px;
-	border: 2px solid #ff5274;
+	border: 2px solid #ec4a82;
 	background-color: white;
 	text-align: center;
 	margin-bottom: 10px;
@@ -317,43 +331,6 @@ body {
 	height: 100px;
 	padding-top: 20px;
 	border-top: 2px solid #3d3d3d;
-}
-#members{
-    overflow: auto;
-	width: 100%;
-	height: 400px;
-}
-#members .carousel-control{
-    top: 160px;
-}
-.singleMember {
-    width: 100%;
-	height: 400px;
-	text-align: center;
-	padding-top: 72px;
-	background: #24272D;
-}
-.singleMember p{
-    font-size: 12px;
-	color: #acb1b4;
-}
-.memberPicture {
-    width: 70px;
-	height: 70px;
-	margin: 0px auto;
-	border-radius: 35px;
-	border: 2px solid #acb1b4;
-}
-.memberComment {
-    width: 550px;
-	font-size: 32px;
-	color: #FFFFFF;
-	margin: 0px auto;
-	margin-top: 32px;
-	margin-bottom: 25px;
-}
-.memberComment h1 {
-    margin: 0px;
 }
 #contactInformation {
     width: 100%;
@@ -389,7 +366,7 @@ body {
     margin: 0;
 	font-size: 36px;
 	line-height: 30px;
-	color: #ff5274;
+	color: #ec4a82;
 }
 #topContactInfo p {
     margin: 0;
@@ -426,7 +403,7 @@ body {
     float: left;
 	height: 44px;
 	border-radius: 5px;
-	background: #ff5274;
+	background: #ec4a82;
 	color: #ffffff;
 	text-align: center;
 	cursor: pointer;
@@ -439,7 +416,7 @@ body {
     width: 118px;
 	float: left;
 	height: 44px;
-	background-color: #ff5274;
+	background-color: #ec4a82;
 	margin: 0px;
 	border-radius: 5px;
 	color: #ffffff;
@@ -518,7 +495,7 @@ body {
 #messageUsLeft span {
     line-height: 43px;
 	font-size: 20px;
-	color: #ff5274;
+	color: #ec4a82;
 }
 #messageUsRight {
     float: left;
@@ -574,7 +551,7 @@ body {
 }
 @media (min-width: 900px) {
   .container {
-    width: 100%;
+    width: 1384px;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -638,7 +615,7 @@ body {
         -o-transition:box-shadow 0.3s;
 	}
 	#titleIconDiv:hover {
-	    box-shadow: 0px 10px 20px 0px #ff5274;
+	    box-shadow: 0px 10px 20px 0px #ec4a82;
 	}
 	.iconImg {
 	    margin-left: -5px;
@@ -666,7 +643,7 @@ body {
 		border-radius: 3px;
 		width: 130px;
 		height: 28px;
-		background-color: #ff5274;
+		background-color: #ec4a82;
 		padding-left: 7px;
 	}
 	.addWishButton p {
@@ -698,17 +675,305 @@ body {
 		width:150px;
 		height:130px;
 	}
-	
-		#wechatFrame img{
+	#wechatFrame img{
 		width:90px;
 		height:90px;
 		position:relative;
 		top:-5px;	
 			}
 	#wechatFrame p{
-	font-family: PingFangSC-Light;
-  font-size: 10px;
-  line-height: 10px;
+	    font-family: PingFangSC-Light;
+        font-size: 10px;
+        line-height: 10px;
+	}
+	#memebersCoat {
+	    width: 100%;
+		height: 484px;
+		overflow: hidden;
+	}
+	.membersContent {
+	    width: 100%;
+		height: 484px;
+		overflow: hidden;
+		text-align: left;
+		background-image:url('../js/images/heroImage031.jpg');
+		background-size: 100%;
+	}
+	.memberDesc {
+	    margin-left: 55%;
+		overflow: auto;
+	}
+	.memberState {
+	    margin-top: 52px;
+	    width: 327px;
+		height: 170px;
+		padding-left: 30px;
+		padding-top: 42px;
+		padding-right: 35px;
+		box-shadow: 5px 5px 3px 0px #c7c7c7;
+		text-align: left;
+		background: #ffffff;
+	}
+	.memberState p {
+	    font-size: 17px;
+		color: #3d4351;
+		line-height: 21px;
+		font-weight: lighter;
+	}
+	.memberInfo {
+	    padding-top: 25px;
+		width: 327px;
+		height: 170px;
+		padding-left: 10px;
+	}
+	.memberInfo p {
+	    font-size: 21px;
+		color: #3d4351;
+	}
+	.memberInfo .subInfo {
+	    font-size: 17px;
+		color: #3d4351;
+	}
+	.membersSelect {
+	    width: 100%;
+        overflow: auto;
+		cursor: pointer;
+	}
+	.singleMember {
+	    width: 16.66%;
+		float:left;
+		height: 224px;
+	}
+	.memeberPicMask {
+	    width: 100%;
+		height: 224px;
+		transition:background-color 0.3s;
+	    -moz-transition:background-color0.3s;
+        -webkit-transition:background-color 0.3s;
+        -o-transition:background-color 0.3s;
+	}
+	.singleMember:hover .memeberPicMask {
+		background-color: rgba(237, 75, 131, 0.6);
+		opacity: 0.8;
+	}
+	.singleMember img {
+	    width: 100%;
+		height: 224px;
+	}
+	#designShow {
+	    width: 100%;
+		background-color: #ed4b83;
+		overflow: auto;
+		height: 687px;
+		padding-top: 40px;
+	}
+	#designShow h4 {
+	    font-size: 29px;
+		font-weight: lighter;
+		color: #ffffff;
+		margin-bottom: 24px;
+	}
+	#designShow .pcoat {
+	    font-size: 13px;
+		font-weight: lighter;
+		color: #ffffff;
+		width: 458px;
+		margin: 0px auto;
+		line-height: 20px;
+	}
+	#designShow .startDesignButton {
+	    width: 136px;
+		height: 46px;
+		border-radius: 5px;
+		background: #ffffff;
+		margin: 0px auto;
+		cursor: pointer;
+		transition:background-color 0.3s;
+	    -moz-transition:background-color 0.3s;
+        -webkit-transition:background-color 0.3s;
+        -o-transition:background-color 0.3s;
+	}
+	#designShow .startDesignButton:hover {
+	    background-color: rgb(244,244,244);
+	}
+	.startDesignButton p {
+	    margin: 0px;
+		margin-top: 25px;
+		font-size: 20px;
+		line-height: 46px;
+		color: #ed4b83;
+	}
+	#productShow {
+	    background-color: #102430;
+	    width: 100%;
+	    height: 457px;
+	}
+	#productIconList {
+	    width: 50%;
+		float: left;
+		height: 457px;
+	}
+	#productIconList .singleIcon {
+		overflow: auto;
+		border-radius: 5px;
+		position: absolute;
+		background-image: url('../js/images/group-12@2x.png');
+		background-size: 100% 100%;
+		transition:padding 0.3s;
+	    -moz-transition:padding 0.3s;
+        -webkit-transition:padding 0.3s;
+        -o-transition:padding 0.3s;
+		cursor: pointer;
+	}
+	#productIconList .singleIcon:hover {
+	    padding: 30px!important;
+	}
+	.singleIcon .sizeHelp {
+	    width: 95px;
+		height: 116px;
+	}
+	.position1 {
+	    margin-top: 134px;
+		margin-left: 160px;
+		-webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
+	}
+	.position2 {
+	    margin-top: 216px;
+		margin-left: 200px;
+		padding: 10px;
+		-webkit-filter: blur(2px);
+        -moz-filter: blur(2px);
+        -o-filter: blur(2px);
+        -ms-filter: blur(2px);
+        filter: blur(2px);
+	}
+	.position3 {
+	    margin-top: 240px;
+		margin-left: 334px;
+		padding: 8px;
+	}
+	.position4 {
+	    margin-top: 154px;
+		margin-left: 441px;
+		padding: 20px;
+	}
+	.position5 {
+	    margin-top: 116px;
+		margin-left: 298px;
+		padding: 12px;
+		-webkit-filter: blur(1px);
+        -moz-filter: blur(1px);
+        -o-filter: blur(1px);
+        -ms-filter: blur(1px);
+        filter: blur(1px);
+	}
+	#goToProduct {
+	    width: 50%;
+	    float: left;
+		padding-top: 136px;
+		height: 457px;
+		text-align: left;
+		padding-left: 50px;
+	}
+	#goToProduct h3 {
+	    color: #ffffff;
+	    font-size: 28px;
+	}
+	#goToProduct h4 {
+	    font-size: 13px;
+		margin: 0xp;
+		margin-top: 24px;
+	}
+	#goToProduct .startPurchseBtn {
+	    width: 136px;
+		height: 46px;
+		border-radius: 5px;
+		border: 1px solid #ed4b83;
+		margin-top: 35px;
+		background: #102430;
+		opacity: 0.8;
+	}
+	.startPurchseBtn:hover {
+	    opacity: 1!important;
+	}
+	.startPurchseBtn p {
+	    color: #ed4b83;
+		font-size: 20px;
+		text-align: center;
+		line-height: 46px;
+		margin: 0px;
+		font-weight: lighter;
+		cursor: pointer;
+	}
+	#cemeteryShow {
+	    width: 100%;
+		height: 457px;
+		background: #83bdc7;
+	}
+	#cemeteryInfo {
+	    float: left;
+		padding-top: 136px;
+		padding-left: 281px;
+		text-align: left;
+	}
+	#cemeteryInfo h2 {
+	    color: #ffffff;
+		font-size: 28px;
+		margin-bottom: 24px;
+	}
+	#cemeteryInfo h3 {
+	    color: #ffffff;
+		font-size: 13px;
+		line-height: 21px;
+		margin-bottom: 27px;
+		width: 282px;
+	}
+	#cemeteryInfo .cemeteryBtn {
+	    width: 136px;
+		height: 46px;
+		border-radius: 5px;
+		border: 1px solid #ffffff;
+		opacity: 0.8;
+		cursor: pointer;
+	}
+	.cemeteryBtn:hover {
+	    opacity: 1!important;
+	}
+	.cemeteryBtn p{
+	    margin: 0px;
+		font-size: 20px;
+		color: #ffffff;
+		text-align: center;
+		line-height: 46px;
+	}
+	#designProcessShow {
+	    width: 632px;
+		height: 486px;
+		background-image: url('../js/images/20160220202822.png');
+		background-size: 100% 100%;
+		margin: 0px auto;
+		margin-top: -900px;
+	}
+	
+	#adjustFontDiv {
+	    width: 100%;
+		height: 48px;
+		background: #495061;
+		padding-left: 266px;
+	}
+	#adjustFontDiv span {
+	    line-height: 48px;
+		margin-right: 3px;
+		color: #ffffff;
+		font-size: 12px;
+		cursor: pointer;
+	}
+	#adjustFontDiv span:hover {
+	    color: #ff5274;
 	}
 </style>
 <script type="text/javascript">
@@ -745,10 +1010,10 @@ function muskPageForProduct(id) {
 		$(".coverDiv").fadeIn(1000);
 };
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("/funeral/wishType/list").success(function(response) {
+    $http.get("../wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
+	$http.get("../wishType/listLevel").success(function(response) {
 	    var level1 =[],
 		    level2 = [],
 			level3 = [],
@@ -765,7 +1030,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	});
 });
 app.controller('products', function($scope, $http) {
-	$http.get("/funeral/wish/list").success(function(response) {
+	$http.get("../wish/list").success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 4,
@@ -800,7 +1065,7 @@ app.controller('products', function($scope, $http) {
 		}
 		$scope.layouts = layouts;
 	});
-	$http.get("/funeral/message/list").success(function(response) {
+	$http.get("../message/list").success(function(response) {
 	    response[0].active = 'active';
 	    $scope.messages = response;
 	});
@@ -809,26 +1074,23 @@ $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 });
 </script>
-<body ng-app="productApp" ng-controller="products">
-<div class="container">
+<body ng-app="productApp" ng-controller="products" onselectstart="return false">
+
+<div class="container" id="zoom">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>  
-
-
 <div id="topHalfLevel">
+    <div class="pictureMaskDiv"></div>
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
-		<h5 color="white">51BestFuneral提供综合全面，一站式的殡葬服务体验。告诉我们您的需<br/>求，我们帮助您定制最符合您的服务</h5></br>
+		<h5 color="white">51BestFuneral提供综合全面，一站式的殡葬服务体验。告诉我们您的需求，我们帮助您定制最符合您的服务</h5>
 	</div>
 	<div id="howToHelp">
 	    <div id="message">
 			<p>我们可以如何帮助您</p>
 		</div>
-		<div id="option">
-			<span class="glyphicon glyphicon-chevron-down"></span>
-		</div>
+    </div>
+	<p class="subtext">或者直接给我们打电话<span>400-166-0030</span></p>
 </div>
-</div>
-<IFRAME NAME="content_frame" width=100% height=460 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine.html"></IFRAME>
 <div id = "mainContent3">
     <div id="subContentLeft">
 	     <div>
@@ -871,7 +1133,7 @@ $("#titleIconDiv").on("click", function () {
 		</div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="/funeral/js/images/yizhan.png"></img>
+			    <img src="../js/images/yizhan.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>一站式</h4><br/>
@@ -880,7 +1142,7 @@ $("#titleIconDiv").on("click", function () {
         </div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="/funeral/js/images/people.png"></img>
+			    <img src="../js/images/people.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>私人定制</h4><br/>
@@ -889,13 +1151,161 @@ $("#titleIconDiv").on("click", function () {
         </div>
 	    <div class="reason">
 		    <div class="imgContent">
-			    <img src="/funeral/js/images/bottle.png"></img>
+			    <img src="../js/images/bottle.png"></img>
 			</div>
 			<div class="textContent">
 	            <h4>性价比高</h4><br/>
 	            <h5>用念念可以帮助您以最低廉的价格得到最尊贵的服务。</h5>
 			</div>
         </div>
+	</div>
+</div>
+<div id="members">
+    <div id="memebersCoat">
+		<div class="membersContent">
+			<div class="memberDesc" id="memberDesc1">
+				<div class="memberState">
+					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+				</div>
+				<div class="memberInfo">
+					<p><b>李生先生1</b></p>
+					<p class="subInfo">上海市虹口区市民</p>
+				</div>
+			</div>
+		</div>
+		<div class="membersContent" id="memberDesc2">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+				</div>
+				<div class="memberInfo">
+					<p><b>李生先生2</b></p>
+					<p class="subInfo">上海市虹口区市民</p>
+				</div>
+			</div>
+		</div>
+		<div class="membersContent" id="memberDesc3">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+				</div>
+				<div class="memberInfo">
+					<p><b>李生先生3</b></p>
+					<p class="subInfo">上海市虹口区市民</p>
+				</div>
+			</div>
+		</div>
+		<div class="membersContent" id="memberDesc4">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+				</div>
+				<div class="memberInfo">
+					<p><b>李生先生4</b></p>
+					<p class="subInfo">上海市虹口区市民</p>
+				</div>
+			</div>
+		</div>
+		<div class="membersContent" id="memberDesc5">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+				</div>
+				<div class="memberInfo">
+					<p><b>李生先生5</b></p>
+					<p class="subInfo">上海市虹口区市民</p>
+				</div>
+			</div>
+		</div>
+		<div class="membersContent" id="memberDesc6">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+				</div>
+				<div class="memberInfo">
+					<p><b>李生先生6</b></p>
+					<p class="subInfo">上海市虹口区市民</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="membersSelect">
+	    <div class="singleMember" style ="background-image:url('../js/images/Bitmap.png');background-size:100% 224px;">
+		    <div class="memeberPicMask">
+			</div>
+		</div>
+		<div class="singleMember" style ="background-image:url('../js/images/Bitmap.png');background-size:100% 224px;">
+		    <div class="memeberPicMask">
+			</div>
+		</div>
+		<div class="singleMember" style ="background-image:url('../js/images/Bitmap.png');background-size:100% 224px;">
+		    <div class="memeberPicMask">
+			</div>
+		</div>
+		<div class="singleMember" style ="background-image:url('../js/images/Bitmap.png');background-size:100% 224px;">
+		    <div class="memeberPicMask">
+			</div>
+		</div>
+		<div class="singleMember" style ="background-image:url('../js/images/Bitmap.png');background-size:100% 224px;">
+		    <div class="memeberPicMask">
+			</div>
+		</div>
+		<div class="singleMember" style ="background-image:url('../js/images/Bitmap.png');background-size:100% 224px;">
+		    <div class="memeberPicMask">
+			</div>
+		</div>
+	</div>
+</div>
+<div id="designShow">
+    <h4>念念葬礼定制工具</h4>
+	<div class="pcoat">
+	    <p>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</p>
+	</div>
+	<div class="startDesignButton">
+	    <p>开始定制</p>
+	</div>
+</div>
+<div id="productShow">
+    <div id="productIconList">
+	    <div class="singleIcon position1">
+		    <div class="sizeHelp">
+			</div>
+		</div>
+		<div class="singleIcon position2">
+		    <div class="sizeHelp">
+			</div>
+		</div>
+		<div class="singleIcon position3">
+		    <div class="sizeHelp">
+			</div>
+		</div>
+		<div class="singleIcon position4">
+		    <div class="sizeHelp">
+			</div>
+		</div>
+		<div class="singleIcon position5">
+		    <div class="sizeHelp">
+			</div>
+		</div>
+	</div>
+	<div id="goToProduct">
+	    <h3>选购产品和服务</h3>
+		<h4>除了直接定制葬礼，我们也给您</h4>
+		<div class="startPurchseBtn">
+		    <p>开始选购</p>
+		</div>
+	</div>
+</div>
+<div id="designProcessShow">
+</div>
+<IFRAME NAME="content_frame" width=100% height=570 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html"></IFRAME>
+<div id="cemeteryShow">
+    <div id="cemeteryInfo">
+	    <h2>墓地和寺庙信息汇总</h2>
+		<h3>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</h3>
+		<div class="cemeteryBtn">
+		    <p>了解更多</p>
+		</div>
 	</div>
 </div>
 <div id="questionGroup">
@@ -932,47 +1342,22 @@ $("#titleIconDiv").on("click", function () {
 	    </div>
 	</div>
 </div>
-<div id="members">
-    <div class="carousel slide" id="membersCarousel">
-	    <ol class="carousel-indicators">
-            <li data-target="#membersCarousel" data-slide-to="{{$index}}" class="{{message.active}}" ng-repeat="message in messages"></li>
-        </ol>
-        <div class="carousel-inner">
-			<div class="item {{message.active}}" ng-repeat="message in messages">
-			     <div class="singleMember">
-				      <div class="memberPicture">
-					  </div>
-					  <div class="memberComment">
-					      <h1>“{{message.content}}”</h1>
-					  </div>
-					  <p>{{message.userName}}，上海虹桥居民</p>
-				 </div>
-            </div>
-        </div>
-        <a class="carousel-control left" href="#membersCarousel" 
-            data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
-        <a class="carousel-control right" href="#membersCarousel" 
-            data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
-    </div>
-</div>
 <div id="contactInfo">
 <div id="contactInformation">
     <h2>联系我们</h2>
-	<div class="contactUsDesc">
-	    <h4>Nullam在DUI mauris.Vivamus hendrerit arcu SED ERAT molestie vehicula，也EU特力rhoncus UT eleifend NIBH porttitor.UT在法无enim.Phasellus molestie麦格纳非EST必比登非</h4>
-	</div>
+	
 </div>
 <div id="topContactInfo">
 	<div class="topContactInfoLeft">
 		<h2>给我们打电话</h2>
-		<p>Nullam in DUI mauris。Vivamus hendrerit arcu SED ERAT molestie vehicula.</p>
-		<h1>184750699843</h1>
+
+		<h1>400-166-0030</h1>
 	</div>
 	<div class="topContactInfoRight">
 		<h2>告诉我们您的需求，我们来联系您</h2>
-		<p>NullaminDUI mauris.Vivamus hendrerit arcu SED ERAT molestie vehicula.</p>
+		
 		<div id="askGroup">
-		    <button type="button" class="btn btn-default contactButton" id="startButton"><p>开始定制</p></button>
+		    <button type="button" class="btn btn-default contactButton" id="startButton"><p>开始</p></button>
 			<div id="askGroupRight">
 		        <h5>我们会问您一系列问题帮助您选择服务和产品</h4>
 			</div>
@@ -982,7 +1367,7 @@ $("#titleIconDiv").on("click", function () {
 <div id="bottomContactInfo">
 	<div id="bottomContactInfoLeft">
 		<h2>在线聊天</h2>
-		<p>桑达auctor预期值,也EU特力rhoncus UT eleifend NIBH porttitor.UT里法无Ë</p>
+		
 		<div id="contactButtonGroup">
 		    <button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
 			<button type="button" class="btn btn-default methodButton contactButton" id="qq">QQ</button>
@@ -1014,10 +1399,12 @@ $("#titleIconDiv").on("click", function () {
 <IFRAME class="detailFrame" width=1170px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
+	
 </body>
+
 <div id="wechatFrame" hidden>
 <h6>微信公众号</h6>
-<img src="/funeral/js/images/erCode.jpg"></img>
+<img src="../js/images/erCode.jpg"></img>
 	</div>
 <script>
 $(function() {
@@ -1054,7 +1441,7 @@ $(function() {
 
 		if (messageValue && messageValue != '') {
 			$.ajax({
-				url: '/funeral/pages/message/add',
+				url: '../pages/message/add',
 				data: data,
 				type: 'post',
 				dataType:'json',
@@ -1079,7 +1466,7 @@ $(function() {
 
 		if (messageValue && messageValue != '') {
 			$.ajax({
-				url: '/funeral/pages/message/add',
+				url: '../pages/message/add',
 				data: data,
 				type: 'post',
 				dataType:'json',
@@ -1093,8 +1480,17 @@ $(function() {
 			});
 		}
 	});
+	$(".startDesignButton").click(function() {
+	    window.location.href='funeralDesignPage.html';
+	});
 	$("#startButton").click(function() {
 	    window.location.href='funeralDesignPage.html';
+	});
+	$(".startPurchseBtn").click(function() {
+	    window.location.href='/funeral/pages/productAndService.html';
+	});
+	$(".cemeteryBtn").click(function() {
+	    window.location.href='/funeral/pages/cemeteryList.html';
 	});
 
 })
@@ -1119,6 +1515,13 @@ window.onload=function(){
 		});
 	});
 };
+$("body").on("click",".singleMember",function() {
+    $(".membersContent").fadeOut();
+	$("#memberDesc4").fadeIn();
+});
+
+
+
 
 </script>
 </html>

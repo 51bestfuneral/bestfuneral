@@ -10,6 +10,8 @@
 <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/funeral/js/util.js"></script>
+
 <style>
     #bottomBar {
 	    width: 100%;
@@ -138,11 +140,11 @@
 <div id="bottomBar">
     <div id="adjustFontDiv">
 	    <span>字体大小</span>
-		<span id="changeSmalls" onClick="zoomInOut('zoom','in')">正常</span>
+		<span id="changeSmalls" onClick="">正常</span>
 		<span>|</span>
-		<span id="changeNormals" onClick="zoomInOut('zoom','out')">大
+		<span id="changeNormals" onClick="">缩小</span>
 		<span>|</span>
-		<span id="changeBigs">特大
+		<span id="changeBigs" onClick="">放大</span>
 	</div>
 <!--	<div id="sloganDiv">
 	    <div class="singleSlogan">

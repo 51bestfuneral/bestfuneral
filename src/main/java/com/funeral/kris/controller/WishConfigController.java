@@ -24,6 +24,8 @@ public class WishConfigController {
 	@RequestMapping(value = "/saveWish", method = RequestMethod.POST)
 	public void saveWish(@RequestBody Wish wish) {
 
+		System.out.println(this.getClass()+ " saveWish=  "+wish);
+		
 		wishService.addResource(wish);
 	}
 	

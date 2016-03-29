@@ -16,6 +16,7 @@
 <script src="/funeral/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="/funeral/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/funeral/js/personal.css" rel="stylesheet">
 
 </head>
 
@@ -25,13 +26,7 @@
 
 
 <style>
-@media (min-width: 900px) {
-  .container {
-    width: 100%;
-	padding: 0px;
-	min-width: 1000px;
-  }
-}
+
 .headerAddtion {
     width: 100%;
 	height: 48px;
@@ -138,7 +133,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <body>
-<div class="container">
+<div class="container" >
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 <div id="line0"></div>
 <div id="link">
@@ -190,12 +185,12 @@ app.controller('wishTypeLevels', function($scope, $http) {
 	
 	
 	
-	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels">
+	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels" ng-cloak>
 		
 		
 		
 		
-	    <div class= "includeDiv">
+	    <div class= "includeDiv1">
 	    <ul class="descRow">
 		    <li class="headerLineLeft">
 			 <p>比较</p>
@@ -221,7 +216,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		
 		
 		
-		  <div class= "includeDiv">
+		  <div class= "includeDiv2">
 	    <ul class="descRow">
 		    <li class="headerLineRight">
 			   			 <p>方案</p>

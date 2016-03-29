@@ -26,154 +26,30 @@
 	<table border="0"  width="100%"> 
 		
 	
-		<tr>
-		
-		 <td>
-			
-			<label >愿望名称&nbsp;</label>
-	
-   <input  type='text'    maxlength="30"  ng-model="wish.wishName"/>
-			
-			</td>
-			
-		 <td>
-			
-			<label >愿望类型&nbsp;</label>
-	
-   <input  type='text'    maxlength="30"  ng-model="wish.wishType"/>
-			
-			</td>	
-			
-			 <td>
-			
-			<label >总类编号&nbsp;</label>
-	
-   <input  type='text'    maxlength="30"  ng-model="wish.generalCode"/>
-			
-			</td>	
-			<td>
-			
-			<label >总类&nbsp;&nbsp;&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.generalCate"/>
-	
-			
-			
-		
-		</tr>
 	
 		
-				
-				<tr> 
-					
-			
-			<td>
-			<label >分类编号&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.subCateCode"/>
 	
-			
-			
-			</td>
-			
-			<td>
-			<label >分类&nbsp;&nbsp;&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.category"/>
-	
-			</td>
-				
-					
-		
-			<td>
-			<label >销售价&nbsp;&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.sellingPrice"/>
-	
-			
-			
-			</td>
-		
-		
-			
-			<td>
-			<label >型号或款式</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.model"/>
-	
-			</td>		
-					
-					
-					</tr>
-					
 					
 					
 						<tr> 
-					
-			
+						
 			<td>
-			<label >供应商&nbsp;&nbsp;</label>
 			
-   <input  type='text'    maxlength="30"  ng-model="wish.supplier"/>
-	
-			
-			
-			</td>
-			
-			<td>
-			<label >网址&nbsp;&nbsp;&nbsp;</label>
-			
-   <input  type='text'    maxlength="100"  ng-model="wish.url"/>
-	
-			</td>
-				
-					
-			<td>
-			<label >单价&nbsp;&nbsp;&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.price"/>
-	
-			
-			
-			</td>
-			
-			<td>
-			<label >采购成本&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.costPrice"/>
-	
-			</td>		
-					
-					
-					</tr>
-					
-					
-						<tr> 
-					
-				<td>
 			<label >产品状态&nbsp;</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.statusId"/>
-	
-			
-			
+	<select   ng-model="wish.statusId"  value={{wish.statusId}}>
+  <option value="1">生效</option>
+  <option value="2">未生效</option>
+  <option value="3">已刪除</option>
+  <option value="4">已過期</option>
+  </select>			
+		
 			</td>
+				
+						<td>	<button id="saveButton" class="nextButton">保存</button>  </td>
+			<td><button id="deleteButton" class="nextButton" ng-click="removeWish()">删除</button> </td>
 		
-		
+		<tr>
 			<td>
-			<label >物品/服务</label>
-			
-   <input  type='text'    maxlength="30"  ng-model="wish.feature"/>
-	
-			
-			
-			</td>
-		
-			
-				<td>
-			<label  >材质&nbsp;&nbsp;&nbsp;</label>
-			
-		<textarea   rows="15" cols="30"  ng-model="wish.material"  ></textarea>
 	
 			 <div id="imgSection">
  	
@@ -204,11 +80,8 @@
          </form>  
      </div> 
 
-			
 			</td>
-				
-						<td>	<button id="saveButton" class="nextButton">保存</button>  </td>
-			<td><button id="deleteButton" class="nextButton" ng-click="removeWish()">删除</button> </td>
+		<td><img  height="200" width="200"  title="預覽圖"  src={{wish.imgUrl}}></td>
 			
 		</tr>
 					
@@ -216,6 +89,41 @@
 	
 </table>
 		
+<tr>
+
+ <div id="imgSection">
+ 	
+ 	  <form name="form" action='/funeral/productConfiguration/upload' method="POST" enctype="multipart/form-data">  
+
+        <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>通過導入excel來上傳產品（名称只能是数字或者字母或下划线）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadDescriptionImg"  
+                            onclick="return uploadUnitImage();"   >上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+       
+       
+      
+         </form>  
+     </div> 
+
+	</tr>
+	
+	
+	
 	
 </contentSection>
 	
@@ -345,7 +253,8 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
     
 				$http.get("/funeral/wishConfig/listById?id="+vid).success(function(response) {
 	       $scope.wish = response;
-	     
+	       	    var data = JSON.stringify($scope.wish);
+	       
 	       
 			})
 
@@ -368,10 +277,11 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	 	
 	 	$("#saveButton").click(function() {
 	    var datadata = JSON.stringify($scope.wish);
+	    
 	    $http({
             method: "POST",
             url:"/funeral/wishConfig/saveWish",
-            data: datadata,
+            data: $scope.wish,
 			headers: {
                 'Content-Type': 'application/json'
             },

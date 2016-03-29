@@ -21,10 +21,20 @@ public class Cemetery {
 	@Column(name = "cemetery_name")
 	private String cemeteryName;
 
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+
 	@Column(name = "cemetery_desc")
 	private String cemeteryDesc;
 	@Column(name = "traffic_Info")
 	private String trafficInfo;
+	@Column(name = "head_img")
+	private String headImg;
 
 	
 

@@ -280,7 +280,7 @@ public class CemeteryController {
 			bean.setTrafficInfo(cemetery.getTrafficInfo());
 
 			String css = cssList.get(index++);
-
+			bean.setDescImgUrl(cemetery.getDescImgUrl());
 			bean.setCss(css);
 			String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
 			bean.setStyle(style);

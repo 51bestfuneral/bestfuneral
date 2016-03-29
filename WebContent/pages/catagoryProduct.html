@@ -563,17 +563,17 @@ app.controller('catagory', function($scope, $http) {
 		    <p>首页</p>
 		</div>
 	</div>
-	<div class="filterIcon {{cata.selected}}" id="{{cata.cataId}}" ng-repeat="cata in catas">
+	<div class="filterIcon {{cata.selected}}" id="{{cata.cataId}}" ng-repeat="cata in catas"  ng-cloak>
 	    <div class="imageHalf">
 		   <img class="fakeImg"></img>
 		   <img src="{{cata.cataPic}}"></img>
 		</div>
-		<div class="textHalf">
+		<div class="textHalf" ng-cloak>
 		    <p>{{cata.cataName}}</p>
 		</div>
 	</div>
 </div>
-<div id="catagoryProduct">
+<div id="catagoryProduct" ng-cloak>
     <div>
 	    <h1>{{cataName}}</h1>
 	</div>
