@@ -210,7 +210,7 @@ public class AnswerController {
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
 				detail.setPrice(Double.parseDouble(randomWish.getSellingPrice().toString()));
-				detail.setOriginalPrice(randomWish.getCostPrice());
+				detail.setOriginalPrice(randomWish.getProcurementCost());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wishType);
@@ -218,7 +218,7 @@ public class AnswerController {
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
 				totalPrice = totalPrice + detail.getPrice();
-				totalOriginalPrice = totalOriginalPrice.add(randomWish.getCostPrice());
+				totalOriginalPrice = totalOriginalPrice.add(randomWish.getProcurementCost());
 			}
 		}
 		wishList.setPrice(totalPrice);
@@ -267,7 +267,7 @@ public class AnswerController {
 			for (Wish wish: wishs) {
 				WishlistDetail detail = new WishlistDetail();
 				detail.setWishId(wish.getWishId());
-				detail.setPrice(wish.getPrice());
+				detail.setPrice(wish.getSellingPrice().doubleValue());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wish.getWishType());
@@ -275,7 +275,7 @@ public class AnswerController {
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
 				totalPrice = totalPrice + detail.getPrice();
-				totalOriginalPrice = totalOriginalPrice.add(wish.getCostPrice());
+				totalOriginalPrice = totalOriginalPrice.add(new BigDecimal(detail.getPrice()));
 			}
 		}
 		wishList.setPrice(wishList.getPrice()+totalPrice);

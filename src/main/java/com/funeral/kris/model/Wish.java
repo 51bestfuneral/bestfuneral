@@ -10,15 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="wishs")
+@Table(name = "wishs")
 public class Wish {
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name="wish_id")
+	@Column(name = "wish_id")
 	private Integer wishId;
-	@Column(name="status_id")
+	@Column(name = "status_id")
 	private Integer statusId;
+
 	public Integer getPurchaseTime() {
 		return purchaseTime;
 	}
@@ -27,11 +28,10 @@ public class Wish {
 		this.purchaseTime = purchaseTime;
 	}
 
-	@Column(name="purchase_time")
+	@Column(name = "purchase_time")
 	private Integer purchaseTime;
-	
-	
-public Integer getStatusId() {
+
+	public Integer getStatusId() {
 		return statusId;
 	}
 
@@ -39,18 +39,52 @@ public Integer getStatusId() {
 		this.statusId = statusId;
 	}
 
-	@Column(name="general_code")
+	@Column(name = "general_code")
 	private String generalCode;
+	@Column(name = "wish_type")
+	private String wishType;
 
-	@Column(name="general_cate")
+	@Column(name = "general_cate")
 	private String generalCate;
 
-	@Column(name="sub_cate_code")
+	public String getWishType() {
+		return wishType;
+	}
+
+	public void setWishType(String wishType) {
+		this.wishType = wishType;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(String supplier) {
+		this.supplier = supplier;
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+
+	@Column(name = "sub_cate_code")
 	private String subCateCode;
-	@Column(name="size")
+	@Column(name = "size")
 	private String size;
-	
-public String getImgUrl() {
+
+	public String getImgUrl() {
 		return ImgUrl;
 	}
 
@@ -58,18 +92,18 @@ public String getImgUrl() {
 		ImgUrl = imgUrl;
 	}
 
-	@Column(name="sub_category")
+	@Column(name = "sub_category")
 	private String subCategory;
-	@Column(name="img_url")
+	@Column(name = "img_url")
 	private String ImgUrl;
-	
-	@Column(name="material")
+
+	@Column(name = "material")
 	private String material;
 
-	@Column(name="wish_Name")
+	@Column(name = "wish_Name")
 	private String wishName;
 
-    public String getGeneralCode() {
+	public String getGeneralCode() {
 		return generalCode;
 	}
 
@@ -93,8 +127,6 @@ public String getImgUrl() {
 		this.subCateCode = subCateCode;
 	}
 
-	
-
 	public String getMaterial() {
 		return material;
 	}
@@ -111,32 +143,6 @@ public String getImgUrl() {
 		this.material = material;
 	}
 
-	public Integer getModel() {
-		return model;
-	}
-
-	public void setModel(Integer model) {
-		this.model = model;
-	}
-
-	public Integer getSupplier() {
-		return supplier;
-	}
-
-	public void setSupplier(Integer supplier) {
-		this.supplier = supplier;
-	}
-
-	public Integer getUnit() {
-		return unit;
-	}
-
-	public void setUnit(Integer unit) {
-		this.unit = unit;
-	}
-
-	
-
 	public BigDecimal getSellingPrice() {
 		return sellingPrice;
 	}
@@ -145,18 +151,11 @@ public String getImgUrl() {
 		this.sellingPrice = sellingPrice;
 	}
 
-	@Column(name="model")
+	@Column(name = "model")
 	private String model;
+
 	public String getSize() {
 		return size;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
 	}
 
 	public void setSize(String size) {
@@ -283,8 +282,6 @@ public String getImgUrl() {
 		this.xianenPrice = xianenPrice;
 	}
 
-	
-
 	public BigDecimal getXiangheTotalPrice() {
 		return xiangheTotalPrice;
 	}
@@ -292,8 +289,6 @@ public String getImgUrl() {
 	public void setXiangheTotalPrice(BigDecimal xiangheTotalPrice) {
 		this.xiangheTotalPrice = xiangheTotalPrice;
 	}
-
-	
 
 	public BigDecimal getKaimoFee() {
 		return kaimoFee;
@@ -423,110 +418,100 @@ public String getImgUrl() {
 		this.procurementCost = procurementCost;
 	}
 
-	@Column(name="kaimo_time")
+	@Column(name = "kaimo_time")
 	private int kaimoTime;
-	
-//	供应商
-	@Column(name="supplier")
-	private String supplier;
-	
-	
-//	单位
-	@Column(name="unit")
-	private String unit;
-	
-	
 
-	@Column(name="other_feeA")
+	// 供应商
+	@Column(name = "supplier")
+	private String supplier;
+
+	// 单位
+	@Column(name = "unit")
+	private String unit;
+
+	@Column(name = "other_feeA")
 	private BigDecimal otherFeeA;
-	@Column(name="other_feeB")
+	@Column(name = "other_feeB")
 	private BigDecimal otherFeeB;
-	@Column(name="other_feeC")
+	@Column(name = "other_feeC")
 	private BigDecimal otherFeeC;
-	@Column(name="book_price1")
+	@Column(name = "book_price1")
 	private BigDecimal bookPrice1;
-	@Column(name="book_count1")
+	@Column(name = "book_count1")
 	private Integer bookCount1;
-	@Column(name="book_price2")
+	@Column(name = "book_price2")
 	private BigDecimal bookPrice2;
-	@Column(name="book_count2")
+	@Column(name = "book_count2")
 	private Integer bookCount2;
-	@Column(name="book_price3")
+	@Column(name = "book_price3")
 	private BigDecimal bookPrice3;
-	@Column(name="book_count3")
+	@Column(name = "book_count3")
 	private Integer bookCount3;
-	@Column(name="purchase_capacity")
+	@Column(name = "purchase_capacity")
 	private Integer purchaseCapacity;
-	@Column(name="return_count")
+	@Column(name = "return_count")
 	private Integer returnCount;
-	@Column(name="sales_volume")
+	@Column(name = "sales_volume")
 	private Integer salesVolume;
-	
-	
-//  销售价	
-	@Column(name="selling_price")
+
+	// 销售价
+	@Column(name = "selling_price")
 	private BigDecimal sellingPrice;
 
-	@Column(name="xianen_price")
+	@Column(name = "xianen_price")
 	private BigDecimal xianenPrice;
-	@Column(name="xianen_diff_price")
+	@Column(name = "xianen_diff_price")
 	private String xianenDiffPrice;
-	@Column(name="xianghe_total_price")
+	@Column(name = "xianghe_total_price")
 	private BigDecimal xiangheTotalPrice;
-	@Column(name="xianghe_diff_price")
+	@Column(name = "xianghe_diff_price")
 	private String xiangheDiffPrice;
-	@Column(name="kaimo_fee")
+	@Column(name = "kaimo_fee")
 	private BigDecimal kaimoFee;
-	@Column(name="sales_income")
+	@Column(name = "sales_income")
 	private BigDecimal salesIncome;
-	@Column(name="total_procurement_cost")
+	@Column(name = "total_procurement_cost")
 	private BigDecimal totalProcurementCost;
-	@Column(name="commission_rate")
+	@Column(name = "commission_rate")
 	private BigDecimal commissionRate;
-	@Column(name="commission")
+	@Column(name = "commission")
 	private BigDecimal commission;
-	@Column(name="bad_debt")
+	@Column(name = "bad_debt")
 	private BigDecimal badDebt;
-	@Column(name="gross_profit")
+	@Column(name = "gross_profit")
 	private BigDecimal grossProfit;
-	@Column(name="holding_cost")
+	@Column(name = "holding_cost")
 	private BigDecimal holdingCost;
-	@Column(name="net_profit")
+	@Column(name = "net_profit")
 	private BigDecimal netProfit;
-	@Column(name="profit_loss_rate")
+	@Column(name = "profit_loss_rate")
 	private BigDecimal profitLossRate;
-	@Column(name="holding_count")
+	@Column(name = "holding_count")
 	private Integer holdingCount;
-	@Column(name="sales_channel")
+	@Column(name = "sales_channel")
 	private Integer salesChannel;
-	@Column(name="operator_id")
+	@Column(name = "operator_id")
 	private Integer operator_id;
-	
 
-	
-	@Column(name="remark")
+	@Column(name = "remark")
 	private String remark;
-	
 
-	@Column(name="procurement_cost")
+	@Column(name = "procurement_cost")
 	private BigDecimal procurementCost;
-	
-	
-	
-	@Column(name="wish_desc")
+
+	@Column(name = "wish_desc")
 	private String wishDesc;
-	
-	@Column(name="url")
+
+	@Column(name = "url")
 	private String url;
-	
-	@Column(name="createdate")
+
+	@Column(name = "createdate")
 	private Date createDate;
-	
-	@Column(name="feature")
+
+	@Column(name = "feature")
 	private Integer feature;
-	
-	
-	@Column(name="updateddate")
+
+	@Column(name = "updateddate")
 	private Date updatedDate;
 
 	public Integer getWishId() {
@@ -544,9 +529,6 @@ public String getImgUrl() {
 	public void setWishName(String wishName) {
 		this.wishName = wishName;
 	}
-	
-
-	
 
 	public String getWishDesc() {
 		return wishDesc;
@@ -588,5 +570,4 @@ public String getImgUrl() {
 		this.feature = feature;
 	}
 
-	
 }

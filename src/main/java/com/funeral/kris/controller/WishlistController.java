@@ -182,8 +182,8 @@ public class WishlistController {
 				randomIndex = random.nextInt(wishs.size());
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
-				detail.setPrice(randomWish.getPrice());
-				detail.setOriginalPrice(randomWish.getCostPrice());
+				detail.setPrice(randomWish.getSellingPrice().doubleValue());
+				detail.setOriginalPrice(randomWish.getProcurementCost());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wishType);
@@ -191,7 +191,7 @@ public class WishlistController {
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
 				totalPrice = totalPrice + detail.getPrice();
-				originalPrice = originalPrice.add(randomWish.getCostPrice());
+				originalPrice = originalPrice.add(randomWish.getProcurementCost());
 			}
 		}
 		wishList.setPrice(totalPrice);

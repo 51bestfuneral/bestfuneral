@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS wishs;
 CREATE TABLE wishs (  
   wish_id integer NOT NULL AUTO_INCREMENT,  
   wish_name varchar(200) ,
+  wish_type varchar(20) ,
   status_id integer default 0,
   feature integer default 0,
   general_code varchar(20),
