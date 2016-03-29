@@ -8,16 +8,12 @@
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="/funeral/js/personal.css" rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <style>
-@media (min-width: 900px) {
-  .container {
-    width: 1384px;
-	padding: 0px;
-	min-width: 1000px;
-  }
-}
+
 .topBarDiv {
     box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 	height: 65px;
@@ -125,10 +121,9 @@ p {
 }
 </style>
 <body onselectstart="return false">
-<div class="topBarDiv">
-    <IFRAME NAME="content_frame" width="100%" SRC="component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
-</div>
-<div class="container">
+
+<div class="container" >
+  <IFRAME NAME="content_frame" width="100%" SRC="component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 <div id="mainPage">
 <div id="leftTabContent">
     <div class="tabTitle">
@@ -163,11 +158,11 @@ p {
 	</div>
 	<div class="taocanDiv">
 	    <p class="taocaoDiv">基础套餐</p>
-		<p class="priceDiv">￥0</p>
+		<p class="priceDiv">￥<span id="totalPrice">0<span></p>
 	</div>
 	<div class="taocanDiv">
 	    <p class="taocaoDiv">节省金额</p>
-		<p class="priceDiv">￥<span id="totalPrice">0<span></p>
+		<p class="priceDiv">￥<span id="totalSavedPrice">0<span></p>
 	</div>
 </div>
 <div id="rightContent">
@@ -185,9 +180,11 @@ p {
 </body>
 <script type="text/javascript" language="javascript">
 var wishList = [],
+    wishIdList = [],
     originalWishlist = [],
     userId = 123,
-	wishlistId;
+	wishlistId,
+    level;
 function iFrameHeight(idx) {
     var height = $($('.questionFrame')[idx]).contents().find('#productMain')[0].offsetHeight;
 	$($('.questionFrame')[idx]).css({
@@ -208,28 +205,51 @@ function flowToIndex(idx) {
 		height: height
 	});
 }
-function updatePrice(price, operator) {
+function updatePrice(price, totalSavedPrice, operator) {
     var currentPrice = parseInt($("#totalPrice")[0].innerText, 10),
-        changedPrice;
+        currentSavedPrice = parseFloat($("#totalSavedPrice")[0].innerText),
+        changedPrice,
+		changedSavedPrice;
     if (operator === '+') {
         changedPrice = currentPrice + price;
+		changedSavedPrice = currentSavedPrice + totalSavedPrice;
     }
     else {
         changedPrice = price;
+		changedSavedPrice = totalSavedPrice;
     }
     $("#totalPrice").hide();
-    $("#totalPrice")[0].innerText = changedPrice;
-    $("#totalPrice").fadeIn();
+	$("#totalSavedPrice").hide();
+
+	if (changedPrice != null && changedPrice != undefined) {
+        $("#totalPrice")[0].innerText = changedPrice;
+	}
+	
+	if (changedSavedPrice != null && changedSavedPrice != undefined) {
+        $("#totalSavedPrice")[0].innerText = changedSavedPrice;
+	}
+	$("#totalPrice").fadeIn();
+    $("#totalSavedPrice").fadeIn();
 }
-function drillIntoNextTab(nextTab) {
+function drillIntoNextTab(nextTab, needReload) {
     if (nextTab[0].id === 'productAndService') {
-	    $($(".questionFrame")[2]).attr("src","component/product.html");
+        if (needReload === 0 && $($('.questionFrame')[2]).contents().find('#productMain').length > 0) {
+            flowToIndex(2);
+        }
+        else {
+	        $($(".questionFrame")[2]).attr("src","component/product.html");
+        }
 	}
 	else if (nextTab[0].id === 'basicInfo') {
 		flowToIndex(0);
 	}
 	else if (nextTab[0].id === 'wishList') {
-		$($(".questionFrame")[3]).attr("src","component/wishList.html");
+        if (needReload === 0 && $($('.questionFrame')[3]).contents().find('#productMain').length > 0) {
+            flowToIndex(3);
+        }
+        else {
+		    $($(".questionFrame")[3]).attr("src","component/wishList.html");
+        }
 	}
 	else if (nextTab[0].id === 'story') {
 		flowToIndex(1);
@@ -243,12 +263,19 @@ function updateWishList(nextTab) {
 	    type: 'GET',
 		success:function(data){
 		    var totalPrice = 0;
+			var totalSavedPrice = 0;
 			wishList = data;
 			for (var i=0;i<data.length;i++) {
 			    totalPrice = totalPrice + data[i].price;
-				originalWishlist.push(data[i]);
+				totalSavedPrice = totalSavedPrice + (data[i].price - data[i].originalPrice)
+				originalWishlist.push({
+                    wishId: data[i].wishId
+                });
+                wishIdList.push({
+                    wishId: data[i].wishId
+                });
 			}
-			updatePrice(totalPrice);
+			updatePrice(totalPrice, totalSavedPrice);
 			if (nextTab) {
 			    drillIntoNextTab(nextTab);
 			}
@@ -264,6 +291,7 @@ function getOrGenerateWishId() {
 	    type: 'GET',
 		success:function(data){
 			wishlistId = data[0].wishlistId;
+            level = data[0].level;
 			updateWishList();
 		},
 		error: function(error) {
@@ -272,36 +300,29 @@ function getOrGenerateWishId() {
     });
 }
 function compareWishlist() {
-    if (originalWishlist.length !== wishList.length) {
+    if (originalWishlist.length !== wishIdList.length) {
 	    return true;
 	}
 	else {
-	    return !(originalWishlist.sort().toString() === wishList.sort().toString());
+	    return !(originalWishlist.sort().toString() === wishIdList.sort().toString());
 	}
 }
 function saveWishlist(nextTab) {
     if (compareWishlist()) {
-        var finalItems = [];
-	    for (var i=0;i<wishList.length;i++) {
-		    var singleItem = wishList[i],
-			    finalItem = {};
-			
-			finalItem.wishId = singleItem.wishId;
-			finalItem.price = parseInt(singleItem.price, 10);
-			finalItem.wishDesc = singleItem.wishDesc;
-			finalItems.push(finalItem);
-		}
 	    $.ajax({
 		    url: '/funeral/wishlistDetail/add?wishlistId='+parent.wishlistId,
 			type: 'POST',
 			contentType: "application/json; charset=UTF-8",
 			dataType:'json',
-			data: JSON.stringify(finalItems),
+			data: JSON.stringify(wishIdList),
 			success:function(data){
+                wishList = data;
 				drillIntoNextTab(nextTab);
 				originalWishlist = [];
 				for (var i=0;i<wishList.length;i++) {
-				    originalWishlist.push(wishList[i]);
+                    originalWishlist.push({
+                        wishId: wishList[i].wishId
+                    });
 				}
 		    },
 			error: function(error) {
@@ -310,7 +331,7 @@ function saveWishlist(nextTab) {
 		});
 	}
 	else if (nextTab){
-	    drillIntoNextTab(nextTab);
+	    drillIntoNextTab(nextTab, 0);
 	}
 }
 function saveProductFrameChange(nextTab) {
@@ -320,13 +341,11 @@ function saveProductFrameChange(nextTab) {
 
 	selectElements.each(function() {
 		var product = {
-			wishId: $(this)[0].id,
-			price: $(this).find('.detail').find('span')[0].innerText,
-			wishName: $(this).find('.header')[0].innerText
+			wishId: $(this)[0].id
 		};
 		selectedItemList.push(product);
 	});
-	wishList = selectedItemList;
+	wishIdList = selectedItemList;
 	saveWishlist(nextTab);
 }
 function nextTab() {

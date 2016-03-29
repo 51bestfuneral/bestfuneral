@@ -169,6 +169,21 @@
 		font-size: 6px;
 		line-height: 16px;
 	}
+	
+	.inputStyle{
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid   #979797;
+height:40px;
+outline:none;		
+padding-right:0px;
+font-weight:100;
+color:#707070; 
+font-family: STHeitiSC-Medium;
+font-size:40px;
+
+		}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
@@ -221,7 +236,7 @@ app.controller('products', function($scope, $http) {
 });
 </script>
 <body ng-app="productApp" ng-controller="products" onselectstart="return false">
-<div id="productMain">
+<div id="productMain"  ng-cloak>
 <div id="tabCarousel" class="carousel slide">
 <div class="carousel-inner">
     <div class="item active" alt="First slide">
@@ -247,18 +262,18 @@ app.controller('products', function($scope, $http) {
 	</div>
 	<div class="questionArea">
 		<span>我今年</span>
-		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none;">
-		    <option default></option>
-			<option ng-repeat="age in ages">{{age.ageNumber}}</option>
-		</select>
+		   <input type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
+		   
+			
+		
 		<span>岁，现在</span>
-		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none;">
+		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;">
 		    <option default></option>
 			<option>已退休</option>
 			<option>在工作</option>
 		</select>
 		<span>。家住上海</span>
-		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none;">
+		<select   style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none;">
 		    <option default></option>
 			<option>长宁区</option>
 			<option>黄浦区</option>

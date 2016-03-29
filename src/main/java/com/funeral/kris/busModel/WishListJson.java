@@ -1,5 +1,7 @@
 package com.funeral.kris.busModel;
 
+import java.math.BigDecimal;
+
 public class WishListJson {
 	private String wishName;
 	private String wishDesc;
@@ -9,6 +11,7 @@ public class WishListJson {
 	private String imageUrl;
 	private Integer wishDetailId;
 	private Integer wishlistId;
+	private BigDecimal originalPrice;
 
 	public String getWishName() {
 		return wishName;
@@ -57,6 +60,12 @@ public class WishListJson {
 	}
 	public void setWishlistId(Integer wishlistId) {
 		this.wishlistId = wishlistId;
+	}
+	public BigDecimal getOriginalPrice() {
+		return originalPrice;
+	}
+	public void setOriginalPrice(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
 	}
 	
 }

@@ -11,8 +11,15 @@
 <script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
-
+<link rel="stylesheet" type="text/css" href="/funeral/js/simditor-1.0.5/styles/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="/funeral/js/simditor-1.0.5/styles/simditor.css" />
+    <script type="text/javascript" src="/funeral/pages/html/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/funeral/js/simditor-1.0.5/scripts/js/module.js"></script>
+    <script type="text/javascript" src="/funeral/js/simditor-1.0.5/scripts/js/uploader.js"></script>
+    <script type="text/javascript" src="/funeral/js/simditor-1.0.5/scripts/js/simditor.js"></script>
 </head>
+ 
+
 
 <script>
 	
@@ -277,6 +284,8 @@ id = location.search.substring(4, length);
 	 	
 	 	$("#saveButton").click(function() {
 	    var datadata = JSON.stringify($scope.currentCemetery);
+	    datadata.feature=$("#feature1")[0].innerHTML;
+	   	    
 	    $http({
             method: "POST",
             url:"/funeral/cemetery/add",
@@ -325,7 +334,11 @@ function uploadUnitImage()  {
 
 	</script>
 
-
+<!--<script type="text/javascript">
+    var editor = new Simditor({
+      textarea: $('#editor')
+    });
+  </script>-->
 <body ng-app="myApp" ng-controller="cemetery">
 <header>
 <ul id="nav">
@@ -352,7 +365,7 @@ function uploadUnitImage()  {
 			
 			<label >市场均价</label>
 	
-   <input  type='text'    maxlength="20"  ng-model="currentCemetery.price"/>
+   <input  type='text'    maxlength="20"  ng-model="currentCemetery.price" placeholder="必须是数字"/>
 			
 			</td>	
 			
@@ -369,24 +382,31 @@ function uploadUnitImage()  {
 			
 			<label >简介</label>
 			
-		<textarea   rows="15" cols="30"  ng-model="currentCemetery.cemeteryDesc" ></textarea>
+	<!--	<textarea  id="editor"    placeholder="这里输入内容" autofocus   ng-model="currentCemetery.cemeteryDesc" ></textarea>-->
 	
-			
+			 <textarea id="editor"  placeholder="这里输入内容" ></textarea>
 			
 			</td>
 			<td>
 			<label >特色</label>
 			
-		<textarea   rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>
+		<textarea  id="feature1" rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>
 	
 			
 			
 			</td>
 			
 			<td>
-			<label >交通</label>
+			<label >交通信息</label>
 			
 		<textarea   rows="15" cols="30"  ng-model="currentCemetery.trafficInfo" ></textarea>
+	
+			</td>
+			
+			<td>
+			<label >详细地址</label>
+			
+		<textarea   rows="15" cols="30"  ng-model="currentCemetery.address" ></textarea>
 	
 			</td>
 		</tr>
@@ -424,7 +444,26 @@ function uploadUnitImage()  {
         <table class="tableForm">  
             <thead>  
                 <tr>  
-                    <th>上传简介图片（图片名称只能是数字或者字母或下划线）</th>  
+                    <th>上传墓地顶部图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：380px 宽度不低于：1349px）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadDescriptionImg"  
+                            onclick="return uploadUnitImage();" ng-click="updateSelection('uploadHeadImg')"  >上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+        <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传简介图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
                 </tr>  
             </thead>  
             <tbody>  
@@ -445,7 +484,7 @@ function uploadUnitImage()  {
         <table class="tableForm">  
             <thead>  
                 <tr>  
-                    <th>上传特色图片（图片名称只能是数字或者字母或下划线）</th>  
+                    <th>上传特色图片 （图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
                 </tr>  
             </thead>  
             <tbody>  
@@ -466,7 +505,7 @@ function uploadUnitImage()  {
           <table class="tableForm">  
             <thead>  
                 <tr>  
-                    <th>上传交通图片（图片名称只能是数字或者字母或下划线）</th>  
+                    <th>上传交通图片 （图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
                 </tr>  
             </thead>  
             <tbody>  
@@ -488,7 +527,7 @@ function uploadUnitImage()  {
             <table class="tableForm">  
             <thead>  
                 <tr>  
-                    <th>上传更多图片（图片名称只能是数字或者字母或下划线）</th>  
+                    <th>上传更多图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
                 </tr>  
             </thead>  
             <tbody>  
@@ -708,6 +747,9 @@ function uploadUnitImage()  {
 	
 	
 	
+	
+	
+	
 		<style>
 	
 	
@@ -880,4 +922,6 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
    } 
 		
 	</style>
+	
+	
 </html>

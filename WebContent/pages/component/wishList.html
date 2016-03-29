@@ -205,7 +205,8 @@ app.controller('products', function($scope, $http) {
 			</div>
 			<div class="wishNameCoat">
 			    <p class="wishName">{{tab.wishName}}</p>
-				<p class="wishDesc">{{tab.price}}</p>
+				<p class="wishDesc itemPrice">{{tab.price}}</p>
+                <p class="itemOriginalPrice" hidden>{{tab.originalPrice}}</p>
 			</div>
 			<div class="operatorCoat">
 			    <p>删除</p>
@@ -245,10 +246,8 @@ function saveWishList() {
 	    for (var i=0;i<wishList.length;i++) {
 		    var singleItem = wishList[i],
 			    finalItem = {};
-			
+
 			finalItem.wishId = singleItem.wishId;
-			finalItem.price = parseInt(singleItem.price, 10);
-			finalItem.wishDesc = singleItem.wishDesc;
 			finalItems.push(finalItem);
 		}
 	    $.ajax({
@@ -260,7 +259,9 @@ function saveWishList() {
 			success:function(data){
 			    parent.originalWishlist = [];
 			    for (var i=0;i<data.length;i++) {
-					parent.originalWishlist.push(data[i]);
+					parent.originalWishlist.push({
+                        wishId: data[i].wishId
+                    });
 				}
 			    parent.wishList = wishList;
 				parent.flowToIndex(4);
@@ -326,13 +327,15 @@ $(document.body).on("click",".productTab", function( event ) {
 });
 $(document.body).on("click",".operatorCoat p", function( event ) {
 	if(window.confirm('你确定要删除这一项吗？')){
+        var itemPrice = parseFloat($(this).closest('.wishItem').find('.itemPrice')[0].innerText),
+            itemOriginalPrice = parseFloat($(this).closest('.wishItem').find('.itemOriginalPrice')[0].innerText);
         $(this).closest('.wishItem').fadeOut();
-		for (var i=0;i<wishList.length;i++) {
-		    var oriWish = wishList[i];
+		for (var i=0;i<parent.wishIdList.length;i++) {
+		    var oriWish = parent.wishIdList[i];
 
 			if (parseInt(oriWish.wishId, 10) === parseInt($(this).closest('.wishItem')[0].id, 10)) {
-			    wishList.splice(i, 1);
-				parent.updatePrice(0-oriWish.price,'+');
+			    parent.wishIdList.splice(i, 1);
+				parent.updatePrice(0-itemPrice, itemOriginalPrice - itemPrice, '+');
 			}
 		}
 		setTimeout(function() {

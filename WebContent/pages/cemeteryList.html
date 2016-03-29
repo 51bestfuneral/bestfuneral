@@ -17,17 +17,10 @@
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="/funeral/js/personal.css" rel="stylesheet">
+
 <style>
-@media (min-width: 900px) {
-  .container {
-    width: 100%;
-	padding: 0px;
-	min-width: 1000px;
-  }
-}
-p {
-    margin: 0px;
-}
+
 #mainHeader {
     width: 100%;
 	height: 402px;
@@ -115,15 +108,16 @@ p {
     margin-bottom: 42px;
 	height: 370px;
 	float: left;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: #ffffff;
 	text-align: center;
 	cursor:pointer;
 	overflow: hidden;
 }
 .cemeteryDiv img {
-  
+ max-width:714px;_width:expression(this.width > 714 ? "714px" : 100%);
   height: 100%;
-  width: 100%;
+  width: 100%; 
+ 
 }
 
 .cemeteryDiv p {
@@ -157,7 +151,7 @@ p {
 
 </script>
 <body ng-app="myApp" ng-controller="cemetery">
-<div class="container">
+<div class="container" ng-cloak>
 	<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
 
 <div class="topBarDiv">
@@ -177,8 +171,10 @@ p {
 		<h1>墓园</h1>
 	</div>
 	<div class="listContent">
-	    <div  ng-click="gotodetails(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}} style={{bean.style}} ng-repeat=" bean in  cemeteryBeans">
-		    <h1>{{bean.cemeteryName}}</h1>
+	    <div  ng-click="gotodetails(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans">
+		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
+		 <img  src={{bean.descImgUrl}}></img>
+		  
 		</div>
 		
 		

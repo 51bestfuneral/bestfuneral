@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -33,11 +34,17 @@ public class Wishlist {
 	@Column(name="status")
 	private String status;
 	
+	@Column(name="level")
+	private Integer level;
+	
 	@Column(name="createdate")
 	private Date createDate;
 	
 	@Column(name="updateddate")
 	private Date updatedDate;
+
+	@Column(name="original_price")
+	private BigDecimal originalPirce;
 
 	public Integer getWishlistId() {
 		return wishlistId;
@@ -103,5 +110,20 @@ public class Wishlist {
 		this.userId = userId;
 	}
 
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public BigDecimal getOriginalPirce() {
+		return originalPirce;
+	}
+
+	public void setOriginalPirce(BigDecimal originalPirce) {
+		this.originalPirce = originalPirce;
+	}
 }
 

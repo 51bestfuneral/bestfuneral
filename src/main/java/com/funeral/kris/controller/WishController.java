@@ -49,6 +49,8 @@ public class WishController {
 
 		List<Wish> wishs = wishService.getResources(request);
 		modelAndView.addObject("wishs", wishs);
+		
+		
 
 		return wishs;
 	}
