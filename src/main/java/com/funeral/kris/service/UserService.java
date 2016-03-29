@@ -15,4 +15,5 @@ public interface UserService {
 	public Integer checkLogin(String account,String pwd);
 	public User getByPhone(String phoneNumber);
 	public User getByEmail(String email) ;
+	public User getByAccount(String account);
 }

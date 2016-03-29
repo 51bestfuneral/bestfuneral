@@ -1,20 +1,125 @@
 package com.funeral.kris.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.funeral.kris.model.Order;
+import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.AlipayService;
+import com.funeral.kris.service.OrderService;
+import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
-import javax.servlet.ServletRequest;
 
 @Controller
 @RequestMapping(value = "/alipay")
 public class AlipayController {
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private WishlistService wishlistService;
+	
+	@ResponseBody
+	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
+	public Order  createOrder(ServletRequest request) {
+		int userId=14;
+		
+		List<Order> list=orderService.getResources();
+		
+		int index=0;
+		
+		if(list==null){
+			
+			index=1;
+			
+		}else{
+			
+			Iterator iterator=	list.iterator();
+			
+			while(iterator.hasNext()){
+				
+				Order order=(Order) iterator.next();
+				
+				if(order.getUserId().intValue()==userId){
+					
+					index=index+1;
+				}
+				
+				
+			}
+	
+			
+			
+		}
+		
+		
+		
+		
+		
+		Order order=orderService.getByUserId(userId);
+		
+		List<Wishlist> wishlist =wishlistService.getResources();
 
+		Iterator iterator=  	wishlist.iterator();
+		
+		Wishlist wishs	=new Wishlist();
+		
+		
+		while(iterator.hasNext()){
+			
+			 wishs	=(Wishlist) iterator.next();
+			
+			if(wishs.getUserId().intValue()==userId){
+				
+				break;
+				
+			}
+			
+		}
+		
+		
+		
+		if(order!=null&&order.getStatusId().intValue()!=AlipayUtil.completed){
+			order.setPayableAmount(new BigDecimal(wishs.getPrice()));
+		}else{
+			
+			order=new Order();
+			order.setUserId(userId);
+			order.setOrderNo(AlipayUtil.generateTradeNo(userId,index));
+			order.setSubject(wishs.getComment());
+			order.setPayableAmount(new BigDecimal(wishs.getPrice()));
+			order.setStatusId(1);
+			orderService.addResource(order);
+			
+		}
+		
+		
+		
+		return order;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/getTradeNo", method = RequestMethod.GET)
+	public String createOrder() {
+	
+		
+		
+		
+	return	AlipayUtil.generateTradeNo(14,1)	;
+	
+	}
+	
+	
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String pay(ServletRequest request) {
 		

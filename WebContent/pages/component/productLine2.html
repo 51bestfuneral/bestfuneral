@@ -226,7 +226,7 @@ var filter = location.search,
 	usrId = 1;
 
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/bestfuneral/wish/list"+filter).success(function(response) {
+	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 3,

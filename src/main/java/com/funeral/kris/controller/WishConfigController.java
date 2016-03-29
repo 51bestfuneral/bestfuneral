@@ -13,21 +13,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.service.WishService;
+import com.funeral.kris.service.WishTypeService;
+import com.funeral.kris.service.WishlistDetailService;
+import com.funeral.kris.service.WishlistService;
 
 @Controller
 @RequestMapping(value = "/wishConfig")
 public class WishConfigController {
 	@Autowired
 	private WishService wishService;
-
-	@ResponseBody
-	@RequestMapping(value = "/saveWish", method = RequestMethod.POST)
-	public void saveWish(@RequestBody Wish wish) {
-
-		System.out.println(this.getClass()+ " saveWish=  "+wish);
-		
-		wishService.addResource(wish);
-	}
+	@Autowired
+	private WishlistService wishlistService;
+	@Autowired
+	private WishTypeService wishTypeService;
+	@Autowired
+	private WishlistDetailService wishlistDetailService;
+	
+	
+	
 	
 	
 

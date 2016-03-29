@@ -159,8 +159,13 @@
 	cursor: pointer;
 }
 .itemImg:hover {
-    border: 1px solid #ff5274;
+    border: 0px solid #ff5274;
 }
+
+.itemImg img{
+	  width: 78px;
+	height: 78px;
+	}
 .inputContent {
     padding-top: 14px;
 }
@@ -310,11 +315,11 @@
 <script type="text/javascript">
     var app = angular.module('productApp', []);
 	var wishList;
-	var usrId = 1;
+	var usrId = 14;
     app.controller('product', function($scope, $http) {
 	    $http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
 	        wishList = response[0];
-			$http.get("/funeral/wishlistDetail/list?wishlistId="+wishList.ansListId).success(function(response) {
+			$http.get("/funeral/wishlistDetail/list?wishlistId="+wishList.wishlistId).success(function(response) {
 	            $scope.wishListDetails = response;
 	        });
 	    });
@@ -370,7 +375,7 @@
 	}
 </script>
 <body ng-app="productApp" ng-controller="product">
-<div class="container">
+<div class="container"  ng-cloak>
 
     <div id="decorContainer">
 	    <div id="pageHeader">
@@ -398,7 +403,7 @@
 					<input type="checkbox">
 				</div>
 				<div class="itemName">
-				    <p class="title">产品和服</p>
+				    <p class="title">产品和服務</p>
 				</div>
 				<div class="itemPrice">
 				    <p class="title">念念价格 </p>
@@ -413,42 +418,7 @@
 				    <p class="title">操作</p>
 				</div>
 			</div>
-			<div class="tableContent">
-				<div class="checkBox">
-				    <input type="checkbox">
-				</div>
-				<div class="itemName">
-				    <div class="itemImg">
-					</div>
-					<div class="itemDesc inputContent">
-					    <p class="title">产品名称</p>
-						<p class="subTitle">备注</p>
-					</div>
-				</div>
-				<div class="itemPrice inputContent">
-				    <p class="title">45.00</p>
-				</div>
-				<div class="itemAmout inputContent">
-				    <div class="oneThird">
-					    <div class="changeButton minusBitton">
-						    <span>-</span>
-						</div>
-					</div>
-					<div class="oneThird">
-				        <p class="title titleNumber">1</p>
-					</div>
-					<div class="oneThird">
-					    <div class="changeButton">
-						    <span>+</span>
-						</div>
-					</div>
-				</div>
-				<div class="totalPrice inputContent">
-				    <p class="title titleNumber">45.00</p>
-				</div>
-				<div class="operation inputContent">
-				</div>
-			</div>
+			
 			<div class="tableContent" id="{{wishListDetail.wishDetailId}}" ng-repeat="wishListDetail in wishListDetails">
 				<div class="checkBox">
 				    <input type="checkbox">
@@ -492,12 +462,12 @@
 			<div id="rightSumm">
 			    <div id="rigthTop">
 				    <div id="rigthTopTitle">
-					    <p class="title titleNumber">25.00</p>
+					    <p class="title titleNumber"></p>
 						<p class="title titleNumber">0</p>
-						<p class="summTitle titleNumber">25.00</p>
+						<p class="summTitle titleNumber"></p>
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">4 件商品，共计</p>
+					    <p class="title">件商品，共计</p>
 						<p class="title">运费</p>
 						<p class="summTitle">订单总计</p>
 					</div>

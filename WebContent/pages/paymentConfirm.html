@@ -293,30 +293,23 @@ span {
 	margin-left: -5px;
 }
 </style>
+
 <script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
+  var app = angular.module('productApp', []);
+	
+	var usrId = 14;
+  app.controller('product', function($scope, $http) {
+	    $http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
+	         $scope.wishList = response[0];
+			$http.get("/funeral/wishlistDetail/list?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	            $scope.wishListDetails = response;
+	        });
+	    });
+    });
+	
 </script>
-<body ng-app="productApp" ng-controller="products">
+
+<body ng-app="productApp" ng-controller="product">
 <div class="container">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
@@ -365,7 +358,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				</div>
 				<div class="taocanDiv">
 				    <div class="singleConfirm">
-						<span class="itemName">顶级套餐</span><span class="itemPriceValue">￥23,323</span><span class="itemAmoutValue">1</span>
+						<span class="itemName">顶级套餐</span><span class="itemPriceValue">￥{{wishList.price}}</span><span class="itemAmoutValue">1</span>
 					</div>
 				    <div class="taocanDesc">
 					    <div class="descTop">
@@ -383,19 +376,10 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				<div class="singleConfirmTitle">
 				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
 				</div>
-				<div class="singleConfirm">
-					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥23,323</span><span class="itemAmoutValue">1</span>
+				<div class="singleConfirm" ng-repeat="wishListDetail in wishListDetails">
+					<span class="itemName">{{wishListDetail.wishName}}</span><span class="itemPriceValue">￥{{wishListDetail.price}}</span><span class="itemAmoutValue">{{wishListDetail.amount}}</span>
 				</div>
-				<div class="singleConfirm">
-					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥13</span><span class="itemAmoutValue">12</span>
-				</div>
-				<div class="singleConfirm">
-					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥323</span><span class="itemAmoutValue">3</span>
-				</div>
-				<div class="singleConfirm">
-					<span class="itemName">水晶骨灰盒</span><span class="itemPriceValue">￥3,323</span><span class="itemAmoutValue">5</span>
-				</div>
-			</div>
+						</div>
 			<div id="confirmRight">
 			    <div class="titleText">
 			        <p>寄送</p>
@@ -418,7 +402,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="summ">
 			    <p class="title">小计</p>
-				<p>￥12334</p>
+				<p>￥{{wishList.price}}</p>
 			</div>
 			<div class="summ">
 			    <p class="title">邮寄</p>
@@ -426,7 +410,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			</div>
 			<div class="summ">
 			    <p class="title">总计</p>
-				<p class="final">￥12345</p>
+				<p class="final">￥{{wishList.price}}</p>
 			</div>
 		</div>
 	</div>
@@ -452,6 +436,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </div>
 </body>
 <script>
+
 window.onload=function(){
     $(".singleConfirm:odd").css({
 	    'background': '#f7f7f7'

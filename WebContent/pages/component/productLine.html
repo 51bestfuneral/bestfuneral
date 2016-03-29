@@ -244,7 +244,7 @@ border:0px solid red;
 var app = angular.module('productApp', []);
 var filter = location.search,
 	wishList,
-	usrId = 1;
+	usrId =14;
 
 app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
@@ -275,6 +275,15 @@ app.controller('products', function($scope, $http) {
 	}
 	validateInList();
 	});
+	
+	 $scope.buy = function(id){
+	$http.get("/funeral/wishlist/saveWish?id="+id+"&wishlistId="+wishList[0].wishlistId).success(function(response) {
+	alert(" id="+id+" wishList[0].wishlistId="+wishList[0].wishlistId);
+		});
+	}
+	
+	
+	
 	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
@@ -329,7 +338,7 @@ app.controller('products', function($scope, $http) {
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
 								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.price}})</p>
-								<div class="addWishButton" onselectstart="return false">
+								<div class="addWishButton" onselectstart="return false"   ng-click="buy(itemLayout.wishId)">
 								  
 								    <p>&nbsp;&nbsp;&nbsp;+&nbsp;添加至愿望清单</p>
 								</div>
@@ -357,19 +366,23 @@ window.onload=function(){
 			wishId: $(this).closest('.productItem')[0].id,
 			wishlistId: wishList[0].wishlistId
 		};
+		
+		var id=$(this).closest('.productItem')[0].id;
+		
 		if (!$(this).hasClass("disableDiv")){
-			$.ajax({
-				url: '/funeral/wishlistDetail/add',
-				type: 'post',
-				data: data,
-				dataType:'json',
-				success:function(data){
-					alert("已加入愿望清单！");
-				},
-				error: function(error) {
-					alert("已加入愿望清单！");
-				}
-			});
+		//	$.ajax({
+			//	url: '/funeral/wishlist/saveWish',
+			//	type: 'post',
+		///		data: id,
+			//	dataType:'json',
+			//	success:function(data){
+			//		alert("已加入愿望清单！");
+			//	},
+			//	error: function(error) {
+			//		alert("已加入愿望清单！");
+			//	}
+			//});
+			
 			$(this).addClass("disableDiv");
 			$(this).find('p')[0].innerText = '已加入愿望清单';
 		}
