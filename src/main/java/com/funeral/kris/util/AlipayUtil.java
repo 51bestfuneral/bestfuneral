@@ -5,7 +5,7 @@ public class AlipayUtil {
 	
 	public static String partner = "2088221356680135";
 	
-	public static String seller_email = "";
+	public static String seller_email = "xiaoxianglu@365niannian.com";
 	
 	public static String KEY = "j39zc02yhr2ro0xat888xuibfu90sgkf";
 

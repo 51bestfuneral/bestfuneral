@@ -19,6 +19,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.funeral.kris.util.*"%>
 <%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="com.funeral.kris.service.*"%>
 <%@ page import="java.util.Map"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -42,18 +43,21 @@
 		//商户订单号
 		//商户网站订单系统中唯一订单号，必填
 		//订单名称
-		String subject = new String(request.getParameter("WIDsubject").getBytes("ISO-8859-1"),"UTF-8");
+		String subject = request.getParameter("WIDsubject");
+
+		//String trade_no = request.getParameter("WIDout_trade_no");
+		String trade_no = (new Date()).toString();
 		//必填
 		//付款金额
-		String total_fee = new String(request.getParameter("WIDtotal_fee").getBytes("ISO-8859-1"),"UTF-8");
+		String total_fee = request.getParameter("WIDtotal_fee");
 		//必填
 		//订单描述
-		String body = new String(request.getParameter("WIDbody").getBytes("ISO-8859-1"),"UTF-8");
+		String body = request.getParameter("WIDbody");
 		//防钓鱼时间戳
 		String anti_phishing_key = "";
 		//若要使用请调用类文件submit中的query_timestamp函数
 		//客户端的IP地址
-		String exter_invoke_ip = "192.168.43.130";
+		String exter_invoke_ip = "";
 		//非局域网的外网IP地址，如：221.0.0.1
 		
 		
@@ -68,7 +72,7 @@
 		sParaTemp.put("payment_type", payment_type);
 		sParaTemp.put("notify_url", AlipayUtil.PAGE_URL+"/notify_url.jsp");
 		sParaTemp.put("return_url", AlipayUtil.PAGE_URL + "/paymentFinal.html");
-		sParaTemp.put("out_trade_no", "FU0000001");
+		sParaTemp.put("out_trade_no", trade_no);
 		sParaTemp.put("subject", subject);
 		sParaTemp.put("total_fee", total_fee);
 		sParaTemp.put("body", body);
