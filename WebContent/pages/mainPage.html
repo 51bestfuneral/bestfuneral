@@ -670,14 +670,14 @@ body {
 	}
 	#wechatFrame {		
 		position:relative;
-		left:330px;
-		top:-480px;
+		left:355px;
+		top:-425px;
 		width:150px;
 		height:130px;
 	}
 	#wechatFrame img{
-		width:90px;
-		height:90px;
+		width:150px;
+		height:150px;
 		position:relative;
 		top:-5px;	
 			}
@@ -1502,10 +1502,15 @@ window.onload=function(){
 	 
 	  $("#wechatFrame").show();
 	});
-	$("#wechatFrame").click(function() {
-	    $(this).fadeOut();
+	$("#weChat").mouseleave(function () {
+		$("#wechatFrame").fadeOut();
 		$(".jquery_addmask").remove();
 	});
+	
+	//$("#wechatFrame").click(function() {
+	//    $(this).fadeOut();
+	//	$(".jquery_addmask").remove();
+	//});
 	$(".closeCoverDiv").click(function() {
 		$(".coverDiv").fadeOut();
 		$(".jquery_addmask").remove();
