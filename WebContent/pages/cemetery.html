@@ -531,8 +531,8 @@ $("#titleIconDiv").on("click", function () {
 	    window.location.href='mainPage.html';
 });
 
-var zoomList =[{cemetery:'清竹园',zoom:15},{cemetery:'汇龙园',zoom:17},{cemetery:'华南陵园',zoom:18},
-               {cemetery:'海港陵园（福寿园）',zoom:18},{cemetery:'天逸静园玫瑰园',zoom:18},{cemetery:'福寿园',zoom:20},
+var zoomList =[{cemetery:'清竹园',zoom:15},{cemetery:'汇龙园',zoom:16},{cemetery:'华南陵园',zoom:17},
+               {cemetery:'海港陵园（福寿园）',zoom:18},{cemetery:'天逸静园玫瑰园',zoom:16},{cemetery:'福寿园',zoom:20},
                {cemetery:'至尊园',zoom:17},{cemetery:'淀山湖归园',zoom:17},{cemetery:'九天陵园',zoom:18},
                {cemetery:'福泉山留园',zoom:17},{cemetery:'滨海古园',zoom:17},{cemetery:'海湾寝园',zoom:21},{cemetery:'永福园陵',zoom:21},
                {cemetery:'华夏公墓',zoom:17},{cemetery:'瀛新古园',zoom:21}];
@@ -567,7 +567,7 @@ var labelPoints=[{'cemetery': '清竹园','point':"121.140394|31.356897"},
                  
 var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
                  {'cemetery': '汇龙园','point':"121.851893|31.085058"},
-                 {'cemetery': '华南陵园','point':"121.614093|31.017948"},
+                 {'cemetery': '华南陵园','point':"121.615093|31.017948"},
                  {'cemetery': '海港陵园（福寿园）','point':"121.896606|30.934152"},
                  {'cemetery': '天逸静园玫瑰园','point':"121.725283|31.284597"},
                  {'cemetery': '福寿园','point':"121.137293|31.117528"},
@@ -593,8 +593,7 @@ function initMap(cemeteryName,cemeteryAddress){
 	cemeteryAddress =$.trim(cemeteryAddress);
     createMap();//创建地图
     setMapEvent();//设置地图事件
-    //addMapControl();//向地图添加控件
-    
+    addMapControl();//向地图添加控件
     //清竹园  上海市嘉定区外冈镇嘉松北路633号
     //上海市浦东新区朝阳农场军港公路388号 汇龙园  18
     //华南陵园     上海市浦东新区航头镇航都南路668号 
@@ -617,7 +616,7 @@ function initMap(cemeteryName,cemeteryAddress){
 	    	                	
 	    	 		 			var x =results.getPoi(i).point.lng;
 	    	 		 			var y =results.getPoi(i).point.lat;
-	    	 		 			resetCenterAndZoom(x,y,cemeteryName);
+	    	 		 			resetCenterAndZoom(x,y,cemeteryName,cemeteryAddress);
 	    	 		 			addRemark(x,y,cemeteryName,cemeteryAddress);//向地图中添加文字标注
 	    	 					break;	
 	    	                 }
@@ -660,38 +659,21 @@ map.addControl(ctrl_sca);
 
 //向地图中添加标注
 function addRemark(x,y,title,address){
-	var displayAddress=address;
-	var index = address.indexOf('区');
 	
-	if(index!=-1){
-		displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
-	}else{
-		index=address.indexOf('县');
-		if(index!=-1){
-			displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
-		}else{
-			index=address.indexOf('市');
-			if(index!=-1){
-				displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
-			}
-		}
-	}
-	var displayName = title;
-	if(displayName.length>6){
-		displayName = title.substring(0,4)+"<br>"+title.substring(4,title.length);
-	}
-	for(var i=0;i<labelPoints.length;i++){
-		 var json = labelPoints[i];
-		 var cemetery= json.cemetery;
-		 var point = json.point;
-		 if(cemetery==title){
-				 var p1 = point.split("|")[0];
-			     var p2 = point.split("|")[1];
-			     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(-60,-60)});
-			      map.addOverlay(label);
-			      label.setStyle({borderColor:"#999"});
-		 }  
-	}
+	//var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{"offset":new BMap.Size(-800,300)}); 
+
+	//for(var i=0;i<labelPoints.length;i++){
+	//	 var json = labelPoints[i];
+	//	 var cemetery= json.cemetery;
+	//	 var point = json.point;
+	//	 if(cemetery==title){
+	//			 var p1 = point.split("|")[0];
+	//		     var p2 = point.split("|")[1];
+	//		     var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:new BMap.Point(p1,p2),offset:new BMap.Size(-60,-60)});
+	//		      map.addOverlay(label);
+	//		      label.setStyle({borderColor:"#999"});
+	//	 }  
+	//}
 
 	for(var i=0;i<markerPoints.length;i++){
 		 var json = markerPoints[i];
@@ -724,15 +706,37 @@ var polygon = new BMap.Polygon(pointsArray,{strokeColor:"#FFBBC1", strokeWeight:
 map.addOverlay(polygon);
 }
 
-function resetCenterAndZoom(x,y,cemeteryName){
-	var point = new BMap.Point(x,y);//定义一个中心点坐标
+function resetCenterAndZoom(x,y,cemeteryName,address){
+	var displayAddress=address;
+	var index = address.indexOf('区');
+	if(index!=-1){
+		displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+	}else{
+		index=address.indexOf('县');
+		if(index!=-1){
+			displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+		}else{
+			index=address.indexOf('市');
+			if(index!=-1){
+				displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+			}
+		}
+	}
+	var displayName = cemeteryName;
+	if(displayName.length>6){
+		displayName = cemeteryName.substring(0,4)+"<br>"+cemeteryName.substring(4,cemeteryName.length);
+	}
+	var centerPoint = new BMap.Point(x,y);//定义一个中心点坐标
 	for(var i=0;i<zoomList.length;i++){
 		var json = zoomList[i];
 		 var cemetery= json.cemetery;
 		 if(cemetery==cemeteryName){
 			 
 		 	 var zoom = json.zoom;
-			 map.centerAndZoom(point,zoom);
+			 map.centerAndZoom(centerPoint,zoom);
+			 var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:centerPoint,offset:new BMap.Size(-800,200)});
+			 map.addOverlay(label);
+			 label.setStyle({borderColor:"#999"});
 			 return;
 		 }
 	}
