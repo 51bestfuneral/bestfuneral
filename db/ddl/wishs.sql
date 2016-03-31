@@ -13,7 +13,7 @@ CREATE TABLE wishs (
   model varchar(50),
   supplier varchar(200),
   wish_desc varchar(500),
-  size varchar(40),
+  size varchar(200),
   url  varchar(500),
   unit varchar(20),
   procurement_cost DECIMAL(10,2),
@@ -49,6 +49,7 @@ CREATE TABLE wishs (
   holding_count integer default 0,
   sales_channel integer default 0,
   img_url varchar(200),
+  pd_source varchar(200),
   operator_id integer default 0,
   remark varchar(500),
   createdate  datetime default NOW(),
@@ -57,4 +58,6 @@ CREATE TABLE wishs (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 
+ALTER TABLE wishs CHANGE size size varchar(200);
 
+alter table wishs add pd_source varchar(200);

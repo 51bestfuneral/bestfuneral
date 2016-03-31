@@ -241,14 +241,13 @@ border:0px solid red;
 	}
 </style>
 <script type="text/javascript">
+var filter = location.search;
 var app = angular.module('productApp', []);
-var filter = location.search,
-	wishList,
-	usrId =14;
-
+var wishList;
 app.controller('products', function($scope, $http) {
-	$http.get("/funeral/wishlist/list?userId="+usrId).success(function(response) {
-	    wishList = response;
+	$http.get("/funeral/wishlist/list").success(function(response) {
+	    wishList=response;
+	    
 		function validateInList() {
 	    $.ajax({
 			url: '/funeral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
@@ -273,7 +272,7 @@ app.controller('products', function($scope, $http) {
 			}
 		});
 	}
-	validateInList();
+validateInList();
 	});
 	
 	 $scope.buy = function(id){

@@ -167,6 +167,8 @@ span {
 .fieldContent {
     width: 100%;
 	height: 56px;
+	
+	
 }
 .fieldContent input {
     height: 56px;
@@ -177,7 +179,7 @@ span {
 .fieldContent select {
     height: 56px;
 	width: 100%;
-	font-size: 25px;
+	font-size: 10px;
 	font-family: "Microsoft Yahei";
 }
 .subTitle {
@@ -218,31 +220,33 @@ span {
     color: #2e2e2e;
 	margin-right: 42px;
 }
+
+
+#saveButton {
+  width: 190px;
+	height: 56px;
+	border-radius: 28px;
+	background: #f62f5e;
+	text-align: center;
+	float: right;
+	cursor: pointer;
+}
+#saveButton p {
+    font-size: 20px;
+    line-height: 56px;;
+    color: #ffffff;
+}
+
+
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
+
+
+
+
+
 </script>
-<body ng-app="productApp" ng-controller="products">
+<body ng-app="contactInfo" ng-controller="contactInfoController">
 <div class="container">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
@@ -280,61 +284,30 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			 </div>
 		</div>
 		<div class= "fieldLine">
-		    <div class="longField fieldInd">
+		    <div class="shortField fieldInd">
 			    <div class="fieldDesc">
 				    <p>姓名*</p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
+				    <input type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
+				    <input type="hidden"  ng-model="currentContacter.userId"  vaule={{$scope.user.userId}}></input>
+
 				</div>
 			</div>
-			<div class="shortField fieldInd">
+		
+			
+			
+	
+				<div class="longField fieldInd lastField">
 			    <div class="fieldDesc">
-				    <p>称呼*</p>
+				    <p>从联系人中选择*</p>
 				</div>
 				<div class="fieldContent">
-				    <select class="form-control">
-						<option>先生</option>
-						<option>女士</option>
+				    <select class="form-control"   id="contacterSelect">
+				    	<option>请选择</option>
+						<option ng-repeat="contacter in contactInfos "  value={{contacter.contactId}}><p style="font-size:10px;">{{contacter.contactName+':'+contacter.province+contacter.city+contacter.detailAddress+':'+contacter.phone}}</p></option>
+					
 					</select>
-				</div>
-			</div>
-			<div class="longField fieldInd">
-			    <div class="fieldDesc">
-				    <p>地址*</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
-				</div>
-			</div>
-			<div class="longField fieldInd lastField">
-			    <div class="fieldDesc">
-				    <p>城市*</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
-				</div>
-			</div>
-			<div class="shorterField fieldInd">
-			    <div class="fieldDesc">
-				    <p>省*</p>
-				</div>
-				<div class="fieldContent">
-				    <select class="form-control">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
-				</div>
-			</div>
-			<div class="normalField fieldInd">
-			    <div class="fieldDesc">
-				    <p>邮编*</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
 				</div>
 			</div>
 			<div class="normalField fieldInd">
@@ -342,16 +315,48 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				    <p>手机号码*</p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
+				    <input type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
 				</div>
-				<p class="subTitle">我们会确保你的隐私，谨慎使用您的电话</p>
 			</div>
+			<div class="normalField fieldInd">
+			    <div class="fieldDesc">
+				    <p>省*</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  ng-model="currentContacter.province" ></input>
+				</div>
+				<p class="subTitle">我们会确保你的隐私，谨慎使用您的电话</p>	
+				
+			</div>
+			
+					<div class="shorterField fieldInd">
+			    <div class="fieldDesc">
+				    <p>市*</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  ng-model="currentContacter.city"></input>
+				</div>
+			</div>
+			<div class="longField fieldInd lastField">
+			    <div class="fieldDesc">
+				    <p>详细地址*</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control" ng-model="currentContacter.detailAddress"></input>
+				</div>
+		
+			</div>
+			
+			
+			
+			
+			
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
 				    <p>备用联系人姓名</p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
+				    <input type="text" class="form-control"  ng-model="currentContacter.backupName"></input>
 				</div>
 				<p class="subTitle">如果主要联系人已去世或者不方便联系</p>
 			</div>
@@ -360,7 +365,13 @@ app.controller('wishTypeLevels', function($scope, $http) {
 				    <p>备用联系人电话</p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"></input>
+				    <input type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
+				</div>
+				
+					<div class="shorterField fieldInd">
+			   
+				<div id="saveContacter"   class="fieldContent" style=" border-radius: 5px; background:#f62f5e;text-align: center;cursor: pointer; font-size: 20px;line-height: 56px;color: #ffffff;">
+				     <p>保存联系人</p>
 				</div>
 			</div>
 		</div>
@@ -369,16 +380,16 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		</div>
 		<div class="shippingMethod">
 		    <p>推荐方式</p>
-			<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+			<input type="radio" name="deliveryMethod"  id="deliveryMethod1"  value="1" checked>
 			<span class="radioDesc">暂存在念念</span>
 			<span class="normalDesc">(我们会暂时替您保管，在需要的时候提供给您)</span>
 	    </div>
 		<div class="shippingMethod">
 		    <p>传统方式</p>
-			<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+			<input type="radio" name="deliveryMethod"  id="deliveryMethod2" value="2">
 			<span class="radioDesc">标准</span>
 			<span class="normalDesc">(免费, 2-3日寄到)</span>
-			<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+			<input type="radio" name="deliveryMethod"  id="deliveryMethod3" value="3">
 			<span class="radioDesc">快速</span>
 			<span class="normalDesc">(￥20邮寄费, 1日寄到)</span>
 	    </div>
@@ -402,10 +413,180 @@ app.controller('wishTypeLevels', function($scope, $http) {
 </div>
 </body>
 <script>
-window.onload=function(){
-	$("#nextButton").click(function () {
-	    window.location.href='paymentConfirm.html';
+	
+var app = angular.module('contactInfo', []);
+
+var deliverMethod=1;
+app.controller('contactInfoController', function($scope, $http) {
+	  $scope.user;
+ $scope.currentContacter;
+$scope.currenctExpress;
+  $http.get("/funeral/login/getCurrentUser").success(function(response) {
+	    $scope.user = response;
+	    	    var data = JSON.stringify($scope.user);
+  var usrId = $scope.user.usrId;
+	   $http.get("/funeral/expressController/getUncompledExpressInfoByUserId?userId="+usrId+"&statusId=1").success(function(response) {
+	    $scope.currenctExpress = response;
+	    
+		//$scope.currentContacter.contactName=$scope.currenctExpress.receiverName;
+		deliverMethod=$scope.currenctExpress.deliveryMethod;
+	//	$scope.currentContacter.province=$scope.currenctExpress.province;
+	 // $scope.currentContacter.city=$scope.currenctExpress.city;
+	 // $scope.currentContacter.detailAddress=$scope.currenctExpress.detailAddress;
+	 // $scope.currentContacter.phone=$scope.currenctExpress.phone;
+	  
+	  	   // alert(" currenctExpress = "+JSON.stringify($scope.currenctExpress));
+
+	 var  currentContacterData={
+	  	'contactName':$scope.currenctExpress.receiverName,
+	  	'province':$scope.currenctExpress.province,
+	  	'city':$scope.currenctExpress.city,
+	  	'detailAddress':$scope.currenctExpress.detailAddress,
+	  	'phone':$scope.currenctExpress.phone
+	  	};
+	  
+	   $scope.currentContacter=JSON.stringify(currentContacterData);
+	  
+	  
+	  	   // alert(" currentContacter = "+JSON.stringify($scope.currentContacter)+" currentContacterData="+currentContacterData);
+
 	});
+	    
+	});
+	
+    $http.get("/funeral/contactInfo/listByUserId").success(function(response) {
+	    $scope.contactInfos = response;
+	    
+	});
+	
+		    	  
+
+	
+	
+	
+
+$(document).ready(function(){ 
+$('#contacterSelect').change(function(){ 
+    $http.get("/funeral/contactInfo/listByContacterId?contactId="+$(this).val()).success(function(response) {
+	    $scope.currentContacter = response; 
+	});
+}) 
+}) 
+
+
+
+	$("#nextButton").click(function() {
+		$scope.currenctExpress.userId=$scope.user.usrId;
+		$scope.currenctExpress.receiverName=$scope.currentContacter.contactName;
+		$scope.currenctExpress.deliveryMethod=deliverMethod;
+		$scope.currenctExpress.province=$scope.currentContacter.province;
+	  $scope.currenctExpress.city=$scope.currentContacter.city;
+	  $scope.currenctExpress.detailAddress=$scope.currentContacter.detailAddress;
+	  $scope.currenctExpress.phone=$scope.currentContacter.phone;
+
+		 var datadata={
+		 	'userId':$scope.user.usrId,
+		 	'receiverName':$scope.currentContacter.contactName,
+		 	'deliveryMethod':deliverMethod,
+		 	'province':$scope.currentContacter.province,
+		 	'city':$scope.currentContacter.city,
+		 	'detailAddress':$scope.currentContacter.detailAddress,
+		 	'phone':$scope.currentContacter.phone
+		 		};
+		
+	   // var datadata = JSON.stringify($scope.currenctExpress);
+	    	    var currentContacterdatadata = JSON.stringify($scope.currentContacter);
+
+	   //  alert("保存成功！datadata="+JSON.stringify(datadata)+" currentContacterdatadata="+currentContacterdatadata);
+		    $http({
+            method: "POST",
+            url:"/funeral/expressController/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+        
+
+         });
+         
+         
+     $scope.currentContacter.userId =$scope.user.usrId;
+		$scope.currentContacter.statusId='10';
+		$scope.currentContacter.gender='3';
+	    var datadata = JSON.stringify($scope.currentContacter);
+	    
+	    // alert("保存成功！ currentContacter="+JSON.stringify($scope.currentContacter));
+		    $http({
+            method: "POST",
+            url:"/funeral/contactInfo/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+        
+         alert("保存成功！"); });
+         
+         
+                 	    window.location.href='paymentConfirm.html';
+
+	});	
+	
+
+$("#saveContacter").click(function () {
+
+$scope.currentContacter.userId =$scope.user.usrId;
+		$scope.currentContacter.statusId='1';
+		$scope.currentContacter.gender='3';
+	    var datadata = JSON.stringify($scope.currentContacter);
+	    
+	     alert("保存成功！");
+		    $http({
+            method: "POST",
+            url:"/funeral/contactInfo/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+        
+         alert("保存成功！"); });
+
+
+
+	});
+
+
+$("#deliveryMethod1").click(function () {
+	
+	deliverMethod="1";
+	});
+
+$("#deliveryMethod2").click(function () {
+	
+	deliverMethod="2";
+});
+$("#deliveryMethod3").click(function () {
+	
+	deliverMethod="3";
+	});
+
+});
+
+
+
+
+
+
+	
+	
+	
+window.onload=function(){
+	
 };
 </script>
 </html>

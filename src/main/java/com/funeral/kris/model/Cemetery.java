@@ -24,6 +24,8 @@ public class Cemetery {
 	public String getHeadImg() {
 		return headImg;
 	}
+	
+	
 
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
@@ -78,6 +80,19 @@ public class Cemetery {
 
 	@Column(name = "url")
 	private String url;
+	
+	public Integer getType() {
+		return type;
+	}
+
+
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	@Column(name = "type")
+	private Integer type;
 	
 	@Column(name = "desc_img_url")
 	private String descImgUrl;

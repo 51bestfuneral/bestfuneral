@@ -61,7 +61,7 @@ public class LoginCheckFilter implements Filter {
 			System.out.println("  come on LoginCheckFilter--1-");
 
 			chain.doFilter(req, res);
-		} else if (session.getAttribute(LoginConstants.LoginStatus) != null
+		} else if (session != null &&session.getAttribute(LoginConstants.LoginStatus) != null
 				&& !StringUtils.isNullOrEmpty(session.getAttribute(LoginConstants.LoginStatus).toString())
 				) {
 			

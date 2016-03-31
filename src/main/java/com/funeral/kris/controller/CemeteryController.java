@@ -256,9 +256,13 @@ public class CemeteryController {
 		int index = 0;
 
 		while (iterator.hasNext()) {
+			
+			
 
 			Cemetery cemetery = (Cemetery) iterator.next();
 
+			if(cemetery.getType().intValue()==1){
+			
 			CemeteryBean bean = new CemeteryBean();
 
 			bean.setCemeteryId(cemetery.getCemeteryId());
@@ -285,9 +289,62 @@ public class CemeteryController {
 			String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
 			bean.setStyle(style);
 			list.add(bean);
+			}
 
 		}
 
+		return list;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/listAllTemple", method = RequestMethod.GET, produces = "application/json")
+	public List<CemeteryBean> listAllTemple() {
+		
+		List<CemeteryBean> list = new ArrayList<CemeteryBean>();
+		
+		List<Cemetery> cemeteryList = cemeteryService.getResources();
+		
+		List<String> cssList = cemeteryService.getAllCss();
+		
+		Iterator iterator = cemeteryList.iterator();
+		
+		int index = 0;
+		
+		while (iterator.hasNext()) {
+			
+			Cemetery cemetery = (Cemetery) iterator.next();
+			
+			if(cemetery.getType().intValue()==2){
+				
+			CemeteryBean bean = new CemeteryBean();
+			
+			bean.setCemeteryId(cemetery.getCemeteryId());
+			
+			bean.setCemeteryName(cemetery.getCemeteryName());
+			
+			bean.setAddress(cemetery.getAddress());
+			
+			bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+			
+			bean.setDistrict(cemetery.getDistrict());
+			
+			bean.setFeature(cemetery.getFeature());
+			
+			bean.setMapUrl(cemetery.getMapUrl());
+			
+			bean.setPrice(cemetery.getPrice());
+			
+			bean.setTrafficInfo(cemetery.getTrafficInfo());
+			
+			String css = cssList.get(index++);
+			bean.setDescImgUrl(cemetery.getDescImgUrl());
+			bean.setCss(css);
+			String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
+			bean.setStyle(style);
+			list.add(bean);
+			}
+			
+		}
+		
 		return list;
 	}
 

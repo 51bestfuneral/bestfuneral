@@ -504,12 +504,24 @@ public class Wish {
 
 	@Column(name = "url")
 	private String url;
+	@Column(name = "pd_source")
+	private String pdSource;
 
 	@Column(name = "createdate")
 	private Date createDate;
 
 	@Column(name = "feature")
 	private Integer feature;
+
+	
+
+	public String getPdSource() {
+		return pdSource;
+	}
+
+	public void setPdSource(String pdSource) {
+		this.pdSource = pdSource;
+	}
 
 	@Column(name = "updateddate")
 	private Date updatedDate;

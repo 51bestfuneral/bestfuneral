@@ -244,6 +244,9 @@ function validateValid(content) {
 window.onload = function() {
     var length = location.search.length,
 	    backUrl = location.search.substring(11, length);
+	    
+	    
+	    
 	$("#alreadyHas").click(function() {
 	    window.location.href='needSignIn.html';
 	});
@@ -306,7 +309,10 @@ window.onload = function() {
 
 				if (resultCode === 1) {
 	                $("#errorContent").fadeOut();
-			        window.location.href=backUrl;
+	      if(backUrl==null||backUrl==""){
+	    	window.location.href='/funeral/pages/mainPage.html';
+	    	}else{ window.location.href=backUrl;
+	    		}
 				}
 				else if (resultCode === -4) {
 				    $("#errorContent").find("p")[0].innerText = '账号被锁定，请在半小时后登录';

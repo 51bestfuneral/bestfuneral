@@ -6,6 +6,9 @@
 <script src="../../js/jquery-2.1.4.js"></script>
 <script src="../../js/jquery-ui.js"></script>
 <link href="../../js/Bootstrap/boot.css" rel="stylesheet">
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+
 <style>
     body {
 	    margin: 0;
@@ -123,7 +126,31 @@
 		text-align: center;
 	}
 </style>
-<body>
+
+
+<script type="text/javascript">
+var app = angular.module('userApp', []);
+app.controller('userController', function($scope, $http) {
+	$http.get("/funeral/login/getCurrentUser").success(function(response) {
+	    $scope.user = response;
+	    var vuser=$scope.user;
+	    if(vuser==null||""==vuser){
+	    	$scope.account='登录/注册';
+	    	}else{
+	    		var vname=$scope.user.userName;   		
+	    		if(vname.length>8){
+	    		    $scope.account=vname.substr(0, 7);	
+	    		  }else{
+	    		  	 $scope.account=vname;
+	    		  	} }});
+	  });
+</script>
+
+
+
+
+
+<body  ng-app="userApp" ng-controller="userController">
 
 <div class = "topBar">
     <span class = "topBarLogo" background-image = "http://www.bleum.com/images/logo.aspx"></span>
@@ -144,6 +171,8 @@
 		    <p>关于我们</p>
 		</div>
 		
+	
+		
 	</div>
 	<div id="rightSideLink">
 	    <div class="sideIcon" id="wishlistIcon">
@@ -163,7 +192,7 @@
 				<img src="../../js/images/contact-red@2x.png" class="tickImg"></img>
 			</div>
 			<div id="rightSide">
-				<p>登录/注册</p>
+				<p>{{account}}</p>
 			</div>
 		</div>
 		<div class="includeLink sideLink" id="side">
