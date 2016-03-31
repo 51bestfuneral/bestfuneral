@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funeral.kris.dao.ExpressInfoDAO;
+import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.ExpressInfo;
+import com.funeral.kris.model.User;
 import com.funeral.kris.service.ExpressInfoService;
 
 @Controller
@@ -64,11 +67,16 @@ public class ExpressController {
 	@RequestMapping(value = "/getUncompledExpressInfoByUserId", method = RequestMethod.GET, produces = "application/json")
 	public List<ExpressInfo> getUncompledExpressInfoByUserId(HttpServletRequest request) {
 
-		String userId = request.getParameter("userId");
-		String statusId = request.getParameter("statusId");
-		System.out.println(" ---------------- userId = " + userId + " statusId=" + statusId);
+		
+		HttpSession session = request.getSession(true);
 
-		return expressInfoService.getUncompledExpressInfoByUserId(Integer.parseInt(userId), Integer.parseInt(statusId));
+		User user=(User)session.getAttribute("user");
+		
+		String statusId = request.getParameter("statusId");
+		System.out.println(" ---------------- statusId=" + statusId);
+	
+
+		return expressInfoService.getUncompledExpressInfoByUserId(user.getUsrId().intValue(), Integer.parseInt(statusId));
 
 	}
 

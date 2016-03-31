@@ -142,12 +142,22 @@
   $scope.temples=response;
   
  }) 	 
- 	 	
-	$scope.gotodetails = function(id){
+
  	
- 	goto(id);
+ 	
+ 	$scope.gotoCemetery = function(id){
+ 	
+		    window.location.href='cemetery.html?id='+id;
  	
  	} 	
+ 	
+ 	function gotoTemple(id){
+		
+		    window.location.href='temple.html?id='+id;
+	
+		}
+		
+	
 	 	
 	 	
 	});
@@ -179,6 +189,7 @@
 	<div class="listContent">
 	    <div  ng-click="gotoCemetery(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans">
 		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
+		     <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district+' | ￥'+bean.price+'起 '}}</h5></span> 
 		 <img  src={{bean.descImgUrl}}></img>
 		  
 		</div>
@@ -213,17 +224,7 @@
 </body>
 <script>
 	
-	function gotoCemetery(id){
-		
-		    window.location.href='cemetery.html?id='+id;
 	
-		}
-		
-		function gotoTemple(id){
-		
-		    window.location.href='temple.html?id='+id;
-	
-		}
 	
 </script>
 </html>

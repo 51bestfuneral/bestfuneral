@@ -305,6 +305,15 @@ span {
 	            $scope.wishListDetails = response;
 	        });
 	    });
+	    
+	     $http.get("/funeral/expressController/getUncompledExpressInfoByUserId?statusId=2").success(function(response) {
+	         $scope.express = response[0];
+			
+	    }); 
+	    
+	    
+	    
+	    
     });
 	
 </script>

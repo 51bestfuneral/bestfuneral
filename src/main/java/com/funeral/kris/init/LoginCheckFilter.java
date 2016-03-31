@@ -29,6 +29,9 @@ public class LoginCheckFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		URIsList.add("wishList.html");
 		URIsList.add("mainPage.html");
+		URIsList.add("paymentInfo.html");
+		URIsList.add("paymentMethod.html");
+		URIsList.add("paymentConfirm.html");
 	}
 
 	public void initUrls() throws ServletException {

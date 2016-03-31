@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head"><title>
-    Cemetery
+    支付信息
 </title><meta name="description" content="Bleum provides high performance software development teams that
 								deliver smart solutions, helping you to exceed your customers’
 								expectations for timely product delivery, zero defects, and a
@@ -179,7 +179,7 @@ span {
 .fieldContent select {
     height: 56px;
 	width: 100%;
-	font-size: 10px;
+	font-size: 15px;
 	font-family: "Microsoft Yahei";
 }
 .subTitle {
@@ -283,10 +283,12 @@ span {
 			     <p>核对</p>
 			 </div>
 		</div>
-		<div class= "fieldLine">
+		<div class= "fieldLine">	</div>
+		  
+		  
 		    <div class="shortField fieldInd">
 			    <div class="fieldDesc">
-				    <p>姓名*</p>
+				    <p>姓名<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
@@ -310,36 +312,53 @@ span {
 					</select>
 				</div>
 			</div>
+			
+			
+			
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>手机号码*</p>
+				    <p>手机号码<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
 				</div>
+				<p class="subTitle">我们会确保你的隐私，谨慎使用您的手机号码</p>	
 			</div>
+			
+			
+			
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>省*</p>
+				    <p>省<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"  ng-model="currentContacter.province" ></input>
+				  <select class="form-control"   id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
+						<option value='1'  ><p  class="form-control">江苏省</p></option>
+					  <option value='2'  ><p  class="form-control">上海市</p></option>
+					  <option value='3'  ><p  class="form-control">浙江省</p></option>
+
+					</select>   
+				    
 				</div>
-				<p class="subTitle">我们会确保你的隐私，谨慎使用您的电话</p>	
+				<p class="subTitle">我们会确保你的隐私，谨慎使用您的联系信息</p>	
 				
 			</div>
 			
+			
+			
 					<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>市*</p>
+				    <p>市<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"  ng-model="currentContacter.city"></input>
 				</div>
 			</div>
-			<div class="longField fieldInd lastField">
+			
+			
+			<div class="longField fieldInd">
 			    <div class="fieldDesc">
-				    <p>详细地址*</p>
+				    <p>详细地址<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control" ng-model="currentContacter.detailAddress"></input>
@@ -351,29 +370,49 @@ span {
 			
 			
 			
-			<div class="normalField fieldInd">
+		
+				
+				
+			<div class="normalField fieldInd" >
 			    <div class="fieldDesc">
-				    <p>备用联系人姓名</p>
+				    
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"  ng-model="currentContacter.backupName"></input>
-				</div>
-				<p class="subTitle">如果主要联系人已去世或者不方便联系</p>
-			</div>
-			<div class="normalField fieldInd">
+				   
+				</div>	
+					</div>
+		
+		
+			<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人电话</p>
+				    <p>备用联系人姓名<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control" ng-model="currentContacter.backupName"></input>
+				</div>	
+				<p class="subTitle">如果主要联系人已去世或者不方便联系</p>
+					</div>
+		
+					
+				<div class="normalField fieldInd">
+			    <div class="fieldDesc">
+				    <p>备用联系人电话<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
+				</div>	
+					</div>
+					
+					
+					<div class="shorterField fieldInd lastField">
+			    <div class="fieldDesc">
+				    <p>&nbsp;</p>
 				</div>
-				
-					<div class="shorterField fieldInd">
-			   
 				<div id="saveContacter"   class="fieldContent" style=" border-radius: 5px; background:#f62f5e;text-align: center;cursor: pointer; font-size: 20px;line-height: 56px;color: #ffffff;">
 				     <p>保存联系人</p>
 				</div>
 			</div>
+			
 		</div>
 		<div class="shippingMethod">
 		    <h1>邮寄方式</h1>
@@ -428,29 +467,7 @@ $scope.currenctExpress;
 	   $http.get("/funeral/expressController/getUncompledExpressInfoByUserId?userId="+usrId+"&statusId=1").success(function(response) {
 	    $scope.currenctExpress = response;
 	    
-		//$scope.currentContacter.contactName=$scope.currenctExpress.receiverName;
-		deliverMethod=$scope.currenctExpress.deliveryMethod;
-	//	$scope.currentContacter.province=$scope.currenctExpress.province;
-	 // $scope.currentContacter.city=$scope.currenctExpress.city;
-	 // $scope.currentContacter.detailAddress=$scope.currenctExpress.detailAddress;
-	 // $scope.currentContacter.phone=$scope.currenctExpress.phone;
-	  
-	  	   // alert(" currenctExpress = "+JSON.stringify($scope.currenctExpress));
-
-	 var  currentContacterData={
-	  	'contactName':$scope.currenctExpress.receiverName,
-	  	'province':$scope.currenctExpress.province,
-	  	'city':$scope.currenctExpress.city,
-	  	'detailAddress':$scope.currenctExpress.detailAddress,
-	  	'phone':$scope.currenctExpress.phone
-	  	};
-	  
-	   $scope.currentContacter=JSON.stringify(currentContacterData);
-	  
-	  
-	  	   // alert(" currentContacter = "+JSON.stringify($scope.currentContacter)+" currentContacterData="+currentContacterData);
-
-	});
+		deliverMethod=$scope.currenctExpress.deliveryMethod;	});
 	    
 	});
 	
@@ -458,12 +475,6 @@ $scope.currenctExpress;
 	    $scope.contactInfos = response;
 	    
 	});
-	
-		    	  
-
-	
-	
-	
 
 $(document).ready(function(){ 
 $('#contacterSelect').change(function(){ 
