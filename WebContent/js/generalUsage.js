@@ -86,3 +86,23 @@ function popupSignInPage() {
 		});
 		window.onresize = resizeLogin;
 }
+
+function checkUserLogin(flag) {
+	$.ajax({
+		url: '/funeral/login/validateLogin',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		async: false,
+		success:function(data){
+            var resultCode =data;
+
+			if (resultCode === "") {
+			}
+			else {
+				flag.code = 1;
+			}
+		},
+		error: function(error) {
+		}
+	});
+}

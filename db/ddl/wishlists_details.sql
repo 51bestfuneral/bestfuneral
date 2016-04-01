@@ -6,7 +6,9 @@ CREATE TABLE wishlist_details (
   wish_id integer,  
   source_id integer,  
   count  varchar(20),
-  price integer,
+  price DECIMAL(20,2),
+  sourceId integer,
+  original_price DECIMAL(20,2),
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
   PRIMARY KEY (wishlist_id, wishlist_detail_id)  

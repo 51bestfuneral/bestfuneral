@@ -1,9 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head"><title>
-	产品与服�?
+	产品与
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers�?
+								deliver smart solutions, helping you to exceed your customers�?
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -18,6 +18,7 @@
 <script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="../js/generalUsage.js"></script>
 </head>
 
 <style>
@@ -329,8 +330,11 @@
 	    width: 100%;
 		height: 420px;
 		padding-top: 86px;
-		padding-left: 125px;
 		background: #000000;
+	}
+	#caseMain {
+	    width: 1249px;
+	    margin: 0px auto;
 	}
 	#case h1 {
 	    font-size: 44px;
@@ -359,7 +363,6 @@
 		background: #f2f2f2;
 		box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
 		padding-top: 12px;
-		padding-left: 260px;
 		height: 130px;
 	}
 	.filterIcon {
@@ -367,8 +370,16 @@
 		width: 92px;
 		height: 106px;
 		border-radius: 7px;
-		margin-right: 25px;
+		margin-left: 25px;
 		cursor: pointer;
+	}
+	#filterCoat {
+	    width: 912px;
+	    margin: 0px auto;
+	    overflow: auto;
+	}
+	.firstIcon {
+	    margin-left: 0px;
 	}
 	.filterIcon:hover {
 	    background-color: #e8e8e8;
@@ -433,6 +444,11 @@
 	    line-height: 20px;
 		width: 250px;
 	}
+	.frameMain {
+	    width: 1349px;
+	    margin: 0px auto;
+	    overflow: auto;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('catagoryApp', []);
@@ -484,7 +500,7 @@ function muskPageForProduct(id) {
 app.controller('catagory', function($scope, $http) {
     var catas = [{
 	        cataId: 'guhuihe',
-			cataName: '骨灰�?,
+			cataName: '骨灰',
 			cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 			cataPic: '/funeral/js/images/noun_187249_cc.png'
 		}, {
@@ -550,7 +566,8 @@ app.controller('catagory', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 <div class="container">
 <div id="filter">
-    <div class="filterIcon" id="mainPage">
+    <div id="filterCoat">
+    <div class="filterIcon firstIcon" id="mainPage">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/Layer_1.png" class="iconImg"></img>
@@ -568,6 +585,7 @@ app.controller('catagory', function($scope, $http) {
 		    <p>{{cata.cataName}}</p>
 		</div>
 	</div>
+	</div>
 </div>
 <div id="catagoryProduct" ng-cloak>
     <div>
@@ -580,19 +598,25 @@ app.controller('catagory', function($scope, $http) {
 	    <p>{{cataDesc}}</p>
 	</div>
 </div>
+<div class="frameMain">
 <h1 class="subHeader">特色产品</h1>
 <IFRAME NAME="content_frame" width=100% height=450 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame"></IFRAME>
+</div>
 <div id="case">
-    <h1>清明时节，寄托思念�?/h1>
-	<h2>我们为涨阿姨提供了一整套清明祭扫物品和鲜花这里说些案例研究的�?..</h2>
+    <div id="caseMain">
+    <h1>清明时节，寄托思念</h1>
+	<h2>我们为涨阿姨提供了一整套清明祭扫物品和鲜花这里说些案例研究的�?..</h2>
 	<p><a>祭扫物品</a></p>
 	<p><a>鲜花</a></p>
+	</div>
 </div>
 <div id="mainHeader">
-    <h1>无论是祭扫用品还是葬礼用�?br/>这里一应俱�?/h1>
+    <h1>无论是祭扫用品还是葬礼用�?br/>这里一应俱�?/h1>
 </div>
+<div class="frameMain">
 <h1 class="subHeader">特色服务</h1>
 <IFRAME NAME="content_frame" width=100% height=450 marginwidth=0 marginheight=0 frameborder = 0 id="serviceFrame"></IFRAME>
+</div>
 <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div id="titleIconDiv">

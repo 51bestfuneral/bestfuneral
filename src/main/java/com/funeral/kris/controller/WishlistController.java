@@ -75,21 +75,19 @@ public class WishlistController {
 					wish.getProcurementCost().add((java.math.BigDecimal) (wishlist.getOriginalPirce() == null
 							? BigDecimal.ZERO : wishlist.getOriginalPirce())));
 			wishlist.setComment(wish.getWishName());
-			wishlist.setPrice(wish.getSellingPrice().doubleValue() + wishlist.getPrice());
+			wishlist.setPrice(wish.getSellingPrice().add(wishlist.getPrice()));
 			wishlist.setUserId(user.getUsrId());
 		} else {
 			wishlist = new Wishlist();
 			wishlist.setStatus("1");
 			wishlist.setOriginalPirce(wish.getProcurementCost().add(wishlist.getOriginalPirce()));
 			wishlist.setComment(wish.getWishName());
-			wishlist.setPrice(wish.getSellingPrice().doubleValue() + wishlist.getPrice());
+			wishlist.setPrice(wish.getSellingPrice().add(wishlist.getPrice()));
 			wishlist.setUserId(user.getUsrId());
 		}
 		wishlistService.addResource(wishlist);
 
 		WishlistDetail wishlistDetail = new WishlistDetail();
-
-		// 如果是同一个user，并且已经选购了相同的产品或者服务，就合并成一条，只更新一下count
 		
 		boolean hasSame=false;
 
@@ -126,7 +124,7 @@ public class WishlistController {
 		wishlistDetail.setWishlistId(wishlistId);
 		wishlistDetail.setSourceId(WishConstants.wish_source_direct);
 		wishlistDetail.setOriginalPrice(wish.getProcurementCost());
-		wishlistDetail.setPrice(wish.getSellingPrice().doubleValue());
+		wishlistDetail.setPrice(wish.getSellingPrice());
 		wishlistDetail.setWishId(wish.getWishId());
 		wishlistDetail.setSourceId(2);
 
@@ -160,9 +158,6 @@ public class WishlistController {
 		HttpSession session = request.getSession(true);
 
 		User user = (User) session.getAttribute("user");
-
-		System.out.println(this.getClass() + "  listOfWishlists getUserName =" + user.getUserName() + "  getUsrId="
-				+ user.getUsrId());
 
 		List<Wishlist> wishlists = wishlistService.getResources();
 
@@ -224,7 +219,7 @@ public class WishlistController {
 
 	private Wishlist generateWishList(Integer usrId, Integer wishlistId, Integer level) {
 		Wishlist wishList = new Wishlist();
-		Double totalPrice = 0d;
+		BigDecimal totalPrice = BigDecimal.ZERO;
 		wishList.setStatus(LoginConstants.WISHLISTSTATUS_INPROCESS);
 		wishList.setUserId(usrId);
 		wishList.setWishlistId(wishlistId);
@@ -235,25 +230,25 @@ public class WishlistController {
 		return wishList;
 	}
 
-	private Double generateWishDetail(Wishlist wishList, Integer level) {
+	private BigDecimal generateWishDetail(Wishlist wishList, Integer level) {
 		String condition = " source_id!=1 and   wishlist_id = " + wishList.getWishlistId();
 		wishlistDetailService.deleteAllResources(condition);
-		Double typePrice = 0d;
-		Double totalPrice = 0d;
+		BigDecimal typePrice = BigDecimal.ZERO;
+		BigDecimal totalPrice = BigDecimal.ZERO;
 		List<WishType> wishTypeList = wishTypeService.getResources();
 		for (WishType wishType : wishTypeList) {
 			if (wishType.getLevel() <= level) {
 				typePrice = generateWishForType(wishType.getWishType(), wishList);
-				totalPrice = totalPrice + typePrice;
+				totalPrice = totalPrice.add(typePrice);
 			}
 		}
 		return totalPrice;
 	}
 
 	@SuppressWarnings("unchecked")
-	private Double generateWishForType(String wishType, Wishlist wishList) {
+	private BigDecimal generateWishForType(String wishType, Wishlist wishList) {
 		String querySQL = null;
-		Double totalPrice = 0d;
+		BigDecimal totalPrice = BigDecimal.ZERO;
 		BigDecimal originalPrice = new BigDecimal(0);
 		if (wishType.equals("Cemetery")) {
 			querySQL = "select p from Cemetery p ";
@@ -274,7 +269,7 @@ public class WishlistController {
 				randomIndex = random.nextInt(cemeterys.size());
 				randomWish = cemeterys.get(randomIndex);
 				detail.setWishId(randomWish.getCemeteryId());
-				detail.setPrice(Double.valueOf(randomWish.getPrice().toString()));
+				detail.setPrice(randomWish.getPrice());
 				detail.setOriginalPrice(randomWish.getOriginalPrice());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
@@ -282,7 +277,7 @@ public class WishlistController {
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice + detail.getPrice();
+				totalPrice = totalPrice.add(detail.getPrice());
 				originalPrice = originalPrice.add(randomWish.getOriginalPrice());
 			}
 		} else {
@@ -294,7 +289,7 @@ public class WishlistController {
 				randomIndex = random.nextInt(wishs.size());
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
-				detail.setPrice(randomWish.getSellingPrice().doubleValue());
+				detail.setPrice(randomWish.getSellingPrice());
 				detail.setOriginalPrice(randomWish.getProcurementCost());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
@@ -302,7 +297,7 @@ public class WishlistController {
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice + detail.getPrice();
+				totalPrice = totalPrice.add(detail.getPrice());
 				originalPrice = originalPrice.add(randomWish.getProcurementCost());
 			}
 		}

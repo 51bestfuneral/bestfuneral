@@ -17,13 +17,9 @@
 <link href="/funeral/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/funeral/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
-
 </head>
-
 <header>
 </header>
-
-
 <style>
 .topBarDiv {
     box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
@@ -307,6 +303,28 @@
 	position: fixed;
 	z-index: 1001;
 }
+#noAnyProduct h1 {
+    line-height: 200px;
+	margin: 0px;
+}
+#goShoppingButton {
+    width: 220px;
+	height: 70px;
+	background: #ff5274;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: -50px;
+	cursor:pointer;
+	opacity: 0.8;
+}
+#goShoppingButton:hover {
+    opacity: 1;
+}
+#goShoppingButton h2 {
+    line-height: 70px;
+	margin: 0px;
+	color: #ffffff;
+}
 </style>
 <script type="text/javascript">
     var app = angular.module('productApp', []);
@@ -316,6 +334,9 @@
 	        wishList = response[0];
 			$http.get("/funeral/wishlistDetail/getDirectWishList?wishlistId="+wishList.wishlistId).success(function(response) {
 	            $scope.wishListDetails = response;
+				if (response.length <= 0) {
+				    $("#noAnyProduct").show();
+				}
 	        });
 	    });
     });
@@ -361,10 +382,8 @@
 			url: '/funeral/wishlistDetail/delete/'+wishListDetailId,
 			type: 'get',
 			success:function(data){
-				alert("鎮ㄧ殑淇℃伅鎴戜滑宸茬粡鏀跺埌锛?);
 			},
 			error: function(error) {
-				alert("鎮ㄧ殑淇℃伅鎴戜滑宸茬粡鏀跺埌锛?);
 			}
 		});
 	}
@@ -376,19 +395,13 @@
 </script>
 <body ng-app="productApp" ng-controller="product">
 <div class="topBarDiv">
-    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 </div>
-<div id="line0"></div>
-<div id="link">
- <link1>	 <a href="#">涓轰粈涔堣瀹氬埗钁ぜ</a>  </link1>
- <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">鎬庢牱瀹氬埗      </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">瀹氬埗璁＄畻</a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html">瀹氬埗濂楅  </a>  </link4></div>
 <div class="container"  ng-cloak>
     <div id="decorContainer">
 	    <div id="pageHeader">
 		    <div id="headerLeft">
-			    <h1>鎮ㄧ殑璐墿杞?/h1>
+			    <h1>您的购物车</h1>
 			</div>
 			<div id="headerRight">
 			    <div class="rightImg">
@@ -411,22 +424,25 @@
 					<input type="checkbox" id="topCheckBox"  onClick="checkBoxClick();">
 				</div>
 				<div class="itemName">
-				    <p class="title">浜у搧鍜屾湇鍕?/p>
+				    <p class="title">产品和服务</p>
 				</div>
 				<div class="itemPrice">
-				    <p class="title">蹇靛康浠锋牸 </p>
+				    <p class="title">念念价格(元)</p>
 				</div>
 				<div class="itemAmout">
-				    <p class="title">鏁伴噺</p>
+				    <p class="title">数量</p>
 				</div>
 				<div class="totalPrice">
-				    <p class="title">灏忚 </p>
+				    <p class="title">小计(元)</p>
 				</div>
 				<div class="operation">
-				    <p class="title">鎿嶄綔</p>
+				    <p class="title">操作</p>
 				</div>
 			</div>
-			
+			<div id="noAnyProduct" hidden>
+	            <h1>您的购物车里还没有任何物品</h1>
+				<div id="goShoppingButton"><h2>去别的地方看看</h2></div>
+	        </div>
 			<div class="tableContent" id="{{wishListDetail.wishDetailId}}" ng-repeat="wishListDetail in wishListDetails">
 				<div class="checkBox">
 				    <input type="checkbox"  name="checkbox">
@@ -475,18 +491,18 @@
 						<p class="summTitle titleNumber"></p>
 					</div>
 					<div id="rigthTopContent">
-					    <p class="title">浠跺晢鍝侊紝鍏辫</p>
-						<p class="title">杩愯垂</p>
-						<p class="summTitle">璁㈠崟鎬昏</p>
+					    <p class="title">共4件商品，共计</p>
+						<p class="title">运费</p>
+						<p class="summTitle">订单总计</p>
 					</div>
 				</div>
 			</div>
 			<div id="leftSumm">
 			    <div class="continue">
-			    <button>缁х画璐墿</button>
+			    <button>继续购物</button>
 				</div>
 				<div class="next">
-				<button id="nextButton">鍘荤粨璐?</button>
+				<button id="nextButton">去结算</button>
 				</div>
 			</div>
 		</div>
@@ -496,7 +512,7 @@
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
-<h1>鐗╁搧璇︾粏淇℃伅</h1>
+<h1>物品详细信息</h1>
 </div>
 <IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
@@ -511,7 +527,7 @@ function checkBoxClick(){
 var vcheckbox=document.getElementsByName("checkbox");
 var topCheckBox=document.getElementById("topCheckBox");
 	
-for(var i=0;i<vcheckbox.length;i++)//这里是length还是count记不清了
+for(var i=0;i<vcheckbox.length;i++)
 {
 	if(topCheckBox.checked){
 		
@@ -520,12 +536,7 @@ vcheckbox[i].checked = true;
 vcheckbox[i].checked = false;				
 				}
 }
-	
-	
-	}
-	
-	
-	
+}
 window.onload=function(){
     for (var j =0; j<$(".tableContent").length;j++) {
 	    var tableLine = $($(".tableContent")[j]);
@@ -569,7 +580,6 @@ window.onload=function(){
 				'background-color': '#ccc', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-	// 娣″叆娣″嚭鏁堟灉 
 				$(this).fadeTo('slow', 0.5); 
 		});
 	};
@@ -605,12 +615,11 @@ window.onload=function(){
 	});
 	
 };
-
-
-
 $(".continue").click(function() {
 	    window.location.href='/funeral/pages/productAndService.html';
 	});
-
+$("#goShoppingButton").click(function() {
+	window.location.href='/funeral/pages/productAndService.html';
+});
 </script>
 </html>

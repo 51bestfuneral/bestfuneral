@@ -31,7 +31,10 @@ public class User {
 	
 	@Column(name="age")
 	private Integer age;
-	
+
+	@Column(name="address")
+	private String address;
+
 	@Column(name="work")
 	private String work;
 
@@ -39,13 +42,13 @@ public class User {
 	private String district;
 
 	@Column(name="for_self")
-	private Integer for_self;
+	private Integer forSelf;
 
 	@Column(name="name")
 	private String name;
 
 	@Column(name="gender")
-	private String gender;
+	private Integer gender;
 	
 	@Column(name="birthday")
 	private String birthday;
@@ -66,7 +69,9 @@ public class User {
 	private String contactorAddress;
 	
 	@Column(name="contactor_relate")
-	private String contactor_relate;
+	private String contactorRelate;
+	@Column(name="identifier")
+	private String identifier;
 	@Column(name="pwd")
 	private String password;
 	
@@ -231,12 +236,12 @@ public class User {
 		this.district = district;
 	}
 
-	public Integer getFor_self() {
-		return for_self;
+	public Integer getForSelf() {
+		return forSelf;
 	}
 
-	public void setFor_self(Integer for_self) {
-		this.for_self = for_self;
+	public void setForSelf(Integer forSelf) {
+		this.forSelf = forSelf;
 	}
 
 	public String getName() {
@@ -247,11 +252,11 @@ public class User {
 		this.name = name;
 	}
 
-	public String getGender() {
+	public Integer getGender() {
 		return gender;
 	}
 
-	public void setGender(String gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 
@@ -303,12 +308,28 @@ public class User {
 		this.contactorAddress = contactorAddress;
 	}
 
-	public String getContactor_relate() {
-		return contactor_relate;
+	public String getIdentifier() {
+		return identifier;
 	}
 
-	public void setContactor_relate(String contactor_relate) {
-		this.contactor_relate = contactor_relate;
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContactorRelate() {
+		return contactorRelate;
+	}
+
+	public void setContactorRelate(String contactorRelate) {
+		this.contactorRelate = contactorRelate;
+	}
+	
 }

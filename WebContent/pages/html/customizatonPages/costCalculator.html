@@ -18,15 +18,12 @@
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 <div id="frameDiv">
 </div>
-<div id="link">
- <link1>	 <a href="/funeral/pages/funeralDesignPage.html">为什么要定制葬礼</a>  </link1>
- <link2>   <a href="howItWorks.html">怎样在念念定制葬礼</a>  </link2>
- <link3>   <a href="costCalculator.html"  style="font-weight:900;">葬礼花费计算器</a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html">开始定制  </a>  </link4>
- <link5>  <a href="/funeral/pages/designProposal.html">   <p>开始定制</p> </a>                              </link5>
- 	</div>
-
-
+<div id="subNavilink">
+ <link1><a href="#" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
+ <link3><a href="/funeral/pages/html/customizatonPages/costCalculator.html" style="font-weight:900;">葬礼花费计算器</a>  </link3>
+ <link4><a href="/funeral/pages/designProposal.html">开始定制  </a>  </link4>
+</div>
 <script>
 	var serviceCategories;
 </script>
@@ -78,17 +75,30 @@
 
 html {
     height: 100%;
-}				
-				
-	body {
-  margin: 0;
+}							
+body {
+    margin: 0;
 	text-align: center;
 	height: 100%;
 }
-
-
-
-	
+#subNavilink {
+    width: 675px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
 #start{
 border:0px solid black;
 width:99px;

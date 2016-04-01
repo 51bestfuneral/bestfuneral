@@ -98,14 +98,14 @@ public class AlipayController {
 		
 		
 		if(order!=null&&order.getStatusId().intValue()!=AlipayUtil.completed){
-			order.setPayableAmount(new BigDecimal(wishs.getPrice()));
+			order.setPayableAmount(wishs.getPrice());
 		}else{
 			
 			order=new Order();
 			order.setUserId(user.getUsrId());
 			order.setOrderNo(AlipayUtil.generateTradeNo(user.getUsrId(),index));
 			order.setSubject(wishs.getComment());
-			order.setPayableAmount(new BigDecimal(wishs.getPrice()));
+			order.setPayableAmount(wishs.getPrice());
 			order.setStatusId(1);
 			orderService.addResource(order);
 			

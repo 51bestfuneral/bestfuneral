@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS wishlists;
 CREATE TABLE wishlists (  
   wishlist_id integer NOT NULL AUTO_INCREMENT,
   user_id integer NOT NULL,
-  price varchar(20) NOT NULL,
-  original_price DECIMAL(10,2),
+  price DECIMAL(20,2),
+  original_price DECIMAL(20,2),
   ans_list_id varchar(20),  
   comment varchar(20),  
   status  varchar(20),  
