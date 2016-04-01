@@ -57,6 +57,7 @@ span {
 	margin: 0px auto;
 	padding-top: 28px;
 	padding-bottom: 28px;
+	
 }
 #nextButton {
     width: 190px;
@@ -228,16 +229,10 @@ var app = angular.module('alipayController', []);
 	 
 	    	$http.get("/funeral/alipay/createOrder").success(function(response) {
 	           
-	           $scope.order=response;  
-	           
-	           
+	           $scope.order=response;   
 	           $("#tradeNo").val($scope.order.orderNo);
-
-	           $("#totalFee").val($scope.order.payableAmount);
-
-	           
-	           
-	              
+	           $("#subject").val($scope.order.subject);
+	           $("#totalFee").val($scope.order.payableAmount);   
 });
 	    
 	    

@@ -276,12 +276,16 @@ function validateInList() {
 }
 window.parent.checkUserLogin(flag);
 app.controller('products', function($scope, $http) {
+
+
+
     if (flag.code === 1) {
 	    $http.get("/funeral/wishlist/list").success(function(response) {
 	        wishList=response;
             validateInList();
 	    });
     }
+    
 
 	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
@@ -361,6 +365,12 @@ function addToWishlist(object) {
 			"wishId": object.closest('.productItem')[0].id
 		},
 		dataList = [];
+		
+	//	alert("id= "+object.closest('.productItem')[0].id);
+	
+	
+	//alert("id= "+object.closest('.productItem')[0].id+"  wishlistId="+wishList[0].wishlistId);
+		
 	    dataList.push(data);
 		$.ajax({
 			url: '/funeral/wishlistDetail/addSingle?wishlistId='+wishList[0].wishlistId,

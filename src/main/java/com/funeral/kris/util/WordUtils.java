@@ -31,10 +31,10 @@ public class WordUtils {
 	    public void createWord(){  
 	        Map<String,Object> dataMap=new HashMap<String,Object>();  
 	        getData(dataMap);  
-	        configuration.setClassForTemplateLoading(this.getClass(), "/com/funeral/kris/util/");  //FTL文件所存在的位置  
+	        configuration.setClassForTemplateLoading(this.getClass(), "/com/funeral/kris/util/");  //FTL鏂囦欢鎵�瓨鍦ㄧ殑浣嶇疆  
 	        Template t=null;  
 	        try {  
-	            t = configuration.getTemplate("funeral_service_contract_template.ftl"); //文件名  
+	            t = configuration.getTemplate("funeral_service_contract_template.ftl"); //鏂囦欢鍚� 
 	        } catch (IOException e) {  
 	            e.printStackTrace();  
 	        }  
@@ -56,8 +56,8 @@ public class WordUtils {
 	    }  
 	  
 	    private void getData(Map<String, Object> dataMap) {  
-	        dataMap.put("name1", "吴晓");  
-	        dataMap.put("name2", "卢晓翔");  
+	        dataMap.put("name1", "");  
+	        dataMap.put("name2", "");  
 	        dataMap.put("amount", "2000");  
 	       
 	          
@@ -65,7 +65,7 @@ public class WordUtils {
 	        for (int i = 0; i < 10; i++) {  
 	            Map<String,Object> map = new HashMap<String,Object>();  
 	            map.put("number", i);  
-	            map.put("content", "内容"+i);  
+	            map.put("content", "鍐呭"+i);  
 	            list.add(map);  
 	        }  
 	          

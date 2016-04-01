@@ -1,5 +1,7 @@
 package com.funeral.kris.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,66 +19,77 @@ import com.funeral.kris.model.Wish;
 import com.funeral.kris.service.WishService;
 
 @Controller
-@RequestMapping(value="/wish")
+@RequestMapping(value = "/wish")
 public class WishController {
-	
+
 	@Autowired
 	private WishService wishService;
-	
-	@RequestMapping(value="/add", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView addWishPage() {
 		ModelAndView modelAndView = new ModelAndView("add-wish-form");
 		modelAndView.addObject("wish", new Wish());
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public ModelAndView addingWish(@ModelAttribute Wish wish) {
-		
+
 		ModelAndView modelAndView = new ModelAndView("home");
 		wishService.addResource(wish);
-		
+
 		String message = "Wish was successfully added.";
 		modelAndView.addObject("message", message);
-		
+
 		return modelAndView;
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<Wish> listOfWishs(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("list-of-wishs");
+	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
+	public List<Wish> list(HttpServletRequest request) {
 
-		List<Wish> wishs = wishService.getResources(request);
-		modelAndView.addObject("wishs", wishs);
-		
-		
+		List<Wish> whishlist = wishService.getResources();
 
-		return wishs;
+		List<Wish> list = new ArrayList();
+
+		String feature = request.getParameter("feature");
+
+		Iterator iterator = whishlist.iterator();
+
+		while (iterator.hasNext()) {
+
+			Wish wish = (Wish) iterator.next();
+
+			if (wish.getFeature()!=null&&wish.getFeature().intValue() == Integer.parseInt(feature)) {
+				list.add(wish);
+			}
+
+		}
+		return list;
 	}
-	
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public ModelAndView editWishPage(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("edit-wish-form");
 		Wish wish = wishService.getResource(id);
-		modelAndView.addObject("wish",wish);
+		modelAndView.addObject("wish", wish);
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
 	public ModelAndView edditingWish(@ModelAttribute Wish wish, @PathVariable Integer id) {
-		
+
 		ModelAndView modelAndView = new ModelAndView("home");
-		
+
 		wishService.updateResource(wish);
-		
+
 		String message = "Wish was successfully edited.";
 		modelAndView.addObject("message", message);
-		
+
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/delete/{id}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
 	public ModelAndView deleteWish(@PathVariable Integer id) {
 		ModelAndView modelAndView = new ModelAndView("home");
 		wishService.deleteResource(id);

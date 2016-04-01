@@ -44,6 +44,16 @@ public class WishlistDetail implements Serializable {
 
 	@Column(name = "count")
 	private Integer count;
+	@Column(name = "selected")
+	private Integer selected;
+
+	public Integer getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Integer selected) {
+		this.selected = selected;
+	}
 
 	@Column(name = "price")
 	private BigDecimal price;
