@@ -60,6 +60,26 @@ public class CemeteryController {
 		cemeteryService.addResource(cemetery);
 
 	}
+	@ResponseBody
+	@RequestMapping(value = "/addTemple", method = RequestMethod.POST)
+	public void addTemple(@RequestBody Cemetery cemetery) {
+		
+		System.out.println("  cemetery=" + cemetery);
+		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
+		cemetery.setType(2);
+		cemeteryService.addResource(cemetery);
+		
+	}
+	@ResponseBody
+	@RequestMapping(value = "/addCemetery", method = RequestMethod.POST)
+	public void addCemetery(@RequestBody Cemetery cemetery) {
+		
+		System.out.println("  cemetery=" + cemetery);
+		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
+		cemetery.setType(1);
+		cemeteryService.addResource(cemetery);
+		
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/getCemetery", method = RequestMethod.GET, produces = "application/json")
