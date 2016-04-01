@@ -19,6 +19,14 @@ public class Wish {
 	private Integer wishId;
 	@Column(name = "status_id")
 	private Integer statusId;
+	@Column(name = "wish_code")
+	private String wishCode;
+	@Column(name = "wish_level")
+	private String wishLevel;
+	@Column(name = "gender")
+	private String gender;
+	@Column(name = "wish_cata_code")
+	private String wishCataCode;
 
 	public Integer getPurchaseTime() {
 		return purchaseTime;
@@ -162,11 +170,11 @@ public class Wish {
 		this.size = size;
 	}
 
-	public int getKaimoTime() {
+	public Integer getKaimoTime() {
 		return kaimoTime;
 	}
 
-	public void setKaimoTime(int kaimoTime) {
+	public void setKaimoTime(Integer kaimoTime) {
 		this.kaimoTime = kaimoTime;
 	}
 
@@ -419,13 +427,11 @@ public class Wish {
 	}
 
 	@Column(name = "kaimo_time")
-	private int kaimoTime;
+	private Integer kaimoTime;
 
-	// 供应商
 	@Column(name = "supplier")
 	private String supplier;
 
-	// 单位
 	@Column(name = "unit")
 	private String unit;
 
@@ -454,7 +460,6 @@ public class Wish {
 	@Column(name = "sales_volume")
 	private Integer salesVolume;
 
-	// 销售价
 	@Column(name = "selling_price")
 	private BigDecimal sellingPrice;
 
@@ -504,12 +509,24 @@ public class Wish {
 
 	@Column(name = "url")
 	private String url;
+	@Column(name = "pd_source")
+	private String pdSource;
 
 	@Column(name = "createdate")
 	private Date createDate;
 
 	@Column(name = "feature")
 	private Integer feature;
+
+	
+
+	public String getPdSource() {
+		return pdSource;
+	}
+
+	public void setPdSource(String pdSource) {
+		this.pdSource = pdSource;
+	}
 
 	@Column(name = "updateddate")
 	private Date updatedDate;
@@ -568,6 +585,38 @@ public class Wish {
 
 	public void setFeature(Integer feature) {
 		this.feature = feature;
+	}
+
+	public String getWishCode() {
+		return wishCode;
+	}
+
+	public void setWishCode(String wishCode) {
+		this.wishCode = wishCode;
+	}
+
+	public String getWishLevel() {
+		return wishLevel;
+	}
+
+	public void setWishLevel(String wishLevel) {
+		this.wishLevel = wishLevel;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getWishCataCode() {
+		return wishCataCode;
+	}
+
+	public void setWishCataCode(String wishCataCode) {
+		this.wishCataCode = wishCataCode;
 	}
 
 }

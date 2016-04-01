@@ -11,8 +11,11 @@
 <script src="../../js/jquery-2.1.4.js"></script>
 <script src="../../js/jquery-ui.js"></script>
 <script src="../../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../../js/Bootstrap/boot.js"></script>
-<link href="../../js/Bootstrap/boot.css" rel="stylesheet">
+<script src="../../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="../../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<link href="../../js/timepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="../../js/timepicker/js/moment-with-locales.js"></script>
+<script src="../../js/timepicker/js/bootstrap-datetimepicker.js"></script>
 <style>
     body {
 	    text-align: center;
@@ -66,7 +69,7 @@
 	.questionCenter {
 		overflow: auto;
 		text-align: center;
-		padding-bottom: 50px;
+		padding-bottom: 143px;
 	}
 	.questionCenter h1{
 	    font-size: 38px;
@@ -76,9 +79,7 @@
 	.questionArea {
 	    text-align: center;
 		width: 100%;
-		overflow: atuo;
 		padding-top: 90px;
-		padding-bottom: 90px;
 	}
 	.questionArea span {
 	    font-size: 23px;
@@ -171,19 +172,71 @@
 	}
 	
 	.inputStyle{
-border-top:none;
-border-left:none;
-border-right:none;
-border-bottom:1px solid   #979797;
-height:40px;
-outline:none;		
-padding-right:0px;
-font-weight:100;
-color:#707070; 
-font-family: STHeitiSC-Medium;
-font-size:40px;
-
-		}
+		border-top:none;
+		border-left:none;
+		border-right:none;
+		border-bottom:1px solid   #979797;
+		height:40px;
+		outline:none;		
+		padding-right:0px;
+		font-weight:100;
+		color:#707070; 
+		font-family: STHeitiSC-Medium;
+		font-size:40px;
+	}
+	.subQuestionArea {
+	    text-align: center;
+		width: 100%;
+	}
+	.subQuestionArea span {
+	    font-size: 23px;
+        color: #707070;
+		font-family: "Microsoft Yahei";
+	}
+	.subQuestionArea select {
+	    color: #ff5274;
+		font-size: 23px;
+		font-family: "Microsoft Yahei";
+		width: 120px;
+		height: 30px;
+		display: inline;
+		padding: 0px;
+		margin-bottom: 10px;
+	}
+	.inputQuestionArea {
+	    width: 700px;
+		text-align: center;
+		margin: 0px auto;
+		padding-top: 90px;
+	}
+	.spanCoat span {
+	    font-size: 23px;
+        color: #707070;
+		font-family: "Microsoft Yahei";
+		width: 100px;
+	}
+	.singleQuestion {
+	    float: left;
+		overflow: auto;
+		margin-left: 20px;
+	}
+    .spanCoat {
+	    float: left;
+		width: 110px;
+		text-align: left;
+	}
+	.singleQuestion .form-control {
+	    float: left;
+		width: 200px;
+		font-family: "Microsoft Yahei";
+		margin-bottom: 5px;
+	}
+	#datetimepicker1 {
+	    width: 200px;
+		height: 26px;
+		padding: 0px;
+		float: left;
+	}
 </style>
 <script type="text/javascript">
 var app = angular.module('productApp', []);
@@ -208,11 +261,11 @@ app.controller('products', function($scope, $http) {
 		questionContent: "告诉我们一些您的个人信息"
 	}, {
 	    questionId: 2,
-		questionTitle: "基本信息",
+		questionTitle: "个人信息",
 		questionContent: "告诉我们一些您的个人信息"
 	}, {
 	    questionId: 3,
-		questionTitle: "基本信息",
+		questionTitle: "联系人信息",
 		questionContent: "告诉我们一些您的个人信息"
 	}];
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
@@ -253,12 +306,12 @@ app.controller('products', function($scope, $http) {
 </div>
 <div id="moveCursor">
 </div>
-<div class="questionCenter" hidden id="{{question.questionId}}-content" ng-repeat="question in questions" on-finish-render-filters>
+<div class="questionCenter" hidden id="1-content">
     <div class="index">
-	    <p><b>{{$index+1}}</b>/20</p>
+	    <p><b>1</b>/20</p>
 	</div>
 	<div class="questionText">
-	    <h1>{{question.questionContent}}</h1>
+	    <h1>告诉我们一些您的个人信息</h1>
 	</div>
 	<div class="questionArea">
 		<span>我今年</span>
@@ -282,15 +335,100 @@ app.controller('products', function($scope, $http) {
 			<option>宝山区</option>
 		</select>
 	</div>
+	<div class="subQuestionArea">
+	    <span>我是为了</span>
+	    <select style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+		    <option default></option>
+			<option>我自己</option>
+			<option>我爱的人</option>
+		</select>
+		<span>定制葬礼</span>
+	</div>
 </div>
-	<div id="rightFooter">
-	    <div id="prevStep" class="operatorButton">
-		    <p>&#60;</p>
+<div class="questionCenter" hidden id="2-content">
+    <div class="index">
+	    <p><b>2</b>/20</p>
+	</div>
+	<div class="questionText">
+	    <h1>告诉我们一些他(她)的个人信息</h1>
+	</div>
+	<div class="inputQuestionArea">
+	    <div class="singleQuestion">
+			<div class="spanCoat mandantory"><span>姓名*</span></div>
+			<input type="text" class="form-control"></input>
 		</div>
-		<div id="nextStep" class="operatorButton">
-		    <p>下一步</p>
+		<div class="singleQuestion">
+			<div class="spanCoat mandantory"><span>性别*</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat mandantory"><span>出生日期*</span></div>
+		</div>
+        <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>身份证号</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>地址</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat mandantory"><span>联系电话*</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>电子邮箱</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>出生地</span></div>
+			<input type="text" class="form-control"></input>
 		</div>
 	</div>
+</div>
+<div class="questionCenter" hidden id="3-content">
+    <div class="index">
+	    <p><b>3</b>/20</p>
+	</div>
+	<div class="questionText">
+	    <h1>请输入您的信息作为紧急联系人</h1>
+	</div>
+	<div class="inputQuestionArea">
+	    <div class="singleQuestion">
+			<div class="spanCoat mandantory"><span>姓名*</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat mandantory"><span>电话*</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>电子邮件</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>地址</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>关系</span></div>
+			<input type="text" class="form-control"></input>
+		</div>
+	</div>
+</div>
+<div id="rightFooter">
+	<div id="prevStep" class="operatorButton">
+		<p>&#60;</p>
+	</div>
+	<div id="nextStep" class="operatorButton">
+		<p>下一步</p>
+	</div>
+</div>
 </div>
 </body>
 <script>
@@ -471,7 +609,11 @@ $(document.body).on("blur","input", function( event ) {
 	handleFinished(tabPage);
 });
 window.onload=function(){
+	$('#datetimepicker1').datetimepicker({
+	    format: "YYYY-MM-DD"
+	});
     $(".questionCenter").first().fadeIn();
+	window.parent.iFrameHeight(0);
 	handleButton();
 };
 </script>

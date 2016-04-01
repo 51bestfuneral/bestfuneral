@@ -54,8 +54,7 @@
 		//付款金额
 		String total_fee = request.getParameter("WIDtotal_fee");
 		//必填
-		String body = request.getParameter("WIDbody");		String body = request.getParameter("WIDbody");
-		//防钓鱼时间戳
+		String body = request.getParameter("WIDbody");		//防钓鱼时间戳
 		String anti_phishing_key = "";
 		//若要使用请调用类文件submit中的query_timestamp函数
 		String exter_invoke_ip ="";

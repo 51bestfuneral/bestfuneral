@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="head"><title>
-    Cemetery
+    墓地
 </title><meta name="description" content="Bleum provides high performance software development teams that
 								deliver smart solutions, helping you to exceed your customers’
 								expectations for timely product delivery, zero defects, and a
@@ -30,42 +30,6 @@
 		
 
 <style>
-
-.x {
-            border: solid 0px red;
-            width: 200px;
-            height: 200px;
-            position: relative;
-            left:90px;
-            top:200px;
-            background-color: transparent;
-        }
-
-            .x:before {
-                position: absolute;
-                top: 0px;
-                right: 0;
-                left: 0;
-                bottom: 0;
-                border-bottom: 200px solid red;
-                border-left: 200px solid transparent;
-                content: "";
-            }
-
-            .x:after {
-                position: absolute;
-                left: 1px;
-                right: 0;
-                top: 1px;
-                bottom: 0;
-                border-bottom: 199px solid white;
-                border-left: 199px solid transparent;
-                content: "";
-            }
-
-
-
-
 
 #mainHeader {
     text-align: center;
@@ -167,7 +131,7 @@
 	line-height: 80px;
 	color: #3d3d3d;
 	position: relative;
-		left: -56px;
+		left: 0px;
 
 }
 .rightFeatureText p {
@@ -242,7 +206,7 @@
 .rightEquipmentText h1 {
     margin: 0px;
 	position: relative;
-	left: -56px;
+	left: 0px;
 	font-size: 60px;
 	line-height: 80px;
 	color: #3d3d3d;
@@ -438,7 +402,7 @@
   object-fit: contain;
 }
 #cemeteryMapContext{
-width: 1350px;
+width: 100%;
   height: 479px;
   object-fit: contain;
 }
@@ -468,6 +432,45 @@ width: 1350px;
 	color: #ffffff;
 	margin: 0px;
 		
+}
+.redline{
+	border-bottom:2px solid #ff5274;
+	-webkit-transform: rotate(115deg);/*Safari 4+,Google Chrome 1+  */
+	-moz-transform: rotate(115deg);/*Firefox 3.5+*/
+	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=1.1);
+	position: absolute;
+	z-index: 10;
+}
+#redline1 {
+    margin-left: 460px;
+	margin-top: 300px;
+	width:300px;height:13px;
+}
+#redline2 {
+	margin-left: 870px;
+	margin-top: 710px;
+	width:200px;height:13px;
+}
+#redline3 {
+	margin-left: 0px;
+	margin-top: 920px;
+	width:400px;height:13px;
+}
+#redline4 {
+	margin-left: 860px;
+	margin-top: 1370px;
+	width:250px;height:13px;
+}
+#redline5 {
+	margin-left: 460px;
+	margin-top: 1470px;
+	width:250px;height:13px;
+}
+#redline6 {
+	margin-left: 860px;
+	margin-top: 1870px;
+	width:250px;
+	height:13px;
 }
 </style>
 <script>
@@ -739,17 +742,20 @@ function resetCenterAndZoom(x,y,cemeteryName){
 }
 
 //initMap();//创建和初始化地图
+
+
+
+
+
 </script>
 
 
 
 <body ng-app="productApp" ng-controller="cemetery">
-<div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>  
-
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME> 
 <div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
-	    <p><span>墓地信息</span>／{{cemeteryBean.cemeteryName}}</p>
+	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
 	</div>
 	<div id="centerText">
         <h1>{{cemeteryBean.cemeteryName}}</h1>
@@ -760,7 +766,13 @@ function resetCenterAndZoom(x,y,cemeteryName){
 		
 	</div>
 </div>
-
+<div class="container">
+<div class="redline" id="redline1"></div>
+<div class="redline" id="redline2"></div>
+<div class="redline" id="redline3"></div>
+<div class="redline" id="redline4"></div>
+<div class="redline" id="redline5"></div>
+<div class="redline" id="redline6"></div>
 <div id="cemeteryFilter">
     <div id="filter">
 		<div id="filterCata">
@@ -842,12 +854,11 @@ function resetCenterAndZoom(x,y,cemeteryName){
 </div>
 <div id="cemeteryMap">
 <div id="cemeteryMapContext">
- 
-   </div>
+  </div>
+</div>
+</div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
-</div>
-</div>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 <head id="head"><title>
     墓地列表
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers’
+								deliver smart solutions, helping you to exceed your customers�?
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -136,12 +136,28 @@
   $scope.cemeteryBeans=response;
   
  }) 	
- 	 	
-	$scope.gotodetails = function(id){
+ 	 
+ 		 	$http.get("/funeral/cemetery/listAllTemple").success(function(response) {
+       	
+  $scope.temples=response;
+  
+ }) 	 
+
  	
- 	goto(id);
+ 	
+ 	$scope.gotoCemetery = function(id){
+ 	
+		    window.location.href='cemetery.html?id='+id;
  	
  	} 	
+ 	
+ 	function gotoTemple(id){
+		
+		    window.location.href='temple.html?id='+id;
+	
+		}
+		
+	
 	 	
 	 	
 	});
@@ -151,9 +167,8 @@
 
 </script>
 <body ng-app="myApp" ng-controller="cemetery">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
 <div class="container" ng-cloak>
-	<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "65px"></IFRAME>
-
 <div class="topBarDiv">
 </div>
 <div id="mainHeader">
@@ -163,7 +178,7 @@
 	<div id="visitButton">
 	    <p>在线预约</p>
 	</div>
-	<p>我们会帮您安排参观访问</p>
+	<p>我们会帮您安排参观访�?/p>
 </div>
 <div id="cemeteryList">
     <div class="listTitle">
@@ -171,8 +186,9 @@
 		<h1>墓园</h1>
 	</div>
 	<div class="listContent">
-	    <div  ng-click="gotodetails(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans">
+	    <div  ng-click="gotoCemetery(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans">
 		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
+		     <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district+' | ￥'+bean.price+'起 '}}</h5></span> 
 		 <img  src={{bean.descImgUrl}}></img>
 		  
 		</div>
@@ -185,29 +201,15 @@
 	    <img src="../js/images/cemeteryList.png"></img>
 		<h1>寺庙</h1>
 	</div>
+
 	<div class="listContent">
-	    <div class="doubleLeft cemeteryDiv">
-		    <p>寺庙名称</p>
+	    <div  ng-click="gotoTemple(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  temples">
+		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
+		 <img  src={{bean.descImgUrl}}></img>
+		  
 		</div>
-		<div class="singleRight cemeteryDiv">
-		    <p>寺庙名称</p>
-		</div>
-		<div class="singleLeft cemeteryDiv">
-		    <p>寺庙名称</p>
-		</div>
-		<div class="singleMiddle cemeteryDiv">
-		    <p>寺庙名称</p>
-		</div>
-		<div class="singleRight cemeteryDiv">
-		    <p>寺庙名称</p>
-		</div>
-		<div class="singleLeft cemeteryDiv">
-		    <p>寺庙名称</p>
-		</div>
-		<div class="doubleRight cemeteryDiv">
-		    <p>寺庙名称</p>
-		</div>
-	</div>
+
+
 </div>
 <IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
@@ -221,11 +223,7 @@
 </body>
 <script>
 	
-	function goto(id){
-		
-		    window.location.href='cemetery.html?id='+id;
 	
-		}
 	
 </script>
 </html>

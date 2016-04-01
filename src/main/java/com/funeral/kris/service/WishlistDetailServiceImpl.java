@@ -49,10 +49,9 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 		String a = null;
 
 		try {
-			 a = SqlHelper.getSqlFromRequest("WishlistDetail", request);
-		}
-		catch (Exception e) {
-			
+			a = SqlHelper.getSqlFromRequest("WishlistDetail", request);
+		} catch (Exception e) {
+
 		}
 		Query query = em.createQuery(a);
 		List<WishlistDetail> WishlistDetails = query.getResultList();
@@ -62,9 +61,53 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 	public void deleteAllResources(String condition) {
 		String a = null;
 		a = "delete from wishlist_details where 1 = 1";
-        if (condition != null && !condition.equals("")) {
-        	a = a + " and " + condition;
-        }
+		if (condition != null && !condition.equals("")) {
+			a = a + " and " + condition;
+		}
 		jdbcTemplate.update(a);
+	}
+
+	@Override
+	public List<WishlistDetail> getResource() {
+
+		Iterable<WishlistDetail> iterator = WishlistDetailDAO.findAll();
+		List<WishlistDetail> list = new ArrayList<WishlistDetail>();
+
+		Iterator<WishlistDetail> iter = iterator.iterator();
+		while (iter.hasNext()) {
+			WishlistDetail wishlistDetail = iter.next();
+			list.add(wishlistDetail);
+		}
+
+		return list;
+
+	}
+
+	@Override
+	public List<WishlistDetail> getResourceByWishListId(int wishListId) {
+
+		List<WishlistDetail> list = new ArrayList<WishlistDetail>();
+
+		List<WishlistDetail> fullList = this.getResource();
+
+		if (fullList == null) {
+			return list;
+		} else {
+			Iterator<WishlistDetail> iter = fullList.iterator();
+			while (iter.hasNext()) {
+				WishlistDetail wishlistDetail = iter.next();
+
+				if (wishlistDetail.getWishlistId() == wishListId) {
+
+					list.add(wishlistDetail);
+
+				}
+
+			}
+
+		}
+
+		return list;
+
 	}
 }

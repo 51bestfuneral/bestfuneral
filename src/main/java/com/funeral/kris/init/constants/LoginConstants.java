@@ -18,4 +18,9 @@ public class LoginConstants {
 	 public static final Integer emailInvalid=1;
 	 public static final Integer phoneInvalid=2;
 	 public static final Integer valid=0;
+
+	 public static final String WISHLISTSTATUS_INPROCESS = "I";
+	 public static final String WISHLISTSTATUS_INIT = "N";
+	 public static final String WISHLISTSTATUS_FINISHED = "F";
+	 
 }

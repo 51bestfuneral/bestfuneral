@@ -29,6 +29,14 @@ import jxl.Workbook;
 @Controller
 @RequestMapping(value = "/productConfiguration")
 public class ProductConfigurationControler {
+    private String sourceId;
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
 
 	@Autowired
 	private WishService wishService;
@@ -56,7 +64,8 @@ public class ProductConfigurationControler {
 		
 		wish.setWishName(wishName);
 		String feature = sheet.getCell(1, i).getContents();// 短号
-		wish.setFeature((feature == null ||"".equals(feature) ? 0 : Integer.parseInt(feature)));
+		wish.setFeature((feature == null ||"".equals(feature) ||(feature).trim()
+				.equals("") ? 0 : Integer.parseInt(feature)));
 
 		String generalCode = sheet.getCell(2, i).getContents();
 		wish.setGeneralCode(generalCode);
@@ -82,20 +91,26 @@ public class ProductConfigurationControler {
 		String unit = sheet.getCell(12, i).getContents();
 		wish.setUnit(unit);
 		String procurementCost = sheet.getCell(13, i).getContents();
-		wish.setProcurementCost((java.math.BigDecimal) (procurementCost == null ||"".equals(procurementCost)
+		wish.setProcurementCost((java.math.BigDecimal) (procurementCost == null ||"".equals(procurementCost)||(procurementCost+"").trim()
+				.equals("")
 				? BigDecimal.ZERO : new java.math.BigDecimal(procurementCost)));
 
 		String sellingPrice = sheet.getCell(14, i).getContents();
-		wish.setSellingPrice((java.math.BigDecimal) (sellingPrice == null ||"".equals(sellingPrice) ? BigDecimal.ZERO
+		wish.setSellingPrice((java.math.BigDecimal) (sellingPrice == null ||"".equals(sellingPrice)||(sellingPrice).trim()
+				.equals("") ? BigDecimal.ZERO
 				: new java.math.BigDecimal(sellingPrice)));
 
 		String xianenPrice = sheet.getCell(15, i).getContents();
-		wish.setXianenPrice((java.math.BigDecimal) (xianenPrice == null ||"".equals(xianenPrice) ? BigDecimal.ZERO
+		
+		
+		System.out.println("-----  xianenPrice= "+ xianenPrice+ "i="+i);
+
+		wish.setXianenPrice((BigDecimal) (xianenPrice == null ||"".equals(xianenPrice) ||(xianenPrice+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(xianenPrice)));
 
 		String xianenDiffPrice = sheet.getCell(16, i).getContents();
 		
-		System.out.println("  xianenDiffPrice= "+xianenDiffPrice);
 		
 	
 		
@@ -104,122 +119,151 @@ public class ProductConfigurationControler {
 		String xiangheTotalPrice = sheet.getCell(17, i).getContents();
 		System.out.println("  xiangheTotalPrice= "+xiangheTotalPrice);
 
-		wish.setXiangheTotalPrice((java.math.BigDecimal) (xiangheTotalPrice == null ||"".equals(xiangheTotalPrice)
+		wish.setXiangheTotalPrice((java.math.BigDecimal) (xiangheTotalPrice == null ||"".equals(xiangheTotalPrice)||(xiangheTotalPrice+"").trim()
+				.equals("")
 				? BigDecimal.ZERO : new java.math.BigDecimal(xiangheTotalPrice)));
 
 		String xiangheDiffPrice = sheet.getCell(18, i).getContents();
 		wish.setXiangheDiffPrice(xiangheDiffPrice);
 
 		String kaimoFee = sheet.getCell(19, i).getContents();
-		wish.setKaimoFee((java.math.BigDecimal) (kaimoFee == null ||"".equals(kaimoFee) ? BigDecimal.ZERO
+		wish.setKaimoFee((java.math.BigDecimal) (kaimoFee == null ||"".equals(kaimoFee) ||(kaimoFee+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(kaimoFee)));
 
 		String kaimoTime = sheet.getCell(20, i).getContents();
-		wish.setKaimoTime((kaimoTime == null ||"".equals(kaimoTime) ? 0 : Integer.parseInt(kaimoTime)));
+		wish.setKaimoTime((kaimoTime == null ||"".equals(kaimoTime)||(kaimoTime+"").trim()
+				.equals("") ? 0 : Integer.parseInt(kaimoTime)));
 
 		String otherFeeA = sheet.getCell(21, i).getContents();
-		wish.setOtherFeeA((java.math.BigDecimal) (otherFeeA == null ||"".equals(otherFeeA) ? BigDecimal.ZERO
+		wish.setOtherFeeA((java.math.BigDecimal) (otherFeeA == null ||"".equals(otherFeeA)||(otherFeeA+"").trim()
+				.equals("")  ? BigDecimal.ZERO
 				: new java.math.BigDecimal(otherFeeA)));
 
 		String otherFeeB = sheet.getCell(22, i).getContents();
-		wish.setOtherFeeB((java.math.BigDecimal) (otherFeeB == null ||"".equals(otherFeeB) ? BigDecimal.ZERO
+		wish.setOtherFeeB((java.math.BigDecimal) (otherFeeB == null ||"".equals(otherFeeB) ||(otherFeeB+"").trim()
+				.equals("") ? BigDecimal.ZERO
 				: new java.math.BigDecimal(otherFeeB)));
 
 		String otherFeeC = sheet.getCell(23, i).getContents();
-		wish.setOtherFeeC((java.math.BigDecimal) (otherFeeC == null ||"".equals(otherFeeC) ? BigDecimal.ZERO
+		wish.setOtherFeeC((java.math.BigDecimal) (otherFeeC == null ||"".equals(otherFeeC) ||(otherFeeC+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(otherFeeC)));
 
 		String bookPrice1 = sheet.getCell(24, i).getContents();
-		wish.setBookPrice1((java.math.BigDecimal) (bookPrice1 == null ||"".equals(bookPrice1) ? BigDecimal.ZERO
+		wish.setBookPrice1((java.math.BigDecimal) (bookPrice1 == null ||"".equals(bookPrice1) ||(bookPrice1+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(bookPrice1)));
 
 		String bookCount1 = sheet.getCell(25, i).getContents();
-		wish.setBookCount1((bookCount1 == null ||"".equals(bookCount1) ? 0 : Integer.parseInt(bookCount1)));
+		wish.setBookCount1((bookCount1 == null ||"".equals(bookCount1) ||(bookCount1).trim()
+				.equals("")? 0 : Integer.parseInt(bookCount1)));
 
 		String bookPrice2 = sheet.getCell(26, i).getContents();
-		wish.setBookPrice2((java.math.BigDecimal) (bookPrice2 == null ||"".equals(bookPrice2) ? BigDecimal.ZERO
+		wish.setBookPrice2((java.math.BigDecimal) (bookPrice2 == null ||"".equals(bookPrice2)||(bookPrice2+"").trim()
+				.equals("") ? BigDecimal.ZERO
 				: new java.math.BigDecimal(bookPrice2)));
 
 		String bookCount2 = sheet.getCell(27, i).getContents();
-		wish.setBookCount2((bookCount2 == null ||"".equals(bookCount2) ? 0 : Integer.parseInt(bookCount2)));
+		wish.setBookCount2((bookCount2 == null ||"".equals(bookCount2) ||(bookCount2).trim()
+				.equals("")? 0 : Integer.parseInt(bookCount2)));
 
 		String bookPrice3 = sheet.getCell(28, i).getContents();
-		wish.setBookPrice3((java.math.BigDecimal) (bookPrice3 == null ||"".equals(bookPrice3) ? BigDecimal.ZERO
+		wish.setBookPrice3((java.math.BigDecimal) (bookPrice3 == null ||"".equals(bookPrice3) ||(bookPrice3+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(bookPrice3)));
 
 		String bookCount3 = sheet.getCell(29, i).getContents();
-		wish.setBookCount3((bookCount3 == null ||"".equals(bookCount3) ? 0 : Integer.parseInt(bookCount3)));
+		wish.setBookCount3((bookCount3 == null ||"".equals(bookCount3)||(bookCount3).trim()
+				.equals("") ? 0 : Integer.parseInt(bookCount3)));
 
 		String purchaseTime=sheet.getCell(30, i).getContents();
-		wish.setPurchaseTime((purchaseTime == null ||"".equals(purchaseTime) ? 0 : Integer.parseInt(purchaseTime)));
+		wish.setPurchaseTime((purchaseTime == null ||"".equals(purchaseTime) ||(purchaseTime).trim()
+				.equals("")? 0 : Integer.parseInt(purchaseTime)));
 
 		String purchaseCapacity = sheet.getCell(31, i).getContents();
 		wish.setPurchaseCapacity(
-				(purchaseCapacity == null ||"".equals(purchaseCapacity) ? 0 : Integer.parseInt(purchaseCapacity)));
+				(purchaseCapacity == null ||"".equals(purchaseCapacity) ||(purchaseCapacity).trim()
+						.equals("")? 0 : Integer.parseInt(purchaseCapacity)));
 
 		String returnCount = sheet.getCell(32, i).getContents();
-		wish.setReturnCount((returnCount == null ||"".equals(returnCount) ? 0 : Integer.parseInt(returnCount)));
+		wish.setReturnCount((returnCount == null ||"".equals(returnCount)||(returnCount).trim()
+				.equals("") ? 0 : Integer.parseInt(returnCount)));
 
 		String salesVolume = sheet.getCell(33, i).getContents();
-		wish.setSalesVolume((salesVolume == null ||"".equals(salesVolume) ? 0 : Integer.parseInt(salesVolume)));
+		wish.setSalesVolume((salesVolume == null ||"".equals(salesVolume) ||(salesVolume).trim()
+				.equals("")? 0 : Integer.parseInt(salesVolume)));
 
 		String salesIncome = sheet.getCell(34, i).getContents();
-		wish.setSalesIncome((java.math.BigDecimal) (salesIncome == null ||"".equals(salesIncome) ? BigDecimal.ZERO
+		wish.setSalesIncome((java.math.BigDecimal) (salesIncome == null ||"".equals(salesIncome) ||(salesIncome+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(salesIncome)));
 
 		String totalProcurementCost = sheet.getCell(35, i).getContents();
 		wish.setTotalProcurementCost(
-				(java.math.BigDecimal) (totalProcurementCost == null ||"".equals(totalProcurementCost)
+				(java.math.BigDecimal) (totalProcurementCost == null ||"".equals(totalProcurementCost)||(totalProcurementCost+"").trim()
+						.equals("")
 						? BigDecimal.ZERO : new java.math.BigDecimal(totalProcurementCost)));
 
 		String commissionRate = sheet.getCell(36, i).getContents();
-		wish.setCommissionRate((java.math.BigDecimal) (commissionRate == null ||"".equals(commissionRate)
+		wish.setCommissionRate((java.math.BigDecimal) (commissionRate == null ||"".equals(commissionRate)||(commissionRate+"").trim()
+				.equals("")
 				? BigDecimal.ZERO : new java.math.BigDecimal(commissionRate)));
 
 		String commission = sheet.getCell(37, i).getContents();
-		wish.setCommission((java.math.BigDecimal) (commission == null ||"".equals(commission) ? BigDecimal.ZERO
+		wish.setCommission((java.math.BigDecimal) (commission == null ||"".equals(commission) ||(commission+"").trim()
+				.equals("")? BigDecimal.ZERO
 				: new java.math.BigDecimal(commission)));
 
 		String badDebt = sheet.getCell(38, i).getContents();
 		
 		
-		wish.setBadDebt((java.math.BigDecimal) (badDebt == null ||"".equals(badDebt) ? BigDecimal.ZERO
+		wish.setBadDebt((java.math.BigDecimal) (badDebt == null ||"".equals(badDebt)||(badDebt+"").trim()
+				.equals("") ? BigDecimal.ZERO
 				: new java.math.BigDecimal(badDebt)));
 
 		String grossProfit = sheet.getCell(39, i).getContents();
-		wish.setGrossProfit((java.math.BigDecimal) (grossProfit == null ||"".equals(grossProfit) ? BigDecimal.ZERO
+		wish.setGrossProfit((java.math.BigDecimal) (grossProfit == null ||"".equals(grossProfit) ||(grossProfit+"").trim()
+				.equals("") ? BigDecimal.ZERO
 				: new java.math.BigDecimal(grossProfit)));
 
 		String holdingCost = sheet.getCell(40, i).getContents();
-		wish.setHoldingCost((java.math.BigDecimal) (holdingCost == null ||"".equals(holdingCost) ? BigDecimal.ZERO
+		wish.setHoldingCost((java.math.BigDecimal) (holdingCost == null ||"".equals(holdingCost) ||(holdingCost).trim()
+				.equals("")  ? BigDecimal.ZERO
 				: new java.math.BigDecimal(holdingCost)));
 
 		String netProfit = sheet.getCell(41, i).getContents();
-		wish.setNetProfit((java.math.BigDecimal) (netProfit == null ||"".equals(netProfit) ? BigDecimal.ZERO
+		wish.setNetProfit((java.math.BigDecimal) (netProfit == null ||"".equals(netProfit)||(netProfit).trim()
+				.equals("")  ? BigDecimal.ZERO
 				: new java.math.BigDecimal(netProfit)));
 
 		String profitLossRate = sheet.getCell(42, i).getContents();
-		wish.setProfitLossRate((java.math.BigDecimal) (profitLossRate == null ||"".equals(netProfit) ? BigDecimal.ZERO
+		wish.setProfitLossRate((java.math.BigDecimal) (profitLossRate == null ||"".equals(netProfit)||(netProfit).trim()
+				.equals("")  ? BigDecimal.ZERO
 				: new java.math.BigDecimal(netProfit)));
 
 		String holdingCount = sheet.getCell(43, i).getContents();
 		
 		System.out.println("==== holdingCount="+holdingCount);
-		wish.setHoldingCount((holdingCount == null ||"".equals(holdingCount) ? 0 : Integer.parseInt(holdingCount)));
+		wish.setHoldingCount((holdingCount == null ||"".equals(holdingCount) ||(holdingCount).trim()
+				.equals("") ? 0 : Integer.parseInt(holdingCount)));
 
 		String sales_channel = sheet.getCell(44, i).getContents();
-		wish.setSalesChannel((sales_channel == null ||"".equals(sales_channel) ? 0 : Integer.parseInt(sales_channel)));
+		wish.setSalesChannel((sales_channel == null ||"".equals(sales_channel)||(sales_channel).trim()
+				.equals("")  ? 0 : Integer.parseInt(sales_channel)));
 
 		String imgUrl = sheet.getCell(45, i).getContents();
 		
 		wish.setImgUrl(imgUrl);
 		String operatorId = sheet.getCell(46, i).getContents();
-		wish.setOperator_id((operatorId == null ||"".equals(operatorId) ? 0 : Integer.parseInt(operatorId)));
+		wish.setOperator_id((operatorId == null ||"".equals(operatorId) ||(operatorId).trim()
+				.equals("")? 0 : Integer.parseInt(operatorId)));
 
 		String remark = sheet.getCell(47, i).getContents();
 		
 		String statusId=sheet.getCell(48, i).getContents();
-		wish.setStatusId((statusId == null ||"".equals(statusId) ? 0 : Integer.parseInt(statusId)));
+		wish.setStatusId((statusId == null ||"".equals(statusId)||(statusId).trim()
+				.equals("") ? 0 : Integer.parseInt(statusId)));
 
 		return wish;
 
@@ -230,7 +274,7 @@ public class ProductConfigurationControler {
 		Sheet sheet = workbook.getSheet(0);// 获取第一个sheet
 		int rows = sheet.getRows(); // 获取总行号
 
-		System.out.println("---------------------rows=" + rows);
+		System.out.println("---------------------rows=" + rows+" this.getSourceId()="+this.getSourceId());
 
 		String[][] curArr = new String[rows][2]; // 存放正确心细
 		String[][] errorArr = new String[rows * 2][4]; // 存放错误信息
@@ -239,6 +283,8 @@ public class ProductConfigurationControler {
 		for (int i = 1; i < rows; i++) {// 遍历行获得每行信息
 
 			Wish wish = buildWish(sheet, i);
+			wish.setPdSource(this.getSourceId());
+			
 			System.out.println("inserting ....  i=" + i);
 			wishService.addResource(wish);
 
@@ -255,7 +301,7 @@ public class ProductConfigurationControler {
 		System.out.println("actionTypes=" + actionTypes + " id=" + id);
 
 		// Integer wishId = Integer.parseInt(id);
-
+		String fileName="";
 		// 判断提交过来的表单是否为文件上传菜单
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
@@ -278,7 +324,7 @@ public class ProductConfigurationControler {
 						// 取出上传文件的文件名称
 						String name = item.getName();
 						// 取得上传文件以后的存储路径
-						String fileName = name.substring(name.lastIndexOf('\\') + 1, name.length());
+						 fileName = name.substring(name.lastIndexOf('\\') + 1, name.length());
 
 						realName = fileName;
 						fileName = System.currentTimeMillis() + "_" + fileName;
@@ -303,6 +349,9 @@ public class ProductConfigurationControler {
 					System.out.println("realName==null=====" + realName == null);
 
 					if (realName != null && !StringUtils.isEmptyOrWhitespaceOnly(realName)) {
+						
+						this.setSourceId(fileName);
+						
 						return path;
 					}
 				}

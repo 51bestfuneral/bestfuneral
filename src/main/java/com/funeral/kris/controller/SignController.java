@@ -1,5 +1,6 @@
 package com.funeral.kris.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
+import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.UserService;
+import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.MD5;
 
 @Controller
@@ -28,6 +31,8 @@ public class SignController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private WishlistService wishlistService;
 	@Autowired
 	private EntityManager em;
 
@@ -47,6 +52,7 @@ public class SignController {
 		user.setStatus(LoginConstants.accountValid);
 		user.setUserType(LoginConstants.userTypeInidCustomer);
 		user.setInvalidLoginTimes(0);
+		createWishListForUser(user);
 		userService.addResource(user);
 	}
 
@@ -90,5 +96,16 @@ public class SignController {
 			return false;
 		}
 		return true;
+	}
+	
+	private void createWishListForUser(User user) {
+		Date sysDate = new Date();
+		Wishlist wishlist = new Wishlist();
+		wishlist.setUserId(user.getUsrId());
+        wishlist.setCreateDate(sysDate);
+        wishlist.setUpdatedDate(sysDate);
+        wishlist.setPrice(0d);
+        wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
+        wishlistService.addResource(wishlist);
 	}
 }

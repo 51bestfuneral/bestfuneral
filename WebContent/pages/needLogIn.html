@@ -36,8 +36,8 @@
 		margin: 0px auto;
 		background-color: #ffffff;
         box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
-		margin-top: 45px;
-		margin-bottom: 45px;
+		margin-top: 90px;
+		margin-bottom: 90px;
 	}
 	#topPart {
 	    width: 100%;
@@ -187,7 +187,7 @@
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script>
 function setCookie(name,value,hours,path){  
@@ -244,6 +244,9 @@ function validateValid(content) {
 window.onload = function() {
     var length = location.search.length,
 	    backUrl = location.search.substring(11, length);
+	    
+	    
+	    
 	$("#alreadyHas").click(function() {
 	    window.location.href='needSignIn.html';
 	});
@@ -306,7 +309,10 @@ window.onload = function() {
 
 				if (resultCode === 1) {
 	                $("#errorContent").fadeOut();
-			        window.location.href=backUrl;
+	      if(backUrl==null||backUrl==""){
+	    	window.location.href='/funeral/pages/mainPage.html';
+	    	}else{ window.location.href=backUrl;
+	    		}
 				}
 				else if (resultCode === -4) {
 				    $("#errorContent").find("p")[0].innerText = '账号被锁定，请在半小时后登录';
