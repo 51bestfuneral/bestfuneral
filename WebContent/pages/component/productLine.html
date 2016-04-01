@@ -122,12 +122,12 @@ body {
 		padding-top: 40px;
 	}
 	.productItem {
-	   width: 222px;
+	   width: 230px;
 	   height: 360px;
 	   position:relative;
 	   left:70px;
 		float: left;
-		margin-left: 25px;
+		margin-right: 25px;
 		border-bottom: 2px solid #ededed;
 		box-shadow: 0px 5px 15px 0px rgba(0,0,0,0.15);
 		background-color: #ffffff;
@@ -139,12 +139,14 @@ body {
         -webkit-transition:box-shadow 0.3s;
         -o-transition:box-shadow 0.3s;
 	}
-.productItem img{
-max-width:222px;_width:expression(this.width > 222 ? "222px" : 100%);
-height: 61.8%;
-width: 100%;
-border:0px solid red;	
-		}
+	.productItem img{
+	    height: 100%;
+	    width: 100%;
+	}
+    .imgCoat {
+        width: 230px;
+        height: 200px;
+    }
 	.productItem:hover {
 	    box-shadow: 0px 10px 20px 0px #ff5274;
 	    box-shadow: 0px 5px 10px 0px #ff5274;
@@ -179,15 +181,15 @@ border:0px solid red;
 	}
 	.productInfo {
 	    padding-top: 0px;
-		padding-left: 15px;
 		text-align: center;
-		padding-bottom: 5px;
-		
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 	.productInfo .header {
 	    font-size: 15px;
 		color: #3b3d40;
 		margin-bottom: 5px;
+		padding-top: 0px;
 	}
 	.productInfo .detail {
 	    font-size: 12px;
@@ -208,9 +210,8 @@ border:0px solid red;
 		width: 130px;
 		height: 28px;
 		background-color: #ff5274;
-		position:relative;
-		left:30px;
-		text-align:center;
+		margin: 0px auto;
+		text-align: center;
 	}
 
 	
@@ -219,6 +220,7 @@ border:0px solid red;
 		font-size: 13px;
 		line-height: 28px;
 		float: left;
+		width: 100%;
 	}
 	.addWishButton:hover {
 	    background-color: #ff496d!important;
@@ -239,50 +241,48 @@ border:0px solid red;
 	.disableDiv {
 	    opacity: 0.5;
 	}
+	iframe{
+	   text-align: center;
+	}
 </style>
 <script type="text/javascript">
 var filter = location.search;
 var app = angular.module('productApp', []);
 var wishList;
-app.controller('products', function($scope, $http) {
-	$http.get("/funeral/wishlist/list").success(function(response) {
-	    wishList=response;
-	    
-		function validateInList() {
-	    $.ajax({
-			url: '/funeral/wishlistDetail/list?wishlistId='+wishList[0].wishlistId,
-			type: 'get',
-			success:function(data){
-				var response = data;
-				for (var i=0;i<response.length;i++) {
-				    var wishInList = response[i];
-					if ($("#"+wishInList.wishId).length > 0) {
-					    $("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
-					}
+var flag = {};
+function validateInList() {
+    $.ajax({
+		url: '/funeral/wishlistDetail/getAllWishList?wishlistId='+wishList[0].wishlistId,
+		type: 'get',
+		success:function(data){
+			var response = data;
+			for (var i=0;i<response.length;i++) {
+			    var wishInList = response[i];
+				if ($("#"+wishInList.wishId).length > 0) {
+				    $("#"+wishInList.wishId).find(".addWishButton").addClass("disableDiv");
 				}
-				if ($(".disableDiv").length>0) {
-				    for (var i=0;i<$(".disableDiv").length;i++) {
-				        $(".disableDiv").find("p")[i].innerText = "已加入愿望清单";
-					}
-				}
-			},
-			error: function(error) {
-				var response = error;
-				//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
 			}
-		});
-	}
-validateInList();
+			if ($(".disableDiv").length>0) {
+			    for (var i=0;i<$(".disableDiv").length;i++) {
+			        $(".disableDiv").find("p")[i].innerText = "已加入愿望清单";
+				}
+			}
+		},
+		error: function(error) {
+			var response = error;
+			//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+		}
 	});
-	
-	 $scope.buy = function(id){
-	$http.get("/funeral/wishlist/saveWish?id="+id+"&wishlistId="+wishList[0].wishlistId).success(function(response) {
-	alert(" id="+id+" wishList[0].wishlistId="+wishList[0].wishlistId);
-		});
-	}
-	
-	
-	
+}
+window.parent.checkUserLogin(flag);
+app.controller('products', function($scope, $http) {
+    if (flag.code === 1) {
+	    $http.get("/funeral/wishlist/list").success(function(response) {
+	        wishList=response;
+            validateInList();
+	    });
+    }
+
 	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
@@ -331,15 +331,14 @@ validateInList();
             <div class="carousel-inner">
 				<div class="item {{layout.active}}"  ng-repeat="layout in layouts">
 	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
-		             
-						    <img src={{itemLayout.imgUrl}} ></img>
+                        <div class="imgCoat"><img src={{itemLayout.imgUrl}} ></img></div>
 						<div class="productText">
 						    <div class="productInfo">
 							    <p class="header">{{itemLayout.wishName}}</p>
-								<p class="detail">包含在您的套餐中(原价:￥{{itemLayout.sellingPrice}})</p>
-								<div class="addWishButton" onselectstart="return false"   ng-click="buy(itemLayout.wishId)">
+								<p class="detail">(单品价格:￥{{itemLayout.sellingPrice}})</p>
+								<div class="addWishButton" onselectstart="return false" >
 								  
-								    <p>&nbsp;&nbsp;&nbsp;+&nbsp;添加至愿望清单</p>
+								    <p>+&nbsp;添加至愿望清单</p>
 								</div>
 							</div>
 							<div class="moreInfo"><a href="{{itemLayout.url}}" class="moreInfo">了解详情</a></div>
@@ -356,35 +355,44 @@ validateInList();
 </div>
 </body>
 <script>
+function addToWishlist(object) {
+	if (!object.hasClass("disableDiv")){
+	    var data = {
+			"wishId": object.closest('.productItem')[0].id
+		},
+		dataList = [];
+	    dataList.push(data);
+		$.ajax({
+			url: '/funeral/wishlistDetail/addSingle?wishlistId='+wishList[0].wishlistId,
+			type: 'post',
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(dataList),
+			dataType:'json',
+			success:function(data){
+				alert("已加入愿望清单！");
+			},
+			error: function(error) {
+				alert("已加入愿望清单！");
+			}
+		});
+		
+		object.addClass("disableDiv");
+		object.find('p')[0].innerText = '已加入愿望清单';
+	}
+}
 window.onload=function(){
     $("body").on("click",".productItem",function() {
-		    window.parent.muskPageForProduct($(this)[0].id);
+	    window.parent.muskPageForProduct($(this)[0].id);
 	});
-	$("body").on("click",".addWishButton",function() {
-	    var data = {
-			wishId: $(this).closest('.productItem')[0].id,
-			wishlistId: wishList[0].wishlistId
-		};
-		
-		var id=$(this).closest('.productItem')[0].id;
-		
-		if (!$(this).hasClass("disableDiv")){
-		//	$.ajax({
-			//	url: '/funeral/wishlist/saveWish',
-			//	type: 'post',
-		///		data: id,
-			//	dataType:'json',
-			//	success:function(data){
-			//		alert("已加入愿望清单！");
-			//	},
-			//	error: function(error) {
-			//		alert("已加入愿望清单！");
-			//	}
-			//});
-			
-			$(this).addClass("disableDiv");
-			$(this).find('p')[0].innerText = '已加入愿望清单';
-		}
+	$("body").on("click",".addWishButton",function(event) {
+	    if (flag.code === 1) {
+	    	addToWishlist($(this));
+	    	event.stopPropagation(); 
+	    }
+	    else {
+	    	window.parent.popupLogInPage();
+	    	event.stopPropagation(); 
+	    }
 	});
 };
 </script>

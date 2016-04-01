@@ -19,34 +19,30 @@
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
 </head>
-
-
-
-
-
-
 <style>
-
 .headerAddtion {
     width: 100%;
 	height: 48px;
 	text-align: center;
 	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 }
-.subNavigat {
-    line-height: 48px;
-	font-size: 16px;
-	margin-right: 20px;
+#subNavilink {
+    width: 675px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
 }
-.subNavigat a {
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
     text-decoration: none;
-	color: #5b5b5b;
-	font-family: "Microsoft Yahei";
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
 }
-.naviSelect a{
-    color: #000000!important;
-    font-weight: bold;
-	cursor: default!important;
+.firstLink {
+    margin-left: 38px;
 }
 .submitArea {
     width: 100%;
@@ -113,14 +109,12 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 <div class="container" >
 <div id="line0"></div>
-<div id="link">
- <link1>	 <a href="/funeral/pages/funeralDesignPage.html">为什么要定制葬礼</a>  </link1>
- <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼    </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算</a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制</a>  </link4>
- </div>	
-	
-	
+<div id="subNavilink">
+ <link1><a href="#" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
+ <link3><a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算器</a>  </link3>
+ <link4><a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制  </a>  </link4>
+</div>
 <div id="mainContent">
    
     <div class="topContent">

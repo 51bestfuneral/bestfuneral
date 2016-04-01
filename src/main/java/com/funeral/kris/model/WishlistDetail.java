@@ -39,7 +39,6 @@ public class WishlistDetail implements Serializable {
 		this.sourceId = sourceId;
 	}
 
-	//手動直接選擇/系統推薦
 	@Column(name = "source_id")
 	private Integer sourceId;
 
@@ -47,7 +46,7 @@ public class WishlistDetail implements Serializable {
 	private Integer count;
 
 	@Column(name = "price")
-	private Double price;
+	private BigDecimal price;
 
 	@Column(name = "original_price")
 	private BigDecimal originalPrice;
@@ -98,11 +97,11 @@ public class WishlistDetail implements Serializable {
 		this.count = count;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

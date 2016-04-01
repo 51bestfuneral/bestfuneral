@@ -131,38 +131,38 @@ public class AnswerController {
 
 	private Wishlist generateWishList(Integer usrId, String ansListId, Integer wishlistId, Integer level) {
 		Wishlist wishList = new Wishlist();
-		Double totalPrice = 0d;
+		BigDecimal totalPrice = BigDecimal.ZERO;
 		wishList.setAnsListId(ansListId);
 		wishList.setWishlistId(wishlistId);
 		wishList.setStatus(LoginConstants.WISHLISTSTATUS_FINISHED);
 		wishList.setUserId(usrId);
-		wishList.setPrice(0d);
+		wishList.setPrice(BigDecimal.ZERO);
 		totalPrice = generateWishDetail(wishList, level);
 		wishList.setPrice(totalPrice);
 		wishListService.updateResource(wishList);
 		return wishList;
 	}
 
-	private Double generateWishDetail(Wishlist wishlist, Integer level) {
+	private BigDecimal generateWishDetail(Wishlist wishlist, Integer level) {
 		String condition = "wishlist_id = "+wishlist.getWishlistId();
 		wishlistDetailService.deleteAllResources(condition);
-		Double typePrice = 0d;
-		Double totalPrice = 0d;
+		BigDecimal typePrice = BigDecimal.ZERO;
+		BigDecimal totalPrice = BigDecimal.ZERO;
 		List<WishType> wishTypeList = wishTypeService.getResources();
 		for (WishType wishType: wishTypeList) {
 			if (wishType.getLevel()<= level) {
 			    typePrice = generateWishForType(wishType.getWishType(), wishlist);
-			    totalPrice = totalPrice + typePrice;
+			    totalPrice = totalPrice.add(typePrice);
 			}
 		}
-		totalPrice = totalPrice + generateWishForAddtional(wishlist);
+		totalPrice = totalPrice.add(generateWishForAddtional(wishlist));
 		return totalPrice;
 	}
 
 	@SuppressWarnings("unchecked")
-	private Double generateWishForType(String wishType, Wishlist wishList) {
+	private BigDecimal generateWishForType(String wishType, Wishlist wishList) {
 		String querySQL = null;
-        Double totalPrice = 0d;
+        BigDecimal totalPrice = BigDecimal.ZERO;
         BigDecimal totalOriginalPrice = BigDecimal.ZERO;
 		if (wishType.equals("Cemetery")) {
 		    querySQL = "select p from Cemetery p ";
@@ -190,7 +190,7 @@ public class AnswerController {
 				randomIndex = random.nextInt(cemeterys.size());
 				randomWish = cemeterys.get(randomIndex);
 				detail.setWishId(randomWish.getCemeteryId());
-				detail.setPrice(Double.valueOf(randomWish.getPrice().toString()));
+				detail.setPrice(randomWish.getPrice());
 				detail.setOriginalPrice(randomWish.getOriginalPrice());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
@@ -198,7 +198,7 @@ public class AnswerController {
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice + detail.getPrice();
+				totalPrice = totalPrice.add(detail.getPrice());
 				totalOriginalPrice = totalOriginalPrice.add(randomWish.getOriginalPrice());
 			}
 		}
@@ -211,7 +211,7 @@ public class AnswerController {
 				randomIndex = random.nextInt(wishs.size());
 				randomWish = wishs.get(randomIndex);
 				detail.setWishId(randomWish.getWishId());
-				detail.setPrice(Double.parseDouble(randomWish.getSellingPrice().toString()));
+				detail.setPrice(randomWish.getSellingPrice());
 				detail.setOriginalPrice(randomWish.getProcurementCost());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
@@ -219,7 +219,7 @@ public class AnswerController {
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice + detail.getPrice();
+				totalPrice = totalPrice.add(detail.getPrice());
 				totalOriginalPrice = totalOriginalPrice.add(randomWish.getProcurementCost());
 			}
 		}
@@ -257,8 +257,8 @@ public class AnswerController {
 		}
 	}
 	
-	private Double generateWishForAddtional(Wishlist wishList) {
-		Double totalPrice = 0d;
+	private BigDecimal generateWishForAddtional(Wishlist wishList) {
+		BigDecimal totalPrice = BigDecimal.ZERO;
 		BigDecimal totalOriginalPrice = BigDecimal.ZERO;
 		if (optionRuleMap.containsKey("specialAddWish")) {
 			
@@ -269,18 +269,18 @@ public class AnswerController {
 			for (Wish wish: wishs) {
 				WishlistDetail detail = new WishlistDetail();
 				detail.setWishId(wish.getWishId());
-				detail.setPrice(wish.getSellingPrice().doubleValue());
+				detail.setPrice(wish.getSellingPrice());
 				detail.setCount(1);
 				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(wish.getWishType());
 				detail.setCreateDate(new Date());
 				detail.setUpdatedDate(new Date());
 				wishlistDetailService.addResource(detail);
-				totalPrice = totalPrice + detail.getPrice();
-				totalOriginalPrice = totalOriginalPrice.add(new BigDecimal(detail.getPrice()));
+				totalPrice = totalPrice.add(detail.getPrice());
+				totalOriginalPrice = totalOriginalPrice.add(detail.getPrice());
 			}
 		}
-		wishList.setPrice(wishList.getPrice()+totalPrice);
+		wishList.setPrice(wishList.getPrice().add(totalPrice));
 		wishList.setOriginalPirce(wishList.getOriginalPirce().add(totalOriginalPrice));
 		return totalPrice;
 	}

@@ -69,13 +69,44 @@ public class WishlistDetailController {
 			wish = wishsMap.get(wish.getWishId());
 			wishlistDetail.setWishId(wish.getWishId());
 			wishlistDetail.setCount(1);
-			wishlistDetail.setPrice(wish.getSellingPrice().doubleValue());
+			wishlistDetail.setPrice(wish.getSellingPrice());
 			wishlistDetail.setOriginalPrice(wish.getProcurementCost());
 			wishlistDetail.setWishType(wish.getWishType());
 			wishlistDetail.setWishlistId(wishlistId);
 			wishlistDetail.setCreateDate(sysDate);
 			wishlistDetail.setUpdatedDate(sysDate);
 			wishlistDetailService.addResource(wishlistDetail);
+			successList.add(wishlistDetail);
+		}
+
+		return successList;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/addSingle", method = RequestMethod.POST)
+	public List<WishlistDetail> addingWishlistSingle(@RequestBody List<Wish> wishs, HttpServletRequest request) {
+
+		List<WishlistDetail> successList = new ArrayList<WishlistDetail>();
+		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
+		Wishlist wishlist = wishlistService.getResource(wishlistId);
+		Date sysDate = new Date();
+		if (wishsMap == null) {
+			initialWishMap();
+		}
+
+		for (Wish wish : wishs) {
+			WishlistDetail wishlistDetail = new WishlistDetail();
+			wish = wishsMap.get(wish.getWishId());
+			wishlistDetail.setWishId(wish.getWishId());
+			wishlistDetail.setCount(1);
+			wishlistDetail.setPrice(wish.getSellingPrice());
+			wishlistDetail.setOriginalPrice(wish.getProcurementCost());
+			wishlistDetail.setWishType(wish.getWishType());
+			wishlistDetail.setWishlistId(wishlistId);
+			wishlistDetail.setCreateDate(sysDate);
+			wishlistDetail.setUpdatedDate(sysDate);
+			wishlistDetailService.addResource(wishlistDetail);
+			wishlist.setPrice(wishlist.getPrice());
 			successList.add(wishlistDetail);
 		}
 
@@ -212,7 +243,7 @@ public class WishlistDetailController {
 
 		int difference = count - wishlistDetail.getCount();
 
-		wishlist.setPrice(wishlist.getPrice() + wishlistDetail.getPrice() * difference);
+		wishlist.setPrice(wishlist.getPrice().add(wishlistDetail.getPrice().multiply(new BigDecimal(difference))));
 
 		wishlist.setOriginalPirce(wishlist.getOriginalPirce()
 				.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(difference))));
@@ -235,7 +266,7 @@ public class WishlistDetailController {
 		// update wishList
 		Wishlist wishlist = wishlistService.getResource(wishlistDetail.getWishlistId());
 
-		wishlist.setPrice(wishlist.getPrice() - wishlistDetail.getPrice());
+		wishlist.setPrice(wishlist.getPrice().subtract(wishlistDetail.getPrice()));
 
 		wishlist.setOriginalPirce(wishlist.getOriginalPirce().subtract(wishlistDetail.getOriginalPrice()));
 		wishlistDetailService.deleteResource(id);

@@ -1,5 +1,6 @@
 package com.funeral.kris.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -104,7 +105,7 @@ public class SignController {
 		wishlist.setUserId(user.getUsrId());
         wishlist.setCreateDate(sysDate);
         wishlist.setUpdatedDate(sysDate);
-        wishlist.setPrice(0d);
+        wishlist.setPrice(BigDecimal.ZERO);
         wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
         wishlistService.addResource(wishlist);
 	}
