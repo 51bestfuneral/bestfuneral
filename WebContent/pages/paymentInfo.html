@@ -3,7 +3,7 @@
 <head id="head"><title>
     支付信息
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers’
+								deliver smart solutions, helping you to exceed your customers�?
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -284,7 +284,7 @@ span {
 		</div>
 		<div id="paymentStatusDesc">
 		     <div class="descDiv first">
-			     <p class="selected">寄送</p>
+			     <p class="selected">寄�?/p>
 			 </div>
 			 <div class="descDiv second">
 			     <p>确认</p>
@@ -342,13 +342,13 @@ span {
 			
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>省<font size="3" color="red">*</font></p>
+				    <p>�?font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				  <select class="form-control"   id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
-						<option value='1'  ><p  class="form-control">江苏省</p></option>
-					  <option value='2'  ><p  class="form-control">上海市</p></option>
-					  <option value='3'  ><p  class="form-control">浙江省</p></option>
+						<option value='1'  ><p  class="form-control">江苏�?/p></option>
+					  <option value='2'  ><p  class="form-control">上海�?/p></option>
+					  <option value='3'  ><p  class="form-control">浙江�?/p></option>
 
 					</select>   
 				    
@@ -361,7 +361,7 @@ span {
 			
 					<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>市<font size="3" color="red">*</font></p>
+				    <p>�?font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control"  ng-model="currentContacter.city"></input>
@@ -398,7 +398,7 @@ span {
 		
 			<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人姓名<font size="3" color="red">*</font></p>
+				    <p>备用联系人姓�?font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control" ng-model="currentContacter.backupName"></input>
@@ -409,7 +409,7 @@ span {
 					
 				<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人电话<font size="3" color="red">*</font></p>
+				    <p>备用联系人电�?font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
 				    <input type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
@@ -422,7 +422,7 @@ span {
 				    <p>&nbsp;</p>
 				</div>
 				<div id="saveContacter"   class="fieldContent" style=" border-radius: 5px; background:#f62f5e;text-align: center;cursor: pointer; font-size: 20px;line-height: 56px;color: #ffffff;">
-				     <p>保存联系人</p>
+				     <p>保存联系�?/p>
 				</div>
 			</div>
 			
@@ -433,17 +433,17 @@ span {
 		<div class="shippingMethod">
 		    <p>推荐方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod1"  value="1" checked>
-			<span class="radioDesc">暂存在念念</span>
-			<span class="normalDesc">(我们会暂时替您保管，在需要的时候提供给您)</span>
+			<span class="radioDesc">暂存在念�?/span>
+			<span class="normalDesc">(我们会暂时替您保管，在需要的时候提供给�?</span>
 	    </div>
 		<div class="shippingMethod">
 		    <p>传统方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod2" value="2">
 			<span class="radioDesc">标准</span>
-			<span class="normalDesc">(免费, 2-3日寄到)</span>
+			<span class="normalDesc">(免费, 2-3日寄�?</span>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod3" value="3">
-			<span class="radioDesc">快速</span>
-			<span class="normalDesc">(￥20邮寄费, 1日寄到)</span>
+			<span class="radioDesc">快�?/span>
+			<span class="normalDesc">(�?0邮寄�? 1日寄�?</span>
 	    </div>
 	</div>
 	<div id="footerContain">
@@ -453,12 +453,12 @@ span {
 			    <p>上一步</p>
 			</div>
 		    <div id="nextButton">
-			    <p>下一步</p>
+			    <p>下一�?/p>
 			</div>
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
@@ -545,7 +545,7 @@ $('#contacterSelect').change(function(){
 		$scope.currentContacter.gender='3';
 	    var datadata = JSON.stringify($scope.currentContacter);
 	    
-	    // alert("保存成功！ currentContacter="+JSON.stringify($scope.currentContacter));
+	    // alert("保存成功�?currentContacter="+JSON.stringify($scope.currentContacter));
 		    $http({
             method: "POST",
             url:"/funeral/contactInfo/add",
@@ -556,7 +556,7 @@ $('#contacterSelect').change(function(){
 			dataType:"json"
         }).success(function(){
         
-         alert("保存成功！"); });
+         alert("保存成功�?); });
          
          
                  	    window.location.href='paymentConfirm.html';
@@ -571,7 +571,7 @@ $scope.currentContacter.userId =$scope.user.usrId;
 		$scope.currentContacter.gender='3';
 	    var datadata = JSON.stringify($scope.currentContacter);
 	    
-	     alert("保存成功！");
+	     alert("保存成功�?);
 		    $http({
             method: "POST",
             url:"/funeral/contactInfo/add",
@@ -582,7 +582,7 @@ $scope.currentContacter.userId =$scope.user.usrId;
 			dataType:"json"
         }).success(function(){
         
-         alert("保存成功！"); });
+         alert("保存成功�?); });
 
 
 

@@ -1193,6 +1193,12 @@ h6,
 p {
   font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
+span {
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+a {
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
 h1 small,
 h2 small,
 h3 small,
