@@ -1184,14 +1184,20 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: "Microsoft Yahei";
+  font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
   font-weight: 500;
   line-height: 1.1;
   color: inherit;
 }
 
 p {
-	font-family: "Microsoft Yahei";
+  font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+span {
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+a {
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 h1 small,
 h2 small,

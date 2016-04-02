@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.WishlistDAO;
+import com.funeral.kris.model.Order;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.util.SqlHelper;
@@ -42,6 +43,9 @@ public class WishlistServiceImpl implements WishlistService {
 		WishlistDAO.delete(id);
 	}
 
+	
+	
+	
 	public List<Wishlist> getResources(HttpServletRequest request) {
 		String a = null;
 		try {
@@ -53,5 +57,21 @@ public class WishlistServiceImpl implements WishlistService {
 		Query query = em.createQuery(a);
 		List<Wishlist> wishList = query.getResultList();
 		return wishList;
+	}
+
+	@Override
+	public List<Wishlist> getResources() {
+
+		Iterable<Wishlist> Iterator=	WishlistDAO.findAll();
+		List<Wishlist> list = new ArrayList<Wishlist>();
+
+		Iterator<Wishlist> iter = Iterator.iterator();
+		while (iter.hasNext()) {
+			Wishlist wishlist = iter.next();
+			list.add(wishlist);
+		}
+		
+		return list;
+	
 	}
 }

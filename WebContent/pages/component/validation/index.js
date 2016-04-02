@@ -64,11 +64,9 @@ function validate () {
 
 // download
 $(document).ready(function(){
-  $(".J_download").bind("click",function(){
     $(".J_before").hide(40);
     $(".J_after").show(200);
     createCode();
-  });
   $(".btn-no").bind("click",function(){
     $(".J_after").hide(40);
     $(".J_before").show(200);

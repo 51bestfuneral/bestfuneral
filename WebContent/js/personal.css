@@ -22,7 +22,7 @@
 		line-height: 100px;
 	}
 	#myTab li {
-	    margin-left: 5%;
+	    margin-left: 6%;
 		width : 8%;
 		padding: 0;
 		border: 0;
@@ -113,11 +113,12 @@
 	    margin-top: 140px;
 	}
 	#taocan {
-	    width: 50%;
+	    width: 1055px;
 		margin:0px auto;  
 		height:auto;
 		overflow:auto;
-		height: 250px;
+		height: 370px;
+		padding-left: 30px;
 	}
     .taocanIconDiv {
 	    width: 30%;
@@ -125,13 +126,32 @@
 		box-shadow: 2px 3px 2px 2px rgba(0,0,0,.2);
 		margin: 10px;
 		margin-top: 40px;
-		height: 150px;
+		height: 270px;
 		cursor:pointer;
-			text-align:center;	
-		
+		text-align:center;
+		overflow: hidden;
+	}
+	#taocanIconGood {
+	    background-image: url(/funeral/js/images/PatternImage-good-min.jpg);
+	    background-size: 20px 20px;
+	}
+	#taocanIconBetter {
+	    background-image: url(/funeral/js/images/PatternImage-better-min.jpg);
+	    background-size: 20px 20px;
+	}
+	#taocanIconBest {
+	    background-image: url(/funeral/js/images/PatternImage-most-min.jpg);
+	    background-size: 20px 20px;
 	}
 	.taocanIconDiv #h5 {
 	    font-size: 13px;
+	}
+	.IconBrand {
+		width: 40%;
+		margin: 0px auto;
+		overflow: hidden;
+		background-image: url(/funeral/js/images/LogoWhite@2x-min.jpg);
+		margin-top: 40px;
 	}
 	.header {
 	    padding-top : 50px;
@@ -139,7 +159,7 @@
 
 	}
 	.headerText {
-	    margin-top : 50px;
+	    margin-top : 20px;
 		font-size: 32px;
 	}
 	#nextStep {
@@ -235,6 +255,10 @@
 	}
 	#bottomMessage h3 {
 	    font-size: 38px;
+		color: #ffffff;
+	}
+	#bottomMessage h5 {
+		color: #ffffff;
 	}
 	#headerMessage img {
 	    width: 440px;
@@ -337,11 +361,13 @@
 		font-size: 20px;
 		margin-bottom: 0;
 		font-weight:bold;
+		color: #ffffff;
 	}
 	.iconChild h4 {
 	    margin-bottom: 0;
 		margin-top: 0;
 		font-size: 10px;
+		color: #ffffff;
 	}
     .iconChild p {
 	    margin-bottom: 0;
@@ -376,11 +402,6 @@
 	    line-height: 100px;
 	}
 	.valueRow .headerLine {
-	  background: -webkit-radial-gradient(#ffffff, #373d4a);
-background: -o-radial-gradient(#ffffff, #373d4a);
-background: -moz-radial-gradient(#ffffff, #373d4a);
-background: radial-gradient(#ffffff, #373d4a);
-
 	}
 	.valueRow {
 	    width: 100%;
@@ -401,11 +422,9 @@ background: radial-gradient(#ffffff, #373d4a);
 	}
 	
 	.headerLineLeft p{
-	font-family: STHeitiSC-Medium;
-  font-size: 36px;
- 
-  color: #5d5d5d;
-  
+	    font-family: STHeitiSC-Medium;
+        font-size: 36px;
+        color: #5d5d5d;
 	}
 	.headerLineRight {
 	    width: 100%;
@@ -423,16 +442,6 @@ background: radial-gradient(#ffffff, #373d4a);
   color: #5d5d5d;
   
 	}
-	
-	
-	.headerLine {
-	    width: 100%;
-		height: 120px;
-		list-style-type:none;
-		padding: 0;
-		border: 0px solid #ECE7E7;
-		text-align:center;
-		}
 	
 	
 	
@@ -521,7 +530,7 @@ background: radial-gradient(#ffffff, #373d4a);
 	}
 	.normalLineText p {
 	    margin: 0;
-		font-size: 1px;
+		font-size: 16px;
 	}
 	.tickImg {
 	    vertical-align: middle;
@@ -569,11 +578,79 @@ background: radial-gradient(#ffffff, #373d4a);
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
-border-top: 8px solid blue;
 	}
-	
+	.headerLine {
+	    width: 100%;
+		height: 120px;
+		list-style-type:none;
+		padding: 0;
+		border: 0px solid #ECE7E7;
+		text-align:center;
+	}
+	.includeDataDivBasic .headerLine {
+		background: #F4548B;
+	}
+	.includeDataDivGood .headerLine {
+		background-image: url(/funeral/js/images/PatternImage-good-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	.includeDataDivBest .headerLine {
+		background-image: url(/funeral/js/images/PatternImage-most-min.jpg);
+	    background-size: 20px 20px;
+	}
+	.includeDataDivBetter .headerLine {
+		background-image: url(/funeral/js/images/PatternImage-better-min.jpg);
+	    background-size: 20px 20px;
+	}
+	#lockedTocanDiv .basic {
+		background: #F4548B;
+	}
+	#lockedTocanDiv .good {
+		background-image: url(/funeral/js/images/PatternImage-good-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	#lockedTocanDiv .better {
+		background-image: url(/funeral/js/images/PatternImage-better-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	#lockedTocanDiv .best {
+		background-image: url(/funeral/js/images/PatternImage-most-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	#lockedTocanDiv .headerLine {
+	    width: 210px;
+	    height: 125px;
+	}
+	#lockedTocanDiv .taocanIconDivInRow {
+	    width: 16%;
+	    height: 125px;
+	    float: left;
+	    margin-left: 1%;
+	}
+	#lockedTocanDiv {
+	    position: fixed;
+	    top: 0px;
+	    box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+	    width: 100%;
+	    padding: 3%;
+	    padding-top: 0px;
+	    padding-bottom: 0px;
+	}
+	#lockedTocanDiv p {
+	    font-family: STHeitiSC-Medium;
+        font-size: 36px;
+        color: #5d5d5d;
+        line-height: 125px;
+        margin: 0px;
+	}
+	#compareLocked {
+	    float: left;
+	    width: 30%;
+	    height: 125px;
+	    background: #F7F7F7;
+	}
 	.includeDataDivGood {
 	    width: 16%;
 		overflow:auto;
@@ -581,9 +658,8 @@ border-top: 8px solid blue;
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
-border-top: 8px solid green;
 	}
 	
 	.includeDataDivBetter {
@@ -593,9 +669,8 @@ border-top: 8px solid green;
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
-border-top: 8px solid #B8860B;
 	}
 	
 	.includeDataDivBest {
@@ -605,12 +680,12 @@ border-top: 8px solid #B8860B;
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
 	}
 		@media (min-width: 900px) {
   .container {
-    width: 1349px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }

@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/Bootstrap/boot.js"></script>
+<script src="../js/md5.js"></script>
+<link href="../js/Bootstrap/boot.css" rel="stylesheet">
+<script src="component/validation/index.js"></script>
+<link href="component/validation/details.css" rel="stylesheet" type="text/css" />
+<style>
+    .topBarDiv {
+		box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+		height: 65px;
+		z-index: 1000;
+	}
+    body {
+	    text-align: center;
+	}
+	p {
+	    margin: 0px;
+	}
+	#loginMain {
+	    width: 600px;
+		height: 453px;
+		background-color: #ffffff;
+        box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.3);
+		margin: 0px auto;
+		margin-top: 90px;
+		margin-bottom: 90px;
+	}
+	#topPart {
+	    width: 100%;
+		overflow: auto;
+		padding-top: 27px;
+	}
+	#mainTitle {
+		width: 100%;
+		text-align: center;
+	}
+	#mainTitle p {
+	    font-size: 19px;
+		font-weight: bold;
+	}
+	#closeArea {
+	    float: right;
+		overflow: auto;
+		margin-right: 21px;
+		margin-top: -40px;
+		cursor: pointer;
+	}
+	#closeArea:hover {
+	    background: #ff5274;
+		color: #ffffff;
+	}
+	#closeArea p {
+	    font-size: 18px;
+		font-weight: bold;
+	}
+	#inputArea {
+	    width: 352px;
+		overflow: auto;
+		text-align: center;
+		margin: 0px auto;
+	}
+	#inputArea .form-control{
+	    width: 100%;
+        height:	50.4px;
+		border: solid 1px #333333;
+		border-radius: 5px;
+        background-color: #ffffff;
+		margin-bottom: 10px;
+	}
+	#inputArea .form-control:focus {
+	    border: solid 1px #ff5274;
+	}
+	#submit {
+	    width: 186px;
+		height: 50px;
+		border-radius: 84px;
+		margin: 0px auto;
+		background: #ff5274;
+		text-align: center;
+		margin-bottom: 10px;
+		cursor: pointer;
+		margin-top: 10px;
+	}
+	#submit:hover {
+	    background: #ff496d;
+	}
+	#submit p {
+	    color: #ffffff;
+		font-size: 19px;
+		line-height: 50px;
+	}
+	#alreadyHas {
+	    width: 100%;
+		text-align: center;
+	}
+	#alreadyHas .textSpan {
+	    font-size: 14px;
+        line-height: 1.5;
+        color: #333333;
+		font-family: "Microsoft Yahei";
+	}
+	#alreadyHas .linkSpan {
+	    font-size: 14px;
+        line-height: 1.5;
+        color: #ff5274;
+		cursor: pointer;
+		font-family: "Microsoft Yahei";
+	}
+	#errorContent {
+	    width: 100%;
+        height:	30px;
+		background: #fef2f2;
+        border: 1px solid #ffb4a8;
+	}
+	#errorContent p {
+	    font-size: 8px;
+		text-align: center;
+		line-height: 30px;
+		margin: 0px;
+	}
+	#errorContentCoat {
+	    width: 100%;
+        height:	47px;
+		padding-top: 17px;
+	}
+	.ddetails-header {
+	    margin:0px auto;
+		left: auto;
+		float: none;
+	}
+	.checkcode {
+	    height: 40px;
+	}
+</style>
+<body ng-app="signController" ng-controller="sign">
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>
+</div>
+<div id="loginMain">
+    <div id="topPart">
+	    <div id="mainTitle">
+		    <p>注册</p>
+		</div>
+	</div>
+	<div id="inputArea">
+	    <div id="errorContentCoat">
+	        <div id="errorContent" hidden><p></p></div>
+		</div>
+	    <input type="text" class="form-control" placeholder="邮件或电话"  ng-model="user.userName" id="userName"></input>
+		<input type="password" class="form-control" placeholder="密码"   ng-model="user.password" id="userPwd"></input>
+		<input type="password" class="form-control" placeholder="重填密码" ng-model="repassword" id="confirmPwd"></input>
+		<div class="ddetails-header">
+			<div class="ddetails-con">
+				<div id="code" >
+					<input type="hidden"  id="J_down" data-link="http://sc.chinaz.com/">
+					<div class="checkcode">
+						<input type="text" id="J_codetext" placeholder="请输入验证码！" maxlength="4">
+						<canvas class="J_codeimg" id="myCanvas" onclick="createCode()">
+							Your browser does not support the canvas element.
+						</canvas>
+					</div>
+				</div>
+			</div>
+        </div>
+		<div id="submit">
+		    <p>注册</p>
+		</div>
+		<div id="alreadyHas">
+		    <span class="textSpan">已有账户？</span><span class="linkSpan">登录?</span>
+		</div>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script type="text/javascript">
+var length = location.search.length,
+	backUrl = location.search.substring(11, length);
+var app = angular.module('signController', []);
+app.controller('sign', function($scope, $http) {
+	
+	$scope.user="";
+	$scope.repassword="";
+	
+	$("#submit").click(function() {
+		var user = $scope.user,
+		    datadata;
+		if (user === "" || user.userName === "") {
+		    $("#errorContent").find("p")[0].innerText = '用户名不能为空';
+	        $("#errorContent").fadeIn();
+			$("#userName")[0].focus();
+			return false;
+		}
+		else if (user === "" || user.password === ""){
+		    $("#errorContent").find("p")[0].innerText = '密码不能为空';
+	        $("#errorContent").fadeIn();
+			$("#password")[0].focus();
+			return false;
+		}
+		if (!validate()) {
+		    return false;
+		}
+		user.password = hex_md5(user.password);
+	    datadata = JSON.stringify($scope.user);
+	    $http({
+            method: "POST",
+            url:"/funeral/sign/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(data){
+        	alert("注册成功!");
+			window.location.href=backUrl;
+        });
+	});	
+});
+function validateValid(content) {
+    var emailFilter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+	    phoneFilter = /^1\d{10}$/,
+		message;
+	if (content === "") {
+	    return true;
+	}
+    if (emailFilter.test(content)) {
+	    $("#errorContent").fadeOut();
+	    return true;
+	}
+
+	if (phoneFilter.test(content)){
+	    $("#errorContent").fadeOut();
+	    return true;
+	}
+	$("#errorContent").find("p")[0].innerText = '您的用户名格式不正确';
+	$("#errorContent").fadeIn();
+	$("#userName")[0].focus();
+	return false;
+}
+window.onload = function() {
+	$("#alreadyHas").click(function() {
+	    window.location.href='needLogIn.html';
+	});
+	$("#userName").blur(function() {
+
+		if (!validateValid($(this)[0].value)) {
+		    return false;
+		}
+		$.ajax({
+		    url: '/funeral/sign/validate?userName='+$(this)[0].value,
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: [],
+			success:function(data){
+                var resultCode =data.resultCode;
+
+				if (resultCode === 0) {
+	                $("#errorContent").fadeOut();
+				}
+				else if (resultCode === 1) {
+				    $("#errorContent").find("p")[0].innerText = '邮箱已经存在';
+	                $("#errorContent").fadeIn();
+					$("#userName")[0].focus();
+				
+				}
+				else if (resultCode === 2) {
+					$("#errorContent").find("p")[0].innerText = '手机号已经存在';
+	                $("#errorContent").fadeIn();
+					$("#userName")[0].focus();
+				}
+		    },
+			error: function(error) {
+			}
+		});
+	});
+	$("#confirmPwd").blur(function() {
+	    var pwd = $("#userPwd")[0].value,
+		    confirmPwd = $("#confirmPwd")[0].value;
+		
+		if (pwd !== confirmPwd && pwd !== "" && confirmPwd !== "") {
+		    $("#errorContent").find("p")[0].innerText = '两次输入的密码不匹配';
+	        $("#errorContent").fadeIn();
+	        $("#confirmPwd")[0].focus();
+		}
+		else {
+		    $("#errorContent").fadeOut();
+		}
+	});
+}
+</script>
+</html>

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.funeral.kris.dao.WishDAO;
 import com.funeral.kris.model.Question;
 import com.funeral.kris.model.Wish;
+import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.util.SqlHelper;
 
 @Service
@@ -27,7 +28,7 @@ public class WishServiceImpl implements WishService {
 	private EntityManager em;
 
 	public void addResource(Wish wish) {
-		WishDAO.save(wish);		
+		WishDAO.save(wish);
 	}
 
 	public void updateResource(Wish wish) {
@@ -45,13 +46,28 @@ public class WishServiceImpl implements WishService {
 	public List<Wish> getResources(HttpServletRequest request) {
 		String a = null;
 		try {
-		    a = SqlHelper.getSqlFromRequest("Wish", request);
-		}
-		catch (Exception e) {
-			
+			a = SqlHelper.getSqlFromRequest("Wish", request);
+		} catch (Exception e) {
+
 		}
 		Query query = em.createQuery(a);
 		List<Wish> wishList = query.getResultList();
 		return wishList;
+	}
+
+	@Override
+	public List<Wish> getResources() {
+
+		Iterable<Wish> Iterator = WishDAO.findAll();
+		List<Wish> list = new ArrayList<Wish>();
+
+		Iterator<Wish> iter = Iterator.iterator();
+		while (iter.hasNext()) {
+			Wish wish = iter.next();
+			list.add(wish);
+		}
+
+		return list;
+
 	}
 }

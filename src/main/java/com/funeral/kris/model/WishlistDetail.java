@@ -12,38 +12,59 @@ import java.util.Date;
 import javax.persistence.Column;
 
 @Entity
-@Table(name="wishlist_details")
+@Table(name = "wishlist_details")
 public class WishlistDetail implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue
-	@Column(name="Wishlist_detail_id")
+	@Column(name = "Wishlist_detail_id")
 	private Integer wishlistDetailId;
 
-	@Column(name="wishlist_id")
+	@Column(name = "wishlist_id")
 	private Integer wishlistId;
 
-	@Column(name="wish_type")
+	@Column(name = "wish_type")
 	private String wishType;
-	
-	@Column(name="wish_id")
+
+	@Column(name = "wish_id")
 	private Integer wishId;
 	
-	@Column(name="count")
-	private Integer count;
-	
-	@Column(name="price")
-	private Double price;
+	public Integer getSourceId() {
+		return sourceId;
+	}
 
-	@Column(name="original_price")
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	@Column(name = "source_id")
+	private Integer sourceId;
+
+	@Column(name = "count")
+	private Integer count;
+	@Column(name = "selected")
+	private Integer selected;
+
+	public Integer getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Integer selected) {
+		this.selected = selected;
+	}
+
+	@Column(name = "price")
+	private BigDecimal price;
+
+	@Column(name = "original_price")
 	private BigDecimal originalPrice;
 
-	@Column(name="createdate")
+	@Column(name = "createdate")
 	private Date createDate;
-	
-	@Column(name="updateddate")
+
+	@Column(name = "updateddate")
 	private Date updatedDate;
 
 	public Integer getWishlistDetailId() {
@@ -86,11 +107,11 @@ public class WishlistDetail implements Serializable {
 		this.count = count;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -118,4 +139,3 @@ public class WishlistDetail implements Serializable {
 		this.originalPrice = originalPrice;
 	}
 }
-

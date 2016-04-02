@@ -1,12 +1,18 @@
 DROP TABLE IF EXISTS wishlist_details;  
 CREATE TABLE wishlist_details (  
-  wishlist_id integer NOT NULL,  
   wishlist_detail_id integer NOT NULL AUTO_INCREMENT,  
+  wishlist_id integer NOT NULL,  
   wish_type varchar(20),  
   wish_id integer,  
+  source_id integer,  
   count  varchar(20),
-  price integer,
+  price DECIMAL(20,2),
+  sourceId integer,
+  selected integer DEFAULT 0,
+  original_price DECIMAL(20,2),
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
-  PRIMARY KEY (wishlist_id, wishlist_detail_id)  
+  PRIMARY KEY ( wishlist_detail_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+alter table wishlist_details add COLUMN selected integer DEFAULT 0; 

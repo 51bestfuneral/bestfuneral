@@ -19,14 +19,8 @@
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <script src="/funeral/js/util.js"></script>
-
-
-
-
-
+<script src="/funeral/js/generalUsage.js"></script>
 </head>
-
-
 <style>
 html {
     height: 100%;
@@ -38,9 +32,10 @@ body {
 	background-color:#102430;
 }
 #topHalfLevel {
-    background-image:url('../js/images/Bitmap.png');
+    background-image:url('../js/images/Bitmap.jpg');
 	padding-bottom: 3%;
-	background-size:100%;
+	background-repeat: no-repeat;
+    background-size: 1920px 1180px;
 	width: 100%;
 	height: 700px;
 	overflow:hidden;
@@ -52,12 +47,12 @@ body {
 	background: rgba(0, 0, 0, 0.6);
 }
 #topHalfLevel h1 {
-    padding-top: 180px;
+    padding-top: 200px;
 	margin: 0;
 	color: white;
 	font-size: 50px;
 	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
-	font-weight: lighter;
+    font-family: HelveticaNeue-Thin;
 }
 .mainContent1 {
     position: relative;
@@ -80,7 +75,7 @@ body {
 }
 .subtext span{
     color: #ffffff;
-	font-family: 'Microsoft Yahei';
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
 	font-size: 23px;
 	font-weight: lighter;
@@ -191,12 +186,12 @@ body {
     width: 100%;
 	height: 600px;
 	background-color: #ec4a82;
-	padding-left: 160px;
+	padding-left: 25%;
 	text-align: left;
 }
 .singleTip h1 {
     color: #ffffff;
-	font-family: "OpenSans-Semibold";
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	font-size: 224px;
 	margin: 0px;
 }
@@ -335,13 +330,11 @@ body {
 #contactInformation {
     width: 100%;
 	overflow: auto;
-	padding-top: 100px;
-	padding-bottom: 40px;
 }
 #contactInformation h2 {
     margin: 0px;
 	font-size: 28px;
-	margin-bottom: 22px;
+	margin-bottom: 0px;
 }
 #contactInformation h4 {
     font-size: 12px;
@@ -361,6 +354,7 @@ body {
 #topContactInfo h2 {
     margin: 0;
 	font-size: 20px;
+	line-height: 80px;
 }
 #topContactInfo h1 {
     margin: 0;
@@ -421,6 +415,7 @@ body {
 	border-radius: 5px;
 	color: #ffffff;
 	text-align: center;
+	box-shadow: none!important;
 }
 #startButton p {
     font-size: 19px;
@@ -444,11 +439,14 @@ body {
     width: 100%;
 	overflow: auto;
 	text-align: left;
-    padding-top: 10px;
 }
 #bottomContactInfo h2 {
     margin: 0;
 	font-size: 20px;
+	line-height: 30px;
+}
+#contactButtonGroup {
+    margin-top: 10px;
 }
 #bottomContactInfo p {
     margin: 0;
@@ -470,9 +468,9 @@ body {
 	padding-right: 20px;
 }
 #messageUs {
-    padding-top: 15px;
 	width: 100%;
 	margin-top: 10px;
+	overflow: auto;
 }
 #messageUsLeft {
     float: left;
@@ -505,15 +503,12 @@ body {
     widht: 200px;
 	height: 45px;
 	border-radius: 0px 4px 4px 0px;
-	font-family: "Microsoft Yahei";
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 #messageButton {
-    margin-top: 20px;
+    margin-top: 10px;
 	width: 80px;
-	font-family: "Microsoft Yahei";
-}
-#contactButtonGroup {
-    margin-top: 25px;
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 .methodButton {
     width: 60px;
@@ -551,7 +546,7 @@ body {
 }
 @media (min-width: 900px) {
   .container {
-    width: 1384px;
+    width: 100%;
 	padding: 0px;
 	min-width: 1000px;
   }
@@ -598,25 +593,6 @@ body {
 	font-size: 20px;
 	line-height: 40px;
 }
-	#titleIconDiv {
-	    position: absolute;
-		left: 64px;
-		top: 14px;
-		width: 68px;
-		height: 68px;
-		text-align: center;
-		border-radius: 34px;
-		overflow: hidden;
-		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
-		cursor: pointer;
-		transition:box-shadow 0.3s;
-	    -moz-transition:box-shadow 0.3s;
-        -webkit-transition:box-shadow 0.3s;
-        -o-transition:box-shadow 0.3s;
-	}
-	#titleIconDiv:hover {
-	    box-shadow: 0px 10px 20px 0px #ec4a82;
-	}
 	.iconImg {
 	    margin-left: -5px;
 		margin-top: 2px;
@@ -670,19 +646,19 @@ body {
 	}
 	#wechatFrame {		
 		position:relative;
-		left:355px;
-		top:-425px;
+		left:255px;
+		top:-420px;
 		width:150px;
 		height:130px;
 	}
 	#wechatFrame img{
-		width:150px;
-		height:150px;
+		width:120px;
+		height:120px;
 		position:relative;
 		top:-5px;	
 			}
 	#wechatFrame p{
-	    font-family: PingFangSC-Light;
+  		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
         font-size: 10px;
         line-height: 10px;
 	}
@@ -912,7 +888,8 @@ body {
 	#cemeteryShow {
 	    width: 100%;
 		height: 457px;
-		background: #83bdc7;
+		background-image:url('../js/images/temple pattern-min.jpg');
+		background-repeat: repeat;
 	}
 	#cemeteryInfo {
 	    float: left;
@@ -977,7 +954,6 @@ body {
 	}
 </style>
 <script type="text/javascript">
-var app = angular.module('productApp', []);
 function muskPage() {
 	    $(this).css({
 			    opacity: 0.5
@@ -1009,84 +985,19 @@ function muskPageForProduct(id) {
 		});
 		$(".coverDiv").fadeIn(1000);
 };
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("../wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-	$http.get("../wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
-app.controller('products', function($scope, $http) {
-	$http.get("../wish/list").success(function(response) {
-	    var j = 1,
-		    counter = 1,
-		    numberInRow = 4,
-			objectsInRow = [],
-			layouts = [];
-		for (var i=0;i<response.length;i++) {
-		    var singleProduct = response[i];
-
-			if (j <= numberInRow) {
-			    objectsInRow.push(singleProduct);
-			}
-
-			if (j === numberInRow || j === response.length) {
-			    var layout = {},
-				    active = '',
-					itemLayout = objectsInRow;
-					
-				if (counter === 1) {
-				    active = 'active'
-				}
-				layout = {
-				    'index': counter,
-					'active': active,
-					'itemLayout': itemLayout
-				};
-				layouts.push(layout);
-			    j = 0;
-				counter++;
-				objectsInRow = [];
-			}
-			j++;
-		}
-		$scope.layouts = layouts;
-	});
-	$http.get("../message/list").success(function(response) {
-	    response[0].active = 'active';
-	    $scope.messages = response;
-	});
-});
-$("#titleIconDiv").on("click", function () {
-	    window.location.href='mainPage.html';
-});
 </script>
-<body ng-app="productApp" ng-controller="products" onselectstart="return false">
-
+<body onselectstart="return false">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
 <div class="container" id="zoom">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "65px"></IFRAME>  
 <div id="topHalfLevel">
-    <div class="pictureMaskDiv"></div>
+<!--    <div class="pictureMaskDiv"></div> -->
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
-		<h5 color="white">51BestFuneral提供综合全面，一站式的殡葬服务体验。告诉我们您的需求，我们帮助您定制最符合您的服务</h5>
+		<h5 color="white">念念提供综合全面，一站式的殡葬服务体验。告诉我们您的需求，我们帮助您定制最符合您的服务</h5>
 	</div>
 	<div id="howToHelp">
 	    <div id="message">
-			<p>我们可以如何帮助您</p>
+			<p>开始定制</p>
 		</div>
     </div>
 	<p class="subtext">或者直接给我们打电话<span>400-166-0030</span></p>
@@ -1298,7 +1209,7 @@ $("#titleIconDiv").on("click", function () {
 </div>
 <div id="designProcessShow">
 </div>
-<IFRAME NAME="content_frame" width=100% height=570 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html"></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=570 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html?feature=1"></IFRAME>
 <div id="cemeteryShow">
     <div id="cemeteryInfo">
 	    <h2>墓地和寺庙信息汇总</h2>
@@ -1386,11 +1297,8 @@ $("#titleIconDiv").on("click", function () {
 	</div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
-<div id="titleIconDiv">
-    <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
-</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
 <h1>物品详细信息</h1>
@@ -1497,16 +1405,15 @@ window.onload=function(){
 	$(".productItem").click(function() {
 			muskPageForProduct();
 	});
+	
 	$("#weChat").hover(function () {
-	  
-	 
 	  $("#wechatFrame").show();
 	});
+	
 	$("#weChat").mouseleave(function () {
 		$("#wechatFrame").fadeOut();
 		$(".jquery_addmask").remove();
 	});
-	
 	//$("#wechatFrame").click(function() {
 	//    $(this).fadeOut();
 	//	$(".jquery_addmask").remove();
@@ -1523,9 +1430,5 @@ $("body").on("click",".singleMember",function() {
     $(".membersContent").fadeOut();
 	$("#memberDesc4").fadeIn();
 });
-
-
-
-
 </script>
 </html>

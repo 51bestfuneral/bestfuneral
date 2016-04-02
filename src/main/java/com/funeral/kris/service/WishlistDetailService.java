@@ -8,6 +8,8 @@ import com.funeral.kris.model.WishlistDetail;
 
 public interface WishlistDetailService {
 	
+	public List<WishlistDetail> getResource();
+	public List<WishlistDetail> getResourceByWishListId(int wishListId);
 	public void addResource(WishlistDetail wishlistDetail);
 	public void updateResource(WishlistDetail wishlistDetail);
 	public WishlistDetail getResource(int id);

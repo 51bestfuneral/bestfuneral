@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+	Bleum - HOME
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers¡¯
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" /> 
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="../js/tinymce/tinymce.min.js"></script>
+<script>
+tinymce.init({ 
+    'selector':'#clause','toolbar':"bold", 
+    'menubar':false,
+    'statusbar':false,
+    'readonly':true,
+	'plugins': [
+          "textcolor"
+    ],
+	'width':"900px",
+    'height':"2600px"
+});
+tinymce.init({ 
+    'selector':'#secret','toolbar':"bold", 
+    'menubar':false,
+    'statusbar':false,
+    'readonly':false,
+	'width':"900px",
+    'height':"2600px"
+});
+tinymce.init({ 
+    'selector':'#quick','toolbar':"bold", 
+    'menubar':false,
+    'statusbar':false,
+    'readonly':false,
+	'width':"900px",
+    'height':"1510px"
+});
+tinymce.init({ 
+    'selector':'#law','toolbar':"bold", 
+    'menubar':false,
+    'statusbar':false,
+    'readonly':false,
+	'width':"900px",
+    'height':"1200px"
+});
+</script>
+<style>
+.topBarDiv {
+	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 1000;
+}
+@media (min-width: 900px) {
+    .container {
+        width: 1344px;
+	    padding: 0px;
+	    min-width: 1000px;
+		margin: 0px auto;
+    }
+}
+#imageDiv {
+    width: 100%;
+	background-image:url('../js/images/Bitmap.png');
+	background-size:100%;
+	text-align: center;
+	height: 350px;
+}
+#clauseMain {
+    width: 100%;
+	overflow: auto;
+	margin-top: 50px;
+}
+#clauseTab {
+    width: 26%;
+	overflow: auto;
+	float: left;
+	padding-left: 90px;
+	padding-top: 20px;
+}
+.singleTab {
+    width: 250px;
+	height: 62px;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+	cursor: pointer;
+}
+.singleTab:hover {
+    background: rgb(244,244,244);
+}
+.selected {
+    background: rgb(244,244,244);
+}
+.singleTab p {
+    line-height: 62px;
+	font-size: 18px;
+	color: #333;
+	margin: 0px;
+	text-align: center;
+}
+#clauseContent {
+    width: 74%;
+	float: left;
+	overflow: auto;
+	padding-bottom: 50px;
+}
+.mce-panel {
+    border: none!important;
+}
+</style>
+<body onselectstart="return false">
+<div class="topBarDiv">
+    <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
+<div id="imageDiv">
+</div>
+<div class="container">
+<div id="clauseMain">
+    <div id="clauseTab">
+	    <div class="singleTab" id="lawdiv-tab"><p>法律声明</p></div>
+		<div class="singleTab" id="quickdiv-tab"><p>快捷支付协议</p></div>
+		<div class="singleTab" id="secretdiv-tab"><p>隐私声明</p></div>
+		<div class="singleTab" id="clausediv-tab"><p>服务条款</p></div>
+	</div>
+	<div id="clauseContent">
+	    <div class="singleContent" hidden id="lawdiv"><textarea id="law"></textarea></div>
+		<div class="singleContent" hidden id="quickdiv"><textarea id="quick"></textarea></div>
+		<div class="singleContent" hidden id="secretdiv"><textarea id="secret"></textarea></div>
+		<div class="singleContent" hidden id="clausediv"><textarea id="clause"></textarea></div>
+	</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script>
+var length = location.search.length,
+	type = location.search.substring(6, length);
+
+if (type !== '') {
+    $("#"+type+"div-tab").addClass("selected");
+    $("#"+type+"div").fadeIn();
+}
+else {
+    $("#lawdiv-tab").addClass("selected");
+    $("#lawdiv").fadeIn();
+}
+window.onload = function() {
+    $(".singleTab").click(function() {
+	    if (!$(this).hasClass("selected")) {
+		    var tabId = $(this)[0].id,
+			    controllId = tabId.replace('-tab','');
+		    $(".singleTab").removeClass("selected");
+			$(".singleContent").hide();
+			$(this).addClass("selected");
+			$("#"+controllId).fadeIn();
+		}
+	});
+	$(".mce-toolbar-grp").hide();
+	tinymce.get("law").getBody().innerHTML = '<p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>知识产权声明</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网（www.365niannian.com）的所有内容（包括但不限于文字、图表、商标、标识或名称、按钮图标、图像、照片、音频、视频影音资料、页面设计、编排、数据及软件等，但网站注册用户在论坛、博客、微博以及任何其他应用下粘贴、转载、上传、发表或以任何其他方式提供的信息、内容除外）之知识产权，均由念念网及/或相关权利方单独或共同所有或被授权使用，并受著作权法和商标法等知识产权法律法规、中国签订的国际条约和其它相关法律、法规的保护。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">使用者将本网站上刊载的内容与服务用于商业、盈利、广告性目的时，需征得念念网的书面特别授权，注明作者及文章出处并按有关规定支付相应费用。未经念念网的明确书面特别授权，任何人不得为任何目的使用以及向任何自然人或单位提供、披露、复印、复制、出售、出让、许可、营销、出版、宣讲、转让、处置或利用本网站上提供的任何内容或服务，或在非念念网所属的服务器上作镜像，否则念念网将依据相关法律法规追究经济赔偿和其它侵权法律责任。对不遵守本声明或其他违法、恶意使用本网站内容者，念念网保留追究其法律责任的权利。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>免责声明</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">任何使用念念网的用户均应仔细阅读本声明，用户可选择不使用念念网，用户使用念念网的行为将被视为对本声明全部内容的认可。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1、任何人因使用本网站而可能遭致的意外及其造成的损失（包括因下载本网站可能链接的第三方网站内容而感染电脑病毒），念念网对此概不负责，亦不承担任何法律责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2、本网站禁止制作、复制、发布、传播等具有反动、色情、暴力、淫秽等内容的信息，一经发现，立即删除。若您因此触犯法律，我们对此不承担任何法律责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3、本网站会员自行上传或通过网络收集的资源，我们仅提供一个展示、交流的平台，不对其内容的准确性、真实性、正当性、合法性负责，也不承担任何法律责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">4、任何单位或个人认为通过本网站网页内容可能涉嫌侵犯其著作权，应该及时向念念网提出书面通知，并提供身份证明、权属证明及详细侵权情况证明。念念网收到上述文件后，将会依法尽快处理。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5、念念网尊重并保护所有使用念念网用户的个人隐私权，用户注册的用户名、电子邮件地址等个人资料，非经用户亲自许可或根据相关法律的强制性规定，念念网不会主动地泄露给第三方。用户在使用搜索引擎时输入的关键字将不被认为是用户的个人隐私资料。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">6. 您应合法使用念念网提供的产品或服务。念念网不对您在念念网上所购买的产品或服务的用途负责。为明确起见，如因您不当使用在念念网上购买的产品或服务(包括但不限于恶作剧等)所造成的一切法律后果和责任，念念对此概不负责。如您的行为对念念网造成任何经济损失或名誉损害，念念网保留向您追责求偿的权利。</span></p><p><br></p><p><br></p><p><br></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>联系地址：</strong></span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">上海菲诺文化创意公司</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">收件人：法律事务部</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">地址： 中国 上海市 沪太路8885号A楼1205</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">任何疑问请联系：legal@365niannian.com</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">电话：13651871272</span></p>';
+	tinymce.get("quick").getBody().innerHTML = '<p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1.【念念】快捷支付服务协议（以下简称“本协议”）是【上海菲诺文化创意有限公司】（以下简称“【公司】”或“我们”）与【念念】用户(以下简称“用户”或“您”)就【念念】快捷支付服务（以下简称“本服务”）的使用等相关事项所订立的有效合约。用户通过网络页面点击确认或以其他方式选择接受本协议，即表示用户与【公司】已达成协议并同意接受本协议的全部约定内容。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2.您应确保您在使用本服务时的银行卡为您本人的银行卡，确保您使用银行卡的行为合法、有效，未侵犯任何第三方合法权益；否则因此造成【公司】、持卡人损失的，您应负责赔偿并承担全部法律责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.您不应将本服务用于任何非法的或违反本协议的目的。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">4.您确认，在您使用本服务时，您是具有中华人民共和国法律规定的完全民事权利能力和民事行为能力的，能够独立承担民事责任的自然人（中华人民共和国境内（香港、澳门除外）的用户应年满18周岁），或者是在中国大陆地区合法开展经营活动或其他业务的法人或其他组织；本协议内容不受您所属国家或地区法律的排斥。不具备前述条件的，您应立即终止使用本服务。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5.本协议条款与您的权益具有或可能具有重大关系，请您在同意接受本服务前确认，您已经充分阅读、理解并接受本协议的全部内容，一旦您选择本服务，即表示您同意遵循本协议的所有约定。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">6.您知晓，您选择使用的本服务要求您提供个人的支付信息，您需保证您所提供的所有信息是真实的、合法的、正确的、完整的。本协议所指支付信息是指您使用本服务时需要提供的个人信息，包括但不限于账户名、密码、个人姓名、身份证号码、银行卡号等。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">7.您同意，为了提供本服务的技术需要，我们有权采集、获取或在系统内保存您的部分支付信息。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">8.我们将严格确保您的个人信息和支付信息的安全。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">9.您知晓，您如使用本服务进行支付的，应当在确认支付金额后输入密码进行支付。您认可和同意：输入密码即视为您确认交易和交易金额并已不可撤销地向我们的支付系统发出指令，我们有权根据您的指令委托银行或第三方从您绑定的银行卡中将您确认的交易资金划扣给收款人。您不应以非本人意愿交易或其他任何原因要求退款或承担其他责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">10.您承诺，对使用本服务过程中您发出的所有指令的真实性、有效性承担全部责任；我们依照您的指令进行操作的一切风险由您自行承担。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">11.您认可，您使用本服务所涉及的账户的使用记录数据、交易金额数据等均以我们系统平台记录的数据为准。同时您授权【公司】有权留存您在【念念】网站填写的相应信息，以供后续向您持续性地提供相应服务（包括但不限于将本信息用于向您推广、提供其他更加优质的产品或服务）。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">12.您保证，不向其他任何人泄露该支付信息。您知晓，您应妥善保管银行卡、卡号、密码以以及您的账号、密码、数字证书等与银行卡或与您的支付账户有关的一切信息。如您遗失银行卡、泄露账户密码或相关信息的，您应及时通知发卡行及/或我们，以减少可能发生的损失。因泄露密码、数字证书、丢失银行卡等导致的损失需由您自行承担。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">13.您认可，在我们有合理理由怀疑您提供的资料错误、不实、过时或不完整的情况下，【公司】有权暂停或终止向您提供部分或全部本服务，您将承担因此产生的一切责任，【公司】对此不承担任何责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">14.您认可，如果您违反本协议的约定；或违反本【公司】网站或其他关联公司网站的条款、协议、规则、通告等相关规定，而被终止提供服务的，我们有权暂停或终止向您提供部分或全部本服务，您将承担因此产生的一切责任，【公司】对此不承担任何责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">15.如您发现有他人冒用或盗用您的账户及密码或任何其他未经合法授权之情形时，应立即以书面方式通知【公司】并要求暂停本服务。我们将积极响应您的要求，但您理解，对您的要求采取行动需要合理期限，在此之前，本公司对已执行的指令及(或)所导致的您的损失不承担任何责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">16.若您的支付信息变更而您未及时更新资料，导致本服务无法提供或提供时发生任何错误，您不得将此作为取消交易、拒绝付款的理由，您将承担因此产生的一切后果，本公司不承担任何责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">17.您使用本服务时同意并认可，可能由于银行本身系统问题、银行相关作业网络连线问题或其他不可抗拒因素，造成本服务无法提供。您确保您所输入的您的资料无误，如果因资料错误造成【公司】于上述异常状况发生时，无法及时通知您相关交易后续处理方式的，【公司】不承担任何损害赔偿责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">18.您同意，基于运行和交易安全的需要，【公司】有权暂停提供或者限制本服务部分功能，或提供新的功能，在减少、增加或者变化任何功能时，只要您仍然使用本服务，表示您仍然同意本协议或者变更后的协议。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">19.您同意，【公司】有权随时对本协议内容进行单方面的变更，并以在本网站公告的方式予以公布，无需另行单独通知您；若您在本协议内容公告变更后继续使用本服务的，表示您已充分阅读、理解并接受修改后的协议内容，也将遵循修改后的协议内容使用本服务；若您不同意修改后的协议内容，您应停止使用本服务。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">20.本协议之效力、解释、变更、执行与争议解决均适用中华人民共和国法律，没有相关法律规定的，参照通用国际商业惯例和（或）行业惯例。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">21.本协议产生之争议，双方应当友好协商解决，无法达成一致的，以本公司所在地法院为一审管辖法院。</span></p><p><br></p>';
+	tinymce.get("secret").getBody().innerHTML = '<p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>个人信息使用</strong></span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><span class="Apple-tab-span" style="white-space:pre" data-mce-style="white-space: pre;">	</span>在您将个人信息提供给念念网（365niannian.com）之前，请您仔细阅读本隐私政策以了解我们的隐私政策和保密措施。在访问本网站www.365niannian.com的同时，您确认了解并接受在此介绍的保密措施。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">&nbsp; &nbsp; &nbsp; &nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>我们从您那里获得的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>概述</strong></span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">您在网络上注册成为念念网的网站用户、购买念念网的产品和服务、登记接受念念网的产品服务时，代表您在知情和同意的情况下，自愿向念念网提供您的个人用户信息，例如姓名、通讯地址、电邮地址、联系电话、身份证号码及偏好等（以下简称"个人信息"）。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>自动收集的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">当您访问念念网时，我们将自动收集有关您电脑的信息，可能包括IP地址、网页浏览器软件类型，以及正在浏览的网站等。我们也可能会收集有关您上网活动的信息，例如浏览的内容和访问的网页等。我们自动收集上述信息的目的之一是帮助我们提供更好的用户使用体验，提供更方便的服务。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>Cookies和其他浏览器技术</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网有时会使用cookies，使您在访问我们的网站时得到更好的服务。念念网使用cookie来帮助您实现您的联机体验的个性化。Cookie是由网页服务器存放在您的硬盘中的文本文件，不能用来运行程序或将病毒递送到您的计算机中。指定给您的cookie是唯一的，它只能由将cookie发布给您的域中的Web服务器读取。 Cookie的主要用途之一是提供一种节约时间的实用功能。您可以接受或拒绝cookie。大多数Web浏览器会自动接受cookie，但您通常可根据自己的需要来修改浏览器的设置以拒绝cookie。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">第三方收集的信息</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">第三方，例如供应商、广告商以及合作伙伴，可能会使用cookies文件以及其他技术（例如网页信标）以收集有关您上网活动的信息。收集这些信息的目的包括：掌握我们网站的使用情况；分析、修改在www.365niannian.com以及其他网站上展示的广告或者使之个性化；为您提供您可能感兴趣的商品或者服务的广告。我们对于第三方使用的cookies 文件以及其它功能无权查看，也不能控制。此外，本隐私政策并不包括第三方的隐私措施。</span></p><p><br></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>我们与谁共享您的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网可能与以下机构共享您的信息：</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>第三方供应商</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">第三方供应商代表我们向您提供服务，包括商业分析、客户服务、市场推广、开展调查或者赢奖活动，以及预防欺诈。我们也可能会授权第三方供应商代表我们向您收集信息，包括为实现我们网站的功能所必需的信息或者为发布符合您个人兴趣的网络广告所需的信息。只有在第三方供应商为履行其工作所需时，其才有权了解或者收集您的信息，并且他们不得为任何其他用途透露或者使用您的信息。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>合作伙伴</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">我们可能与合作伙伴一起为您提供产品或者服务。当有第三方参与提供您所希望获得的产品或服务时，您能轻易发现这一点，因为他们的名字将会与我们的名字一同显示。如果您愿意(您有权自主决定是否愿意)接受该服务，我们将与相关合作伙伴共享您的信息，包括个人信息。请您注意，我们并不控制第三方合作伙伴的隐私政策及保密措施。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>我们也可能会在以下情况下与他人共享您的信息:</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网也许会因法律要求公开个人资料，或者因善意确信这样的作法对于下列各项有其必要性：</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">（1）符合法律公告或遵守适用于念念网站点的合法程序；&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">（2）保护念念网的用户权利或财产；&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">（3）在紧急的情况下，为了保护念念网及其用户之个人或公众安全。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>您如何查看您的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">我们将采取合理措施以确保您的信息准确、完整并且按照预定用途使用。您可以通过访问念念网网站上的个人中心来查看以及更新您的联系信息。我们提醒您注意，我们可能会把与您帐户相关的信息保留在我们的档案中，用作分析、存档以及其他目的。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">&nbsp; &nbsp; &nbsp;&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>您如何控制您的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">您可以通过个人中心查看或修改个人信息。您自愿注册个人信息，用户在注册时提供的所有信息，都是基于自愿，用户有权在任何时候拒绝提供这些信息。 提请您注意，您可以选择不向我们提供任何信息，但是这样一来您将无法使用念念网的部分功能。 请您注意，我们保留无需您同意而发送给您其他信息的权利，这些信息包括服务说明、管理信息以及调查信息等。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>我们如何使用您的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">您向念念网提供的个人信息将用于为您提供更好的服务、念念网业务相关的营销研究，以及以邮寄、短信或电子邮件的方式向您提供有关念念网相关产品、服务和活动信息。在必要情形下第三方可能接触并使用您的个人信息，包括得到授权的念念网员工、以及不时执行与我们的业务、营销活动和数据整理有关工作的其他公司或人员。所有此类人员及公司均需遵守相关保密协议，同时也需遵守国家关于个人信息保护有关法律法规，以确保您的个人信息随时得到保护。</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;"><strong>我们如何保护您的信息</strong></span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">我们希望您使用念念网时能感到放心，并且我们致力于保护我们收集的信息。尽管没有一家网站能够保证完全安全，我们已经采取了合适的管理、技术以及有形措施以保护您提供给我们的个人信息。例如，只有经授权的员工能够查看个人信息，并且只能用于经许可的工作目的。此外，在敏感的个人信息传输于我们的系统与您的系统之间时，我们将采取加密措施。我们也设置了防火墙以及入侵侦查系统以防止未经授权的人员获取您的信息。您知晓并同意当您通过电话要求提供服务时，通话可能会被录音，以确保服务质量及确保您个人信息的准确性。</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">除上述用途外，念念网不会将您的个人信息用于任何未经您同意的用途。除了我们的业务合作伙伴、我们的法律顾问、外部审计机构或按照法律规定、监管规定或法庭裁决之外，我们不会将所接受的任何个人信息泄露、篡改、毁损、出售或者提供给任何第三方。</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网遵守现行的关于个人信息、数据及隐私保护的法律法规，采取充分的技术手段和制度管理，保护您提供给我们的个人信息、数据和隐私不受到非法的泄露或披露给未获授权的第三方。</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">您可以提交书面请求以查阅您的个人信息，或要求对错误的信息进行更正、修改或删除。如果您的个人信息有任何变动，请通知我们以便我们保持信息更新并提供更好的服务。此外，您可以通过书面方式要求念念网从数据库中取消您所登记的任何产品服务并停止使用您的个人信息。</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">任何与您个人信息有关的请求或投诉，以及要求取消您所选取的念念网的任何服务，请发送电子邮件至：service@365niannian.com或者致函以下地址： 上海市杨浦区淞沪路270号，邮编：200433。</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网"隐私声明"体现了我们将按照国家关于个人信息保护有关法律法规保护和管理您个人信息的承诺，我们会根据不时修订的相关法规要求更新本"隐私声明"。我们的"隐私声明"公布于念念网官方网站：www.365niannian.com，方便您随时查阅。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">日期：2016年3月17日</span></p><p><br></p>';
+    tinymce.get("clause").getBody().innerHTML = '<p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">念念网依照《法律声明》和本《服务条款》向您提供念念网（www.365niannian.com）（“念念网”）的服务。请您使用念念网之前请仔细阅本服务条款及法律声明和隐私政策。通过访问或使用念念网，您即明确同意遵守本服务条款以及经参引而并入其中的所有条款、政策以及指南，并受前述规则的约束（“本服务条款”）。如果您不接受本服务条款的全部规定，则请勿使用念念网。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">您只有完全同意所有服务条款并完成注册程序，才能成为念念网注册用户并使用相应服务。您在注册程序过程中点击同意念念网服务条款相关选项即表示您与念念网达成协议，完全接受本服务条款。您一旦使用网站的服务，即视为您已了解并完全同意本服务条款各项内容，包括念念网对服务条款随时做的任何修改。除非另有规定， 否则任何变更或修改将在修订内容于念念网发布之时立即生效，您对念念网的使用、继续使用将表明您接受此等变更或修改。如您不同意本服务协议及/或随时 对其的修改、及/或法律声明，您可以主动取消念念网提供的服务。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">一、服务内容</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1.1 念念网的具体服务内容根据实际情况提供，保留随时变更、中断或终止部分或全部念念网服务的权利。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1.2 念念网向用户提供相关网络展示服务和存储服务，与相关网络服务有关的设备（如个人电脑及其他与接入互联网或移动网有关的装置）及所需的费用（如为接入互联网而支付的电话费及上网费）均由用户自行负担。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1.3 用户完全理解并同意，用户通过念念网购买产品或服务，将按照网络服务中展示的说明、规定或政策等合理、及时维护自身合法权益，履行相关义务。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1.4 用户完全理解并同意，念念网将会通过电子邮件、短信、电话等形式，发送订单信息、促销活动等电子信息服务。如您不同意该等信息服务，可以按照念念网提供的方式取消该等服务。&nbsp;</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">二、内容使用权</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2.1 念念网鼓励用户充分利用念念网平台自由地张贴和共享他们自己的信息。您可以自由上传其他网站复制的图片等内容，但这些内容必须属于公共领域或者您拥有这些内容的所有权或使用权。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2.2 用户不得张贴他人享有版权保护的内容。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2.3 念念网对用户提供内容使用权见本服务条款第六条知识产权。&nbsp;</span></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">三、注册信息和隐私保护</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.1 用户在申请使用念念网服务时，必须提供真实的个人资料，并不断更新注册资料。如果因注册信息不真实而引起的问题及其后果，念念网不承担任何责任。倘若念念网发现用户的注册资料是虚假、不准确或不完整的，则可自行决定终止该用户的帐号。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.2 用户注册成功后，念念网将提供用户一个用户帐号及相应的密码，该用户帐号和密码由用户自行负责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.3 因黑客行为、计算机病毒侵入或发作或您保管疏忽致使帐号、密码被他人非法使用、盗用、篡改的或丢失的，念念网不承担责任。如您发现任何非法使用用户帐号或安全漏洞的情况，请立即与念念网联系。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.4 保护用户隐私是念念网的重点原则，念念网通过技术手段、提供隐私保护服务功能、强化内部管理等办法充分保护用户的个人资料安全。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.5 用户不可以通过自动方式创建帐户，也不可以对帐户使用自动系统执行操作，否则，念念网可自行决定终止该用户的帐号。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.6 如果您向网站请求预订葬礼套餐等服务，我们将有可能向合作伙伴或其他供应商提供您的相关个人信息。如姓名、联系电话等。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3.7 念念网保证不对外公开或向第三方提供用户注册的个人资料，及用户在使用服务时存储的非公开内容，但下列情况除外：&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1) 事先获得用户的明确授权；</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2) 按照相关司法机构或政…al, sans-serif; font-size: 14pt;">5.2 念念网对任何他人的违反道德的或非法的内容或行为或对他人权利（包括但不限于知识产权）的侵犯不承担责任；并对任何第三方通过念念网发送服务或在服务中包含的任何内容不承担责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5.3 念念网对用户不提供以下保证：包括但不限于不保证服务一定能满足用户的要求；不保证服务不会中断；不保证服务的及时性、安全性、准确性。对于因不可抗力或任何非念念网单方原因造成的网络服务中断或其他缺陷，念念网不承担任何责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5.4 用户明确同意，其使用念念网服务所存在的风险及产生的一切后果由其自己承担。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5.5 用户应合法使用念念网提供的产品或服务。念念网不对用户在念念网上所购买的产品或服务的用途负责。为明确起见，用户应自行承担因其不当使用在念念网上购买的产品或服务所造成的一切法律后果和责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5.6 任何情况下，因使用念念网而引起或与使用念念网有关的念念网的责任总额，均不得超过您因访问或使用本网站而向念念支付的任何报酬（如果有的话）。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">5.7 用户应合法使用念念网提供的产品或服务。念念网不对用户在念念网上所购买的产品或服务的用途负责。为明确起见，用户应自行承担因其不当使用在念念网上购买的产品或服务(包括但不限于恶作剧等)所造成的一切法律后果和责任。如用户该行为对念念网造成任何经济损失或名誉损害,念念网保留向其追责求偿的权利。</span></p><p><br></p><p><br></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">六、知识产权</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">6.1 用户作如下声明和保证：&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1) 对于发布或以其它方式传播的内容，拥有并掌控着所有的权利，或者您以其它方式拥有在念念网发布和传播此等内容的合法权利；</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2) 此等内容是合法的、真实的、准确的、非误导性的；</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3) 使用和发布此等内容或以其它方式传播此等内容不违反本服务条款，也不侵犯任何人或实体的任何权利或造成对任何人或实体的伤害。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">6.2 除权利人外，其他任何人未经权利人事先书面同意，不能擅自复制、传播这些内容，或用于其他任何商业目的，所有这些资料或资料的任何部分仅可作为个人或非商业用途而保存在某台计算机内。否则，念念网及或权利人将追究侵权者法律责任。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">6.3 若用户向念念网发布或传播内容，或通过本网站发布或传播内容，用户在保留精神权利情况下，用户特此同意：&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">1) 向念念网及其关联方在免转让费的基础上转让如下权利，即：可使用、复制、修改、改编、翻译、传播、发表此等内容，从此等内容创建派生作品，以及在全世界范围内通过任何媒介（现在已知的或今后发明的）公开展示和表演此等内容；</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">2) 授予念念网及其关联方和再许可人，可依他们的选择而使用用户有关此等内容而提交的名称的权利；</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">3) 用户进一步授予念念网以下权利，即：对因违反本服务条款而侵犯您，或者念念网就内容享有的权利的任何人或实体，将按法律追究其责任。</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">七、特别约定</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">7.1念念网有权根据互联网的发展和中华人民共和国有关法律、法规的变化，不时地完善和修改念念网服务条款。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">7.2用户使用本服务的行为若有任何违反国家法律法规或侵犯任何第三方的合法权益的情形时，念念网有权直接删除该等违反规定之信息，并可以暂停或终止向该用户提供服务。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">7.3 若用户利用本服务从事任何违法或侵权行为，由用户自行承担全部责任，因此给念念网或任何第三方造成任何损失，用户应负责全额赔偿。并尽力使念念网免受损害。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">7.4 所有发给用户的通告或通知都可以通过重要页面的公告、通告、电子邮件以及常规信件的形式传送。&nbsp;</span></p><p><span style="font-family: helvetica, arial, sans-serif; font-size: 14pt;" data-mce-style="font-family: helvetica, arial, sans-serif; font-size: 14pt;">7.5 本服务条款之效力、解释、执行均适用中华人民共和国法律。</span></p>';
+}
+</script>
+</html>

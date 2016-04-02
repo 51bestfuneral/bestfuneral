@@ -97,7 +97,7 @@
 	}
 	.singleSlogan span {
 	    font-size: 16px;
-		font-family: "Microsoft Yahei";
+  		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	}
 	#buttonGroup {
         margin-top: -25px;
@@ -134,7 +134,7 @@
 	.includeLink p {
 	  margin-top: 21px;
 		font-size: 17px;
-		font-family: STHeitiSC-Light;
+  		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
     color: #ffffff;
 	}
     #bottomDivCoat {
@@ -169,16 +169,17 @@
 		color: #ffffff;
 		margin-right: -10px;
 	}
+	#certificateRight span {
+	    cursor:pointer;
+		opacity: 0.5;
+	}
+	#certificateRight span:hover {
+	    opacity: 1;
+	}
 </style>
 <body>
 <div id="bottomBar">
     <div id="adjustFontDiv">
-	    <span>字体大小</span>
-		<span id="changeSmalls" onClick="zoomInOut('zoom','in')">正常</span>
-		<span>|</span>
-		<span id="changeNormals" onClick="zoomInOut('zoom','out')">大</span>
-		<span>|</span>
-		<span id="changeBigs">特大</span>
 	</div>
 <!--	<div id="sloganDiv">
 	    <div class="singleSlogan">
@@ -203,8 +204,6 @@
 		</div>
 	</div>
 	-->
-	
-	
 	<div id="bottomDivCoat">
 		<div id="bottomLeft">
 			<div id="bottomLeftMain">
@@ -235,10 +234,10 @@
                     <img src="/funeral/js/images/group-3@2x.png"></img>
                 </div>
                 <div>
-                    <img src="/funeral/js/images/group-3@2x.png"></img>
+                    <img src="/funeral/js/images/Group3Copy2@2x.png"></img>
                 </div>
                 <div>
-                    <img src="/funeral/js/images/group-3@2x.png"></img>
+                    <img src="/funeral/js/images/Group3Copy@2x.png"></img>
                 </div>
 			</div>
 		</div>
@@ -248,7 +247,7 @@
 	        <p>版权所有 © 2016-2017 上海菲诺文化创意有限公司365NIANNIAN.COM (念念网) 保留一切权利  沪ICP备16007794号</p>
 		</div>
 		<div id="certificateRight">
-		    <p>快捷支付协议 | 隐私声明 | 法律声明 | 服务条款</p>
+		    <p><span id="quick">快捷支付协议</span>| <span id="secret">隐私声明</span> | <span id="law">法律声明</span> | <span id="clause">服务条款</span></p>
 		</div>
 	</div>
 </div>
@@ -348,21 +347,20 @@
             window.parent.location.href='/funeral/pages/html/customizatonPages/aboutUs.html';
 		}
 	});
+	$("#certificateRight").find("span").click(function() {
+	    var id = $(this)[0].id;
+		if (id === "quick") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else if (id === "secret") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else if (id === "law") {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+		else {
+		    window.parent.location.href='../clause.html?type='+id;
+		}
+	});
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>

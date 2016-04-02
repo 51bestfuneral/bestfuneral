@@ -1,20 +1,140 @@
 package com.funeral.kris.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Iterator;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.funeral.kris.model.Order;
+import com.funeral.kris.model.User;
+import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.AlipayService;
+import com.funeral.kris.service.OrderService;
+import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
-import javax.servlet.ServletRequest;
 
 @Controller
 @RequestMapping(value = "/alipay")
 public class AlipayController {
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private WishlistService wishlistService;
+	
+	@ResponseBody
+	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
+	public Order  createOrder(HttpServletRequest request) {
 
+		HttpSession session = request.getSession(true);
+
+		User  user=(User)session.getAttribute("user");	
+		
+		
+		List<Order> list=orderService.getResources();
+		
+		int index=0;
+		
+		if(list==null){
+			
+			index=1;
+			
+		}else{
+			
+			Iterator iterator=	list.iterator();
+			
+			while(iterator.hasNext()){
+				
+				Order order=(Order) iterator.next();
+				
+				if(order.getUserId().intValue()==user.getUsrId().intValue()){
+					
+					index=index+1;
+				}
+				
+				
+			}
+	
+			
+			
+		}
+		
+		
+		
+		
+		
+		Order order=orderService.getByUserId(user.getUsrId());
+		
+		List<Wishlist> wishlist =wishlistService.getResources();
+
+		Iterator iterator=  	wishlist.iterator();
+		
+		Wishlist wishs	=new Wishlist();
+		
+		
+		while(iterator.hasNext()){
+			
+			 wishs	=(Wishlist) iterator.next();
+			
+			if(wishs.getUserId().intValue()==user.getUsrId().intValue()){
+				
+				break;
+				
+			}
+			
+		}
+		
+		
+		
+		if(order!=null){
+			String tradeNo =AlipayUtil.generateTradeNo(user.getUsrId(),index);
+			order.setUserId(user.getUsrId());
+			order.setOrderNo(tradeNo);
+			order.setSubject(wishs.getComment());
+			order.setStatusId(1);
+			order.setSubject("è®¢å•å·ï¼š"+tradeNo);
+			orderService.addResource(order);
+			order.setPayableAmount(wishs.getPrice());
+		}else{
+			String tradeNo =AlipayUtil.generateTradeNo(user.getUsrId(),index);
+			order=new Order();
+			order.setUserId(user.getUsrId());
+			order.setOrderNo(tradeNo);
+			order.setSubject(wishs.getComment());
+			order.setPayableAmount(wishs.getPrice());
+			order.setStatusId(1);
+			order.setSubject("è®¢å•å·ï¼š"+tradeNo);
+			orderService.addResource(order);
+			
+		}
+		
+		
+		
+		return order;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/getTradeNo", method = RequestMethod.GET)
+	public String createOrder() {
+	
+		
+		
+		
+	return	AlipayUtil.generateTradeNo(14,1)	;
+	
+	}
+	
+	
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String pay(ServletRequest request) {
 		
@@ -53,7 +173,7 @@ public class AlipayController {
 		sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
 
 		
-		String url=AlipayService.buildRequest(sParaTemp, "get", "È·ÈÏ");
+		String url=AlipayService.buildRequest(sParaTemp, "get", "È·ï¿½ï¿½");
 		
 		System.out.println("-------------- begin to pay url="+url);
 		
@@ -68,7 +188,7 @@ public class AlipayController {
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	public String notify(ServletRequest request) {
 
-		// »ñÈ¡Ö§¸¶±¦POST¹ıÀ´·´À¡ĞÅÏ¢
+		// ï¿½ï¿½È¡Ö§ï¿½ï¿½ï¿½ï¿½POSTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		Map<String, String> params = new HashMap<String, String>();
 		Map requestParams = request.getParameterMap();
 		for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext();) {
@@ -78,44 +198,44 @@ public class AlipayController {
 			for (int i = 0; i < values.length; i++) {
 				valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
 			}
-			// ÂÒÂë½â¾ö£¬Õâ¶Î´úÂëÔÚ³öÏÖÂÒÂëÊ±Ê¹ÓÃ¡£Èç¹ûmysignºÍsign²»ÏàµÈÒ²¿ÉÒÔÊ¹ÓÃÕâ¶Î´úÂë×ª»¯
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ã¡ï¿½ï¿½ï¿½ï¿½mysignï¿½ï¿½signï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½×ªï¿½ï¿½
 			// valueStr = new String(valueStr.getBytes("UTF-8"), "UTF-8");
 			params.put(name, valueStr);
 		}
 
 		try {
-			// »ñÈ¡Ö§¸¶±¦µÄÍ¨Öª·µ»Ø²ÎÊı£¬¿É²Î¿¼¼¼ÊõÎÄµµÖĞÒ³ÃæÌø×ªÍ¬²½Í¨Öª²ÎÊıÁĞ±í(ÒÔÏÂ½ö¹©²Î¿¼)//
-			// ÉÌ»§¶©µ¥ºÅ
+			// ï¿½ï¿½È¡Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½É²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½×ªÍ¬ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½(ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½)//
+			// ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("UTF-8"), "UTF-8");
 
-			// Ö§¸¶±¦½»Ò×ºÅ
+			// Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ºï¿½
 
 			String trade_no = new String(request.getParameter("trade_no").getBytes("UTF-8"), "UTF-8");
 
-			// ½»Ò××´Ì¬
+			// ï¿½ï¿½ï¿½ï¿½×´Ì¬
 			String trade_status = new String(request.getParameter("trade_status").getBytes("UTF-8"), "UTF-8");
 
-			if (AlipayService.verify(params)) {// ÑéÖ¤³É¹¦
+			if (AlipayService.verify(params)) {// ï¿½ï¿½Ö¤ï¿½É¹ï¿½
 				//////////////////////////////////////////////////////////////////////////////////////////
-				// ÇëÔÚÕâÀï¼ÓÉÏÉÌ»§µÄÒµÎñÂß¼­³ÌĞò´úÂë
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-				// ¡ª¡ªÇë¸ù¾İÄúµÄÒµÎñÂß¼­À´±àĞ´³ÌĞò£¨ÒÔÏÂ´úÂë½ö×÷²Î¿¼£©¡ª¡ª
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 				if (trade_status.equals("TRADE_FINISHED")) {
-					// ÅĞ¶Ï¸Ã±Ê¶©µ¥ÊÇ·ñÔÚÉÌ»§ÍøÕ¾ÖĞÒÑ¾­×ö¹ı´¦Àí
-					// Èç¹ûÃ»ÓĞ×ö¹ı´¦Àí£¬¸ù¾İ¶©µ¥ºÅ£¨out_trade_no£©ÔÚÉÌ»§ÍøÕ¾µÄ¶©µ¥ÏµÍ³ÖĞ²éµ½¸Ã±Ê¶©µ¥µÄÏêÏ¸£¬²¢Ö´ĞĞÉÌ»§µÄÒµÎñ³ÌĞò
-					// Èç¹ûÓĞ×ö¹ı´¦Àí£¬²»Ö´ĞĞÉÌ»§µÄÒµÎñ³ÌĞò
+					// ï¿½Ğ¶Ï¸Ã±Ê¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½İ¶ï¿½ï¿½ï¿½ï¿½Å£ï¿½out_trade_noï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Õ¾ï¿½Ä¶ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ğ²éµ½ï¿½Ã±Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
 
-					// ×¢Òâ£º
-					// ÍË¿îÈÕÆÚ³¬¹ı¿ÉÍË¿îÆÚÏŞºó£¨ÈçÈı¸öÔÂ¿ÉÍË¿î£©£¬Ö§¸¶±¦ÏµÍ³·¢ËÍ¸Ã½»Ò××´Ì¬Í¨Öª
+					// ×¢ï¿½â£º
+					// ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½Şºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½ï¿½Ë¿î£©ï¿½ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Í¸Ã½ï¿½ï¿½ï¿½×´Ì¬Í¨Öª
 				} else if (trade_status.equals("TRADE_SUCCESS")) {
-					// ÅĞ¶Ï¸Ã±Ê¶©µ¥ÊÇ·ñÔÚÉÌ»§ÍøÕ¾ÖĞÒÑ¾­×ö¹ı´¦Àí
-					// Èç¹ûÃ»ÓĞ×ö¹ı´¦Àí£¬¸ù¾İ¶©µ¥ºÅ£¨out_trade_no£©ÔÚÉÌ»§ÍøÕ¾µÄ¶©µ¥ÏµÍ³ÖĞ²éµ½¸Ã±Ê¶©µ¥µÄÏêÏ¸£¬²¢Ö´ĞĞÉÌ»§µÄÒµÎñ³ÌĞò
-					// Èç¹ûÓĞ×ö¹ı´¦Àí£¬²»Ö´ĞĞÉÌ»§µÄÒµÎñ³ÌĞò
+					// ï¿½Ğ¶Ï¸Ã±Ê¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½İ¶ï¿½ï¿½ï¿½ï¿½Å£ï¿½out_trade_noï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Õ¾ï¿½Ä¶ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ğ²éµ½ï¿½Ã±Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
 
-					// ×¢Òâ£º
-					// ¸¶¿îÍê³Éºó£¬Ö§¸¶±¦ÏµÍ³·¢ËÍ¸Ã½»Ò××´Ì¬Í¨Öª
+					// ×¢ï¿½â£º
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½Ö§ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Í¸Ã½ï¿½ï¿½ï¿½×´Ì¬Í¨Öª
 				}
 
 				
@@ -123,14 +243,14 @@ public class AlipayController {
 				System.out.println("success"); 
 
 				
-			} else {// ÑéÖ¤Ê§°Ü
+			} else {// ï¿½ï¿½Ö¤Ê§ï¿½ï¿½
 				System.out.println("fail");
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 
-		// »ñÈ¡Ö§¸¶±¦µÄÍ¨Öª·µ»Ø²ÎÊı£¬¿É²Î¿¼¼¼ÊõÎÄµµÖĞÒ³ÃæÌø×ªÍ¬²½Í¨Öª²ÎÊıÁĞ±í(ÒÔÉÏ½ö¹©²Î¿¼)//
+		// ï¿½ï¿½È¡Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½É²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½×ªÍ¬ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½(ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½)//
 
 		return "shop/shoping-cart";
 	}
@@ -138,7 +258,7 @@ public class AlipayController {
 	@RequestMapping(value = "/success", method = RequestMethod.GET)
 	public String success(ServletRequest request) {
 
-		// »ñÈ¡Ö§¸¶±¦GET¹ıÀ´·´À¡ĞÅÏ¢
+		// ï¿½ï¿½È¡Ö§ï¿½ï¿½ï¿½ï¿½GETï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 		Map<String, String> params = new HashMap<String, String>();
 		Map requestParams = request.getParameterMap();
 		try {
@@ -149,47 +269,47 @@ public class AlipayController {
 				for (int i = 0; i < values.length; i++) {
 					valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
 				}
-				// ÂÒÂë½â¾ö£¬Õâ¶Î´úÂëÔÚ³öÏÖÂÒÂëÊ±Ê¹ÓÃ¡£Èç¹ûmysignºÍsign²»ÏàµÈÒ²¿ÉÒÔÊ¹ÓÃÕâ¶Î´úÂë×ª»¯
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ê¹ï¿½Ã¡ï¿½ï¿½ï¿½ï¿½mysignï¿½ï¿½signï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½×ªï¿½ï¿½
 				valueStr = new String(valueStr.getBytes("UTF-8"), "UTF-8");
 				params.put(name, valueStr);
 			}
 
-			// »ñÈ¡Ö§¸¶±¦µÄÍ¨Öª·µ»Ø²ÎÊı£¬¿É²Î¿¼¼¼ÊõÎÄµµÖĞÒ³ÃæÌø×ªÍ¬²½Í¨Öª²ÎÊıÁĞ±í(ÒÔÏÂ½ö¹©²Î¿¼)//
-			// ÉÌ»§¶©µ¥ºÅ
+			// ï¿½ï¿½È¡Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½É²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½×ªÍ¬ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½(ï¿½ï¿½ï¿½Â½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½)//
+			// ï¿½Ì»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 			String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("UTF-8"), "UTF-8");
 
-			// Ö§¸¶±¦½»Ò×ºÅ
+			// Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ºï¿½
 
 			String trade_no = new String(request.getParameter("trade_no").getBytes("UTF-8"), "UTF-8");
 
-			// ½»Ò××´Ì¬
+			// ï¿½ï¿½ï¿½ï¿½×´Ì¬
 			String trade_status = new String(request.getParameter("trade_status").getBytes("UTF-8"), "UTF-8");
 
-			// »ñÈ¡Ö§¸¶±¦µÄÍ¨Öª·µ»Ø²ÎÊı£¬¿É²Î¿¼¼¼ÊõÎÄµµÖĞÒ³ÃæÌø×ªÍ¬²½Í¨Öª²ÎÊıÁĞ±í(ÒÔÉÏ½ö¹©²Î¿¼)//
+			// ï¿½ï¿½È¡Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½É²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½×ªÍ¬ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½(ï¿½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½)//
 
-			// ¼ÆËãµÃ³öÍ¨ÖªÑéÖ¤½á¹û
+			// ï¿½ï¿½ï¿½ï¿½Ã³ï¿½Í¨Öªï¿½ï¿½Ö¤ï¿½ï¿½ï¿½
 			boolean verify_result = AlipayService.verify(params);
 
-			if (verify_result) {// ÑéÖ¤³É¹¦
+			if (verify_result) {// ï¿½ï¿½Ö¤ï¿½É¹ï¿½
 				//////////////////////////////////////////////////////////////////////////////////////////
-				// ÇëÔÚÕâÀï¼ÓÉÏÉÌ»§µÄÒµÎñÂß¼­³ÌĞò´úÂë
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-				// ¡ª¡ªÇë¸ù¾İÄúµÄÒµÎñÂß¼­À´±àĞ´³ÌĞò£¨ÒÔÏÂ´úÂë½ö×÷²Î¿¼£©¡ª¡ª
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				if (trade_status.equals("TRADE_FINISHED") || trade_status.equals("TRADE_SUCCESS")) {
-					// ÅĞ¶Ï¸Ã±Ê¶©µ¥ÊÇ·ñÔÚÉÌ»§ÍøÕ¾ÖĞÒÑ¾­×ö¹ı´¦Àí
-					// Èç¹ûÃ»ÓĞ×ö¹ı´¦Àí£¬¸ù¾İ¶©µ¥ºÅ£¨out_trade_no£©ÔÚÉÌ»§ÍøÕ¾µÄ¶©µ¥ÏµÍ³ÖĞ²éµ½¸Ã±Ê¶©µ¥µÄÏêÏ¸£¬²¢Ö´ĞĞÉÌ»§µÄÒµÎñ³ÌĞò
-					// Èç¹ûÓĞ×ö¹ı´¦Àí£¬²»Ö´ĞĞÉÌ»§µÄÒµÎñ³ÌĞò
+					// ï¿½Ğ¶Ï¸Ã±Ê¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+					// ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½İ¶ï¿½ï¿½ï¿½ï¿½Å£ï¿½out_trade_noï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Õ¾ï¿½Ä¶ï¿½ï¿½ï¿½ÏµÍ³ï¿½Ğ²éµ½ï¿½Ã±Ê¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½Ö´ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½
 				}
 
-				// ¸ÃÒ³Ãæ¿É×öÒ³ÃæÃÀ¹¤±à¼­
-				System.out.println("ÑéÖ¤³É¹¦<br />");
-				// ¡ª¡ªÇë¸ù¾İÄúµÄÒµÎñÂß¼­À´±àĞ´³ÌĞò£¨ÒÔÉÏ´úÂë½ö×÷²Î¿¼£©¡ª¡ª
+				// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à¼­
+				System.out.println("ï¿½ï¿½Ö¤ï¿½É¹ï¿½<br />");
+				// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 				//////////////////////////////////////////////////////////////////////////////////////////
 			} else {
-				// ¸ÃÒ³Ãæ¿É×öÒ³ÃæÃÀ¹¤±à¼­
-				System.out.println("ÑéÖ¤Ê§°Ü");
+				// ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à¼­
+				System.out.println("ï¿½ï¿½Ö¤Ê§ï¿½ï¿½");
 			}
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

@@ -224,9 +224,8 @@ var app = angular.module('productApp', []);
 var filter = location.search,
 	wishList,
 	usrId = 1;
-
 app.controller('products', function($scope, $http) {
-	$http.get("http://localhost:8080/bestfuneral/wish/list"+filter).success(function(response) {
+	$http.get("/funeral/wish/list"+filter).success(function(response) {
 	    var j = 1,
 		    counter = 1,
 		    numberInRow = 3,
@@ -281,9 +280,9 @@ app.controller('products', function($scope, $http) {
 						    <img src="../../js/images/product1.png" class="image"></img>
 						</div>
 						<div class="inforDiv">
-						    <h3>产品名称</h3>
-							<h4>这里是特色产品介绍的内容</h4>
-							<p>￥ 70.00</p>
+						    <h3>{{itemLayout.wishName}}</h3>
+							<h4>{{itemLayout.wishDesc}}</h4>
+							<p>￥{{itemLayout.sellingPrice}}</p>
 						</div>
 		            </div>
                 </div>

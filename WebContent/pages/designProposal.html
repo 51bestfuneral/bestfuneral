@@ -15,38 +15,34 @@
 <script src="/funeral/js/libs.baidu.com/jquery/1.10.2/jquery.js"></script>
 <script src="/funeral/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="/funeral/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="../js/generalUsage.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
-
 </head>
-
-
-
-
-
-
 <style>
-
 .headerAddtion {
     width: 100%;
 	height: 48px;
 	text-align: center;
 	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
 }
-.subNavigat {
-    line-height: 48px;
-	font-size: 16px;
-	margin-right: 20px;
+#subNavilink {
+    width: 675px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
 }
-.subNavigat a {
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
     text-decoration: none;
-	color: #5b5b5b;
-	font-family: "Microsoft Yahei";
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
 }
-.naviSelect a{
-    color: #000000!important;
-    font-weight: bold;
-	cursor: default!important;
+.firstLink {
+    margin-left: 38px;
 }
 .submitArea {
     width: 100%;
@@ -72,14 +68,6 @@
 
 
 </style>
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 var app = angular.module('myApp', []);
 function buildObject(level) {
@@ -103,7 +91,7 @@ function buildObject(level) {
 }
 app.controller('wishTypeLevels', function($scope, $http) {
 	
-	  $http.get("/funeral/displayWishType/listWishCategory").success(function(response) {
+	$http.get("/funeral/displayWishType/listWishCategory").success(function(response) {
 	    $scope.wishCates = response;
 	});
 	
@@ -114,36 +102,19 @@ app.controller('wishTypeLevels', function($scope, $http) {
     $http.get("/funeral/wishType/list").success(function(response) {
 	    $scope.wishTypes = response;
 	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
 });
 </script>
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <body>
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "67px"></IFRAME>
 <div class="container" >
-<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "65px"></IFRAME>
 <div id="line0"></div>
-<div id="link">
- <link1>	 <a href="/funeral/pages/funeralDesignPage.html">为什么要定制葬礼</a>  </link1>
- <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼    </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算</a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制</a>  </link4>
- </div>	
-	
-	
+<div id="subNavilink">
+ <link1><a href="#" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
+ <link3><a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算器</a>  </link3>
+ <link4><a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制  </a>  </link4>
+</div>
 <div id="mainContent">
    
     <div class="topContent">
@@ -170,26 +141,37 @@ app.controller('wishTypeLevels', function($scope, $http) {
 		    <h3>新家搬迁</h3>
 		</div>
 	</div>
-	
-	
-	
-	
-	
-	
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	
+    </div>
+    <div id="lockedTocanDiv" hidden>
+        <div id="compareLocked">
+            <p>比较方案</p>
+        </div>
+        <div class="taocanIconDivInRow basic">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">基础</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow good">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">精品</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow better">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">豪华</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow best">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">顶级</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+    </div>
 	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels" ng-cloak>
-		
-		
-		
-		
 	    <div class= "includeDiv1">
 	    <ul class="descRow">
 		    <li class="headerLineLeft">
@@ -337,7 +319,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
 			    <table class="normalLineText">
 　　                <tr>
 　　                    <td style="vertical-align:middle;">
-                            <p>最大气的方案，<br/>为您爱的人举办高规格的仪式</p>
+                            <p>最大气的方案，为<br/>您爱的人举办高规格的仪式</p>
                         </td>
 　　                </tr>
 　　            </table>
@@ -402,7 +384,7 @@ app.controller('wishTypeLevels', function($scope, $http) {
     <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
     
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
 var userId = 123;
@@ -414,13 +396,13 @@ function generateWishlistByLevel(userId, wishlistId, level) {
 		type: 'post',
 		dataType:'json',
 		success:function(data){
-			window.parent.location.href='/funeral/pages/designProcess.html';
+			window.location.href='/funeral/pages/designProcess.html';
 		},
 		error: function(error) {
 		}
 	});
 }
-function getWishlistByLevel(level) {
+function getWishlistByLevelAfterChcek(level) {
     var paras = 'userId='+userId;
     $.ajax({
 		url: '/funeral/wishlist/list?'+paras,
@@ -429,6 +411,25 @@ function getWishlistByLevel(level) {
 		dataType:'json',
 		success:function(data){
 			generateWishlistByLevel(userId, data[0].wishlistId, level);
+		},
+		error: function(error) {
+		}
+	});
+}
+function getWishlistByLevel(level) {
+    $.ajax({
+		url: '/funeral/login/validateLogin',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+            var resultCode =data;
+
+			if (resultCode === "") {
+	            popupLogInPage();
+			}
+			else {
+				getWishlistByLevelAfterChcek(level);
+			}
 		},
 		error: function(error) {
 		}
@@ -788,8 +789,14 @@ $("#bestButton").on("click", function () {
             getWishlistByLevel(4);
 	
 	});
-
-
-   
+$(window).scroll(function(){
+	var topPosition = document.body.scrollTop;
+	if (topPosition > 500) {
+		$("#lockedTocanDiv").show();
+	}
+	else {
+		$("#lockedTocanDiv").hide();
+	}
+});
 </script>
 </html>

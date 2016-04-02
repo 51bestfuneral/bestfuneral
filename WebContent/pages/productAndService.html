@@ -18,7 +18,7 @@
 <script src="/funeral//js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
-
+<script src="../js/generalUsage.js"></script>
 </head>
 
 <header>
@@ -184,7 +184,8 @@
 		z-index: 1001;
 	}
 	.coverDiv .detailFrame {
-		height: 100%;
+		width: 1165px;
+		margin: 0px auto;
 	}
 	.closeCoverDiv {
 		position: absolute;
@@ -324,6 +325,10 @@
 		padding-left: 125px;
 		background: #000000;
 	}
+	#caseMain {
+	    width: 1349px;
+	    margin: 0px auto;
+	}
 	#case h1 {
 	    font-size: 44px;
 		line-height: 44px;
@@ -351,8 +356,12 @@
 		background: #f2f2f2;
 		box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
 		padding-top: 12px;
-		padding-left: 260px;
 		height: 130px;
+	}
+	#filterMain {
+	    width: 912px;
+	    margin: 0px auto;
+	    overflow: auto;
 	}
 	.filterIcon {
 	    float: left;
@@ -361,6 +370,9 @@
 		border-radius: 7px;
 		margin-right: 25px;
 		cursor: pointer;
+	}
+	.lastFilterIcon {
+	    margin-right: 0px;
 	}
 	.filterIcon:hover {
 	    background-color: #e8e8e8;
@@ -391,6 +403,10 @@
 	    color: #5b5b5b;
 		font-size: 16px;
 		margin: 0px;
+	}
+	#productAndServiceMain {
+	    width: 1349px;
+	    margin: 0px auto;
 	}
 </style>
 <script type="text/javascript">
@@ -468,9 +484,10 @@ app.controller('products', function($scope, $http) {
 });
 </script>
 <body ng-app="productApp" ng-controller="products">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 <div id="filter">
+    <div id="filterMain">
     <div class="filterIcon selected">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
@@ -480,7 +497,7 @@ app.controller('products', function($scope, $http) {
 		    <p>首页</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="guhuihe">
+	<div class="filterIcon" id="II-JJ">
 	    <div class="imageHalf">
 		   <img class="fakeImg"></img>
 		   <img src="/funeral/js/images/noun_187249_cc.png"></img>
@@ -489,7 +506,7 @@ app.controller('products', function($scope, $http) {
 		    <p>骨灰盒</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="clothe">
+	<div class="filterIcon" id="SS">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/noun_178107_cc.png"></img>
@@ -498,7 +515,7 @@ app.controller('products', function($scope, $http) {
 		   <p>寿衣</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="ceremony">
+	<div class="filterIcon" id="M">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/Mask + Rectangle 77.png"></img>
@@ -507,7 +524,7 @@ app.controller('products', function($scope, $http) {
 		    <p>祭祀随葬</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="service">
+	<div class="filterIcon" id="G-H-L">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/Group.png"></img>
@@ -516,7 +533,7 @@ app.controller('products', function($scope, $http) {
 		    <p>礼仪服务</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="cereProduct">
+	<div class="filterIcon" id="VV">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/noun_193115_cc.png"></img>
@@ -525,7 +542,7 @@ app.controller('products', function($scope, $http) {
 		    <p>祭扫用品</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="suit">
+	<div class="filterIcon" id="P">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/1452911054_inspiration_Vol.1-61.png"></img>
@@ -534,7 +551,7 @@ app.controller('products', function($scope, $http) {
 		    <p>套装产品</p>
 		</div>
 	</div>
-	<div class="filterIcon" id="other">
+	<div class="filterIcon lastFilterIcon" id="NN">
 	    <div class="imageHalf">
 		    <img class="fakeImg"></img>
 		    <img src="/funeral/js/images/noun_27116.png"></img>
@@ -542,6 +559,7 @@ app.controller('products', function($scope, $http) {
 		<div class="textHalf">
 		    <p>其他服务</p>
 		</div>
+	</div>
 	</div>
 </div>
 <div id="overview">
@@ -556,21 +574,21 @@ app.controller('products', function($scope, $http) {
 			    <div class="overviewItem">
 			        <h1>全网独家销售</h1>
 				    <h2>日系骨灰盒系列</h2>
-				   <a href="/funeral/pages/catagoryProduct.html?cata=guhuihe"><h3>了解更多</h3></a>
+				   <a href="/funeral/pages/catagoryProduct.html?cata=SS"><h3>了解更多</h3></a>
 				</div>
 			</div>
 			<div class="item">
 			    <div class="overviewItem">
 			        <h1>全网独家销售</h1>
 				    <h2>日系骨灰盒系列</h2>
-				    <a href="/funeral/pages/catagoryProduct.html?cata=guhuihe"><h3>了解更多</h3></a>
+				    <a href="/funeral/pages/catagoryProduct.html?cata=SS"><h3>了解更多</h3></a>
 				</div>
 			</div>
 			<div class="item">
 			    <div class="overviewItem">
 			        <h1>全网独家销售</h1>
 				    <h2>日系骨灰盒系列</h2>
-				    <a href="/funeral/pages/catagoryProduct.html?cata=guhuihe"><h3>了解更多</h3></a>
+				    <a href="/funeral/pages/catagoryProduct.html?cata=SS"><h3>了解更多</h3></a>
 				</div>
 			</div>
 		</div>
@@ -594,17 +612,21 @@ app.controller('products', function($scope, $http) {
 	</div>
 </div>
 <div id="case">
+    <div id="caseMain">
     <h1>清明时节，寄托思念！</h1>
 	<h2>我们为涨阿姨提供了一整套清明祭扫物品和鲜花这里说些案例研究的话...</h2>
 	<p><a>祭扫物品</a></p>
 	<p><a>鲜花</a></p>
+	</div>
 </div>
+<div id="productAndServiceMain">
 <h1 class="subHeader">特色产品</h1>
 <IFRAME NAME="content_frame" width=100% height=470 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame"></IFRAME>
 <h1 class="subHeader">特色服务</h1>
 <IFRAME NAME="content_frame" width=100% height=470 marginwidth=0 marginheight=0 frameborder = 0 id="serviceFrame"></IFRAME>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 <div id="titleIconDiv">
     <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
@@ -618,8 +640,8 @@ app.controller('products', function($scope, $http) {
 </body>
 <script type="text/javascript">
 window.onload=function(){
-    $("#productFrame").attr("src","component/productLine.html?wishCata=product&feature=1");
-	$("#serviceFrame").attr("src","component/productLine.html?wishCata=service&feature=1");
+    $("#productFrame").attr("src","component/productLine.html?feature=1");
+	$("#serviceFrame").attr("src","component/productLine.html?feature=2");
     $(".wishListGuide").on("click", function () {
 	    window.location.href='wishList.html';
 	});

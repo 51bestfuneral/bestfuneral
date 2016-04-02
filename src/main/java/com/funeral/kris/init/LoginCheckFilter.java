@@ -27,21 +27,22 @@ public class LoginCheckFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-
-		URIsList.add("wishLis.html");
-
+		URIsList.add("wishList.html");
+		URIsList.add("paymentInfo.html");
+		URIsList.add("paymentMethod.html");
+		URIsList.add("paymentConfirm.html");
 	}
+
 	public void initUrls() throws ServletException {
 
-		URIsList.add("wishLis.html");
-		
+		URIsList.add("wishList.html");
 	}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		
-		String js="<script> window.open('/funeral/pages/component/logIn.html', 'newwindow','height=100, width=400, top=0,left=0,toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no,status=no') </script>";
+		String js="<script src='../js/generalUsage.js'></script><script>popupLogInPage();</script>";
 		
 		if(URIsList.isEmpty()){
 			initUrls();
@@ -50,17 +51,18 @@ public class LoginCheckFilter implements Filter {
 		System.out.println("  come on LoginCheckFilter---");
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		
-	
+
 		String requestURL = request.getRequestURL().toString();
+		String url = response.encodeRedirectURL(request.getRequestURL().toString()) ;
 
 		if (!needCheck(requestURL)) {
 			
 			System.out.println("  come on LoginCheckFilter--1-");
 
 			chain.doFilter(req, res);
-		} else if (session.getAttribute(LoginConstants.LoginStatus) != null
+		} else if (session != null && session.getAttribute(LoginConstants.LoginStatus) != null
 				&& !StringUtils.isNullOrEmpty(session.getAttribute(LoginConstants.LoginStatus).toString())
 				) {
 			
@@ -76,18 +78,14 @@ public class LoginCheckFilter implements Filter {
 
 
 				response.setContentType("text/html;charset=utf-8");
-				response.getWriter().write(
-						"<script> window.open('/funeral/pages/component/logIn.html')</script>");
-				response.getWriter().flush();
+				response.sendRedirect("mainPage.html?returnUrl="+url);
 			}
 
 		} else {
 			System.out.println("  come on LoginCheckFilter--5-");
 
 			response.setContentType("text/html;charset=utf-8");
-			response.getWriter()
-					.write("<script> window.open('/funeral/pages/component/logIn.html')</script>");
-			response.getWriter().flush();
+			response.sendRedirect("needLogIn.html?returnUrl="+url);
 
 		}
 

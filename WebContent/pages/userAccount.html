@@ -1,0 +1,664 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<link href="../js/timepicker/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="../js/timepicker/js/moment-with-locales.js"></script>
+<script src="../js/timepicker/js/bootstrap-datetimepicker.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
+<style>
+    body {
+	    text-align: center;
+	}
+    #productMain {
+		overflow: hidden;
+	}
+    #tabCarousel {
+	    width: 100%;
+		height: 50px;
+		border-bottom: 1px solid #e7e7e7
+	}
+    .productTab {
+	    width: 120px;
+		height: 50px;
+		float: left;
+		transition:background 0.2s;
+		-moz-transition:background 0.2s;
+        -webkit-transition:background 0.2s;
+        -o-transition:background 0.2s;
+	}
+	.productTab:hover {
+	    background-color: #B5AFAF;
+	}
+	.productTab p {
+	    font-size: 20px;
+		line-height: 50px;
+		cursor: pointer;
+		color: #707070;
+	}
+	.carousel-control {
+	    width: 15px;
+		background-image: none !important;
+	}
+	.headerArrow {
+	    margin-top: 8px;
+	}
+	.index {
+	    width:54px;
+		height: 54px;
+		border-radius: 27px;
+		background-color: #f6f6f6;
+		margin: 0 auto;
+		margin-top: 28px;
+	}
+	.index p {
+	    line-height: 54px;
+		color: #707070;
+		margin: 0px;
+	}
+	.questionCenter {
+		overflow: auto;
+		text-align: center;
+		padding-bottom: 143px;
+	}
+	.questionCenter h1{
+	    font-size: 38px;
+		color: #707070;
+		margin: 0px;
+	}
+	.questionArea {
+	    text-align: center;
+		width: 100%;
+		padding-top: 90px;
+	}
+	.questionArea span {
+	    font-size: 23px;
+        color: #707070;
+		font-family: "Microsoft Yahei";
+	}
+	.questionArea select {
+	    color: #ff5274;
+		font-size: 23px;
+		font-family: "Microsoft Yahei";
+		width: 80px;
+		height: 30px;
+		display: inline;
+		padding: 0px;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.questionArea select option {
+	    text-align: center;
+	    padding-left: 20px;
+	}
+	.questionText {
+		text-align: center;
+		width: 622px;
+		margin: 0px auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	#rightFooter {
+		width: 100%;
+		overflow: auto;
+		background: #fafafa;
+		padding-top: 31px;
+		padding-bottom: 31px;
+		padding-left: 55px;
+		padding-right: 55px;
+	}
+	#prevStep {
+		float: left;
+		width: 61px;
+		height: 60px;
+		background: 
+	}
+	#nextStep {
+		float: right;
+		width: 144px;
+		height: 60px;
+	}
+	.operatorButton {
+		background: #d6d6d6;
+		border-radius: 4px;
+		box-shadow: 0 4px 0px 0 #c5c5c5;
+		text-align: center;
+		cursor: pointer;
+	}
+	.operatorButton:hover {
+		background: #ff5274;
+		box-shadow: 0 4px 0px 0 #e6385a;
+	}
+	.operatorButton p {
+		margin: 0px;
+		line-height: 60px;
+		color: #ffffff;
+		font-size: 24px;
+	}
+	.disabled {
+	    opacity: 0.5;
+		cursor: default;
+		background: #d6d6d6!important;
+		box-shadow: 0 4px 0px 0 #c5c5c5!important;
+	}
+	#moveCursor {
+	    width: 120px;
+		height: 2px;
+		position: absolute;
+		background: #ff5274;
+	}
+	.selected {
+	    border: 2px solid #ff5274!important;
+	}
+	.finishedIcon {
+	    width: 16px;
+		height: 16px;
+		background: #2c9676;
+		text-align: center;
+		position: absolute;
+		border-radius: 8px;
+		top: 10px;
+		margin-left: 100px;
+	}
+	.finishedIcon span {
+	    color: #ffffff;
+		font-size: 6px;
+		line-height: 16px;
+	}
+	
+	.inputStyle{
+		border-top:none;
+		border-left:none;
+		border-right:none;
+		border-bottom:1px solid   #979797;
+		height:40px;
+		outline:none;		
+		padding-right:0px;
+		font-weight:100;
+		color:#707070; 
+		font-family: STHeitiSC-Medium;
+		font-size:40px;
+	}
+	.subQuestionArea {
+	    text-align: center;
+		width: 100%;
+	}
+	.subQuestionArea span {
+	    font-size: 23px;
+        color: #707070;
+		font-family: "Microsoft Yahei";
+	}
+	.subQuestionArea select {
+	    color: #ff5274;
+		font-size: 23px;
+		font-family: "Microsoft Yahei";
+		width: 100px;
+		height: 30px;
+		display: inline;
+		padding: 0px;
+		margin-bottom: 10px;
+	}
+	.inputQuestionArea {
+	    width: 700px;
+		text-align: center;
+		margin: 0px auto;
+		padding-top: 90px;
+	}
+	.spanCoat span {
+	    font-size: 23px;
+        color: #707070;
+		font-family: "Microsoft Yahei";
+		width: 100px;
+	}
+	.singleQuestion {
+	    float: left;
+		overflow: auto;
+		margin-left: 20px;
+	}
+    .spanCoat {
+	    float: left;
+		width: 110px;
+		text-align: left;
+	}
+	.singleQuestion .form-control {
+	    float: left;
+		width: 200px;
+		font-family: "Microsoft Yahei";
+		margin-bottom: 5px;
+	}
+	#datetimepicker1 {
+	    width: 200px;
+		height: 26px;
+		padding: 0px;
+		float: left;
+	}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+var user;
+function validateInput(tab) {
+	var emailFilter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/,
+        phoneFilter = /(^[0-9]{3,4}\-[0-9]{3,8}$)|(^[0-9]{3,8}$)|(^\([0-9]{3,4}\)[0-9]{3,8}$)|(^0{0,1}13[0-9]{9}$)/,
+        checkFailed = true;
+	handleFinished(tab);
+	tab.find(".mandantory").each(function() {
+		var me = $(this);
+
+		if (me[0].value === "") {
+			me[0].focus();
+			alert("请填写这个字段");
+			checkFailed = false;
+			return false;
+		}
+	});
+	if (!checkFailed) {
+		return false;
+	}
+	tab.find(".mailField").each(function() {
+		var me = $(this);
+
+		if (me[0].value !== "" && !emailFilter.test(me[0].value)) {
+			me[0].focus();
+			alert("请填写正确的邮箱格式");
+			checkFailed = false;
+			return false;
+		}
+	});
+	if (!checkFailed) {
+		return false;
+	}
+	tab.find(".phoneField").each(function() {
+		var me = $(this);
+
+		if (me[0].value !== "" && !phoneFilter.test(me[0].value)) {
+			me[0].focus();
+			alert("电话号码格式不正确");
+			checkFailed = false;
+			return false;
+		}
+	});
+	if (!checkFailed) {
+		return false;
+	}
+	return true;
+}
+app.controller('products', function($scope, $http) {
+    var ages = [];
+
+    $http.get("/funeral/user/list").success(function(response) {
+    	if (response.forSelf === 0) {
+    		response.forSelf = "我爱的人";
+    	}
+    	else {
+    		response.forSelf = "我自己";
+    	}
+    	if (response.gender === 0) {
+    		response.gender = "女";
+    	}
+    	else {
+    		response.gender = "男";
+    	}
+    	$scope.user = response;
+    });
+	$(document.body).on("click",".operatorButton", function( event ) {
+		var me = $(this),
+		    count =  $(".questionCenter").length,
+		    contentId = $(".cursored")[0].id + "-content",
+		    center = $("#"+contentId);
+
+		if (me.hasClass("disabled")) {
+		    return;
+		}
+        if (validateInput(center)) {
+        	if (center.next().hasClass("questionCenter")) {
+        		center.hide();
+        		center.next().fadeIn();
+        		handleCursor($(".cursored").next());
+        		if (!center.next().next().hasClass("questionCenter")) {
+        			$("#nextStep").find("p")[0].innerText = "保存";
+        		}
+        		else {
+        			$("#nextStep").find("p")[0].innerText = "下一步";
+        		}
+        	}
+        	else {
+    			var user = $scope.user,
+			    	users = [];
+			
+				if (user.gender === "女") {
+					user.gender = 0;
+				}
+				else {
+					user.gender = 1;
+				}
+
+				if (user.forSelf === "我自己") {
+					user.forSelf = 1;
+				}
+				else {
+					user.forSelf = 0;
+				}
+				users.push(user);
+ 		    	$.ajax({
+			    	url: '/funeral/user/edit',
+					type: 'POST',
+					contentType: "application/json; charset=UTF-8",
+					dataType: 'json',
+					data: JSON.stringify(user),
+					success:function(data){
+						if (data === 1) {
+		                	alert("请登录");
+		                	window.location.reload();
+		        		}
+		        		else {
+		        			alert("修改成功");
+		        		}
+			    	},
+				    error: function(error) {
+					    alert(error);
+				    }
+			    });
+        	}
+        }
+	});
+});
+</script>
+<body ng-app="productApp" ng-controller="products" onselectstart="return false">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html" frameborder = 0 height = "67px"></IFRAME>
+<div class="container">
+<div id="productMain"  ng-cloak>
+<div id="tabCarousel" class="carousel slide">
+<div class="carousel-inner">
+    <div class="item active" alt="First slide">
+		<div class="productTab" id="1">
+		    <p>基本信息</p>
+			<div class="finishedIcon" hidden><span>&#10004;</span></div>
+		</div>
+		<div class="productTab" id="2">
+		    <p>个人信息</p>
+			<div class="finishedIcon" hidden><span>&#10004;</span></div>
+		</div>
+		<div class="productTab" id="3">
+		    <p>联系人信息</p>
+			<div class="finishedIcon" hidden><span>&#10004;</span></div>
+		</div>
+    </div>
+</div>
+<a class="carousel-control left" href="#tabCarousel" 
+    data-slide="prev"><p class="headerArrow">&lsaquo;</p></a>
+<a class="carousel-control right" href="#tabCarousel" 
+    data-slide="next"><p class="headerArrow">&rsaquo;</p></a>
+</div>
+<div id="moveCursor">
+</div>
+<div class="questionCenter" hidden id="1-content">
+    <div class="index">
+	    <p><b>1</b>/20</p>
+	</div>
+	<div class="questionText">
+	    <h1>告诉我们一些您的个人信息</h1>
+	</div>
+	<div class="questionArea">
+		<span>我今年</span>
+		   <input value="{{user.age}}" class="mandantory" type="text" style="color:#ff5274; height:31px;width:50px;text-align:center;vtical-align:middle; font-family: Microsoft Yahei;  font-size: 23px; border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none;" maxlength='3'" autofocus="autofocus" >
+		   
+			
+		
+		<span>岁，现在</span>
+		<select ng-model="user.work" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; outline:none; text-align:center;">
+		    <option default></option>
+			<option>已退休</option>
+			<option>在工作</option>
+		</select>
+		<span>家住上海</span>
+		<select ng-model="user.district" class="mandantory" ng-model="user.district" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+		    <option default></option>
+			<option>长宁区</option>
+			<option>黄浦区</option>
+			<option>静安区</option>
+			<option>杨浦区</option>
+			<option>宝山区</option>
+		</select>
+	</div>
+	<div class="subQuestionArea">
+	    <span>我是为了</span>
+	    <select ng-model="user.forSelf" class="mandantory" style="border: none;border-bottom:1px solid #000000; -webkit-appearance: none; padding-top:2px;  outline:none; text-align:center;">
+		    <option default></option>
+			<option>我自己</option>
+			<option>我爱的人</option>
+		</select>
+		<span>定制葬礼</span>
+	</div>
+</div>
+<div class="questionCenter" hidden id="2-content">
+    <div class="index">
+	    <p><b>2</b>/20</p>
+	</div>
+	<div class="questionText">
+	    <h1>请务必准确真实准确填写以下基本资料，这对我们而言非常重要</h1>
+	</div>
+	<div class="inputQuestionArea">
+	    <div class="singleQuestion">
+			<div class="spanCoat"><span>姓名*</span></div>
+			<input type="text" class="form-control mandantory" ng-model="user.name"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>性别*</span></div>
+			<select type="text" class="form-control mandantory" ng-model="user.gender">
+			    <option default></option>
+			    <option>男</option>
+			    <option>女</option>
+			</select>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>出生日期*</span></div>
+		</div>
+        <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control mandantory" ng-model="user.birthday"/>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>身份证号</span></div>
+			<input type="text" class="form-control" ng-model="user.identifier"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>地址</span></div>
+			<input type="text" class="form-control" ng-model="user.address"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>联系电话*</span></div>
+			<input type="text" class="form-control mandantory phoneField" ng-model="user.phone"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>电子邮箱</span></div>
+			<input type="text" class="form-control mailField" ng-model="user.email"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>出生地</span></div>
+			<input type="text" class="form-control" ng-model="user.birthPlace"></input>
+		</div>
+	</div>
+</div>
+<div class="questionCenter" hidden id="3-content">
+    <div class="index">
+	    <p><b>3</b>/20</p>
+	</div>
+	<div class="questionText">
+	    <h1>请填写一位您最信赖的备用联系人，一旦有需要，我们可以通过他（她）及时联系到您</h1>
+	</div>
+	<div class="inputQuestionArea">
+	    <div class="singleQuestion">
+			<div class="spanCoat"><span>姓名*</span></div>
+			<input type="text" class="form-control mandantory" ng-model="user.contactor"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>电话*</span></div>
+			<input type="text" class="form-control mandantory phoneField" ng-model="user.contactorPhone"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>电子邮件</span></div>
+			<input type="text" class="form-control mailField" ng-model="user.contactorMail"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>地址</span></div>
+			<input type="text" class="form-control" ng-model="user.contactorAddress"></input>
+		</div>
+		<div class="singleQuestion">
+			<div class="spanCoat"><span>关系</span></div>
+			<input type="text" class="form-control" ng-model="user.contactorRelate"></input>
+		</div>
+	</div>
+</div>
+<div id="rightFooter">
+	<div id="nextStep" class="operatorButton">
+		<p>下一步</p>
+	</div>
+</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script>
+function handleFinishButton() {
+    var allFinished = true;
+
+    $(".mandantory").each(function() {
+		if ($(this)[0].value === "") {
+			allFinished = false;
+			return false;
+		}
+	});
+
+	if (allFinished) {
+		$("#nextStep").removeClass("disabled");
+	}
+    else {
+		$("#nextStep").addClass("disabled");
+    }
+}
+function handleCursor(tab) {
+    var me = tab;
+	$(".productTab").removeClass("cursored");
+	me.addClass("cursored");
+	$("#moveCursor").animate({'margin-left':tab.position().left+'px'});
+}
+function generateWishList() {
+    $.ajax({
+		url: '/funeral/wishlist/add',
+	    type: 'POST',
+		contentType: "application/json; charset=UTF-8",
+		dataType:'json',
+		data: {
+		    usrId: '123'
+		},
+		success:function(data){
+			//alert("您的信息我们已经收到！");
+		},
+		error: function(error) {
+			//alert("您的信息我们已经收到！");
+			//$("#messageSent")[0].value = '';
+		}
+	});
+} 
+function handleFinished(tabPage) {
+    var count = $(".productTab").length,
+        tabs;
+    
+    if (tabPage != null &&tabPage!= undefined) {
+    	tabs = tabPage;
+    	if (tabPage[0] === $(".questionCenter")[count-1]) {
+    	    handleFinishButton();
+    	}
+    }
+    else {
+    	tabs = $(".productTab")
+    }
+    tabs.each(function() {
+	    var me = $(this),
+		    mustFields = me.find(".mandantory"),
+		    finished = true,
+		    id = me[0].id.replace('-content', '');
+	    if (mustFields.length === 0) {
+	    	finished = false;
+	    }
+		mustFields.each(function() {
+			if ($(this)[0].value === "") {
+				finished = false;
+				return false;
+			}
+		});
+		if (finished) {
+			$("#"+id).find(".finishedIcon").fadeIn();
+			$("#"+id).addClass("finished");
+		}
+		else {
+			$("#"+id).find(".finishedIcon").fadeOut();
+			$("#"+id).removeClass("finished");
+		}
+	});
+}
+$(document.body).on("click",".productTab", function( event ) {
+	var contentId = $(this)[0].id + "-content",
+	    cursoredContentId = $(".cursored")[0].id + "-content",
+	    count = $(".productTab").length;
+	if (!validateInput($("#"+cursoredContentId))) {
+		return false;
+	}
+	handleCursor($(this));
+	if (!$(this).next().hasClass("productTab")) {
+		$("#nextStep").find("p")[0].innerText = "保存";
+	}
+	else {
+		$("#nextStep").find("p")[0].innerText = "下一步";
+	}
+	$(".questionCenter").each(function(){
+	    var me = $(this);
+		
+		if (me[0].id === contentId) {
+		    if (me.is(':hidden')) {
+		        me.fadeIn();
+			}
+			else {
+			    return false;
+			}
+		}
+		else if (me[0].id !== contentId && !me.is(':hidden')) {
+		    me.hide();
+		}
+	});
+
+	if ($(this)[0] === $(".productTab")[count-1]) {
+	    handleFinishButton();
+	}
+	else {
+	    $("#nextStep").removeClass("disabled");
+	}
+});
+$(document.body).on("blur",".mandantory", function( event ) {
+    var tabPage = $(this).closest(".questionCenter");
+	handleFinished(tabPage);
+});
+window.onload=function(){
+	$('#datetimepicker1').datetimepicker({
+	    format: "YYYY-MM-DD",
+	    locale: "zh-cn",
+	    viewMode: 'years'
+	});
+	$()
+    $(".questionCenter").first().fadeIn();
+	$(".productTab").first().addClass("cursored");
+};
+</script>
+</html>

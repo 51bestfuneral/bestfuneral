@@ -1,5 +1,6 @@
 package com.funeral.kris.util;
 
+import java.text.SimpleDateFormat;
 
 public class AlipayUtil {
 	
@@ -22,8 +23,32 @@ public class AlipayUtil {
 	
 	public static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
 	
-	public static final String PAGE_URL ="http://localhost:8080/funeral/pages";
+	public static final String PAGE_URL ="/funeral/pages";
 	
+	public static int completed=100;
 	
+	public static String generateTradeNo(int userId,int sequence){
+		
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");  
+		java.util.Date date=new java.util.Date();  
+		String time=sdf.format(date);  
+		
+		String index="0"+sequence;
+		
+		String no="FN"+time+"T"+userId+"U";
+		
+		while(no.length()<10){	
+			no=no+"0";
+		}
+		
+		while(index.length()<5){	
+			index="0"+index;
+		}		
+		
+		System.out.println("  generateTradeNo   no= "+no);
+		return no+index;
+		
+	}
 
 }

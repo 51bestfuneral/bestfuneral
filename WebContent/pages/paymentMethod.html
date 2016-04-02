@@ -57,6 +57,7 @@ span {
 	margin: 0px auto;
 	padding-top: 28px;
 	padding-bottom: 28px;
+	
 }
 #nextButton {
     width: 190px;
@@ -222,34 +223,32 @@ span {
 	font-size: 20px;
 }
 </style>
-<script type="text/javascript">
-var app = angular.module('payment', []);
-     
-       
-       	app.controller('pay', function($scope, $http) {
-      $scope.pay = function(){ 
-    	  var payType = $("input[name='optionsRadios']:checked").val();
-    	  if(payType==1){
-    		  $("#chinapnrButton").click();
-    	  }
-		  if(payType==2){
-			  $("#alipayButton").click();
-    	  }
-    	  
-      		//alert("test!");	
-    //$http.get("/funeral/alipay/pay?WIDout_trade_no=111&WIDsubject=test&WIDtotal_fee=100&WIDbody=222&/funeral/pages/paymentFinal.html").success(function(response) {
+<script type="text/javascript">	
+      var app = angular.module('payment', []);
+      
+     	app.controller('pay', function($scope, $http) {
+	    	$http.get("/funeral/alipay/createOrder").success(function(response) {
+	           
+	           $scope.order=response;   
+	           $("#tradeNo").val($scope.order.orderNo);
+	           $("#subject").val($scope.order.subject);
+	           $("#totalFee").val($scope.order.payableAmount);   
+			});
 	    
-	//})
-	//alert("success!");	
-	}
-		
-});
+	    	$scope.pay = function(){ 
+	       	 var payType = $("input[name='optionsRadios']:checked").val();
+	      	  if(payType==1){
+	      		  $("#chinapnrButton").click();
+	      	  }
+	   		  if(payType==2){
+	   			  $("#alipayButton").click();
+	      	  }
+
+	   };
+	    
+     
+  });
        	
-
-           
-
-
-
 
 </script>
 <body ng-app="payment" ng-controller="pay">
@@ -257,6 +256,7 @@ var app = angular.module('payment', []);
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 </div>
+<div class="container">
 <div id="paymentContain">
     <div id="infoContain">
 	    <div id="paymentStatus">
@@ -318,12 +318,11 @@ var app = angular.module('payment', []);
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="2">
 			        <span class="radioDesc">支付宝支付</span>
-			        
 			        <form name="alipayment" action="alipayapi.jsp" method="post" target="_blank">
-						<input type="hidden" name="WIDout_trade_no" value="20160328"/>
-					    <input type="hidden" name="WIDsubject" value="骨灰盒"/>
-						<input type="hidden" name="WIDtotal_fee"  value ="1"/>
-						<input type="hidden" name="WIDbody"  value="价格便宜"/>
+						<input type="hidden" id="tradeNo"  name="WIDout_trade_no"  />
+					    <input type="hidden" id="subject" name="WIDsubject" value="test" />
+						<input type="hidden" id="totalFee" name="WIDtotal_fee" />
+						<input type="hidden" name="WIDbody" value="test"/>
                         <span class="new-btn-login-sp">
                             <button id="alipayButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
                         </span>
@@ -399,7 +398,7 @@ var app = angular.module('payment', []);
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
 <div class="coverDiv" hidden>
 <div class="titleDiv">

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+\<!DOCTYPE html>
 <html>
 <head>
 <title>更新墓地</title>
@@ -284,7 +284,7 @@ id = location.search.substring(4, length);
 	 	
 	 	$("#saveButton").click(function() {
 	    var datadata = JSON.stringify($scope.currentCemetery);
-	    datadata.feature=$("#feature1")[0].innerHTML;
+	//    datadata.feature=$("#feature1")[0].innerHTML;
 	   	    
 	    $http({
             method: "POST",
@@ -382,15 +382,14 @@ function uploadUnitImage()  {
 			
 			<label >简介</label>
 			
-	<!--	<textarea  id="editor"    placeholder="这里输入内容" autofocus   ng-model="currentCemetery.cemeteryDesc" ></textarea>-->
+	<textarea   rows="15" cols="30"    ng-model="currentCemetery.cemeteryDesc" ></textarea>
 	
-			 <textarea id="editor"  placeholder="这里输入内容" ></textarea>
 			
 			</td>
 			<td>
 			<label >特色</label>
 			
-		<textarea  id="feature1" rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>
+		<textarea  rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>
 	
 			
 			

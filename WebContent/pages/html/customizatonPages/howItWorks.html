@@ -12,16 +12,16 @@
  </head> 
  <body > 
   <div class="container">    	
- <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+ <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
 <div id="frameDiv">
 </div>
-<div id="link">
- <link1>	 <a href="/funeral/pages/funeralDesignPage.html" >为什么要定制葬礼</a>  </link1>
- <link2>   <a href="/funeral/pages/html/customizatonPages/howItWorks.html"  style="font-weight:900;">怎样在念念定制葬礼      </a>  </link2>
- <link3>   <a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算器</a>  </link3>
- <link4>   <a href="/funeral/pages/designProposal.html">开始定制  </a>  </link4></div>   
- </div>
- 
+<div id="subNavilink">
+ <link1><a href="#" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html" style="font-weight:900;">怎样在念念定制葬礼      </a>  </link2>
+ <link3><a href="/funeral/pages/html/customizatonPages/costCalculator.html">葬礼花费计算器</a>  </link3>
+ <link4><a href="/funeral/pages/designProposal.html">开始定制  </a>  </link4>
+</div>
+
 
   <div id="introduction">
   	<p>怎样在念念定制葬礼？</p>
@@ -44,7 +44,7 @@
  	 		
  	 		</div>
 
- 		<div id="netStart"><p>开始网上订制</p></div>
+ 		<div id="netStart"><p>开始订制</p></div>
  	
  	</div>
  
@@ -155,11 +155,24 @@
 	
 	
 } 	
-   	
-
-
-
-
+#subNavilink {
+    width: 675px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
 #introduction{
 height:209px;
 width:100%;

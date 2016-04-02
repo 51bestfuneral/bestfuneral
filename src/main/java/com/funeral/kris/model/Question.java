@@ -14,7 +14,7 @@ public class Question {
 	
 	@Id
 	@Column(name="qusetion_id ")
-	private String questionId;
+	private Integer questionId;
 
 	@Column(name="sequence")
 	private Integer sequence;
@@ -34,11 +34,11 @@ public class Question {
 	@Column(name="question_title")
 	private String questionTitle;
 
-	public String getQuestionId() {
+	public Integer getQuestionId() {
 		return questionId;
 	}
 
-	public void setQuestionId(String questionId) {
+	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
 

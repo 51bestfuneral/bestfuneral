@@ -20,7 +20,7 @@ public class Wishlist {
 	private Integer wishlistId;
 
 	@Column(name="price")
-	private Double price;
+	private BigDecimal price;
 	
 	@Column(name="ans_list_id")
 	private String ansListId;
@@ -54,11 +54,11 @@ public class Wishlist {
 		this.wishlistId = wishlistId;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
