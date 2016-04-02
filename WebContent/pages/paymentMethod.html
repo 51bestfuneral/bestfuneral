@@ -223,13 +223,19 @@ span {
 }
 </style>
 <script type="text/javascript">
-var app = angular.module('alipayController', []);
+var app = angular.module('payment', []);
      
        
-       	app.controller('alipay', function($scope, $http) {
+       	app.controller('pay', function($scope, $http) {
       $scope.pay = function(){ 
+    	  var payType = $("input[name='optionsRadios']:checked").val();
+    	  if(payType==1){
+    		  $("#chinapnrButton").click();
+    	  }
+		  if(payType==2){
+			  $("#alipayButton").click();
+    	  }
     	  
-    	  $("#alipayButton").click();
       		//alert("test!");	
     //$http.get("/funeral/alipay/pay?WIDout_trade_no=111&WIDsubject=test&WIDtotal_fee=100&WIDbody=222&/funeral/pages/paymentFinal.html").success(function(response) {
 	    
@@ -246,7 +252,7 @@ var app = angular.module('alipayController', []);
 
 
 </script>
-<body ng-app="alipayController" ng-controller="alipay">
+<body ng-app="payment" ng-controller="pay">
 <div class="container">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
@@ -290,8 +296,18 @@ var app = angular.module('alipayController', []);
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
 			        <span class="radioDesc">信用卡支付</span>
+			        
+			         <form name="alipayment" action="chinapnrapi.jsp" method="post" target="_blank">
+						<input type="hidden" name="WIDout_trade_no" value="20160328"/>
+					    <input type="hidden" name="WIDsubject" value="骨灰盒"/>
+						<input type="hidden" name="WIDtotal_fee"  value ="1"/>
+						<input type="hidden" name="WIDbody"  value="价格便宜"/>
+                        <span class="new-btn-login-sp">
+                            <button id="chinapnrButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+					</form>
 				</div>
 			</div>
 			<div class="singleMethod">
@@ -300,7 +316,7 @@ var app = angular.module('alipayController', []);
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="2">
 			        <span class="radioDesc">支付宝支付</span>
 			        
 			        <form name="alipayment" action="alipayapi.jsp" method="post" target="_blank">
@@ -320,7 +336,7 @@ var app = angular.module('alipayController', []);
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="3">
 			        <span class="radioDesc">分期支付</span>
 				</div>
 			</div>
