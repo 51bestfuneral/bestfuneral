@@ -12,9 +12,9 @@ import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 public class SmsSenderServiceImpl implements SmsSenderService{
 	
 	public static final String hostUrl = "http://gw.api.taobao.com/router/rest";
-	public static final String appkey="23334746";
-	public static final String secret ="e678702289a4933be37ef23f3cc0585b";
-	public static final String signName ="念念";
+	public static final String appkey="23337041";
+	public static final String secret ="e876ddc7996081df3d4501fa876e84f7";
+	public static final String signName ="";
 	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -52,12 +52,12 @@ public class SmsSenderServiceImpl implements SmsSenderService{
 	}
 	
 	public int sendForPassword(Map<String,String> messageInfo) {
-		messageInfo.put("tempCode", "SMS_7040007");
+		messageInfo.put("tempCode", "SMS_7155135");
 		return sendSms(messageInfo);
 	}
 	
 	public int sendForPaid(Map<String,String> messageInfo) {
-		messageInfo.put("tempCode", "SMS_7040007");
+		messageInfo.put("tempCode", "SMS_7310281");
 		return sendSms(messageInfo);
 	}
 
