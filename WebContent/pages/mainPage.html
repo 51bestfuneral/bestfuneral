@@ -20,6 +20,8 @@
 <link href="/funeral/js/personal.css" rel="stylesheet">
 <script src="/funeral/js/util.js"></script>
 <script src="/funeral/js/generalUsage.js"></script>
+<script src="/funeral/js/serviceonline.js"></script>
+<link href="/funeral/js//css/serviceonline.css" rel="stylesheet">
 </head>
 <style>
 html {
@@ -646,14 +648,14 @@ body {
 	}
 	#wechatFrame {		
 		position:relative;
-		left:330px;
-		top:-480px;
+		left:255px;
+		top:-420px;
 		width:150px;
 		height:130px;
 	}
 	#wechatFrame img{
-		width:90px;
-		height:90px;
+		width:120px;
+		height:120px;
 		position:relative;
 		top:-5px;	
 			}
@@ -952,6 +954,7 @@ body {
 	#adjustFontDiv span:hover {
 	    color: #ff5274;
 	}
+
 </style>
 <script type="text/javascript">
 function muskPage() {
@@ -1306,7 +1309,7 @@ function muskPageForProduct(id) {
 <IFRAME class="detailFrame" width=1170px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
-	
+<div id="serviceOnline"></div>	
 </body>
 
 <div id="wechatFrame" hidden>
@@ -1405,15 +1408,19 @@ window.onload=function(){
 	$(".productItem").click(function() {
 			muskPageForProduct();
 	});
+	
 	$("#weChat").hover(function () {
-	  
-	 
 	  $("#wechatFrame").show();
 	});
-	$("#wechatFrame").click(function() {
-	    $(this).fadeOut();
+	
+	$("#weChat").mouseleave(function () {
+		$("#wechatFrame").fadeOut();
 		$(".jquery_addmask").remove();
 	});
+	//$("#wechatFrame").click(function() {
+	//    $(this).fadeOut();
+	//	$(".jquery_addmask").remove();
+	//});
 	$(".closeCoverDiv").click(function() {
 		$(".coverDiv").fadeOut();
 		$(".jquery_addmask").remove();

@@ -223,34 +223,41 @@ span {
 	font-size: 20px;
 }
 </style>
-<script type="text/javascript">
-var app = angular.module('alipayController', []);
-       	app.controller('alipay', function($scope, $http) {
-	 
+<script type="text/javascript">	
+      var app = angular.module('payment', []);
+      
+     	app.controller('pay', function($scope, $http) {
 	    	$http.get("/funeral/alipay/createOrder").success(function(response) {
 	           
 	           $scope.order=response;   
 	           $("#tradeNo").val($scope.order.orderNo);
 	           $("#subject").val($scope.order.subject);
-	           $("#totalFee").val($scope.order.payableAmount);   
-});
+	           $("#totalFee").val($scope.order.payableAmount); 
+	           $("#chnTradeNo").val($scope.order.orderNo);
+	           $("#chnTotalFee").val($scope.order.payableAmount);
+			});
 	    
-	    
-	    
-     $scope.pay = function(){ 
-    	  $("#alipayButton").click();
+	    	$scope.pay = function(){ 
+	       	 var payType = $("input[name='optionsRadios']:checked").val();
+	      	  if(payType==1){
+	      		  $("#chinapnrButton").click();
+	      	  }
+	   		  if(payType==2){
+	   			  $("#alipayButton").click();
+	      	  }
+	   		if(payType==3){
+	   			  $("#chinapnr2Button").click();
+	      	  }
 
-};
+	   };
+	    
+     
   });
        	
 
-          
-
-
-
-
 </script>
-<body ng-app="alipayController" ng-controller="alipay">
+<body ng-app="payment" ng-controller="pay">
+<div class="container">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 </div>
@@ -294,8 +301,18 @@ var app = angular.module('alipayController', []);
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-			        <span class="radioDesc">信用卡支付</span>
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
+			        <span class="radioDesc">网银支付</span>
+			        
+			         <form name="chinapnrpayment" action="chinapnrapi.jsp" method="post" target="_blank">
+						<input type="hidden" id="chnTradeNo" name="OrdId"/>
+						<input type="hidden" id="chnTotalFee" name="OrdAmt"/>
+						<input type="hidden" id="chnPhone" name="UsrMp"/>
+						
+                        <span class="new-btn-login-sp">
+                            <button id="chinapnrButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+					</form>
 				</div>
 			</div>
 			<div class="singleMethod">
