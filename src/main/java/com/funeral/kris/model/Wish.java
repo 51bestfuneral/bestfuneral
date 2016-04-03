@@ -518,7 +518,17 @@ public class Wish {
 	@Column(name = "feature")
 	private Integer feature;
 
-	
+	public Integer getShowInFront() {
+		return showInFront;
+	}
+
+	public void setShowInFront(Integer showInFront) {
+		this.showInFront = showInFront;
+	}
+
+	@Column(name = "show_in_front")
+	private Integer showInFront;
+
 
 	public String getPdSource() {
 		return pdSource;

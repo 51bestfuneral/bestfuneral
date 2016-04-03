@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.AlipayService;
+import com.funeral.kris.service.ExpressInfoService;
+import com.funeral.kris.service.FeeCollectionService;
 import com.funeral.kris.service.OrderService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
@@ -33,154 +36,168 @@ public class AlipayController {
 	@Autowired
 	private WishlistService wishlistService;
 	
+	@Autowired
+	private ExpressInfoService expressInfoService;
+	@Autowired
+	private FeeCollectionService feeCollectionService;
+
+	@ResponseBody
+	@RequestMapping(value = "/confirmPay", method = RequestMethod.GET)
+	public int confirmPay(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		User user = (User) session.getAttribute("user");
+
+	//	System.out.println("---------------------confirmPay--------------------getUsrId----"+user.getUsrId()+"  feeMap="+AlipayUtil.feeMap);
+
+
+
+		if (AlipayUtil.feeMap.containsKey("26")) {
+			Map<String, String> params =AlipayUtil.feeMap.get("26");
+			feeCollectionService.completeCollection(params);
+			System.out.println("---------------------confirmPay--------------------params----"+params);
+
+			AlipayUtil.feeMap.remove("26");
+		}
+
+		return 1;
+	}
+	
+
 	@ResponseBody
 	@RequestMapping(value = "/createOrder", method = RequestMethod.GET)
-	public Order  createOrder(HttpServletRequest request) {
+	public Order createOrder(HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
 
-		User  user=(User)session.getAttribute("user");	
+		User user = (User) session.getAttribute("user");
 		
 		
-		List<Order> list=orderService.getResources();
-		
-		int index=0;
-		
-		if(list==null){
-			
-			index=1;
-			
-		}else{
-			
-			Iterator iterator=	list.iterator();
-			
-			while(iterator.hasNext()){
-				
-				Order order=(Order) iterator.next();
-				
-				if(order.getUserId().intValue()==user.getUsrId().intValue()){
-					
-					index=index+1;
-				}
-				
-				
-			}
-	
-			
-			
-		}
-		
-		
-		
-		
-		
-		Order order=orderService.getByUserId(user.getUsrId());
-		
-		List<Wishlist> wishlist =wishlistService.getResources();
 
-		Iterator iterator=  	wishlist.iterator();
-		
-		Wishlist wishs	=new Wishlist();
-		
-		
-		while(iterator.hasNext()){
-			
-			 wishs	=(Wishlist) iterator.next();
-			
-			if(wishs.getUserId().intValue()==user.getUsrId().intValue()){
-				
+		List<Order> list = orderService.getResources();
+
+		Order order = orderService.getOpenByUserId(user.getUsrId());
+
+		List<Wishlist> wishlist = wishlistService.getResources();
+
+		Iterator iterator = wishlist.iterator();
+
+		Wishlist wishs = new Wishlist();
+
+		while (iterator.hasNext()) {
+
+			wishs = (Wishlist) iterator.next();
+
+			if (wishs.getUserId().intValue() == user.getUsrId().intValue()) {
+
 				break;
-				
+
 			}
-			
+
+		}
+
+		List<Order> orderList = orderService.listOrderByUserId(user.getUsrId());
+
+		int index = orderList.size() + 1;
+
+		if (order == null) {
+			String orderNo = AlipayUtil.generateTradeNo(user.getUsrId(), index);
+
+			order = new Order();
+			order.setUserId(user.getUsrId());
+			order.setOrderNo(orderNo);
+			order.setSubject(orderNo);
+			order.setPayableAmount(wishs.getPrice());
+			order.setStatusId(AlipayUtil.order_open);
+			orderService.addResource(order);
+
+		} else {
+
+			order.setUserId(user.getUsrId());
+			order.setPayableAmount(wishs.getPrice());
+			order.setStatusId(AlipayUtil.order_open);
+			orderService.addResource(order);
 		}
 		
-		
-		
-		if(order!=null){
-			String tradeNo =AlipayUtil.generateTradeNo(user.getUsrId(),index);
-			order.setUserId(user.getUsrId());
-			order.setOrderNo(tradeNo);
-			order.setSubject(wishs.getComment());
-			order.setStatusId(1);
-			order.setSubject("订单号："+tradeNo);
-			orderService.addResource(order);
-			order.setPayableAmount(wishs.getPrice());
-		}else{
-			String tradeNo =AlipayUtil.generateTradeNo(user.getUsrId(),index);
-			order=new Order();
-			order.setUserId(user.getUsrId());
-			order.setOrderNo(tradeNo);
-			order.setSubject(wishs.getComment());
-			order.setPayableAmount(wishs.getPrice());
-			order.setStatusId(1);
-			order.setSubject("订单号："+tradeNo);
-			orderService.addResource(order);
-			
-		}
-		
-		
-		
+		feeCollectionService.initFeeCollection(order.getOrderNo());
+
 		return order;
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/getTradeNo", method = RequestMethod.GET)
 	public String createOrder() {
-	
-		
-		
-		
-	return	AlipayUtil.generateTradeNo(14,1)	;
-	
+
+		return AlipayUtil.generateTradeNo(14, 1);
+
 	}
-	
-	
+
+	@ResponseBody
+	@RequestMapping(value = "/getTotalPay", method = RequestMethod.GET)
+	public BigDecimal getTotalPay(HttpServletRequest request) {
+		String wishlistId = request.getParameter("wishlistId");
+
+		Wishlist wishlist = wishlistService.getResource(Integer.parseInt(wishlistId));
+
+		System.out.println(" ------wishlist=" + wishlist);
+
+		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(wishlist.getUserId());
+		System.out.println(" ------expressInfo=" + expressInfo);
+
+		BigDecimal wishFee = wishlist.getPrice();
+
+		BigDecimal expressFee = expressInfo.getExpressFee();
+
+		BigDecimal totalPay = wishFee.add(expressFee);
+
+		return totalPay;
+
+	}
+
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String pay(ServletRequest request) {
-		
-		try{
-		
-		
 
-		String payment_type = "1";
+		try {
 
-		String notifyUrl = AlipayUtil.PAGE_URL + "/notify_url.jsp";
+			String payment_type = "1";
 
-		String returnUrl = AlipayUtil.PAGE_URL + "return_url.jsp";
-		String tradeNo = request.getParameter("WIDout_trade_no");
-		String subject = request.getParameter("WIDsubject");
-		String totalFee = request.getParameter("WIDtotal_fee");
-		String body = request.getParameter("WIDbody");
-		String showUrl = request.getParameter("WIDshow_url");
-		String anti_phishing_key = "";
+			String notifyUrl = AlipayUtil.PAGE_URL + "/notify_url.jsp";
 
-		String exter_invoke_ip = "";
+			String returnUrl = AlipayUtil.PAGE_URL + "return_url.jsp";
+			String tradeNo = request.getParameter("WIDout_trade_no");
+			String subject = request.getParameter("WIDsubject");
+			String totalFee = request.getParameter("WIDtotal_fee");
+			String body = request.getParameter("WIDbody");
+			String showUrl = request.getParameter("WIDshow_url");
+			String anti_phishing_key = "";
 
-		Map<String, String> sParaTemp = new HashMap<String, String>();
-		sParaTemp.put("service", "create_direct_pay_by_user");
-		sParaTemp.put("partner", AlipayUtil.partner);
-		sParaTemp.put("seller_email", AlipayUtil.seller_email);
-		sParaTemp.put("_input_charset", AlipayUtil.input_charset);
-		sParaTemp.put("payment_type", payment_type);
-		sParaTemp.put("notify_url", notifyUrl);
-		sParaTemp.put("return_url", returnUrl);
-		sParaTemp.put("out_trade_no", tradeNo);
-		sParaTemp.put("subject", subject);
-		sParaTemp.put("total_fee", totalFee);
-		sParaTemp.put("body", body);
-		sParaTemp.put("show_url", showUrl);
-		sParaTemp.put("anti_phishing_key", anti_phishing_key);
-		sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
+			String exter_invoke_ip = "";
 
-		
-		String url=AlipayService.buildRequest(sParaTemp, "get", "ȷ��");
-		
-		System.out.println("-------------- begin to pay url="+url);
-		
-		return url;
-		}catch(Exception e){
-			
-		e.printStackTrace();	
+			Map<String, String> sParaTemp = new HashMap<String, String>();
+			sParaTemp.put("service", "create_direct_pay_by_user");
+			sParaTemp.put("partner", AlipayUtil.partner);
+			sParaTemp.put("seller_email", AlipayUtil.seller_email);
+			sParaTemp.put("_input_charset", AlipayUtil.input_charset);
+			sParaTemp.put("payment_type", payment_type);
+			sParaTemp.put("notify_url", notifyUrl);
+			sParaTemp.put("return_url", returnUrl);
+			sParaTemp.put("out_trade_no", tradeNo);
+			sParaTemp.put("subject", subject);
+			sParaTemp.put("total_fee", totalFee);
+			sParaTemp.put("body", body);
+			sParaTemp.put("show_url", showUrl);
+			sParaTemp.put("anti_phishing_key", anti_phishing_key);
+			sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
+
+			String url = AlipayService.buildRequest(sParaTemp, "get", "ȷ��");
+
+			System.out.println("-------------- begin to pay url=" + url);
+
+			return url;
+		} catch (Exception e) {
+
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -238,11 +255,8 @@ public class AlipayController {
 					// ������ɺ�֧����ϵͳ���͸ý���״̬֪ͨ
 				}
 
-				
+				System.out.println("success");
 
-				System.out.println("success"); 
-
-				
 			} else {// ��֤ʧ��
 				System.out.println("fail");
 			}

@@ -9,8 +9,10 @@ public interface OrderService {
 	public void addResource(Order order);
 	public void updateResource(Order order);
 	public Order getResource(int id);
+	public Order getResourceByOrderNo(String orderNo);
 	public void deleteResource(int id);
 	public List<Order> getResources();
-	public Order getByUserId(int userId);
+	public Order getOpenByUserId(int userId);
+	public List<Order> listOrderByUserId(int userId);
 	
 }

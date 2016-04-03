@@ -3,7 +3,6 @@ package com.funeral.kris.init;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,6 +21,8 @@ import com.mysql.jdbc.StringUtils;
 
 @Component
 public class LoginCheckFilter implements Filter {
+	
+	
 
 	private static List<String> URIsList = new ArrayList<String>();
 
@@ -41,6 +42,10 @@ public class LoginCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
+		
+		
+		
+		
 		
 		String js="<script src='../js/generalUsage.js'></script><script>popupLogInPage();</script>";
 		

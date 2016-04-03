@@ -244,6 +244,18 @@
     color: #ff5274;
 	padding-top: 0.4px;
 }
+
+
+.titleNumbere {
+    color: #ff5274;
+	padding-top: 0.4px;
+}
+
+.titleNumber {
+    color: #ff5274;
+	padding-top: 0.4px;
+}
+
 #rigthTopContent {
     padding-right: 18px;
 }
@@ -303,9 +315,15 @@
 	position: fixed;
 	z-index: 1001;
 }
+#noAnyProduct{
+	text-align:center;
+	}
+
 #noAnyProduct h1 {
     line-height: 200px;
-	margin: 0px;
+	margin:0px;
+	
+
 }
 #goShoppingButton {
     width: 220px;
@@ -316,6 +334,8 @@
 	margin-top: -50px;
 	cursor:pointer;
 	opacity: 0.8;
+	position:relative;
+	left:40%;
 }
 #goShoppingButton:hover {
     opacity: 1;
@@ -328,100 +348,124 @@
 </style>
 <script type="text/javascript">
     var app = angular.module('productApp', []);
-	var wishList;
-	
 
     app.controller('product', function($scope, $http) {
     	
-    	
-    	
-    	
+    		  $scope.shappingCart;
+
+    		$scope.wishList;
+
+	  
+	    
+   $scope.loadShoppingCart = function(){	   
+   		
 	    $http.get("/funeral/wishlist/list").success(function(response) {
-	        wishList = response[0];
-			$http.get("/funeral/wishlistDetail/getDirectWishList?wishlistId="+wishList.wishlistId).success(function(response) {
+	        $scope.wishList = response[0];
+			$http.get("/funeral/wishlistDetail/getDirectWishListForShoppingCart?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
 	            $scope.wishListDetails = response;
 				if (response.length <= 0) {
+					
+						    	$("#topCheckBox").attr('disabled',true); 
+
 				    $("#noAnyProduct").show();
-				}
+				}else{
+											    	$("#topCheckBox").attr('disabled',false); 
+
+					}
 	        });
-	    });
+	        
+	  $http.get("/funeral/wishlistDetail/loadShoppingCart?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	    $scope.shappingCart=	response;
 	    
 	    
+	   
+	    
+	    
+	    var gross=parseFloat($scope.shappingCart.grossFee);
+	     if( gross>0   ){
+	  	$("#nextButton").attr('disabled',false); 
+	  		
+	  	
+     } else{
+	   	$("#nextButton").attr('disabled',true); 
+	   		
+    	}
+	    
+	     if($scope.shappingCart.allSelected==1){
+	    $("#topCheckBox").attr("checked",'checked'); 
+	      
+	  }
+	 var detailIdList =$scope.shappingCart.selectedWishDetailIdList;
+angular.forEach(detailIdList, function(data,index,array){
+ $("#"+detailIdList[index]).attr("checked",'checked');   
+     
+});
+	   });      
+	   });
+   
+   
+   
+   
+   	
+  
+   	}
+	    
+	  
+	 $scope.loadShoppingCart(); 
 	    
 	    
 	     $scope.changeOneItem = function(wishDetaillistId,wishlistId){
-	    $http.get("/funeral/wishlistDetail/selectOneItem?wishDetaillistId="+wishDetaillistId+"&wishlistId="+wishlistId).success(function(response) {
-	    $scope.shappingCart=	response;
-	   }); 	
+	    $http.get("/funeral/wishlistDetail/selectOneItem?wishDetaillistId="+wishDetaillistId+"&wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	   $scope.loadShoppingCart();
+	   }); 	}
 	     	
 	     	
-	     	}
+	     	
+	     	 $scope.subtraction = function(wishDetailId){
+	     	 	 $http.get("/funeral/wishlistDetail/subtraction?wishDetailId="+wishDetailId).success(function(response) {
+	     	 	 		$scope.loadShoppingCart();
+	     	 	 	});
+	     	 	 	}
+	     	 	 	
+	     	 	 	 $scope.delete = function(wishDetailId){
+
+	     	 	 $http.get("/funeral/wishlistDetail/delete?wishDetailId="+wishDetailId).success(function(response) {
+
+	     	 	 		$scope.loadShoppingCart();
+	     	 	 	});
+	     	 	 	}
+	     	 	 	
+	     	 	 	
+	     	 	 	$scope.add = function(wishDetailId){
+	     	 	 $http.get("/funeral/wishlistDetail/oneMore?wishDetailId="+wishDetailId).success(function(response) {
+	     	 	 	$scope.loadShoppingCart();
+	     	 	 	});
+	     	 	 	}
+	    
 	    
 	      $scope.selectAll = function(){
-	    $http.get("/funeral/wishlistDetail/selectAll?wishlistId="+wishList.wishlistId).success(function(response) {
-	    $scope.shappingCart=	response;	
-	    	}); 	
-	     	
+	    $http.get("/funeral/wishlistDetail/selectAll?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	    	$scope.loadShoppingCart();
+	     	});
 	     	
 	     	}
-	    
-	    
-    });
-	function calculate() {
-	    var totalPrice = 0;
+	     	
+	   
+	     }	);
     
-		for (i =0; i < $(".tableContent").length; i++) {
-			var tableLine = $(".tableContent")[i];
-		
-			totalPrice = totalPrice + parseInt($(tableLine).find('.totalPrice').find('p')[0].innerText);		
-		}
-	//	$("#rigthTopTitle").find(".titleNumber")[0].innerText = totalPrice;
-	//	$("#rigthTopTitle").find(".titleNumber")[2].innerText = totalPrice + parseInt($("#rigthTopTitle").find(".titleNumber")[1].innerText);
-	}
-	function calculateEachLine(tableRow) {
-		var singlePrice = tableRow.closest('.tableContent').find('.itemPrice')[0].innerText,
-			count = parseInt(tableRow.closest('.tableContent').find('.itemAmout').find('.titleNumber')[0].innerText);
-			
-		tableRow.closest('.tableContent').find(".totalPrice").find('.titleNumber')[0].innerText = singlePrice*count;
-	}
-	function sendUpdateRequest(tableRow, count) {
-	    var tableLine = tableRow.closest('.tableContent'),
-		    wishListDetailId = tableLine[0].id,
-			data = {
-			    'count': count
-			};
+ 
+    
+	
+	
+	
+	
 
-		$.ajax({
-			url: '/funeral/wishlistDetail/edit/'+wishListDetailId,
-			data: data,
-			type: 'post',
-			dataType:'json',
-			success:function(data){
-			},
-			error: function(error) {
-			}
-		});
-	}
-	function sendDeleteRequest(tableRow) {
-	    var tableLine = tableRow.closest('.tableContent'),
-		    wishListDetailId = tableLine[0].id;
-
-		$.ajax({
-			url: '/funeral/wishlistDetail/delete/'+wishListDetailId,
-			type: 'get',
-			success:function(data){
-			},
-			error: function(error) {
-			}
-		});
-	}
-	
-	
-				
-	
 	
 </script>
 <body ng-app="productApp" ng-controller="product">
+	
+<div style="display:none;" id="calcu" ng-click="loadShoppingCart()">	</div>
+	
 <div class="topBarDiv">
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
 </div>
@@ -446,7 +490,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="shopTable">
+		<div id="shopTable" >
 			<div id="tableHeader">
 				<div class="checkBox" >
 					<input type="checkbox" id="topCheckBox"  ng-click="selectAll()" onClick="checkBoxClick();">
@@ -471,9 +515,9 @@
 	            <h1>您的购物车里还没有任何物品</h1>
 				<div id="goShoppingButton"><h2>去别的地方看看</h2></div>
 	        </div>
-			<div class="tableContent"   ng-repeat="wishListDetail in wishListDetails">
+			<div class="tableContent"  id={{wishListDetail.wishDetailId+'_'}} ng-repeat="wishListDetail in wishListDetails">
 				<div class="checkBox">
-				    <input type="checkbox"  name="checkbox"  id="{{wishListDetail.wishDetailId}}"  ng-click="changeOneItem(wishListDetail.wishlistDetailId,wishListDetail.wishlistId)">
+				    <input type="checkbox" onClick="checkSubClick();"  name="checkbox"  id="{{wishListDetail.wishDetailId}}"  ng-click="changeOneItem(wishListDetail.wishDetailId,wishListDetail.wishlistId)">
 				</div>
 				<div class="itemName">
 				    <div class="itemImg">
@@ -489,7 +533,7 @@
 				</div>
 				<div class="itemAmout inputContent">
 				    <div class="oneThird">
-					    <div class="changeButton minusBitton">
+					    <div class="changeButton minusBitton" ng-click="subtraction(wishListDetail.wishDetailId)" >
 						    <span>-</span>
 						</div>
 					</div>
@@ -497,16 +541,17 @@
 				        <p class="title titleNumber">{{wishListDetail.amount}}</p>
 					</div>
 					<div class="oneThird">
-					    <div class="changeButton">
+					    <div class="changeButton"  ng-click="add(wishListDetail.wishDetailId)">
 						    <span>+</span>
 						</div>
 					</div>
 				</div>
 				<div class="totalPrice inputContent">
-				    <p class="title titleNumber">00.00</p>
+				    <p class="title titleNumber">{{wishListDetail.selectedPrice}}</p>
+
 				</div>
 				<div class="operation inputContent">
-				    <span class="glyphicon glyphicon-trash deleteButton"></span>
+				    <span class="glyphicon glyphicon-trash deleteButton  "   ng-click="delete(wishListDetail.wishDetailId)" ></span>
 				</div>
 			</div>
 		</div>
@@ -549,6 +594,37 @@
 </body>
 <script>
 	
+	
+	
+function checkSubClick(){
+var vcheckbox=document.getElementsByName("checkbox");
+var topCheckBox=document.getElementById("topCheckBox");
+
+
+
+
+for(var i=0;i<vcheckbox.length;i++)
+{
+	
+	
+	if(vcheckbox[i].checked){
+		topCheckBox.checked = true;
+
+		}else{
+topCheckBox.checked = false;
+allSelect=0;	
+return;			
+				}
+}
+
+
+	
+
+}	
+	
+	
+	
+	
 function checkBoxClick(){
 var vcheckbox=document.getElementsByName("checkbox");
 var topCheckBox=document.getElementById("topCheckBox");
@@ -564,78 +640,7 @@ vcheckbox[i].checked = false;
 }
 }
 window.onload=function(){
-    for (var j =0; j<$(".tableContent").length;j++) {
-	    var tableLine = $($(".tableContent")[j]);
-		calculateEachLine(tableLine);
-	}
-	calculate();
-    $(".changeButton").click(function() {
-	    var number = parseInt($(this).closest('.itemAmout').find(".titleNumber")[0].innerText),
-		    changedNumber;
-
-	    if ($(this).hasClass("minusBitton")) {
-		    if (number>0) {
-		        $(this).closest('.itemAmout').find(".titleNumber")[0].innerText = number - 1;
-				changedNumber = number - 1;
-			}
-		}
-		else {
-		    $(this).closest('.itemAmout').find(".titleNumber")[0].innerText = number + 1;
-			changedNumber = number + 1;
-		}
-		
-		if (number != changedNumber) {
-		    sendUpdateRequest($(this), changedNumber);
-		    calculateEachLine($(this));
-		    calculate();
-		}
-	});
-	$(".deleteButton").click(function() {
-	    $(this).closest('.tableContent').remove();
-	    calculate();
-		sendDeleteRequest($(this));
-	});
-	function muskPage() {
-			$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-				'z-index': 1000, 
-				width: $(document).width(), 
-				height: $(document).height(), 
-				'background-color': '#ccc', 
-				opacity: 0 
-			}).fadeIn('slow', function(){ 
-				$(this).fadeTo('slow', 0.5); 
-		});
-	};
-	$(".itemImg").click(function() {
-	    muskPage();
-	    $(".coverImageDiv").fadeIn();
-	});
-	$(".itemDesc").find(".title").click(function() {
-		    var parentWidth = $(".coverDiv").width(),
-				frameWidth = $(".detailFrame").width();
-	        $(this).css({
-			    opacity: 0.5
-			});
-			muskPage();
-			$(".detailFrame").attr("src","/funeral/pages/component/productDetail.html?id="+$(this)[0].id)
-			$(".closeCoverDiv").css({
-				right: (parentWidth-frameWidth)/2,
-				left: 'auto',
-				top: 0
-			});
-			$(".coverDiv").fadeIn(1000);
-	});
-	$(".closeCoverDiv").click(function() {
-		$(".coverDiv").fadeOut();
-		$(".coverImageDiv").fadeOut();
-		$(".jquery_addmask").remove();
-		$(".productItem").css({
-			 opacity: 1
-		});
-	});
+  
 	$("#nextButton").click(function() {
 	    window.location.href='paymentInfo.html';
 	});

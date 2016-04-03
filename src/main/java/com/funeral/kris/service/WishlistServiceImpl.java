@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.dao.WishlistDAO;
+import com.funeral.kris.dao.WishlistDetailDAO;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.Wishlist;
@@ -24,11 +25,12 @@ public class WishlistServiceImpl implements WishlistService {
 
 	@Autowired
 	private WishlistDAO WishlistDAO;
+
 	@Autowired
 	private EntityManager em;
 
 	public void addResource(Wishlist wishlist) {
-		WishlistDAO.save(wishlist);		
+		WishlistDAO.save(wishlist);
 	}
 
 	public void updateResource(Wishlist wishlist) {
@@ -43,16 +45,12 @@ public class WishlistServiceImpl implements WishlistService {
 		WishlistDAO.delete(id);
 	}
 
-	
-	
-	
 	public List<Wishlist> getResources(HttpServletRequest request) {
 		String a = null;
 		try {
-		    a = SqlHelper.getSqlFromRequest("Wishlist", request);
-		}
-		catch (Exception e) {
-			
+			a = SqlHelper.getSqlFromRequest("Wishlist", request);
+		} catch (Exception e) {
+
 		}
 		Query query = em.createQuery(a);
 		List<Wishlist> wishList = query.getResultList();
@@ -62,7 +60,7 @@ public class WishlistServiceImpl implements WishlistService {
 	@Override
 	public List<Wishlist> getResources() {
 
-		Iterable<Wishlist> Iterator=	WishlistDAO.findAll();
+		Iterable<Wishlist> Iterator = WishlistDAO.findAll();
 		List<Wishlist> list = new ArrayList<Wishlist>();
 
 		Iterator<Wishlist> iter = Iterator.iterator();
@@ -70,8 +68,33 @@ public class WishlistServiceImpl implements WishlistService {
 			Wishlist wishlist = iter.next();
 			list.add(wishlist);
 		}
-		
+
 		return list;
-	
+
 	}
+
+	@Override
+	public Wishlist getResourceByUserId(int userId) {
+
+		List<Wishlist> list = this.getResources();
+		if (list == null) {
+
+			return null;
+		}
+
+		Iterator iterator = list.iterator();
+		while (iterator.hasNext()) {
+
+			Wishlist wishlist = (Wishlist) iterator.next();
+
+			if (wishlist.getUserId().intValue() == userId) {
+
+				return wishlist;
+			}
+
+		}
+		return null;
+
+	}
+
 }

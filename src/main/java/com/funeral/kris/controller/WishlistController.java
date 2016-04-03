@@ -123,7 +123,7 @@ public class WishlistController {
 		wishlistDetail.setCount(1);
 		wishlistDetail.setWishlistId(wishlistId);
 		wishlistDetail.setSourceId(WishConstants.wish_source_direct);
-		wishlistDetail.setOriginalPrice(wish.getProcurementCost());
+		wishlistDetail.setOriginalPrice(wish.getXianenPrice());
 		wishlistDetail.setPrice(wish.getSellingPrice());
 		wishlistDetail.setWishId(wish.getWishId());
 		wishlistDetail.setSourceId(2);

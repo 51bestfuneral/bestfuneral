@@ -53,7 +53,7 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public Order getByUserId(int userId) {
+	public Order getOpenByUserId(int userId) {
 
 		List<Order> list=this.getResources();
 		
@@ -69,7 +69,7 @@ public class OrderServiceImpl implements OrderService{
 				
 				Order order = iter.next();
 
-				if(order.getUserId().intValue()==userId&&order.getStatusId().intValue()!=AlipayUtil.completed){
+				if(order.getUserId().intValue()==userId&&order.getStatusId().intValue()!=AlipayUtil.order_open){
 					
 					return order;
 				}
@@ -79,6 +79,68 @@ public class OrderServiceImpl implements OrderService{
 			
 		}
 		return null;
+	}
+
+	@Override
+	public Order getResourceByOrderNo(String orderNo) {
+	
+		
+		List<Order>   orderList=   this.getResources();
+		
+		if(orderList==null||orderList.size()==0){
+			return null;
+		}
+		
+		Iterator iterator	=orderList.iterator();
+		
+		while(iterator.hasNext()){
+			
+			Order  order=	(Order) iterator.next();
+			
+			if(order.getOrderNo().equals(orderNo)){
+				
+				return order;
+				
+			}
+			
+			
+			
+			
+		}
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<Order> listOrderByUserId(int userId) {
+
+		List<Order> orderList=new ArrayList();
+		List<Order> list=this.getResources();
+		
+		if(list==null){
+			
+			return null;
+		}else{
+			
+			
+			Iterator<Order> iter=	list.iterator();
+			
+			while(iter.hasNext()){
+				
+				Order order = iter.next();
+
+				if(order.getUserId().intValue()==userId){
+					
+					orderList.add(order);
+				}
+				
+				
+			}
+			
+		}
+		return orderList;
+	
 	}
 	
 

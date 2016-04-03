@@ -141,30 +141,8 @@ span {
     color: #ffffff;
 }
 </style>
-<script type="text/javascript">
-var app = angular.module('productApp', []);
-app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
-	});
-	$http.get("/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
-	});
-});
-</script>
-<body ng-app="productApp" ng-controller="products">
+
+<body ng-app="PaymentApp" ng-controller="alipay">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
 </div>
@@ -221,11 +199,20 @@ app.controller('wishTypeLevels', function($scope, $http) {
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
 </body>
-<script>
-window.onload=function(){
-    $("#confirmedButton").click(function () {
-	    window.location.href='mainPage.html';
-	});
-};
+<script type="text/javascript">
+
+	
+var app = angular.module('PaymentApp', []);
+app.controller('alipay', function($scope, $http) {
+	
+ 
+ 	$http.get("/funeral/alipay/confirmPay").success(function(response) {
+ 		
+ 		
+ 		});
+
+  
+
+});
 </script>
 </html>

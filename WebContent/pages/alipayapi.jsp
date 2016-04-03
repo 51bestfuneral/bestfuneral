@@ -54,7 +54,8 @@
 		//付款金额
 		String total_fee = request.getParameter("WIDtotal_fee");
 		//必填
-		String body = request.getParameter("WIDbody");		//防钓鱼时间戳
+		String body = request.getParameter("WIDbody");
+		//防钓鱼时间戳
 		String anti_phishing_key = "";
 		//若要使用请调用类文件submit中的query_timestamp函数
 		String exter_invoke_ip ="";
@@ -78,14 +79,15 @@
         sParaTemp.put("seller_email", AlipayUtil.seller_email);
         sParaTemp.put("_input_charset", AlipayUtil.input_charset);
 		sParaTemp.put("payment_type", payment_type);
-		sParaTemp.put("notify_url", AlipayUtil.PAGE_URL+"/notify_url.jsp");
-		sParaTemp.put("return_url", AlipayUtil.PAGE_URL + "/paymentFinal.html");
+		sParaTemp.put("notify_url", "http://121.42.182.117/funeral/pages/notify_url.jsp");
+		sParaTemp.put("return_url", "http://121.42.182.117/funeral/pages/paymentFinal.html");
 		sParaTemp.put("out_trade_no", tradeNo);
 		sParaTemp.put("subject", subject);
 		sParaTemp.put("total_fee", total_fee);
 		sParaTemp.put("body", body);
+		sParaTemp.put("key", "ceshi");
 		
-		out.println(sParaTemp);
+		System.out.println(" sParaTemp=  "+sParaTemp);
 
 		
 		//sParaTemp.put("show_url",  AlipayUtil.PAGE_URL + "/paymentFinal.html");
@@ -93,7 +95,18 @@
 		//sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
 		//建立请求
 		String sHtmlText = AlipayService.buildRequest(sParaTemp,"get","确认");
+		
+		
+		System.out.println("  tradeNo  ="+tradeNo+"  subject="+subject);
+		
+	//	com.funeral.kris.service.FeeCollectionServiceImpl  collectionService=new com.funeral.kris.service.FeeCollectionServiceImpl();
+		
+		//collectionService.initFeeCollection(tradeNo);
+		
 		out.println(sHtmlText);
+		
+		
+		System.out.println("sHtmlText=  "+sHtmlText);
 	%>
 <body>
 </body>

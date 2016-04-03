@@ -3,7 +3,7 @@
 <head id="head"><title>
     支付信息
 </title><meta name="description" content="Bleum provides high performance software development teams that
-								deliver smart solutions, helping you to exceed your customers�?
+								deliver smart solutions, helping you to exceed your customers᾿
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
@@ -284,7 +284,7 @@ span {
 		</div>
 		<div id="paymentStatusDesc">
 		     <div class="descDiv first">
-			     <p class="selected">寄�?/p>
+			     <p class="selected">邮寄</p>
 			 </div>
 			 <div class="descDiv second">
 			     <p>确认</p>
@@ -304,7 +304,7 @@ span {
 				    <p>姓名<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
+				    <input id="contactName"    style=" font-size: 19px;line-height: 44px;font-weight: bold;"     type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
 				    <input type="hidden"  ng-model="currentContacter.userId"  vaule={{$scope.user.userId}}></input>
 
 				</div>
@@ -318,9 +318,9 @@ span {
 				    <p>从联系人中选择*</p>
 				</div>
 				<div class="fieldContent">
-				    <select class="form-control"   id="contacterSelect">
+				    <select class="form-control"   id="contacterSelect"  style=" font-size: 19px;line-height: 44px;font-weight: bold;" >
 				    	<option>请选择</option>
-						<option ng-repeat="contacter in contactInfos "  value={{contacter.contactId}}><p style="font-size:10px;">{{contacter.contactName+':'+contacter.province+contacter.city+contacter.detailAddress+':'+contacter.phone}}</p></option>
+						<option ng-repeat="contacter in contactInfos "  value={{contacter.contactId}}><p style="font-size:10px;">{{contacter.contactName+':'+contacter.city+':'+contacter.phone}}</p></option>
 					
 					</select>
 				</div>
@@ -333,7 +333,7 @@ span {
 				    <p>手机号码<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
+				    <input id="contactPhone" style=" font-size: 19px;line-height: 44px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
 				</div>
 				<p class="subTitle">我们会确保你的隐私，谨慎使用您的手机号码</p>	
 			</div>
@@ -342,13 +342,14 @@ span {
 			
 			<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>�?font size="3" color="red">*</font></p>
+				    <p>省份<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				  <select class="form-control"   id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
-						<option value='1'  ><p  class="form-control">江苏�?/p></option>
-					  <option value='2'  ><p  class="form-control">上海�?/p></option>
-					  <option value='3'  ><p  class="form-control">浙江�?/p></option>
+				  <select class="form-control"  style=" font-size: 19px;line-height: 44px;font-weight: bold;"  id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
+							<option>请选择</option>
+						<option value='1'  ><p  class="form-control">江苏省</p></option>
+					  <option value='2'  ><p  class="form-control">上海市</p></option>
+					  <option value='3'  ><p  class="form-control">浙江省</p></option>
 
 					</select>   
 				    
@@ -361,10 +362,10 @@ span {
 			
 					<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>�?font size="3" color="red">*</font></p>
+				    <p>城市<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control"  ng-model="currentContacter.city"></input>
+				    <input id="city" type="text" style=" font-size: 19px;line-height: 44px;font-weight: bold;"  class="form-control"  ng-model="currentContacter.city"></input>
 				</div>
 			</div>
 			
@@ -374,7 +375,7 @@ span {
 				    <p>详细地址<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control" ng-model="currentContacter.detailAddress"></input>
+				    <input  id="address" type="text"  style=" font-size: 19px;line-height: 44px;font-weight: bold;" class="form-control" ng-model="currentContacter.detailAddress"></input>
 				</div>
 		
 			</div>
@@ -398,10 +399,10 @@ span {
 		
 			<div class="shorterField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人姓�?font size="3" color="red">*</font></p>
+				    <p>备用联系人姓名<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control" ng-model="currentContacter.backupName"></input>
+				    <input  id="backupName" style=" font-size: 19px;line-height: 44px;font-weight: bold;"  type="text" class="form-control" ng-model="currentContacter.backupName"></input>
 				</div>	
 				<p class="subTitle">如果主要联系人已去世或者不方便联系</p>
 					</div>
@@ -409,10 +410,10 @@ span {
 					
 				<div class="normalField fieldInd">
 			    <div class="fieldDesc">
-				    <p>备用联系人电�?font size="3" color="red">*</font></p>
+				    <p>备用联系人电话<font size="3" color="red">*</font></p>
 				</div>
 				<div class="fieldContent">
-				    <input type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
+				    <input id="backupPhone" style=" font-size: 19px;line-height: 44px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
 				</div>	
 					</div>
 					
@@ -421,9 +422,7 @@ span {
 			    <div class="fieldDesc">
 				    <p>&nbsp;</p>
 				</div>
-				<div id="saveContacter"   class="fieldContent" style=" border-radius: 5px; background:#f62f5e;text-align: center;cursor: pointer; font-size: 20px;line-height: 56px;color: #ffffff;">
-				     <p>保存联系�?/p>
-				</div>
+			
 			</div>
 			
 		</div>
@@ -433,17 +432,17 @@ span {
 		<div class="shippingMethod">
 		    <p>推荐方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod1"  value="1" checked>
-			<span class="radioDesc">暂存在念�?/span>
-			<span class="normalDesc">(我们会暂时替您保管，在需要的时候提供给�?</span>
+			<span class="radioDesc">暂存在念念</span>
+			<span class="normalDesc">（我们会暂时替您保管，在需要的时候提供给怿）</span>
 	    </div>
 		<div class="shippingMethod">
 		    <p>传统方式</p>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod2" value="2">
 			<span class="radioDesc">标准</span>
-			<span class="normalDesc">(免费, 2-3日寄�?</span>
+			<span class="normalDesc">（免费, 2-3日送达）</span>
 			<input type="radio" name="deliveryMethod"  id="deliveryMethod3" value="3">
-			<span class="radioDesc">快�?/span>
-			<span class="normalDesc">(�?0邮寄�? 1日寄�?</span>
+			<span class="radioDesc">快递</span>
+			<span class="normalDesc">（1日送达，20块钱快递费用）</span>
 	    </div>
 	</div>
 	<div id="footerContain">
@@ -453,7 +452,7 @@ span {
 			    <p>上一步</p>
 			</div>
 		    <div id="nextButton">
-			    <p>下一�?/p>
+			    <p>下一步</p>
 			</div>
 		</div>
 	</div>
@@ -469,22 +468,52 @@ span {
 </div>
 </body>
 <script>
+var deliverMethod;	
 	
 var app = angular.module('contactInfo', []);
 
-var deliverMethod=1;
 app.controller('contactInfoController', function($scope, $http) {
-	  $scope.user;
- $scope.currentContacter;
+$scope.user;
+$scope.currentContacter;
 $scope.currenctExpress;
+$scope.contactorId;
   $http.get("/funeral/login/getCurrentUser").success(function(response) {
 	    $scope.user = response;
 	    	    var data = JSON.stringify($scope.user);
-  var usrId = $scope.user.usrId;
-	   $http.get("/funeral/expressController/getUncompledExpressInfoByUserId?userId="+usrId+"&statusId=1").success(function(response) {
+	    	     $http.get("/funeral/contactInfo/getUsingContacter").success(function(response) {
+	    $scope.currentContacter = response;
+	    });
+	   $http.get("/funeral/expressController/getUsingExpressInfoByUserId").success(function(response) {
 	    $scope.currenctExpress = response;
+	    	    var datadata = JSON.stringify($scope.currenctExpress);
+	    //	 alert("----currenctExpress---"+datadata+"  deliveryMethod= "+datadata.deliveryMethod);
 	    
-		deliverMethod=$scope.currenctExpress.deliveryMethod;	});
+		deliverMethod=$scope.currenctExpress.deliveryMethod;	
+		
+	//	alert(" deliverMethod= "+deliverMethod);
+		
+	//	alert(" --1--  deliverMethod ="+deliverMethod+"    ===  deliveryMethod="+$scope.currenctExpress.deliveryMethod);
+			if(deliverMethod=='1'){
+	    		
+	    		$("#deliveryMethod1").attr("checked",'checked'); 
+	    		
+	    		}else if(deliverMethod=='2'){
+	    		$("#deliveryMethod2").attr("checked",'checked'); 
+
+	    			}else if(deliverMethod=='3'){
+	    				
+	   $("#deliveryMethod3").attr("checked",'checked'); 
+	
+	    				}else{
+	  $("#deliveryMethod1").attr("checked",'checked'); 
+
+	    					}
+		
+			//	alert(" --2--  deliverMethod ="+deliverMethod);
+
+		
+		
+		});
 	    
 	});
 	
@@ -495,83 +524,155 @@ $scope.currenctExpress;
 
 $(document).ready(function(){ 
 $('#contacterSelect').change(function(){ 
-    $http.get("/funeral/contactInfo/listByContacterId?contactId="+$(this).val()).success(function(response) {
+	
+	//alert(" -- value "+$(this).val());
+if($(this).val()=="请选择"){
+	
+	//alert("---1--");
+	  $http.get("/funeral/contactInfo/listByContacterId?contactId=0").success(function(response) {
 	    $scope.currentContacter = response; 
 	});
-}) 
-}) 
+	}else{
+		//alert("---2--");
 
-
-
-	$("#nextButton").click(function() {
-		$scope.currenctExpress.userId=$scope.user.usrId;
-		$scope.currenctExpress.receiverName=$scope.currentContacter.contactName;
-		$scope.currenctExpress.deliveryMethod=deliverMethod;
-		$scope.currenctExpress.province=$scope.currentContacter.province;
-	  $scope.currenctExpress.city=$scope.currentContacter.city;
-	  $scope.currenctExpress.detailAddress=$scope.currentContacter.detailAddress;
-	  $scope.currenctExpress.phone=$scope.currentContacter.phone;
-
-		 var datadata={
-		 	'userId':$scope.user.usrId,
-		 	'receiverName':$scope.currentContacter.contactName,
-		 	'deliveryMethod':deliverMethod,
-		 	'province':$scope.currentContacter.province,
-		 	'city':$scope.currentContacter.city,
-		 	'detailAddress':$scope.currentContacter.detailAddress,
-		 	'phone':$scope.currentContacter.phone
-		 		};
-		
-	   // var datadata = JSON.stringify($scope.currenctExpress);
-	    	    var currentContacterdatadata = JSON.stringify($scope.currentContacter);
-
-	   //  alert("保存成功！datadata="+JSON.stringify(datadata)+" currentContacterdatadata="+currentContacterdatadata);
-		    $http({
-            method: "POST",
-            url:"/funeral/expressController/add",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-        
-
-         });
-         
-         
-     $scope.currentContacter.userId =$scope.user.usrId;
-		$scope.currentContacter.statusId='10';
-		$scope.currentContacter.gender='3';
-	    var datadata = JSON.stringify($scope.currentContacter);
+    $http.get("/funeral/contactInfo/listByContacterId?contactId="+$(this).val()).success(function(response) {
+	    $scope.currentContacter = response; 
 	    
-	    // alert("保存成功�?currentContacter="+JSON.stringify($scope.currentContacter));
-		    $http({
-            method: "POST",
-            url:"/funeral/contactInfo/add",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-        
-         alert("保存成功�?); });
-         
-         
-                 	    window.location.href='paymentConfirm.html';
+	      var datadata = JSON.stringify($scope.currentContacter);
+	  //  alert("----currentContacter---"+datadata);
+	});
+}
+}) 
+}) 
 
-	});	
+function validatemobile(vid)
+    {
+    	
+ var mobile=document.getElementById(vid);
+    	
+        if(mobile.value.length==0)
+        {
+           alert('请输入手机号码！');
+           mobile.focus();
+           return false ;
+        }    
+        if(mobile.value.length!=11)
+        {
+            alert('请输入11位有效的手机号码！');
+            mobile.focus();
+            return false;
+        }
+       return true;       
+    }
+
+
+$("#nextButton").click(function () {
 	
 
-$("#saveContacter").click(function () {
+if( $scope.currentContacter.contactName==null||$scope.currentContacter.contactName==""){
+	alert("请输入联系人姓名！");
+	var contactName = document.getElementById("contactName");
+  contactName.focus();
+	return;
+	}
 
-$scope.currentContacter.userId =$scope.user.usrId;
-		$scope.currentContacter.statusId='1';
-		$scope.currentContacter.gender='3';
-	    var datadata = JSON.stringify($scope.currentContacter);
+
+if( $scope.currentContacter.phone==null||$scope.currentContacter.phone==""){
+	alert("请输入联系人电话！");
+	var contactPhone = document.getElementById("contactPhone");
+  contactPhone.focus();
+	return;
+	}else{
+	 if(!validatemobile('contactPhone')){
+	 	var contactPhone = document.getElementById("contactPhone");
+  contactPhone.focus();
+	 	return;
+	 	}
+	 		var cPhone = document.getElementById("contactPhone");
+			var bPhone = document.getElementById("backupPhone");
+
+		if(cPhone.value==bPhone.value){
+			alert("联系人电话和备用联系人电话不能相同！");
+		contactPhone.focus();
+	 	return;
+			}
+		
+		
+	}
+		
+	if( $scope.currentContacter.province==null||$scope.currentContacter.province==""||$scope.currentContacter.province=="请选择"){
+	alert("请选择省份！");
+	var provinceSelect = document.getElementById("provinceSelect");
+  provinceSelect.focus();
+	return;
+	}
+	
+	if( $scope.currentContacter.city==null||$scope.currentContacter.city==""){
+	alert("请输入城市！");
+	var city = document.getElementById("city");
+  city.focus();
+	return;
+	}
+
+if( $scope.currentContacter.detailAddress==null||$scope.currentContacter.detailAddress==""){
+	alert("请输入详细地址！");
+	var address = document.getElementById("address");
+  address.focus();
+	return;
+	}else{
+		var address = document.getElementById("address");
+		
+		if(address.value.length<10){
+				alert("详细地址至少10个字！");
+
+			
+  address.focus();
+	return;
+	}
+		}
+
+if( $scope.currentContacter.backupName==null||$scope.currentContacter.backupName==""){
+	alert("请输入备用联系人姓名！");
+	var backupName = document.getElementById("backupName");
+  backupName.focus();
+	return;
+	}
+
+if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPhone==""){
+	alert("请输入备用联系人电话！");
+	var backupPhone = document.getElementById("backupPhone");
+  backupPhone.focus();
+	return;
+	}else{
+		
+	if(!validatemobile("backupPhone")){
+		
+			var backupPhone = document.getElementById("backupPhone");
+  backupPhone.focus();
+	 	return;
+		
+		}
+		
+			var cPhone = document.getElementById("contactPhone");
+			var bPhone = document.getElementById("backupPhone");
+
+		if(cPhone.value==bPhone.value){
+			alert("备用联系人电话和联系人电话不能相同！");
+			 backupPhone.focus();
+	 	return;
+			}
+		
+		
+		
+		}
+
+	    $scope.currentContacter.userId=$scope.user.usrId;
 	    
-	     alert("保存成功�?);
+	    $scope.currentContacter.expressMethod=deliverMethod;
+		
+	    var datadata = JSON.stringify($scope.currentContacter);
+	    //	alert("----datadata---"+datadata);
+
 		    $http({
             method: "POST",
             url:"/funeral/contactInfo/add",
@@ -582,12 +683,11 @@ $scope.currentContacter.userId =$scope.user.usrId;
 			dataType:"json"
         }).success(function(){
         
-         alert("保存成功�?); });
-
-
-
-	});
-
+  
+          });
+ 
+ window.location.href='/funeral/pages/paymentConfirm.html'; 
+         });
 
 $("#deliveryMethod1").click(function () {
 	
@@ -601,6 +701,8 @@ $("#deliveryMethod2").click(function () {
 $("#deliveryMethod3").click(function () {
 	
 	deliverMethod="3";
+	
+	
 	});
 
 });
@@ -614,6 +716,7 @@ $("#deliveryMethod3").click(function () {
 	
 	
 window.onload=function(){
+
 	  $("#prevButton").click(function () {
 	    window.location.href='/funeral/pages/wishList.html';
 	});

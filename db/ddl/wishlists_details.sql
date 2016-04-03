@@ -16,3 +16,4 @@ CREATE TABLE wishlist_details (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 alter table wishlist_details add COLUMN selected integer DEFAULT 0; 
+alter table wishlist_details add COLUMN selected_price integer DEFAULT 0; 

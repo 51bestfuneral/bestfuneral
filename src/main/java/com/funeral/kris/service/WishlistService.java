@@ -11,8 +11,10 @@ public interface WishlistService {
 	public void addResource(Wishlist wishlist);
 	public void updateResource(Wishlist wishlist);
 	public Wishlist getResource(int id);
+	public Wishlist getResourceByUserId(int id);
 	public void deleteResource(int id);
 	public List<Wishlist> getResources(HttpServletRequest request);
 	public List<Wishlist> getResources();
+	
 
 }

@@ -19,6 +19,15 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.funeral.kris.util.*"%>
 <%@ page import="com.funeral.kris.service.*"%>
+<%@ page import="javax.servlet.http.HttpServletRequest"%>
+<%@ page import="javax.servlet.http.HttpSession"%>
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>支付宝即时到账交易接口</title>
+</head>
 <%
 	//获取支付宝POST过来反馈信息
 	Map<String,String> params = new HashMap<String,String>();
@@ -35,14 +44,30 @@
 	}
 	
 	//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
-	//商户订单号
+	//商户订单号
 	String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
 
-	//支付宝交易号
+	//支付宝交易号
 	String trade_no = new String(request.getParameter("trade_no").getBytes("ISO-8859-1"),"UTF-8");
 
 	//交易状态
 	String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
+	
+	
+	System.out.println("-----------   out_trade_no="+out_trade_no+"  trade_no="+trade_no+"  trade_status="+trade_status+"  params="+params);
+
+
+
+      javax.servlet.http.HttpSession ss = request.getSession();
+	    com.funeral.kris.model.User user = (com.funeral.kris.model.User) ss.getAttribute("user");
+	System.out.println("-----------   out_trade_no="+out_trade_no+"  trade_no="+trade_no+"  trade_status="+trade_status+"  user="+user);
+
+		 //  ss.setAttribute("params", params);
+		  // ss.setAttribute("pending_pay", "1");
+		   
+		//   String userId=user.getUsrId()+"";
+
+		com.funeral.kris.util.AlipayUtil.feeMap.put("26", params);
 
 	//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
 
@@ -53,6 +78,9 @@
 		//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
 		
 		if(trade_status.equals("TRADE_FINISHED")){
+		
+		     //  System.out.println("----------------params---------if---"+params);
+
 			//判断该笔订单是否在商户网站中已经做过处理
 				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				//请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -68,6 +96,17 @@
 				
 			//注意：
 			//付款完成后，支付宝系统发送该交易状态通知
+			
+	   // javax.servlet.http.HttpSession ss = request.getSession(true);
+	    //com.funeral.kris.model.User user = (com.funeral.kris.model.User) ss.getAttribute("user");
+
+		 //  ss.setAttribute("params", params);
+		 //  ss.setAttribute("pending_pay", "1");
+
+       System.out.println("----------------params----else-----if--params-"+com.funeral.kris.util.AlipayUtil.feeMap);
+			
+			//com.funeral.kris.service.FeeCollectionServiceImpl  collectionService=new com.funeral.kris.service.FeeCollectionServiceImpl();
+			//collectionService.completeCollection(params);
 		}
 
 		//——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
@@ -76,6 +115,15 @@
 
 		//////////////////////////////////////////////////////////////////////////////////////////
 	}else{//验证失败
+		
+		
 		out.println("fail");
 	}
 %>
+
+
+
+
+<body >
+</body>
+</html>

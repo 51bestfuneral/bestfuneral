@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -82,6 +81,21 @@ public class WishlistDetailController {
 
 		return successList;
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/buy", method = RequestMethod.GET)
+	public void buy(HttpServletRequest request) {
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/addSingle", method = RequestMethod.POST)
@@ -89,13 +103,19 @@ public class WishlistDetailController {
 
 		List<WishlistDetail> successList = new ArrayList<WishlistDetail>();
 		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
+		Integer wishId = Integer.valueOf(request.getParameter("wishId"));
+		
+		
 		Wishlist wishlist = wishlistService.getResource(wishlistId);
 		Date sysDate = new Date();
 		if (wishsMap == null) {
 			initialWishMap();
 		}
+		System.out.println(this.getClass()+"  addingWishlistSingle  wishlistId="+wishlistId+"  wishsMap="+wishsMap);
 
 		for (Wish wish : wishs) {
+			
+			if(wish.getWishId().intValue()==wishId.intValue()){
 			WishlistDetail wishlistDetail = new WishlistDetail();
 			wish = wishsMap.get(wish.getWishId());
 			wishlistDetail.setWishId(wish.getWishId());
@@ -103,17 +123,54 @@ public class WishlistDetailController {
 			wishlistDetail.setPrice(wish.getSellingPrice());
 			wishlistDetail.setOriginalPrice(wish.getProcurementCost());
 			wishlistDetail.setWishType(wish.getWishType());
-			wishlistDetail.setSourceId( WishConstants.wish_source_direct);
+			wishlistDetail.setSourceId(WishConstants.wish_source_direct);
 			wishlistDetail.setSelected(0);
 			wishlistDetail.setWishlistId(wishlistId);
 			wishlistDetail.setCreateDate(sysDate);
 			wishlistDetail.setUpdatedDate(sysDate);
+			
+			int wishDetailId=this.checkExist(wish.getWishId(), wishlistId);
+			System.out.println(this.getClass()+"  addingWishlistSingle checkExist   wishDetailId="+wishDetailId);
+
+			if(wishDetailId>0){
+				wishlistDetail.setWishlistDetailId(wishDetailId);
+				wishlistDetail.setCount(wishlistDetail.getCount()+1);
+			}
+			
 			wishlistDetailService.addResource(wishlistDetail);
 			wishlist.setPrice(wishlist.getPrice());
 			successList.add(wishlistDetail);
+			break;
+			}
 		}
 
+		wishlist = this.getCalculatedWishList(wishlistId);
+
+		wishlistService.updateResource(wishlist);
+
 		return successList;
+	}
+
+	public int checkExist(int wishId, int wishlistId) {
+
+		List<WishlistDetail> list = wishlistDetailService.getResourceByWishListId(wishlistId);
+
+		if (list != null && list.size() > 0) {
+			Iterator iterator = list.iterator();
+			while (iterator.hasNext()) {
+				WishlistDetail detail = (WishlistDetail) iterator.next();
+
+				if (detail.getWishId().intValue() == wishId) {
+
+					return detail.getWishlistDetailId();
+				}
+
+			}
+
+		}
+
+		return 0;
+
 	}
 
 	@ResponseBody
@@ -122,26 +179,97 @@ public class WishlistDetailController {
 		if (wishsMap == null) {
 			initialWishMap();
 		}
-		String wishlistId=request.getParameter("wishlistId");
-		
+		String wishlistId = request.getParameter("wishlistId");
+
 		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
-		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResourceByWishListId(Integer.parseInt(wishlistId));
+		List<WishlistDetail> wishlistDetails = wishlistDetailService
+				.getResourceByWishListId(Integer.parseInt(wishlistId));
 		for (WishlistDetail wishlistDetail : wishlistDetails) {
-			if(wishlistDetail.getSourceId() != null &&
-					wishlistDetail.getSourceId().intValue()==WishConstants.wish_source_direct){
-			    WishListJson wishListJson = new WishListJson();
-			    Integer wishId = wishlistDetail.getWishId();
-			    Wish wish = wishsMap.get(wishId);
-			    wishListJson.setWishId(wishId);
-			    wishListJson.setAmount(wishlistDetail.getCount());
-			    wishListJson.setWishName(wish.getWishName());
-			    wishListJson.setWishDesc(wish.getWishDesc());
-			    wishListJson.setImageUrl(wish.getImgUrl());
-			    wishListJson.setPrice(wish.getSellingPrice().doubleValue());
-			    wishListJson.setOriginalPrice(wish.getProcurementCost());
-			    wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
-			    wishListJson.setWishlistId(wishlistDetail.getWishlistId());
-			    wishlistJsons.add(wishListJson);
+			if (wishlistDetail.getSourceId() != null
+					&& wishlistDetail.getSourceId().intValue() == WishConstants.wish_source_direct
+					&& wishlistDetail.getSelected().intValue() == 1) {
+				WishListJson wishListJson = new WishListJson();
+				Integer wishId = wishlistDetail.getWishId();
+				Wish wish = wishsMap.get(wishId);
+				wishListJson.setWishId(wishId);
+				wishListJson.setAmount(wishlistDetail.getCount());
+				wishListJson.setWishName(wish.getWishName());
+				wishListJson.setWishDesc(wish.getWishDesc());
+				wishListJson.setImageUrl(wish.getImgUrl());
+				wishListJson.setPrice(wish.getSellingPrice().doubleValue());
+				wishListJson.setOriginalPrice(wish.getProcurementCost());
+				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
+				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
+				wishListJson.setSelectedPrice(wishlistDetail.getSelectedPrice());
+				wishlistJsons.add(wishListJson);
+			}
+		}
+		return wishlistJsons;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getDirectWishListForPaymnetConfirm", method = RequestMethod.GET, produces = "application/json")
+	public List<WishListJson> getDirectWishListForPaymnetConfirm(HttpServletRequest request) {
+		if (wishsMap == null) {
+			initialWishMap();
+		}
+		String wishlistId = request.getParameter("wishlistId");
+
+		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
+		List<WishlistDetail> wishlistDetails = wishlistDetailService
+				.getSelectedWishlistDetailByWishListId(Integer.parseInt(wishlistId));
+
+		for (WishlistDetail wishlistDetail : wishlistDetails) {
+			if (wishlistDetail.getSourceId() != null
+					&& wishlistDetail.getSourceId().intValue() == WishConstants.wish_source_direct
+					&& wishlistDetail.getSelected().intValue() == 1) {
+				WishListJson wishListJson = new WishListJson();
+				Integer wishId = wishlistDetail.getWishId();
+				Wish wish = wishsMap.get(wishId);
+				wishListJson.setWishId(wishId);
+				wishListJson.setAmount(wishlistDetail.getCount());
+				wishListJson.setWishName(wish.getWishName());
+				wishListJson.setWishDesc(wish.getWishDesc());
+				wishListJson.setImageUrl(wish.getImgUrl());
+				wishListJson.setPrice(wish.getSellingPrice().doubleValue() * wishlistDetail.getCount());
+				// wishListJson.setOriginalPrice(wish.getProcurementCost());
+				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
+				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
+				wishListJson.setSelectedPrice(wishlistDetail.getSelectedPrice());
+				wishlistJsons.add(wishListJson);
+			}
+		}
+		return wishlistJsons;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getDirectWishListForShoppingCart", method = RequestMethod.GET, produces = "application/json")
+	public List<WishListJson> getDirectWishListForShoppingCart(HttpServletRequest request) {
+		if (wishsMap == null) {
+			initialWishMap();
+		}
+		String wishlistId = request.getParameter("wishlistId");
+
+		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
+		List<WishlistDetail> wishlistDetails = wishlistDetailService
+				.getResourceByWishListId(Integer.parseInt(wishlistId));
+		for (WishlistDetail wishlistDetail : wishlistDetails) {
+			if (wishlistDetail.getSourceId() != null
+					&& wishlistDetail.getSourceId().intValue() == WishConstants.wish_source_direct) {
+				WishListJson wishListJson = new WishListJson();
+				Integer wishId = wishlistDetail.getWishId();
+				Wish wish = wishsMap.get(wishId);
+				wishListJson.setWishId(wishId);
+				wishListJson.setAmount(wishlistDetail.getCount());
+				wishListJson.setWishName(wish.getWishName());
+				wishListJson.setWishDesc(wish.getWishDesc());
+				wishListJson.setImageUrl(wish.getImgUrl());
+				wishListJson.setPrice(wish.getSellingPrice().doubleValue());
+				wishListJson.setOriginalPrice(wish.getProcurementCost());
+				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
+				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
+				wishListJson.setSelectedPrice(wishlistDetail.getSelectedPrice());
+				wishlistJsons.add(wishListJson);
 			}
 		}
 		return wishlistJsons;
@@ -206,51 +334,23 @@ public class WishlistDetailController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/selectOneItem", method = RequestMethod.GET, produces = "application/json")
-	public ShoppingCart selectOneItem(HttpServletRequest request) {
+	@RequestMapping(value = "/loadShoppingCart", method = RequestMethod.GET, produces = "application/json")
+	public ShoppingCart loadShoppingCart(HttpServletRequest request) {
 
 		HttpSession session = request.getSession(true);
 
 		User user = (User) session.getAttribute("user");
 
-		String wishlistDetailId = request.getParameter("wishlistDetailId");
 		String wishlistId = request.getParameter("wishlistId");
-
-		String action = request.getParameter("action");
+		Wishlist wishlist = wishlistService.getResource(Integer.parseInt(wishlistId));
 
 		ShoppingCart shoppingCart = new ShoppingCart();
-		
-		Wishlist wishlist = wishlistService.getResource(Integer.parseInt(wishlistId));
-		WishlistDetail wishlistDetail = wishlistDetailService.getResource(Integer.parseInt(wishlistDetailId));
-		if (Integer.parseInt(action) == 1) {
-			wishlistDetail.setSelected(1);
 
-			wishlist.setPrice(wishlist.getPrice()
-					.add(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
-			wishlist.setOriginalPirce(wishlist.getOriginalPirce()
-					.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
-			
-
-		} else {
-			
-			wishlist.setPrice(wishlist.getPrice()
-					.subtract(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
-			
-			wishlist.setOriginalPirce(wishlist.getOriginalPirce()
-					.subtract(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
-
-			wishlistDetail.setSelected(0);
-		}
-		
-		wishlistService.updateResource(wishlist);
-		
-		
-		wishlistDetailService.updateResource(wishlistDetail);
-
-		List<WishlistDetail> wishlistDetails = wishlistDetailService
-				.getResourceByWishListId(wishlistDetail.getWishlistId());
+		List<WishlistDetail> wishlistDetails = wishlistDetailService.getResourceByWishListId(wishlist.getWishlistId());
 
 		Integer allSelected = 0;
+
+		boolean selected = false;
 
 		Integer count = 0;
 
@@ -263,14 +363,113 @@ public class WishlistDetailController {
 		while (iterator.hasNext()) {
 			WishlistDetail detail = (WishlistDetail) iterator.next();
 
-			selectedWishDetailIdList.add(detail.getWishlistDetailId());
-
 			if (detail.getSelected().intValue() == 1) {
 				count = count + detail.getCount();
+				selectedWishDetailIdList.add(detail.getWishlistDetailId());
 
 				orderTotalCost = orderTotalCost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
 			}
+		}
 
+		if (selectedWishDetailIdList.size() == wishlistDetails.size() && selectedWishDetailIdList.size() > 0) {
+			allSelected = 1;
+		}
+
+		shoppingCart.setSelectedWishDetailIdList(selectedWishDetailIdList);
+
+		shoppingCart.setCount(count);
+
+		shoppingCart.setGrossFee(orderTotalCost);
+
+		shoppingCart.setUserId(user.getUsrId());
+
+		shoppingCart.setAllSelected(allSelected);
+
+		return shoppingCart;
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/selectOneItem", method = RequestMethod.GET, produces = "application/json")
+	public ShoppingCart selectOneItem(HttpServletRequest request) {
+
+		HttpSession session = request.getSession(true);
+
+		User user = (User) session.getAttribute("user");
+
+		String wishlistDetailId = request.getParameter("wishDetaillistId");
+		String wishlistId = request.getParameter("wishlistId");
+
+		// String action = request.getParameter("action");
+
+		BigDecimal price = BigDecimal.ZERO;
+		BigDecimal originalPrice = BigDecimal.ZERO;
+
+		ShoppingCart shoppingCart = new ShoppingCart();
+
+		Wishlist wishlist = wishlistService.getResource(Integer.parseInt(wishlistId));
+		WishlistDetail wishlistDetail = wishlistDetailService.getResource(Integer.parseInt(wishlistDetailId));
+
+		if (wishlistDetail.getSelected().intValue() == 0) {
+			wishlistDetail.setSelected(1);
+
+			if (wishlistDetail.getPrice() != null) {
+				price = price.add(wishlist.getPrice()
+						.add(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
+			}
+
+			if (wishlist.getOriginalPirce() != null && wishlistDetail.getOriginalPrice() != null) {
+				originalPrice = originalPrice.add(wishlist.getOriginalPirce()
+						.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
+
+			}
+			wishlist.setPrice(price);
+			wishlist.setOriginalPirce(originalPrice);
+		} else {
+			if (wishlistDetail.getPrice() != null) {
+				wishlist.setPrice(wishlist.getPrice()
+						.subtract(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
+			}
+			if (wishlistDetail.getOriginalPrice() != null) {
+				wishlist.setOriginalPirce(wishlist.getOriginalPirce().subtract(
+						wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
+			}
+			wishlistDetail.setSelected(0);
+		}
+
+		wishlistService.updateResource(wishlist);
+
+		wishlistDetailService.updateResource(wishlistDetail);
+
+		List<WishlistDetail> wishlistDetails = wishlistDetailService
+				.getResourceByWishListId(wishlistDetail.getWishlistId());
+
+		Integer allSelected = 0;
+
+		boolean selected = false;
+
+		Integer count = 0;
+
+		BigDecimal orderTotalCost = BigDecimal.ZERO;
+
+		List<Integer> selectedWishDetailIdList = new ArrayList<Integer>();
+
+		Iterator iterator = wishlistDetails.iterator();
+
+		while (iterator.hasNext()) {
+			WishlistDetail detail = (WishlistDetail) iterator.next();
+
+			if (detail.getSelected().intValue() == 1) {
+				count = count + detail.getCount();
+				selectedWishDetailIdList.add(detail.getWishlistDetailId());
+				if (detail.getPrice() != null) {
+					orderTotalCost = orderTotalCost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
+				}
+			}
+		}
+
+		if (selectedWishDetailIdList.size() == wishlistDetails.size() && selectedWishDetailIdList.size() > 0) {
+			allSelected = 1;
 		}
 
 		shoppingCart.setSelectedWishDetailIdList(selectedWishDetailIdList);
@@ -297,13 +496,34 @@ public class WishlistDetailController {
 
 		String wishlistId = request.getParameter("wishlistId");
 
-		String action = request.getParameter("action");
+		System.out.println(" wishlistId======== " + wishlistId);
+
+		// Wishlist wishlist =
+		// wishlistService.getResource(Integer.parseInt(wishlistId));
+
+		boolean allSelected = true;
+		List<WishlistDetail> wishlistDetails = wishlistDetailService
+				.getResourceByWishListId(Integer.parseInt(wishlistId));
+
+		Iterator iterator = wishlistDetails.iterator();
+
+		while (iterator.hasNext()) {
+
+			WishlistDetail wishlistDetail = (WishlistDetail) iterator.next();
+
+			if (wishlistDetail.getSelected().intValue() == 0) {
+				allSelected = false;
+				break;
+			}
+
+		}
+		// String action = request.getParameter("action");
 
 		ShoppingCart shoppingCart = new ShoppingCart();
 
-		List<WishlistDetail> wishlistDetailList = wishlistDetailService.getResource();
+		System.out.println(" allSelected======== " + allSelected);
 
-		if (Integer.parseInt(action) == 1) {
+		if (!allSelected) {
 			shoppingCart.setAllSelected(1);
 		} else {
 
@@ -311,49 +531,49 @@ public class WishlistDetailController {
 
 		}
 
-		Integer allSelected = 0;
-
 		Integer count = 0;
-
-		BigDecimal orderTotalCost = BigDecimal.ZERO;
 
 		List<Integer> selectedWishDetailIdList = new ArrayList<Integer>();
 
-		Iterator iterator = wishlistDetailList.iterator();
+		List<WishlistDetail> wishlistDetailList = wishlistDetailService
+				.getResourceByWishListId(Integer.parseInt(wishlistId));
 
-		while (iterator.hasNext()) {
-			WishlistDetail detail = (WishlistDetail) iterator.next();
+		Iterator iter = wishlistDetailList.iterator();
 
-			selectedWishDetailIdList.add(detail.getWishlistDetailId());
+		while (iter.hasNext()) {
 
-			if (Integer.parseInt(action) == 1) {
-				count = count + detail.getCount();
+			WishlistDetail wishDetail = (WishlistDetail) iter.next();
 
-				orderTotalCost = orderTotalCost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
+			if (shoppingCart.getAllSelected().intValue() == 0) {
+				wishDetail.setSelected(0);
+				wishlistDetailService.updateResource(wishDetail);
+				// price = BigDecimal.ZERO;
+				// originalPrice = BigDecimal.ZERO;
+			}
 
-				detail.setSelected(1);
-				allSelected = 1;
-				wishlistDetailService.updateResource(detail);
-			} else {
-
-				detail.setSelected(0);
-				allSelected = 0;
-
-				wishlistDetailService.updateResource(detail);
-
+			else {
+				wishDetail.setSelected(1);
+				wishlistDetailService.updateResource(wishDetail);
+				// price=price.add(wishDetail.getPrice().multiply(new
+				// BigDecimal(wishDetail.getCount())));
+				// originalPrice=originalPrice.add(wishDetail.getOriginalPrice().multiply(new
+				// BigDecimal(wishDetail.getCount())));
+				selectedWishDetailIdList.add(wishDetail.getWishlistDetailId());
 			}
 
 		}
+
+		Wishlist wishlist = this.getCalculatedWishList(Integer.parseInt(wishlistId));
+
+		wishlistService.updateResource(wishlist);
 
 		shoppingCart.setSelectedWishDetailIdList(selectedWishDetailIdList);
 
 		shoppingCart.setCount(count);
 
-		shoppingCart.setGrossFee(orderTotalCost);
+		shoppingCart.setGrossFee(wishlist.getPrice());
 
 		shoppingCart.setUserId(user.getUsrId());
-
-		shoppingCart.setAllSelected(allSelected);
 
 		return shoppingCart;
 
@@ -366,77 +586,73 @@ public class WishlistDetailController {
 		return wishlistDetails.size();
 	}
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public ModelAndView editWishlistDetailPage(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("edit-wishlistDetail-form");
-		WishlistDetail wishlistDetail = wishlistDetailService.getResource(id);
-		modelAndView.addObject("wishlistDetail", wishlistDetail);
-		return modelAndView;
-	}
+	// @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	// public ModelAndView editWishlistDetailPage(@PathVariable Integer id) {
+	// ModelAndView modelAndView = new ModelAndView("edit-wishlistDetail-form");
+	// WishlistDetail wishlistDetail = wishlistDetailService.getResource(id);
+	// modelAndView.addObject("wishlistDetail", wishlistDetail);
+	// return modelAndView;
+	// }
+	@ResponseBody
+	@RequestMapping(value = "/oneMore", method = RequestMethod.GET)
+	public ModelAndView oneMore(HttpServletRequest request) {
 
-	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView edditingWishlistDetail(HttpServletRequest request, @PathVariable Integer id) {
-		int count = Integer.valueOf(request.getParameter("count"));
-		WishlistDetail wishlistDetail = wishlistDetailService.getResource(id);
+		String wishDetailId = request.getParameter("wishDetailId");
 
-		HttpSession session = request.getSession(true);
+		WishlistDetail wishlistDetail = wishlistDetailService.getResource(Integer.parseInt(wishDetailId));
 
-		User user = (User) session.getAttribute("user");
-		Wishlist wishlist = new Wishlist();
-
-		List<Wishlist> wishList = wishlistService.getResources();
-
-		Iterator iterator = wishList.iterator();
-
-		while (iterator.hasNext()) {
-
-			wishlist = (Wishlist) iterator.next();
-
-			if (wishlist.getUserId().intValue() == user.getUsrId().intValue()) {
-				break;
-
-			}
-
-		}
-
-		System.out.println("  edditingWishlistDetail    count =" + count + "  wishlistDetail.getCount()="
-				+ wishlistDetail.getCount());
-
-		int difference = count - wishlistDetail.getCount();
-
-		wishlist.setPrice(wishlist.getPrice().add(wishlistDetail.getPrice().multiply(new BigDecimal(difference))));
-
-		wishlist.setOriginalPirce(wishlist.getOriginalPirce()
-				.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(difference))));
-
+		int count = wishlistDetail.getCount() + 1;
 		wishlistDetail.setCount(count);
+		wishlistDetailService.updateResource(wishlistDetail);
+
+		Wishlist wishlist = this.getCalculatedWishList(wishlistDetail.getWishlistId());
 
 		wishlistService.updateResource(wishlist);
-
-		wishlistDetailService.updateResource(wishlistDetail);
 
 		return null;
 	}
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteWishlistDetail(@PathVariable Integer id) {
-		ModelAndView modelAndView = new ModelAndView("home");
+	@ResponseBody
+	@RequestMapping(value = "/subtraction", method = RequestMethod.GET)
+	public ModelAndView subtraction(HttpServletRequest request) {
 
-		WishlistDetail wishlistDetail = wishlistDetailService.getResource(id);
+		String wishDetailId = request.getParameter("wishDetailId");
 
-		// update wishList
-		Wishlist wishlist = wishlistService.getResource(wishlistDetail.getWishlistId());
+		WishlistDetail wishlistDetail = wishlistDetailService.getResource(Integer.parseInt(wishDetailId));
 
-		wishlist.setPrice(wishlist.getPrice().subtract(wishlistDetail.getPrice()));
+		int count = wishlistDetail.getCount() - 1;
+		wishlistDetail.setCount(count);
 
-		wishlist.setOriginalPirce(wishlist.getOriginalPirce().subtract(wishlistDetail.getOriginalPrice()));
-		wishlistDetailService.deleteResource(id);
+		if (wishlistDetail.getCount().intValue() == 0) {
+
+			wishlistDetailService.deleteResource(Integer.parseInt(wishDetailId));
+
+		} else {
+
+			wishlistDetailService.updateResource(wishlistDetail);
+
+		}
+
+		Wishlist wishlist = this.getCalculatedWishList(wishlistDetail.getWishlistId());
+
+		wishlistService.updateResource(wishlist);
+		return null;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public void delete(HttpServletRequest request) {
+
+		String wishDetailId = request.getParameter("wishDetailId");
+
+		WishlistDetail wishlistDetail = wishlistDetailService.getResource(Integer.parseInt(wishDetailId));
+
+		wishlistDetailService.deleteResource(Integer.parseInt(wishDetailId));
+
+		Wishlist wishlist = this.getCalculatedWishList(wishlistDetail.getWishlistId());
 
 		wishlistService.updateResource(wishlist);
 
-		String message = "WishlistDetail was successfully deleted.";
-		modelAndView.addObject("message", message);
-		return modelAndView;
 	}
 
 	private void initialWishMap() {
@@ -446,6 +662,47 @@ public class WishlistDetailController {
 		for (Wish wish : wishs) {
 			wishsMap.put(wish.getWishId(), wish);
 		}
+
+	}
+
+	public Wishlist getCalculatedWishList(int wishListId) {
+
+		Wishlist wishlist = wishlistService.getResource(wishListId);
+
+		List<WishlistDetail> wishlistDetails = wishlistDetailService.getSelectedWishlistDetailByWishListId(wishListId);
+
+		BigDecimal price = BigDecimal.ZERO;
+		BigDecimal originalPirce = BigDecimal.ZERO;
+
+		if (wishlistDetails != null && wishlistDetails.size() > 0) {
+
+			Iterator iterator = wishlistDetails.iterator();
+
+			while (iterator.hasNext()) {
+
+				WishlistDetail detail = (WishlistDetail) iterator.next();
+
+				if (detail.getPrice() != null) {
+
+					price = price.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
+				}
+
+				if (detail.getOriginalPrice() != null) {
+
+					originalPirce = originalPirce
+							.add(detail.getOriginalPrice().multiply(new BigDecimal(detail.getCount())));
+
+				}
+
+			}
+
+		}
+
+		wishlist.setPrice(price);
+
+		wishlist.setOriginalPirce(originalPirce);
+
+		return wishlist;
 
 	}
 

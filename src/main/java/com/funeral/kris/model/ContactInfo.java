@@ -24,6 +24,16 @@ public class ContactInfo {
 	private Integer gender;
 	@Column(name = "status_id")
 	private Integer statusId;
+	@Column(name = "express_method")
+	private Integer expressMethod;
+	public Integer getExpressMethod() {
+		return expressMethod;
+	}
+
+	public void setExpressMethod(Integer expressMethod) {
+		this.expressMethod = expressMethod;
+	}
+
 	@Column(name = "province")
 	private String province;
 	@Column(name = "city")

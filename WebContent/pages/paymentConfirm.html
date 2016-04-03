@@ -306,20 +306,45 @@ span {
   app.controller('product', function($scope, $http) {
 	    $http.get("/funeral/wishlist/list").success(function(response) {
 	         $scope.wishList = response[0];
-			$http.get("/funeral/wishlistDetail/getDirectWishList?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
-	            $scope.wishListDetails = response;
+			$http.get("/funeral/wishlistDetail/getDirectWishListForPaymnetConfirm?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	            $scope.grossPay = response;
 	        });
+	        
+	          $http.get("/funeral/alipay/getTotalPay?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	    $scope.totalPay = response;
+	}); 
 	    });
 	    
-	     $http.get("/funeral/expressController/getUncompledExpressInfoByUserId?statusId=2").success(function(response) {
-	         $scope.express = response[0];
-			
-	    }); 
+	    $http.get("/funeral/expressController/getUsingExpressInfoByUserId").success(function(response) {
+	    $scope.currenctExpress = response;
+	});
+
 	    
+	   
 	    
-	    
+	  $http.get("/funeral/expressController/getUsingExpressBean").success(function(response) {
+	    $scope.expressBean = response;
+	});  
 	    
     });
+	
+	
+	$("#nextButton").click(function() {
+	    var datadata = JSON.stringify($scope.curUser);
+	    
+	  //  alert(" datadata = "+datadata);
+	    $http({
+            method: "POST",
+            url:"/funeral/expressController/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+        });
+	});
+	
 	
 </script>
 
@@ -372,7 +397,7 @@ span {
 				</div>
 				<div class="taocanDiv">
 				    <div class="singleConfirm">
-						<span class="itemName">顶级套餐</span><span class="itemPriceValue">￥{{wishList.price}}</span><span class="itemAmoutValue">1</span>
+						<span class="itemName">顶级套餐</span><span class="itemPriceValue">0</span><span class="itemAmoutValue">0</span>
 					</div>
 				    <div class="taocanDesc">
 					    <div class="descTop">
@@ -390,7 +415,7 @@ span {
 				<div class="singleConfirmTitle">
 				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
 				</div>
-				<div class="singleConfirm" ng-repeat="wishListDetail in wishListDetails">
+				<div class="singleConfirm" ng-repeat="wishListDetail in grossPay">
 					<span class="itemName">{{wishListDetail.wishName}}</span><span class="itemPriceValue">￥{{wishListDetail.price}}</span><span class="itemAmoutValue">{{wishListDetail.amount}}</span>
 				</div>
 						</div>
@@ -401,13 +426,13 @@ span {
 				<div class="singleConfirmTitle">
 				    <span>地址</span>
 				</div>
-				<p class="rightInfo">陆寻</p>
-				<p class="rightInfo">上海市长宁区武胜路23弄34号</p>
+				<p class="rightInfo">{{currenctExpress.receiverName}}</p>
+				<p class="rightInfo">{{expressBean.province+currenctExpress.city+currenctExpress.detailAddress}}</p>
 				<div class="singleConfirmTitle">
 				    <span>寄送方式</span>
 				</div>
-				<p class="rightInfo">标准</p>
-				<p class="rightInfo">(免费, 2-3日寄到)</p>
+				<p class="rightInfo">{{expressBean.expressTitle}}</p>
+				<p class="rightInfo">{{expressBean.expressDescription}}</p>
 			</div>
 		</div>
 		<div id="priceInfo">
@@ -420,11 +445,11 @@ span {
 			</div>
 			<div class="summ">
 			    <p class="title">邮寄</p>
-				<p>免费</p>
+				<p>￥：{{currenctExpress.expressFee}}</p>
 			</div>
 			<div class="summ">
 			    <p class="title">总计</p>
-				<p class="final">￥{{wishList.price}}</p>
+				<p class="final">￥{{totalPay}}</p>
 			</div>
 		</div>
 	</div>
