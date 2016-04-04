@@ -140,6 +140,13 @@ public class AlipayController {
 
 	@RequestMapping(value = "/pay", method = RequestMethod.GET)
 	public String pay(ServletRequest request) {
+		
+		
+		 
+		 
+		 
+		 
+		 
 
 		try {
 

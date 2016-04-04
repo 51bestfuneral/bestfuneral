@@ -118,6 +118,8 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 		feeCollectionDAO.save(feeCollection);
 		
 		
+		
+		
 		//修改wishlist
 		
 		int userId=Integer.parseInt(params.get("user_id"));

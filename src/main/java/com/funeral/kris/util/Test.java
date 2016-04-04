@@ -1,15 +1,15 @@
 package com.funeral.kris.util;
 
-import com.funeral.kris.pay.dao.PayDAOImpl;
+import java.math.BigDecimal;
 
 public class Test {
 
 	public static void main(String[] args) {
 	
 		
-		PayDAOImpl  dao=new PayDAOImpl();
+		String test="1";
 		
-		System.out.println(dao.getOrderByOrderNo("1").getOrderId());
+		System.out.println(new BigDecimal(test).setScale(2, BigDecimal.ROUND_HALF_UP));
 		
 	}
 

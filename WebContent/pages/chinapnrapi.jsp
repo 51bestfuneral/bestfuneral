@@ -16,11 +16,14 @@
     String 	Version			= ChinapnrUtil.version;
     String 	CmdId			= "Buy";
     String 	MerId			= ChinapnrUtil.merId;
-    String 	OrdAmt			= request.getParameter("OrdAmt").trim();
+    String 	OrdAmt			= request.getParameter("OrdAmt").trim();//两位数
+    
+    OrdAmt=new java.math.BigDecimal(OrdAmt).setScale(2, java.math.BigDecimal.ROUND_HALF_UP).toString();
+    
     String 	CurCode			= "RMB";
     String 	Pid				= "";//request.getParameter("Pid").trim();
     String 	RetUrl			= "http://121.42.182.117/funeral/pages/paymentFinal.html";
-    String 	BgRetUrl		= "http://121.42.182.117/funeral/pages/notify_url.jsp";
+    String 	BgRetUrl		= "http://121.42.182.117/funeral/pages/Buy_notify_url.jsp";
     String 	MerPriv			= ChinapnrUtil.merPriv;
     String 	GateId			= ChinapnrUtil.gateId;
     String 	UsrMp			= request.getParameter("UsrMp").trim();
