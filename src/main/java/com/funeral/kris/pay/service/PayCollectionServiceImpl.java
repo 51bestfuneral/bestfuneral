@@ -1,50 +1,35 @@
-package com.funeral.kris.service;
+package com.funeral.kris.pay.service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.EXPRESS;
-import com.funeral.kris.controller.ContactInfoController;
-import com.funeral.kris.dao.FeeCollectionDAO;
-import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.pay.dao.PayDAO;
+import com.funeral.kris.pay.dao.PayDAOImpl;
 import com.funeral.kris.util.AlipayUtil;
 
-@Service
-@Transactional
-public class FeeCollectionServiceImpl implements FeeCollectionService {
-	@Autowired
-	private FeeCollectionDAO feeCollectionDAO;
-	@Autowired
-	private OrderService orderService;
-	@Autowired
-	private WishlistService wishlistService;
-	@Autowired
-	private ExpressInfoService expressInfoService;
-	@Autowired
-	private ContactInfoService contactInfoService;
-	
-	@Autowired
-	private WishlistDetailService wishlistDetailService;
+public class PayCollectionServiceImpl implements PayCollectionService {
+
+	private PayDAO dao;
+
+	public PayCollectionServiceImpl() {
+
+		this.dao = new PayDAOImpl();
+
+	}
+
 	@Override
 	public void initFeeCollection(String orderNo) {
-		
-		System.out.println("----------------  orderNo="+orderNo+"   orderService="+orderService);
-		
-		
-		Order  order=	orderService.getResourceByOrderNo(orderNo);
+
+		Order order = dao.getOrderByOrderNo(orderNo);
 
 		TFeeCollection feeCollection = this.loadPayableFeeCollectionByOrderNo(orderNo);
 
@@ -63,7 +48,7 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			feeCollection.setSubject(orderNo);
 			feeCollection.setTradeStatus(COLLECTION.collection_trade_status_init);
 
-			feeCollectionDAO.save(feeCollection);
+			dao.createFeeCollection(feeCollection);
 
 		} else {
 			feeCollection.setAmount(order.getPayableAmount());
@@ -76,24 +61,43 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			feeCollection.setStatusId(COLLECTION.collection_init);
 			feeCollection.setSubject(orderNo);
 			feeCollection.setTradeStatus(COLLECTION.collection_trade_status_init);
-			feeCollectionDAO.save(feeCollection);
-
+			dao.saveFeeCollection(feeCollection);
 		}
 
 	}
 
 	@Override
 	public int completeCollection(Map<String, String> params) {
+		
+		
+		System.out.println(this.getClass()+"   completeCollection    params="+params);
+
 
 		String orderNo = params.get("out_trade_no");
+		
+		
+		System.out.println(this.getClass()+"   completeCollection    orderNo="+orderNo);
+
 
 		TFeeCollection feeCollection = this.loadPayableFeeCollectionByOrderNo(orderNo);
 		
+		
+		System.out.println(this.getClass()+"   completeCollection    feeCollection="+feeCollection);
+		
+		
 		if(feeCollection==null){
 			
-			feeCollection=new TFeeCollection();
+			return -1;
 		}
 
+		
+		
+		
+		
+		System.out.println(this.getClass()+"   completeCollection    ------------------");
+		
+//		feeCollection.setOrderId(orderId);
+		feeCollection.setOrderNo(orderNo);
 		feeCollection.setNotifyTime(params.get("notify_time"));
 		feeCollection.setAmount(new BigDecimal(params.get("price")));
 		feeCollection.setNotifyType(params.get("notify_type"));
@@ -115,25 +119,36 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 //		feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));
 		feeCollection.setUseCoupon(params.get("use_coupon"));
 		feeCollection.setIsTotalFeeAdjust(params.get("is_total_fee_adjust"));
-		feeCollectionDAO.save(feeCollection);
+		dao.saveFeeCollection(feeCollection);
+		
+		
+		Order order=dao.getOrderByOrderNo(orderNo);
+
 		
 		
 		//修改wishlist
 		
-		int userId=Integer.parseInt(params.get("user_id"));
+		int userId=order.getUserId();
 		
-		Wishlist  wishlist =wishlistService.getResourceByUserId(userId);
+		System.out.println(this.getClass()+"   completeCollection    ---------------userId---"+userId);
+
+		
+		
+		Wishlist  wishlist =dao.getwishListByUserId(userId);
 		
 		wishlist.setPrice(BigDecimal.ZERO);
 		
 		wishlist.setOriginalPirce(BigDecimal.ZERO);
 		
-		wishlistService.updateResource(wishlist);
+		dao.updateWishlist(wishlist);
 		
 		//修改wishlist detail
 		
 		
-		List<WishlistDetail>  wishlistDetailList= wishlistDetailService.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
+		System.out.println(this.getClass()+"   completeCollection    ---------------getWishlistId---"+wishlist.getWishlistId());
+
+		
+		List<WishlistDetail>  wishlistDetailList= dao.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
 		
 		
 		Iterator  wishlistDetailListIterator=     wishlistDetailList.iterator();
@@ -143,64 +158,66 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			WishlistDetail  detail=	(WishlistDetail) wishlistDetailListIterator.next();
 			
 			
-			wishlistDetailService.deleteResource(detail.getWishlistDetailId());
+			dao.deleteWishlistDetail(detail.getWishlistDetailId());
 			
 			
 		}
 		
 		
-		
+		System.out.println(this.getClass()+"   completeCollection    ---------------order---"+orderNo);
+
 		//修改Order状态
 		
-		Order  order=	orderService.getResourceByOrderNo(orderNo);
+//		Order  order=	dao.getOrderByOrderNo(orderNo);
 
 		order.setStatusId(AlipayUtil.order_completed);
 		
 		//修改express 支付成功
 		
-		List<ExpressInfo>  expressInfoList=expressInfoService.getUncompledExpressInfoByUserId(userId, EXPRESS.express_status_init);
+		List<ExpressInfo>  expressInfoList=dao.getUncompledExpressInfoByUserId(userId, EXPRESS.express_status_init);
+		
+		System.out.println(this.getClass()+"   completeCollection    ---------------expressInfoList---"+expressInfoList);
+
 		
 		ExpressInfo  currentExpress=expressInfoList.get(0);
 		
 		currentExpress.setStatusId(EXPRESS.express_status_paied);	
 		
-		expressInfoService.updateResource(currentExpress);
+		dao.updateExpressInfo(currentExpress);
 		
 		//修改联系人
 		
-		ContactInfo  contactInfo=contactInfoService.getUsingContacter(userId);
-		
-		
-		
-		contactInfo.setStatusId(ContactInfoController.IN_RELEASED);
-		
-		contactInfoService.updateResource(contactInfo);
+//		ContactInfo  contactInfo=contactInfoService.getUsingContacter(userId);
+//		
+//		
+//		
+//		contactInfo.setStatusId(ContactInfoController.IN_RELEASED);
+//		
+//		contactInfoService.updateResource(contactInfo);
 		
 		return feeCollection.getCollectionId();
 
+	
 	}
 
 	@Override
 	public void deleteResource(int collectionId) {
-		feeCollectionDAO.delete(collectionId);
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public List<TFeeCollection> loadFeeCollection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-		List<TFeeCollection> tFeeCollectionList = new ArrayList<TFeeCollection>();
-		Iterable<TFeeCollection> iterator = feeCollectionDAO.findAll();
-		if (iterator == null) {
-			return new ArrayList<TFeeCollection>();
-		}
-		Iterator<TFeeCollection> iter = iterator.iterator();
-		while (iter.hasNext()) {
-
-			TFeeCollection collection = iter.next();
-			tFeeCollectionList.add(collection);
-		}
-		return tFeeCollectionList;
-
+	@Override
+	public TFeeCollection loadPayableFeeCollectionByOrderNo(String orderNo) {
+		
+		
+		
+		return dao.loadPayableFeeCollectionByOrderNo(orderNo);
 	}
 
 	@Override
@@ -217,57 +234,8 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 
 	@Override
 	public List<TFeeCollection> loadFeeCollectionByOrderNo(String orderNo) {
-
-		List<TFeeCollection> collectionList = this.loadFeeCollection();
-
-		List<TFeeCollection> feeCollectionList = new ArrayList<TFeeCollection>();
-
-		if (collectionList == null) {
-
-			return new ArrayList<TFeeCollection>();
-
-		} else {
-
-			Iterator iterator = collectionList.iterator();
-
-			while (iterator.hasNext()) {
-				TFeeCollection collection = (TFeeCollection) iterator.next();
-
-				feeCollectionList.add(collection);
-			}
-
-		}
-
-		return feeCollectionList;
-	}
-
-	@Override
-	public TFeeCollection loadPayableFeeCollectionByOrderNo(String orderNo) {
-
-		List<TFeeCollection> tFeeCollectionList = this.loadFeeCollectionByOrderNo(orderNo);
-
-		if (tFeeCollectionList == null || tFeeCollectionList.size() > 0) {
-
-			return null;
-		} else {
-
-			Iterator iterator = tFeeCollectionList.iterator();
-
-			while (iterator.hasNext()) {
-
-				TFeeCollection collection = (TFeeCollection) iterator.next();
-
-				if (collection.getOrderNo().equals(orderNo)
-						&& collection.getStatusId().intValue() != COLLECTION.collection_pay_success
-						&& COLLECTION.collection_pay_expired != collection.getStatusId().intValue()) {
-					
-					return collection;
-
-				}
-
-			}
-
-		}
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

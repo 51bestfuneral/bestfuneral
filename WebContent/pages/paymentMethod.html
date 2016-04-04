@@ -239,16 +239,18 @@ span {
 			});
 	    
 	    	$scope.pay = function(){ 
-	       	 var payType = $("input[name='optionsRadios']:checked").val();
+	    		
+	    		
+	    		
+	    		 $("#alipayButton").click();
+	       	var payType = $("input[name='optionsRadios']:checked").val();
 	      	  if(payType==1){
 	      		  $("#chinapnrButton").click();
 	      	  }
 	   		  if(payType==2){
 	   			  $("#alipayButton").click();
-	      	  }
-	   		if(payType==3){
-	   			  $("#chinapnr2Button").click();
-	      	  }
+	     	  }
+	 
 
 	   };
 	    
@@ -335,6 +337,8 @@ span {
 					</form>
 				</div>
 			</div>
+<!--			
+			
 			<div class="singleMethod last">
 			    <div class="methodTop">
 				    <img></img>
@@ -343,53 +347,11 @@ span {
 				<div class="methodBottom">
 				    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option1">
 			        <span class="radioDesc">分期支付</span>
-				</div>
+				</div>-->
 			</div>
 		</div>
-		<div id="methodInfo">
-		    <div class="longField fieldInd"  >
-			    <div class="fieldDesc">
-				    <p>信用卡人姓名</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control" id="creditName"></input>
-				</div>
-				<div class="inputSub">
-				    <span class="glyphicon glyphicon-user"></span>
-				</div>
-			</div>
-			<div class="longField fieldInd lastField"  >
-			    <div class="fieldDesc">
-				    <p>卡号</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control"  id="creditNo"></input>
-				</div>
-				<div class="inputSub">
-				    <span class="glyphicon glyphicon-credit-card"></span>
-				</div>
-			</div>
-			<div class="shortField fieldInd" >
-			    <div class="fieldDesc">
-				    <p>到期日</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control"  id="creditExpiredDate"></input>
-				</div>
-				<div class="inputSub">
-				    <span class="glyphicon glyphicon-time"></span>
-				</div>
-			</div>
-			<div class="shortField fieldInd">
-			    <div class="fieldDesc">
-				    <p>CVV / CVC *</p>
-				</div>
-				<div class="fieldContent">
-				    <input type="text" class="form-control"  id="CVcode"></input>
-				</div>
-				<div class="inputSub">
-				    <span class="glyphicon glyphicon-heart-empty"></span>
-				</div>
+	
+			
 			</div>
 		</div>
 	</div>
@@ -419,13 +381,7 @@ window.onload=function(){
     $("#prevButton").click(function () {
 	    window.location.href='paymentConfirm.html';
 	});
-$("#optionsRadios1").attr('disabled',true); 
-$("#optionsRadios2").attr('checked','checked'); 
-$("#creditName").attr('disabled',true); 
-$("#creditNo").attr('disabled',true); 
-$("#creditExpiredDate").attr('disabled',true); 
-$("#CVcode").attr('disabled',true); 	
-$("#optionsRadios3").attr('disabled',true); 	
+
 
 	
 $("#optionsRadios1").click(function () {

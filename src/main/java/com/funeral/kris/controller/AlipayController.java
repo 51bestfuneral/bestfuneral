@@ -44,23 +44,6 @@ public class AlipayController {
 	@ResponseBody
 	@RequestMapping(value = "/confirmPay", method = RequestMethod.GET)
 	public int confirmPay(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		User user = (User) session.getAttribute("user");
-
-	//	System.out.println("---------------------confirmPay--------------------getUsrId----"+user.getUsrId()+"  feeMap="+AlipayUtil.feeMap);
-
-
-
-		if (AlipayUtil.feeMap.containsKey("26")) {
-			Map<String, String> params =AlipayUtil.feeMap.get("26");
-			feeCollectionService.completeCollection(params);
-			System.out.println("---------------------confirmPay--------------------params----"+params);
-
-			AlipayUtil.feeMap.remove("26");
-		}
-
 		return 1;
 	}
 	

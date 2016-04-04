@@ -198,7 +198,7 @@ public class WishlistDetailController {
 				wishListJson.setWishName(wish.getWishName());
 				wishListJson.setWishDesc(wish.getWishDesc());
 				wishListJson.setImageUrl(wish.getImgUrl());
-				wishListJson.setPrice(wish.getSellingPrice().doubleValue());
+				wishListJson.setPrice(wish.getSellingPrice() );
 				wishListJson.setOriginalPrice(wish.getProcurementCost());
 				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
@@ -233,7 +233,7 @@ public class WishlistDetailController {
 				wishListJson.setWishName(wish.getWishName());
 				wishListJson.setWishDesc(wish.getWishDesc());
 				wishListJson.setImageUrl(wish.getImgUrl());
-				wishListJson.setPrice(wish.getSellingPrice().doubleValue() * wishlistDetail.getCount());
+				wishListJson.setPrice(new BigDecimal(wish.getSellingPrice().doubleValue() * wishlistDetail.getCount()));
 				// wishListJson.setOriginalPrice(wish.getProcurementCost());
 				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
@@ -266,7 +266,7 @@ public class WishlistDetailController {
 				wishListJson.setWishName(wish.getWishName());
 				wishListJson.setWishDesc(wish.getWishDesc());
 				wishListJson.setImageUrl(wish.getImgUrl());
-				wishListJson.setPrice(wish.getSellingPrice().doubleValue());
+				wishListJson.setPrice(wish.getSellingPrice());
 				wishListJson.setOriginalPrice(wish.getProcurementCost());
 				wishListJson.setWishDetailId(wishlistDetail.getWishlistDetailId());
 				wishListJson.setWishlistId(wishlistDetail.getWishlistId());
@@ -420,8 +420,8 @@ public class WishlistDetailController {
 						.add(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 			}
 
-			if (wishlist.getOriginalPirce() != null && wishlistDetail.getOriginalPrice() != null) {
-				originalPrice = originalPrice.add(wishlist.getOriginalPirce()
+			if (wishlist.getOriginalPrice() != null && wishlistDetail.getOriginalPrice() != null) {
+				originalPrice = originalPrice.add(wishlist.getOriginalPrice()
 						.add(wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 
 			}
@@ -433,7 +433,7 @@ public class WishlistDetailController {
 						.subtract(wishlistDetail.getPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 			}
 			if (wishlistDetail.getOriginalPrice() != null) {
-				wishlist.setOriginalPirce(wishlist.getOriginalPirce().subtract(
+				wishlist.setOriginalPirce(wishlist.getOriginalPrice().subtract(
 						wishlistDetail.getOriginalPrice().multiply(new BigDecimal(wishlistDetail.getCount()))));
 			}
 			wishlistDetail.setSelected(0);

@@ -58,16 +58,16 @@
 
 
 
-      javax.servlet.http.HttpSession ss = request.getSession();
-	    com.funeral.kris.model.User user = (com.funeral.kris.model.User) ss.getAttribute("user");
-	System.out.println("-----------   out_trade_no="+out_trade_no+"  trade_no="+trade_no+"  trade_status="+trade_status+"  user="+user);
+    //  javax.servlet.http.HttpSession ss = request.getSession();
+	   // com.funeral.kris.model.User user = (com.funeral.kris.model.User) ss.getAttribute("user");
+	System.out.println("-----------   out_trade_no="+out_trade_no+"  trade_no="+trade_no+"  trade_status="+trade_status);
 
 		 //  ss.setAttribute("params", params);
 		  // ss.setAttribute("pending_pay", "1");
 		   
 		//   String userId=user.getUsrId()+"";
 
-		com.funeral.kris.util.AlipayUtil.feeMap.put("26", params);
+		//com.funeral.kris.util.AlipayUtil.feeMap.put("26", params);
 
 	//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以上仅供参考)//
 
@@ -97,13 +97,19 @@
 			//注意：
 			//付款完成后，支付宝系统发送该交易状态通知
 			
+			
+			
+			
+		com.funeral.kris.pay.service.PayCollectionService service=new com.funeral.kris.pay.service.PayCollectionServiceImpl();
+			service.completeCollection(params);
+			
 	   // javax.servlet.http.HttpSession ss = request.getSession(true);
 	    //com.funeral.kris.model.User user = (com.funeral.kris.model.User) ss.getAttribute("user");
 
 		 //  ss.setAttribute("params", params);
 		 //  ss.setAttribute("pending_pay", "1");
 
-       System.out.println("----------------params----else-----if--params-"+com.funeral.kris.util.AlipayUtil.feeMap);
+      // System.out.println("----------------params----else-----if--params-"+com.funeral.kris.util.AlipayUtil.feeMap);
 			
 			//com.funeral.kris.service.FeeCollectionServiceImpl  collectionService=new com.funeral.kris.service.FeeCollectionServiceImpl();
 			//collectionService.completeCollection(params);
