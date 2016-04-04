@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+	Bleum - HOME
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers’
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" /> 
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
+<body onselectstart="return false">
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% height=30 marginwidth=0 marginheight=0 SRC="component/topBar.html" frameborder = 0></IFRAME>
+</div>
+<link rel="stylesheet" href="../js/css/slider.css">
+<style>
+.ck-slide { width: 700px; height: 320px; margin: 0 auto;}
+.ck-slide ul.ck-slide-wrapper { height: 320px;}
+</style>
+<div id="helpBar">
+    <a href="mainPage.html">首页</a>
+	<a href="mainPage.html">产品</a>
+	<a href="mainPage.html">服务</a>
+</div>
+<div class="ck-slide">
+	<ul class="ck-slide-wrapper">
+		<li>
+            <a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/1.jpg" alt=""></a>
+		</li>
+		<li style="display:none">
+			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/2.jpg" alt=""></a>
+		</li>
+		<li style="display:none">
+			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/3.jpg" alt=""></a>
+		</li>
+		<li style="display:none">
+			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/4.jpg" alt=""></a>
+		</li>
+		<li style="display:none">
+			<a href="javascript:"><img src="http://www.17sucai.com/preview/404512/2015-09-20/%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD/images/5.jpg" alt=""></a>
+		</li>
+	</ul>
+	<a href="javascript:;" class="ctrl-slide ck-prev">上一张</a> <a href="javascript:;" class="ctrl-slide ck-next">下一张</a>
+	<div class="ck-slidebox">
+		<div class="slideWrap">
+			<ul class="dot-wrap">
+				<li class="current"><em>1</em></li>
+				<li><em>2</em></li>
+				<li><em>3</em></li>
+				<li><em>4</em></li>
+				<li><em>5</em></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div>
+<h6>请回答我们几个问题，我们帮您选择合适的产品</h6>
+<h4>您想选择哪种类型的棺材</h4>
+<ul>
+    <li>
+	    <button class = "option">答案</button>
+	</li>
+</ul>
+<span class="progressBar"></span>
+<button class = "back"></button>
+<button class = "forward"></button>
+</div>
+<div id="product">
+    <div id="title">
+	    <h2>棺材</h2>
+	</div>
+    <ul>
+	    <li>
+            <div id="tips">
+	            <h2>如何选择正确棺材</h2>
+				<button>更多</button>
+	        </div>
+        </li>
+	    <li ng-repeat="itemCatagory in itemCatagorys">
+            <div>
+			    <a><<img></img></a>
+	            <h3>棺材</h3>
+				<h4>棺材细节</h4>
+	        </div>
+        </li>
+	</ul>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME> 
+</body>
+<script type="text/javascript">
+$(function() {
+    $('.ck-slide').ckSlide({
+				autoPlay: true,//默认为不自动播放，需要时请以此设置
+				dir: 'x',//默认效果淡隐淡出，x为水平移动，y 为垂直滚动
+				interval:3000//默认间隔2000毫秒
+				
+			});
+});
+</script>
+</html>

@@ -1,0 +1,926 @@
+\<!DOCTYPE html>
+<html>
+<head>
+<title>更新墓地</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link type="text/css" href="/funeral/pages/fileUpload/css/jquery-ui-1.7.1.custom.css"  
+    rel="stylesheet" />  
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="/funeral/pages/fileUpload/js/ajaxfileupload.js"></script>  
+<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link rel="stylesheet" type="text/css" href="/funeral/js/simditor-1.0.5/styles/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="/funeral/js/simditor-1.0.5/styles/simditor.css" />
+    <script type="text/javascript" src="/funeral/pages/html/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/funeral/js/simditor-1.0.5/scripts/js/module.js"></script>
+    <script type="text/javascript" src="/funeral/js/simditor-1.0.5/scripts/js/uploader.js"></script>
+    <script type="text/javascript" src="/funeral/js/simditor-1.0.5/scripts/js/simditor.js"></script>
+</head>
+ 
+
+
+<script>
+	
+	var length = location.search.length,
+id = location.search.substring(4, length);
+	
+	var app = angular.module('myApp', []);
+ 
+	 app.controller('cemetery', function($scope, $http) {
+
+	$scope.actionType="";
+	
+	$scope.currentCemetery="";
+	
+	$scope.keyword="";
+	$scope.grave="";
+	$scope.epigraph="";
+  $scope.graveZone=""
+	
+	$scope.keywordId="";
+	
+	$scope.graveId="";
+	
+	$scope.epigraphId="";
+
+ $scope.graveZoneId=""
+	$scope.cemeteryId=id;
+	
+	 $http.get("/funeral/cemetery/getCemetery?id="+$scope.cemeteryId).success(function(response) {
+	     $scope.currentCemetery=response;
+			})
+	
+	
+		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+	       $scope.cemeterys = response;
+			})
+	
+	 	$http.get("/funeral/cemetery/listCemeteryKeywords?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.cemeteryKeywords = response;
+			})
+			
+			
+			$http.get("/funeral/cemetery/listEpigraphs?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.epigraphs = response;
+			})	
+			
+			$http.get("/funeral/cemetery/listGraveStyle?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.graveStyles = response;
+			})	
+			
+			$http.get("/funeral/cemetery/listZones?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.graveZones = response;
+			})
+			
+		 $scope.removeKeyword = function(){
+		 	$http.get("/funeral/cemetery/removeCemeteryKeyword?id="+$scope.keywordId).success(function(response) {
+	      
+	     	$http.get("/funeral/cemetery/listCemeteryKeywords?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.cemeteryKeywords = response;
+			})
+			 
+	      
+			})
+		 	}
+		 	
+		 	$scope.selectKeyword = function(vid){
+		 		$scope.keywordId=vid;
+		 		}
+		 		
+		 			$scope.selectGrave = function(vid){
+		 		$scope.graveId=vid;
+		 		}
+		 		
+		 			$scope.selectGraveZone = function(vid){
+		 		$scope.graveZoneId=vid;
+		 		}
+		 		
+		 		
+		 		
+		 		 			 $scope.removeGraveZone = function(){
+		 	$http.get("/funeral/cemetery/removeZone?id="+$scope.graveZoneId).success(function(response) {
+	      
+	     	$http.get("/funeral/cemetery/listZones?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.graveZones = response;
+			})
+			 
+	      
+			})
+		 	}
+		 		
+		 		
+		 		
+		 		
+		 			 $scope.removeGrave = function(){
+		 			 	
+		 	$http.get("/funeral/cemetery/removeGrave?id="+$scope.graveId).success(function(response) {
+	      
+	     	$http.get("/funeral/cemetery/listGraveStyle?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.graveStyles = response;
+			})
+			 
+	      
+			})
+		 	}
+		 		
+		 	
+		 		
+		 			 $scope.removeCemetery= function(){
+		 			 	
+		 	$http.get("/funeral/cemetery/removeCemetery?id="+$scope.cemeteryId).success(function(response) {
+	     	$scope.currentCemetery="";
+		 
+		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+	       $scope.cemeterys = response;
+			})
+	      
+			})
+		 	}
+		 			
+		 		
+		 			$scope.selectEpigraph = function(vid){
+		 				
+		 		$scope.epigraphId=vid;
+		 		}
+					 $scope.removeEpigraph = function(){
+		 	$http.get("/funeral/cemetery/removeEpigraph?id="+$scope.epigraphId).success(function(response) {
+	      
+	     	$http.get("/funeral/cemetery/listEpigraphs?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.epigraphs = response;
+			})
+			 
+	      
+			})
+		 	}
+		 
+		 	$scope.changeCemetery = function(vid){
+		 		
+		 		$scope.cemeteryId=vid;
+		 		
+      $http.get("/funeral/cemetery/getCemetery?id="+vid).success(function(response) {
+	     $scope.currentCemetery=response;
+			})
+			
+				$http.get("/funeral/cemetery/listCemeteryKeywords?id="+vid).success(function(response) {
+	       $scope.cemeteryKeywords = response;
+			})
+			
+			
+			$http.get("/funeral/cemetery/listEpigraphs?id="+vid).success(function(response) {
+	       $scope.epigraphs = response;
+			})	
+			
+			$http.get("/funeral/cemetery/listGraveStyle?id="+vid).success(function(response) {
+	       $scope.graveStyles = response;
+			})	
+			
+				$http.get("/funeral/cemetery/listZones?id="+vid).success(function(response) {
+	       $scope.graveZones = response;
+			})
+
+  	}
+		 
+
+			
+			
+			$("#addKeyWordButton").click(function() {
+				
+			$scope.keyword.cemeteryId=$scope.cemeteryId;
+	    var datadata = JSON.stringify($scope.keyword);
+	    
+	    
+	    $http({
+            method: "POST",
+            url:"/funeral/cemetery/addCemeteryKeyword",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+    // parent.location.href ="/funeral/pages/configuration/cemeteryConfiguration/updateCemetery.html?id="+$scope.cemeteryId;  
+    
+    	$http.get("/funeral/cemetery/listCemeteryKeywords?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.cemeteryKeywords = response;
+			})
+    
+        });
+	});	
+	
+	
+	$("#addGraveButton").click(function() {
+				
+			$scope.grave.cemeteryId=$scope.cemeteryId;
+	    var datadata = JSON.stringify($scope.grave);
+	    
+	    
+	    $http({
+            method: "POST",
+            url:"/funeral/cemetery/addGrave",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+    // parent.location.href ="/funeral/pages/configuration/cemeteryConfiguration/updateCemetery.html?id="+$scope.cemeteryId; 
+    $http.get("/funeral/cemetery/listGraveStyle?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.graveStyles = response;
+			})	 
+        });
+	});	
+	
+	
+	$("#addEpigraphButton").click(function() {
+				
+			$scope.epigraph.cemeteryId=$scope.cemeteryId;
+	    var datadata = JSON.stringify($scope.epigraph);
+	    
+	    
+	    $http({
+            method: "POST",
+            url:"/funeral/cemetery/addEpigraph",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+   //  parent.location.href ="/funeral/pages/configuration/cemeteryConfiguration/updateCemetery.html?id="+$scope.cemeteryId; 
+   	$http.get("/funeral/cemetery/listEpigraphs?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.epigraphs = response;
+			})
+    
+        });
+	});		
+		
+		
+		$("#addGraveZoneButton").click(function() {
+				
+			$scope.graveZone.cemeteryId=$scope.cemeteryId;
+	    var datadata = JSON.stringify($scope.graveZone);
+	    
+	    
+	    $http({
+            method: "POST",
+            url:"/funeral/cemetery/addZone",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+   //  parent.location.href ="/funeral/pages/configuration/cemeteryConfiguration/updateCemetery.html?id="+$scope.cemeteryId; 
+   	$http.get("/funeral/cemetery/listZones?id="+$scope.cemeteryId).success(function(response) {
+	       $scope.graveZones = response;
+			})
+    
+        });
+	});		
+			
+			
+	 	
+	 	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.currentCemetery);
+	//    datadata.feature=$("#feature1")[0].innerHTML;
+	   	    
+	    $http({
+            method: "POST",
+            url:"/funeral/cemetery/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+  alert("保存成功！");
+  
+        });
+	});	
+	 	
+	 	
+  $scope.updateSelection = function(actions){
+  $scope.actionType=actions;
+  	}
+	
+		
+});
+
+
+function uploadUnitImage()  {  
+	
+        showLoading("正在上传，请等待...");  
+        $.ajaxFileUpload  
+        (  
+            {  
+                url:'/funeral/uploadFile/upload?action=uploadImage',//用于文件上传的服务器端请求地址
+                secureuri:false,//一般设置为false  
+                fileElementId: 'unitImageToUpload', //文件上传空间的id属性  
+                dataType: 'json',//返回值类型 一般设置为json  
+                success: function (data, status)  //服务器成功响应处理函数  
+                {  
+                	 alert("data =1");
+                },  
+                error: function (data, status, e)//服务器响应失败处理函数  
+                {  
+                	 alert("data =2");
+                }              }  
+        )  
+} 
+
+
+
+	</script>
+
+<!--<script type="text/javascript">
+    var editor = new Simditor({
+      textarea: $('#editor')
+    });
+  </script>-->
+<body ng-app="myApp" ng-controller="cemetery">
+<header>
+<ul id="nav">
+	<li><a href="addCemetery.html">添加墓地</a></li>
+	<li><a href="updateCemetery.html">修改墓地</a></li>
+</ul>
+</header>
+	
+ 	<div id="addSection">
+	<table border="0"  width="100%"> 
+		
+	
+		<tr>
+		
+		 <td>
+			
+			<label >墓地名称</label>
+	
+   <input  type='text'    maxlength="20"  ng-model="currentCemetery.cemeteryName"/>
+			
+			</td>
+			
+		 <td>
+			
+			<label >市场均价</label>
+	
+   <input  type='text'    maxlength="20"  ng-model="currentCemetery.price" placeholder="必须是数字"/>
+			
+			</td>	
+			
+			 <td>
+			
+			<label >区</label>
+	
+   <input  type='text'    maxlength="20"  ng-model="currentCemetery.district"/>
+			
+			</td>	
+			
+			
+			<td>
+			
+			<label >简介</label>
+			
+	<textarea   rows="15" cols="30"    ng-model="currentCemetery.cemeteryDesc" ></textarea>
+	
+			
+			</td>
+			<td>
+			<label >特色</label>
+			
+		<textarea  rows="15" cols="30"  ng-model="currentCemetery.feature"  ></textarea>
+	
+			
+			
+			</td>
+			
+			<td>
+			<label >交通信息</label>
+			
+		<textarea   rows="15" cols="30"  ng-model="currentCemetery.trafficInfo" ></textarea>
+	
+			</td>
+			
+			<td>
+			<label >详细地址</label>
+			
+		<textarea   rows="15" cols="30"  ng-model="currentCemetery.address" ></textarea>
+	
+			</td>
+		</tr>
+	
+		
+				
+				<tr> <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td><button id="deleteButton" class="nextButton" ng-click="removeCemetery()">删除此墓地</button> </td><td>	<button id="saveButton" class="nextButton">提交</button>  </td></tr>
+	
+	
+	<tr>
+		
+	<td></td>	
+	<td></td>		
+	<td></td>	
+	<td></td>	
+	<td></td>	
+	
+		
+	</tr>
+	
+	
+</table>
+ </div>
+ 
+</body>
+
+
+
+
+	
+ <div id="imgSection">
+ 	
+ 	  <form name="form" action={{'/funeral/uploadFile/upload?actionTypes='+actionType+'&id='+cemeteryId}} method="POST" enctype="multipart/form-data">  
+
+        <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传墓地顶部图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：380px 宽度不低于：1349px）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadDescriptionImg"  
+                            onclick="return uploadUnitImage();" ng-click="updateSelection('uploadHeadImg')"  >上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+        <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传简介图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadDescriptionImg"  
+                            onclick="return uploadUnitImage();" ng-click="updateSelection('uploadDescriptionImg')"  >上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+       
+       
+        <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传特色图片 （图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadFeatureImg"  
+                            onclick="return uploadUnitImage();"  ng-click="updateSelection('uploadFeatureImg')" >上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+        
+        
+          <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传交通图片 （图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadTrafficInfoImg"  
+                            onclick="return uploadUnitImage();" ng-click="updateSelection('uploadTrafficInfoImg')">上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+        
+        
+        
+            <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传更多图片（图片名称只能是数字或者字母或下划线，图片大小不超过800KB,  高度：370px 宽度不低于：336px）</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="uploadMoreImgs"  
+                            onclick="return uploadUnitImage();"  ng-click="updateSelection('uploadMoreImgs')">上传</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+         </form>  
+     </div> 
+
+
+<div>
+	
+	<div id="keywords">
+	<table border="0"  width="100%"> 
+		
+		<tr>
+			<td>
+<label >关键词&nbsp;</label>
+
+
+
+
+	</td>
+	<td>
+   <input  type='text'    maxlength="10"  ng-model="keyword.keyword"/>	
+ </td>
+ 	<td>
+<button id="addKeyWordButton" class="nextButton" >添加关键词</button>
+ </td>
+ <td>
+<button id="deleteKeyWordButton" class="nextButton"  ng-click="removeKeyword()">删除关键词</button>
+ </td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+
+ </tr>
+</table>
+	</div>
+	
+	
+<div id="keywordsDisplay">
+	
+	<input type="radio" name=keyword" value='-1' /> <label>  取消</label>
+
+	<div class="keywordsDisplaySub" ng-repeat=" x in cemeteryKeywords" >
+		
+
+<input type="radio" name=keyword" value={{x.keyword}}  ng-click="selectKeyword(x.id)"/> <label>  {{x.keyword}} </label>
+	
+	</div>
+	</div>	
+	
+<div id="grave">
+	
+	<table border="0"  width="100%"> 
+		
+		<tr>
+			<td>
+<label >墓穴&nbsp;&nbsp;</label>
+	</td>
+	<td>
+   <input  type='text'    maxlength="10"  ng-model="grave.description"/>	
+ </td>
+ 	<td>
+<button id="addGraveButton" class="nextButton">添加墓穴样式</button>
+ </td>
+	<td>
+<button id="deleteGraveButton" class="nextButton"  ng-click="removeGrave()">删除墓穴样式</button>
+ </td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+
+ </tr>
+</table>	
+	
+	</div>
+ 	
+ <div id="graveDisplay">
+	<input type="radio" name="grave" value='-1' /> <label>取消</label>
+
+ 	<div class="graveDisplaySub" ng-repeat=" x in graveStyles "> 
+ 	<input type="radio" name="grave" value={{x.id}} /  ng-click="selectGrave(x.id)"> <label>  {{x.description}} </label>
+ 	</div>	
+</div>
+<div id="Epigraph">
+	
+	
+<table border="0"  width="100%"> 
+		
+		<tr>
+			<td>
+<label >碑文样式</label>
+	</td>
+	<td>
+   <input  type='text'    maxlength="10"  ng-model="epigraph.style"/>	
+ </td>
+ 	<td>
+<button id="addEpigraphButton" class="nextButton">添式碑文样式</button>
+ </td>
+ 	<td>
+<button id="deleteEpigraphButton" class="nextButton" ng-click="removeEpigraph()" >删除碑文样式</button>
+ </td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+
+ </tr>
+</table>	
+	
+	</div>
+
+<div id="EpigraphDisplay">
+		<input type="radio" name="epigraph" value='-1' /> <label>  取消</label>
+
+	<div class="EpigraphDisplaySub" ng-repeat=" x in epigraphs ">
+
+<input type="radio" name="epigraph" value={{x.id}}  ng-click="selectEpigraph(x.id)" />  <label> {{x.style}}	</label>
+	</div>
+</div>
+
+
+
+<div id="zone">
+	
+	
+<table border="0"  width="100%"> 
+		
+		<tr>
+			<td>
+<label >可选区域</label>
+	</td>
+	<td>
+   <input  type='text'    maxlength="10"  ng-model="graveZone.zone"/>	
+ </td>
+ 	<td>
+<button id="addGraveZoneButton" class="nextButton">添式可选区域</button>
+ </td>
+ 	<td>
+<button id="deleteGraveZoneButton" class="nextButton" ng-click="removeGraveZone()" >删除可选区域</button>
+ </td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+  <td>&nbsp;</td>
+  <td>&nbsp;</td>
+ <td>&nbsp;</td>
+
+ </tr>
+</table>	
+	
+	</div>
+
+<div id="zoneDisplay">
+		<input type="radio" name="graveZone" value='-1' /> <label>  取消</label>
+
+	<div class="zoneDisplaySub" ng-repeat=" x in graveZones ">
+
+<input type="radio" name="graveZone" value={{x.id}}  ng-click="selectGraveZone(x.id)" />  <label> {{x.zone}}	</label>
+	</div>
+</div>
+	
+	</div>
+ 
+
+	
+<div id="questionList">
+	
+	<table border="0"  width="100%"> 
+		
+		<tr><td>墓地编号</td><td>墓地名称</td><td>市场均价</td></tr>
+		
+		<tr ng-repeat="x in cemeterys">
+			<td>         <input type="radio" name="savedCemeterys" value={{x.cemeteryId}}   ng-click="changeCemetery(x.cemeteryId)"/>     <label >    {{x.cemeteryId}} </label></td>		
+		<td><a href={{'updateCemetery.html?id='+x.cemeteryId}}>{{x.cemeteryName}}</a></td>			
+<td>{{x.price}}</td>	
+			
+			</tr>
+		
+		
+	</table>
+	
+	
+	
+	</div>
+	
+	
+	
+	
+	
+	
+		<style>
+	
+	
+	
+	#imgSection{
+  height:100%;
+	width:100%;
+	border:0px solid black;
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	#zone{
+  height:100%;
+	width:100%;
+	border:0px
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	#zoneDisplay{
+  height:100%;
+	width:100%;
+	border:0px
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	.zoneDisplaySub{
+		float:left;
+  height:100%;
+	width:10%;
+	border:1px solid black;
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	
+	#grave{
+  height:100%;
+	width:100%;
+	border:0px
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	#graveDisplay{
+  height:100%;
+	width:100%;
+	border:0px
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	.graveDisplaySub{
+		float:left;
+  height:100%;
+	width:10%;
+	border:1px solid black;
+  background-color:  #f2f2f2;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	#keywords{
+  height:100%;
+	width:100%;
+	border:0px
+  background-color:  #e3e2e0;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	#keywordsDisplay{
+  height:100%;
+	width:100%;
+	border:0px
+  background-color:  #e3e2e0;
+  position:relative; left:0%; right:0%;	
+	}
+	
+	.keywordsDisplaySub{
+	float:left;
+	height:100%;
+	width:10%;
+	border:1px solid black;
+  background-color: #f5f5f5;
+  position:relative; left:0%; right:0%;		
+		
+		}
+	
+	
+	#Epigraph{
+		 height:100%;
+	width:100%;
+	border:0px
+  background-color:  #efefef;
+  position:relative; left:0%; right:0%;	
+		}
+	#EpigraphDisplay{
+		 height:100%;
+	width:100%;
+	border:0px
+  background-color:  #efefef;
+  position:relative; left:0%; right:0%;	
+		}
+		.EpigraphDisplaySub{
+			float:left;
+		 height:100%;
+	width:10%;
+	border:1px solid black;
+  background-color:  #efefef;
+  position:relative; left:0%; right:0%;	
+		}
+	
+	#addSection{
+	height:100%;
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0%;
+	}
+
+
+
+#addSection contentSection{	
+	
+float:left;width:100%; height:100%;border:0px ;background:rgba(162, 162, 162, 0.5);
+	}
+	
+	
+	
+	#questionList{
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0% ; top:50;
+	}
+
+#questionList _table{
+	
+	
+	 background-color: #d6d6d6;
+	
+	
+	
+	
+	}
+
+	
+
+	
+
+		
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*ʨ׃˳±껬¹�£ʱ±仯µı³¾°ҕɫ*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
+ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
+ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
+ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
+.nextButton{
+	  background-color: rgba(0, 0, 0, 0.58);
+		width :180px;
+		height: 30.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:10px 5px 5px 5px;
+   } 
+		
+	</style>
+	
+	
+</html>

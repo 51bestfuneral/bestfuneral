@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<style>
+td {
+    text-align: center;
+	margin-right: 5px;
+}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []);
+app.controller('products', function($scope, $http) {
+    var ages = [];
+	$http.get("/funeral/optionRule/listConfig").success(function(response) {
+	    response.sort();
+	    $scope.configs = response;
+	});
+	$http.get("/funeral/question/list").success(function(response) {
+	    response.sort();
+	    $scope.questions = response;
+	});
+	$http.get("/funeral/option/list").success(function(response) {
+	    response.sort();
+	    $scope.options = response;
+	});
+	$http.get("/funeral/wishType/list").success(function(response) {
+	    response.sort();
+	    $scope.wishTypes = response;
+	});
+	$http.get("/funeral/wish/list").success(function(response) {
+	    response.sort();
+	    $scope.wishs = response;
+	});
+});
+function refresh() {
+    $.ajax({
+		url: '/funeral/optionRule/listConfig',
+		type: 'GET',
+		success:function(data){
+			$(".added").remove();
+			for (var i=0;i<data.length;i++) { 
+			    $("table").append("<tr class='added'><td>"+data[i].questionContent+"</td><td>"+data[i].optionDesc+"</td><td>"+data[i].level+"</td><td>"+data[i].ruleType+"</td><td>"+data[i].rule+"</td></tr>");
+			}
+		},
+		error: function(error) {
+		}
+	});
+}
+function Save() {
+    var reqdata = [];
+	$(".dataTable").each(function () {
+	    var questionContent = $(this).find("#question")[0].value,
+		    optionDesc = $(this).find("#optionDesc")[0].value,
+			level = $(this).find("#level")[0].value,
+			ruleType = $(this).find("#ruleType")[0].value,
+			rule = $(this).find("#rule")[0].value,
+			singleData;
+		singleData = {
+		    'questionContent': questionContent,
+			'optionDesc': optionDesc,
+			'level': level,
+			'ruleType': ruleType,
+			'rule': rule
+		};
+		reqdata.push(singleData);
+	});
+    $.ajax({
+		    url: '/funeral/optionRule/addConfig',
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(reqdata),
+			success:function(data){
+                alert("save successful");
+				refresh();
+		    },
+			error: function(error) {
+			}
+	});
+}
+function Change() {
+    var me =this;
+	$.ajax({
+		url: '/funeral/option/list?questionContent='+$("select")[0].value,
+		type: 'GET',
+		success:function(data){
+			$("#optionDesc").find("option").remove();
+			for (var i=0;i<data.length;i++) { 
+			    $("#optionDesc").append("<option>"+ data[i].optionDesc +"</option>");
+			}
+		},
+		error: function(error) {
+		}
+	});
+}
+function ChangeType() {
+    var type = $("#ruleType")[0].value;
+
+	$("#rule").find("option").each(function() {
+	    if ($(this)[0].innerText!=="" && $(this)[0].innerText.indexOf(type) !== -1) {
+		    $(this).show();
+		}
+		else {
+		    $(this).hide();
+		}
+	});
+}
+</script>
+<body ng-app="productApp" ng-controller="products" onselectstart="return false">
+<h1>已经配置的</h1>
+<table>
+    <tr>
+	    <td>问题</td>
+		<td>选项</td>
+		<td>套餐</td>
+		<td>产品大类</td>
+		<td>产品小类</td>
+	</tr>
+	<tr ng-repeat="config in configs" class="added">
+	    <td>{{config.questionContent}}</td>
+		<td>{{config.optionDesc}}</td>
+		<td>{{config.level}}</td>
+		<td>{{config.ruleType}}</td>
+		<td>{{config.rule}}</td>
+	</tr>
+</table>
+<h1>配置区域</h1>
+    <span>问题</span>
+	<div class="dataTable">
+    <select onchange="Change()" id="question">
+	    <option default></option>
+		<option ng-repeat="question in questions">{{question.questionContent}}</option>
+	</select>
+	<span>选项</span>
+	<select id="optionDesc">
+	    <option default></option>
+		<option ng-repeat="option in options">{{option.optionDesc}}</option>
+	</select>
+	<span>产品大类</span>
+	<select onchange="ChangeType()" id="ruleType">
+	    <option default></option>
+		<option ng-repeat="wishType in wishTypes">{{wishType.wishType}}</option>
+		<option>E</option>
+	</select>
+	<span>产品小类</span>
+	<select id="rule">
+	    <option default></option>
+		<option>E001</option>
+		<option>S002</option>
+		<option>E002</option>
+	</select>
+	<span>套餐</span>
+	<select id="level">
+	    <option default></option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+		<option>4</option>
+	</select>
+	</div>
+	<button onclick="Save()"></button>
+	<button onclick="Save()">保存</button>
+</body>
+</html>

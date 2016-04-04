@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>购物车</title>
+<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<link rel="stylesheet" type="text/css" href="/pages/html/customizatonPages/css/checkBox_style.css" />
+	
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+<header>
+<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+</header>
+<script>
+	var serviceCategories;
+</script>
+
+
+
+<div id="title1">
+<div id="comments1"><p>您的购物车</p></div>
+
+<div id="pic1">
+	<img src="/pages/html/customizatonPages/assets/images/certified.png">
+	
+	</div>
+<div id="pic2">
+<img src="/pages/html/customizatonPages/assets/images/fast.png">	
+	
+	</div>
+<div id="pic3">
+<img src="/pages/html/customizatonPages/assets/images/cheap.png">	
+	</div>
+
+
+	</div>
+
+<div id="label">
+	
+	<div id="label1"><p>产品和服务</p></div>
+	<div id="label2"><p> 念念价格（元） </p></div>
+	<div id="label3"><p>数量</p></div>
+	<div id="label4"><p>小计（元）</p></div>
+	<div id="label5"><p>操作</p></div>
+
+	</div>
+
+<div id="listSection"> 
+	
+	<div  id="check"  > 			<input type="checkbox" id="x" class="chk_1" checked /><label for="x"></label>
+     </div>
+	
+	<div id="productName"><p>产品名称</p></div>
+	<div id="price"><p> 45.00 </p></div>
+	<div id="count">
+		<div class="minus" >-</div>
+		<div class="countNumber"><p>100</p> </div>
+		<div class="adds" >+</div>
+		</div>
+	<div id="cost"><p>小计（元）</p></div>
+	<div id="operation"><p>操作</p></div>
+	
+	
+	
+	
+	
+	
+	
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+	
+	
+	body {
+  margin: 0;
+	text-align: center;
+	height: 100%;
+	background:#f3f3f3;}
+	
+	
+	#title1{
+	margin: 0;	
+	text-align: left;
+	height: 120px;
+	width:81.25%;
+	background:#f3f3f3;
+	border:1px solid #000000;
+  position: relative;
+  left:150px;
+	}
+	
+	
+	#comments1{
+		
+	float:left;
+	text-align: left;
+	height: 120px;
+	width:200px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:0px;	}
+  
+  #comments1 p{
+  	
+ line-height: 120px;
+  color:#3d3d3d; 
+  font-family: PingFangSC-Light; 
+ font-size:40px;	 	
+  	
+  	
+  	}
+	
+	#pic1{
+		
+	float:left;
+	text-align: left;
+	height: 54px;
+	width:148px;
+	border:1px solid #000000;
+  position: relative;
+  left:458px;	
+	top:30px;	
+		
+		}
+	
+	
+	#pic2{
+		
+	float:left;
+	text-align: left;
+		height: 54px;
+	width:148px;
+	border:1px solid #000000;
+  position: relative;
+  left:458px;	
+	top:30px;	
+		
+		}
+		
+		
+		#pic3{
+		
+	float:left;
+	text-align: left;
+		height: 54px;
+	width:148px;
+	border:1px solid #000000;
+  position: relative;
+  left:458px;	
+	top:30px;		
+		
+		}
+	
+	#title1 p{
+	line-height: 40px;
+  color:#3d3d3d; 
+  font-family: PingFangSC-Light; 
+ font-size:40px;	
+	}
+	
+	#label{
+		
+		
+	height: 69px;
+	width:81.25%;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:150px;
+  
+
+  box-shadow: 0px 2px 4px 0px  rgba(162,162,162,0.5);
+
+		}
+	
+	
+	
+	#label1{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:100px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:0px;	
+		}
+		
+	#label1 p{
+		
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		
+		}	
+		
+		
+		
+	
+	#label2{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:150px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:200px;	
+		}
+		
+			#label2 p{
+		
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		
+		}	
+		
+		#label3{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:100px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:350px;	
+		}
+		#label3 p{
+		
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		
+		}		
+		
+		
+		#label4{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:100px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:450px;	
+		}
+	
+		#label4 p{
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		}	
+	
+		
+		#label5{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:100px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:550px;	
+		}
+	
+		#label5 p{
+		
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		
+		}	
+		
+		
+	#listSection{		
+	height:100px;
+	width:81.25%;
+	background:#f5f5f5;
+	border:1px solid #000000;
+  position: relative;
+  left:150px;	
+}	
+		
+		
+		
+#productName{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:200px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:0px;	
+		}
+		
+	#productName p{
+		
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		
+		}	
+		
+		
+		
+	
+	#price{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:150px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:100px;	
+		}
+		
+			#price p{
+line-height: 20px;
+color:#5d5d5d; 
+font-family: PingFangSC-Semibold; 
+font-size:20px;	
+}	
+		
+		#count{
+	float:left;
+	text-align: left;
+	height: 69px;
+background:#ffffff;
+	border:0px solid #000000;
+  position: relative;
+  left:250px;	
+		}
+		#count p{
+		
+	line-height: 0px;
+  color:#ff5274; 
+  font-family: PingFangSC-Semibold; 
+ font-size:30px;	
+		
+		}		
+		
+		.minus{
+		float:left;
+	  background-color: #f3f3f3;
+    cursor:pointer;
+		width : 20px;
+		height:20px;
+		position:relative;  
+		top:22px;
+    border-radius:20px;	
+    line-height: 20px;
+    color:#a6a6a6; 
+    font-family: AppleSystemUIFont; 
+    font-size:14px;	
+   	text-align: center;
+		}	
+		
+		.countNumber{
+			
+			float:left;
+	text-align: left;
+	height: 69px;
+	background:#ffffff;
+	border:0px solid #000000;
+ 
+ 
+			
+			}
+.countNumber p{
+		
+	line-height: 40px;
+  color:#ff5274; 
+  font-family: PingFangSC-Semibold; 
+ font-size:30px;	
+		
+		}		
+		
+		.adds{
+		float:left;
+	  background-color: #cccccc;
+    cursor:pointer;
+		width : 20px;
+		height:20px;
+		position:relative;  
+		top:22px;
+    border-radius:20px;	
+  line-height: 20px;
+  color:#ffffff; 
+  font-family: AppleSystemUIFont; 
+ font-size:14px;	
+ 	text-align: center;
+   
+		}	
+		
+		
+		
+		
+		#cost{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:100px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:350px;	
+		}
+	
+		#cost p{
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		}	
+	
+		
+		#operation{
+	float:left;
+	text-align: left;
+	height: 69px;
+	width:100px;
+	background:#f2f2f2;
+	border:1px solid #000000;
+  position: relative;
+  left:450px;	
+		}
+	
+		#operation p{
+		
+	line-height: 20px;
+  color:#5d5d5d; 
+  font-family: PingFangSC-Semibold; 
+ font-size:20px;	
+		
+		}			
+	
+	
+#check{
+	 float:left;
+   background-color: #ffffff;
+	
+	}		
+		
+	
+	</style>
+
+
+
+	<script>
+		
+	var app = angular.module('myApp', []);
+
+	 app.controller('serviceCategoryDisplay', function($scope, $http) {
+	$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+  var datadata = JSON.stringify(response);
+  $scope.serviceCategories=response;
+    $scope.totalCost=0.00;
+    $scope.selectedName = [];
+    $scope.selected = [];
+    $scope.selectedCost = [];
+    var updateSelected = function(id,name,value){
+    	    	var idx = $scope.selectedName.indexOf(name);
+      if(idx!=-1){
+    $scope.selected.splice(idx,1);
+    $scope.selectedName.splice(idx,1); 
+    $scope.selectedCost.splice(idx,1);
+      }
+            $scope.selectedName.push(name);
+               $scope.selected.push(id);
+               $scope.selectedCost.push(value);
+       }
+       $scope.updateSelection = function($event, id,name,_price){
+           updateSelected(id,name,_price);  
+                  $scope.totalCost=0;
+            angular.forEach($scope.selectedCost, function(data){
+$scope.totalCost =Number( $scope.totalCost) +Number(data);
+});   
+             }
+});
+	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.curUser);
+	    $http({
+            method: "POST",
+            url:"/funeral/user/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+            alert("chenggong");
+        });
+	});		
+});
+	</script>
+	<script>
+		
+		
+		var i=0;
+  function onChecked(sId,sName) {
+  	
+  
+    var oImg = document.getElementsByName(sName);
+    for (var i = 0; i < oImg.length; i++) { 	
+      if (oImg[i].id == sId) {
+      	var _id=sId+"_"+sName;
+        oImg[i].style.border = '1px solid #FF6600';
+      } else {
+        oImg[i].style.border = '0px solid #ffffff';
+      }
+    }
+  }
+  function changRadio(_id){                            
+   var x= document.getElementById(_id);
+    if(x.checked==false){
+    	x.checked==true;
+    	}else{
+    		x.checked==false
+    		}
+}  
+	</script>
+</ul>
+</body>
+</html>

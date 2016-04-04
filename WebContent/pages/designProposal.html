@@ -1,0 +1,551 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+葬礼定制
+</title>
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script src="/funeral/js/jquery-ui.js"></script>
+<script src="/funeral/js/sliderx.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/Bootstrap/boot.js"></script>
+<script src="/funeral/js/libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="/funeral/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="/funeral/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="../js/generalUsage.js"></script>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<script src="/funeral/js/generalUsage.js"></script>
+</head>
+<style>
+.headerAddtion {
+    width: 100%;
+	height: 48px;
+	text-align: center;
+	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+}
+#subNavilink {
+    width: 525px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
+.submitArea {
+    width: 100%;
+	height: 106px;
+}
+.submitArea button {
+    background-color: #ff5274;
+	color: #ffffff;
+	border-radius: 5px;
+	width: 136px;
+	height: 44px;
+	border: 0px;
+	margin-top: 30px;
+}
+.submitArea button p {
+    margin: 0px;
+	font-size: 16px;
+}
+
+.unseleted{
+	pointer-events:none;
+	}
+#headerMessage h3 {
+    margin: 0px;
+    margin-bottom: 20px;
+}
+</style>
+<script type="text/javascript">
+var app = angular.module('myApp', []);
+function buildObject(level) {
+    var levelOwnList = [];
+	for (i=0 ; i < level.length; i++) {
+	    var levelOwn;
+
+	    if (level[i] === "0") {
+		    levelOwn = {
+			    hidden: "hidden"
+			}
+		}
+		else {
+		    levelOwn = {
+			    hidden: ""
+			}
+		}
+		levelOwnList.push(levelOwn);
+	}
+    return levelOwnList;
+}
+app.controller('wishTypeLevels', function($scope, $http) {
+	
+	$http.get("/funeral/displayWishType/listWishCategory").success(function(response) {
+	    $scope.wishCates = response;
+	});
+	
+	 $http.get("/funeral/displayWishType/listWishCategorySub").success(function(response) {
+	    $scope.cateSubs = response;
+	});
+	
+    $http.get("/funeral/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
+	});
+});
+</script>
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<body>
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "67px"></IFRAME>
+<div class="container" >
+<div id="line0"></div>
+<div id="subNavilink">
+ <link1><a href="/funeral/pages/funeralDesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼      </a>  </link2>
+ <link4><a href="/funeral/pages/designProposal.html" style="font-weight:900;">开始定制  </a>  </link4>
+</div>
+<div id="mainContent">
+   
+    <div class="topContent">
+   
+   
+    <div id="headerMessage">
+	    <h2 id="headerMesText">选择适合您的定制方案</h2>
+	    <h3>请选择下面几项服务中的一项或多项，我们会为您选择合适的方案</h3>
+	</div>
+	<!--for tab-->
+	<div id="designTaocan">
+        <div id="taocan1" class="designTaocanIconDiv firstIconDiv">
+			<h3>葬礼策划</h3>
+		</div>
+		<div id="taocan2" class="designTaocanIconDiv">
+			<h3>精选鲜花</h3>
+		</div>
+		<div  id="taocan3" class="designTaocanIconDiv">
+		    <h3>法事超度</h3>
+		</div>
+		<div id="taocan4" class="designTaocanIconDiv">
+		    <h3>追悼会</h3>
+		</div>
+		<div id="taocan5" class="designTaocanIconDiv">
+		    <h3>入殓师</h3>
+		</div>
+		<div id="taocan6" class="designTaocanIconDiv">
+		    <h3>私人订制</h3>
+		</div>
+	</div>
+    </div>
+    <div id="lockedTocanDiv" hidden>
+        <div id="compareLocked">
+            <p>比较方案</p>
+        </div>
+        <div class="taocanIconDivInRow basic">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">基础</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow good">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">精品</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow better">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">豪华</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow best">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">顶级</h2>
+		        <h4>￥288 - ￥6288<h4>
+			</div>
+		</div>
+    </div>
+	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels" ng-cloak>
+	    <div class= "includeDiv1">
+	    <ul class="descRow">
+		    <li class="headerLineLeft">
+			 <p>比较</p>
+			</li>
+		<li class="normalHeaderLineLeft">
+			    <p></p>
+			</li>
+				<li style="{{wishCate.style}}" ng-repeat="wishCate in wishCates">
+			    <p class="messageInRow" style="{{wishCate.fontStyle}}">{{wishCate.cateName}}</p>
+			</li>
+			<li class="normalHeaderLine">
+			    <p></p>
+			</li>
+		</ul>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		  <div class= "includeDiv2">
+	    <ul class="descRow">
+		    <li class="headerLineRight">
+			   			 <p>方案</p>
+
+			</li>
+			<li class="normalHeaderLineRight">
+			    <p></p>
+			</li>
+			
+				<li class="normalLine" ng-repeat="cateSub in cateSubs">
+			    <p class="messageInRow"  >{{cateSub.wishName	}}</p>
+			</li>
+		<li class="normalHeaderLine">
+			    <p></p>
+			</li>
+		</ul>
+		</div>
+		
+		
+		
+		
+		
+		<div id="basic" class= "includeDataDivBasic proposalBar">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+				    <div class="iconChild">
+			            <h2 class="designHeaderText">基础</h2>
+		                <h4>￥288 - ￥6288<h4>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最为经济合算的方案<br/>比较低的成本定制专属葬礼</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
+			    <div class="imgDiv">
+			    	   <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url01}}" class="tickImg"></img>
+				</div>
+			</li>
+		
+		
+		
+			<li>
+			    <div class="submitArea">
+				    <button id="basicButton"><p>选择该套餐</p></button>
+				</div>
+			</li>
+		
+		</ul>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div id="good" class= "includeDataDivGood proposalBar">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="designHeaderText">精品</h3>
+		                <h4>￥288 - ￥6288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最受欢迎的方案<br/>灵活的安排各项葬礼细节</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
+			    <div class="imgDiv">
+				    <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url02}}" class="tickImg"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button id="goodButton"><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+		
+		
+		
+		
+		
+		<div id="better" class= "includeDataDivBetter proposalBar">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="designHeaderText">豪华</h3>
+		                <h4>￥288 - ￥6288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最大气的方案，为<br/>您爱的人举办高规格的仪式</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+		<li class="normalLine"  ng-repeat="cateSub in cateSubs">
+			    <div class="imgDiv">
+				    <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url03}}" class="tickImg"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button id="betterButton"><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+		
+		
+		
+		
+		
+
+		
+		
+		<div id="best" class= "includeDataDivBest proposalBar">
+		<ul class="valueRow">
+		    <li class="headerLine">
+			    <div class="taocanIconDivInRow">
+			        <div class="iconChild">
+			            <h2 class="designHeaderText">顶级</h3>
+		                <h4>￥288 - ￥6288<h5>
+					</div>
+		        </div>
+			</li>
+			<li class="normalHeaderLine">
+			    <table class="normalLineText">
+　　                <tr>
+　　                    <td style="vertical-align:middle;">
+                            <p>最奢侈的方案，<br/>举办无上规格的仪式</p>
+                        </td>
+　　                </tr>
+　　            </table>
+			</li>
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
+			    <div class="imgDiv">   <img src="/funeral/js/images/tick.jpg" class="fakeImg"></img>
+				  			        <img src="{{cateSub.url04}}" class="tickImg"></img>
+
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button  id="bestButton" ><p>选择该套餐</p></button>
+				</div>
+			</li>
+		</ul>
+		</div>
+	</div>
+</div>
+</div>
+<div id="titleIconDiv">
+    <img src="/funeral/js/images/titleIcon.jpg" class="iconImg"></img>
+    
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script type="text/javascript">
+function muskCurrentPage() {
+    $(this).css({
+	    opacity: 0.5
+	});
+	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+		'z-index': 1000, 
+		width: $(document).width(), 
+		height: $(document).height(), 
+		'background-color': '#ccc', 
+		opacity: 0.5
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	var topLoading = (document.documentElement.clientHeight/2)-50;
+	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: topLoading+'px',
+		left: '0px',
+		'z-index': 1001, 
+		width: $(document).width(), 
+		height: '100px',
+		'text-align': 'center'
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	$(".loadingShow").show();
+}
+function generateWishlistByLevel(wishlistId, level) {
+    var paras = '&wishlistId='+wishlistId+'&level='+level;
+    $.ajax({
+		url: '/funeral/wishlist/add?'+paras,
+		data: [],
+		type: 'post',
+		dataType:'json',
+		success:function(data){
+			window.location.href='/funeral/pages/designProcess.html';
+		},
+		error: function(error) {
+		}
+	});
+}
+function getWishlistByLevelAfterChcek(level) {
+    $.ajax({
+		url: '/funeral/wishlist/list',
+		data: [],
+		type: 'get',
+		dataType:'json',
+		success:function(data){
+			generateWishlistByLevel(data[0].wishlistId, level);
+		},
+		error: function(error) {
+		}
+	});
+}
+function getWishlistByLevel(level) {
+	muskCurrentPage();
+    $.ajax({
+		url: '/funeral/login/validateLogin',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+            var resultCode =data;
+
+			if (resultCode === "") {
+	            popupLogInPage();
+			}
+			else {
+				getWishlistByLevelAfterChcek(level);
+			}
+		},
+		error: function(error) {
+		}
+	});
+}
+function handleProposal() {
+	$(".proposalBar").removeClass("barSelect");
+	if ($("#taocan6").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose") && $("#taocan4").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose") && $("#taocan3").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan4").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan3").hasClass("choose") && $("#taocan2").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan3").hasClass("choose")) {
+		$("#good").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan2").hasClass("choose") && $("#taocan1").hasClass("choose")) {
+		$("#good").addClass("barSelect");
+		return;
+	}
+	else {
+		$("#basic").addClass("barSelect");
+		return;
+	}
+}
+$(".designTaocanIconDiv").click(function() {
+	if ($(this).hasClass("choose")) {
+		$(this).removeClass("choose");
+	}
+	else {
+		$(this).addClass("choose");
+	}
+	handleProposal();
+});
+$("#basicButton").on("click", function () {
+    getWishlistByLevel(1);
+});
+$("#goodButton").on("click", function () {
+	   
+            getWishlistByLevel(2);
+	
+	});
+$("#betterButton").on("click", function () {
+	   
+            getWishlistByLevel(3);
+	
+	});
+$("#bestButton").on("click", function () {
+	   
+            getWishlistByLevel(4);
+	
+	});
+$(window).scroll(function(){
+	var topPosition = document.body.scrollTop;
+	if (topPosition > 500) {
+		$("#lockedTocanDiv").show();
+	}
+	else {
+		$("#lockedTocanDiv").hide();
+	}
+});
+</script>
+</html>

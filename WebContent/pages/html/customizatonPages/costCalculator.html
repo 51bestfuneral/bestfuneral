@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>葬礼花费计算器</title>
+	
+	<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/common/comm.js"></script>
+<link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+  <link href="/funeral/js/personal.css" rel="stylesheet">
+	
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="serviceCategoryDisplay">
+     	<div class="container" ng-cloak>
+
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=design" frameborder =0 height = "67px"></IFRAME>
+<div id="subNavilink">
+ <link1><a href="/funeral/pages/funeralDesignPage.html" class="firstLink">为什么要定制葬礼</a>  </link1>
+ <link2><a href="/funeral/pages/html/customizatonPages/howItWorks.html">怎样在念念定制葬礼</a></link2>
+ <link3><a href="#" style="font-weight:900;">葬礼花费计算器</a></link3>
+ <link4><a href="/funeral/pages/designProposal.html">开始定制  </a>  </link4>
+</div>
+<script>
+	var serviceCategories;
+</script>
+
+<div id="introduction">
+	<div id="wording1"> 
+		 计算葬礼定制费用
+	 </div>
+	<div id="wording2"> 
+		 请回答以下问题，我们将给你一个初步费用预估
+	 </div>
+	 
+	 <div id="pic1"></div>
+</div>
+
+	<div id="item" ng-repeat="x in serviceCategories" >
+		<div class="line"></div>
+		
+		<div id="serviceTitle" >	<p>{{x.title}}</p>	</div>
+
+		<div id="{{x.displayId0}}"   style="{{x.style0}}"  ng-click="updateSelection($event,x.displayId0,x.cateId,x.price0)"  > <div class="price" ><p> &nbsp; </p>  </div>                  <div  class="discription"><p  style="{{x.font0}}"  >{{x.discription0}}</p></div> </div>
+		<div id="{{x.displayId1}}"   style="{{x.style1}}"  ng-click="updateSelection($event,x.displayId1,x.cateId,x.price1)" > <div class="price" ><p>   {{'¥ '+x.price1}}</p>  </div><div  class="discription"><p style="{{x.font1}}">{{x.discription1}}</p></div></div>
+		<div id="{{x.displayId2}}"   style="{{x.style2}}"  ng-click="updateSelection($event,x.displayId2,x.cateId,x.price2)"  ><div class="price" > <p>  {{'¥ '+x.price2}}</p> </div>   <div  class="discription"><p  style="{{x.font2}}">{{x.discription2}}</p></div></div>
+		<div id="{{x.displayId3}}"   style="{{x.style3}}"  ng-click="updateSelection($event,x.displayId3,x.cateId,x.price3)"  ><div class="price" ><p>  {{'¥ '+x.price3}} </p></div>  <div  class="discription"><p style="{{x.font3}}">{{x.discription3}}</p></div></div>
+	</div>
+
+
+		<div class="line2"></div>
+
+<div id="summary" >
+	
+	<div id="totalCostTitle"><p>费用总计:</p></div>
+		<div id="totalCostPrice"><p>{{'¥'+costsFormated}}</p></div>
+		<div id="totalCostIntroduction"><p>我们会根据您的选择在下一页向您推荐合适的套餐</p></div>
+	<div id="beginButton"><p>开始订制</p></div>
+
+
+	
+	
+	</div>
+
+<div style=" position:relative; top:-1px; ">
+  
+ <IFRAME NAME="content_frame" width=100% height=300  marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder =0></IFRAME>
+ 
+</div>
+	<style>
+
+
+html {
+    height: 100%;
+}							
+body {
+    margin: 0;
+	text-align: center;
+	height: 100%;
+}
+#subNavilink {
+    width: 675px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
+#start{
+border:0px solid black;
+width:99px;
+height:42px;	
+float:left;	
+background-color:#ff5274;
+position:relative;
+left:1070px;
+top:8px;
+text-align:center;	
+border-radius: 5px;
+	}	
+	
+	
+#start:hover {
+   
+  cursor:pointer;   
+}	
+	
+#start p{
+	color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:16px;
+line-height:10px;
+	
+	}	
+
+
+
+#introduction{
+height:354px;
+width:100%;
+border:0px
+solid #767676;
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/rectangle-702.png) ;
+background-repeat:no-repeat ;
+text-align:center;
+position:relative; left:0%; right:0%;
+}
+	
+#wording1{
+height:62px;
+width:100%;
+border:0px
+solid #767676;
+color:#4b4b4b;
+font-family: "STHeitiSC-Light"; 
+font-size:60px;
+line-height:62px;	
+text-align:center;
+position:relative; left:0%; right:0%;top:107px;
+	}	
+
+
+	
+#wording2{
+height:37px;
+width:100%;
+border:0px
+solid #767676;
+color:#4b4b4b;
+font-family: "STHeitiSC-Light"; 
+font-size:35px;
+line-height:37px;	
+text-align:center;
+position:relative; left:0%; right:0%;top:120px;
+	}		
+
+
+#pic1{
+height:102px;
+width:63px;
+border:0px
+solid #767676;
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/pic_new.jpg);
+background-repeat:no-repeat;
+position:relative; left:46.7%; right:0%;top:153px;
+}		
+	
+	
+	
+#item{
+height:334px;
+width:77%;
+background-color: #ffffff;
+position:relative;
+top:20px;
+border:0px solid blue;
+text-align:center;
+box-shadow: 10px 10px 50px #d6d6d6;
+margin:0 auto;
+margin-bottom:20px;
+}
+ 
+.price{
+height:26px;
+position:relative;
+top:140px;
+	
+} 
+.price p{
+color:#ff5274;
+font-family: "STHeitiSC-Medium"; 
+font-size:15px;		
+line-height:25px;
+font-weight:900;
+
+}
+	
+.discription{
+height:26px;
+position:relative;
+top:160px;
+padding-right:0px;
+border:0px
+solid #767676;	
+text-align:center;
+} 
+.discription p{
+color:#3d4351;
+font-family: "STHeitiSC-Light"; 
+font-size:15px;		
+line-height:25px;
+
+}
+		
+	
+
+.pass{
+
+height:179px;
+width:179px;
+border-radius:179px; 
+float:left;	
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/no.png);
+position:relative;
+top:10px;
+left:4%;
+padding-left:10px;
+background-repeat:no-repeat;
+
+}
+
+.serviceSelected {
+border:10px solid red;
+height:179px;
+width:179px;
+border-radius:188px; 
+float:left;	
+
+	}	
+.serviceUnSelected {
+	border:0px solid red;
+	height:179px;
+width:179px;
+border-radius:179px; 
+float:left;	
+	}
+
+.cloth{
+border:0px solid red;
+height:179px;
+width:179px;
+border-radius:179px; 
+float:left;	
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/cloth.png);
+position:relative;
+top:10px;
+left:4%;
+padding-left:10px;
+background-repeat:no-repeat;
+
+}
+
+.basic{
+border:0px solid red;
+height:179px;
+width:179px;
+border-radius:179px; 
+float:left;	
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/basic.png);
+position:relative;
+top:10px;
+left:4%;
+padding-left:10px;
+background-repeat:no-repeat;
+
+}
+
+.advice{
+border:0px solid red;
+height:179px;
+width:179px;
+border-radius:179px; 
+float:left;	
+background:url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/advice.png);
+background-repeat:no-repeat;
+position:relative;
+top:10px;
+left:4%;
+padding-left:10px;
+
+}
+
+.line{
+height:20px;
+width:10px;
+background-color:#c2c2c2;	
+position:relative;
+top:-21px;
+left:-13px;
+margin:0 auto;
+border:0px solid red;
+
+}
+
+.line2{
+height:80px;
+width:10px;
+background-color:#c2c2c2;	
+position:relative; left:48.6%; right:0%;
+
+}
+
+#serviceTitle {
+	
+height:37px;
+position:relative;
+margin:0 auto;
+
+	}
+
+#serviceTitle p{
+  color:#3d4351;
+	 font-family: "STHeitiSC-Light"; 
+	 font-size:35px;	
+	
+	}
+	
+
+
+ul#box{
+	height:60px;
+  width:80%;	
+  text-align:center;
+   position:relative; 
+   left:0%; 
+   right:0%;
+	} 
+	ul#box li{display:inline; height:60px ; position:relative; 
+   left:115px;} 
+  ul#box li a{display:inline-block; padding:0 7px; height:60px; line-height:60px;text-decoration:none;
+  color:#5b5b5b; face: "STHeitiSC-Medium"; font-size:20px;} 
+  ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+ 
+	
+#summary{
+height:354px;
+width:100%;
+background: -webkit-radial-gradient(#ff7893, #ff5274);
+background: -o-radial-gradient(#ff7893, #ff5274);
+background: -moz-radial-gradient(#ff7893, #ff5274);
+background: radial-gradient(#ff7893, #ff5274);
+padding-top:50px;
+position:relative;
+top:0px;
+}
+
+	
+#totalCostTitle{
+border:0px solid black;
+width:300px;
+height:60px;	
+float:left;	
+position:relative;
+left:195px;
+top:150px;
+text-align:left;	
+
+	}
+	
+#totalCostTitle p{
+color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:60px;
+line-height:0px;	
+
+	}	
+	
+		
+#totalCostPrice{
+border:0px solid black;
+width:300px;
+height:60px;	
+float:left;	
+position:relative;
+left:170px;
+top:140px;
+text-align:left;	
+	
+	}	
+#totalCostPrice p{
+	color:#ffffff;
+font-family: "Arial-BoldMT"; 
+font-size:48px;
+line-height:30px;	
+font-weight:900;	
+	}		
+	
+	
+#totalCostIntroduction{
+border:0px solid black;
+width:222px;
+height:52px;	
+float:left;	
+position:relative;
+left:70px;
+top:130px;
+text-align:left;	
+
+	
+	}
+	
+#totalCostIntroduction p{
+	color:#ffffff;
+font-family: "STHeitiSC-Light"; 
+font-size:20px;
+line-height:25pxpx;	
+	
+	}	
+		
+#beginButton{
+border:0px solid black;
+width:210px;
+height:89px;	
+float:left;	
+background-color:#ffffff;
+position:relative;
+left:110px;
+top:105px;
+text-align:center;	
+border-radius: 5px;
+	}	
+#frameDiv{
+width:100%;
+height:3px;	
+box-shadow: 5px 3px 1600px #000000;
+background-color:rgba(162, 162, 162, 0.5);
+opacity:0.5;
+position:relative; 
+left:0%; 
+right:0%;
+top:-5px;
+}		
+	
+#beginButton:hover {
+   
+  cursor:pointer;   
+}	
+	
+#beginButton p{
+	color:#ff5274;
+font-family: "STHeitiSC-Light"; 
+font-size:34px;
+line-height:89px;
+	
+	}		
+	
+	
+	</style>
+	<script>
+		
+	$("#beginButton").on("click", function () {
+	   
+            window.parent.location.href='/funeral/pages/designProposal.html';
+	
+	});
+	
+	
+	
+	
+	var app = angular.module('myApp', []);
+ // app.controller('serviceCategory', function($scope, $http) {
+//	$http.get("/funeral/serviceCategory/list?1=1").success(function(response) {
+//  var datadata = JSON.stringify(response);
+//  $scope.serviceCategories=response;
+//		})
+
+
+ 
+
+
+
+
+	 app.controller('serviceCategoryDisplay', function($scope, $http) {
+	 	
+ 	
+			$http.get("/funeral/serviceDisplayController/calcCost").success(function(response) {
+       	
+  $scope.costs=response;
+  
+  $scope.costsFormated=format_number($scope.costs);
+  	   
+
+  
+			}) 	
+ 	 	
+ 	
+ 	
+	 	
+	$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+  var datadata = JSON.stringify(response);
+  $scope.serviceCategories=response;
+    $scope.totalCost=0.00;
+    $scope.totalCostFormated=0;
+    $scope.selectedName = [];
+    $scope.selected = [];
+    $scope.selectedCost = [];
+       $scope.updateSelection = function($event, id,name,_price){
+       	
+       	
+       		$http.get("/funeral/costCalculatorController/saveCalculationTrace?id="+id).success(function(response) {
+       	
+       			$http.get("/funeral/serviceDisplayController/serviceDisplay").success(function(response) {
+  $scope.serviceCategories=response;
+  
+			}) 
+			
+			$http.get("/funeral/serviceDisplayController/calcCost").success(function(response) {
+       	
+  $scope.costs=response;
+  
+  $scope.costsFormated=format_number($scope.costs);
+  
+			}) 	
+			
+       	
+       	
+			})
+       	
+
+             }
+
+
+
+});
+	$("#saveButton").click(function() {
+	    var datadata = JSON.stringify($scope.curUser);
+	    $http({
+            method: "POST",
+            url:"/funeral/user/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+            alert("chenggong");
+        });
+	});
+	
+		var i=0;
+
+			
+});
+	</script>
+	
+	<script>
+		
+function format_number(n){
+   var b=parseInt(n).toString();
+   var len=b.length;
+   if(len<=3){return b;}
+   var r=len%3;
+   return r>0?b.slice(0,r)+","+b.slice(r,len).match(/\d{3}/g).join(","):b.slice(r,len).match(/\d{3}/g).join(",");
+ }		
+		
+		
+		
+function parsePrice(money) 
+{ 
+  var n=1;
+  money=parseFloat((money+"").replace(/[^\d\.-]/g,"")).toFixed(n)+""; 
+  var l=money.split(".")[0].split(""); 
+  var r=money.split(".")[1]; 
+  var t=""; 
+  for(i=0;i<l.length;i++) 
+  { 
+    t+=l[i]; 
+  } 
+  return '¥'+t+"."+r; 
+} 
+</script>
+	
+	
+	
+	<script>
+		
+		
+		
+  function onChecked(obj,oname) {
+var sId=obj.id;
+
+
+var arr=sId.split("_");
+var cateId=arr[0];
+
+for (var i = 0; i < 4; i++) {
+	
+var obj1=document.getElementById(cateId+"_"+i);	
+obj1.style.border = '0px solid #FF6600';
+var des=document.getElementById(cateId+"_"+i+"_");	
+des.style.color='#3d4351';	
+if(i==0){
+
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/no.png)';
+}else if(i==1){
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/cloth.png)';
+}else if(i==2){
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/basic.png)';
+}else{
+obj1.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/advice.png)';
+
+}
+
+ }
+
+
+for (var i = 0; i < 4; i++) {
+var des=document.getElementById(sId+"_");	
+des.style.color='#ff5274';	
+if (cateId+"_"+i == sId) {
+obj.style.border = '3px solid #ff5274';
+
+var desDiv=document.getElementById(obj.id);	
+desDiv.style.backgroundImage='url(/funeral/pages/html/customizatonPages/assets/images/costCalcu/'+oname+'_.png)';
+
+
+return;
+} 
+    }
+}
+ 
+	</script>
+
+</body>
+</html>

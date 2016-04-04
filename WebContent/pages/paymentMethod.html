@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+    Cemetery
+</title><meta name="description" content="Bleum provides high performance software development teams that
+								deliver smart solutions, helping you to exceed your customers’
+								expectations for timely product delivery, zero defects, and a
+								superior customer experience." /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
+<style>
+@media (min-width: 900px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+	background-color: #F7F7F7;
+  }
+}
+p {
+    margin: 0px;
+}
+span {
+    font-family: "Microsoft Yahei";
+}
+#paymentContain {
+    width: 81%;
+	overflow: auto;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+	background: #ffffff;
+	margin: 0px auto;
+	margin-top: 35px;
+}
+#infoContain {
+	overflow: auto;
+	width: 908px;
+	margin: 0px auto;
+	padding-top: 54px;
+	padding-bottom: 106px;
+}
+#footerContain {
+    background: #efefef;
+	overflow: auto;
+}
+#footer {
+    overflow: auto;
+	width: 908px;
+	margin: 0px auto;
+	padding-top: 28px;
+	padding-bottom: 28px;
+	
+}
+#nextButton {
+    width: 190px;
+	height: 56px;
+	border-radius: 28px;
+	background: #f62f5e;
+	text-align: center;
+	float: right;
+	cursor: pointer;
+}
+#nextButton p {
+    font-size: 20px;
+    line-height: 56px;;
+    color: #ffffff;
+}
+#prevButton {
+    width: 190px;
+	height: 56px;
+	border-radius: 28px;
+	background: #ffffff;
+	text-align: center;
+	float: left;
+	cursor: pointer;
+}
+#prevButton p {
+    font-size: 20px;
+    line-height: 56px;;
+    color: #f62f5e;
+}
+.statusPointer {
+    width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: #eeeeee;
+	float: left;
+}
+.statusBar {
+    width: 270px;
+	height: 7px;
+	background: #eeeeee;
+	margin-left: 3px;
+	margin-right: 3px;
+	float: left;
+	margin-top: 6px;
+}
+#paymentStatusDesc {
+    width: 100%;
+	margin-top: 27px;
+	overflow: auto;
+	padding-bottom: 28px;
+}
+.descDiv {
+    overflow: auto;
+	float: left;
+}
+.first {
+    margin-right: 250px;
+}
+.second {
+    margin-right: 260px;
+}
+.last {
+    float: right!important;
+	margin-right: 0px!important;
+}
+.descDiv p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: #2e2e2e;
+	font-weight: bold;
+}
+#paymentStatusDesc .selected {
+    color: #f62f5e;
+}
+#paymentStatus .selected {
+	background: #f62f5e;
+}
+#paymentMethod {
+    width: 100%;
+	overflow: auto;
+	padding-top: 20px;
+}
+.singleMethod {
+    width: 30%;
+	margin-right: 5%;
+	overflow: auto;
+	float: left;
+	border-radius: 2.8px;
+    background-color: #f9f9f9;
+    border: solid 1.4px #d8d8d8;
+}
+.methodTop {
+    overflow: auto;
+	width: 100%;
+	text-align: center;
+	height: 90px;
+}
+.methodBottom {
+    overflow: auto;
+	width: 100%;
+	text-align: center;
+	height: 50px;
+}
+.methodBottom span {
+    font-size: 19px;
+
+}
+.fieldInd {
+    overflow: auto;
+	float: left;
+	margin-right: 25px;
+	margin-top: 15px;
+}
+.longField {
+    width: 440px;
+}
+.shortField {
+    width: 208px;
+}
+.normalField {
+    width: 242px;
+}
+.shorterField {
+    width: 170px;
+}
+.lastField {
+    margin-right: 0px!important;
+}
+.normalField {
+    width: 242px;
+	overflow: auto;
+	float: left;
+}
+.fieldDesc {
+    width: 100%;
+	height: 44px;
+}
+.fieldDesc p {
+    font-size: 19px;
+    line-height: 44px;
+    color: #b4b4b4;
+	font-weight: bold;
+}
+.fieldContent {
+    width: 100%;
+	height: 56px;
+}
+.fieldContent input {
+    height: 56px;
+	width: 100%;
+	font-size: 25px;
+	font-family: "Microsoft Yahei";
+}
+.inputSub {
+    width: 22px;
+	height: 56px;
+	margin-top: -56px;
+	float:right;
+	margin-right: 15px;
+}
+.inputSub span {
+    line-height: 55px;
+	font-size: 20px;
+}
+</style>
+<script type="text/javascript">	
+      var app = angular.module('payment', []);
+      
+     	app.controller('pay', function($scope, $http) {
+	    	$http.get("/funeral/alipay/createOrder").success(function(response) {
+	           
+	           $scope.order=response;   
+	           $("#tradeNo").val($scope.order.orderNo);
+	           $("#subject").val($scope.order.subject);
+	           $("#totalFee").val($scope.order.payableAmount); 
+	           $("#chnTradeNo").val($scope.order.orderNo);
+	           $("#chnTotalFee").val($scope.order.payableAmount);
+			});
+	    
+	    	$scope.pay = function(){ 
+	       	 var payType = $("input[name='optionsRadios']:checked").val();
+	      	  if(payType==1){
+	      		  $("#chinapnrButton").click();
+	      	  }
+	   		  if(payType==2){
+	   			  $("#alipayButton").click();
+	      	  }
+	   		if(payType==3){
+	   			  $("#chinapnr2Button").click();
+	      	  }
+
+	   };
+	    
+     
+  });
+       	
+
+</script>
+<body ng-app="payment" ng-controller="pay">
+<div class="container">
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="/funeral/pages/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+</div>
+<div class="container">
+<div id="paymentContain">
+    <div id="infoContain">
+	    <div id="paymentStatus">
+		     <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar">
+			 </div>
+			 <div class="statusPointer">
+			 </div>
+		</div>
+		<div id="paymentStatusDesc">
+		     <div class="descDiv first">
+			     <p class="selected">寄送</p>
+			 </div>
+			 <div class="descDiv second">
+			     <p class="selected">确认</p>
+			 </div>
+			 <div class="descDiv">
+			     <p class="selected">支付</p>
+			 </div>
+			 <div class="descDiv last">
+			     <p>核对</p>
+			 </div>
+		</div>
+		<div id="paymentMethod">
+		    <div class="singleMethod">
+			    <div class="methodTop">
+				    <img></img>
+					<img></img>
+				</div>
+				<div class="methodBottom">
+				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
+			        <span class="radioDesc">网银支付</span>
+			        
+			         <form name="chinapnrpayment" action="chinapnrapi.jsp" method="post" target="_blank">
+						<input type="hidden" id="chnTradeNo" name="OrdId"/>
+						<input type="hidden" id="chnTotalFee" name="OrdAmt"/>
+						<input type="hidden" id="chnPhone" name="UsrMp"/>
+						
+                        <span class="new-btn-login-sp">
+                            <button id="chinapnrButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+					</form>
+				</div>
+			</div>
+			<div class="singleMethod">
+			    <div class="methodTop">
+				    <img></img>
+					<img></img>
+				</div>
+				<div class="methodBottom">
+				    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option1">
+			        <span class="radioDesc">支付宝支付</span>
+			        <form name="alipayment" action="alipayapi.jsp" method="post" target="_blank">
+						<input type="hidden" id="tradeNo"  name="WIDout_trade_no"  />
+					    <input type="hidden" id="subject" name="WIDsubject" value="test" />
+						<input type="hidden" id="totalFee" name="WIDtotal_fee" />
+						<input type="hidden" name="WIDbody" value="test"/>
+                        <span class="new-btn-login-sp">
+                            <button id="alipayButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+					</form>
+				</div>
+			</div>
+			<div class="singleMethod last">
+			    <div class="methodTop">
+				    <img></img>
+					<img></img>
+				</div>
+				<div class="methodBottom">
+				    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option1">
+			        <span class="radioDesc">分期支付</span>
+				</div>
+			</div>
+		</div>
+		<div id="methodInfo">
+		    <div class="longField fieldInd"  >
+			    <div class="fieldDesc">
+				    <p>信用卡人姓名</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control" id="creditName"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-user"></span>
+				</div>
+			</div>
+			<div class="longField fieldInd lastField"  >
+			    <div class="fieldDesc">
+				    <p>卡号</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  id="creditNo"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-credit-card"></span>
+				</div>
+			</div>
+			<div class="shortField fieldInd" >
+			    <div class="fieldDesc">
+				    <p>到期日</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  id="creditExpiredDate"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-time"></span>
+				</div>
+			</div>
+			<div class="shortField fieldInd">
+			    <div class="fieldDesc">
+				    <p>CVV / CVC *</p>
+				</div>
+				<div class="fieldContent">
+				    <input type="text" class="form-control"  id="CVcode"></input>
+				</div>
+				<div class="inputSub">
+				    <span class="glyphicon glyphicon-heart-empty"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footerContain">
+	    <div id="footer">
+		    <div id="prevButton">
+			    <p>返回</p>
+			</div>
+		    <div id="nextButton"  ng-click="pay()" >
+			    <p>下一步</p>
+			</div>
+		</div>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="/funeral/pages/component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
+<script>
+window.onload=function(){
+    $("#prevButton").click(function () {
+	    window.location.href='paymentConfirm.html';
+	});
+$("#optionsRadios1").attr('disabled',true); 
+$("#optionsRadios2").attr('checked','checked'); 
+$("#creditName").attr('disabled',true); 
+$("#creditNo").attr('disabled',true); 
+$("#creditExpiredDate").attr('disabled',true); 
+$("#CVcode").attr('disabled',true); 	
+$("#optionsRadios3").attr('disabled',true); 	
+
+	
+$("#optionsRadios1").click(function () {
+$("#creditName").attr('disabled',false); 
+$("#creditNo").attr('disabled',false); 
+$("#creditExpiredDate").attr('disabled',false); 
+$("#CVcode").attr('disabled',false); 
+
+
+	});
+		
+	
+$("#optionsRadios2").click(function () {
+$("#creditName").attr('disabled',true); 
+$("#creditNo").attr('disabled',true); 
+$("#creditExpiredDate").attr('disabled',true); 
+$("#CVcode").attr('disabled',true); 
+
+	});
+	
+	
+	
+	
+	//$("#nextButton").click(function () {
+	 //  window.location.href='paymentFinal.html';
+	//});
+};
+</script>
+</html>

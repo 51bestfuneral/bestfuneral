@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>葬礼定制</title>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.min.js"></script>
+<link href="/funeral/js/personal.css" rel="stylesheet">
+<script src="../js/generalUsage.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<style>
+.containerDiv {
+    width: 1349px;
+    margin: 0px auto;
+}
+p {
+    margin: 0px;
+}
+#mainPage {
+    width: 100%;
+	overflow: auto;
+	padding-bottom: 117px;
+	background: #F6F6F6;
+	z-index: 1;
+	margin-top:-5px;
+}
+#leftTabContent {
+    float: left;
+	width: 243px;
+	overflow: auto;
+	padding-top: 60px;
+	margin-left: 100px;
+	padding-bottom: 40px;
+}
+.tabTitle {
+    width: 100%;
+	height: 58px;
+	padding-top: 25px;
+	padding-left: 6px;
+	border-bottom: 1px solid #9d9d9d;
+}
+.tabTitle p {
+    font-size: 20px;
+    color: #9d9d9d;
+}
+.normalTab {
+    width: 100%;
+	height: 50px;
+	padding-left: 13px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.circleDiv {
+    width: 24px;
+	height: 24px;
+	border-radius: 12px;
+	background-color: #c6c6c6;
+	float: left;
+	margin-right: 14px;
+	margin-top: 11px;
+}
+.titleDiv {
+    height: 50px;
+	overflow: auto;
+	float: left;
+}
+.titleDiv p{
+    font-size: 20px;
+    color: #707070;
+	line-height: 50px;
+}
+.selectedTab {
+    background-color: #ff5274;
+}
+.selectedTab .circleDiv {
+    background-color: #ffffff!important;
+}
+.selectedTab p {
+    color: #ffffff!important;
+}
+.hoberdTab {
+    background-color: #ff5274;
+}
+.hoberdTab .circleDiv {
+    background-color: #ffffff!important;
+}
+.hoberdTab p {
+    color: #ffffff!important;
+}
+.taocanDiv {
+    width: 100%;
+	height: 85px;
+	padding-top: 15px;
+	padding-left: 22px;
+}
+.taocaoDiv {
+    font-size: 20px;
+	color: #000000;
+}
+.priceDiv {
+    font-size: 36px;
+	line-height: 48px;
+	color: #ff5274;
+	font-weight: 200;
+}
+#rightContent {
+    width: 960px;
+	box-shadow: 0 -5px 15px 0 rgba(0, 0, 0, 0.1);
+	background-color: #ffffff;
+	float: left;
+	margin-top: 29px;
+}
+#rightDsiplayContent {
+    overflow: hidden;
+}
+</style>
+<body onselectstart="return false">
+  <IFRAME NAME="content_frame" width="100%" SRC="component/topBar.html?cat=design" frameborder =0 height = "67px"></IFRAME>
+<div class="containerDiv" >
+<div id="mainPage">
+<div id="leftTabContent">
+    <div class="tabTitle">
+	    <p>葬礼定制</p>
+	</div>
+	<div class="normalTab selectedTab" id="basicInfo">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>基础信息</p>
+		</div>
+	</div>
+	<div class="normalTab" id="story">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>您的故事</p>
+		</div>
+	</div>
+	<div class="normalTab" id="productAndService">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>产品和服务</p>
+		</div>
+	</div>
+	<div class="normalTab" id="wishList">
+	    <div class="circleDiv"></div>
+		<div class="titleDiv">
+	    <p>愿望清单</p>
+		</div>
+	</div>
+	<div class="tabTitle">
+	    <p>已选择套餐</p>
+	</div>
+	<div class="taocanDiv">
+	    <p class="taocaoDiv">基础套餐</p>
+		<p class="priceDiv">￥<span id="totalPrice">0<span></p>
+	</div>
+	<div class="taocanDiv">
+	    <p class="taocaoDiv">节省金额</p>
+		<p class="priceDiv">￥<span id="totalSavedPrice">0<span></p>
+	</div>
+</div>
+<div id="rightContent">
+    <div id="rightDsiplayContent" overflow-y="visible">
+	    <IFRAME width=100% marginwidth=0 marginheight=0 frameborder = 0 class="questionFrame" src="component/basicInfo.html" hidden></IFRAME>
+		<IFRAME width=100% marginwidth=0 marginheight=0 frameborder = 0 class="questionFrame" src="component/questionsGroup.html" hidden></IFRAME>
+		<IFRAME width=100% marginwidth=0 marginheight=0 frameborder = 0 class="questionFrame" id="productFrame" hidden></IFRAME>
+		<IFRAME width=100% marginwidth=0 marginheight=0 frameborder = 0 class="questionFrame" name = "wishlistFrame" hidden></IFRAME>
+		<IFRAME width=100% marginwidth=0 marginheight=0 frameborder = 0 class="questionFrame" src="component/finished.html" hidden></IFRAME>
+	</div>
+</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script type="text/javascript" language="javascript">
+var wishList = [],
+    wishIdList = [],
+    originalWishlist = [],
+	wishlistId,
+    level;
+function muskCurrentPage() {
+    $(this).css({
+	    opacity: 0.5
+	});
+	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+		'z-index': 1000, 
+		width: $(document).width(), 
+		height: $(document).height(), 
+		'background-color': '#ccc', 
+		opacity: 0.5
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	var topLoading = (document.documentElement.clientHeight/2)-50;
+	$('<div class="loadingShow"><img src="/funeral/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: topLoading+'px',
+		left: '0px',
+		'z-index': 1001, 
+		width: $(document).width(), 
+		height: '100px',
+		'text-align': 'center'
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	$(".loadingShow").show();
+}
+function unmusk() {
+	$(".jquery_addmask").remove();
+	$(".loadingShow").remove();
+}
+function iFrameHeight(idx) {
+    var height = $($('.questionFrame')[idx]).contents().find('#productMain')[0].offsetHeight;
+	$($('.questionFrame')[idx]).css({
+		height: height
+	});
+	if ($($('.questionFrame')[idx]).is(":visible")) {
+	    $('#rightDsiplayContent').css({
+		    height: height
+	    });
+	}
+}
+function flowToIndex(idx) {
+    var height;
+    $('.questionFrame').hide();
+	$($('.questionFrame')[idx]).fadeIn();
+    height = $($('.questionFrame')[idx]).contents().find('#productMain')[0].offsetHeight;
+	$('#rightDsiplayContent').css({
+		height: height
+	});
+}
+function updatePrice(price, totalSavedPrice, operator) {
+    var currentPrice = parseFloat($("#totalPrice")[0].innerText),
+        currentSavedPrice = parseFloat($("#totalSavedPrice")[0].innerText),
+        changedPrice,
+		changedSavedPrice;
+    if (operator === '+') {
+        changedPrice = (currentPrice + price).toFixed(0);
+		changedSavedPrice = (currentSavedPrice + totalSavedPrice).toFixed(0);
+    }
+    else {
+        changedPrice = price.toFixed(0);
+		changedSavedPrice = totalSavedPrice.toFixed(0);
+    }
+    $("#totalPrice").hide();
+	$("#totalSavedPrice").hide();
+
+	if (changedPrice != null && changedPrice != undefined) {
+        $("#totalPrice")[0].innerText = changedPrice;
+	}
+	
+	if (changedSavedPrice != null && changedSavedPrice != undefined) {
+        $("#totalSavedPrice")[0].innerText = changedSavedPrice;
+	}
+	$("#totalPrice").fadeIn();
+    $("#totalSavedPrice").fadeIn();
+}
+function drillIntoNextTab(nextTab, needReload) {
+    if (nextTab[0].id === 'productAndService') {
+        if (needReload === 0 && $($('.questionFrame')[2]).contents().find('#productMain').length > 0) {
+            flowToIndex(2);
+            unmusk();
+        }
+        else {
+	        $($(".questionFrame")[2]).attr("src","component/product.html");
+        }
+	}
+	else if (nextTab[0].id === 'basicInfo') {
+		flowToIndex(0);
+		unmusk();
+	}
+	else if (nextTab[0].id === 'wishList') {
+        if (needReload === 0 && $($('.questionFrame')[3]).contents().find('#productMain').length > 0) {
+            flowToIndex(3);
+            unmusk();
+        }
+        else {
+		    $($(".questionFrame")[3]).attr("src","component/wishList.html");
+        }
+	}
+	else if (nextTab[0].id === 'story') {
+		if ($($('.questionFrame')[1]).contents().find('.questionCenter').length>0) {
+			unmusk();
+		}
+		flowToIndex(1);
+	}
+	$(".normalTab").removeClass("selectedTab");
+	nextTab.addClass("selectedTab");
+}
+function updateWishList(nextTab) {
+    $.ajax({
+		url: '/funeral/wishlistDetail/getSetWishList?wishlistId='+wishlistId,
+	    type: 'GET',
+		success:function(data){
+			wishList = data;
+			for (var i=0;i<data.length;i++) {
+				originalWishlist.push({
+                    wishId: data[i].wishId
+                });
+                wishIdList.push({
+                    wishId: data[i].wishId
+                });
+			}
+			if (nextTab) {
+			    drillIntoNextTab(nextTab);
+			}
+		},
+		error: function(error) {
+			//$("#messageSent")[0].value = '';
+		}
+    });
+}
+function getOrGenerateWishId() {
+    $.ajax({
+		url: '/funeral/wishlist/list',
+	    type: 'GET',
+		success:function(data){
+			wishlistId = data[0].wishlistId;
+            level = data[0].level;
+            updatePrice(data[0].price, data[0].originalPrice - data[0].price);
+			updateWishList();
+		},
+		error: function(error) {
+			//$("#messageSent")[0].value = '';
+		}
+    });
+}
+function compareWishlist() {
+    if (originalWishlist.length !== wishIdList.length) {
+	    return true;
+	}
+	else {
+	    return !(originalWishlist.sort().toString() === wishIdList.sort().toString());
+	}
+}
+function saveWishlist(nextTab) {
+    if (compareWishlist()) {
+	    $.ajax({
+		    url: '/funeral/wishlistDetail/add?wishlistId='+parent.wishlistId,
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: JSON.stringify(wishIdList),
+			success:function(data){
+                wishList = data;
+				drillIntoNextTab(nextTab);
+				originalWishlist = [];
+				for (var i=0;i<wishList.length;i++) {
+                    originalWishlist.push({
+                        wishId: wishList[i].wishId
+                    });
+				}
+		    },
+			error: function(error) {
+				//$("#messageSent")[0].value = '';
+			}
+		});
+	}
+	else if (nextTab){
+		unmusk();
+	    drillIntoNextTab(nextTab, 0);
+	}
+}
+function saveProductFrameChange(nextTab) {
+    var data = {},
+		selectedItemList = [],
+		selectElements = $("#productFrame").contents().find(".chooseProduct");
+
+	selectElements.each(function() {
+		var product = {
+			wishId: $(this)[0].id
+		};
+		selectedItemList.push(product);
+	});
+	wishIdList = selectedItemList;
+	saveWishlist(nextTab);
+}
+function nextTab() {
+	$(".normalTab").each(function() {
+	    var me = $(this);
+
+		if (me.hasClass("selectedTab")) {
+		    me.removeClass("selectedTab");
+			me.next().addClass("selectedTab");
+			if (me.next()[0].id === 'productAndService') {
+			    updateWishList(me.next());
+			}
+			else if (me.next()[0].id === 'wishList') {
+			    saveProductFrameChange(me.next());
+			}
+			else if (me.next()[0].id === 'story') {
+				if ($($('.questionFrame')[1]).contents().find('.questionCenter').length>0) {
+					unmusk();
+				}
+			    flowToIndex(1);
+			}
+			return false;
+		}
+	});
+}
+window.onload=function(){
+	$(".normalTab").hover(function () {
+        var $this = $(this);
+		if (!$this.hasClass("hoberdTab")) {
+            $this.addClass("hoberdTab");
+		}
+	});
+	$(".normalTab").on("mouseleave", function () {
+        var $this = $(this);
+
+		if ($this.hasClass("hoberdTab")) {
+            $this.removeClass("hoberdTab");
+		}
+	});
+	$(".normalTab").click(function() {
+	    var destUrl = "",
+		    needSave = false,
+			me = $(this);
+
+		if ($(this).hasClass("selectedTab")) {
+		    return false;
+		}
+		muskCurrentPage();
+		$(".normalTab").each(function() {
+		    if ($(this).hasClass("selectedTab")) {
+			    if ($(this)[0].id === 'productAndService') {
+					saveProductFrameChange(me);
+					needSave = true;
+					return false;
+				}
+				else if ($(this)[0].id === 'wishList') {
+					wishList = document.wishlistFrame.wishList;
+					saveWishlist(me);
+					needSave = true;
+					return false;
+				}
+			}
+		});
+	    if (!needSave) {
+		    drillIntoNextTab($(this), 0);
+		}
+	});
+	$(".normalTab").removeClass("selectedTab");
+	$($(".normalTab")[0]).addClass("selectedTab");
+	flowToIndex(0);
+	getOrGenerateWishId();
+};
+</script> 
+</html>

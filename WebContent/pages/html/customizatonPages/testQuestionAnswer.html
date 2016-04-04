@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>偏好调查</title>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="questionDisplay">
+<header>
+<!--<ul id="nav">
+	<li><a href="signInPgae.html">葬礼定制</a></li>
+	<li><a href="signInPgae.html">产品及服务</a></li>
+	<li><a href="signInPgae.html">墓地信息</a></li>
+	<li><a href="/pages/html/aboutUs.html">关于我们</a></li>
+</ul>-->
+<IFRAME NAME="content_frame" width=100% SRC="/pages/component/topBar.html?cat=design" frameborder = 0 height = "65px"></IFRAME>
+</header>
+<script>
+</script>
+
+<div class="mainSecton">
+
+<div id="topBar">
+</div>
+<div class="menu">	
+
+	
+	<div class="title1">
+	葬礼定制
+</div>
+
+	<ul id="menuBar">
+<li  id='story' ><a href="/pages/html/customizatonPages/acountInfo.html">账户信息</a></li>		
+<li  id='personalInfo'><a href="signInPgae.html">个人信息</a></li>	
+<li  id='story' ><a href="signInPgae.html">隐私信息</a></li>
+
+<li  id='basicInfo'><a href="signInPgae.html">基础信息</a></li>
+<li  id='story' ><a href="signInPgae.html">您的故事</a></li>
+
+	</ul>
+	
+	
+<ul id="costGroup">
+	
+
+	
+	<table>
+		
+		<tr>
+			
+			<td class="comments">
+				基础套餐
+			</td>
+			
+		</tr>
+
+	<tr>
+			
+			<td class="money">
+				
+				￥20,000
+			</td>
+			
+		</tr>
+		
+			<tr>
+			
+			<td  class="comments">
+				节省金额
+			</td>
+			
+		</tr>
+			<tr>
+			
+			<td  class="money">
+				￥3,200
+			</td>
+			
+		</tr>
+		
+	</table>
+	
+	
+	
+	
+	
+	
+	
+</ul>
+
+
+
+</div>
+
+
+
+
+
+<div class="info">
+	<ul id="processBar">
+		<li><a href="signInPgae.html">朝向偏好</a></li>
+		<li><a href="signInPgae.html">形式偏好</a></li>
+		<li><a href="signInPgae.html">材料偏好</a></li>
+		<li><a href="signInPgae.html">材料偏好</a></li>
+		<li><a href="signInPgae.html">材料偏好</a></li>
+		<li><a href="signInPgae.html">材料偏好</a></li>
+		<li><a href="signInPgae.html">材料偏好</a></li>
+	</ul>
+	<div class="order">
+		<p>
+			{{currentIndex}}/{{total}}
+		</p>
+	</div>
+	
+	<div id="{{s.question.questionId+'_'}}"   data-x="{{s.dataX}}"  data-y="75"   style="{{s.style}}"    ng-repeat="s in questionList">
+	
+	<div class="questionTitle">
+{{s.question.title}}
+	</div>
+	
+	
+	<div id="question">
+		<table border="0" width="100%" style="margin:auto;">
+		<tr>
+			<td ng-repeat="x in s.optionList">
+				<img  id="{{x.optionId}}"   style="{{x.style}}"  name="optionImg" src="{{x.imgUrl}}"   ng-click="saveAnswer(x.optionId,x.questionId)"     />
+			<p> {{x.optionDesc}}</p>
+			
+			</td>
+		</tr>
+		</table>
+	
+</div>
+	
+	
+	<div  class="inputComments">
+		
+	 <label style=' vertical-align: bottom;'>其他：</label>  
+	 
+	 
+	  <input   class="inputStyle" type='text'  size="25"  ng-change="saveComments(this.value)"  ng-model="s.otherComments"  value="{{s.otherComments}}" maxlength="100"  placeholder="请填写"  >
+
+		
+		</div>
+		
+		
+	</div>	
+		
+		
+	
+	
+		<div class="bottonRow">
+			<button class='backButton'  ng-click="preItem()">
+		<
+			</button>
+				<button class='skipButton' ng-click="nextItem()">
+				
+					跳过
+				
+				</button>
+			<button class="nextButton" ng-click="nextItem()">下一步</button>
+			</div>
+		</div>
+			
+					<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="/pages/component/bottomBar.html" frameborder = 1></IFRAME>
+
+			
+</div>
+	
+
+			
+			<style>
+				
+	.menuIframe{
+		
+		width:99.5%;
+
+		 height :860px;
+		
+		}			
+				
+				
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+#topBar{
+	height:48px;
+	width:100%;
+	background:#ebebeb;
+  position:relative; left:0%; right:0%;
+	}
+	#bottomBar{
+	height:48px;
+	width:100%;
+	background:#ebebeb;
+  position:relative; left:0%; right:0%;
+	}
+.mainSecton{
+	margin:0 auto;
+	height:1200px;
+	width:100%;
+	border:0px solid #000000;
+	}	
+
+.info
+{ 
+width:74.5%;
+height:900px;
+float:right;
+border:0px solid #707070;
+background:#fafafa;
+}	
+
+	
+
+	
+ul#processBar{
+height:50px;
+width:95%;
+border:1px solid #707070;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+border-top:none;
+border-left:none;
+border-right:none;
+	}		
+ul#processBar li{display:inline; height:50px} 
+ul#processBar li a{ padding:0 10px; height:50px; line-height:50px;text-decoration:none;
+color:#707070; face: "STHeitiSC-Light"; font-size:25px;} 
+ul#processBar li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+.order{
+height:68px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:68px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:25px;
+	}	
+.questionTitle{
+height:100px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:0px;
+text-align:center;
+line-height:68px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:48px;
+	}	
+#question{
+height:440px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:20px;
+text-align:center;
+line-height:40px;overflow:hidden;
+color:#707070; face: "STHeitiSC-Medium"; font-size:40px;
+
+	}	
+	
+	
+.question2{
+	
+display:none;	
+
+
+	}	
+	
+	
+.selected{
+	
+border:7px solid #ff5274; border-radius:170px;  cursor:pointer;
+
+	}		
+	
+	
+.unSelected{
+	
+border:0px solid #ff5274; border-radius:170px;  cursor:pointer;
+
+	}	
+	
+	
+	
+.inputComments{
+height:100px;
+width:100%;
+border:0px solid black;  
+position:relative; 
+left:0%; 
+right:0%;
+top:50px;
+text-align:center;
+color:#707070; 
+face: "STHeitiSC-Medium"; 
+font-size:40px;
+font-weight:900;
+	}		
+	
+	.inputStyle{
+		
+border-top:none;
+border-left:none;
+border-right:none;
+border-bottom:1px solid   #979797;
+height:40px;
+outline:none;		
+padding-right:0px;
+font-weight:100;
+color:#707070; 
+face: "STHeitiSC-Medium";
+font-size:40px;
+
+		}
+	
+	
+	
+	
+.bottonRow{
+height:50px;
+width:100%;
+border:0px solid #ff5274;  
+position:relative; 
+left:0%; 
+right:0%;
+top:650px;
+padding-top:0px;
+	}		
+.backButton {
+   background-color: #d6d6d6;
+   	  cursor:pointer;
+
+		width : 73px;
+		height:69.9px;
+		position:absolute;  
+		top:15%; 
+		margin-top:10px;
+		left:4%; 
+		text-align:center;
+    color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+
+	}
+	.skipButton {
+	  background-color: #d6d6d6;
+	  	  cursor:pointer;
+
+		width : 149px;
+		height:69.9px;
+		 position:absolute;  
+		top:15%; 
+		margin-top:10px;
+		left:55%; 
+   
+		text-align:center;
+		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+	}
+	.nextButton {
+	  background-color: #ff5274;
+	  cursor:pointer;
+		width : 171px;
+		height:69.9px;
+		position:absolute;  
+		top:15%; 
+		margin-top:10px;
+		left:75%; 
+		text-align:center;
+		color:#ffffff; face: "STHeitiSC-Medium"; font-size:28px;
+		box-shadow:10px 0px 4px ;
+		border-radius:0px 4px 0px 0px ;
+	}
+
+	
+	
+  ul#costGroup{ 
+width:70%;
+border:0px solid #ff5274;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+  	     } 
+  ul#costGroup li{ height:20px; list-style:none;} 
+  ul#costGroup li a{padding:10 10px; height:20px; line-height:20px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Light"; font-size:23px;} 
+  ul#costGroup li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+ 
+	
+	
+.comments{
+	 color:#000000; face: "STHeitiSC-Light"; font-size:23px;
+	
+	}
+	
+.money{
+	
+	 color:#ff5274; face: "OpenSans-Light"; font-size:30px;
+	
+	}		
+	
+	.menu
+{ 
+width:25%;
+height:900px;
+float:left;
+border:0px;
+background:#ebebeb;
+} 
+	
+.title1{
+width:70%;
+border:0px solid #9d9d9d;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;
+padding-left:50px;
+	}
+	
+.title2{
+width:70%;
+border:0px solid #9d9d9d;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+color:#9d9d9d; 
+face: "STHeitiSC-Light";
+font-size:23px;
+border-top:none;
+border-left:none;
+border-right:none;
+padding-left:45px;
+	}	
+
+	
+ul#menuBar{
+width:70%;
+border:0px solid #ff5274;  
+position:relative; 
+left:15%; 
+right:0%;
+top:0px;
+	}		
+	
+
+	
+
+ul#menuBar li:before {
+	  
+   content:"";
+   display: inline-block;
+   background-color: #ffffff;
+   width: 18px;
+   height:18px;
+   border-radius: 18px;
+   padding-top:0px;
+    
+}
+
+ul#menuBar li{
+	list-style-type:none;
+	
+	}
+	ul#menuBar li:hover{background:#ff5274;}
+
+
+ul#menuBar li a{ padding:0 5px; height:30px; line-height:30px;text-decoration:none;color:#707070; face: "STHeitiSC-Light"; font-size:23px;} 
+ul#menuBar li a:hover{background:#ff5274;}
+	
+	
+.barSelect {
+	 background-color:#ff5274;
+	}		
+	
+	
+			</style>
+	<script>
+var app = angular.module('myApp', []);
+var index=0;
+var  questionId=-1;
+var  selectedOptionId=-1;
+
+
+	 $("#basicInfo").addClass("barSelect");
+
+
+app.controller('questionDisplay', function($scope, $http) {
+	
+	
+		$http.get("/funeral/fQuestion/totalQuestionNumber").success(function(response) {
+			
+			$scope.total=response;
+			$scope.currentIndex=1;
+			
+			}) 
+	
+	
+	
+	
+$http.get("/funeral/fQuestion/listAllForDisplay").success(function(response) {
+	       $scope.currentQuestion = response[index];
+	       var datadata = JSON.stringify($scope.currentQuestion);	       
+	       $scope.questionList=response;
+	       questionId=$scope.currentQuestion.question.qusetionId;
+	       selectedOptionId=$scope.currentQuestion.selectedOptionId;
+      
+			})
+			
+			$scope.saveAnswer = function(optionId,questionId){	
+				  selectedOptionId=$scope.currentQuestion.selectedOptionId;           	
+	       $("#"+selectedOptionId).removeAttr("style");
+		 	$http.get("/funeral/fAnswer/save?"+"questionId="+questionId+"&optionId="+optionId).success(function(response) {
+			}) 		
+				 $http.get("/funeral/fQuestion/listAllForDisplay").success(function(response) {
+				 	
+				 	
+				 	$scope.currentQuestion = response[index];
+
+	       $scope.nextQuestion=response[index+1]; 
+	       
+	       if(selectedOptionId==optionId){
+	     	       $("#"+selectedOptionId).removeAttr("style");
+	     	       $("#"+selectedOptionId).addClass("unSelected");
+
+	     }else{
+	     		       $("#"+optionId).addClass("selected");
+
+	     	}
+				$("#"+questionId+"_").animate({left:"-980px"},1000, function(){
+		    $("#"+questionId+"_").fadeOut(500); 
+		    $("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},500, function(){	
+		    	$("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(1000);	
+		  	});
+		  	});			 
+			})	
+				index=	Number( index) +Number(1);		
+				$scope.currentIndex=Number( index) +Number(1);
+				}
+			
+			$scope.saveComments=function(){
+				
+				var squestionId= $scope.currentQuestion.question.qusetionId;
+				var svalue=$scope.currentQuestion.otherComments;
+				
+
+		 	$http.get("/funeral/fAnswer/saveOtherComments?"+"questionId="+squestionId+"&comments="+svalue).success(function(response) {
+			})		
+				
+				}
+         
+		$scope.nextItem = function(){			
+	//	var comments=$scope.currentQuestion.otherComments;
+	//		 	$http.get("/funeral/fAnswer/saveOtherComments?"+"questionId="+questionId+"&comments="+comments).success(function(response) {
+	//		}) 
+	
+	
+	if(index+Number(1)==$scope.total){
+		alert("已经是最后一题了！");
+		return ;
+		
+		}
+		
+ $scope.preQuestion =  $scope.questionList[index];	
+	
+	 $("#"+ $scope.preQuestion.question.questionId+"_").hide();	
+		
+	index=	Number( index) +Number(1);		
+	$scope.currentIndex=index+Number(1);
+	
+				    $scope.currentQuestion =  $scope.questionList[index];	
+         questionId=$scope.currentQuestion.question.questionId;
+	
+		$http.get("/funeral/fAnswer/getQuestionById?"+"questionId="+questionId).success(function(response) {
+	       $scope.currentQuestion=response;
+			})
+	
+	$("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},500,function(){
+							
+		$("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(3000);	
+							});	
+	
+		
+       }
+	
+	
+	 $scope.preItem = function(){
+	     	if(index==0){
+	   		alert("已经是第一题了！")
+	   		return;
+	   		}
+	 					index=	Number( index) -Number(1);		
+					$scope.currentIndex=index+Number(1);
+			    $scope.currentQuestion =  $scope.questionList[index];	
+
+	 		questionId=$scope.currentQuestion.question.questionId;
+	 		
+	 	$http.get("/funeral/fAnswer/getQuestionById?"+"questionId="+questionId).success(function(response) {
+	       $scope.currentQuestion=response;
+			})
+							
+selectedOptionId=$scope.currentQuestion.selectedOptionId;
+
+
+ $scope.nextQuestion=$scope.questionList[index+1];	
+ 
+ $("#"+ $scope.nextQuestion.question.questionId+"_").hide();
+
+				
+		$("#"+ $scope.currentQuestion.question.questionId+"_").animate({left:"0px"},500,function(){
+							
+		$("#"+ $scope.currentQuestion.question.questionId+"_").fadeIn(3000);	
+							});	
+}
+ });	
+	</script>
+			<script>
+				
+		function editField() {
+			
+			  var oImg = document.getElementsByName("optionImg");
+    for (var i = 0; i < oImg.length; i++) { 	
+     
+        oImg[i].style.border = '0px solid #ffffff';
+     
+    }
+			
+			
+			}		
+				
+				
+				var selectedId=-1;
+				
+				
+function updateSelected(sId,sName) {
+    var oImg = document.getElementsByName(sName);
+    for (var i = 0; i < oImg.length; i++) { 	   	
+    	 
+    	alert("  sId="+sId+"  oImg[i].id="+oImg[i].id);
+      if (oImg[i].id == sId) {      	
+        oImg[i].style.border = '2px solid #ff5274';
+      } else {
+        oImg[i].style.border = '0px solid #ffffff';
+      }
+    }
+      
+     
+      
+      
+      
+    }
+ 
+				
+				
+				
+				
+				
+//  function onChecked(sId,sName) {
+//    var oImg = document.getElementsByName(sName);
+//    for (var i = 0; i < oImg.length; i++) { 	   	
+//    	 if(selectedId==sId){
+//      	
+//      	        oImg[i].style.border = '0px solid #ffffff';
+//
+//      	}else{
+//    	
+//      if (oImg[i].id == sId) {
+//      	
+//      	selectedId=oImg[i].id;
+//      	var _id=sId+"_"+sName;
+//      	
+//        oImg[i].style.border = '2px solid #ff5274';
+//      } else {
+//        oImg[i].style.border = '0px solid #ffffff';
+//      }
+//    }
+//      
+//     
+//      
+//      
+//      
+//    }
+//  }
+  function changRadio(_id){                            
+alert('changRadio  _id='+_id);
+   var x= document.getElementById(_id);
+  alert('x ='+x);  
+    if(x.checked==false){
+    	x.checked==true;
+    	}else{
+    		x.checked==false
+    		}
+}  
+			</script>
+			
+		
+			
+			
+			</body>
+			</html>
