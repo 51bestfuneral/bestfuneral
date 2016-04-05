@@ -184,7 +184,7 @@
 		</div>
 	</div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script>
 function setCookie(name,value,hours,path){  
@@ -246,6 +246,14 @@ window.onload = function() {
 	    
 	$("#alreadyHas").click(function() {
 	    window.location.href='needSignIn.html';
+	});
+	
+	$("#forget").click(function() {
+		if(backUrl==null||backUrl==""){
+		window.location.href='changePassword.html'
+		}else{
+	    window.location.href='changePassword.html?returnUrl='+backUrl;
+	}
 	});
 	$("#userName").blur(function() {
         if (!validateValid($(this)[0].value)) {
