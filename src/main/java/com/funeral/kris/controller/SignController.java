@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
+import com.funeral.kris.service.SmsSenderService;
 import com.funeral.kris.service.UserService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.MD5;
@@ -37,6 +39,9 @@ public class SignController {
 	private WishlistService wishlistService;
 	@Autowired
 	private EntityManager em;
+	
+	@Autowired
+	private SmsSenderService smsSenderService;
 
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
@@ -112,5 +117,45 @@ public class SignController {
         wishlist.setPrice(BigDecimal.ZERO);
         wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
         wishlistService.addResource(wishlist);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+	public void updatePassword(HttpServletRequest request, @RequestBody User user) throws Exception {
+		String account = user.getUserName();
+		User userAccount =userService.getByAccount(account);
+		userAccount.setPassword(user.getPassword());
+		userAccount.setStatus(LoginConstants.accountValid);
+		userAccount.setUserType(LoginConstants.userTypeInidCustomer);
+		userAccount.setInvalidLoginTimes(0);
+		userService.updateResource(userAccount);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "send", method = RequestMethod.POST)
+	public String send(HttpServletRequest request, @RequestBody User user) throws Exception{
+		String account = user.getUserName();
+		User userAccount =userService.getByAccount(account);
+		if(userAccount==null){
+			return null;
+		}else{
+			user.setUsrId(userAccount.getUsrId());
+		}
+		Random random = new Random();
+		int i = 0;
+		while(i<100000){
+			i = random.nextInt(999999);
+		}
+		String vaildCode = i+"";
+		String phone = userAccount.getPhone();
+		Map<String,String> messageInfo = new HashMap<String,String>();
+		messageInfo.put("phone", phone);
+		messageInfo.put("code", vaildCode);
+		messageInfo.put("product", "念念");
+		int flag = smsSenderService.sendForPassword(messageInfo);
+		if(flag ==1){
+			return vaildCode;
+		}
+		return null;
 	}
 }
