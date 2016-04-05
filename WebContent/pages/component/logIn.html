@@ -264,6 +264,11 @@ window.onload = function() {
 	$("#alreadyHas").click(function() {
 	    parent.removeSelf(2);
 	});
+	
+	$("#forget").click(function() {
+	    parent.removeSelf(3);
+	});
+	
 	$("#loginFrameCoat",window.parent.document).fadeIn();
 	$("#userName").blur(function() {
         if (!validateValid($(this)[0].value)) {
