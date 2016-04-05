@@ -137,25 +137,20 @@ public class PayDAOImpl implements PayDAO {
 
 		Connection conn = MySQL.getConn();
 
-		String sql = "update t_fee_collection set order_no=? ,  status_id =? , collection_type=?,order_id=?,description=?,subject=?,trade_status=? where collection_id=?";
+		String sql = "update t_fee_collection set order_no=? ,  status_id =? , collection_type=?,order_id=?,description=?,subject=?,trade_status=?,collection_type=? where collection_id=?";
 
 		PreparedStatement st;
 		try {
 			st = conn.prepareStatement(sql);
 			st.setString(1, feeCollection.getOrderNo());
-
-			st.setInt(2, COLLECTION.collection_init);
-
+			st.setInt(2, feeCollection.getStatusId());
 			st.setInt(3, 1);
-
 			st.setInt(4, -1);
-
 			st.setString(5, feeCollection.getSubject());
 			st.setString(6, feeCollection.getSubject());
-
 			st.setString(7, feeCollection.getTradeStatus());
-
-			st.setInt(8, feeCollection.getCollectionId());
+			st.setInt(8, feeCollection.getCollectionType());
+			st.setInt(9, feeCollection.getCollectionId());
 
 			st.executeUpdate();
 

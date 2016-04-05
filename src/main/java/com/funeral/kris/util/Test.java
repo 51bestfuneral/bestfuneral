@@ -9,7 +9,7 @@ public class Test {
 		
 		String test="1";
 		
-		System.out.println(new BigDecimal(test).setScale(2, BigDecimal.ROUND_HALF_UP));
+		System.out.println(new BigDecimal(test).setScale(2, BigDecimal.ROUND_HALF_UP).toString());
 		
 	}
 

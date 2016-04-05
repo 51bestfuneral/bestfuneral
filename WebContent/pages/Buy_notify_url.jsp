@@ -23,15 +23,37 @@
     String 	GateId = request.getParameter("GateId");  			//银行ID
     String 	ChkValue = request.getParameter("ChkValue"); 		//签名信息 
     
+    Map<String,String> params = new HashMap<String,String>();
     
     
     
-    System.out.println("----------------------------------hui---------------------------");
+    
+    
+    if("000000".equals(RespCode)){
+    	
+    	
+    	params.put("trade_no",TrxId);
+        params.put("out_trade_no",OrdId);
+        params.put("body",OrdId);
+        params.put("collection_type","1");
+        params.put("price",OrdAmt);
+        
+        
+        
+        com.funeral.kris.pay.service.PayCollectionService service=new com.funeral.kris.pay.service.PayCollectionServiceImpl();
+		service.completeCollection(params);
+    	
+    }
+    
+    
+    
+    
+    System.out.println("----------------------------------hui---------------------------RespCode="+RespCode);
 	
 	try
 	{
 		//验签
-		String 	MerKeyFile	= "http://121.42.182.117/funeral/pages/PgPubk.key";
+		String 	MerKeyFile	= "http://www.365niannian.com/funeral/pages/PgPubk.key";
 		String	MerData = CmdId + MerId + RespCode + TrxId + OrdAmt + CurCode + Pid + OrdId + MerPriv + RetType + DivDetails + GateId;  	//参数顺序不能错
 		SecureLink sl = new SecureLink( ) ;
 		int ret = sl.VeriSignMsg(MerKeyFile , MerData, ChkValue) ;
@@ -44,6 +66,10 @@
 		{
 			if(RespCode.equals("000000"))
 			{
+				
+				
+			    System.out.println("----------------------------------hui--------------------------OrdId="+OrdId+"  OrdAmt="+OrdAmt);
+			
 				//交易成功
 				//根据订单号 进行相应业务操作
 				//在些插入代码

@@ -97,7 +97,8 @@
 			//注意：
 			//付款完成后，支付宝系统发送该交易状态通知
 			
-			
+			        params.put("collection_type","2");
+
 			
 			
 		com.funeral.kris.pay.service.PayCollectionService service=new com.funeral.kris.pay.service.PayCollectionServiceImpl();

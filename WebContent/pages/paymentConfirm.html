@@ -311,6 +311,12 @@ span {
 	            $scope.grossPay = response;
 	        });
 	        
+	        
+	         $http.get("/funeral/wishlistDetail/loadShoppingCart?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	    $scope.shappingCart=	response;
+	  });
+	        
+	        
 	          $http.get("/funeral/alipay/getTotalPay?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
 	    $scope.totalPay = response;
 	}); 
@@ -442,7 +448,7 @@ span {
 			</div>
 			<div class="summ">
 			    <p class="title">小计</p>
-				<p>￥{{wishList.price}}</p>
+				<p>￥{{shappingCart.grossFee}}</p>
 			</div>
 			<div class="summ">
 			    <p class="title">邮寄</p>
@@ -450,7 +456,7 @@ span {
 			</div>
 			<div class="summ">
 			    <p class="title">总计</p>
-				<p class="final">￥{{totalPay}}</p>
+				<p class="final">￥{{shappingCart.grossFee+currenctExpress.expressFee}}</p>
 			</div>
 		</div>
 	</div>

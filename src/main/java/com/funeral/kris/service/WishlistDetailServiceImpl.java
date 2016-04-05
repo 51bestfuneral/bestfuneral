@@ -136,7 +136,7 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 				 WishlistDetail  detail=	 (WishlistDetail) iterator.next();
 				 
 				 
-				 if(detail.getSelected().intValue()==1){
+				 if(detail.getSelected()!=null&&detail.getSelected().intValue()==1){
 					 
 					 list.add(detail) ;
 					 
@@ -154,6 +154,48 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 		 
 		 
 		 
+		return list;
+		
+		
+		
+		
+		
+	}
+	@Override
+	public List<WishlistDetail> getDirectWishlistDetailByWishListId(int wishListId) {
+		
+		List<WishlistDetail>  wishListDetailList= 	this.getResourceByWishListId(wishListId);
+		
+		List<WishlistDetail>   list=new ArrayList();
+		
+		
+		if(wishListDetailList!=null&&wishListDetailList.size()>0){
+			
+			Iterator  iterator= wishListDetailList.iterator();
+			
+			while(iterator.hasNext()){
+				
+				WishlistDetail  detail=	 (WishlistDetail) iterator.next();
+				
+				
+				if(detail.getSourceId()!=null&&detail.getSourceId().intValue()==2){
+					
+					list.add(detail) ;
+					
+				}
+				
+				
+				
+			}
+			
+			
+			
+		}
+		
+		
+		
+		
+		
 		return list;
 		
 		

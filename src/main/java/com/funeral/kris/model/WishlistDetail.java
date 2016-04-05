@@ -41,6 +41,16 @@ public class WishlistDetail implements Serializable {
 
 	@Column(name = "source_id")
 	private Integer sourceId;
+	@Column(name = "recommend")
+	private Integer recommend;
+
+	public Integer getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(Integer recommend) {
+		this.recommend = recommend;
+	}
 
 	@Column(name = "count")
 	private Integer count;

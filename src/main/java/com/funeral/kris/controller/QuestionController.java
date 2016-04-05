@@ -61,6 +61,11 @@ public class QuestionController {
 		    	genderControll = true;
 		    }
 		}
+		
+		if(gender==null){
+			
+			gender=1;
+		}
 		List<Question> questions = questionService.getResources(request);
         List<QuestionListJson> questionJsonList = new ArrayList<QuestionListJson>();
         for (Question question : questions) {

@@ -126,9 +126,9 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 		
 		Wishlist  wishlist =wishlistService.getResourceByUserId(userId);
 		
-		wishlist.setPrice(BigDecimal.ZERO);
+		wishlist.setPrice(wishlist.getPrice().subtract(feeCollection.getAmount()));
 		
-		wishlist.setOriginalPirce(BigDecimal.ZERO);
+		//wishlist.setOriginalPirce(BigDecimal.ZERO);
 		
 		wishlistService.updateResource(wishlist);
 		
