@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="head"><title>
-	念念
-</title><meta name="description" content="Bleum provides high performance software development teams that
+<head id="head">
+<title>念念</title>
+<meta name="description" content="Bleum provides high performance software development teams that
 								deliver smart solutions, helping you to exceed your customers’
 								expectations for timely product delivery, zero defects, and a
 								superior customer experience." /> 
@@ -10,18 +10,30 @@
 <meta http-equiv="pragma" content="no-cache" /> 
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="../js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <link href="/funeral/pages/component/css/secondLevelMenu.css" rel="stylesheet">
 <link href="/funeral/js/personal.css" rel="stylesheet">
-<script src="/funeral/js/util.js"></script>
-<script src="/funeral/js/generalUsage.js"></script>
-<script src="/funeral/js/serviceonline.js"></script>
 <link href="/funeral/js//css/serviceonline.css" rel="stylesheet">
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e9e8b7642f169d1d0fdd840ceaccf2dc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ 
+  ga('create', 'UA-75999093-1', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
 </head>
 <style>
 html {
@@ -31,9 +43,10 @@ body {
     margin: 0;
 	text-align: center;
 	height: 100%;
-	background-color:#102430;
+	background-color: white;
 }
 #topHalfLevel {
+    margin-top: -2px;
 	padding-bottom: 3%;
 	background-repeat: no-repeat;
     background-size: 1920px 1180px;
@@ -53,7 +66,6 @@ body {
 	color: white;
 	font-size: 50px;
 	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
-    font-family: HelveticaNeue-Thin;
 }
 .mainContent1 {
     position: relative;
@@ -66,6 +78,7 @@ body {
 	margin-top: 30px;
 	font-weight: lighter;
 	width: 570px;
+	line-height: 20px;
 }
 .subtext {
     font-size: 12px;
@@ -348,35 +361,6 @@ body {
     -webkit-transition:opacity 0.5s;
     -o-transition:opacity 0.5s;
 }
-#startButton {
-    width: 118px;
-	float: left;
-	height: 44px;
-	background-color: #ec4a82;
-	margin: 0px;
-	border-radius: 5px;
-	color: #ffffff;
-	text-align: center;
-	box-shadow: none!important;
-}
-#startButton p {
-    font-size: 19px;
-	margin: 0px;
-	color: #ffffff;
-}
-#askGroupRight {
-    float: left;
-	height: 44px;
-	width: 150px;
-	padding-left: 10px;
-	color: #a9aeb0;
-	padding-top: 7px;
-}
-#askGroupRight p{
-    font-size: 12px;
-	line-height: 20px;
-	margin: 0px;
-}
 #bottomContactInfo {
     width: 100%;
 	overflow: auto;
@@ -517,10 +501,10 @@ body {
 	text-align: center;
 	line-height: 35px;
 	cursor: pointer;
+	opacity: 0.5;
 }
 .closeCoverDiv:hover {
-	color: yellow;
-	border: 2px solid yellow;
+	opacity: 1;
 }
 .titleDiv {
     width: 1165px;
@@ -528,6 +512,7 @@ body {
 	margin: 0 auto;
 	background-color: #ccc;
 	text-align: left;
+	display: none;
 }
 .titleDiv h1 {
     margin: 0px;
@@ -633,37 +618,45 @@ body {
 	    background-size: 100%;
 	}
 	.memberDesc {
-	    margin-left: 55%;
+	    margin-left: 50%;
 		overflow: auto;
+	}
+	#memberDesc1 .memberDesc {
+	    margin-left: 34%;
 	}
 	.memberState {
 	    margin-top: 52px;
-	    width: 327px;
-		height: 170px;
+	    width: 427px;
+		height: 250px;
 		padding-left: 30px;
 		padding-top: 42px;
 		padding-right: 35px;
-		box-shadow: 5px 5px 3px 0px #c7c7c7;
 		text-align: left;
-		background: #ffffff;
+		background: transparent;
+		overflow: hidden;
 	}
 	#memberDesc4 .memberState {
 	    margin-top: 102px;
 	}
 	#memberDesc2 .memberDesc{
-	    margin-left: 25%;
+	    margin-left: 23%;
 	}
 	#memberDesc3 .memberDesc{
 	    margin-left: 40%;
 	}
 	#memberDesc3 .memberState {
-	    height: 200px;
+	    height: 220px;
+	}
+	#memberDesc1 .memberState {
+	    height: 160px;
 	}
 	.memberState p {
 	    font-size: 17px;
-		color: #3d4351;
-		line-height: 21px;
-		font-weight: lighter;
+	    color: #FFFFFF;
+	    line-height: 25px;
+	    font-weight: lighter;
+	    background-color: rgba(0, 0, 0, 0.3);
+	    padding: 20px;
 	}
 	.membersSelect {
         overflow: auto;
@@ -696,9 +689,9 @@ body {
 	}
 	#designShow {
 	    width: 100%;
-		background-color: #ed4b83;
-		overflow: auto;
-		height: 687px;
+		background-image:url('../js/images/pink_pattern.jpg');
+		overflow: inherit;
+		height: auto;
 		padding-top: 40px;
 		margin-top: 10px;
 	}
@@ -742,11 +735,20 @@ body {
 	    background-color: #102430;
 	    width: 100%;
 	    height: 457px;
+	    margin-top: -30px;
+	}
+	#productShowCoat {
+	    width: 1300px;
+	    margin: 0px auto;
 	}
 	#productIconList {
 	    width: 50%;
 		float: left;
 		height: 457px;
+		background-image: url('../js/images/product & services image@2x.png');
+		background-size: 550px;
+        background-repeat: no-repeat;
+        background-position: 0px 80px;
 	}
 	#productIconList .singleIcon {
 		overflow: auto;
@@ -822,6 +824,9 @@ body {
 	    font-size: 13px;
 		margin: 0xp;
 		margin-top: 24px;
+		color: white;
+	    width: 70%;
+	    line-height: 20px;
 	}
 	#goToProduct .startPurchseBtn {
 	    width: 136px;
@@ -830,7 +835,6 @@ body {
 		border: 1px solid #ed4b83;
 		margin-top: 35px;
 		background: #102430;
-		opacity: 0.8;
 	}
 	.startPurchseBtn:hover {
 	    opacity: 1!important;
@@ -847,19 +851,21 @@ body {
 	#cemeteryShow {
 	    width: 100%;
 		height: 457px;
-		background-image:url('../js/images/temple_viz@2x-min.jpg');
+		background-image:url('../js/images/temple pattern@2x-min.jpg');
 		background-repeat: repeat;
+		overflow: hidden;
 	}
 	#cemeteryInfo {
 	    float: left;
-		padding-top: 136px;
-		padding-left: 281px;
+		padding-top: 86px;
 		text-align: left;
 	}
 	#cemeteryInfo h2 {
 	    color: #ffffff;
 		font-size: 28px;
 		margin-bottom: 24px;
+		margin-top: 30px;
+		line-height: 0;
 	}
 	#cemeteryInfo h3 {
 	    color: #ffffff;
@@ -889,7 +895,6 @@ body {
 	#designProcessShow {
 	    width: 632px;
 		height: 486px;
-		background-image: url('../js/images/20160220202822.png');
 		background-size: 100% 100%;
 		margin: 0px auto;
 		margin-top: -900px;
@@ -912,7 +917,6 @@ body {
 	    color: #ff5274;
 	}
 	#productFrameCoat {
-	    margin-top: 416px;
 	    width: 100%;
 	    background: #0B1820;
 	}
@@ -1041,8 +1045,12 @@ body {
 	    float: right;
 	    background: #ed4b83;
 	    border-radius: 5px;
-	    margin-right: 270px;
+	    margin-right: 200px;
 	    margin-top: 50px;
+	    cursor: pointer;
+	}
+	#detailCalculator:hover {
+	    opacity: 1;
 	}
 	#detailCalculator p {
 	    font-size: 25px;
@@ -1075,6 +1083,7 @@ body {
 	background: #F7F9FA;
 	padding-top: 20px;
 	padding-bottom: 20px;
+	margin-bottom: -5px;
 	}	
 
 	#companyIntroduction.contact p{
@@ -1162,16 +1171,24 @@ body {
 		line-height: 20px;
 		margin: 0px;
 	}
-
-	.arrow-up {
-		width: 0; 
-		height: 0; 
-		border-left: 5px solid transparent;
-		border-right: 5px solid transparent;
-		
-		border-bottom: 5px solid black;
-	}
-
+    #cemeteryImage {
+        float: right;
+    }
+    #cemeteryImage img {
+        width: 1000px;
+        margin-left: 310px;
+        margin-top: -200px;
+    }
+    #cemeteryInfoCoat {
+        width: 1200px;
+        margin: 0px auto;
+    }
+    video {
+        margin-top: 30px;
+        width: 50%;
+        position: relative;
+        min-width: 800px;
+    }
 </style>
 <script type="text/javascript">
 function GetRandomNum(Min,Max)
@@ -1198,14 +1215,14 @@ function muskPage() {
 				$(this).fadeTo('slow', 0.5); 
 		});
 }
-function muskPageForProduct(id) {
+function muskPageForProduct(id, type) {
 	    var parentWidth = $(".coverDiv").width(),
 		    frameWidth = $(".detailFrame").width();
 				
 		muskPage();
-		$(".detailFrame").attr("src","component/productDetail2.html?id="+id);
+		$(".detailFrame").attr("src","component/productDetail"+ type +".html?id="+id);
 		$(".closeCoverDiv").css({
-			right: (parentWidth-frameWidth)/2,
+			right: (parentWidth-frameWidth)/2 - 30,
 			left: 'auto',
 			top: 0
 		});
@@ -1219,21 +1236,23 @@ function muskPageForProduct(id) {
 <!--    <div class="pictureMaskDiv"></div> -->
 	<div class = "mainContent1">
 		<h1>不要让你爱的人走的太匆忙</h1></br>
-		<h5 color="white">念念提供综合全面，一站式的殡葬服务体验。告诉我们您的需求，我们帮助您定制最符合您的服务</h5>
+		<h5 color="white">念念提供综合性一站式殡葬服务体验。<br>
+		告诉我们需求，我们为您定制最适合的服务。</h5>
+		
 	</div>
 	<div id="howToHelp">
 	    <div id="message">
 			<p>开始定制</p>
 		</div>
     </div>
-	<p class="subtext">或者直接给我们打电话<span>400-166-0030</span></p>
+	<p class="subtext">或直接致电我们 <span>400-166-0030</span></p>
 </div>
 <div id = "mainContent3">
     <div id="content3Container">
 	    <div id="subContentLeft">
 			<div class="singleTip">
 				<h2>你知道</h2>
-				<h1>40%</h1>
+				<h1>60%</h1>
 				<p>葬礼花费可以因为合理的安排的省去吗？</p>
 			</div>
 		</div>
@@ -1241,12 +1260,12 @@ function muskPageForProduct(id) {
 			<div id="calculator">
 			    <div id="normalFee">
 			        <h2>一般葬礼花费</h2>
-			        <h1>￥12345</h1>
+			        <h1>￥<span id="otherPrice">11000</span></h1>
 			    </div>
 			    <div id="nianFee">
 			        <h2>念念花费</h2>
-			        <h1>￥2345</h1>
-			        <h3>（节省¥10000）</h3>
+			        <h1>￥<span id="nianPrice">8000</span></h1>
+			        <h3>（节省¥<span id="savePrice">3000</span>）</h3>
 			    </div>
 			    <div id="calculatorBar">
 			        <div class="statusBarPoint" id="1">
@@ -1270,16 +1289,23 @@ function muskPageForProduct(id) {
 			</div>
 		</div>
 		<div id="statusBarDesc">
-		    <div id="firstDiv"><p>+基础葬礼</p></div>
-		    <div><p>+入殓师</p></div>
-		    <div><p>+净身服务</p></div>
-		    <div><p>+寺庙服务</p></div>
+		    <div id="firstDiv"><p>+ 基础葬礼</p></div>
+		    <div><p>+ 入殓师</p></div>
+		    <div><p>+ 法事服务</p></div>
+		    <div><p>+ 告别式</p></div>
 		</div>
 		<div id="detailCalculator"><p>详细计算</p></div>
 	</div>
 </div>
 <div id="members">
     <div id="memebersCoat">
+		<div class="membersContent" id="memberDesc2">
+			<div class="memberDesc">
+				<div class="memberState">
+					<p>我先生几年前过世了，对全家人来说是晴天霹雳，我和孩子们都沉浸在无尽的悲痛之中，生活负担更是变得沉重起来，一直持续了好多年，才慢慢走出阴霾。现在有了念念能够为我进行提前规划，这样也彻底免去了我将来的后顾之忧，我和儿女们就都可以放心了。</p>
+				</div>
+			</div>
+		</div>		
 		<div class="membersContent" id="memberDesc1">
 			<div class="memberDesc">
 				<div class="memberState">
@@ -1287,34 +1313,27 @@ function muskPageForProduct(id) {
 				</div>
 			</div>
 		</div>
-		<div class="membersContent" id="memberDesc2">
-			<div class="memberDesc">
-				<div class="memberState">
-					<p>我以前不会上网，每次要买点什么都得让老伴去店里买，现在方便了，儿子教我们上念念网，轻松一点，很快就送到了。而且，同样的东西，在念念买便宜了将近一半，真是让我们二老又省钱又省心。</p>
-				</div>
-			</div>
-		</div>
 		<div class="membersContent" id="memberDesc3">
 			<div class="memberDesc">
 				<div class="memberState">
-					<p>我以前不会上网，每次要买点什么都得让老伴去店里买，现在方便了，儿子教我们上念念网，轻松一点，很快就送到了。而且，同样的东西，在念念买便宜了将近一半，真是让我们二老又省钱又省心。</p>
+					<p>以往每到清明、冬至要准备点什么都得让老伴去店里买。后来儿子教我们，只要上念念网，轻轻松松鼠标一点，要的东西很快就送到了。而且，同样的东西，在念念买便宜很多，真是让我们两老省钱又省心！</p>
 				</div>
 			</div>
 		</div>
 		<div class="membersContent" id="memberDesc4">
 			<div class="memberDesc">
 				<div class="memberState">
-					<p>念念帮助我完成了人生中最艰难的一件事－送父亲离去。如果没有念念的帮忙，恐怕这辈子无法回报他的恩情。</p>
+					<p>老伴过世后，心里总是空荡荡的，经常想起她。但岁数越来越大了，儿子儿媳又在国外忙于工作，每到老伴的忌日，想去探望她就成了我的烦心事。好在有念念的一群孩子们，每次只要我打一个电话，他们马上就会为我准备好一切，并专人专车接送我，真的很感谢他们！</p>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="membersSelect">
-	    <div class="singleMember" id="1" style ="background-image:url('../js/images/Bitmap1@2x.jpg');background-size:100% 224px;">
+		<div class="singleMember" id="2" style ="background-image:url('../js/images/Bitmap@2x.jpg');background-size:100% 224px;">
 		    <div class="memeberPicMask">
 			</div>
 		</div>
-		<div class="singleMember" id="2" style ="background-image:url('../js/images/Bitmap@2x.jpg');background-size:100% 224px;">
+	    <div class="singleMember" id="1" style ="background-image:url('../js/images/Bitmap1@2x.jpg');background-size:100% 224px;">
 		    <div class="memeberPicMask">
 			</div>
 		</div>
@@ -1331,55 +1350,49 @@ function muskPageForProduct(id) {
 <div id="designShow">
     <h4>念念葬礼定制工具</h4>
 	<div class="pcoat">
-	    <p>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</p>
+	    <p>我们不是简单的葬礼服务商，我们了解传统殡葬过程的种种弊病，并希望凭借自身不断的努力和独特的服务方式，以帮助更多的人获取最合适的告别方式。</p>
 	</div>
 	<div class="startDesignButton">
 	    <p>开始定制</p>
 	</div>
+	<video id="editor-video" width="600px" autoplay="autoplay" loop="loop" class="hide-mobile device-content" poster="../js/images/customization_placeholder.jpg">
+  		<source src="../js/images/animation.mp4" type="video/mp4">
+        <source src="../js/images/animation.webm" type="video/ogg">
+  		<img src="../js/images/customization_placeholder.jpg" width="100%" height="auto">
+    </video>
 </div>
 <div id="productShow">
-    <div id="productIconList">
-	    <div class="singleIcon position1">
-		    <div class="sizeHelp">
-			</div>
+    <div id="productShowCoat">
+	    <div id="productIconList">
+		    <div src=""></div>
 		</div>
-		<div class="singleIcon position2">
-		    <div class="sizeHelp">
-			</div>
-		</div>
-		<div class="singleIcon position3">
-		    <div class="sizeHelp">
-			</div>
-		</div>
-		<div class="singleIcon position4">
-		    <div class="sizeHelp">
-			</div>
-		</div>
-		<div class="singleIcon position5">
-		    <div class="sizeHelp">
+		<div id="goToProduct">
+		    <h3>选购产品和服务</h3>
+			<h4>葬礼有些遥远，只想看看产品和服务？</h4>
+
+			<!--<h4>通过我们，您可以在线采购各类殡葬祭祀产品和服务。我们会将最精致实惠的产品，以最快的速度，妥善递送到您的手上。我们会充分尊重您的意愿，给您最贴心的建议和指导，并提供最符合
+您需求的服务。</h4>-->
+
+			<div class="startPurchseBtn">
+			    <p>开始选购</p>
 			</div>
 		</div>
 	</div>
-	<div id="goToProduct">
-	    <h3>选购产品和服务</h3>
-		<h4>除了直接定制葬礼，我们也给您</h4>
-		<div class="startPurchseBtn">
-		    <p>开始选购</p>
-		</div>
-		<div class="arrow-up"></div>
-	</div>
-</div>
-<div id="designProcessShow">
 </div>
 <div id="productFrameCoat">
 <IFRAME NAME="content_frame" width=1349px height=600 marginwidth=0 marginheight=0 frameborder = 0 id="productFrame" src="component/productLine2.html?showInFront=1"></IFRAME>
 </div>
 <div id="cemeteryShow">
-    <div id="cemeteryInfo">
-	    <h2>墓地和寺庙信息汇总</h2>
-		<h3>我们不是简单的葬礼公司。我们是看到了传统葬礼的各种弊病，希望用自己的努力和独特的服务方式帮助更多的人获得最合适的告别方式。</h3>
-		<div class="cemeteryBtn">
-		    <p>了解更多</p>
+    <div id="cemeteryInfoCoat">
+	    <div id="cemeteryInfo">
+		    <h2>墓地和寺庙信息汇总</h2>
+			<h3>人生后花园的渡口，点击前往！</h3>
+			<div class="cemeteryBtn">
+			    <p>了解更多</p>
+			</div>
+			<div id="cemeteryImage">
+			    <img src="/funeral/js/images/temple_viz@2x-min.png"></img>
+			</div>
 		</div>
 	</div>
 </div>
@@ -1394,7 +1407,7 @@ function muskPageForProduct(id) {
 		</div>
 
 		<div class="block">
-			<p>通过网上定制告诉我们您的需求</p>
+			<p>告诉我们您的需求</p>
 			<button type="button" class="btn btn-default contactButton" id="startButton">开始定制</button>
 			<div id="askGroupRight">
 				<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
@@ -1410,7 +1423,7 @@ function muskPageForProduct(id) {
 	</div>
 </div>
 </div>
-<IFRAME NAME="content_frame" width=100% height=294 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 <div class="coverDiv" hidden>
 <div class="titleDiv">
 <h1>物品详细信息</h1>
@@ -1418,8 +1431,18 @@ function muskPageForProduct(id) {
 <IFRAME class="detailFrame" width=1170px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
 <div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
 </div>
-<div id="serviceOnline"></div>	
+
+<!--<div id="serviceOnline"></div>	-->
 </body>
+
+<script src="/funeral/js/util.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
+<script src="/funeral/js/serviceonline.js"></script>
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/sliderx.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="../js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script>
 var imageArray = ['Bitmap.jpg', 'wrist-watch-free-license-cc0.jpg', '1-tulip-tree-leaf.jpg'];
 var number = GetRandomNum(1, 3);
@@ -1428,6 +1451,9 @@ $("#topHalfLevel").css({
 	"background-image": "url('../js/images/"+picName+"')"
 });
 $(function() {
+	$("#message").click(function() {
+		window.location.href = "funeralDesignPage.html";
+	});
     $('.ck-slide').ckSlide({
 				autoPlay: true,//默认为不自动播放，需要时请以此设置
 				dir: 'x',//默认效果淡隐淡出，x为水平移动，y 为垂直滚动
@@ -1542,9 +1568,31 @@ window.onload=function(){
 		var id = parseInt($(this)[0].id) - 1,
 		    left = id* 175 - 15;
 		$("#cursorPoint").animate({'margin-left': left+'px'});
-
+		if (id === 0) {
+        	$("#otherPrice")[0].innerText = '11000';
+        	$("#nianPrice")[0].innerText = '8000';
+        	$("#savePrice")[0].innerText = '3000';
+        }
+        if (id === 1) {
+        	$("#otherPrice")[0].innerText = '14500';
+        	$("#nianPrice")[0].innerText = '10000';
+        	$("#savePrice")[0].innerText = '4500';
+        }
+        if (id === 2) {
+        	$("#otherPrice")[0].innerText = '18000';
+        	$("#nianPrice")[0].innerText = '13000';
+        	$("#savePrice")[0].innerText = '5000';
+        }
+        if (id === 3) {
+        	$("#otherPrice")[0].innerText = '23000';
+        	$("#nianPrice")[0].innerText = '17000';
+        	$("#savePrice")[0].innerText = '6000';
+        }
 	});
 };
+$("#detailCalculator").click(function() {
+	window.location.href='/funeral/pages/designProposal.html';
+});
 $("body").on("click",".singleMember",function() {
 	var id = $(this)[0].id;
     $(".membersContent").fadeOut();

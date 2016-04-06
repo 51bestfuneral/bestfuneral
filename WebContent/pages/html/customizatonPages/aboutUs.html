@@ -31,9 +31,8 @@
 			<div id="Logo"></div>
 			<div id="slogan"><p>让葬礼变得简单</p></div>
 			<div id="sloganDetail">
-				<p>生命充满爱-从一开始，我们就知道，只有通过更加智能的技术手段，才能找到让“告别”变得更简单的解决方案。</p>
-			 	<p>我们知道您爱您的家人，我们也是。</p>
-			 	<p>这就是为什么我们要创建念念，来帮助我们身边的每一个人。我们希望通过我们的努力来让这艰难的时刻变得不再那么的悲痛，我们希望可以通过更精心的准备，让每个人都可以有一个属于自己的，难忘的告别式。</p>
+				<p>从一开始，我们就知道，只有利用更加智能的技术手段，才能找到让“告别”变得“简单”的解决方案。</p>
+			 	<p>您深爱您的家人，我们非常明了。我们希望通过不断的努力，来让每一个身处这一艰难时刻的人，变得不再过于悲痛；我们也希望可以通过更精心的准备，让每个人都可以有一个属于自己的，难忘的告别式。这就是我们创建念念的初衷。</p>
 			</div>
 		</div>
 	</div>
@@ -128,7 +127,7 @@
 		</div>
 
 		<div class="block">
-			<p>通过网上定制告诉我们您的需求</p>
+			<p>告诉我们您的需求</p>
 			<button type="button" class="btn btn-default contactButton" id="startButton">开始定制</button>
 			<div id="askGroupRight">
 				<h5>我们会问您一系列问题帮助您选择服务和产品</h4>
@@ -136,9 +135,10 @@
 		</div>
 
 		<div class="block">
-			<p>跟我们的客服在线聊天</p>
+			<p>跟我们的客服在线微信聊天</p>
 			<div id="contactButtonGroup">
-			    <button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>
+			    <img style="height: 100px; margin-top: -10px;" src="/funeral/js/images/erCode.jpg"></img>
+			    <!--<button type="button" class="btn btn-default methodButton contactButton" id="weChat">微信</button>-->
 			</div>
 		</div>
 	</div>
@@ -286,7 +286,11 @@ html {
 				
 
 	
-
+.block
+{
+	display: table-cell;
+	width: 30%;
+}
 	
 #backgroundPic{
 width:70%;
@@ -301,7 +305,7 @@ margin:0 auto;
 	
 #borderDiv{
 width:50%;
-height:600px;
+height:580px;
 position:relative; 
 left:0%; 
 right:0%;
@@ -315,7 +319,7 @@ box-shadow: 10px -3px 50px 5px rgba(0,0,0,0.10);
 	background-repeat:repeat;
 	background:url(/funeral/pages/html/customizatonPages/assets/images/swirl.png);
 	margin-top: -30px;
-	padding: 30px 0 0 0;
+	padding: 30px 0 1px 0;
 }
 	
 
@@ -358,7 +362,7 @@ margin-top: 15%;
 
 #sloganDetail{
   font-family: Helvetica, Arial;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.7;
   color: #3a3a3a;
 }
@@ -409,7 +413,8 @@ font-size: 16px;
 #companyIntroduction.contact .block{
 background-color: white;
 font-size: 16px;
-padding-top: 50px;
+padding-top: 30px;
+height: 200px;
 }	
 
 .section_title_white {
@@ -1138,11 +1143,12 @@ background-repeat:no-repeat;
 
 #wechatFrame {		
 		position:relative;
-		left:410px;
 		top:-480px;
 		width:150px;
 		height:130px;
 		text-align:center;
+		float: right;
+    	right: 15%;
 	}
 	
 		#wechatFrame img{
