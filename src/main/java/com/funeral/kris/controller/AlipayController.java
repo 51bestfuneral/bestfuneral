@@ -170,8 +170,15 @@ public class AlipayController {
 		System.out.println(" ------expressInfo=" + expressInfo);
 
 		BigDecimal wishFee = wishlist.getPrice();
-
-		BigDecimal expressFee = expressInfo.getExpressFee();
+		BigDecimal expressFee;
+		if(expressInfo.getExpressFee()==null)
+		{
+			expressFee =BigDecimal.ZERO;
+		}
+		else{
+			
+			expressFee=	expressInfo.getExpressFee();
+		}
 
 		BigDecimal totalPay = wishFee.add(expressFee);
 
