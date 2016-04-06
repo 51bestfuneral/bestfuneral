@@ -224,7 +224,7 @@ public class WishlistController {
 	}
 
 	private BigDecimal generateWishDetail(Wishlist wishList, Integer level) {
-		String condition = " source_id = 1 and   wishlist_id = " + wishList.getWishlistId();
+		String condition = " recommend = 1 and   wishlist_id = " + wishList.getWishlistId();
 		wishlistDetailService.deleteAllResources(condition);
 		BigDecimal typePrice = BigDecimal.ZERO;
 		BigDecimal totalPrice = BigDecimal.ZERO;

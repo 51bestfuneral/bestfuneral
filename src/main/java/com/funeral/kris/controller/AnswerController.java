@@ -204,6 +204,7 @@ public class AnswerController {
 				detail.setOriginalPrice(randomWish.getXianenPrice());
 				detail.setSourceId(1);
 				detail.setCount(1);
+				detail.setRecommend(1);
 				detail.setWishlistId(wishList.getWishlistId());
 				detail.setWishType(randomWish.getGeneralCode());
 				detail.setWishType(wishType);

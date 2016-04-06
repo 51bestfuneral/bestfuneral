@@ -311,95 +311,102 @@ app.controller('products', function($scope, $http) {
 	$http.get("/funeral/wishType/listInWish?wishlistId="+parent.wishlistId).success(function(tabResponse) {
 		var count = tabResponse.length,
 		    singleTabWidth = 120;
-	    $("#tabCarousel").css({
-	    	'width': count*singleTabWidth+"px"
-	    });
-	    $("#tabCarousel").find(".right").click(function(event) {
-	    	var length = $("#tabCarousel").find(".productTab").length;
-
-	    	for (var i = 0; i<length; i++) {
-	    		var me = $($("#tabCarousel").find(".productTab")[i]);
-	    		if (!me.is(':hidden') && i !== length-1) {
-	    			me.hide();
-	    			handleCursor($(".cursoredTab"));
-	    			return false;
-	    		}
-	    	}
-	    });
-        $("#tabCarousel").find(".left").click(function(event) {
-        	$("#tabCarousel").find(".productTab").each(function(idx) {
-	    		var me = $(this);
-	    		if (!me.is(':hidden')) {
-	    			if (idx > 0) {
-	    				me.prev().show();
-	    				handleCursor($(".cursoredTab"));
-	    				return false;
-	    			}
-	    		}
-	    	});
-	    });
-	    for (var i=1;i<=tabResponse.length;i++) {
-		    var object = tabResponse[i-1],
-		        wishlist = parent.wishList;;
-
-            $http.get("/funeral/wish/listForDesign?generalCode="+object.wishType).success(function(response, retStatus, method, request) {
-				var j = 1,
-					counter = 1,
-					numberInRow = 3,
-					objectsInRow = [],
-					layouts = [],
-					url = request.url,
-					tab;
-
-			    for (var m =0;m<tabResponse.length;m++) {
-				    var requestType = url.substring(url.indexOf("=")+1,url.length);
-				    if (tabResponse[m].wishType === requestType) {
-				        tab = {
-						    index: m+1,
-				            typeName: tabResponse[m].wishTypeDesc,
-				            tabId: tabResponse[m].wishType
-						}
-				    }
-				}
-                pickToFirst(response);
-			    for (var i=0;i<response.length;i++) {
-						var singleProduct = response[i];
-
-						if (j <= numberInRow) {
-							objectsInRow.push(singleProduct);
-						}
-
-						if (j === numberInRow || i === response.length-1) {
-							var layout = {},
-								active = '',
-								itemLayout = objectsInRow;
-								
-							if (counter === 1) {
-								active = 'active'
+		if (count === 0) {
+			window.parent.iFrameHeight(2);
+			window.parent.flowToIndex(2);
+			window.parent.unmusk();
+		}
+		else {
+		    $("#tabCarousel").css({
+		    	'width': count*singleTabWidth+"px"
+		    });
+		    $("#tabCarousel").find(".right").click(function(event) {
+		    	var length = $("#tabCarousel").find(".productTab").length;
+	
+		    	for (var i = 0; i<length; i++) {
+		    		var me = $($("#tabCarousel").find(".productTab")[i]);
+		    		if (!me.is(':hidden') && i !== length-1) {
+		    			me.hide();
+		    			handleCursor($(".cursoredTab"));
+		    			return false;
+		    		}
+		    	}
+		    });
+	        $("#tabCarousel").find(".left").click(function(event) {
+	        	$("#tabCarousel").find(".productTab").each(function(idx) {
+		    		var me = $(this);
+		    		if (!me.is(':hidden')) {
+		    			if (idx > 0) {
+		    				me.prev().show();
+		    				handleCursor($(".cursoredTab"));
+		    				return false;
+		    			}
+		    		}
+		    	});
+		    });
+		    for (var i=1;i<=tabResponse.length;i++) {
+			    var object = tabResponse[i-1],
+			        wishlist = parent.wishList;;
+	
+	            $http.get("/funeral/wish/listForDesign?generalCode="+object.wishType).success(function(response, retStatus, method, request) {
+					var j = 1,
+						counter = 1,
+						numberInRow = 3,
+						objectsInRow = [],
+						layouts = [],
+						url = request.url,
+						tab;
+	
+				    for (var m =0;m<tabResponse.length;m++) {
+					    var requestType = url.substring(url.indexOf("=")+1,url.length);
+					    if (tabResponse[m].wishType === requestType) {
+					        tab = {
+							    index: m+1,
+					            typeName: tabResponse[m].wishTypeDesc,
+					            tabId: tabResponse[m].wishType
 							}
-							layout = {
-								'index': counter,
-								'active': active,
-								'itemLayout': itemLayout
-							};
-							layouts.push(layout);
-							j = 0;
-							counter++;
-							objectsInRow = [];
-						}
-						j++;
-			    }
-				tab.layouts = layouts;
-				tabs.push(tab);
-
-				$scope.totalCount = tabs.length;
-				if (tabs.length === tabResponse.length) {
-				    tabs.sort(function(a, b) {
-					    return a.index>b.index ? 1:-1;
-					});
-					$scope.tabs = tabs;
-				}
-			});
+					    }
+					}
+	                pickToFirst(response);
+				    for (var i=0;i<response.length;i++) {
+							var singleProduct = response[i];
+	
+							if (j <= numberInRow) {
+								objectsInRow.push(singleProduct);
+							}
+	
+							if (j === numberInRow || i === response.length-1) {
+								var layout = {},
+									active = '',
+									itemLayout = objectsInRow;
+									
+								if (counter === 1) {
+									active = 'active'
+								}
+								layout = {
+									'index': counter,
+									'active': active,
+									'itemLayout': itemLayout
+								};
+								layouts.push(layout);
+								j = 0;
+								counter++;
+								objectsInRow = [];
+							}
+							j++;
+				    }
+					tab.layouts = layouts;
+					tabs.push(tab);
+	
+					$scope.totalCount = tabs.length;
+					if (tabs.length === tabResponse.length) {
+					    tabs.sort(function(a, b) {
+						    return a.index>b.index ? 1:-1;
+						});
+						$scope.tabs = tabs;
+					}
+				});
+			}
 		}
 	});
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
@@ -443,7 +450,7 @@ app.controller('products', function($scope, $http) {
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in tab.layouts track by $index">
 	                <div class="productItem" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
 		                <div class="imageDiv">
-						    <img src="../../js/images/product1.png" class="image"></img>
+						    <img src={{'/funeral/js/images/'+itemLayout.imgUrl}}   class="image"></img>
 						</div>
 						<div class="productText">
 						    <div class="productInfo">

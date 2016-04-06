@@ -120,6 +120,34 @@ public class WishlistDetailServiceImpl implements WishlistDetailService {
 	}
 
 	@Override
+	public List<WishlistDetail> getRecommendWishlistDetailByWishListId(int wishListId) {
+
+		List<WishlistDetail> list = new ArrayList<WishlistDetail>();
+
+		List<WishlistDetail> fullList = this.getResource();
+
+		if (fullList == null) {
+			return list;
+		} else {
+			Iterator<WishlistDetail> iter = fullList.iterator();
+			while (iter.hasNext()) {
+				WishlistDetail wishlistDetail = iter.next();
+
+				if (wishlistDetail.getWishlistId() == wishListId &&wishlistDetail.getRecommend()!=null &&wishlistDetail.getRecommend().equals(1)) {
+
+					list.add(wishlistDetail);
+
+				}
+
+			}
+
+		}
+
+		return list;
+
+	}
+
+	@Override
 	public List<WishlistDetail> getSelectedWishlistDetailByWishListId(int wishListId) {
 	
 		 List<WishlistDetail>  wishListDetailList= 	this.getResourceByWishListId(wishListId);
