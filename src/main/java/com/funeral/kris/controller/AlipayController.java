@@ -144,6 +144,16 @@ public class AlipayController {
 			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
+			//send mail
+			Map<String,String> messageInfo = new HashMap<String,String>();
+			messageInfo.put("to", "429105398@qq.com");
+			messageInfo.put("subject", "你有一笔新的订单");
+			messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
+			mailService.send(messageInfo);
+			// send SMS
+			Map<String ,String> smsInfo = new HashMap<String,String>();
+			smsInfo.put("phone", "13771164045");
+			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
 
@@ -154,16 +164,7 @@ public class AlipayController {
 		}
 
 		feeCollectionService.initFeeCollection(order.getOrderNo());
-		//send mail
-		Map<String,String> messageInfo = new HashMap<String,String>();
-		messageInfo.put("to", "429105398@qq.com");
-		messageInfo.put("subject", "你有一笔新的订单");
-		messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
-		mailService.send(messageInfo);
-		// send SMS
-		Map<String ,String> smsInfo = new HashMap<String,String>();
-		messageInfo.put("phone", "13771164045");
-		smsSenderService.sendRemindSms(smsInfo);
+		
 		return order;
 	}
 
