@@ -10,4 +10,6 @@ public interface SmsSenderService {
 	
 	public int sendForPaid(Map<String,String> messageInfo);
 	
+	public int sendRemindSms(Map<String,String> messageInfo);
+	
 }
