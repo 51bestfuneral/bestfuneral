@@ -524,7 +524,7 @@ width: 100%;
 	<div id="reserver">
 	    <h1>最低价格</h1>
 		<h2>￥{{cemeteryBean.price}}起</h2>
-		<button class="reserverBtn">在线预约</button>
+		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 	</div>
 </div>
@@ -854,6 +854,11 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 	}
 }
 
+window.onload=function() {
+	$("#visitButton").click(function() {
+		popupRequestPage();
+	});
+}
 //initMap();//创建和初始化地图
 
 
