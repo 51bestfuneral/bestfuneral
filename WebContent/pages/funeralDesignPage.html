@@ -126,7 +126,7 @@
 			<ul id="myTab" class="nav nav-tabs">
 				<li>
 					<a href="#tab1" data-toggle="tab">
-					<div class="tabIcon" >
+					<div class="tabIcon" id="defaultTab">
 						<span class="tabIconText">送终</span>
 						<div class="triangle-down">
 						</div>
@@ -696,6 +696,14 @@ top:-160px;
 </style>
 </body>
 <script type="text/javascript">
+	window.onload=function() {
+		$("#defaultTab").addClass("select");
+		$("#defaultTab").addClass("chooseTab");
+		$("#defaultTab").find(".triangle-down").fadeIn(300);
+	}
+	
+	
+	
     $(".taocanIconDiv").click(function(){
         window.location.href='designProposal.html';
     });
