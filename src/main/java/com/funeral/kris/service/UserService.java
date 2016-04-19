@@ -19,4 +19,5 @@ public interface UserService {
 	public User getByPhone(String phoneNumber);
 	public User getByEmail(String email) ;
 	public User getByAccount(String account);
+	public List<User> getResourcesByRequestCemetery();
 }
