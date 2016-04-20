@@ -258,6 +258,8 @@ public class WishlistDetailController {
 		}
 		String wishlistId = request.getParameter("wishlistId");
 
+		System.out.println("---getDirectWishListForShoppingCart-- wishlistId="+wishlistId);
+		
 		List<WishListJson> wishlistJsons = new ArrayList<WishListJson>();
 		List<WishlistDetail> wishlistDetails = wishlistDetailService
 				.getResourceByWishListId(Integer.parseInt(wishlistId));

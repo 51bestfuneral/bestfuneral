@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.WishConstants;
-import com.funeral.kris.model.ContactInfo;
+import com.funeral.kris.controller.ContactInfoController;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
@@ -79,11 +79,11 @@ public class PayDAOImpl implements PayDAO {
 			st.setString(3, feeCollection.getSubject());
 
 			st.setBigDecimal(4, feeCollection.getAmount());
-			
+
 			st.setString(5, feeCollection.getOutTradeNo());
-			
+
 			st.setInt(6, feeCollection.getStatusId());
-			
+
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -348,15 +348,31 @@ public class PayDAOImpl implements PayDAO {
 
 	}
 
-	@Override
-	public ContactInfo getUsingContacter(int userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+
+
 
 	@Override
-	public void updateContactInfo(ContactInfo contactInfo) {
-		// TODO Auto-generated method stub
+	public void releaseUsingContacter(int userId) {
+
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " update t_contact_info set  status_id=?    where  user_id=?  and status_id="
+				+ ContactInfoController.IN_USE;
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, ContactInfoController.IN_RELEASED);
+			st.setInt(1, userId);
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
