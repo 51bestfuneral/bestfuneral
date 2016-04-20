@@ -60,6 +60,8 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	margin-top: 130px;
+	color:black;
+	font-size:40px;
 }
 
 .label {
@@ -463,17 +465,22 @@ width: 100%;
 	width:250px;
 	height:13px;
 }
+
+.choose{
+	background: #7E7E7E;
+	}
+
 </style>
 
 <body ng-app="productApp" ng-controller="cemetery">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
-<div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
+<div id="mainHeader"   style="background-image:url(/funeral/js/images/cemetery_a_spot_background@2x.jpg);background-size: 100%;" ng-cloak >
     <div id="leftTop">
 	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
 	</div>
 	<div id="centerText">
         <h1>{{cemeteryBean.cemeteryName}}</h1>
-	    <h2>{{cemeteryBean.district}}</h2>
+	    <h2> {{cemeteryBean.district}} </font>
 	</div>
 	<div id="labelsArea">
 		<span class="label label-default"  ng-repeat="keyword in cemeteryBean.keywordsList">{{keyword.keyword}}</span>
@@ -487,48 +494,43 @@ width: 100%;
 <div class="redline" id="redline4"></div>
 <div class="redline" id="redline5"></div>
 <div class="redline" id="redline6"></div>
-<div id="cemeteryFilter">
+<div id="cemeteryFilter" ng-cloak>
     <div id="filter">
 		<div id="filterCata">
 			<div class="filterCata">
 			    <p>墓穴</p>
 			</div>
 			<div class="filterCata">
-			    <p>碑文样式</p>
+			    <p>碑型</p>
 			</div>
-			<div class="filterCata">
-			    <p>区域</p>
-			</div>
+			
 		</div>
 		<div id="filterContent">
 			<div class="filterContent">
 			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
-				    <p>{{graveStyle.description}}</p>
+				    <p id={{'g'+graveStyle.id}} ng-click="updatePrice('g',graveStyle.id)">{{graveStyle.description}}</p>
 				</div>
 			
 			</div>
 			<div class="filterContent">
 			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
-				    <p>{{epigraphStyle.style}}</p>
+				    <p id={{'e'+epigraphStyle.id}} ng-click="updatePrice('e',epigraphStyle.id)">{{epigraphStyle.style}}</p>
 				</div>
 				
 			</div>
-			<div class="locationContent">
-			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
-				    <p>{{graveZone.zone}}</p>
-				</div>
+		
 			
 			</div>
 		</div>
 	</div>
-	<div id="reserver">
-	    <h1>最低价格</h1>
-		<h2>￥{{cemeteryBean.price}}起</h2>
+	<div id="reserver" ng-cloak   style={{display}}>
+	    <h1>{{cemeteryPrice.description}}</h1>
+		<h2>￥{{cemeteryPrice.price}}</h2>
 		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 	</div>
 </div>
-<div id="features">
+<div id="features" ng-cloak>
     <div id="featureContent">
 	    <div id="singleFeature">
 		    <div id="mainFeature">
@@ -587,16 +589,86 @@ width: 100%;
 <script>
 	var length = location.search.length,
 id = location.search.substring(4, length);
+
+var gid;
+var eid;
 	
 	var app = angular.module('productApp', []);
 	 app.controller('cemetery', function($scope, $http) {
 	 	
+	 	$scope.selectedGraveStyleId=-1;
+	 	$scope.selectedEpigraphStyleId=-1;
+	 	$scope.display="";
+	
+	 	
 	 	$http.get("/funeral/cemetery/findOneCemetery?id="+id).success(function(response) {
 	 		$scope.cemeteryBean=response;
        	initMap(response.cemeteryName,response.address);
-  		
+  		 		$http.get("/funeral/cemetery/listCemeteryPrice?id="+id).success(function(response) {
+	  
+	    $scope.cemeteryPrice = response[0];
+	    		   gid=$scope.cemeteryPrice.graveStyleId;
+	    		   eid=$scope.cemeteryPrice.epigraphStyleId;
+
+		$("#g"+gid).css("background-color","#7E7E7E"); 
+		$("#e"+eid).css("background-color","#7E7E7E"); 
+		$scope.selectedGraveStyleId=$scope.cemeteryPrice.graveStyleId;
+	 	$scope.selectedEpigraphStyleId=$scope.cemeteryPrice.epigraphStyleId;	    
+	});
   
- }) 	
+ }) 
+ 
+ 			
+	 	
+				
+ 
+ $scope.updatePrice = function(from,id){
+	  	
+	if(from=='e'){
+		
+		$("#e"+$scope.selectedEpigraphStyleId).css("background-color",""); 
+		
+		$scope.selectedEpigraphStyleId=id;
+		
+		$("#e"+$scope.selectedEpigraphStyleId).css("background-color","#7E7E7E"); 
+
+		
+		} else{
+					$("#g"+$scope.selectedGraveStyleId).css("background-color",""); 
+
+					$scope.selectedGraveStyleId=id;
+		$("#g"+$scope.selectedGraveStyleId).css("background-color","#7E7E7E"); 
+
+			} 	
+			
+			
+			
+		
+			
+	  	
+	if($scope.selectedEpigraphStyleId!=-1&&$scope.selectedGraveStyleId!=-1)  	{
+	  	
+				
+		$http.get("/funeral/cemetery/getCemeteryPriceBygraveStyleIdAndEpigraphStyleId?cemeteryId="+$scope.cemeteryBean.cemeteryId+"&graveStyleId="+$scope.selectedGraveStyleId+"&epigraphStyleId="+$scope.selectedEpigraphStyleId).success(function(response) {
+	  
+	    $scope.cemeteryPrice = response;
+	    if($scope.cemeteryPrice==null||$scope.cemeteryPrice=="")
+{
+	$scope.display="display:none";
+	}else{
+			$scope.display="";
+
+		}
+
+	});		
+				
+				
+  	
+	  	}
+ 
+ 
+}
+ 	
  	 		
 	});
 
@@ -640,6 +712,11 @@ app.controller('products', function($scope, $http) {
 	    response[0].active = 'active';
 	    $scope.messages = response;
 	});
+	  
+	
+	
+	
+	
 });
 
 var zoomList =[{cemetery:'清竹园',zoom:15},{cemetery:'汇龙园',zoom:16},{cemetery:'华南陵园',zoom:17},
@@ -855,11 +932,18 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 }
 
 window.onload=function() {
+	
+	
+	
+	
+	
+	
 	$("#visitButton").click(function() {
 		popupRequestPage();
 	});
 }
 //initMap();//创建和初始化地图
+
 
 
 </script>

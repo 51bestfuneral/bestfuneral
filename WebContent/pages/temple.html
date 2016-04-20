@@ -675,7 +675,7 @@ window.onload=function() {
 
 <div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
-	    <p><span>寺庙信息</span>／{{cemeteryBean.cemeteryName}}</p>
+     <p><span ><a href="cemeteryList.html">寺庙信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
 	</div>
 	<div id="centerText">
         <h1>{{cemeteryBean.cemeteryName}}</h1>
@@ -689,11 +689,11 @@ window.onload=function() {
 
 <div id="cemeteryFilter">
     <div id="filter">
-		<div id="filterCata">
+	<!--	<div id="filterCata">
 			<div class="filterCata">
 			    <p>墓穴</p>
 			</div>
-		<!--	<div class="filterCata">
+			<div class="filterCata">
 			    <p>碑文样式</p>
 			</div>
 			<div class="filterCata">
@@ -722,7 +722,7 @@ window.onload=function() {
 		</div>
 	</div>
 	<div id="reserver">
-	    <h1>最低价格</h1>
+	    <h1>莲位最低价格</h1>
 		<h2>￥{{cemeteryBean.price}}起</h2>
 		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
