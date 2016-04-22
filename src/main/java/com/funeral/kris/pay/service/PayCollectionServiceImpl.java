@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.EXPRESS;
+import com.funeral.kris.controller.ContactInfoController;
+import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
@@ -193,15 +195,12 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		
 		dao.updateExpressInfo(currentExpress);
 		
-		//修改联系人
+		//release联系人
 		
-//		ContactInfo  contactInfo=contactInfoService.getUsingContacter(userId);
-//		
-//		
-//		
-//		contactInfo.setStatusId(ContactInfoController.IN_RELEASED);
-//		
-//		contactInfoService.updateResource(contactInfo);
+		
+		dao.releaseUsingContacter(userId);
+		
+	
 		
 		return feeCollection.getCollectionId();
 

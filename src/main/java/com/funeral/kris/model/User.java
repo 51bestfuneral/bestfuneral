@@ -80,6 +80,12 @@ public class User {
 	private String requestCemetery;
 	@Column(name="request_phone")
 	private String requestPhone;
+
+	@Column(name="wishlist_id")
+	private Integer wishlistId;
+
+	@Column(name="cart_id")
+	private Integer cartId;
 	public Integer getUserType() {
 		return userType;
 	}
@@ -359,6 +365,22 @@ public class User {
 
 	public void setRequestPhone(String requestPhone) {
 		this.requestPhone = requestPhone;
+	}
+
+	public Integer getWishlistId() {
+		return wishlistId;
+	}
+
+	public void setWishlistId(Integer wishlistId) {
+		this.wishlistId = wishlistId;
+	}
+
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
 	}
 }
 

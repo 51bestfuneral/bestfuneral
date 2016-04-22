@@ -73,7 +73,7 @@ function validateInfomation () {
 	
 	if (identifyNumberFiled.length > 0) {
 		identifyNumber = identifyNumberFiled[0].value;
-	    if (!nunber(identifyNumber)) {
+	    if (identifyNumber!=='' && identifyNumber!==null && !nunber(identifyNumber)) {
 	    	identifyNumberFiled[0].focus();
 	    	checkFailed = false;
 	    	return false;

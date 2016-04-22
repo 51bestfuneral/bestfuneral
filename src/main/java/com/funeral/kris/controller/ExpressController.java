@@ -1,8 +1,10 @@
 package com.funeral.kris.controller;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,8 @@ import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.User;
 import com.funeral.kris.service.ContactInfoService;
 import com.funeral.kris.service.ExpressInfoService;
+import com.funeral.kris.service.ExpressService;
+import com.funeral.kris.service.MailService;
 
 @Controller
 @RequestMapping(value = "/expressController")
@@ -47,6 +51,12 @@ public class ExpressController {
 
 	@Autowired
 	private ContactInfoService contactInfoService;
+	
+	@Autowired
+	private MailService mainService;
+	
+	@Autowired
+	private ExpressService expressService;
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -97,6 +107,14 @@ public class ExpressController {
 
 System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMethod+"  getContactName="+contactInfo.getContactName());
 		expressInfoService.addResource(expressInfo);
+		
+		// send email
+		Map<String,String> messageInfo = new HashMap<String,String>();
+		messageInfo.put("to", "li.yuan@ebaotech.com");
+		messageInfo.put("subject", "你有一笔新的订单");
+		messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
+		mainService.send(messageInfo);
+		
 	}
 
 	@ResponseBody
@@ -181,6 +199,18 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 		
 		return bean;
 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getProcess", method = RequestMethod.GET)
+	public String getExpressProcess(HttpServletRequest request) {
+
+		String expressNo = request.getParameter("expressNo");
+		String expressCompany = request.getParameter("expressCompany");
+		return expressService.searchExpress(expressNo, expressCompany);
+		
+		
+		
 	}
 
 }

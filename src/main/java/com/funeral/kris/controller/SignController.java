@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.init.constants.LoginConstants;
+import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
+import com.funeral.kris.service.CartService;
+import com.funeral.kris.service.SmsSenderService;
 import com.funeral.kris.service.UserService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.MD5;
@@ -37,12 +40,18 @@ public class SignController {
 	@Autowired
 	private WishlistService wishlistService;
 	@Autowired
+	private CartService cartService;
+	@Autowired
 	private EntityManager em;
 
+	@Autowired
+	private SmsSenderService smsSenderService;
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public void sign(HttpServletRequest request, @RequestBody User user) throws Exception {
 		String account = user.getUserName();
+		Integer wishlistId = 0;
+		Integer cartId = 0;
 		
 		if (account.contains("@")) {
 
@@ -56,7 +65,11 @@ public class SignController {
 		user.setUserType(LoginConstants.userTypeInidCustomer);
 		user.setInvalidLoginTimes(0);
 		userService.addResource(user);
-		createWishListForUser(user);
+		wishlistId = createWishListForUser(user);
+		cartId = createShoppingCartForUser(user);
+		user.setWishlistId(wishlistId);
+		user.setCartId(cartId);
+		userService.updateResource(user);
 		HttpSession session = request.getSession(true);
 		session.setAttribute(LoginConstants.LoginStatus, LoginConstants.login);
 		session.setAttribute("user", user);	
@@ -104,7 +117,7 @@ public class SignController {
 		return true;
 	}
 	
-	private void createWishListForUser(User user) {
+	private Integer createWishListForUser(User user) {
 		Date sysDate = new Date();
 		Wishlist wishlist = new Wishlist();
 		wishlist.setUserId(user.getUsrId());
@@ -113,8 +126,21 @@ public class SignController {
         wishlist.setPrice(BigDecimal.ZERO);
         wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
         wishlistService.addResource(wishlist);
+        return wishlist.getWishlistId();
 	}
-	
+
+	private Integer createShoppingCartForUser(User user) {
+		Date sysDate = new Date();
+		Cart cart = new Cart();
+		cart.setUserId(user.getUsrId());
+		cart.setPrice(BigDecimal.ZERO);
+		cart.setOriginalPrice(BigDecimal.ZERO);
+		cart.setCreatedDate(sysDate);
+		cart.setUpdatedDate(sysDate);
+		cartService.addResource(cart);
+		return cart.getCartId();
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "updatePassword", method = RequestMethod.POST)
 	public void updatePassword(HttpServletRequest request, @RequestBody User user) throws Exception {
@@ -148,7 +174,7 @@ public class SignController {
 		messageInfo.put("phone", phone);
 		messageInfo.put("code", vaildCode);
 		messageInfo.put("product", "念念");
-		int flag = 1;
+		int flag = smsSenderService.sendForPassword(messageInfo);
 		if(flag ==1){
 			return vaildCode;
 		}

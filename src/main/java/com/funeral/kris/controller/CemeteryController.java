@@ -22,16 +22,19 @@ import com.funeral.kris.model.TCemeteryEpigraphStyle;
 import com.funeral.kris.model.TCemeteryGraveStyle;
 import com.funeral.kris.model.TCemeteryGraveZone;
 import com.funeral.kris.model.TCemeteryKeywords;
+import com.funeral.kris.model.TCemeteryPrice;
 import com.funeral.kris.service.CemeteryEpigraphStyleService;
 import com.funeral.kris.service.CemeteryGraveStyleService;
 import com.funeral.kris.service.CemeteryGraveZoneService;
 import com.funeral.kris.service.CemeteryKeywordsService;
+import com.funeral.kris.service.CemeteryPriceService;
 import com.funeral.kris.service.CemeteryService;
 
 @Controller
 @RequestMapping(value = "/cemetery")
 public class CemeteryController {
-
+	@Autowired
+	private CemeteryPriceService cemeteryPriceService;
 	@Autowired
 	private CemeteryService cemeteryService;
 	@Autowired
@@ -60,25 +63,27 @@ public class CemeteryController {
 		cemeteryService.addResource(cemetery);
 
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/addTemple", method = RequestMethod.POST)
 	public void addTemple(@RequestBody Cemetery cemetery) {
-		
+
 		System.out.println("  cemetery=" + cemetery);
 		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
 		cemetery.setType(2);
 		cemeteryService.addResource(cemetery);
-		
+
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/addCemetery", method = RequestMethod.POST)
 	public void addCemetery(@RequestBody Cemetery cemetery) {
-		
+
 		System.out.println("  cemetery=" + cemetery);
 		System.out.println("  getCemeteryName=" + cemetery.getCemeteryName());
 		cemetery.setType(1);
 		cemeteryService.addResource(cemetery);
-		
+
 	}
 
 	@ResponseBody
@@ -151,6 +156,17 @@ public class CemeteryController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/listCemeteryPrice", method = RequestMethod.GET, produces = "application/json")
+	public List<TCemeteryPrice> listCemeteryPrice(HttpServletRequest request) {
+
+		int cemeteryId = Integer.parseInt(request.getParameter("id"));
+
+		List<TCemeteryPrice> prices = cemeteryPriceService.getCemeteryPriceListByCemeteryId(cemeteryId);
+
+		return prices;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/getOneCemeteryKeyword", method = RequestMethod.GET, produces = "application/json")
 	public TCemeteryKeywords getOneCemeteryKeyword(HttpServletRequest request) {
 
@@ -169,11 +185,30 @@ public class CemeteryController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/addCemeteryPrice", method = RequestMethod.POST)
+	public void addCemeteryPrice(@RequestBody TCemeteryPrice tCemeteryPrice) {
+
+		System.out.println("  getDescription =" + tCemeteryPrice.getDescription() + " getCemeteryId="
+				+ tCemeteryPrice.getCemeteryId() + " getEpigraphStyleId= " + tCemeteryPrice.getEpigraphStyleId()
+				+ " getGraveStyleId= " + tCemeteryPrice.getGraveStyleId());
+
+		cemeteryPriceService.addResource(tCemeteryPrice);
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/removeCemetery", method = RequestMethod.GET, produces = "application/json")
 	public void removeCemetery(HttpServletRequest request) {
 
 		int id = Integer.parseInt(request.getParameter("id"));
 		cemeteryService.deleteResource(id);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/removePrice", method = RequestMethod.GET, produces = "application/json")
+	public void removePrice(HttpServletRequest request) {
+
+		int id = Integer.parseInt(request.getParameter("id"));
+		cemeteryPriceService.deleteResource(id);
 	}
 
 	@ResponseBody
@@ -240,6 +275,36 @@ public class CemeteryController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/getCemeteryPriceBygraveStyleIdAndEpigraphStyleId", method = RequestMethod.GET, produces = "application/json")
+	public TCemeteryPrice getCemeteryPriceBygraveStyleIdAndEpigraphStyleId(HttpServletRequest request) {
+
+		int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
+		int graveStyleId = Integer.parseInt(request.getParameter("graveStyleId"));
+		int epigraphStyleId = Integer.parseInt(request.getParameter("epigraphStyleId"));
+
+		List<TCemeteryPrice> cemeteryPriceList = cemeteryPriceService.getCemeteryPriceListByCemeteryId(cemeteryId);
+
+		if (cemeteryPriceList == null || cemeteryPriceList.size() == 0) {
+			return null;
+		}
+
+		Iterator iterator = cemeteryPriceList.iterator();
+
+		while (iterator.hasNext()) {
+
+			TCemeteryPrice cemeteryPrice = (TCemeteryPrice) iterator.next();
+			if (cemeteryPrice.getEpigraphStyleId().intValue() == epigraphStyleId
+					&& cemeteryPrice.getGraveStyleId().intValue() == graveStyleId) {
+
+				return cemeteryPrice;
+			}
+
+		}
+
+		return null;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/listEpigraphs", method = RequestMethod.GET, produces = "application/json")
 	public List<TCemeteryEpigraphStyle> listEpigraphs(HttpServletRequest request) {
 
@@ -276,95 +341,94 @@ public class CemeteryController {
 		int index = 0;
 
 		while (iterator.hasNext()) {
-			
-			
 
 			Cemetery cemetery = (Cemetery) iterator.next();
 
-			if(cemetery.getType().intValue()==1){
-			
-			CemeteryBean bean = new CemeteryBean();
+			if (cemetery.getType().intValue() == 1) {
 
-			bean.setCemeteryId(cemetery.getCemeteryId());
+				CemeteryBean bean = new CemeteryBean();
 
-			bean.setCemeteryName(cemetery.getCemeteryName());
+				bean.setCemeteryId(cemetery.getCemeteryId());
 
-			bean.setAddress(cemetery.getAddress());
+				bean.setCemeteryName(cemetery.getCemeteryName());
 
-			bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+				bean.setAddress(cemetery.getAddress());
 
-			bean.setDistrict(cemetery.getDistrict());
+				bean.setCemeteryDesc(cemetery.getCemeteryDesc());
 
-			bean.setFeature(cemetery.getFeature());
+				bean.setDistrict(cemetery.getDistrict());
 
-			bean.setMapUrl(cemetery.getMapUrl());
+				bean.setFeature(cemetery.getFeature());
 
-			bean.setPrice(cemetery.getPrice());
+				bean.setMapUrl(cemetery.getMapUrl());
 
-			bean.setTrafficInfo(cemetery.getTrafficInfo());
+				bean.setPrice(cemetery.getPrice());
 
-			String css = cssList.get(index++);
-			bean.setDescImgUrl(cemetery.getDescImgUrl());
-			bean.setCss(css);
-			String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
-			bean.setStyle(style);
-			list.add(bean);
+				bean.setTrafficInfo(cemetery.getTrafficInfo());
+
+				String css = cssList.get(index++);
+				bean.setDescImgUrl(cemetery.getDescImgUrl());
+				bean.setCss(css);
+				String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
+				bean.setStyle(style);
+				list.add(bean);
 			}
 
 		}
 
 		return list;
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/listAllTemple", method = RequestMethod.GET, produces = "application/json")
 	public List<CemeteryBean> listAllTemple() {
-		
+
 		List<CemeteryBean> list = new ArrayList<CemeteryBean>();
-		
+
 		List<Cemetery> cemeteryList = cemeteryService.getResources();
-		
+
 		List<String> cssList = cemeteryService.getAllCss();
-		
+
 		Iterator iterator = cemeteryList.iterator();
-		
+
 		int index = 0;
-		
+
 		while (iterator.hasNext()) {
-			
+
 			Cemetery cemetery = (Cemetery) iterator.next();
-			
-			if(cemetery.getType().intValue()==2){
-				
-			CemeteryBean bean = new CemeteryBean();
-			
-			bean.setCemeteryId(cemetery.getCemeteryId());
-			
-			bean.setCemeteryName(cemetery.getCemeteryName());
-			
-			bean.setAddress(cemetery.getAddress());
-			
-			bean.setCemeteryDesc(cemetery.getCemeteryDesc());
-			
-			bean.setDistrict(cemetery.getDistrict());
-			
-			bean.setFeature(cemetery.getFeature());
-			
-			bean.setMapUrl(cemetery.getMapUrl());
-			
-			bean.setPrice(cemetery.getPrice());
-			
-			bean.setTrafficInfo(cemetery.getTrafficInfo());
-			
-			String css = cssList.get(index++);
-			bean.setDescImgUrl(cemetery.getDescImgUrl());
-			bean.setCss(css);
-			String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
-			bean.setStyle(style);
-			list.add(bean);
+
+			if (cemetery.getType().intValue() == 2) {
+
+				CemeteryBean bean = new CemeteryBean();
+
+				bean.setCemeteryId(cemetery.getCemeteryId());
+
+				bean.setCemeteryName(cemetery.getCemeteryName());
+
+				bean.setAddress(cemetery.getAddress());
+
+				bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+
+				bean.setDistrict(cemetery.getDistrict());
+
+				bean.setFeature(cemetery.getFeature());
+
+				bean.setMapUrl(cemetery.getMapUrl());
+
+				bean.setPrice(cemetery.getPrice());
+
+				bean.setTrafficInfo(cemetery.getTrafficInfo());
+
+				String css = cssList.get(index++);
+				bean.setDescImgUrl(cemetery.getDescImgUrl());
+				bean.setCss(css);
+				String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
+				bean.setStyle(style);
+				list.add(bean);
 			}
-			
+
 		}
-		
+
 		return list;
 	}
 

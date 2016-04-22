@@ -246,7 +246,7 @@ span {
 	           $("#chnTradeNo").val($scope.order.orderNo);
 	           $("#chnTotalFee").val($scope.order.payableAmount);
 	           
-	           
+	           $("#nextButton").show();
 	           
 	           
 	           
@@ -312,7 +312,7 @@ span {
 			 </div>
 		</div>
 		<div id="paymentMethod">
-		    <div class="singleMethod" hidden>
+		    <div class="singleMethod">
 			    <div class="methodTop">
 				    <img src="../js/images/wangyin.png"></img>
 				</div>
@@ -331,7 +331,7 @@ span {
 					</form>
 				</div>
 			</div>
-			<div class="singleMethod" hidden>
+			<div class="singleMethod">
 			    <div class="methodTop">
 				    <img src="../js/images/zhifubao.png" ></img>
 				</div>
@@ -351,7 +351,7 @@ span {
 			</div>
 			
 			
-			<div class="singleMethod">
+			<div class="singleMethod" hidden>
 			    <div class="methodTop">
 				    <img></img>
 					<img></img>
@@ -372,7 +372,7 @@ span {
 		    <div id="prevButton">
 			    <p>返回</p>
 			</div>
-		    <div id="nextButton"  ng-click="pay()" >
+		    <div id="nextButton" ng-click="pay()" >
 			    <p>下一步</p>
 			</div>
 		</div>
@@ -415,7 +415,7 @@ $("#CVcode").attr('disabled',true);
 	});
 	
 	
-	
+$("#nextButton").hide();  	
 	
 	//$("#nextButton").click(function () {
 	 //  window.location.href='paymentFinal.html';

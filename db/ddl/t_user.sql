@@ -12,6 +12,8 @@ CREATE TABLE t_user (
   last_loginTime datetime,
   invalid_loginTimes integer,
   age integer,
+  wishlist_id integer,
+  cart_id integer,
   work varchar(20),
   district varchar(20),
   for_self integer,

@@ -369,7 +369,7 @@ function unmusk() {
 	$(".jquery_addmask").remove();
 	$(".loadingShow").remove();
 }
-function validateInList() {
+function validateInWishList() {
 	$.ajax({
 		url: '/funeral/wishlist/list',
 		type: 'GET',
@@ -386,8 +386,7 @@ function validateInList() {
 					var response = data;
 					for (var i=0;i<response.length;i++) {
 					    if (response[i].wishId === wishInLocal.wishId) {
-					    	$(".buttonDiv").addClass("disableDiv");
-					    	$(".buttonDiv").find("p")[0].innerText = "已加入购物车";
+					    	$($(".buttonDiv")[1]).addClass("disableDiv");
 					    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
 					    }
 					}
@@ -397,6 +396,37 @@ function validateInList() {
 					//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
 				}
 			});
+		},
+		error: function(error) {
+		}
+	});
+}
+function validateInCart() {
+	$.ajax({
+		url: '/funeral/wishlist/listCart',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+	        var resultCode =data;
+	        if (data !== null) {
+			    $.ajax({
+					url: '/funeral/wishlistDetail/getAllCartList?cartId='+data.cartId,
+					type: 'get',
+					success:function(data){
+						var response = data;
+						for (var i=0;i<response.length;i++) {
+						    if (response[i].wishId === wishInLocal.wishId) {
+						    	$($(".buttonDiv")[0]).addClass("disableDiv");
+						    	$(".buttonDiv").find("p")[0].innerText = "已添加购物车";
+						    }
+						}
+					},
+					error: function(error) {
+						var response = error;
+						//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+					}
+				});
+	        }
 		},
 		error: function(error) {
 		}
@@ -435,27 +465,36 @@ function muskCurrentPage() {
 	$(".loadingShow").show();
 }
 function addToWishlistAfterCheck(object) {
-	var data = {
-		"wishId": wishInLocal.wishId
-	},
-	dataList = [];
-	dataList.push(data);
+	$.ajax({
+		url: '/funeral/wishlistDetail/addSingleToWish?'+'&wishId='+wishInLocal.wishId,
+		type: 'post',
+		contentType: "application/json; charset=UTF-8",
+		data: [],
+		dataType:'json',
+		success:function(data){
+			$($(".buttonDiv")[1]).addClass("disableDiv");
+	    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
+			unmusk();
+		},
+		error: function(error) {
+			unmusk();
+		}
+	});
+}
+function addToCartAfterCheck(object) {
 		$.ajax({
-			url: '/funeral/wishlistDetail/addSingle?wishlistId='+wishlistId+"&wishId="+wishInLocal.wishId,
+			url: '/funeral/wishlistDetail/addSingleToCart?'+'&wishId='+wishInLocal.wishId,
 			type: 'post',
 			contentType: "application/json; charset=UTF-8",
-			data: JSON.stringify(dataList),
+			data: [],
 			dataType:'json',
 			success:function(data){
-				$(".buttonDiv").addClass("disableDiv");
+				$($(".buttonDiv")[0]).addClass("disableDiv");
 		    	$(".buttonDiv").find("p")[0].innerText = "已加入购物车";
-		    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
 		    	window.parent.frames[0].addCountOfShoppingCart();
-				alert("已加入购物车！");
 				unmusk();
 			},
 			error: function(error) {
-				alert("加入购物车失败！");
 				unmusk();
 			}
 		});
@@ -465,6 +504,17 @@ function addToWishlist() {
 
 	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
 		addToWishlistAfterCheck();
+	}
+	else {
+		window.parent.popupLogInPage();
+		unmusk();
+	}
+}
+function addToCartlist() {
+	muskCurrentPage();
+
+	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+		addToCartAfterCheck();
 	}
 	else {
 		window.parent.popupLogInPage();
@@ -507,7 +557,7 @@ function addToWishlist() {
 					</div>
 				</div>
 				<div class="singleBtmArea">
-					<div class="buttonDiv2 buttonDiv">
+					<div class="buttonDiv2 buttonDiv" id="addToWish">
 					    <div class="buttonImgDiv"><img src="/funeral/js/images/wishlist@2x.png"></img></div>
 					    <div class="buttonTextDiv"><p>加入愿望清单</p></div>
 					</div>
@@ -647,10 +697,16 @@ function addToWishlist() {
 </body>
 <script type="text/javascript">
 window.onload = function() {
-	validateInList();
+	validateInWishList();
+	validateInCart();
 	$(".buttonDiv").click(function() {
 		if (!$(this).hasClass("disableDiv")){
-		    addToWishlist();
+			if ($(this)[0].id === "addToWish") {
+		        addToWishlist();
+			}
+			else {
+				addToCartlist();
+			}
 		}
 	});
 }

@@ -25,19 +25,28 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.constants.WishConstants;
+import com.funeral.kris.model.Cart;
+import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.Comment;
 import com.funeral.kris.model.Option;
+import com.funeral.kris.model.Order;
+import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.TaoConfig;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishType;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.service.CartDetailService;
+import com.funeral.kris.service.CartService;
+import com.funeral.kris.service.OrderDetailService;
+import com.funeral.kris.service.OrderService;
 import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
+import com.funeral.kris.util.AlipayUtil;
 import com.funeral.kris.util.SqlHelper;
 
 @Controller
@@ -47,9 +56,17 @@ public class WishlistController {
 	@Autowired
 	private WishlistService wishlistService;
 	@Autowired
+	private CartService cartService;
+	@Autowired
+	private CartDetailService cartDetailService;
+	@Autowired
 	private WishTypeService wishTypeService;
 	@Autowired
 	private WishlistDetailService wishlistDetailService;
+	@Autowired
+	private OrderService orderService;
+	@Autowired
+	private OrderDetailService orderDetailService;
 	@Autowired
 	private EntityManager em;
 	
@@ -165,6 +182,60 @@ public class WishlistController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/generateOrderByWish", method = RequestMethod.POST)
+	public Order generateOrderByWishlist(HttpServletRequest request) {
+		Wishlist wishlist = null;
+		Order order = new Order();
+		User user = (User) request.getSession().getAttribute("user");
+		wishlist = wishlistService.getResource(user.getWishlistId());
+		order.setUserId(user.getUsrId());
+		order.setPayableAmount(wishlist.getPrice());
+		order.setStatusId(AlipayUtil.order_open);
+		orderService.addResource(order);
+		List<WishlistDetail> wishdetailList = new ArrayList<WishlistDetail>();
+		wishdetailList = wishlistDetailService.getResourceByWishListId(user.getWishlistId());
+
+		for (WishlistDetail wishlistDetail: wishdetailList) {
+			OrderDetail orderdetail = new OrderDetail();
+			orderdetail.setCount(wishlistDetail.getCount());
+			orderdetail.setOrderId(order.getOrderId());
+			orderdetail.setOriginalPrice(wishlistDetail.getOriginalPrice());
+			orderdetail.setPrice(wishlistDetail.getPrice());
+			orderdetail.setCreatedDate(new Date());
+			orderdetail.setUpdatedDate(new Date());
+			orderDetailService.addResource(orderdetail);
+		}
+		return order;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/generateOrderByCart", method = RequestMethod.POST)
+	public Order generateOrderByCart(HttpServletRequest request) {
+		Cart cart = null;
+		Order order = new Order();
+		User user = (User) request.getSession().getAttribute("user");
+		cart = cartService.getResource(user.getCartId());
+		order.setUserId(user.getUsrId());
+		order.setPayableAmount(cart.getPrice());
+		order.setStatusId(AlipayUtil.order_open);
+		orderService.addResource(order);
+		List<CartDetail> cartDetailList = new ArrayList<CartDetail>();
+		cartDetailList = cartDetailService.getResourceByCartId(user.getCartId());
+		
+		for (CartDetail cartDetail: cartDetailList) {
+			OrderDetail orderdetail = new OrderDetail();
+			orderdetail.setCount(cartDetail.getCount());
+			orderdetail.setOrderId(order.getOrderId());
+			orderdetail.setOriginalPrice(cartDetail.getOriginalPrice());
+			orderdetail.setPrice(cartDetail.getPrice());
+			orderdetail.setCreatedDate(new Date());
+			orderdetail.setUpdatedDate(new Date());
+			orderDetailService.addResource(orderdetail);
+		}
+		return order;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public List<Wishlist> listOfWishlists(HttpServletRequest request) {
 
@@ -177,6 +248,22 @@ public class WishlistController {
 		    wishlists = wishlistService.getResources(paramMap);
 		}
 		return wishlists;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/listCart", method = RequestMethod.GET, produces = "application/json")
+	public Cart listOfCart(HttpServletRequest request) {
+
+		HttpSession session = request.getSession(true);
+		User user = (User) session.getAttribute("user");
+		if (user != null) {
+		    Integer cartId = user.getCartId();
+		    Cart cart = cartService.getResource(cartId);
+		    return cart;
+		}
+		else {
+			return null;
+		}
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
