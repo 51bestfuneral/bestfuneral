@@ -625,8 +625,8 @@ var labelPoints=[{'cemetery': '清竹园','point':"121.140394|31.356897"},
                  {'cemetery': '滨海古园','point':"121.710921|30.857715"},
                  {'cemetery': '永福园陵','point':"121.703847|30.924375"},
                  {'cemetery': '华夏公墓','point':"121.115137|31.057752"},
-                 {'cemetery': '瀛新古园','point':"121.525893|31.63593"}
-                 
+                 {'cemetery': '瀛新古园','point':"121.525893|31.63593"},
+                 {'cemetery': '福泉山留园','point':"121.188725|31.176293"} 
                  ];
                  
 var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
@@ -637,13 +637,13 @@ var markerPoints=[{'cemetery': '清竹园','point':"121.200239|31.36887"},
                  {'cemetery': '福寿园','point':"121.137293|31.117528"},
                  {'cemetery': '至尊园','point':"121.05552|31.088965"},
                  {'cemetery': '淀山湖归园','point':"121.072981|31.141163"},
-                 {'cemetery': '九天陵园','point':"121.436602|31.214915"},
+                 {'cemetery': '九天陵园','point':"121.096108|31.294172"},
                  {'cemetery': '滨海古园','point':"121.725921|30.858715"},
-                 {'cemetery': '海湾寝园','point':"121.519805|30.821643"},
+                 {'cemetery': '海湾园','point':"121.519805|30.821643"},
                  {'cemetery': '永福园陵','point':"121.699141|30.931602"},
                  {'cemetery': '华夏公墓','point':"121.130137|31.059752"},
-                 {'cemetery': '瀛新古园','point':"121.532893|31.63693"}
-                 
+                 {'cemetery': '瀛新古园','point':"121.532893|31.63693"},
+                 {'cemetery': '福泉山留园','point':"121.188725|31.176293"} 
                  ];
 
 
@@ -654,6 +654,7 @@ function loadScript() {
 	}
 function initMap(cemeteryName,cemeteryAddress){
 	cemeteryName=$.trim(cemeteryName);
+	
 	cemeteryAddress =$.trim(cemeteryAddress);
     createMap();//创建地图
     setMapEvent();//设置地图事件
@@ -749,7 +750,8 @@ function addRemark(x,y,title,address){
 			     var p2 = point.split("|")[1];
 			     var marker = new BMap.Marker(new BMap.Point(p1,p2));  // 创建标注
 			     map.addOverlay(marker);
-		 }  
+		 }
+		 
 	}
 
 
