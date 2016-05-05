@@ -92,9 +92,8 @@ public class TWishCategorySubServiceImpl implements TWishCategorySubService {
 		public int compare(Object o1, Object o2) {
 			TWishCategorySub s1 = (TWishCategorySub) o1;
 			TWishCategorySub s2 = (TWishCategorySub) o2;
-		    if (s1.getWishId() > s2.getWishId())
-		       return 1;
-		    return 0;
-	    }
+			return s1.getWishId().compareTo(s2.getWishId());
+
 	}
+		}
 }

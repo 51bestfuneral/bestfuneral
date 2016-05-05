@@ -112,46 +112,7 @@ public class WishlistDetailController {
 
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/addSingleToCart", method = RequestMethod.POST)
-	public List<CartDetail> addingCartSingle(HttpServletRequest request) {
-
-		List<CartDetail> successList = new ArrayList<CartDetail>();
-		User user = (User)request.getSession().getAttribute("user");
-		if (user == null) {
-		    return null;
-		}
-
-		Integer cartId = user.getCartId();
-		Cart cart = cartService.getResource(cartId);
-		Integer wishId = Integer.valueOf(request.getParameter("wishId"));
-		Wish wish = wishService.getResource(wishId);
-
-
-		Date sysDate = new Date();
-		if (wishsMap == null) {
-			initialWishMap();
-		}
-
-		CartDetail cartDetail = new CartDetail();
-		wish = wishsMap.get(wish.getWishId());
-		cartDetail.setWishId(wish.getWishId());
-		cartDetail.setCount(1);
-		cartDetail.setPrice(wish.getSellingPrice());
-		cartDetail.setOriginalPrice(wish.getXianenPrice());
-		cartDetail.setWishType(wish.getGeneralCode());
-		cartDetail.setSourceId(WishConstants.wish_source_direct);
-		cartDetail.setCartId(cartId);
-		cartDetail.setCreatedDate(sysDate);
-		cartDetail.setUpdatedDate(sysDate);
-		cartDetailService.addResource(cartDetail);
-		cart.setPrice(cart.getPrice().add(wish.getSellingPrice()));
-		cart.setOriginalPrice(cart.getOriginalPrice().add(wish.getXianenPrice()));
-		successList.add(cartDetail);
-		cartService.updateResource(cart);
-
-		return successList;
-	}
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/addSingleToWish", method = RequestMethod.POST)
@@ -722,32 +683,6 @@ public class WishlistDetailController {
 		return null;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/subtraction", method = RequestMethod.GET)
-	public ModelAndView subtraction(HttpServletRequest request) {
-
-		String wishDetailId = request.getParameter("wishDetailId");
-
-		WishlistDetail wishlistDetail = wishlistDetailService.getResource(Integer.parseInt(wishDetailId));
-
-		int count = wishlistDetail.getCount() - 1;
-		wishlistDetail.setCount(count);
-
-		if (wishlistDetail.getCount().intValue() == 0) {
-
-			wishlistDetailService.deleteResource(Integer.parseInt(wishDetailId));
-
-		} else {
-
-			wishlistDetailService.updateResource(wishlistDetail);
-
-		}
-
-		Wishlist wishlist = this.getCalculatedWishList(wishlistDetail.getWishlistId());
-
-		wishlistService.updateResource(wishlist);
-		return null;
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)

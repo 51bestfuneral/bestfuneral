@@ -305,19 +305,19 @@ span {
 	
 	
   app.controller('product', function($scope, $http) {
-	    $http.get("/funeral/wishlist/list").success(function(response) {
-	         $scope.wishList = response[0];
-			$http.get("/funeral/wishlistDetail/getDirectWishListForPaymnetConfirm?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	    $http.get("/funeral/shoppingCartController/getCart").success(function(response) {
+	         $scope.cartId = response;
+			$http.get("/funeral/shoppingCartController/getDirectWishListForPaymnetConfirm?cartId="+$scope.cartId).success(function(response) {
 	            $scope.grossPay = response;
 	        });
 	        
 	        
-	         $http.get("/funeral/wishlistDetail/loadShoppingCart?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	         $http.get("/funeral/shoppingCartController/loadShoppingCart?cartId="+$scope.cartId).success(function(response) {
 	    $scope.shappingCart=	response;
 	  });
 	        
 	        
-	          $http.get("/funeral/alipay/getTotalPay?wishlistId="+$scope.wishList.wishlistId).success(function(response) {
+	          $http.get("/funeral/alipay/getTotalPay?cartId="+$scope.cartId).success(function(response) {
 	    $scope.totalPay = response;
 	}); 
 	    });

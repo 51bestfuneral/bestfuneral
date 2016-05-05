@@ -35,6 +35,16 @@ public class CartDetail {
 
 	@Column(name="source_id")
 	private Integer sourceId;
+	@Column(name="selected")
+	private Integer selected;
+
+	public Integer getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Integer selected) {
+		this.selected = selected;
+	}
 
 	@Column(name="original_price")
 	private BigDecimal originalPrice;

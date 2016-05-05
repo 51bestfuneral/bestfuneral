@@ -13,8 +13,15 @@ public class CartlistJson {
 	private Integer cartId;
 	private BigDecimal originalPrice;
 	private BigDecimal selectedPrice;
+	private Integer selected;
 	 
 
+	public Integer getSelected() {
+		return selected;
+	}
+	public void setSelected(Integer selected) {
+		this.selected = selected;
+	}
 	public BigDecimal getSelectedPrice() {
 		return selectedPrice;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.funeral.kris.model.Cart;
+import com.funeral.kris.model.CartDetail;
 
 public interface CartService {
 	

@@ -19,7 +19,14 @@
     text-align: center;
 	width: 100%;
 	height: 380px;
-	background-color: rgba(0, 0, 0, 0.49);
+	
+	
+	opacity: 0.9;
+
+background: #666666;
+
+background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,0,0.50) 100%);
+	
 }
 #mainHeader h1 {
     font-size: 45px;
@@ -468,7 +475,7 @@ width: 100%;
 
 <body ng-app="productApp" ng-controller="cemetery">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
-<div id="mainHeader"   style="background-image:url(/funeral/js/images/cemetery_a_spot_background@2x.jpg);background-size: 100%;" ng-cloak >
+<div id="mainHeader"  ng-cloak >
     <div id="leftTop">
 	    <p><span ><a href="cemeteryList.html">墓地信息／</a></span><span ng-bind="cemeteryBean.cemeteryName"></span></p>
 	</div>
@@ -533,13 +540,13 @@ width: 100%;
 			    <img src={{cemeteryBean.descImgUrl}}></img>
 				</div>
 				<div class="rightFeatureText">
-				    <h1>简介</h1>
+				    <h2>简介</h2>
 				    <p ng-bind="cemeteryBean.cemeteryDesc"></p>
 				</div>
 			</div>
 			<div id="locationFeature">
 			    <div class="leftlocationText">
-				     <h1>特色</h1>
+				     <h2>特色</h2>
 <p ng-bind="cemeteryBean.feature"></p>				</div>
 				<div class="rightlocationImg">
 					 <img src={{cemeteryBean.featureImgUrl}}></img>
@@ -552,7 +559,7 @@ width: 100%;
 			
 				</div>
 				<div class="rightEquipmentText">
-				    <h1>交通信息</h1>
+				    <h2>交通信息</h2>
 				    <p ng-bind="cemeteryBean.trafficInfo"></p>
 				</div>
 			</div>
@@ -581,7 +588,7 @@ width: 100%;
 <script src="/funeral/js/Bootstrap/boot.js"></script>
 <script src="/funeral/js/generalUsage.js"></script>
 <script>
-muskCurrentPage();
+//muskCurrentPage();
 	var length = location.search.length;
 id = location.search.substring(4, length);
 
