@@ -503,7 +503,7 @@ public class WishlistDetailController {
 		if (selectedWishDetailIdList.size() == directDetailsList.size() && selectedWishDetailIdList.size() > 0) {
 			allSelected = 1;
 		}
-		shoppingCart.setSelectedWishDetailIdList(selectedWishDetailIdList);
+		shoppingCart.setSelectedCartDetailIdList(selectedWishDetailIdList);
 		shoppingCart.setCount(count);
 		shoppingCart.setGrossFee(orderTotalCost);
 		shoppingCart.setUserId(user.getUsrId());
@@ -594,7 +594,7 @@ public class WishlistDetailController {
 			allSelected = 1;
 		}
 
-		shoppingCart.setSelectedWishDetailIdList(selectedWishDetailIdList);
+		shoppingCart.setSelectedCartDetailIdList(selectedWishDetailIdList);
 
 		shoppingCart.setCount(count);
 
@@ -712,7 +712,7 @@ public class WishlistDetailController {
 			allSelected = 1;
 		}
 
-		shoppingCart.setSelectedWishDetailIdList(selectedWishDetailIdList);
+		shoppingCart.setSelectedCartDetailIdList(selectedWishDetailIdList);
 
 		shoppingCart.setCount(count);
 
@@ -726,38 +726,7 @@ public class WishlistDetailController {
 
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/listCount", method = RequestMethod.GET, produces = "application/json")
-	public Integer listCountOfWishlistDetails(HttpServletRequest request) {
-
-		int count = 0;
-
-		String wishlistId = request.getParameter("wishlistId");
-		List<WishlistDetail> wishlistDetails = wishlistDetailService
-				.getDirectWishlistDetailByWishListId(Integer.parseInt(wishlistId));
-
-		if (wishlistDetails == null) {
-
-			return 0;
-		} else {
-
-			Iterator iter = wishlistDetails.iterator();
-
-			while (iter.hasNext()) {
-
-				WishlistDetail detail = (WishlistDetail) iter.next();
-
-				if (detail.getSourceId().intValue() == 2) {
-
-					count++;
-				}
-
-			}
-
-		}
-
-		return count;
-	}
+	
 
 	// @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	// public ModelAndView editWishlistDetailPage(@PathVariable Integer id) {

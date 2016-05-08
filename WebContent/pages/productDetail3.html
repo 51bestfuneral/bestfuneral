@@ -731,7 +731,7 @@ app.controller('products', function($scope, $http) {
     }
     function addToWishlistAfterCheck(object) {
     	$.ajax({
-    		url: '/funeral/wishlistDetail/addSingleToWish?'+'&wishId='+wishInLocal.wishId,
+    		url: '/funeral/wishlistDetail/addSingleToWish?wishId='+wishInLocal.wishId,
     		type: 'post',
     		contentType: "application/json; charset=UTF-8",
     		data: [],
@@ -749,7 +749,7 @@ app.controller('products', function($scope, $http) {
     }
     function addToCartAfterCheck(object) {
     		$.ajax({
-    			url: '/funeral/wishlistDetail/addSingleToCart?'+'&wishId='+wishInLocal.wishId,
+    			url: '/funeral/shoppingCartController/addSingleToCart?wishId='+wishInLocal.wishId,
     			type: 'post',
     			contentType: "application/json; charset=UTF-8",
     			data: [],

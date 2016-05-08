@@ -518,7 +518,7 @@
 							$(".subIcon1").fadeIn();
 						}
 						adjustWishlistLayout(wishlist.status);
-						url = "/funeral/wishlistDetail/listCount?wishlistId="+wishlist.wishlistId;
+						url = "/funeral/shoppingCartController/listCountOfCart";
 						$.ajax({
 							url: url,
 							type: 'GET',

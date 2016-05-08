@@ -65,8 +65,16 @@ public class SignController {
 		user.setUserType(LoginConstants.userTypeInidCustomer);
 		user.setInvalidLoginTimes(0);
 		userService.addResource(user);
+		System.out.println("begin to create wish and cart-----getUsrId--"+user.getUsrId()+" getUserName="+user.getUserName());
+
 		wishlistId = createWishListForUser(user);
+		
+		
 		cartId = createShoppingCartForUser(user);
+		
+		System.out.println("end to create wish and cart----");
+
+		
 		user.setWishlistId(wishlistId);
 		user.setCartId(cartId);
 		userService.updateResource(user);

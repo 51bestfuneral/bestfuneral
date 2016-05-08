@@ -29,6 +29,16 @@ public class CartDetail {
 
 	@Column(name="price")
 	private BigDecimal price;
+	@Column(name="selected_price")
+	private BigDecimal selectedPrice;
+
+	public BigDecimal getSelectedPrice() {
+		return selectedPrice;
+	}
+
+	public void setSelectedPrice(BigDecimal selectedPrice) {
+		this.selectedPrice = selectedPrice;
+	}
 
 	@Column(name="count")
 	private Integer count;

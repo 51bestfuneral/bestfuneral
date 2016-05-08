@@ -164,6 +164,8 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 
 		User user = (User) session.getAttribute("user");
 
+		
+		
 		ExpressInfo info = expressInfoService.getUsingExpressInfo(user.getUsrId());
 
 		ExpressBean bean = new ExpressBean();
