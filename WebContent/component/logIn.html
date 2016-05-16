@@ -202,6 +202,10 @@
 		<div id="alreadyHas">
 		    <p>新用户？请注册</p>
 		</div>
+		<form name="alipayment" action="../alipayapi.jsp" method="post" target="_blank">
+						<input type="hidden" id="type" name="type" value="4"  />
+                            <button id="alipayLoginButton" style="display:none" type="submit" style="text-align:center;">确 认</button>
+				</form>
 	</div>
 </div>
 </body>
@@ -263,6 +267,19 @@ function validateValid(content) {
 	return false;
 }
 window.onload = function() {
+	var autoLogin = function(type){
+		$.ajax({
+		    url: '/funeral/oauth/getUrl?oauthType='+type,
+			type: 'POST',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			data: [],
+			success:function(data){
+	            window.parent.location.href=data.url;
+			}
+		})
+	};
+	
     $("#closeArea").click(function() {
 	    parent.removeSelf();
 	});
@@ -273,6 +290,23 @@ window.onload = function() {
 	$("#forget").click(function() {
 	    parent.removeSelf(3);
 	});
+	
+	$("#qqLogin").click(function() {
+		autoLogin("1");
+	});
+	
+	$("#webChatLogin").click(function() {
+		autoLogin("2");
+	});
+	
+	$("#sinaLogin").click(function() {
+		autoLogin("3");
+	});
+	
+	$("#alipayLogin").click(function() {
+		 $("#alipayLoginButton").click();
+	});
+	
 	
 	$("#loginFrameCoat",window.parent.document).fadeIn();
 	$("#userName").blur(function() {
