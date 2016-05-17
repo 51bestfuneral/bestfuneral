@@ -548,25 +548,10 @@ function loadScript() {
 function initMap(cemeteryName,cemeteryAddress){
 	cemeteryName=$.trim(cemeteryName);
 	cemeteryAddress =$.trim(cemeteryAddress);
-    createMap();//创建地图
+    createMap(cemeteryName);//创建地图
     setMapEvent();//设置地图事件
     addMapControl();//向地图添加控件
-    
-    //清竹园  上海市嘉定区外冈镇嘉松北路633号
-    //上海市浦东新区朝阳农场军港公路388号 汇龙园  18
-    //华南陵园     上海市浦东新区航头镇航都南路668号 
-    //海港陵园（福寿园）  浦东新区南汇新城书院镇杞青路1717号  20
-    //天逸静园玫瑰园  上海市浦东新区曹路镇龚卫路388号
-    //福寿园  上海市外青松公路7270弄600号 
-    //至尊园  朱枫公路1128号
-    //淀山湖归园  青浦区港周路1111号
-    //九天陵园  上海市长宁区平武路38号仁达商务楼411室 ---
-    //福泉山留园 上海市漕溪路210号龙华殡仪馆业务大厅二楼福泉山留园办事处  ---  
-    //滨海古园   上海市奉贤区海湾镇五四农场海古路755号
-    //海湾寝园   上海奉贤海湾旅游区海乐路200号
-    //永福园陵    上海市奉贤区洪庙镇洪庙洪东路333号
-    //华夏公墓    上海市松江区小昆山镇荡湾村永昆公路482号
-    //瀛新古园    上海市崇明县新河镇草港公路3188号
+    alert(cemeteryAddress);
 	    	var options = {
 	    	        onSearchComplete: function(results){
 	    	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){
@@ -586,9 +571,12 @@ function initMap(cemeteryName,cemeteryAddress){
 }
 
 //创建地图函数：
-function createMap(){
+function createMap(cemeteryName){
     var map = new BMap.Map("cemeteryMapContext");//在百度地图容器中创建一个地图
-    var point = new BMap.Point(121.194109,31.369983);//定义一个中心点坐标
+    var point ;
+    if(cemeteryName=="大云禅寺"){
+    	point= new BMap.Point(120.957254,30.780953);
+    }else{point= new BMap.Point(121.194109,31.369983);}//定义一个中心点坐标
     map.centerAndZoom(point,15);//设定地图的中心点和坐标并将地图显示在地图容器中
     window.map = map;//将map变量存储在全局 
 
@@ -655,6 +643,10 @@ function resetCenterAndZoom(x,y,cemeteryName,address){
 			 return;
 		 }
 	}
+	map.centerAndZoom(centerPoint,18);
+	 var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:centerPoint,offset:new BMap.Size(-800,200)});
+	 map.addOverlay(label);
+	 label.setStyle({borderColor:"#999"});
 }
 
 window.onload=function() {
