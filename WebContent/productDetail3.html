@@ -2,12 +2,13 @@
 <html>
 <head>
 <title>念念--服务详细</title>
-<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" />
-<script src="/js/jquery-2.1.4.js"></script>
-<script src="/js/jquery-ui.js"></script>
-<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="/js/generalUsage.js"></script>
-<script src="/js/tinymce/tinymce.min.js"></script>
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务" />
+<script src="../js/jquery-2.1.4.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/funeral/js/generalUsage.js"></script>
+<script src="../js/tinymce/tinymce.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <style>
@@ -156,7 +157,7 @@
 		display: block;
 		width: 100px;
 		height: 20px;
-		background: url(/js/images/starempty.png) repeat-x;
+		background: url(/funeral/js/images/starempty.png) repeat-x;
 		top: -3px;
 	}
 	.StartFull {
@@ -166,7 +167,7 @@
 		display: block;
 		width: 100px;
 		height: 20px;
-		background: url(/js/images/star.png) repeat-x;
+		background: url(/funeral/js/images/star.png) repeat-x;
 		left: 20px;
 	}
 	#startGroup {
@@ -221,7 +222,7 @@
 		height: 15px;
 		line-height: 1;
 		padding-left: 25px;
-		background: url(/js/images/wishlisticon.png) left center no-repeat;
+		background: url(/funeral/js/images/wishlisticon.png) left center no-repeat;
 		font-size: 14px;
 		cursor: pointer;
 	}
@@ -335,7 +336,7 @@
 		-webkit-user-select: none;
 		cursor: pointer;
 		margin-top: 15px;
-		background: url('/js/images/wishbtnicon.png') 80px 13px no-repeat;
+		background: url('/funeral/js/images/wishbtnicon.png') 80px 13px no-repeat;
 		padding-left: 60px
 	}
 	.addToWish:hover {
@@ -462,6 +463,60 @@
 	   cursor: default!important;
 	}
 </style>
+<script>
+var content = '';
+    tinymce.init({ 
+	    'selector':'textarea',
+	    'menubar':false,
+	    'readonly':false,
+		'statusbar': false,
+	    'plugins': ["advlist autolink lists charmap print preview hr anchor pagebreak spellchecker",
+	        "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime  nonbreaking",
+	        "save table contextmenu directionality emoticons paste textcolor", "image imagetools", "autoresize colorpicker directionality", "lineheight"],
+	    'toolbar': "insertfile undo redo | styleselect fontselect fontsizeselect| bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      | print preview fullpage | forecolor backcolor | image | fontsizeselect lineheight",
+	    'width':"100%",
+		'background-color': "#F5F5F5",
+		'font_formats' : "Microsoft Yahei=Microsoft Yahei",
+		'fontsize_formats' : "8px 9px 10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px",
+		setup : function(ed) {
+			ed.on('init', function(args) {
+			    if (content !== '') {
+                    tinymce.get('mainText').getBody().innerHTML = content;
+				}
+            });
+		}
+	});
+var app = angular.module('productApp', []),
+    length = location.search.length,
+	type = location.search.substring(4, length),
+	localMessage,
+	wishInLocal,
+	wishlistId;
+app.controller('products', function($scope, $http) {
+    $http.get("/funeral/wish/list?wishId="+type).success(function(response) {
+	    $scope.wish = response[0];
+	    wishInLocal = response[0];
+	    $http.get("/funeral/wish/list?generalCode="+response[0].generalCode).success(function(response) {
+	    	if (response.length > 4) {
+		        $scope.relevantWishs = response.slice(0, 4);
+	    	}
+	    	else {
+	    		$scope.relevantWishs = response;
+	    	}
+			unmusk();
+		});
+	});
+	$http.get("/funeral/message/list?wishId="+type).success(function(response) {
+		localMessage = response[0].messageId;
+		if (tinymce.get('mainText') !== null) {
+		    tinymce.get('mainText').getBody().innerHTML = response[0].content;
+	    }
+		else {
+		    content = response[0].content;
+		}
+	});
+});
+</script>
 <body onselectstart="return false" ng-app="productApp" ng-controller="products">
 <div class="container">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
@@ -470,41 +525,41 @@
 		    <div id="photosWall">
 			    <div id="photoShow">
 				    <div id="photoShowArea">
-					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/js/images/{{wish.imgUrl}}');">
+					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('../js/images/{{wish.imgUrl}}');">
 						</div>
-<!-- 						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+<!-- 						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
+						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
 						</div> -->
 					</div>
 					<ul id="sliderPhote" hidden>
 					    <li>
 						    <div class="singleSlide" id="1">
-							    <img src="/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							    <img src="/funeral/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="2">
-							    <img src="/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="3">
-							    <img src="/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/funeral/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="4">
-							    <img src="/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/funeral/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="5">
-							    <img src="/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							    <img src="/funeral/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
 							</div>
 						</li>
 					</ul>
@@ -580,7 +635,7 @@
 		<div id="referenceContainer">
 			<div class="singleReference" ng-repeat="relevantWish in relevantWishs" id="{{relevantWish.wishId}}">
 			    <div class="imageDiv">
-				    <image src="/js/images/{{relevantWish.imgUrl}}"></image>
+				    <image src="../js/images/{{relevantWish.imgUrl}}"></image>
 				</div>
 				<div class="priceFloat">
 				    <span>￥</span><span>{{relevantWish.sellingPrice}}</span>
@@ -609,64 +664,10 @@
 </div>
 </body>
 <script>
-var content = '';
-    tinymce.init({ 
-	    'selector':'textarea',
-	    'menubar':false,
-	    'readonly':false,
-		'statusbar': false,
-	    'plugins': ["advlist autolink lists charmap print preview hr anchor pagebreak spellchecker",
-	        "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime  nonbreaking",
-	        "save table contextmenu directionality emoticons paste textcolor", "image imagetools", "autoresize colorpicker directionality", "lineheight"],
-	    'toolbar': "insertfile undo redo | styleselect fontselect fontsizeselect| bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      | print preview fullpage | forecolor backcolor | image | fontsizeselect lineheight",
-	    'width':"100%",
-		'background-color': "#F5F5F5",
-		'font_formats' : "Microsoft Yahei=Microsoft Yahei",
-		'fontsize_formats' : "8px 9px 10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px",
-		setup : function(ed) {
-			ed.on('init', function(args) {
-			    if (content !== '') {
-                    tinymce.get('mainText').getBody().innerHTML = content;
-				}
-            });
-		}
-	});
-var app = angular.module('productApp', []),
-    length = location.search.length,
-	type = location.search.substring(4, length),
-	localMessage,
-	wishInLocal,
-	wishlistId;
-app.controller('products', function($scope, $http) {
-    $http.get("/wish/list?wishId="+type).success(function(response) {
-	    $scope.wish = response[0];
-	    wishInLocal = response[0];
-	    $http.get("/wish/list?generalCode="+response[0].generalCode).success(function(response) {
-	    	if (response.length > 4) {
-		        $scope.relevantWishs = response.slice(0, 4);
-	    	}
-	    	else {
-	    		$scope.relevantWishs = response;
-	    	}
-			unmusk();
-		});
-	});
-	$http.get("/message/list?wishId="+type).success(function(response) {
-		localMessage = response[0].messageId;
-		if (tinymce.get('mainText') !== null) {
-		    tinymce.get('mainText').getBody().innerHTML = response[0].content;
-	    }
-		else {
-		    content = response[0].content;
-		}
-	});
-});
-</script>
-<script>
     muskCurrentPage();
     function validateInWishList() {
     	$.ajax({
-    		url: '/wishlist/list',
+    		url: '/funeral/wishlist/list',
     		type: 'GET',
     		contentType: "application/json; charset=UTF-8",
     		success:function(data){
@@ -675,7 +676,7 @@ app.controller('products', function($scope, $http) {
     	            wishlistId = data[0].wishlistId;
     			}
     		    $.ajax({
-    				url: '/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
+    				url: '/funeral/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
     				type: 'get',
     				success:function(data){
     					var response = data;
@@ -699,14 +700,14 @@ app.controller('products', function($scope, $http) {
     }
     function validateInCart() {
     	$.ajax({
-    		url: '/wishlist/listCart',
+    		url: '/funeral/wishlist/listCart',
     		type: 'GET',
     		contentType: "application/json; charset=UTF-8",
     		success:function(data){
     	        var resultCode =data;
     	        if (data !== null) {
     			    $.ajax({
-    					url: '/wishlistDetail/getAllCartList?cartId='+data.cartId,
+    					url: '/funeral/wishlistDetail/getAllCartList?cartId='+data.cartId,
     					type: 'get',
     					success:function(data){
     						var response = data;
@@ -731,7 +732,7 @@ app.controller('products', function($scope, $http) {
     }
     function addToWishlistAfterCheck(object) {
     	$.ajax({
-    		url: '/wishlistDetail/addSingleToWish?wishId='+wishInLocal.wishId,
+    		url: '/funeral/wishlistDetail/addSingleToWish?wishId='+wishInLocal.wishId,
     		type: 'post',
     		contentType: "application/json; charset=UTF-8",
     		data: [],

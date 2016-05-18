@@ -190,7 +190,7 @@
 	    <div  ng-click="gotoCemetery(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans">
 		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
 		     <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district}}</h5></span> 
-		 <img  src={{bean.descImgUrl}}></img>
+		 <img  src={{'/funeral/pages'+bean.descImgUrl}}></img>
 		  
 		</div>
 		
@@ -206,7 +206,7 @@
 	<div class="listContent">
 	    <div  ng-click="gotoTemple(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  temples">
 		   <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
-		 <img  src={{bean.descImgUrl}}></img>
+		 <img  src={{'/funeral/pages'+bean.descImgUrl}}></img>
 		  
 		</div>
 

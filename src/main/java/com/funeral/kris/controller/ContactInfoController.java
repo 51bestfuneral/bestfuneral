@@ -108,7 +108,7 @@ public class ContactInfoController {
 	@ResponseBody
 	@RequestMapping(value = "/listByUserId", method = RequestMethod.GET, produces = "application/json")
 	public List<ContactInfo> listByUserId(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 
 		int userId = user.getUsrId();
@@ -144,7 +144,7 @@ public class ContactInfoController {
 	@ResponseBody
 	@RequestMapping(value = "/getUsingContacter", method = RequestMethod.GET, produces = "application/json")
 	public ContactInfo getUsingContacter(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		User user = (User) session.getAttribute("user");
 		int userId = user.getUsrId();
 
