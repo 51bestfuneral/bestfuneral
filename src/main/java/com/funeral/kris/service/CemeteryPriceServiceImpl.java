@@ -76,5 +76,13 @@ public class CemeteryPriceServiceImpl implements CemeteryPriceService {
 		
 		
 	}
+	
+	public List<TCemeteryPrice> getCemeteryPriceListByGraveStyleId(int graveStyleId){
+		return cemeteryPriceDAO.findListByGraveStyleId(graveStyleId);
+	}
+	
+	public List<TCemeteryPrice> getCemeteryPriceListByEpigraphStyleId(int epigraphStyleId){
+		return cemeteryPriceDAO.findListByEpigraphStyleId(epigraphStyleId);
+	}
 
 }
