@@ -481,6 +481,11 @@ width: 100%;
 id = location.search.substring(4, length);
 	
 	var app = angular.module('productApp', []);
+	app.filter('trustAsHtml', function($sce) {
+		  return function(html) {
+		    return $sce.trustAsHtml(html);
+		  };
+		});
 	 app.controller('cemetery', function($scope, $http) {
 	 	
 	 	$http.get("/funeral/cemetery/findOneCemetery?id="+id).success(function(response) {
