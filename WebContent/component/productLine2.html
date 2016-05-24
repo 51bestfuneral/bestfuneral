@@ -11,7 +11,6 @@
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 <script src="/js/jquery-2.1.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
-<script src="/js/sliderx.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
@@ -256,7 +255,7 @@ body {
 			</ol>
             <div class="carousel-inner">
 				<div class="item {{layout.active}}" alt="Second slide" ng-repeat="layout in layouts">
-	                <div class="productItem {{itemLayout.positionClass}}" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index">
+	                <div class="productItem {{itemLayout.positionClass}}" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in layout.itemLayout track by $index" on-finish-render-filters>
 		                <div class="imageDiv">
 						    <img src="/js/images/{{itemLayout.imgUrl}}" class="image"></img>
 						</div>
@@ -268,7 +267,7 @@ body {
 		            </div>
                 </div>
             </div>
-            <a class="carousel-control left" href="#referenceCarousel" 
+            <a class="carousel-control left" href="#referenceCarousel" hidden
                 data-slide="prev"><div class="arrowCoat"><p class="headerArrow">&lsaquo;</p></div></a>
             <a class="carousel-control right" href="#referenceCarousel" 
                 data-slide="next"><div class="arrowCoat"><p class="headerArrow">&rsaquo;</p></div></a>
@@ -281,6 +280,18 @@ var app = angular.module('productApp', []);
 var filter = location.search,
 	wishList,
 	usrId = 1;
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
 app.controller('products', function($scope, $http) {
 	$http.get("/wish/list"+filter).success(function(response) {
 	    var j = 1,
@@ -320,6 +331,35 @@ app.controller('products', function($scope, $http) {
 		}
 		$scope.layouts = layouts;
 	});
+	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+		$(".productCarousel").carousel({
+			wrap: false
+		});
+		$(".productCarousel").carousel('pause');
+		$(".productCarousel").each(function() {
+			var pages = $(this).find(".item");
+
+			if (pages.length === 1) {
+				$(this).find(".right").hide();
+			}
+		});
+		$(".productCarousel").on('slid.bs.carousel', function() {
+			var pages = $(this).find(".item");
+			
+			if ($(pages[pages.length-1]).hasClass("active")) {
+			    $(this).find(".right").fadeOut();
+			}
+			else {
+				$(this).find(".right").fadeIn();
+			}
+			if ($(pages[0]).hasClass("active")){
+				$(this).find(".left").fadeOut();
+			}
+			else {
+				$(this).find(".left").fadeIn();
+			}
+		});
+    });
 });
 </script>
 <script>

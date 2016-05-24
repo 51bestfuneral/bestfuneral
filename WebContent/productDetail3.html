@@ -3,11 +3,11 @@
 <head>
 <title>念念--服务详细</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
-<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" />
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="/funeral/js/generalUsage.js"></script>
+<script src="/js/generalUsage.js"></script>
 <script src="../js/tinymce/tinymce.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
@@ -61,6 +61,10 @@
 	    overflow: auto;
 		height: 389px;
 		padding-left: 75px;
+	}
+	#photoShowArea img {
+	    width: 100%;
+	    height: 100%;
 	}
 	#photoShowArea div {
 	    transition:opacity 1s;
@@ -157,7 +161,7 @@
 		display: block;
 		width: 100px;
 		height: 20px;
-		background: url(/funeral/js/images/starempty.png) repeat-x;
+		background: url(/js/images/starempty.png) repeat-x;
 		top: -3px;
 	}
 	.StartFull {
@@ -167,7 +171,7 @@
 		display: block;
 		width: 100px;
 		height: 20px;
-		background: url(/funeral/js/images/star.png) repeat-x;
+		background: url(/js/images/star.png) repeat-x;
 		left: 20px;
 	}
 	#startGroup {
@@ -222,7 +226,7 @@
 		height: 15px;
 		line-height: 1;
 		padding-left: 25px;
-		background: url(/funeral/js/images/wishlisticon.png) left center no-repeat;
+		background: url(/js/images/wishlisticon.png) left center no-repeat;
 		font-size: 14px;
 		cursor: pointer;
 	}
@@ -336,7 +340,7 @@
 		-webkit-user-select: none;
 		cursor: pointer;
 		margin-top: 15px;
-		background: url('/funeral/js/images/wishbtnicon.png') 80px 13px no-repeat;
+		background: url('/js/images/wishbtnicon.png') 80px 13px no-repeat;
 		padding-left: 60px
 	}
 	.addToWish:hover {
@@ -460,106 +464,45 @@
     }
     .disableDiv {
 	   opacity: 0.6;
-	   cursor: default!important;
 	}
 </style>
-<script>
-var content = '';
-    tinymce.init({ 
-	    'selector':'textarea',
-	    'menubar':false,
-	    'readonly':false,
-		'statusbar': false,
-	    'plugins': ["advlist autolink lists charmap print preview hr anchor pagebreak spellchecker",
-	        "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime  nonbreaking",
-	        "save table contextmenu directionality emoticons paste textcolor", "image imagetools", "autoresize colorpicker directionality", "lineheight"],
-	    'toolbar': "insertfile undo redo | styleselect fontselect fontsizeselect| bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      | print preview fullpage | forecolor backcolor | image | fontsizeselect lineheight",
-	    'width':"100%",
-		'background-color': "#F5F5F5",
-		'font_formats' : "Microsoft Yahei=Microsoft Yahei",
-		'fontsize_formats' : "8px 9px 10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px",
-		setup : function(ed) {
-			ed.on('init', function(args) {
-			    if (content !== '') {
-                    tinymce.get('mainText').getBody().innerHTML = content;
-				}
-            });
-		}
-	});
-var app = angular.module('productApp', []),
-    length = location.search.length,
-	type = location.search.substring(4, length),
-	localMessage,
-	wishInLocal,
-	wishlistId;
-app.controller('products', function($scope, $http) {
-    $http.get("/funeral/wish/list?wishId="+type).success(function(response) {
-	    $scope.wish = response[0];
-	    wishInLocal = response[0];
-	    $http.get("/funeral/wish/list?generalCode="+response[0].generalCode).success(function(response) {
-	    	if (response.length > 4) {
-		        $scope.relevantWishs = response.slice(0, 4);
-	    	}
-	    	else {
-	    		$scope.relevantWishs = response;
-	    	}
-			unmusk();
-		});
-	});
-	$http.get("/funeral/message/list?wishId="+type).success(function(response) {
-		localMessage = response[0].messageId;
-		if (tinymce.get('mainText') !== null) {
-		    tinymce.get('mainText').getBody().innerHTML = response[0].content;
-	    }
-		else {
-		    content = response[0].content;
-		}
-	});
-});
-</script>
-<body onselectstart="return false" ng-app="productApp" ng-controller="products">
+<body onselectstart="return false" ng-app="detailApp" ng-controller="details">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html" frameborder = 0 height = "67px"></IFRAME>
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
+
     <div id="topContent">
-	    <div id="topLeft">
+ 	    <div id="topLeft">
 		    <div id="photosWall">
 			    <div id="photoShow">
 				    <div id="photoShowArea">
-					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('../js/images/{{wish.imgUrl}}');">
+					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1;">
+					        <img src="../js/images/{{wish.imgUrl}}"></img>
 						</div>
-<!-- 						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
-						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
-						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
-						</div>
-						<div style="width: 690px; height: 294px; float: none; position: absolute; opacity: 1; z-index: 1; background-image: url('/funeral/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95');">
-						</div> -->
 					</div>
 					<ul id="sliderPhote" hidden>
 					    <li>
 						    <div class="singleSlide" id="1">
-							    <img src="/funeral/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							    <img src="/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="2">
-							    <img src="/funeral/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="3">
-							    <img src="/funeral/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="4">
-							    <img src="/funeral/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
+							    <img src="/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
 							</div>
 						</li>
 						<li>
 						    <div class="singleSlide" id="5">
-							    <img src="/funeral/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
+							    <img src="/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
 							</div>
 						</li>
 					</ul>
@@ -598,13 +541,13 @@ app.controller('products', function($scope, $http) {
 	<div id="middleContent">
 	    <div id="middleContainer">
 		    <div class="singleNavi">
-			    服务属性
+			    细节描述
 			</div>
 			<div class="singleNavi">
-			    服务细节
+			    类似产品
 			</div>
 			<div class="singleNavi">
-			    其他服务
+			    其他类别
 			</div>
 		</div>
 	</div>
@@ -664,10 +607,66 @@ app.controller('products', function($scope, $http) {
 </div>
 </body>
 <script>
+var content = '';
+    tinymce.init({ 
+	    'selector':'textarea',
+	    'menubar':false,
+	    'readonly':false,
+		'statusbar': false,
+	    'plugins': ["advlist autolink lists charmap print preview hr anchor pagebreak spellchecker",
+	        "searchreplace wordcount visualblocks visualchars fullscreen insertdatetime  nonbreaking",
+	        "save table contextmenu directionality emoticons paste textcolor", "image imagetools", "autoresize colorpicker directionality", "lineheight"],
+	    'toolbar': "insertfile undo redo | styleselect fontselect fontsizeselect| bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      | print preview fullpage | forecolor backcolor | image | fontsizeselect lineheight",
+	    'width':"100%",
+		'background-color': "#F5F5F5",
+		'font_formats' : "Microsoft Yahei=Microsoft Yahei",
+		'fontsize_formats' : "8px 9px 10px 11px 12px 13px 14px 15px 16px 17px 18px 19px 20px 21px 22px 23px 24px",
+		setup : function(ed) {
+			ed.on('init', function(args) {
+			    if (content !== '') {
+                    tinymce.get('mainText').getBody().innerHTML = content;
+				}
+            });
+		}
+	});
+ var app = angular.module('detailApp', []),
+    length = location.search.length,
+	type = location.search.substring(4, length),
+	localMessage,
+	wishInLocal,
+	wishlistId,
+	wishlistDetailId,
+	cartDetailId;
+app.controller('details', function($scope, $http) {
+    $http.get("/wish/list?wishId="+type).success(function(response) {
+	    $scope.wish = response[0];
+	    wishInLocal = response[0];
+	    $http.get("/wish/list?generalCode="+response[0].generalCode).success(function(response) {
+	    	if (response.length > 4) {
+		        $scope.relevantWishs = response.slice(0, 4);
+	    	}
+	    	else {
+	    		$scope.relevantWishs = response;
+	    	}
+			unmusk();
+		});
+	});
+	$http.get("/message/list?wishId="+type).success(function(response) {
+		localMessage = response[0].messageId;
+		if (tinymce.get('mainText') !== null) {
+		    tinymce.get('mainText').getBody().innerHTML = response[0].content;
+	    }
+		else {
+		    content = response[0].content;
+		}
+	});
+});
+</script>
+<script>
     muskCurrentPage();
     function validateInWishList() {
     	$.ajax({
-    		url: '/funeral/wishlist/list',
+    		url: '/wishlist/list',
     		type: 'GET',
     		contentType: "application/json; charset=UTF-8",
     		success:function(data){
@@ -676,7 +675,7 @@ app.controller('products', function($scope, $http) {
     	            wishlistId = data[0].wishlistId;
     			}
     		    $.ajax({
-    				url: '/funeral/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
+    				url: '/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
     				type: 'get',
     				success:function(data){
     					var response = data;
@@ -685,6 +684,7 @@ app.controller('products', function($scope, $http) {
     					    	$(".addToWishBtn").addClass("disableDiv");
     					    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
     					    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
+    					    	wishlistDetailId = response[i].wishDetailId;
     					    }
     					}
     				},
@@ -700,14 +700,14 @@ app.controller('products', function($scope, $http) {
     }
     function validateInCart() {
     	$.ajax({
-    		url: '/funeral/wishlist/listCart',
+    		url: '/shoppingCartController/listCart',
     		type: 'GET',
     		contentType: "application/json; charset=UTF-8",
     		success:function(data){
     	        var resultCode =data;
     	        if (data !== null) {
     			    $.ajax({
-    					url: '/funeral/wishlistDetail/getAllCartList?cartId='+data.cartId,
+    					url: '/wishlistDetail/getAllCartList?cartId='+data.cartId,
     					type: 'get',
     					success:function(data){
     						var response = data;
@@ -716,6 +716,7 @@ app.controller('products', function($scope, $http) {
     						    	$(".saveToCart").addClass("disableDiv");
     						    	$(".saveToCart")[0].innerText = "已添加购物车";
     						    	$(".saveToCart")[1].innerText = "已添加购物车";
+    						    	cartDetailId = response[i].cartDetailId;
     						    }
     						}
     					},
@@ -732,7 +733,7 @@ app.controller('products', function($scope, $http) {
     }
     function addToWishlistAfterCheck(object) {
     	$.ajax({
-    		url: '/funeral/wishlistDetail/addSingleToWish?wishId='+wishInLocal.wishId,
+    		url: '/wishlistDetail/addSingleToWish?wishId='+wishInLocal.wishId,
     		type: 'post',
     		contentType: "application/json; charset=UTF-8",
     		data: [],
@@ -741,6 +742,24 @@ app.controller('products', function($scope, $http) {
     			$(".addToWishBtn").addClass("disableDiv");
 		    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
 		    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
+		    	wishlistDetailId = data[0].wishDetailId;
+    			unmusk();
+    		},
+    		error: function(error) {
+    			unmusk();
+    		}
+    	});
+    }
+    function removeFromWishlistAfterCheck(object) {
+    	$.ajax({
+    		url: '/wishlistDetail/removeSingleFromWish?wishlistDetailId='+wishlistDetailId,
+    		type: 'delete',
+    		contentType: "application/json; charset=UTF-8",
+    		dataType:'json',
+    		success:function(data){
+    			$(".addToWishBtn").removeClass("disableDiv");
+		    	$(".addToWishBtn")[0].innerText = "加入愿望单";
+		    	$(".addToWishBtn")[1].innerText = "加入愿望单";
     			unmusk();
     		},
     		error: function(error) {
@@ -750,7 +769,7 @@ app.controller('products', function($scope, $http) {
     }
     function addToCartAfterCheck(object) {
     		$.ajax({
-    			url: '/funeral/shoppingCartController/addSingleToCart?wishId='+wishInLocal.wishId,
+    			url: '/shoppingCartController/addSingleToCart?wishId='+wishInLocal.wishId,
     			type: 'post',
     			contentType: "application/json; charset=UTF-8",
     			data: [],
@@ -759,13 +778,32 @@ app.controller('products', function($scope, $http) {
     				$(".saveToCart").addClass("disableDiv");
 			    	$(".saveToCart")[0].innerText = "已添加购物车";
 			    	$(".saveToCart")[1].innerText = "已添加购物车";
-    		    	window.frames[0].addCountOfShoppingCart();
+    		    	window.frames[0].addCountOfShoppingCart(1);
+    		    	cartDetailId = data[0].cartDetailId;
     				unmusk();
     			},
     			error: function(error) {
     				unmusk();
     			}
     		});
+    }
+    function removeFromCartAfterCheck(object) {
+		$.ajax({
+			url: '/shoppingCartController/removeSingleFromCart?cartDetailId='+cartDetailId,
+			type: 'delete',
+			contentType: "application/json; charset=UTF-8",
+			dataType:'json',
+			success:function(data){
+				$(".saveToCart").removeClass("disableDiv");
+		    	$(".saveToCart")[0].innerText = "加入购物车";
+		    	$(".saveToCart")[1].innerText = "加入购物车";
+		    	window.frames[0].addCountOfShoppingCart(-1);
+				unmusk();
+			},
+			error: function(error) {
+				unmusk();
+			}
+		});
     }
     function addToWishlist() {
     	muskCurrentPage();
@@ -778,11 +816,33 @@ app.controller('products', function($scope, $http) {
     		unmusk();
     	}
     }
+    function removeFromWishlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		removeFromWishlistAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
     function addToCartlist() {
     	muskCurrentPage();
 
     	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
     		addToCartAfterCheck();
+    	}
+    	else {
+    		window.parent.popupLogInPage();
+    		unmusk();
+    	}
+    }
+    function removeFromCartlist() {
+    	muskCurrentPage();
+
+    	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		removeFromCartAfterCheck();
     	}
     	else {
     		window.parent.popupLogInPage();
@@ -829,13 +889,37 @@ app.controller('products', function($scope, $http) {
 			$("#bottomRight").hide();
 		}
 		
-		if (topPosition > 500) {
+		if (topPosition > 510) {
 		    $("#middleContent").addClass("fixDiv");
 			$(".singleNavi").addClass("fixSingleNavi");
 		}
 		else {
 		$("#middleContent").removeClass("fixDiv");
 		    $(".singleNavi").removeClass("fixSingleNavi");
+		}
+	});
+	$($(".singleNavi")[0]).click(function() {
+		if ($(this).hasClass("fixSingleNavi")) {
+			$("html,body").animate({scrollTop:$("#bottomLeft").offset().top-8},300);
+		}
+		else {
+		    $("html,body").animate({scrollTop:$("#bottomLeft").offset().top-43},300);
+		}
+	});
+	$($(".singleNavi")[1]).click(function() {
+		if ($(this).hasClass("fixSingleNavi")) {
+			$("html,body").animate({scrollTop:$("#referenceContent").offset().top-20},300);
+		}
+		else {
+		    $("html,body").animate({scrollTop:$("#referenceContent").offset().top-60},300);
+		}
+	});
+	$($(".singleNavi")[2]).click(function() {
+		if ($(this).hasClass("fixSingleNavi")) {
+			$("html,body").animate({scrollTop:$("#otherType").offset().top-40},300);
+		}
+		else {
+		    $("html,body").animate({scrollTop:$("#otherType").offset().top-40},300);
 		}
 	});
 	window.onload = function() {
@@ -848,10 +932,16 @@ app.controller('products', function($scope, $http) {
 			if (!$(this).hasClass("disableDiv")){
 				addToCartlist();
 			}
+			else {
+				removeFromCartlist();
+			}
 		});
 		$(".addToWishBtn").click(function() {
 			if (!$(this).hasClass("disableDiv")){
 			    addToWishlist();
+			}
+			else {
+				removeFromWishlist();
 			}
 		});
 	};

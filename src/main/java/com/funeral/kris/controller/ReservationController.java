@@ -47,6 +47,7 @@ public class ReservationController {
 			reservationJson.setUserName(user.getUserName());
 			reservationJson.setPhoneNumber(reservation.getPhoneNumber());
 			reservationJson.setReservDate(reservation.getReservDte());
+			reservationJson.setReservId(reservation.getReservId());
 			reservationJsons.add(reservationJson);
 		}
 		return reservationJsons;
@@ -64,6 +65,14 @@ public class ReservationController {
 			return 2;
 		}
 		reservationService.addResource(reservation);
+		return 0;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/remove",method=RequestMethod.DELETE, produces = "application/json")
+	public int removeServation(HttpServletRequest request) {
+		String reservId = request.getParameter("reservId");
+		reservationService.deleteResource(Integer.valueOf(reservId));
 		return 0;
 	}
 }

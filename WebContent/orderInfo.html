@@ -3,7 +3,7 @@
 <head>
 <title>念念--订单列表</title>
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
-<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" />
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
 <script src="/js/jquery-2.1.4.js"></script>
 <script src="/js/jquery-ui.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
@@ -33,18 +33,21 @@
 		</div>
     </div>
 <div id="rightContentsMain">
-	<div id="rightContents" ng-repeat="order in orders">
+    <div id="noContent" hidden>您还没有任何预约信息<button class="emptyBtn">去预约</button></div>
+	<div class="rightContents" id="{{order.reservId}}" ng-repeat="order in orders" on-finish-render-filters>
 	    <div class="contentHeader">
 		    <p class="normalText">预约信息</p>
+		    <div class="removeBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
+		    <div class="processIcon" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
 		</div>
 		<div class="contentValue">
 		    <table>
 			    <thead>
 				    <tr>
-					    <th>预约墓地</th>
-						<th>墓地地址</th>
-						<th>预约时间</th>
-						<th></th>
+					    <th class="th2">预约墓地</th>
+						<th class="th1">墓地地址</th>
+						<th class="th3">预约时间</th>
+						<th class="th3"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -52,7 +55,7 @@
 					    <td>{{order.cemeteryName}}</td>
 						<td>{{order.address}}</td>
 						<td>{{order.reservDate}}</td>
-						<td><a href="/cemetery.html?id={{order.cemeteryId}}">查看详情</a></td>
+						<td><a class="digToDetail" href="/cemetery.html?id={{order.cemeteryId}}">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -88,7 +91,53 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 app.controller('products', function($scope, $http) {
     $http.get("/reservation/list").success(function(response) {
         $scope.orders = response;
+        if (response.length === 0) {
+        	$("#noContent").show();
+        }
+        else {
+        	$("#noContent").hide();
+        }
         unmusk();
+    });
+    $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+    	$(".removeBtn").hover(function() {
+			if (!$(this).hasClass('disabled')) {
+			    $(this).css({
+				    'background': '#ccc'
+			    });
+			}
+		}, function() {
+			$(this).css({
+				'background': 'transparent'
+			});
+		});
+	    $(".removeBtn").click(function(event) {
+	    	var reservId = $(this).closest(".rightContents")[0].id,
+	    	    index = $(this)[0].id;
+	    	if ($(this).hasClass("disabled")) {
+	    		return false;
+	    	}
+	    	var callback = function() {
+	    		$(this).addClass("disabled");
+		    	$(this).closest(".rightContents").find(".processIcon").show();
+		        $.ajax({
+					url: '../reservation/remove?reservId='+reservId,
+					type: 'delete',
+					dataType:'json',
+					success:function(data){
+						$($(".rightContents")[index]).remove();
+						floatAlertBar('预约已经取消成功');
+					},
+					error: function(error) {
+					}
+				});
+	    	};
+	    	popupWarningMessagePage("確定要刪除嗎？", callback);
+	        event.stopPropagation();
+	    });
+    });
+    $(".emptyBtn").click(function() {
+    	window.parent.location.href = "/cemeteryList.html";
     });
 });
 </script>

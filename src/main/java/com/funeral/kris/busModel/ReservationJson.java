@@ -3,6 +3,7 @@ package com.funeral.kris.busModel;
 import java.util.Date;
 
 public class ReservationJson {
+	private Integer reservId;
     private Integer userId;
     private String userName;
     private Integer cemeteryId;
@@ -72,5 +73,11 @@ public class ReservationJson {
 	}
 	public void setReservDate(String reservDate) {
 		this.reservDate = reservDate;
+	}
+	public Integer getReservId() {
+		return reservId;
+	}
+	public void setReservId(Integer reservId) {
+		this.reservId = reservId;
 	}
 }

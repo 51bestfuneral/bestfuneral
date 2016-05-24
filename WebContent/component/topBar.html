@@ -235,10 +235,10 @@
             window.parent.location.href='/questionAndAnswer.html';
 		}
 	});
-	function addCountOfShoppingCart() {
+	function addCountOfShoppingCart(value) {
 		var count = $('#shoppingCartCount', parent.document)[0].innerText;
 
-		count = parseInt(count) + 1;
+		count = parseInt(count) + value;
 		$('#shoppingCartCount', parent.document)[0].innerText = count;
 		$(".subIcon2").find("p")[0].innerText = count;
 	}

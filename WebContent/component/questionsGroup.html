@@ -485,7 +485,7 @@ function handleCursor(tab, move) {
     	}
     }
 }
-function handleFinished(tabPage) {
+function handleFinished(tabPage, doButton) {
     var count = $(".productTab").length;
 	var me = tabPage,
 		tabId = tabPage[0].id.replace('-content', '');
@@ -497,7 +497,9 @@ function handleFinished(tabPage) {
 				$("#"+tabId).find(".finishedIcon").fadeOut();
 				$("#"+tabId).removeClass("finished");
 			}
-	handleFinishButton();
+    if (doButton !== 1) {
+	    handleFinishButton();
+    }
 }
 function generateQuestionList(answetList) {
     $(".questionCenter").each(function() {
@@ -605,13 +607,13 @@ $(document.body).on("click",".optionIcon", function( event ) {
                 $(this).next().fadeIn();
 
 				if (idx === count-2) {
-				    handleFinishButton();
+					handleFinishedButton(tabPage);
 				}
 			}
 			return false;        
 		}
     });
-	handleFinished(tabPage);
+	handleFinished(tabPage, 1);
 	window.parent.iFrameHeight(1);
 	handleButton();
 });

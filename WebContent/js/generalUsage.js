@@ -9,11 +9,11 @@ function muskCurrentPage() {
 		'z-index': 1000, 
 		width: $(document).width(), 
 		height: $(document).height(), 
-		'background-color': '#ccc', 
+		'background-color': 'rgba(0,0,0,.6)', 
 		opacity: 0.5
 	}).fadeIn('slow', function(){ 
 // 淡入淡出效果 
-	    $(this).fadeTo('slow', 0.5); 
+	    $(this).fadeTo('slow', 1); 
 	});
 	var topLoading = (document.documentElement.clientHeight/2)-50;
 	$('<div class="loadingShow"><img src="/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
@@ -37,6 +37,13 @@ function unmusk() {
 function resizeLogin() {
 	var screenHeight = document.documentElement.clientHeight,
 	    centerTop = (screenHeight-407)/2;
+	$("#loginFrameCoat").css({
+		top: centerTop+'px'
+	});
+}
+function resizeWarning() {
+	var screenHeight = document.documentElement.clientHeight,
+	    centerTop = (screenHeight-100)/2;
 	$("#loginFrameCoat").css({
 		top: centerTop+'px'
 	});
@@ -70,10 +77,10 @@ function popupLogInPage() {
 				'z-index': 1000, 
 				width: $(document).width(), 
 				height: $(document).height(), 
-				'background-color': '#ccc', 
+				'background-color': 'rgba(0,0,0,.6)', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-				$(this).fadeTo('slow', 0.5); 
+				$(this).fadeTo('slow', 1); 
 		});
 		$('<div id="loginFrameCoat" hidden><iframe src="/component/logIn.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
@@ -81,7 +88,8 @@ function popupLogInPage() {
 			top: centerTop+'px',
 			'text-align': 'center',
 			position: 'fixed',
-			'z-index': '1001'
+			'z-index': '1001',
+		    'border': 'none'
 		}).fadeIn('slow', function(){ 
 			$(this).fadeTo('slow'); 
 		});
@@ -89,8 +97,8 @@ function popupLogInPage() {
 			width: '380px',
 			height: '463px',
 			'z-index': 1001,
-			border: '5px solid #999',
-			'box-sizing': 'border-box'
+			'box-sizing': 'border-box',
+			'border': 'none'
 		});
 		window.onresize = resizeLogin;
 }
@@ -105,10 +113,10 @@ function popupSignInPage() {
 				'z-index': 1000, 
 				width: $(document).width(), 
 				height: $(document).height(), 
-				'background-color': '#ccc', 
+				'background-color': 'rgba(0,0,0,.6)', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-				$(this).fadeTo('slow', 0.5); 
+				$(this).fadeTo('slow', 1); 
 		});
 		$('<div id="loginFrameCoat" hidden><iframe src="/component/signIn.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
@@ -116,7 +124,8 @@ function popupSignInPage() {
 			top: centerTop+'px',
 			'text-align': 'center',
 			position: 'fixed',
-			'z-index': '1001'
+			'z-index': '1001',
+			'border': 'none'
 		}).fadeIn('slow', function(){ 
 			$(this).fadeTo('slow'); 
 		});
@@ -124,8 +133,8 @@ function popupSignInPage() {
 			width: '380px',
 			height: '463px',
 			'z-index': 1001,
-			border: '5px solid #999',
-			'box-sizing': 'border-box'
+			'box-sizing': 'border-box',
+			'border': 'none'
 		});
 		window.onresize = resizeLogin;
 }
@@ -159,11 +168,11 @@ function popupRequestPage() {
 				left: '0px',
 				'z-index': 1000, 
 				width: $(document).width(), 
-				height: $(document).height(), 
-				'background-color': '#ccc', 
+				height: $(document).height(),
+				'background-color': 'rgba(0,0,0,.6)', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-				$(this).fadeTo('slow', 0.5); 
+				$(this).fadeTo('slow', 1); 
 		});
 		$('<div id="loginFrameCoat" hidden><iframe src="/component/visitRequest.html" id="requestFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
@@ -171,7 +180,8 @@ function popupRequestPage() {
 			top: centerTop+'px',
 			'text-align': 'center',
 			position: 'fixed',
-			'z-index': '1001'
+			'z-index': '1001',
+			'border': 'none'
 		}).fadeIn('slow', function(){ 
 			$(this).fadeTo('slow'); 
 		});
@@ -179,8 +189,8 @@ function popupRequestPage() {
 			width: '380px',
 			height: '433px',
 			'z-index': 1001,
-			border: '5px solid #999',
-			'box-sizing': 'border-box'
+			'box-sizing': 'border-box',
+			'border': 'none'
 		});
 		window.onresize = resizeLogin;
 }
@@ -195,10 +205,10 @@ function popupchangePassWordPage() {
 				'z-index': 1000, 
 				width: $(document).width(), 
 				height: $(document).height(), 
-				'background-color': '#ccc', 
+				'background-color': 'rgba(0,0,0,.6)', 
 				opacity: 0 
 			}).fadeIn('slow', function(){ 
-				$(this).fadeTo('slow', 0.5); 
+				$(this).fadeTo('slow', 1); 
 		});
 		$('<div id="loginFrameCoat" hidden><iframe src="/component/changePassword.html" id="loginFrame"></iframe></div>').appendTo(document.body).css({ 
 			height: 'auto',
@@ -206,7 +216,8 @@ function popupchangePassWordPage() {
 			top: centerTop+'px',
 			'text-align': 'center',
 			position: 'fixed',
-			'z-index': '1001'
+			'z-index': '1001',
+			'border': 'none'
 		}).fadeIn('slow', function(){ 
 			$(this).fadeTo('slow'); 
 		});
@@ -214,14 +225,14 @@ function popupchangePassWordPage() {
 			width: '388px',
 			height: '465px',
 			'z-index': 1001,
-			border: '5px solid #999',
-			'box-sizing': 'border-box'
+			'box-sizing': 'border-box',
+			'border': 'none'
 		});
 		window.onresize = resizeLogin;
 }
 
-function floatAlertBar() {
-	$('<div class="alertBar"><i class="fa fa-check-circle"></i></span>&nbsp;个人资料更新成功&nbsp;<a href="/mainPage.html">回到首页</a>&nbsp;|&nbsp;<a href="/designProposal.html">开始定制</a><div class="floatRightClose"><i class="fa fa-times"></i></div></div>').appendTo(document.body).css({ 
+function floatAlertBar(content) {
+	$('<div class="alertBar"><i class="fa fa-check-circle"></i></span>&nbsp;'+ content +'&nbsp;<a href="/mainPage.html">回到首页</a>&nbsp;|&nbsp;<a href="/designProposal.html">开始定制</a><div class="floatRightClose"><i class="fa fa-times"></i></div></div>').appendTo(document.body).css({ 
 		position: 'fixed',
 		top: '0px',
 		'z-index': 1000, 
@@ -274,4 +285,86 @@ function floatAlertBar() {
 			$(".alertBar").remove();
 		}, 500);
 	},5000);
+}
+
+function popupWarningMessagePage(content, callback) {
+	var screenHeight = document.documentElement.clientHeight,
+	    centerTop = (screenHeight-100)/2;
+		$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 1000, 
+				width: $(document).width(), 
+				height: $(document).height(),
+				'background-color': 'rgba(0,0,0,.6)'
+			}).show();
+		$('<div id="loginFrameCoat" hidden><div id="warningMsg"><p class="warningHeader">提示信息</p><p>'+content+'</p><button class="linkButton confirm">確定</button><button class="linkButton cancel">取消</button></div></div>').appendTo(document.body).css({ 
+			height: 'auto',
+			width: '100%',
+			top: centerTop+'px',
+			'text-align': 'center',
+			position: 'fixed',
+			'z-index': '1001',
+			'border': 'none',
+			'overflow': 'hidden'
+		}).show();
+		$("#warningMsg").css({
+			'border': '1px solid #aeaeae',
+	        'padding': '20px 20px 20px 30px',
+	        'background': '#fff',
+	        'margin': '0px auto',
+	        'width' : '370px',
+	        'text-align' : 'left'
+		});
+		$("#warningMsg").find(".warningHeader").css({
+		    'font-size': '15px',
+	        'color': '#3c3c3c',
+	        'font-weight': '700',
+	        'margin-bottom': '15px'
+		});
+		$("#warningMsg").find(".linkButton").css({
+		    'border': '1px solid #52a0e5',
+		    'width': '58px',
+		    'height': '28px',
+		    'line-height': '28px',
+		    'text-align': 'center',
+		    '-webkit-border-radius': '1px',
+		    '-moz-border-radius': '1px',
+		    '-ms-border-radius': '1px',
+		    'border-radius': '1px',
+		    'background': '#52a0e5',
+		    'display': 'inline-block',
+		    'margin-right': '10px',
+		    'font-weight': '700',
+		    'font-size': '12px',
+		    'cursor': 'pointer'
+		});
+		$("#warningMsg").find(".confirm").css({
+			'border': '1px solid #52a0e5',
+			'background': '#52a0e5',
+			'color': '#fff'
+		});
+		$("#warningMsg").find(".cancel").css({
+			'border': '1px solid #d9d9d9',
+			'background': '#fff',
+			'color': '#3c3c3c'
+		});
+		$("#warningMsg").find(".cancel").click(function() {
+			$(".jquery_addmask").remove();
+			$(".loginFrameCoat").remove();
+			$("#warningMsg").remove();
+		});
+		$("#warningMsg").find(".confirm").click(function() {
+			callback();
+			$(".jquery_addmask").remove();
+			$(".loginFrameCoat").remove();
+			$("#warningMsg").remove();
+		});
+		var box_left = ($(window).width()- $("#loginFrameCoat").width()) / 2;
+		for(var i=1; 4>=i; i++){
+			$("#loginFrameCoat").animate({left:box_left-(10-2*i)},10);
+			$("#loginFrameCoat").animate({left:box_left+2*(10-2*i)},10);
+		}
+		window.onresize = resizeWarning;
 }

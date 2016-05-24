@@ -199,6 +199,14 @@ public class ShoppingCartController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/removeSingleFromCart", method = RequestMethod.DELETE)
+	public Integer removeCartSingle(HttpServletRequest request) {
+        String cartDetailId = request.getParameter("cartDetailId");
+        cartDetailService.deleteResource(Integer.valueOf(cartDetailId));
+        return 0;
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/selectAll", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart selectAll(HttpServletRequest request) {
 
@@ -428,25 +436,9 @@ public class ShoppingCartController {
 	public Integer listCountOfCart(HttpServletRequest request) throws Exception {
 
 		int count = 0;
-
-		User user=new User();
 		
-		user=AppContext.getUser();
-		
-		System.out.println(this.getClass()+"  listCountOfCart from  AppContext user= "+user);
-		System.out.println(this.getClass()+"  listCountOfCart from  AppContext getUserName= "+user.getUserName());
-		
-		HttpSession session = request.getSession(false);
-		 user = (User) session.getAttribute("user");
-
-		System.out.println(this.getClass()+"  listCountOfCart session  getId= "+session.getId());
-		System.out.println(this.getClass()+"  listCountOfCart session  sessionId= "+session.getAttribute("sessionId"));
-
-		
-
-		
-		System.out.println(this.getClass()+"  listCountOfCart user= "+user);
-		System.out.println(this.getClass()+"  listCountOfCart getCartId= "+user.getCartId());
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		
 		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(user.getCartId());
 
