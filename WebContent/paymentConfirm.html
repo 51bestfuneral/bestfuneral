@@ -54,6 +54,12 @@ span {
     background: #efefef;
 	overflow: auto;
 }
+
+#expressContain {
+    background: #efefef;
+	overflow: auto;
+}
+
 #footer {
     overflow: auto;
 	width: 908px;
@@ -409,7 +415,7 @@ var wishOrderId= location.search.substring(13, length);
 					<span class="itemName">{{orderDetail.wishName}}</span><span class="itemPriceValue">￥{{orderDetail.price}}</span><span class="itemAmoutValue">{{orderDetail.count}}</span>
 				</div>
 						</div>
-			<div id="confirmRight">
+		<!--	<div id="confirmRight">
 			    <div class="titleText">
 			        <p>寄送</p>
 				</div>
@@ -423,7 +429,7 @@ var wishOrderId= location.search.substring(13, length);
 				</div>
 				<p class="rightInfo">{{shoppingCart.expressBean.expressTitle}}</p>
 				<p class="rightInfo">{{shoppingCart.expressBean.expressDescription}}</p>
-			</div>
+			</div>-->
 		</div>
 		<div id="priceInfo">
 		    <div class="discountDiv">
@@ -443,6 +449,25 @@ var wishOrderId= location.search.substring(13, length);
 			</div>
 		</div>
 	</div>
+	
+	<div id="expressContain">
+	  <div class="titleText">
+				</div>
+				<div class="singleConfirmTitle">
+				    <span>寄送地址:</span>
+				    
+				<span class="itemName">  {{shoppingCart.expressBean.expressInfo.receiverName}},{{shoppingCart.expressBean.province+shoppingCart.expressBean.expressInfo.city+shoppingCart.expressBean.expressInfo.detailAddress}}</span>
+				</div>
+				
+				<div class="singleConfirmTitle">
+				    <span>寄送方式:{{shoppingCart.expressBean.expressTitle}}{{shoppingCart.expressBean.expressDescription}}</span>
+				</div>
+				
+			
+			</div>	
+		
+		</div>
+	
 	<div id="footerContain">
 	    <div id="footer">
 		    <div id="prevButton">
