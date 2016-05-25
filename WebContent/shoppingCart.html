@@ -350,6 +350,7 @@
 var app = angular.module('productApp', []);
 app.controller('product', function($scope, $http) {
 	$scope.shappingCart;
+	$scope.wishList;
 	
 	  $http.get("/shoppingCartController/getAllGoodsForShoppingCart").success(function(response) {
 		    		    $scope.shoppingCartDetails = response; 
@@ -368,11 +369,13 @@ app.controller('product', function($scope, $http) {
 		 		
 		 	 var detailIdList =$scope.shappingCart.selectedCartDetailIdList;
 		 	 
-		 	 $("#nextButton").attr('disabled',true);
+		 	 if(detailIdList.length==0){
+		 	 				    $("#nextButton").attr('disabled',true); 
+		 	 	}else{
+		 	 				    $("#nextButton").attr('disabled',false); 
+		 	 		}
 		 	 
 angular.forEach(detailIdList, function(data,index,array){
-			 	 $("#nextButton").attr('disabled',false);
-
  $("#"+detailIdList[index]).attr("checked",'checked');   
      
 });	
@@ -396,16 +399,17 @@ angular.forEach(detailIdList, function(data,index,array){
 	        }   
 	        
 		});
-				 	 $("#nextButton").attr('disabled',true);
-
 		
 		 $http.get("/shoppingCartController/loadShoppingCart").success(function(response) {
 		 		$scope.shappingCart=response;
 		 		
 		 	 var detailIdList =$scope.shappingCart.selectedCartDetailIdList;
+		 	  if(detailIdList.length==0){
+		 	 				    $("#nextButton").attr('disabled',true); 
+		 	 	}else{
+		 	 				    $("#nextButton").attr('disabled',false); 
+		 	 		}
 angular.forEach(detailIdList, function(data,index,array){
-					 	 $("#nextButton").attr('disabled',false);
-
  $("#"+detailIdList[index]).attr("checked",'checked');   
      
 });	
@@ -444,12 +448,11 @@ angular.forEach(detailIdList, function(data,index,array){
 		
 		
 	}
-	
-	$scope.goToPay = function(){
-		
-		alert("---goToPay--");
+		$scope.goToPay = function(){
 		$http.get("/shoppingCartController/generateOrderByCart").success(function(response) {
-			 window.location.href='/paymentInfo.html?wishOrderId='+response;
+		   $scope.wishOrderId=response;
+		    window.location.href='/paymentInfo.html?wishOrderId='+ $scope.wishOrderId;
+		   
 		});
 		
 		
@@ -637,9 +640,7 @@ function checkBoxClick(){
 //	});
 //};
 
-//$("#nextButton").click(function() {
-//	    window.location.href='/paymentInfo.html';
-//	});
+
 	
 $(".continue").click(function() {
 	    window.location.href='/productAndService.html';

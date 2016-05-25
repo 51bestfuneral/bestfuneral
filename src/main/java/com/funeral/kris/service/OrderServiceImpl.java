@@ -173,6 +173,39 @@ public class OrderServiceImpl implements OrderService{
 		return null;
 	
 	}
+
+	@Override
+	public Order getOrderByWishOrderId(int wishOrderId) {
+
+
+
+		List<Order> list=this.getResources();
+		
+		if(list==null){
+			
+			return null;
+		}else{
+			
+			
+			Iterator<Order> iter=	list.iterator();
+			
+			while(iter.hasNext()){
+				
+				Order order = iter.next();
+
+				if(order.getWishOrderId().intValue()==wishOrderId){
+					
+					return order;
+				}
+				
+				
+			}
+			
+		}
+		return null;
+	
+	
+	}
 	
 
 	

@@ -574,6 +574,9 @@ function validatemobile(vid)
 
 $("#nextButton").click(function () {
 	
+	
+
+
 
 if( $scope.currentContacter.contactName==null||$scope.currentContacter.contactName==""){
 	alert("请输入联系人姓名！");
@@ -670,6 +673,10 @@ if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPho
 		
 		}
 
+
+if(deliverMethod==null){
+	deliverMethod=1;
+	}
 
      $scope.currentContacter.userId=$scope.user.usrId;
 	     $scope.currentContacter.wishOrderId=wishOrderId;

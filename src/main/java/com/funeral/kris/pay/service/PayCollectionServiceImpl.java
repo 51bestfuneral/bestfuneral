@@ -75,8 +75,22 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		System.out.println(this.getClass() + "   completeCollection    params=" + params);
 
 		orderNo = params.get("out_trade_no");
+		
+		Order order = dao.getOrderByOrderNo(orderNo);
 
-		String wishOrderId = params.get("wishOrderId");
+
+//		String wishOrderId = params.get("wishOrderId");
+		
+		
+//		if(wishOrderId==null||"".equals(wishOrderId)){
+//			
+//			wishOrderId=order.getWishOrderId();
+//			
+//		}
+		
+		
+		Integer wishOrderId=order.getWishOrderId();
+
 
 		System.out.println(this.getClass() + "   completeCollection    orderNo=" + orderNo);
 
@@ -117,7 +131,6 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		feeCollection.setCollectionType(Integer.parseInt(params.get("collection_type")));
 		dao.saveFeeCollection(feeCollection);
 
-		Order order = dao.getOrderByOrderNo(orderNo);
 
 		// 修改wishlist
 
@@ -160,7 +173,7 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 
 		// 修改express 支付成功
 
-		ExpressInfo currentExpress = dao.getUncompledExpressInfoByWishOrderId(Integer.parseInt(wishOrderId),
+		ExpressInfo currentExpress = dao.getUncompledExpressInfoByWishOrderId(wishOrderId,
 				EXPRESS.express_status_init);
 
 		currentExpress.setStatusId(EXPRESS.express_status_paied);

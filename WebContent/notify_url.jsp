@@ -43,6 +43,10 @@
 		params.put(name, valueStr);
 	}
 	
+	
+			System.out.println(" notify params=  "+params);
+
+	
 	//获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
 	//商户订单号
 	String out_trade_no = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"),"UTF-8");
@@ -52,6 +56,10 @@
 
 	//交易状态
 	String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"),"UTF-8");
+	
+	
+
+	
 	
 	
 	System.out.println("-----------   out_trade_no="+out_trade_no+"  trade_no="+trade_no+"  trade_status="+trade_status+"  params="+params);

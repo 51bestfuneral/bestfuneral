@@ -3,6 +3,7 @@ package com.funeral.kris.bean;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.busModel.ExpressBean;
 import com.funeral.kris.model.OrderDetail;
 
@@ -89,7 +90,18 @@ public class ShoppingCart {
 		this.orderDetailList = orderDetailList;
 	}
 
+	
+	public List<CartlistJson> getCartlistJsonList() {
+		return cartlistJsonList;
+	}
+
+	public void setCartlistJsonList(List<CartlistJson> cartlistJsonList) {
+		this.cartlistJsonList = cartlistJsonList;
+	}
+
 	private List<Integer> selectedCartDetailIdList;
+	private List<CartlistJson> cartlistJsonList;
+
 	private List<OrderDetail> orderDetailList;
 	private Integer allSelected;
 

@@ -217,6 +217,7 @@ public class ShoppingCartController {
 		cartDetail.setCount(1);
 		cartDetail.setPrice(wish.getSellingPrice());
 		cartDetail.setOriginalPrice(wish.getXianenPrice());
+		cartDetail.setSelectedPrice(wish.getSellingPrice());
 		cartDetail.setWishType(wish.getGeneralCode());
 		cartDetail.setSourceId(WishConstants.wish_source_direct);
 		cartDetail.setCartId(cartId);
@@ -351,6 +352,15 @@ public class ShoppingCartController {
 
 		int count = cartDetail.getCount() + 1;
 		cartDetail.setCount(count);
+		
+		if(wishsMap==null){
+		this.initialWishMap();
+		}
+		
+		Wish wish=wishsMap.get(cartDetail.getWishId());
+		
+		cartDetail.setSelectedPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
+		
 		cartDetailService.updateResource(cartDetail);
 
 		Cart cart = this.getCalculatedCart(cartDetail.getCartId());
@@ -371,6 +381,15 @@ public class ShoppingCartController {
 		int count = cartDetail.getCount() - 1;
 		cartDetail.setCount(count);
 
+		
+		if(wishsMap==null){
+			this.initialWishMap();
+			}
+			
+			Wish wish=wishsMap.get(cartDetail.getWishId());
+			
+			cartDetail.setSelectedPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
+		
 		if (cartDetail.getCount().intValue() == 0) {
 
 			cartDetailService.deleteResource(cartDetail.getCartDetailId());
@@ -569,13 +588,33 @@ public class ShoppingCartController {
 		ShoppingCart shoppingCart = new ShoppingCart();
 		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(cartId);
 
+		List<CartlistJson> cartlistJsonList=new ArrayList<CartlistJson>();
+		
 		Integer allSelected = 0;
 		Integer count = 0;
 		BigDecimal orderTotalCost = BigDecimal.ZERO;
 		List<Integer> selectedCartDetailIdList = new ArrayList<Integer>();
 		Iterator iterator = cartDetails.iterator();
+		if(wishsMap==null){
+		this.initialWishMap();
+		}
 		while (iterator.hasNext()) {
 			CartDetail detail = (CartDetail) iterator.next();
+			
+			CartlistJson cartlistJson=new CartlistJson();
+			
+			cartlistJson.setCartDetailId(detail.getCartDetailId());
+			cartlistJson.setAmount(detail.getCount());
+			cartlistJson.setCartId(cartId);
+			cartlistJson.setImageUrl(wishsMap.get(detail.getWishId()).getImgUrl());
+			cartlistJson.setPrice(detail.getPrice());
+			cartlistJson.setSelected(detail.getSelected());
+			cartlistJson.setWishId(detail.getWishId());
+			cartlistJson.setWishName(wishsMap.get(detail.getWishId()).getWishName());
+			cartlistJson.setSelectedPrice(detail.getSelectedPrice());
+			cartlistJsonList.add(cartlistJson);
+			
+			
 
 			if (detail.getSelected() != null && detail.getSelected().intValue() == 1) {
 				count = count + detail.getCount();
@@ -588,6 +627,7 @@ public class ShoppingCartController {
 		if (cartDetailService.isAllSelected(cartId)) {
 			allSelected = 1;
 		}
+		shoppingCart.setCartlistJsonList(cartlistJsonList);
 		shoppingCart.setSelectedCartDetailIdList(selectedCartDetailIdList);
 		shoppingCart.setCount(count);
 		shoppingCart.setGrossFee(orderTotalCost);
