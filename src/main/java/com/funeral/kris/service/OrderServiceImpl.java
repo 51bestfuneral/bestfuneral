@@ -142,6 +142,37 @@ public class OrderServiceImpl implements OrderService{
 		return orderList;
 	
 	}
+
+	@Override
+	public Order getOpenOrderByWishOrderId(int wishOrderId) {
+
+
+		List<Order> list=this.getResources();
+		
+		if(list==null){
+			
+			return null;
+		}else{
+			
+			
+			Iterator<Order> iter=	list.iterator();
+			
+			while(iter.hasNext()){
+				
+				Order order = iter.next();
+
+				if(order.getWishOrderId().intValue()==wishOrderId&&order.getStatusId().intValue()!=AlipayUtil.order_open){
+					
+					return order;
+				}
+				
+				
+			}
+			
+		}
+		return null;
+	
+	}
 	
 
 	

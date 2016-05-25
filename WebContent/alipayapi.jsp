@@ -48,6 +48,8 @@
 		String subject = request.getParameter("WIDsubject");
 		
 	String tradeNo = request.getParameter("WIDout_trade_no");
+		String wishOrderId = request.getParameter("awishOrderId");
+
 
 		
 		//必填
@@ -84,8 +86,14 @@
 		sParaTemp.put("out_trade_no", tradeNo);
 		sParaTemp.put("subject", subject);
 		sParaTemp.put("total_fee", total_fee);
+				sParaTemp.put("price", total_fee);
+
+						sParaTemp.put("collection_type", "2");
+
 		sParaTemp.put("body", body);
 		sParaTemp.put("key", "ceshi");
+				sParaTemp.put("wishOrderId", wishOrderId);
+
 		
 		System.out.println(" sParaTemp=  "+sParaTemp);
 
@@ -99,9 +107,9 @@
 		
 		System.out.println("  tradeNo  ="+tradeNo+"  subject="+subject);
 		
-	//	com.funeral.kris.service.FeeCollectionServiceImpl  collectionService=new com.funeral.kris.service.FeeCollectionServiceImpl();
+		com.funeral.kris.pay.service.PayCollectionServiceImpl  collectionService=new com.funeral.kris.pay.service.PayCollectionServiceImpl();
 		
-		//collectionService.initFeeCollection(tradeNo);
+		collectionService.completeCollection(sParaTemp);
 		
 		out.println(sHtmlText);
 		

@@ -1,5 +1,7 @@
 package com.funeral.kris.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -28,7 +30,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	private JdbcTemplate jdbcTemplate;
 
 	public void addResource(OrderDetail orderDetail) {
-		OrderDetailDAO.save(orderDetail);		
+		OrderDetailDAO.save(orderDetail);
 	}
 
 	public void updateResource(OrderDetail orderDetail) {
@@ -44,20 +46,42 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	public void deleteResourceByOrderId(int id) {
-		String a = "delete from t_order_detail where order_id = "+id;
+		String a = "delete from t_order_detail where order_id = " + id;
 		jdbcTemplate.execute(a);
 	}
 
 	public List<OrderDetail> getResources(HttpServletRequest request) {
 		String a = null;
 		try {
-		    a = SqlHelper.getSqlFromRequest("OrderDetail", request);
-		}
-		catch (Exception e) {
-			
+			a = SqlHelper.getSqlFromRequest("OrderDetail", request);
+		} catch (Exception e) {
+
 		}
 		Query query = em.createQuery(a);
 		List<OrderDetail> orderDetails = query.getResultList();
 		return orderDetails;
+	}
+
+	@Override
+	public List<OrderDetail> getResourcesByWishOrderId(int wishOrderId) {
+		Iterable<OrderDetail> iterator = OrderDetailDAO.findAll();
+
+		List<OrderDetail> list = new ArrayList<OrderDetail>();
+		
+		if(iterator!=null){
+		Iterator  it= iterator.iterator();
+		
+
+		while (it.hasNext()) {
+
+				OrderDetail detail = (OrderDetail) it.next();
+
+			if (detail.getOrderId().intValue() == wishOrderId) {
+				list.add(detail);
+			}
+		}
+		}
+
+		return list;
 	}
 }

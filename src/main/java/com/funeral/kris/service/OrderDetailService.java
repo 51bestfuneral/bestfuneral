@@ -13,5 +13,6 @@ public interface OrderDetailService {
 	public OrderDetail getResource(int id);
 	public void deleteResource(int id);
 	public List<OrderDetail> getResources(HttpServletRequest request);
+	public List<OrderDetail> getResourcesByWishOrderId(int wishOrderId);
 	public void deleteResourceByOrderId(int id);
 }

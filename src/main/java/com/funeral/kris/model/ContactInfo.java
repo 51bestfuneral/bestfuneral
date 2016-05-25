@@ -18,6 +18,16 @@ public class ContactInfo {
 	private Integer contactId;
 	@Column(name = "user_id")
 	private Integer userId;
+	@Column(name = "wish_order_id")
+	private Integer wishOrderId;
+	public Integer getWishOrderId() {
+		return wishOrderId;
+	}
+
+	public void setWishOrderId(Integer wishOrderId) {
+		this.wishOrderId = wishOrderId;
+	}
+
 	@Column(name = "contact_name")
 	private String contactName;
 	@Column(name = "gender")

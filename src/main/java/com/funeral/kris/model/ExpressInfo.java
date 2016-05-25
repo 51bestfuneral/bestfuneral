@@ -19,6 +19,17 @@ public class ExpressInfo {
 	private Long expressId;
 	@Column(name = "user_id")
 	private Integer userId;
+	
+	@Column(name = "wish_order_id")
+	private Integer wishOrderId;
+	public Integer getWishOrderId() {
+		return wishOrderId;
+	}
+
+	public void setWishOrderId(Integer wishOrderId) {
+		this.wishOrderId = wishOrderId;
+	}
+	
 	@Column(name = "receiver_name")
 	private String receiverName;
 	@Column(name = "status_id")

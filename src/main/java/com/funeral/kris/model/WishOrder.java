@@ -18,6 +18,20 @@ public class WishOrder {
 	@Column(name="wish_order_id")
 	private Integer wishOrderId;
 
+	
+	
+	@Column(name="source_id")
+	private Integer sourceId;
+	
+	
+	public Integer getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(Integer sourceId) {
+		this.sourceId = sourceId;
+	}
+
 	@Column(name="user_id")
 	private Integer userId;
 

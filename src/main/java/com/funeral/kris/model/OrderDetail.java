@@ -18,8 +18,18 @@ public class OrderDetail {
 	@Column(name="order_detail_id")
 	private Integer orderDetailId;
 
+	public String getWishName() {
+		return wishName;
+	}
+
+	public void setWishName(String wishName) {
+		this.wishName = wishName;
+	}
+
 	@Column(name="wish_id")
 	private Integer wishId;
+	@Column(name="wish_name")
+	private String wishName;
 
 	@Column(name="order_id")
 	private Integer orderId;

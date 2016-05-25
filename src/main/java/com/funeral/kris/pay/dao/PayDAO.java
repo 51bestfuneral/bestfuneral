@@ -20,6 +20,7 @@ public void  updateWishlist(Wishlist wishlist);
 public List<WishlistDetail>  getSelectedWishlistDetailByWishListId(int wishlistId);
 public void deleteWishlistDetail(int wishlistDetailId);
 public  List<ExpressInfo>  getUncompledExpressInfoByUserId(int userId,int statusId);
+public  ExpressInfo  getUncompledExpressInfoByWishOrderId(int wishOrderId,int statusId);
 public void  updateExpressInfo(ExpressInfo expressInfo);
 public void releaseUsingContacter(int userId);
 

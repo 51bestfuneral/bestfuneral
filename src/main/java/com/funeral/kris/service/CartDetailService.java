@@ -14,5 +14,6 @@ public interface CartDetailService {
 	public void deleteResource(int id);
 	public List<CartDetail> getResources(HttpServletRequest request);
 	public List<CartDetail> getResourceByCartId(int cartId);
+	public List<CartDetail> getSelectedCartDetailsByCartId(int cartId);
 	public boolean isAllSelected(int cartId);
 }

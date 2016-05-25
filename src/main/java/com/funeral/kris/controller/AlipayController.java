@@ -22,7 +22,7 @@ import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
-import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.service.AlipayService;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
@@ -31,6 +31,7 @@ import com.funeral.kris.service.FeeCollectionService;
 import com.funeral.kris.service.MailService;
 import com.funeral.kris.service.OrderService;
 import com.funeral.kris.service.SmsSenderService;
+import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
 import com.funeral.kris.util.AlipayUtil;
@@ -48,17 +49,17 @@ public class AlipayController {
 	private ExpressInfoService expressInfoService;
 	@Autowired
 	private FeeCollectionService feeCollectionService;
-	
+	@Autowired
+	private WishOrderService wishOrderService;
 	@Autowired
 	private CartService cartService;
 	@Autowired
 	private CartDetailService cartDetailService;
 	@Autowired
 	private MailService mailService;
-	
+
 	@Autowired
 	private SmsSenderService smsSenderService;
-
 
 	@ResponseBody
 	@RequestMapping(value = "/confirmPay", method = RequestMethod.GET)
@@ -73,51 +74,19 @@ public class AlipayController {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
+		String wishOrderId = request.getParameter("wishOrderId");
 
-		List<Order> list = orderService.getResources();
+		WishOrder wishOrder = wishOrderService.getResource(Integer.parseInt(wishOrderId));
 
-		Order order = orderService.getOpenByUserId(user.getUsrId());
+		Order order = orderService.getOpenOrderByWishOrderId(Integer.parseInt(wishOrderId));
 
-		
-        int cartId=user.getCartId();
-		
-		
-		
-		List<CartDetail> detailList = cartDetailService.getResourceByCartId(cartId);
+		BigDecimal cost =wishOrder.getPrice();
 
-		BigDecimal cost = BigDecimal.ZERO;
+		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(user.getUsrId());
 
-		if (detailList == null) {
-			cost = BigDecimal.ZERO;
-			System.out.println("---1---detailList  "+detailList);
-	
-			
-		} else {
+		System.out.println("---------cost  " + cost);
 
-			System.out.println("--2----detailList  "+detailList);
-
-			Iterator it = detailList.iterator();
-
-			while (it.hasNext()) {
-
-				CartDetail detail = (CartDetail) it.next();
-
-				cost = cost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
-
-			}
-
-		}
-		
-		
-		
-
-		 ExpressInfo   expressInfo= expressInfoService.getUsingExpressInfo(user.getUsrId());
-		
-		 
-			System.out.println("---------cost  "+cost);
- 
-		 
-		cost=cost.add(expressInfo.getExpressFee());
+		cost = cost.add(expressInfo.getExpressFee());
 
 		List<Order> orderList = orderService.listOrderByUserId(user.getUsrId());
 
@@ -131,16 +100,17 @@ public class AlipayController {
 			order.setOrderNo(orderNo);
 			order.setSubject(orderNo);
 			order.setPayableAmount(cost);
+			order.setWishOrderId(Integer.parseInt(wishOrderId));
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
-			//send mail
-			Map<String,String> messageInfo = new HashMap<String,String>();
+			// send mail
+			Map<String, String> messageInfo = new HashMap<String, String>();
 			messageInfo.put("to", "429105398@qq.com");
 			messageInfo.put("subject", "你有一笔新的订单");
 			messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
 			mailService.send(messageInfo);
 			// send SMS
-			Map<String ,String> smsInfo = new HashMap<String,String>();
+			Map<String, String> smsInfo = new HashMap<String, String>();
 			smsInfo.put("phone", "18762605155");
 			smsSenderService.sendRemindSms(smsInfo);
 
@@ -153,7 +123,7 @@ public class AlipayController {
 		}
 
 		feeCollectionService.initFeeCollection(order.getOrderNo());
-		
+
 		return order;
 	}
 
@@ -172,19 +142,16 @@ public class AlipayController {
 
 		Cart cart = cartService.getResource(Integer.parseInt(cartId));
 
-
 		ExpressInfo expressInfo = expressInfoService.getUsingExpressInfo(cart.getUserId());
 		System.out.println(" ------expressInfo=" + expressInfo);
 
 		BigDecimal cartFee = cart.getPrice();
 		BigDecimal expressFee;
-		if(expressInfo.getExpressFee()==null)
-		{
-			expressFee =BigDecimal.ZERO;
-		}
-		else{
-			
-			expressFee=	expressInfo.getExpressFee();
+		if (expressInfo.getExpressFee() == null) {
+			expressFee = BigDecimal.ZERO;
+		} else {
+
+			expressFee = expressInfo.getExpressFee();
 		}
 
 		BigDecimal totalPay = cartFee.add(expressFee);

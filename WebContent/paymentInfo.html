@@ -466,22 +466,30 @@ span {
 </div>
 </body>
 <script>
-var deliverMethod;	
+var deliverMethod;;	
 	
 var app = angular.module('contactInfo', []);
 
+var length = location.search.length;
+var wishOrderId= location.search.substring(13, length);
+
+
+
 app.controller('contactInfoController', function($scope, $http) {
-$scope.user;
 $scope.currentContacter;
 $scope.currenctExpress;
 $scope.contactorId;
-  $http.get("/login/getCurrentUser").success(function(response) {
-	    $scope.user = response;
-	    	    var data = JSON.stringify($scope.user);
-	    	     $http.get("/contactInfo/getUsingContacter").success(function(response) {
+
+ $http.get("/login/getCurrentUser").success(function(response) {
+	  $scope.user = response;
+	  });
+
+
+
+	    	     $http.get("/contactInfo/getUsingContacterByWishOrderId?wishOrderId="+wishOrderId).success(function(response) {
 	    $scope.currentContacter = response;
 	    });
-	   $http.get("/expressController/getUsingExpressInfoByUserId").success(function(response) {
+	   $http.get("/expressController/getExpressInfoByWishOrderId?wishOrderId="+wishOrderId).success(function(response) {
 	    $scope.currenctExpress = response;
 	    	    var datadata = JSON.stringify($scope.currenctExpress);
 	    //	 alert("----currenctExpress---"+datadata+"  deliveryMethod= "+datadata.deliveryMethod);
@@ -504,7 +512,7 @@ $scope.contactorId;
 	
 	    				}else{
 	  $("#deliveryMethod1").attr("checked",'checked'); 
-
+deliverMethod=='1';
 	    					}
 		
 			//	alert(" --2--  deliverMethod ="+deliverMethod);
@@ -513,7 +521,7 @@ $scope.contactorId;
 		
 		});
 	    
-	});
+	
 	
     $http.get("/contactInfo/listByUserId").success(function(response) {
 	    $scope.contactInfos = response;
@@ -662,8 +670,9 @@ if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPho
 		
 		}
 
-	    $scope.currentContacter.userId=$scope.user.usrId;
-	    
+
+     $scope.currentContacter.userId=$scope.user.usrId;
+	     $scope.currentContacter.wishOrderId=wishOrderId;
 	    $scope.currentContacter.expressMethod=deliverMethod;
 		
 	    var datadata = JSON.stringify($scope.currentContacter);
@@ -682,7 +691,7 @@ if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPho
   
           });
  
- window.location.href='/paymentConfirm.html'; 
+ window.location.href='/paymentConfirm.html?wishOrderId='+wishOrderId; 
          });
 
 $("#deliveryMethod1").click(function () {
@@ -714,7 +723,7 @@ $("#deliveryMethod3").click(function () {
 window.onload=function(){
 
 	  $("#prevButton").click(function () {
-	    window.location.href='/wishList.html';
+	    window.location.href='/shoppingCart.html';
 	});
 };
 </script>

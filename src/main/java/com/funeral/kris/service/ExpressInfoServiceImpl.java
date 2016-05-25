@@ -103,11 +103,11 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 				ExpressInfo info = (ExpressInfo) iter.next();
 				if (info.getUserId().intValue() == useId && info.getStatusId().intValue() == 1) {
 
-					if(info.getDeliveryMethod().intValue()!=3){
+					if (info.getDeliveryMethod().intValue() != 3) {
 						info.setExpressFee(BigDecimal.ZERO);
-						
+
 					}
-					
+
 					return info;
 				}
 
@@ -129,8 +129,35 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 		expressInfoDAO.delete(id);
 
 	}
-	
-	
-	
+
+	@Override
+	public ExpressInfo getExpressInfoByWishOrderId(int wishOrderId) {
+
+		List<ExpressInfo> list = this.getResources();
+
+		if (list != null && list.size() > 0) {
+
+			Iterator iter = list.iterator();
+
+			while (iter.hasNext()) {
+
+				ExpressInfo info = (ExpressInfo) iter.next();
+				if (info.getWishOrderId().intValue() == wishOrderId) {
+
+					if (info.getDeliveryMethod().intValue() != 3) {
+						info.setExpressFee(BigDecimal.ZERO);
+
+					}
+
+					return info;
+				}
+
+			}
+
+		}
+
+		return new ExpressInfo();
+
+	}
 
 }

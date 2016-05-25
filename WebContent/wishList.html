@@ -356,9 +356,10 @@
     	}
 	    
 	     if($scope.shappingCart.allSelected==1){
-	    $("#topCheckBox").attr("checked",'checked'); 
-	      
+	    $("#topCheckBox").attr("checked",'checked');   
 	  }
+	  
+	  
 	 var detailIdList =$scope.shappingCart.selectedCartDetailIdList;
 angular.forEach(detailIdList, function(data,index,array){
  $("#"+detailIdList[index]).attr("checked",'checked');   

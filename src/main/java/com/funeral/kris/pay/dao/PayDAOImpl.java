@@ -348,10 +348,6 @@ public class PayDAOImpl implements PayDAO {
 
 	}
 
-	
-
-
-
 	@Override
 	public void releaseUsingContacter(int userId) {
 
@@ -373,6 +369,41 @@ public class PayDAOImpl implements PayDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	@Override
+	public ExpressInfo getUncompledExpressInfoByWishOrderId(int wishOrderId, int statusId) {
+
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " select *  from t_express_info where  wish_order_id=? and status_id=" + statusId;
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, wishOrderId);
+
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				ExpressInfo expressInfo = new ExpressInfo();
+
+				expressInfo.setExpressId(rs.getLong("express_id"));
+
+				expressInfo.setStatusId(statusId);
+
+				return expressInfo;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 

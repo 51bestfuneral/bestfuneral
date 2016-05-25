@@ -71,45 +71,34 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 	@Override
 	public int completeCollection(Map<String, String> params) {
 		String orderNo = "";
-		
-	
-		
-		
-		
-		System.out.println(this.getClass()+"   completeCollection    params="+params);
 
+		System.out.println(this.getClass() + "   completeCollection    params=" + params);
 
-		orderNo=params.get("out_trade_no");
-		
-		
-		System.out.println(this.getClass()+"   completeCollection    orderNo="+orderNo);
+		orderNo = params.get("out_trade_no");
 
+		String wishOrderId = params.get("wishOrderId");
+
+		System.out.println(this.getClass() + "   completeCollection    orderNo=" + orderNo);
 
 		TFeeCollection feeCollection = this.loadPayableFeeCollectionByOrderNo(orderNo);
-		
-		
-		System.out.println(this.getClass()+"   completeCollection    feeCollection="+feeCollection);
-		
-		
-		if(feeCollection==null){
-			
+
+		System.out.println(this.getClass() + "   completeCollection    feeCollection=" + feeCollection);
+
+		if (feeCollection == null) {
+
 			return -1;
 		}
 
-		
-		
-		
-		
-		System.out.println(this.getClass()+"   completeCollection    ------------------");
+		System.out.println(this.getClass() + "   completeCollection    ------------------");
 		feeCollection.setStatusId(COLLECTION.collection_pay_success);
-//		feeCollection.setOrderId(orderId);
+		// feeCollection.setOrderId(orderId);
 		feeCollection.setOrderNo(orderNo);
 		feeCollection.setNotifyTime(params.get("notify_time"));
 		feeCollection.setAmount(new BigDecimal(params.get("price")));
 		feeCollection.setNotifyType(params.get("notify_type"));
 		feeCollection.setOutTradeNo(params.get("trade_no"));
 		feeCollection.setSignType("MD5");
-//		feeCollection.setPayerId(Integer.parseInt(params.get("buyer_id")));
+		// feeCollection.setPayerId(Integer.parseInt(params.get("buyer_id")));
 		feeCollection.setSellerId(params.get("seller_id"));
 		feeCollection.setNotifyId(params.get("notify_id"));
 		feeCollection.setTradeNo(params.get("out_trade_no"));
@@ -122,89 +111,68 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		feeCollection.setSellerEmail(params.get("seller_email"));
 		feeCollection.setQuantity(params.get("quantity"));
 		feeCollection.setSubject(params.get("out_trade_no"));
-//		feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));
+		// feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));
 		feeCollection.setUseCoupon(params.get("use_coupon"));
 		feeCollection.setIsTotalFeeAdjust(params.get("is_total_fee_adjust"));
 		feeCollection.setCollectionType(Integer.parseInt(params.get("collection_type")));
 		dao.saveFeeCollection(feeCollection);
-		
-		
-		
 
-		
-		Order order=dao.getOrderByOrderNo(orderNo);
+		Order order = dao.getOrderByOrderNo(orderNo);
 
-		
-		
-		//修改wishlist
-		
-		int userId=order.getUserId();
-		
-		System.out.println(this.getClass()+"   completeCollection    ---------------userId---"+userId);
+		// 修改wishlist
 
-		
-		
-		Wishlist  wishlist =dao.getwishListByUserId(userId);
-		
+		int userId = order.getUserId();
+
+		System.out.println(this.getClass() + "   completeCollection    ---------------userId---" + userId);
+
+		Wishlist wishlist = dao.getwishListByUserId(userId);
+
 		wishlist.setPrice(BigDecimal.ZERO);
-		
+
 		wishlist.setOriginalPirce(BigDecimal.ZERO);
-		
+
 		dao.updateWishlist(wishlist);
-		
-		//修改wishlist detail
-		
-		
-		System.out.println(this.getClass()+"   completeCollection    ---------------getWishlistId---"+wishlist.getWishlistId());
 
-		
-		List<WishlistDetail>  wishlistDetailList= dao.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
-		
-		
-		Iterator  wishlistDetailListIterator=     wishlistDetailList.iterator();
-		
-		while(wishlistDetailListIterator.hasNext()){
-			
-			WishlistDetail  detail=	(WishlistDetail) wishlistDetailListIterator.next();
-			
-			
+		// 修改wishlist detail
+
+		System.out.println(this.getClass() + "   completeCollection    ---------------getWishlistId---"
+				+ wishlist.getWishlistId());
+
+		List<WishlistDetail> wishlistDetailList = dao.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
+
+		Iterator wishlistDetailListIterator = wishlistDetailList.iterator();
+
+		while (wishlistDetailListIterator.hasNext()) {
+
+			WishlistDetail detail = (WishlistDetail) wishlistDetailListIterator.next();
+
 			dao.deleteWishlistDetail(detail.getWishlistDetailId());
-			
-			
-		}
-		
-		
-		System.out.println(this.getClass()+"   completeCollection    ---------------order---"+orderNo);
 
-		//修改Order状态
-		
-//		Order  order=	dao.getOrderByOrderNo(orderNo);
+		}
+
+		System.out.println(this.getClass() + "   completeCollection    ---------------order---" + orderNo);
+
+		// 修改Order状态
+
+		// Order order= dao.getOrderByOrderNo(orderNo);
 
 		order.setStatusId(AlipayUtil.order_completed);
-		
-		//修改express 支付成功
-		
-		List<ExpressInfo>  expressInfoList=dao.getUncompledExpressInfoByUserId(userId, EXPRESS.express_status_init);
-		
-		System.out.println(this.getClass()+"   completeCollection    ---------------expressInfoList---"+expressInfoList);
 
-		
-		ExpressInfo  currentExpress=expressInfoList.get(0);
-		
-		currentExpress.setStatusId(EXPRESS.express_status_paied);	
-		
+		// 修改express 支付成功
+
+		ExpressInfo currentExpress = dao.getUncompledExpressInfoByWishOrderId(Integer.parseInt(wishOrderId),
+				EXPRESS.express_status_init);
+
+		currentExpress.setStatusId(EXPRESS.express_status_paied);
+
 		dao.updateExpressInfo(currentExpress);
-		
-		//release联系人
-		
-		
-		dao.releaseUsingContacter(userId);
-		
-	
-		
+
+		// release联系人
+
+		// dao.releaseUsingContacter(userId);
+
 		return feeCollection.getCollectionId();
 
-	
 	}
 
 	@Override
@@ -221,9 +189,7 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 
 	@Override
 	public TFeeCollection loadPayableFeeCollectionByOrderNo(String orderNo) {
-		
-		
-		
+
 		return dao.loadPayableFeeCollectionByOrderNo(orderNo);
 	}
 

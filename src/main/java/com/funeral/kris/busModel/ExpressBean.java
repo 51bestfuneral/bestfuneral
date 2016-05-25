@@ -2,11 +2,19 @@ package com.funeral.kris.busModel;
 
 import java.math.BigDecimal;
 
-public class ExpressBean {
-	
+import com.funeral.kris.model.ExpressInfo;
+
+public class ExpressBean   {
+	private ExpressInfo expressInfo;
 	private String expressDescription;
 	private String expressTitle;
 	private String province;
+	public ExpressInfo getExpressInfo() {
+		return expressInfo;
+	}
+	public void setExpressInfo(ExpressInfo expressInfo) {
+		this.expressInfo = expressInfo;
+	}
 	public String getExpressTitle() {
 		return expressTitle;
 	}

@@ -155,6 +155,15 @@ System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMet
 		return expressInfoService.getUsingExpressInfo(user.getUsrId());
 
 	}
+	@ResponseBody
+	@RequestMapping(value = "/getExpressInfoByWishOrderId", method = RequestMethod.GET, produces = "application/json")
+	public ExpressInfo getExpressInfoByWishOrderId(HttpServletRequest request) {
+		
+		String wishOrderId=request.getParameter("wishOrderId");
+		
+		return expressInfoService.getExpressInfoByWishOrderId(Integer.parseInt(wishOrderId));
+		
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/getUsingExpressBean", method = RequestMethod.GET, produces = "application/json")
