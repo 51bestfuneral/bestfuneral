@@ -1,0 +1,78 @@
+#topMessage {
+	background-color: #FAFAFA;
+}
+#whyChoose h2 {
+	font-size: 42px;
+}
+#whyChoose {
+	padding-top: 20px;
+}
+#myTabContent h2 {
+	font-size: 42px;
+	margin: 2% auto;
+}
+#confuse h2 {
+	font-size: 42px;
+	margin-top: 20px;
+}
+
+#confuse {
+	padding: 20px auto;
+}
+
+#myTabContent {
+	width:70%;
+	margin: 0 auto;
+}
+.second_nav {
+	width: 100%;
+	background: #f2f2f2;
+    box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
+    z-index: 200;
+}
+#subNavilink {
+    width: 555px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
+#whyNianCoat {
+    width: 70%;
+    margin: 0px auto;
+    overflow: auto;
+    margin-bottom: 60px;
+
+}
+#comfortable {
+    background: url(/images/left-background.png);
+}
+#comfottableCoat {
+    width: 1349px;
+    margin: 0px auto;
+    overflow: auto;
+}
+#headerMessage {
+    background-image:url('../js/images/Patterned Background@2x.jpg');
+}
+#bottomMessage h2 {
+	font-size: 42px;
+	color: black;
+}
+#comfottableCoat {
+	font-size: 26px;
+}
+#why3 .images {
+	position: relative;
+}

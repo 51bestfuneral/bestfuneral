@@ -1,0 +1,1213 @@
+@media (max-width: 1380px) {
+    #cemeteryImage img {
+        width: 900px!important;
+        margin-top: -160px!important;
+    }
+    #productShowCoat {
+        width: 1100px!important;
+    }
+    #subContentLeft {
+        width: 348px!important;
+        height: 334px!important;
+    }
+    .singleTip h1 {
+        font-size: 121px!important;
+        line-height: 121px!important;
+    }
+    .singleTip p {
+        width: 230px!important;
+    }
+    #subContentLeft {
+        margin-top: 30px;
+    }
+    #content3Container {
+        width: 1100px!important;
+        height: 426px!important;
+    }
+    #howToHelp {
+      width: 221px!important;
+    }
+    #topHalfLevel {
+        height: 550px!important
+    }
+    #topHalfLevel h1 {
+        padding-top: 150px!important;
+    }
+    #cemeteryInfoCoat {
+        width: 1000px!important;
+    }
+    #cemeteryShow {
+        height: 407px!important;
+    }
+    #productFrame {
+        height: 450px;
+    }
+    #mainContent3 {
+        padding-top: 40px!important;
+    }
+    #memebersCoat {
+        height: 608!important;
+    }
+    video {
+        width:40%!important;
+        min-width: 500px!important;
+    }
+    #productIconList {
+    	width: 70%;
+    }
+    #productIconList img{
+    	width: 950px;
+    }
+}
+@media (max-width: 680px) {
+    .container {
+        width: 1280px!important;
+    }
+}
+html {
+    height: 100%;
+}
+body {
+    margin: 0;
+	text-align: center;
+	height: 100%;
+	background-color: white;
+}
+#topHalfLevel {
+    margin-top: -2px;
+	padding-bottom: 3%;
+	background-repeat: no-repeat;
+    background-size: 1920px 1180px;
+	width: 100%;
+	height: 700px;
+	overflow:hidden;
+}
+.pictureMaskDiv {
+    width: 1384px;
+	height: 700px;
+	position: absolute;
+	background: rgba(0, 0, 0, 0.6);
+}
+#topHalfLevel h1 {
+    padding-top: 200px;
+	margin: 0;
+	color: white;
+	font-size: 50px;
+	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
+}
+.mainContent1 {
+    position: relative;
+}
+#topHalfLevel h5 {
+	margin: 0px auto;
+	color: white;
+	padding-bottom: 50px;
+	font-size: 17px;
+	margin-top: 30px;
+	font-weight: lighter;
+	width: 570px;
+	line-height: 20px;
+}
+.subtext {
+    font-size: 12px;
+	color: #ffffff;
+	font-weight: lighter;
+	position: relative;
+	margin-top: 12px;
+}
+.subtext span{
+    color: #ffffff;
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+	text-shadow: 0 -4px 10px rgba(255, 255, 255, 0.5), 0 4px 10px rgba(255, 255, 255, 0.5);
+	font-size: 23px;
+	font-weight: lighter;
+}
+#topHalfLevel h3 {
+	margin: 0;
+	color: white;
+}
+#howToHelp {
+    width: 271px;
+    overflow: auto;
+	margin:0px auto;
+	border-radius: 5px 0 0 5px;
+	position: relative;
+}
+#message {
+    width: 100%;
+	background-color: #ed4b83;
+	height: 60px;
+	border-radius: 5px;
+	float: left;
+	text-align: center;
+	cursor: pointer;
+	transition:background-color 0.3s;
+	-moz-transition:background-color0.3s;
+    -webkit-transition:background-color 0.3s;
+    -o-transition:background-color 0.3s;
+}
+#message:hover {
+    background-color: #ff496d;
+}
+#message p {
+    font-size: 20px;
+	margin: 0;
+	line-height: 60px;
+	color: white
+}
+#howToHelp h4 {
+    line-height: 40px;
+	color: white;
+	margin: 0;
+}
+.carousel-control {
+    background-image: none!important;
+	width: 15px;
+	height: 54px;
+	width: 54px;
+    top: 100px;
+}
+.specialProduct .carousel-control.left {
+    left: -30px;
+}
+.specialProduct .carousel-control.right {
+    right: -30px;
+}
+.arrowCoat {
+	width: 54px;
+    height: 54px;
+    border-radius: 27px;
+	background-color: #f6f6f6;
+}
+.arrowCoat .headerArrow {
+	line-height: 45px;
+	color: #c6c6c6;
+	font-size: 50px;
+	margin: 0;
+}
+#referenceCarousel .carousel-indicators li {
+	background-color: #b4b4b4;
+}
+#mainContent3 {
+    width: 100%;
+	overflow: auto;
+}
+.singleTip {
+    width: 100%;
+	text-align: left;
+}
+.singleTip h1 {
+    color: #ffffff;
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+	font-size: 141px;
+	margin: 0px;
+	line-height: 140px;
+}
+.singleTip h2 {
+    font-size: 55px;
+	color: #FFFFFF;
+	margin: 0px;
+	font-weight:lighter;
+}
+.singleTip p {
+    font-size: 18px;
+	color: #FFFFFF;
+	margin: 0px;
+	margin-left: 8px;
+	font-weight: lighter;
+}
+.reason {
+    height: 100px;
+	border-bottom: 1px solid #e6e9ea;
+	padding-top: 10px;
+	padding-right: 20px;
+	width: 350px;
+}
+.reasonHeader {
+    width: 370px;
+}
+.imgContent {
+    float: left;
+	width: 45px;
+	height: 100%;
+	text-align: center;
+}
+.textContent {
+    float: left;
+	padding-left: 23px;
+	width: 285px;
+	height: 100%;
+}
+.textContent h4 {
+    margin: 0;
+}
+.textContent h5 {
+    margin: 0;
+	margin-top: -10px;
+}
+#questionContent {
+    width: 920px;
+	height: 600px;
+	margin:0px auto;
+}
+.question {
+    width: 550px;
+	height: 300px;
+	float: left;
+	margin-top: 240px;
+	background-color: #FFFFFF;
+	box-shadow: 6px 6px 4px 0px rgba(0,0,0,0.16);
+}
+.questionLeft {
+    width: 60%;
+	height: 100%;
+    text-align: left;
+	float:left;
+}
+.questionLeft h2 {
+    font-size: 23px;
+	line-height: 35px;
+	color: #474747;
+}
+.questionLeft p {
+    font-size: 10px;
+	color: #FF7892;
+	line-height: 33px;
+	margin: 0px;
+}
+.questionRight {
+    width: 40%;
+	height: 100%;
+	float:left;
+}
+.optionButton {
+    width: 80px;
+	height: 33px;
+	border-radius: 33px;
+	border: 2px solid #ec4a82;
+	background-color: white;
+	text-align: center;
+	margin-bottom: 10px;
+	cursor: pointer;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.optionButton:hover {
+    background: #CCC;
+}
+.leftTop {
+    width: 290px;
+	margin-left: 20px;
+	height: 140px;
+	padding-top: 60px;
+}
+.leftBottom {
+    width: 290px;
+	margin-left: 20px;
+	height: 100px;
+	padding-top: 20px;
+	border-top: 2px solid #3d3d3d;
+}
+#contactInformation {
+    width: 100%;
+	overflow: auto;
+}
+#contactInformation h2 {
+    margin: 0px;
+	font-size: 28px;
+	margin-bottom: 0px;
+}
+#contactInformation h4 {
+    font-size: 12px;
+	line-height: 20px;
+    margin: 0px;
+	color: #1c3653;
+}
+.contactUsDesc {
+    width: 540px;
+	margin: 0px auto;
+}
+#topContactInfo {
+    width: 100%;
+	overflow: auto;
+	text-align: left;
+}
+#topContactInfo h2 {
+    margin: 0;
+	font-size: 20px;
+	line-height: 80px;
+}
+#topContactInfo h1 {
+    margin: 0;
+	font-size: 36px;
+	line-height: 30px;
+	color: #ec4a82;
+}
+#topContactInfo p {
+    margin: 0;
+	font-size: 12px;
+	line-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.topContactInfoLeft {
+	overflow: auto;
+	float: left;
+	margin-left: 300px;
+	padding-bottom: 20px;
+	width: 260px;
+}
+.topContactInfoRight {
+    width: 320px;
+	overflow: auto;
+	float: left;
+	margin-left: 160px;
+	padding-bottom: 20px;
+}
+#contactInfo {
+    overflow: auto;
+	background: #f7f9fa;
+	padding-bottom: 90px;
+}
+#askGroup {
+    width: 268px;;
+	height: 44px;
+}
+#askGroupLeft {
+    width: 118px;
+    float: left;
+	height: 44px;
+	border-radius: 5px;
+	background: #ec4a82;
+	color: #ffffff;
+	text-align: center;
+	cursor: pointer;
+    transition:opacity 0.5s;
+	-moz-transition:opacity 0.5s;
+    -webkit-transition:opacity 0.5s;
+    -o-transition:opacity 0.5s;
+}
+#bottomContactInfo {
+    width: 100%;
+	overflow: auto;
+	text-align: left;
+}
+#bottomContactInfo h2 {
+    margin: 0;
+	font-size: 20px;
+	line-height: 30px;
+}
+#contactButtonGroup {
+    margin-top: 10px;
+}
+#bottomContactInfo p {
+    margin: 0;
+	font-size: 12px;
+	line-height: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#bottomContactInfoLeft {
+    float: left;
+	width: 260px;
+	margin-left: 300px;
+	padding-right: 30px;
+}
+#bottomContactInfoRight {
+    float: left;
+	width: 320px;
+	margin-left: 160px;
+	padding-right: 20px;
+}
+#messageUs {
+	width: 100%;
+	margin-top: 10px;
+	overflow: auto;
+}
+#messageUsLeft {
+    float: left;
+	text-align: center;
+	width: 13%;
+	border: 1px solid #ccc;
+	background: #ffffff;
+	border-radius: 4px 0px 0px 4px;
+	cursor: pointer;
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+#messageUsLeft:hover {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+#messageUsLeft span {
+    line-height: 43px;
+	font-size: 20px;
+	color: #ec4a82;
+}
+#messageUsRight {
+    float: left;
+	width: 87%;
+}
+#messageUsRight input {
+    widht: 200px;
+	height: 45px;
+	border-radius: 0px 4px 4px 0px;
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+#messageButton {
+    margin-top: 10px;
+	width: 80px;
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+}
+.methodButton {
+    width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	color: #c5c5c5;
+	font-size: 13px;
+}
+.contactButton {
+	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	-webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.contactButton:hover {
+	border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+	background: #ff496d;
+}
+#maskDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: #ccc;
+    opacity: 0.5;
+}
+#krisTest {
+    position: fixed;
+	bottom: 0px;
+	z-index: 1001;
+}
+@media (min-width: 900px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.coverDiv {
+    height: auto;
+	width: 100%;
+	top: 30px;
+	bottom: 60px;
+	text-align: center;
+	position: fixed;
+	z-index: 1001;
+}
+.coverDiv .detailFrame {
+    height: 100%;
+}
+.closeCoverDiv {
+	position: absolute;
+	top: 0px;
+	width: 35px;
+	height: 35px;
+	border-radius: 17px;
+	border: 2px solid #979797;
+	color: #979797;
+	font-size: 30px;
+	text-align: center;
+	line-height: 35px;
+	cursor: pointer;
+	opacity: 0.5;
+}
+.closeCoverDiv:hover {
+	opacity: 1;
+}
+.titleDiv {
+    width: 1165px;
+	height: 40px;
+	margin: 0 auto;
+	background-color: #ccc;
+	text-align: left;
+	display: none;
+}
+.titleDiv h1 {
+    margin: 0px;
+	margin-left: 15px;
+	font-size: 20px;
+	line-height: 40px;
+}
+	.iconImg {
+	    margin-left: -5px;
+		margin-top: 2px;
+		max-width: none;
+	}
+	.productInfo {
+	    padding-top: 20px;
+		padding-left: 15px;
+		text-align: left;
+		padding-bottom: 15px;
+	}
+	.productInfo .header {
+	    font-size: 15px;
+		color: #3b3d40;
+		margin-bottom: 5px;
+	}
+	.productInfo .detail {
+	    font-size: 12px;
+		color: #f5274;
+		margin-bottom: 20px;
+	}
+	.addWishButton {
+	    cursor: pointer;
+		border-radius: 3px;
+		width: 130px;
+		height: 28px;
+		background-color: #ec4a82;
+		padding-left: 7px;
+	}
+	.addWishButton p {
+	    color: white;
+		font-size: 13px;
+		line-height: 28px;
+		float: left;
+	}
+	.addWishButton p:hover {
+	    color: #3078c0;
+	}
+	.addWishButton img {
+	    float: left;
+		margin-top: 5px;
+	}
+	.moreInfo {
+	    border-top: 1px solid #ededed;
+	}
+	.moreInfo a{
+	    line-height: 30px;
+		color: #3078c0;
+		font-size: 13px;
+		border: 0px;
+	}
+	#wechatFrame {		
+		position:absolute;
+		margin-left: 400px;
+	}
+	#wechatFrame img{
+		width:120px;
+		height:120px;
+		position:relative;
+		top:-5px;	
+			}
+	#wechatFrame p{
+  		font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
+        font-size: 10px;
+        line-height: 10px;
+	}
+	#memebersCoat {
+	    width: 100%;
+		height: 708px;
+		overflow: hidden;
+	}
+	.membersContent {
+	    width: 100%;
+		height: 708px;
+		overflow: hidden;
+		text-align: left;
+	}
+	#memberDesc1 {
+	    background-image:url('/js/images/jiachechuyoudenianqingren-123-min.jpg');
+	    background-position:10% 40%;
+	    background-size: 100%;
+	}
+	#memberDesc2 {
+	    background-image:url('/js/images/shuxia_xiuxian_laonian_nvxing-005-min.jpg');
+	    background-position:0% 25%;
+	    background-size: 100%;
+	}
+	#memberDesc3 {
+	    background-image:url('/js/images/zhongnian_fuqi_jiating_shenghuo-007 (1)-min.jpg');
+	    background-position:0% 29%;
+	    background-size: 100%;
+	}
+	#memberDesc4 {
+	    background-image:url('/js/images/shuxia_xiuxian_laonian_nanxing-002-min.jpg');
+	    background-position:0% 29%;
+	    background-size: 100%;
+	}
+	.memberDesc {
+	    margin-left: 50%;
+		overflow: auto;
+	}
+	#memberDesc1 .memberDesc {
+	    margin-left: 34%;
+	}
+	.memberState {
+	    margin-top: 52px;
+	    width: 427px;
+		padding-left: 30px;
+		padding-top: 42px;
+		padding-right: 35px;
+		text-align: left;
+		background: transparent;
+		overflow: hidden;
+	}
+	#memberDesc4 .memberState {
+	    margin-top: 102px;
+	}
+	#memberDesc2 .memberDesc{
+	    margin-left: 23%;
+	}
+	#memberDesc3 .memberDesc{
+	    margin-left: 40%;
+	}
+	#memberDesc3 .memberState {
+	    height: 220px;
+	}
+	#memberDesc1 .memberState {
+	    height: 160px;
+	}
+	.memberState p {
+	    font-size: 20px;
+	    color: #FFFFFF;
+	    line-height: 25px;
+	    font-weight: lighter;
+	    background-color: rgba(0, 0, 0, 0.3);
+	    padding: 20px;
+	}
+	.membersSelect {
+        overflow: auto;
+		cursor: pointer;
+	    width: 890px;
+	    margin: 0px auto;
+	    margin-top: -234px;
+	}
+	.singleMember {
+	    width: 23%;
+		float:left;
+		height: 224px;
+		margin-right: 2%;
+	}
+	.memeberPicMask {
+	    width: 100%;
+		height: 224px;
+		transition:background-color 0.3s;
+	    -moz-transition:background-color0.3s;
+        -webkit-transition:background-color 0.3s;
+        -o-transition:background-color 0.3s;
+	}
+	.singleMember:hover .memeberPicMask {
+		background-color: rgba(237, 75, 131, 0.6);
+		opacity: 0.8;
+	}
+	.singleMember img {
+	    width: 100%;
+		height: 224px;
+	}
+	#designShow {
+	    width: 100%;
+		background-image:url('/js/images/pink_pattern.jpg');
+		overflow: inherit;
+		height: auto;
+		padding-top: 40px;
+		margin-top: 10px;
+	}
+	#designShow h4 {
+	    font-size: 29px;
+		font-weight: lighter;
+		color: #ffffff;
+		margin-bottom: 24px;
+	}
+	#designShow .pcoat {
+	    font-size: 13px;
+		font-weight: lighter;
+		color: #ffffff;
+		width: 458px;
+		margin: 0px auto;
+		line-height: 20px;
+	}
+	#designShow .startDesignButton {
+	    width: 136px;
+		height: 46px;
+		border-radius: 5px;
+		background: #ffffff;
+		margin: 0px auto;
+		cursor: pointer;
+		transition:background-color 0.3s;
+	    -moz-transition:background-color 0.3s;
+        -webkit-transition:background-color 0.3s;
+        -o-transition:background-color 0.3s;
+	}
+	#designShow .startDesignButton:hover {
+	    background-color: rgb(244,244,244);
+	}
+	.startDesignButton p {
+	    margin: 0px;
+		margin-top: 25px;
+		font-size: 20px;
+		line-height: 46px;
+		color: #ed4b83;
+	}
+	#productShow {
+	    background-image: url('/js/images/product_services_background_image.jpg');
+	    background-size: cover;
+	    height: 657px;
+	    margin-top: -30px;
+	}
+	#productShowCoat {
+	    width: 1300px;
+	    margin: 0px auto;
+	}
+	#productIconList {
+	    display: block;
+	    float: left;
+	    margin-left: -100px;
+	    padding-top: 50px;
+	}
+	#productIconList .singleIcon {
+		overflow: auto;
+		border-radius: 5px;
+		position: absolute;
+		background-image: url('/js/images/group-12@2x.png');
+		background-size: 100% 100%;
+		transition:padding 0.3s;
+	    -moz-transition:padding 0.3s;
+        -webkit-transition:padding 0.3s;
+        -o-transition:padding 0.3s;
+		cursor: pointer;
+	}
+	#productIconList .singleIcon:hover {
+	    padding: 30px!important;
+	}
+	.singleIcon .sizeHelp {
+	    width: 95px;
+		height: 116px;
+	}
+	.position1 {
+	    margin-top: 134px;
+		margin-left: 160px;
+		-webkit-filter: blur(3px);
+        -moz-filter: blur(3px);
+        -o-filter: blur(3px);
+        -ms-filter: blur(3px);
+        filter: blur(3px);
+	}
+	.position2 {
+	    margin-top: 216px;
+		margin-left: 200px;
+		padding: 10px;
+		-webkit-filter: blur(2px);
+        -moz-filter: blur(2px);
+        -o-filter: blur(2px);
+        -ms-filter: blur(2px);
+        filter: blur(2px);
+	}
+	.position3 {
+	    margin-top: 240px;
+		margin-left: 334px;
+		padding: 8px;
+	}
+	.position4 {
+	    margin-top: 154px;
+		margin-left: 441px;
+		padding: 20px;
+	}
+	.position5 {
+	    margin-top: 116px;
+		margin-left: 298px;
+		padding: 12px;
+		-webkit-filter: blur(1px);
+        -moz-filter: blur(1px);
+        -o-filter: blur(1px);
+        -ms-filter: blur(1px);
+        filter: blur(1px);
+	}
+	#goToProduct {
+	    float: right;
+		padding-top: 136px;
+		text-align: left;
+	}
+	#goToProduct h3 {
+	    color: #ffffff;
+	    font-size: 28px;
+	}
+	#goToProduct h4 {
+	    font-size: 13px;
+		margin: 0xp;
+		margin-top: 24px;
+		color: white;
+	    width: 70%;
+	    line-height: 20px;
+	}
+	#goToProduct .startPurchseBtn {
+	    width: 136px;
+		height: 46px;
+		border-radius: 5px;
+		border: 1px solid white;
+		margin-top: 35px;
+	}
+	.startPurchseBtn:hover {
+	    opacity: 1!important;
+	}
+	.startPurchseBtn p {
+	    color: white;
+	    /*color: #ed4b83;*/
+		font-size: 20px;
+		text-align: center;
+		line-height: 46px;
+		margin: 0px;
+		font-weight: lighter;
+		cursor: pointer;
+	}
+	#cemeteryShow {
+	    width: 100%;
+		height: 457px;
+		background-image:url('/js/images/temple pattern@2x-min.jpg');
+		background-repeat: repeat;
+		overflow: hidden;
+	}
+	#cemeteryInfo {
+	    float: left;
+		padding-top: 86px;
+		text-align: left;
+	}
+	#cemeteryInfo h2 {
+	    color: #ffffff;
+		font-size: 28px;
+		margin-bottom: 24px;
+		margin-top: 30px;
+		line-height: 0;
+	}
+	#cemeteryInfo h3 {
+	    color: #ffffff;
+		font-size: 13px;
+		line-height: 21px;
+		margin-bottom: 27px;
+		width: 282px;
+	}
+	#cemeteryInfo .cemeteryBtn {
+	    width: 136px;
+		height: 46px;
+		border-radius: 5px;
+		border: 1px solid #ffffff;
+		opacity: 0.8;
+		cursor: pointer;
+	}
+	.cemeteryBtn:hover {
+	    opacity: 1!important;
+	}
+	.cemeteryBtn p{
+	    margin: 0px;
+		font-size: 20px;
+		color: #ffffff;
+		text-align: center;
+		line-height: 46px;
+	}
+	#designProcessShow {
+	    width: 632px;
+		height: 486px;
+		background-size: 100% 100%;
+		margin: 0px auto;
+		margin-top: -900px;
+	}
+	
+	#adjustFontDiv {
+	    width: 100%;
+		height: 48px;
+		background: #495061;
+		padding-left: 266px;
+	}
+	#adjustFontDiv span {
+	    line-height: 48px;
+		margin-right: 3px;
+		color: #ffffff;
+		font-size: 12px;
+		cursor: pointer;
+	}
+	#adjustFontDiv span:hover {
+	    color: #ff5274;
+	}
+	#productFrameCoat {
+	    width: 100%;
+	    background: #0B1820;
+	}
+	#contactInfoCoat {
+	    width: 1349px;
+	    margin: 0px auto;
+	}
+	#mainContent3 {
+	    width: 100%;
+	    overflow: auto;
+	    background: #ffffff;
+	    padding-top: 80px;
+	}
+	#subContentLeft {
+	    width: 448px;
+	    height: 384px;
+	    float: left;
+	    background-color: #ec4a82;
+	    padding-left: 50px;
+	    padding-top: 45px
+	}
+	#content3Container {
+	    width: 1200px;
+	    height: 466px;
+	    margin: 0px auto;
+	}
+	#calculator {
+	    float: left;
+	    width: 600px;
+	    margin-left: 110px;
+	    padding-right: 20px;
+	}
+	#normalFee {
+	    float: left;
+	    text-align: left;
+	}
+	#nianFee {
+	    float:right;
+	    text-align: right;
+	}
+	#calculator h1{
+	    font-size: 52px;
+	    color: #3d4351;
+	    margin: 0px;
+	    font-weight: bold;
+	}
+	#calculator h2 {
+	    font-size: 21px;
+	    color: #3d4351;
+	    line-height: 40px;
+	    font-weight: bold;
+	}
+	#nianFee h2 {
+	    color : #ed4b83;
+	}
+	#nianFee h3 {
+	    color: #3d4351;
+	    font-size: 16px;
+	}
+	#calculatorBar {
+	    overflow: auto;
+	    width: 100%;
+	    padding-top: 30px;
+	    padding-bottom: 20px;
+	    margin-left: 15px;
+	}
+	.statusBarPoint {
+	    width: 18px;
+	    height: 18px;
+	    border-radius: 9px;
+	    background: #d8d8d8;
+	    float: left;
+	    cursor: pointer;
+	}
+	.statusBarPoint:hover {
+	    background: #ed4b83;
+	}
+	.statusBar {
+	    width: 165px;
+	    height: 5px;
+	    background: #d8d8d8;
+	    float: left;
+	    margin-top: 6px;
+	}
+	#cursorPoint {
+	    width: 68px;
+	    height: 68px;
+	    border-radius: 34px;
+	    background: #ed4b83;
+	    padding-left: 13px;
+	    padding-top: 13px;
+	    position: absolute;
+	    margin-top: -26px;
+	    margin-left: -15px;
+	}
+	#cursorInnerPoint {
+	    width: 42px;
+	    height: 42px;
+	    border-radius: 21px;
+	    background: #ffffff;
+	}
+	#statusBarDesc {
+	    width : 650px;
+	    margin-top: 20px;
+	    float: left;
+	    margin-left: 100px;
+	}
+	#firstDiv {
+	    margin-left: 0px!important;
+	}
+	#statusBarDesc div {
+	    float: left;
+	    margin-left: 104px;
+	}
+	#statusBarDesc p {
+	    font-size: 17px;
+	    line-height: 21px;
+	}
+	#subContentRight {
+	    width: 715px;
+	    overflow: auto;
+	    float: left;
+	}
+	#detailCalculator {
+	    width: 275px;
+	    height: 60px;
+	    float: left;
+	    background: #ed4b83;
+	    border-radius: 5px;
+	    margin-left: 250px;
+	    margin-top: 50px;
+	    cursor: pointer;
+	}
+	#detailCalculator:hover {
+	    opacity: 1;
+	}
+	#detailCalculator p {
+	    font-size: 25px;
+	    margin: 0px;
+	    line-height: 60px;
+	    color: #ffffff;
+	}
+	.section_title {
+		display: block;
+		margin: 20px auto;
+		float: center;
+		text-align: center;
+	}
+	#companyIntroduction{
+	width:100%;
+	position:relative; 
+	left:0px; 
+	right:0%;
+	top:-5px;
+	background:#ed4b83;
+	padding-top: 20px;
+	}	
+
+	#companyIntroduction.contact{
+	width:100%;
+	position:relative; 
+	left:0px; 
+	right:0%;
+	top:-5px;
+	background: #F7F9FA;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-bottom: -5px;
+	}	
+
+	#companyIntroduction.contact p{
+	color: #777777;
+	font-size: 16px;
+	}	
+
+	#companyIntroduction.contact .block{
+	background-color: white;
+	font-size: 16px;
+	padding-top: 50px;
+	}	
+
+	.block
+	{
+	    display: table-cell;
+	}
+
+	#companyIntroductionDetail
+	{
+	    display: table;
+	    width: 80%; /*Optional*/
+	    table-layout: fixed; /*Optional*/
+	    border-spacing: 10px; /*Optional*/
+	}
+
+		
+	#companyIntroductionDetail{
+	border:0px solid #ff5274;
+	position:relative; 
+	width: 70%;
+	text-align:center;
+	margin: 0 auto;
+	}	
+
+	#companyIntroductionDetail p{
+	margin: 0 20% 20px 20%; 
+	line-height: 1.5;
+	font-size: 14
+	}
+	
+		#askGroup {
+	    width: 268px;;
+		height: 44px;
+	}
+	#askGroupLeft {
+	    width: 118px;
+	    float: left;
+		height: 44px;
+		border-radius: 5px;
+		background: #ec4a82;
+		color: #ffffff;
+		text-align: center;
+		cursor: pointer;
+	    transition:opacity 0.5s;
+		-moz-transition:opacity 0.5s;
+	    -webkit-transition:opacity 0.5s;
+	    -o-transition:opacity 0.5s;
+	}
+	#startButton {
+	    width: 70%;
+		float: center;
+		height: 44px;
+		background-color: #ec4a82;
+		margin: 0px;
+		border-radius: 5px;
+		color: #ffffff;
+		text-align: center;
+		box-shadow: none!important;
+	}
+	#startButton p {
+	    font-size: 19px;
+		margin: 0px;
+		color: #ffffff;
+	}
+	#askGroupRight {
+		float: center;
+	    height: 44px;
+	    color: #a9aeb0;
+	    padding-top: 5px;
+	    margin: 0 auto;
+	}
+	#askGroupRight h5{
+	    font-size: 10px;
+		line-height: 20px;
+		margin: 0px;
+	}
+    #cemeteryImage {
+        float: right;
+    }
+    #cemeteryImage img {
+        width: 1000px;
+        margin-left: 310px;
+        margin-top: -200px;
+    }
+    #cemeteryInfoCoat {
+        width: 1200px;
+        margin: 0px auto;
+    }
+    video {
+        margin-top: 30px;
+        width: 50%;
+        position: relative;
+        min-width: 800px;
+    }

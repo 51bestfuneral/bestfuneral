@@ -1,0 +1,458 @@
+#mainHeader {
+    text-align: center;
+	width: 100%;
+	height: 380px;
+	
+	
+	opacity: 0.9;
+
+background: #666666;
+
+background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,0,0.50) 100%);
+	
+}
+#mainHeader h1 {
+    font-size: 45px;
+	line-height: 55px;
+	color: #ffffff;
+	margin: 0px;
+}
+#mainHeader h2 {
+    font-size: 20px;
+	line-height: 24px;
+	color: #ffffff;
+	margin: 0px;
+}
+#leftTop {
+    width: 100%;
+	padding-top: 30px;
+	padding-left: 120px;
+	text-align: left;
+}
+#leftTop p{
+    font-size: 12px;
+	line-height: 16px;
+	color: #ffffff;
+	margin: 0px;
+}
+#leftTop span {
+    color: #ff5274
+}
+#centerText {
+    width: 100%;
+	overflow: auto;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 130px;
+	color:black;
+	font-size:40px;
+}
+
+.label {
+    font-size: 20px;
+	line-height: 20px;
+	font-family: "Microsoft Yahei";
+	font-weight: lighter;
+	padding: .4em .9em .4em;
+	margin-right: 5px;
+}
+#labelsArea {
+    width: 100%;
+	heigth: 42px;
+	margin-top: 60px;
+}
+#features {
+    width: 100%;
+	overflow: auto;
+	padding-top: 48px;
+	background-image:url(/js/images/cemeteryBackground.jpg); 
+    background-repeat: repeat;
+	padding-bottom: 60px;
+}
+#featureContent {
+    width: 1000px;
+	overflow: auto;
+	margin: 0px auto;
+}
+#singleFeature {
+    float: right;
+	overflow: auto;
+}
+
+.leftFeatureImg{
+	width: 500px;
+	float: left;
+	height: 500px;
+	background: #ccc;
+	opacity: 1;
+
+	}
+.leftFeatureImg img{
+	max-width:600px;_width:expression(this.width > 600 ? "600px" : 100%);
+  height: 100%;
+  width: 100%;
+	}
+
+.rightFeatureText {
+    width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+}
+.rightFeatureText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+	position: relative;
+		left: 0px;
+
+}
+.rightFeatureText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+.leftlocationText{
+	width: 500px;
+	overflow: auto;
+	float: left;
+	}
+	
+	.leftlocationText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+	text-align:right;
+		padding-left:60px;
+
+}
+.leftlocationText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+	
+}
+
+.rightlocationImg{
+	width: 485px;
+	height: 330px;
+	background-color: #ccc;
+	float: left;
+	opacity: 1;	
+	margin:0 auto; overflow:hidden;
+	float: right;
+	}
+	
+.rightlocationImg img{
+		max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+   width: 100%;
+	}	
+	
+
+.leftEquipmentImg{
+	width: 485px;
+	float: left;
+	height: 485px;
+	background: #ccc;
+	opacity: 1;
+	border:0px solid red;
+	}
+	
+	.leftEquipmentImg img{
+	max-width:485px;_width:expression(this.width > 485 ? "485px" : 100%);
+  height: 100%;
+   width: 100%;
+	}
+	
+.rightEquipmentText{
+	width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+	}	
+
+.rightEquipmentText h1 {
+    margin: 0px;
+	position: relative;
+	left: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.rightEquipmentText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+
+
+.leftImg {
+    width: 485px;
+	float: left;
+	height: 485px;
+	background: #ccc;
+	opacity: 0.5;
+	border:0px solid red;
+}
+.rightText {
+    width: 500px;
+	float: left;
+	padding-left: 20px;
+	padding-top: 150px;
+	border:0px solid red;
+}
+.rightText h1 {
+    margin: 0px;
+	position: relative;
+	left: -56px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.rightText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+.leftText {
+    width: 500px;
+	padding-left: 120px;
+	overflow: auto;
+	float: left;
+}
+.leftText h1 {
+    margin: 0px;
+	font-size: 60px;
+	line-height: 80px;
+	color: #3d3d3d;
+}
+.leftText p {
+    font-size: 20px;
+	line-height: 30px;
+	color: #3d3d3d;
+	margin: 0px;
+}
+.rightImg {
+    width: 512px;
+	height: 330px;
+	background-color: #ccc;
+	margin-left: 24px;
+	float: left;
+	opacity: 0.5;
+}
+#mainFeature {
+    overflow: auto;
+}
+#locationFeature {
+    overflow: auto;
+	margin-top: 188px;
+}
+#equipmentFeature {
+    overflow: auto;
+	margin-top: 176px;
+}
+#cemeteryFilter {
+  width: 1349px;
+	overflow: auto;
+	padding-top: 60px;
+	margin: 0px auto;
+	padding-left: 50px;
+	padding-right: 50px
+}
+#filterContent {
+	overflow: auto;
+
+}
+#filterCata {
+	overflow: auto;
+	float: left;
+	margin-right: 5px;
+}
+#filter {
+    padding-top: 6px;
+	overflow: auto;
+	float: left;
+	padding-right: 20px;
+}
+.filterCata {
+    text-align: left;
+	width: 75px;
+	height: 35px;
+	margin-bottom: 5px;
+}
+.filterContent {
+    text-align: center;
+	overflow: auto;
+	margin-bottom: 5px;
+}
+.locationContent {
+    text-align: center;
+	overflow: auto;
+}
+.filterContent div {
+    float: left;
+	width: 68px;
+	height: 35px;
+	background: #f5f5f5;
+	cursor: pointer;
+	margin-right: 6px;
+	border-radius: 2px;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.filterContent div:hover {
+    background: #7E7E7E;
+}
+.locationContent div {
+    float: left;
+	overflow: auto;
+	height: 35px;
+	padding-left: 8px;
+	padding-right: 8px;
+	background: #f5f5f5;
+	cursor: pointer;
+	margin-right: 6px;
+	border-radius: 2px;
+	transition:background 0.5s;
+	-moz-transition:background 0.5s;
+    -webkit-transition:background 0.5s;
+    -o-transition:background 0.5s;
+}
+.locationContent div:hover {
+    background: #7E7E7E;
+}
+#filter p{
+    font-size: 16px;
+	line-height: 35px;
+	margin: 0px;
+}
+#reserver {
+    float: right;
+	overflow: auto;
+	position:relative;
+	top: -90px;
+	width: 250px;
+	text-align: center;
+}
+#reserver h1 {
+    font-size: 20px;
+	line-height: 20px;
+	margin: 0px;
+	color: #3d3d3d;
+}
+#reserver h2 {
+    font-size: 40px;
+	line-height: 40px;
+	margin: 0px;
+	color: #3d3d3d;
+}
+#reserver p {
+    font-size: 11px;
+	line-height: 18px;
+	color: #5a5a5a;
+	margin: 0px;
+}
+.reserverBtn {
+    background-color: #ff5274;
+	color: #ffffff;
+	font-size: 18px;
+	width: 152px;
+	height: 30px;
+	border: none;
+	border-radius: 4px;
+}
+.reserverBtn:hover {
+    background: #ff496d;
+}
+#cemeteryMap {
+    width: 100%;
+  height: 479px;
+  object-fit: contain;
+}
+#cemeteryMapContext{
+width: 100%;
+  height: 479px;
+  object-fit: contain;
+}
+#cemeteryMap img {
+    width: 100%;
+}
+.commentMap {
+    width: 250px;
+	height: 250px;
+	background: #000000;
+	opacity: 0.5;
+	text-align: center;
+	padding-top: 25px;
+	position: absolute;
+	margin-top: -295px;
+	margin-left: 402px;
+}
+.commentMap h1 {
+    font-size: 44px;
+	line-height: 66px;
+	color: #ffffff;
+	margin-bottom: 12px;
+}
+.commentMap h2 {
+    font-size: 20px;
+	line-height: 32px;
+	color: #ffffff;
+	margin: 0px;
+		
+}
+.redline{
+	border-bottom:2px solid #ff5274;
+	-webkit-transform: rotate(115deg);/*Safari 4+,Google Chrome 1+  */
+	-moz-transform: rotate(115deg);/*Firefox 3.5+*/
+	filter: progid:DXImageTransform.Microsoft.BasicImage(Rotation=1.1);
+	position: absolute;
+	z-index: 10;
+}
+#redline1 {
+    margin-left: 35%;
+	margin-top: 300px;
+	width:300px;height:13px;
+}
+#redline2 {
+	margin-left: 60%;
+	margin-top: 710px;
+	width:200px;height:13px;
+}
+#redline3 {
+	margin-left: 10%;
+	margin-top: 920px;
+	width:400px;height:13px;
+}
+#redline4 {
+	margin-left: 63%;
+	margin-top: 1370px;
+	width:250px;height:13px;
+}
+#redline5 {
+	margin-left: 35%;
+	margin-top: 1470px;
+	width:250px;height:13px;
+}
+#redline6 {
+	margin-left: 63%;
+	margin-top: 1870px;
+	width:250px;
+	height:13px;
+}
+
+.choose{
+	background: #7E7E7E;
+	}

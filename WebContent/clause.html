@@ -8,6 +8,7 @@
 <meta http-equiv="content-style-type" content="text/css" /> 
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 </head>
+<link href="/css/clause.css" rel="stylesheet">
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/sliderx.js"></script>
@@ -73,74 +74,7 @@ tinymce.init({
 	}
 });
 </script>
-<style>
-.topBarDiv {
-	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
-	height: 65px;
-	z-index: 1000;
-}
-@media (min-width: 900px) {
-    .container {
-        width: 1344px;
-	    padding: 0px;
-	    min-width: 1000px;
-		margin: 0px auto;
-    }
-}
-#imageDiv {
-    width: 100%;
-	background-image:url('../js/images/Bitmap.png');
-	background-size:100%;
-	text-align: center;
-	height: 350px;
-}
-#clauseMain {
-    width: 100%;
-	overflow: auto;
-	margin-top: 50px;
-}
-#clauseTab {
-    width: 26%;
-	overflow: auto;
-	float: left;
-	padding-left: 90px;
-	padding-top: 20px;
-}
-.singleTab {
-    width: 250px;
-	height: 62px;
-	transition:background 0.5s;
-	-moz-transition:background 0.5s;
-    -webkit-transition:background 0.5s;
-    -o-transition:background 0.5s;
-	cursor: pointer;
-}
-.singleTab:hover {
-    background: rgb(244,244,244);
-}
-.selected {
-    background: rgb(244,244,244);
-}
-.singleTab p {
-    line-height: 62px;
-	font-size: 18px;
-	color: #333;
-	margin: 0px;
-	text-align: center;
-}
-#clauseContent {
-    width: 74%;
-	float: left;
-	overflow: auto;
-	padding-bottom: 50px;
-}
-.mce-panel {
-    border: none!important;
-}
-.mce-toolbar-grp {
-    display: none!important;
-}
-</style>
+
 <body onselectstart="return false">
 <div class="topBarDiv">
     <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html" frameborder = 0 height = "67px"></IFRAME>
