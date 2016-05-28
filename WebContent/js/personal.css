@@ -159,12 +159,10 @@
 		background-image: url(/js/images/LogoWhite@2x-min.jpg);
 		background-size: 50% 100%;
 		margin-top: 40px;
-		max-width:55%;
+		max-width:50%;
 	}
 	
-	.IconBrand img{
-	max-width:100%;
-	}
+
 	.header {
 	    padding-top : 50px;
 	   	text-align:center;	
