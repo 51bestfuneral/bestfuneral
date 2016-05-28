@@ -119,6 +119,8 @@
 		overflow:auto;
 		height: 370px;
 		padding-left: 30px;
+		max-width:100%;
+		max-height:100%;
 	}
     .taocanIconDiv {
 	    width: 23%;
@@ -130,6 +132,8 @@
 		cursor:pointer;
 		text-align:center;
 		overflow: hidden;
+		max-width:100%;
+		max-height:100%;
 	}
 	#taocanIconGood {
 	    background: #ED4B83;
@@ -151,11 +155,12 @@
 	    font-size: 13px;
 	}
 	.IconBrand {
-		width: 43%;
+		width: 49%;
 		margin: 0px auto;
 		overflow: hidden;
 		background-image: url(/js/images/LogoWhite@2x-min.jpg);
 		margin-top: 40px;
+		max-width:49%;
 	}
 	.header {
 	    padding-top : 50px;
@@ -181,7 +186,7 @@
 		margin:0px auto;
 		color: white;
 		cursor: pointer;
-			   	text-align:center;	
+		text-align:center;	
 		
 	}
 	#startButton:hover {
@@ -309,7 +314,7 @@
 	    margin: 0px;
 	}
 	body {
-        margin£º0px;
+        marginï¿½ï¿½0px;
     }
 	.topContent {
 	    width: 100%;
