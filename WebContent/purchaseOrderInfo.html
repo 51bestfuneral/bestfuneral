@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="/js/AccountInfo.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
+
 <body onselectstart="return false" ng-app="productApp" ng-controller="products">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
 <div id="accountInfoMain">
@@ -34,10 +35,13 @@
     <div id="noContent" hidden>您还没有任何预约信息<button class="emptyBtn" id="purchaseBtn">去购买</button><button id="designBtn" class="emptyBtn">去定制</button></div>
 	<div class="rightContents" ng-repeat="order in orders">
 	    <div class="contentHeader clickable" id="{{order.wishOrderId}}">
-		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
+		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span>订单状态:<span ng-bind="order.statusDisception" class="orderNumber"></span></a></p>
 			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
+		
+		
 			<div class="removeBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
 			<div class="processIcon" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+			<div id="{{'_'+order.wishOrderId}}"   style={{order.style}} class="normalText"  ng-click="goToPay(order.wishOrderId)"><p  style="font-size: 17px;line-height: 1;color: #f62f5e;font-weight: bold;">继续支付</p></div>
 		</div>
 		<div class="containerClass" ng-repeat="detail in order.detailJson track by $index" on-finish-render-filters>
 			<div class="valuehiddenDiv">
@@ -59,6 +63,7 @@
 								<td>{{detail.count}}</td>
 								<td>{{detail.sumPirce}}</td>
 								<td><a class="digToDetail" href="/productDetail3.html?id={{detail.wishId}}">查看详情</a></td>
+
 							</tr>
 						</tbody>
 					</table>
@@ -81,6 +86,7 @@
 </div>
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
+
 <script>
 var app = angular.module('productApp', []);
 muskCurrentPage();
@@ -97,6 +103,8 @@ app.directive('onFinishRenderFilters', function ($timeout) {
     };
 });
 app.controller('products', function($scope, $http) {
+	
+	
     $http.get("/wishlistDetail/listWishOrder").success(function(response) {
         $scope.orders = response;
         if (response.length === 0) {
@@ -104,9 +112,30 @@ app.controller('products', function($scope, $http) {
         }
         else {
         	$("#noContent").hide();
+        	
+        	
+
+        	
+        	
         }
         unmusk();
+        
+ 
     });
+	
+	
+	
+		$scope.goToPay = function(wishOrderId){
+	
+	
+	
+		    window.location.href='/paymentInfo.html?wishOrderId='+ wishOrderId;
+		   
+		
+		
+	}
+	
+	
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
 		$(".removeBtn").hover(function() {
 			if (!$(this).hasClass('disabled')) {
@@ -194,6 +223,9 @@ app.controller('products', function($scope, $http) {
 		    height: changeToHeight
 		});
 	});
+	
+	
+	
     $("#purchaseBtn").click(function() {
     	window.parent.location.href = "/productAndService.html";
     });

@@ -54,12 +54,6 @@ span {
     background: #efefef;
 	overflow: auto;
 }
-
-#expressContain {
-    background: #efefef;
-	overflow: auto;
-}
-
 #footer {
     overflow: auto;
 	width: 908px;
@@ -150,6 +144,15 @@ span {
 	overflow: auto;
 	margin: 0px auto;
 }
+
+#expressContain {
+    width: 954px;
+	overflow: auto;
+	margin: 0px auto;
+}
+
+
+
 #confirmContain p {
     font-size: 19px;
 	color: #2e2e2e;
@@ -187,6 +190,19 @@ span {
 	font-weight: bold;
 	color: #b4b4b4;
 }
+
+.open {
+  padding-left: 23px;
+	width:100%;
+	height: 56px;
+}
+.open span {
+  line-height: 56px;
+	font-size: 19px;
+	font-weight: bold;
+	color:blue;
+}
+
 .singleConfirm {
 	width:100%;
 	height: 56px;
@@ -251,8 +267,8 @@ span {
 	height: 17px;
 }
 .descBottom {
-    padding-left: 40px;
-	height: 34px;
+	padding-left: 40px;
+	height: 100%;
 }
 #confirmRight {
     padding-left: 80px;
@@ -260,8 +276,6 @@ span {
 .rightInfo {
     padding-left: 23px;
 	width: 180px;
-		font-size: 5px;
-
 }
 #priceInfo {
     width: 908px;
@@ -308,18 +322,78 @@ span {
 <script type="text/javascript">
 	var length = location.search.length;
 var wishOrderId= location.search.substring(13, length);
-
+var setWishOrderId="";
 	
   var app = angular.module('productApp', []);
 	
 	
   app.controller('product', function($scope, $http) {
   	
+  	$scope.orderDetailForWishList;
   	
+  	$scope.message="查看套餐详细信息";
+
+  	$scope.displays="display:none";
+  	
+  	 $scope.shoppingCart;
 	   $http.get("/shoppingCartController/getShoppingCartForPayMentConfirm?wishOrderId="+wishOrderId).success(function(response) {
 	    $scope.shoppingCart = response;
 	    
+	   
+	    $("#pay"+$scope.shoppingCart.payMethod).attr("checked",'checked');   
+	
+	
+	
+	    if($scope.shoppingCart.orderDetailForWishList==null||$scope.shoppingCart.orderDetailForWishList.length==0||$scope.shoppingCart.setFee==0)
+	    {
+	    	
+	    		    $scope.display="display:none";
+	    		    $("#pay1").attr("disabled",'true');   
+	    		    $("#pay2").attr("checked",'checked');   
+	    		    $("#pay3").attr("disabled",'true');   
+	    	}
+	    	
+	   if($scope.shoppingCart.orderDetailForCartList==null||$scope.shoppingCart.orderDetailForCartList.length==0) {
+	   	
+	   	 $("#pay1").attr("disabled",'true');   
+	     $("#pay2").attr("disabled",'true');   
+	     $("#pay3").attr("checked",'checked');   
+	   	
+	   	}	
+	    	
+	    setWishOrderId=$scope.shoppingCart.setWishOrderId;
+	    
 	    });
+  	 
+  	 
+  	 
+  	 $scope.display = function(){
+  	 	
+		if($scope.orderDetailForWishList==null){
+			$scope.orderDetailForWishList= $scope.shoppingCart.orderDetailForWishList;
+			$scope.message="收起套餐详情"
+			$scope.displays="";
+		}else{
+			$scope.orderDetailForWishList=null;
+			$scope.displays="display:none;";
+			$scope.message="查看套餐详情"
+
+			}
+	}	 
+  	 
+  	 $scope.payMethod = function(payMethod){
+	 $http.get("/shoppingCartController/payMethod?wishOrderId="+wishOrderId+"&payMethod="+payMethod).success(function(response) {
+	    $scope.newShoppingCart = response;
+	    
+	    $scope.shoppingCart.grossFee=response.grossFee;
+	    $scope.shoppingCart.netFee=response.netFee;
+	    setWishOrderId=$scope.shoppingCart.setWishOrderId;
+
+	    
+	    });
+		
+		
+	}
   	 
 	    
     });
@@ -382,26 +456,40 @@ var wishOrderId= location.search.substring(13, length);
 			 </div>
 		</div>
 	</div>
-	<div id="confirmContain">
+	
+<div id="confirmContain">
 	    <div id="confirmationInfo">
 		    <div id="confirmLeft">
-			    <div class="titleText">
+			    <div class="titleText"  style={{display}}>
 			        <p>套餐购买总结</p>
 				</div>
-			    <div class="singleConfirmTitle">
+			    <div class="singleConfirmTitle" style={{display}}>
 				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
 				</div>
-				<div class="taocanDiv">
+				<div class="taocanDiv" style={{display}}>
 				    <div class="singleConfirm">
-						<span class="itemName">顶级套餐</span><span class="itemPriceValue">0</span><span class="itemAmoutValue">0</span>
+						<span class="itemName">{{shoppingCart.wishListJson.levelDesc}}</span><span class="itemPriceValue">￥{{shoppingCart.setFee}}</span><span class="itemAmoutValue">{{shoppingCart.wishListJson.amount}}套</span>
 					</div>
 				    <div class="taocanDesc">
 					    <div class="descTop">
 						    <p>您的套餐包含:</p>
 						</div>
+						
+						 
 						<div class="descBottom">
-						    <p>0项服务，我们会有专门的人员给您提供这些服务。</p>
-							<p>0项物品，其中有0项物品。</p>
+						    <p>{{shoppingCart.wishListJson.servicesAmount}}项服务，我们会有专门的人员给您提供这些服务。</p>
+							<p>{{shoppingCart.wishListJson.goodsAmount}}项物品，其中有{{shoppingCart.wishListJson.goodsAmount}}项物品{{shoppingCart.expressBean.expressDescription}}。</p>
+						
+							<div class="open" style="cursor:pointer" ng-click="display()"><span class="itemName">{{message}}</span></div>
+							
+						
+							<div class="singleConfirmTitle" style={{displays}}>
+				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
+				</div>
+				<div class="singleConfirm" ng-repeat="wishListDetail in orderDetailForWishList" style={{displays}}>
+					<span class="itemName">{{wishListDetail.wishName}}</span><span class="itemPriceValue">￥{{wishListDetail.price}}</span><span class="itemAmoutValue">{{wishListDetail.count}}</span>
+				</div>
+						
 						</div>
 					</div>
 				</div>
@@ -409,27 +497,47 @@ var wishOrderId= location.search.substring(13, length);
 			        <p>附加产品和服务购买总结</p>
 				</div>
 				<div class="singleConfirmTitle">
-				    <span class="itemName">项目</span><span class="itemPrice">单价</span><span class="itemAmout">数量</span>
+				    <span class="itemName">项目</span><span class="itemPrice">价格</span><span class="itemAmout">数量</span>
 				</div>
-				<div class="singleConfirm" ng-repeat="orderDetail in shoppingCart.orderDetailList">
-					<span class="itemName">{{orderDetail.wishName}}</span><span class="itemPriceValue">￥{{orderDetail.price}}</span><span class="itemAmoutValue">{{orderDetail.count}}</span>
+				<div class="singleConfirm" ng-repeat="wishListDetail in shoppingCart.orderDetailForCartList"  >
+					<span class="itemName">{{wishListDetail.wishName}}</span><span class="itemPriceValue">￥{{wishListDetail.price}}</span><span class="itemAmoutValue">{{wishListDetail.count}}</span>
 				</div>
 						</div>
-		<!--	<div id="confirmRight">
-			    <div class="titleText">
-			        <p>寄送</p>
+		<div id="confirmRight">
+			 <div class="titleText">
+			 </div>
+				 <div class="titleText">
+			 </div>
+			   <div class="titleText">
+			 </div>
+				
+				 <div class="titleText">
+			 </div>
+			  <div class="titleText">
+			 </div>
+			 
+			   <div class="titleText">
+			 </div>
+				
+				 <div class="titleText">
+			 </div>
+			  <div class="titleText">
+			 </div>
+			<div class="titleText" style={{display}}>
+			<span  style="font-size: 17px;line-height: 1.5;color: #2e2e2e;font-weight: bold;"> <input type="radio" name="pay"  id="pay1"  value="1" checked   ng-click="payMethod(1)">同时支付购物车和套餐费</span> 			
 				</div>
-				<div class="singleConfirmTitle">
-				    <span>地址</span>
+			
+			 <div class="titleText" style={{display}}>
+			   <span style="font-size: 17px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">  <input type="radio" name="pay"  id="pay2"  value="2" ng-click="payMethod(2)">只支付购物车，先不支付套餐</span> 		
+
 				</div>
-				<p class="rightInfo">{{shoppingCart.expressBean.expressInfo.receiverName}}</p>
-				<p class="rightInfo">{{shoppingCart.expressBean.province+shoppingCart.expressBean.expressInfo.city+shoppingCart.expressBean.expressInfo.detailAddress}}</p>
-				<div class="singleConfirmTitle">
-				    <span>寄送方式</span>
+			
+			<div class="titleText" style={{display}}>
+			   <span style="font-size: 17px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">  <input type="radio" name="pay"  id="pay3"  value="3" ng-click="payMethod(3)">只支付套餐，先不支付购物车</span> 		
+
 				</div>
-				<p class="rightInfo">{{shoppingCart.expressBean.expressTitle}}</p>
-				<p class="rightInfo">{{shoppingCart.expressBean.expressDescription}}</p>
-			</div>-->
+			
+			</div>
 		</div>
 		<div id="priceInfo">
 		    <div class="discountDiv">
@@ -441,26 +549,26 @@ var wishOrderId= location.search.substring(13, length);
 			</div>
 			<div class="summ">
 			    <p class="title">邮寄</p>
-				<p>￥：{{shoppingCart.expressFee}}</p>
+				<p>￥{{shoppingCart.expressFee}}</p>
 			</div>
 			<div class="summ">
 			    <p class="title">总计</p>
 				<p class="final">￥{{shoppingCart.netFee}}</p>
 			</div>
 		</div>
+	
 	</div>
 	
 	<div id="expressContain">
-	  <div class="titleText">
-				</div>
+	  
 				<div class="singleConfirmTitle">
-				    <span>寄送地址:</span>
+				    <span>寄送地址:<font style="font-size: 17px;line-height: 2;color: #2e2e2e">&nbsp;{{shoppingCart.expressBean.expressInfo.receiverName}},{{shoppingCart.expressBean.province+shoppingCart.expressBean.expressInfo.city+shoppingCart.expressBean.expressInfo.detailAddress}}</font></span>
 				    
-				<span class="itemName">  {{shoppingCart.expressBean.expressInfo.receiverName}},{{shoppingCart.expressBean.province+shoppingCart.expressBean.expressInfo.city+shoppingCart.expressBean.expressInfo.detailAddress}}</span>
+				 
 				</div>
 				
 				<div class="singleConfirmTitle">
-				    <span>寄送方式:{{shoppingCart.expressBean.expressTitle}}{{shoppingCart.expressBean.expressDescription}}</span>
+				    <span >寄送方式:<font style="font-size: 17px;line-height: 2;color: #2e2e2e">&nbsp;{{shoppingCart.expressBean.expressTitle}}{{shoppingCart.expressBean.expressDescription}}</font></span>
 				</div>
 				
 			
@@ -499,7 +607,7 @@ window.onload=function(){
 	    window.location.href='paymentInfo.html?wishOrderId='+wishOrderId;
 	});
 	$("#nextButton").click(function () {
-	    window.location.href='paymentMethod.html?wishOrderId='+wishOrderId;
+	    window.location.href='paymentMethod.html?wishOrderId='+wishOrderId+"&setWishOrderId="+setWishOrderId;
 	});
 };
 </script>

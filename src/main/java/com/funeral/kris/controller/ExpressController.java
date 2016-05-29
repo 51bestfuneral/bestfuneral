@@ -29,12 +29,12 @@ import com.funeral.kris.service.MailService;
 public class ExpressController {
 
 	public static String express_method_saved_in_niannian_title = "暂存在念念 ";
-	public static String express_method_saved_in_niannian_description = "(我们会暂时替您保管，在需要的时候提供给怿)";
+	public static String express_method_saved_in_niannian_description = "(我们会暂时替您保管，在需要的时候提供给您!)";
 	
 	
 	
 	public static String express_method_standard_title = "标准 ";
-	public static String express_method_standard_description = "(免费, 2-3日送达)";
+	public static String express_method_standard_description = "(免邮费, 2-3日送达)";
 	
 	
 	

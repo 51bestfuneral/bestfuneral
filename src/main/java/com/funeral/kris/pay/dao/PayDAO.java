@@ -20,9 +20,10 @@ public void  updateWishlist(Wishlist wishlist);
 public List<WishlistDetail>  getSelectedWishlistDetailByWishListId(int wishlistId);
 public void deleteWishlistDetail(int wishlistDetailId);
 public  List<ExpressInfo>  getUncompledExpressInfoByUserId(int userId,int statusId);
-public  ExpressInfo  getUncompledExpressInfoByWishOrderId(int wishOrderId,int statusId);
-public void  updateExpressInfo(ExpressInfo expressInfo);
+public  ExpressInfo  getUncompledExpressInfoByWishOrderId(int wishOrderId,int statusId) throws Exception;
+public void  updateExpressInfo(ExpressInfo expressInfo) throws Exception;
 public void releaseUsingContacter(int userId);
-
+public 	void  updateOrderStatus(String orderNo,int statusId)throws Exception	;	
+public void updateWishOrderStatus(int wishOrderId,int statusId) throws Exception;
 
 }

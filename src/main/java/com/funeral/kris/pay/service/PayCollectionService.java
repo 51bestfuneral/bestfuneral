@@ -9,7 +9,7 @@ public interface PayCollectionService {
 	
 public void initFeeCollection(String orderNo);
 	
-	public int completeCollection(Map<String,String> params );
+	public int completeCollection(Map<String,String> params ) throws Exception;
 	
     public void deleteResource(int collectionId);
     

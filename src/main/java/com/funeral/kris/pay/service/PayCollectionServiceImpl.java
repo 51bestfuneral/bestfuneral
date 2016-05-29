@@ -1,32 +1,23 @@
 package com.funeral.kris.pay.service;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.EXPRESS;
-import com.funeral.kris.controller.ContactInfoController;
-import com.funeral.kris.model.ContactInfo;
+import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
-import com.funeral.kris.model.Wishlist;
-import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.pay.dao.PayDAO;
 import com.funeral.kris.pay.dao.PayDAOImpl;
 import com.funeral.kris.util.AlipayUtil;
 
 public class PayCollectionServiceImpl implements PayCollectionService {
 
-	private PayDAO dao;
+	private static PayDAO dao=new PayDAOImpl();
 
-	public PayCollectionServiceImpl() {
-
-		this.dao = new PayDAOImpl();
-
-	}
 
 	@Override
 	public void initFeeCollection(String orderNo) {
@@ -69,7 +60,7 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 	}
 
 	@Override
-	public int completeCollection(Map<String, String> params) {
+	public int completeCollection(Map<String, String> params) throws Exception {
 		String orderNo = "";
 
 		System.out.println(this.getClass() + "   completeCollection    params=" + params);
@@ -78,17 +69,6 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		
 		Order order = dao.getOrderByOrderNo(orderNo);
 
-
-//		String wishOrderId = params.get("wishOrderId");
-		
-		
-//		if(wishOrderId==null||"".equals(wishOrderId)){
-//			
-//			wishOrderId=order.getWishOrderId();
-//			
-//		}
-		
-		
 		Integer wishOrderId=order.getWishOrderId();
 
 
@@ -112,6 +92,8 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		feeCollection.setNotifyType(params.get("notify_type"));
 		feeCollection.setOutTradeNo(params.get("trade_no"));
 		feeCollection.setSignType("MD5");
+		
+		feeCollection.setOrderId(order.getOrderId());
 		// feeCollection.setPayerId(Integer.parseInt(params.get("buyer_id")));
 		feeCollection.setSellerId(params.get("seller_id"));
 		feeCollection.setNotifyId(params.get("notify_id"));
@@ -132,47 +114,21 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		dao.saveFeeCollection(feeCollection);
 
 
-		// 修改wishlist
-
-		int userId = order.getUserId();
-
-		System.out.println(this.getClass() + "   completeCollection    ---------------userId---" + userId);
-
-		Wishlist wishlist = dao.getwishListByUserId(userId);
-
-		wishlist.setPrice(BigDecimal.ZERO);
-
-		wishlist.setOriginalPirce(BigDecimal.ZERO);
-
-		dao.updateWishlist(wishlist);
-
-		// 修改wishlist detail
-
-		System.out.println(this.getClass() + "   completeCollection    ---------------getWishlistId---"
-				+ wishlist.getWishlistId());
-
-		List<WishlistDetail> wishlistDetailList = dao.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
-
-		Iterator wishlistDetailListIterator = wishlistDetailList.iterator();
-
-		while (wishlistDetailListIterator.hasNext()) {
-
-			WishlistDetail detail = (WishlistDetail) wishlistDetailListIterator.next();
-
-			dao.deleteWishlistDetail(detail.getWishlistDetailId());
-
-		}
+        
 
 		System.out.println(this.getClass() + "   completeCollection    ---------------order---" + orderNo);
 
 		// 修改Order状态
 
-		// Order order= dao.getOrderByOrderNo(orderNo);
-
 		order.setStatusId(AlipayUtil.order_completed);
+		dao.updateOrderStatus(orderNo, AlipayUtil.order_completed);
+		
 
 		// 修改express 支付成功
 
+		
+		System.out.println(this.getClass()+"  before getUncompledExpressInfoByWishOrderId  wishOrderId"+wishOrderId+"  ");
+		
 		ExpressInfo currentExpress = dao.getUncompledExpressInfoByWishOrderId(wishOrderId,
 				EXPRESS.express_status_init);
 
@@ -180,10 +136,14 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 
 		dao.updateExpressInfo(currentExpress);
 
-		// release联系人
+		// 修改wish order 的状态，改为已支付
+		dao.updateWishOrderStatus(order.getWishOrderId(), WishConstants.wishorder_status_paied);
 
-		// dao.releaseUsingContacter(userId);
 
+		
+		
+		
+		
 		return feeCollection.getCollectionId();
 
 	}

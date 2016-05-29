@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.funeral.kris.bean.ShoppingCart;
 import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.busModel.ExpressBean;
+import com.funeral.kris.busModel.WishListJson;
 import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.init.AppContext;
 import com.funeral.kris.model.Cart;
@@ -32,6 +33,7 @@ import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishOrder;
+import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.ExpressInfoService;
@@ -46,24 +48,18 @@ import com.funeral.kris.service.WishlistService;
 @RequestMapping(value = "/shoppingCartController")
 public class ShoppingCartController {
 	public static String express_method_saved_in_niannian_title = "暂存在念念 ";
-	public static String express_method_saved_in_niannian_description = "(我们会暂时替您保管，在需要的时候提供给怿)";
-	
-	
-	
-	public static String express_method_standard_title = "标准 ";
-	public static String express_method_standard_description = "(免费, 2-3日送达)";
-	
-	
-	
-	public static String express_method_express_title = "快递 ";
-	public static String express_method_express_description  = "(1日送达，20块钱快递费用)";
-	
-	
-	public static String province_SH="上海";
-	public static String province_JS="江苏省";
-	public static String province_ZJ="浙江省";
+	public static String express_method_saved_in_niannian_description = "(我们会暂时替您保管，在需要的时候提供给您)";
 
-	
+	public static String express_method_standard_title = "标准 ";
+	public static String express_method_standard_description = "(免邮费, 2-3日送达)";
+
+	public static String express_method_express_title = "快递 ";
+	public static String express_method_express_description = "(1日送达，20块钱快递费用)";
+
+	public static String province_SH = "上海";
+	public static String province_JS = "江苏省";
+	public static String province_ZJ = "浙江省";
+
 	@Autowired
 	private WishOrderService wishOrderService;
 	@Autowired
@@ -107,13 +103,15 @@ public class ShoppingCartController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getAllGoodsForShoppingCart", method = RequestMethod.GET, produces = "application/json")
-	public List<CartlistJson> getAllGoodsForShoppingCart(HttpServletRequest request) {
+	public List<CartlistJson> getAllGoodsForShoppingCart(
+			HttpServletRequest request) {
 
 		User user = (User) request.getSession().getAttribute("user");
 		Integer cartId = user.getCartId();
 
 		List<CartlistJson> cartlistJsons = new ArrayList<CartlistJson>();
-		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(cartId);
+		List<CartDetail> cartDetails = cartDetailService
+				.getResourceByCartId(cartId);
 		for (CartDetail cartDetail : cartDetails) {
 
 			CartlistJson cartListJson = new CartlistJson();
@@ -134,34 +132,185 @@ public class ShoppingCartController {
 			cartListJson.setCartDetailId(cartDetail.getCartDetailId());
 			cartListJson.setCartId(cartId);
 			cartListJson.setSelected(cartDetail.getSelected());
-			cartListJson.setSelectedPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
+			cartListJson.setSelectedPrice(wish.getSellingPrice().multiply(
+					new BigDecimal(cartDetail.getCount())));
 			cartlistJsons.add(cartListJson);
 		}
 		return cartlistJsons;
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/payMethod", method = RequestMethod.GET, produces = "application/json")
+	public ShoppingCart payMethod(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+
+		User user = (User) session.getAttribute("user");
+		// 更新应付费用
+		String wishOrderId = request.getParameter("wishOrderId");
+		String payMethod = request.getParameter("payMethod");
+
+		WishOrder wishOrder = wishOrderService.getResource(Integer
+				.parseInt(wishOrderId));
+
+		ShoppingCart shoppingCart = new ShoppingCart();
+		shoppingCart.setPayMethod(Integer.parseInt(payMethod));
+		wishOrder.setPayWishOrderId(Integer.parseInt(wishOrderId));
+		wishOrder.setPayMethod(Integer.parseInt(payMethod));
+		ExpressInfo info = expressInfoService
+				.getExpressInfoByWishOrderId(Integer.parseInt(wishOrderId));
+
+		shoppingCart.setExpressFee(info.getExpressFee());
+
+		BigDecimal setFee = this.processSet(Integer.parseInt(payMethod),
+				request);
+
+		if (Integer.parseInt(payMethod) == WishConstants.wishorder_paymethod_wishListOnly) {
+
+			WishOrder setwishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			if (setwishOrder != null) {
+
+				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
+			}
+			
+			shoppingCart.setGrossFee(setFee);
+
+			wishOrder.setPrice(shoppingCart.getGrossFee());
+
+			wishOrderService.updateResource(wishOrder);
+
+			shoppingCart.setNetFee(shoppingCart.getGrossFee().add(
+					shoppingCart.getExpressFee()));
+
+			return shoppingCart;
+		}
+
+		List<OrderDetail> orderDetailList = orderDetailService
+				.getResourcesByWishOrderId(Integer.parseInt(wishOrderId));
+
+		if (wishsMap == null) {
+			this.initialWishMap();
+		}
+
+		BigDecimal grossFee = BigDecimal.ZERO;
+
+		if (orderDetailList != null && orderDetailList.size() > 0) {
+
+			Iterator iterator = orderDetailList.iterator();
+			while (iterator.hasNext()) {
+				OrderDetail orderDetail = (OrderDetail) iterator.next();
+
+				orderDetail.setWishName(wishsMap.get(orderDetail.getWishId())
+						.getWishName());
+				grossFee = grossFee.add(orderDetail.getPrice().multiply(
+						new BigDecimal(orderDetail.getCount())));
+			}
+
+		}
+
+		if (Integer.parseInt(payMethod) == WishConstants.wishorder_paymethod_shoppingCartOnly) {
+			shoppingCart.setGrossFee(grossFee);
+			shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee));
+			wishOrder.setPrice(shoppingCart.getGrossFee());
+
+			wishOrderService.updateResource(wishOrder);
+			return shoppingCart;
+		} else {
+			WishOrder setwishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			if (setwishOrder != null) {
+
+				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
+			}
+			shoppingCart.setGrossFee(grossFee.add(setFee));
+			shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee)
+					.add(setFee));
+			wishOrder.setPrice(shoppingCart.getGrossFee());
+
+			wishOrderService.updateResource(wishOrder);
+		}
+
+		return shoppingCart;
+
+	}
+
+	public BigDecimal processSet(int payMethod, HttpServletRequest request) {
+		// 定制完成，数据转移到WishOrder和OrderDetail，
+		// 在购物车里面只显示最新一次已经定制完成，但是没有close的套餐
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		BigDecimal setCost = BigDecimal.ZERO;
+
+		WishOrder wishOrder = wishOrderService
+				.getLatestOpenWishOrderForSet(user.getUsrId());
+
+		if (wishOrder == null) {
+
+			return setCost;
+		}
+
+		if (payMethod == 2) {
+
+			// 清空与其他订单的关联关系，并且恢复状态
+
+			wishOrder = wishOrderService.getLatestOpenWishOrderForSet(user
+					.getUsrId());
+			// 告訴wishOrder，将要在哪个订单下支付，并且修改wishOrder状态
+			wishOrder.setPayWishOrderId(null);
+
+			wishOrder.setStatusId(WishConstants.wishlist_status_init);
+
+			wishOrderService.updateResource(wishOrder);
+
+			return setCost;
+		}
+
+		List<OrderDetail> setOrderDetailList = orderDetailService
+				.getOrderDetailFromWishList(user.getWishlistId());
+		String wishOrderId = request.getParameter("wishOrderId");
+
+		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
+				setOrderDetailList, user.getWishlistId());
+
+		setCost = wishListJson.getPrice();
+
+		// 告訴wishOrder，将要在哪个订单下支付，并且修改wishOrder状态
+		wishOrder.setPayWishOrderId(Integer.parseInt(wishOrderId));
+
+		wishOrder.setStatusId(WishConstants.wishorder_status_pendingPay);
+
+		wishOrderService.updateResource(wishOrder);
+
+		return setCost;
+
+	}
+
+	@ResponseBody
 	@RequestMapping(value = "/getDirectWishListForPaymnetConfirm", method = RequestMethod.GET, produces = "application/json")
-	public List<CartlistJson> getCartDetailsForPaymnetConfirm(HttpServletRequest request) {
+	public List<CartlistJson> getCartDetailsForPaymnetConfirm(
+			HttpServletRequest request) {
 		if (wishsMap == null) {
 			initialWishMap();
 		}
 		String cartId = request.getParameter("cartId");
 
 		List<CartlistJson> cartlistJsons = new ArrayList<CartlistJson>();
-		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(Integer.parseInt(cartId));
+		List<CartDetail> cartDetails = cartDetailService
+				.getResourceByCartId(Integer.parseInt(cartId));
 
 		for (CartDetail cartDetail : cartDetails) {
-			if (cartDetail.getSelected() != null && cartDetail.getSelected().intValue() == 1) {
+			if (cartDetail.getSelected() != null
+					&& cartDetail.getSelected().intValue() == 1) {
 				CartlistJson cartlistJson = new CartlistJson();
 				Integer wishId = cartDetail.getWishId();
 				Wish wish = wishsMap.get(wishId);
 
 				cartlistJson.setCartId(Integer.parseInt(cartId));
 				cartlistJson.setCartDetailId(cartDetail.getCartDetailId());
-				cartlistJson.setOriginalPrice(
-						cartDetail.getOriginalPrice().multiply(new BigDecimal(cartDetail.getCount())));
-				cartlistJson.setPrice(cartDetail.getPrice().multiply(new BigDecimal(cartDetail.getCount())));
+				cartlistJson.setOriginalPrice(cartDetail.getOriginalPrice()
+						.multiply(new BigDecimal(cartDetail.getCount())));
+				cartlistJson.setPrice(cartDetail.getPrice().multiply(
+						new BigDecimal(cartDetail.getCount())));
 				cartlistJson.setSelected(cartDetail.getSelected());
 				cartlistJson.setWishName(wish.getWishName());
 				cartlistJson.setWishId(wishId);
@@ -177,10 +326,12 @@ public class ShoppingCartController {
 
 		String cartDetailId = request.getParameter("cartDetailId");
 
-		CartDetail detail = cartDetailService.getResource(Integer.parseInt(cartDetailId));
+		CartDetail detail = cartDetailService.getResource(Integer
+				.parseInt(cartDetailId));
 
 		if (detail != null) {
-			if (detail.getSelected() == null || detail.getSelected().intValue() != 1) {
+			if (detail.getSelected() == null
+					|| detail.getSelected().intValue() != 1) {
 				detail.setSelected(1);
 			} else {
 				detail.setSelected(0);
@@ -226,7 +377,8 @@ public class ShoppingCartController {
 		cartDetail.setSelected(0);
 		cartDetailService.addResource(cartDetail);
 		cart.setPrice(cart.getPrice().add(wish.getSellingPrice()));
-		cart.setOriginalPrice(cart.getOriginalPrice().add(wish.getXianenPrice()));
+		cart.setOriginalPrice(cart.getOriginalPrice()
+				.add(wish.getXianenPrice()));
 		successList.add(cartDetail);
 		cartService.updateResource(cart);
 
@@ -266,7 +418,8 @@ public class ShoppingCartController {
 
 		List<Integer> selectedCartDetailIdList = new ArrayList<Integer>();
 
-		List<CartDetail> cartDetailList = cartDetailService.getResourceByCartId(cartId);
+		List<CartDetail> cartDetailList = cartDetailService
+				.getResourceByCartId(cartId);
 
 		Iterator iter = cartDetailList.iterator();
 
@@ -277,7 +430,8 @@ public class ShoppingCartController {
 			if (shoppingCart.getAllSelected().intValue() == 1) {
 				cartDetail.setSelected(1);
 
-				cartDetail.setSelectedPrice(cartDetail.getPrice().multiply(new BigDecimal(cartDetail.getCount())));
+				cartDetail.setSelectedPrice(cartDetail.getPrice().multiply(
+						new BigDecimal(cartDetail.getCount())));
 				cartDetailService.updateResource(cartDetail);
 				// price = BigDecimal.ZERO;
 				// originalPrice = BigDecimal.ZERO;
@@ -296,7 +450,8 @@ public class ShoppingCartController {
 
 		}
 
-		List<CartDetail> cartDetailLists = cartDetailService.getResourceByCartId(cartId);
+		List<CartDetail> cartDetailLists = cartDetailService
+				.getResourceByCartId(cartId);
 
 		boolean selected = false;
 
@@ -307,12 +462,13 @@ public class ShoppingCartController {
 		while (iterator.hasNext()) {
 			CartDetail cartDetail = (CartDetail) iterator.next();
 
-			if (cartDetail.getSelected() != null && cartDetail.getSelected().intValue() == 1) {
+			if (cartDetail.getSelected() != null
+					&& cartDetail.getSelected().intValue() == 1) {
 				count = count + cartDetail.getCount();
 				selectedCartDetailIdList.add(cartDetail.getCartDetailId());
 
-				orderTotalCost = orderTotalCost
-						.add(cartDetail.getPrice().multiply(new BigDecimal(cartDetail.getCount())));
+				orderTotalCost = orderTotalCost.add(cartDetail.getPrice()
+						.multiply(new BigDecimal(cartDetail.getCount())));
 			}
 		}
 
@@ -333,7 +489,8 @@ public class ShoppingCartController {
 	public void delete(HttpServletRequest request) {
 		String cartDetailId = request.getParameter("cartDetailId");
 
-		CartDetail cartDetail = cartDetailService.getResource(Integer.parseInt(cartDetailId));
+		CartDetail cartDetail = cartDetailService.getResource(Integer
+				.parseInt(cartDetailId));
 
 		cartDetailService.deleteResource(cartDetail.getCartDetailId());
 
@@ -348,19 +505,21 @@ public class ShoppingCartController {
 
 		String cartDetailId = request.getParameter("cartDetailId");
 
-		CartDetail cartDetail = cartDetailService.getResource(Integer.parseInt(cartDetailId));
+		CartDetail cartDetail = cartDetailService.getResource(Integer
+				.parseInt(cartDetailId));
 
 		int count = cartDetail.getCount() + 1;
 		cartDetail.setCount(count);
-		
-		if(wishsMap==null){
-		this.initialWishMap();
+
+		if (wishsMap == null) {
+			this.initialWishMap();
 		}
-		
-		Wish wish=wishsMap.get(cartDetail.getWishId());
-		
-		cartDetail.setSelectedPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
-		
+
+		Wish wish = wishsMap.get(cartDetail.getWishId());
+
+		cartDetail.setSelectedPrice(wish.getSellingPrice().multiply(
+				new BigDecimal(cartDetail.getCount())));
+
 		cartDetailService.updateResource(cartDetail);
 
 		Cart cart = this.getCalculatedCart(cartDetail.getCartId());
@@ -376,20 +535,21 @@ public class ShoppingCartController {
 
 		String cartDetailId = request.getParameter("cartDetailId");
 
-		CartDetail cartDetail = cartDetailService.getResource(Integer.parseInt(cartDetailId));
+		CartDetail cartDetail = cartDetailService.getResource(Integer
+				.parseInt(cartDetailId));
 
 		int count = cartDetail.getCount() - 1;
 		cartDetail.setCount(count);
 
-		
-		if(wishsMap==null){
+		if (wishsMap == null) {
 			this.initialWishMap();
-			}
-			
-			Wish wish=wishsMap.get(cartDetail.getWishId());
-			
-			cartDetail.setSelectedPrice(wish.getSellingPrice().multiply(new BigDecimal(cartDetail.getCount())));
-		
+		}
+
+		Wish wish = wishsMap.get(cartDetail.getWishId());
+
+		cartDetail.setSelectedPrice(wish.getSellingPrice().multiply(
+				new BigDecimal(cartDetail.getCount())));
+
 		if (cartDetail.getCount().intValue() == 0) {
 
 			cartDetailService.deleteResource(cartDetail.getCartDetailId());
@@ -406,55 +566,186 @@ public class ShoppingCartController {
 		return null;
 	}
 
+	public WishListJson buildWishListJsonForPayMentConfirm(
+			List<OrderDetail> setOrderDetailList, Integer wishListId) {
+
+		WishListJson wishListJson = new WishListJson();
+
+		Wishlist wishlist = wishlistService.getResource(wishListId);
+
+		if (setOrderDetailList == null || setOrderDetailList.size() == 0) {
+			wishListJson.setAmount(0);
+			wishListJson.setGoodsAmount(0);
+			wishListJson.setServicesAmount(0);
+			wishListJson.setPrice(BigDecimal.ZERO);
+			return wishListJson;
+		}
+
+		Iterator iterator = setOrderDetailList.iterator();
+
+		int goodsAmount = 0;
+		int servicesAmount = 0;
+
+		BigDecimal price = BigDecimal.ZERO;
+
+		if (wishsMap == null) {
+			this.initialWishMap();
+
+		}
+
+		while (iterator.hasNext()) {
+
+			OrderDetail detail = (OrderDetail) iterator.next();
+
+			Wish wish = wishsMap.get(detail.getWishId());
+
+			if (wish.getFeature().intValue() == WishConstants.wish_feature_product) {
+
+				goodsAmount++;
+
+			} else {
+
+				servicesAmount++;
+			}
+
+			price = price.add(detail.getPrice());
+
+		}
+
+		wishListJson.setAmount(1);
+		wishListJson.setGoodsAmount(goodsAmount);
+		wishListJson.setServicesAmount(servicesAmount);
+		wishListJson.setLevel(wishlist.getLevel());
+		wishListJson.setPrice(wishlist.getPrice());
+
+		if (wishlist.getLevel().intValue() == WishConstants.wish_level_basic) {
+
+			wishListJson.setLevelDesc(WishConstants.wish_level_desc_basic);
+
+		} else if (wishlist.getLevel().intValue() == WishConstants.wish_level_good) {
+			wishListJson.setLevelDesc(WishConstants.wish_level_desc_good);
+
+		} else if (wishlist.getLevel().intValue() == WishConstants.wish_level_better) {
+
+			wishListJson.setLevelDesc(WishConstants.wish_level_desc_better);
+
+		} else {
+
+			wishListJson.setLevelDesc(WishConstants.wish_level_desc_best);
+
+		}
+
+		wishListJson.setWishlistId(wishListId);
+
+		return wishListJson;
+
+	}
+
 	@ResponseBody
 	@RequestMapping(value = "/getShoppingCartForPayMentConfirm", method = RequestMethod.GET)
 	@Transactional(propagation = Propagation.REQUIRED)
-	public ShoppingCart getShoppingCartForPayMentConfirm(HttpServletRequest request) throws Exception {
+	public ShoppingCart getShoppingCartForPayMentConfirm(
+			HttpServletRequest request) throws Exception {
 
 		String wishOrderId = request.getParameter("wishOrderId");
+		HttpSession session = request.getSession(false);
 
+		User user = (User) session.getAttribute("user");
 		ShoppingCart shoppingCart = new ShoppingCart();
 
-		ExpressInfo info = expressInfoService.getExpressInfoByWishOrderId(Integer.parseInt(wishOrderId));
+		ExpressInfo info = expressInfoService
+				.getExpressInfoByWishOrderId(Integer.parseInt(wishOrderId));
 
 		shoppingCart.setExpressFee(info.getExpressFee());
 
-		WishOrder wishOrder = wishOrderService.getResource(Integer.parseInt(wishOrderId));
+		WishOrder wishOrder = wishOrderService.getResource(Integer
+				.parseInt(wishOrderId));
+		BigDecimal setFee = BigDecimal.ZERO;
 
-		
+		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_together) {
 
-		List<OrderDetail> orderDetailList = orderDetailService.getResourcesByWishOrderId(Integer.parseInt(wishOrderId));
+			WishOrder setwishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			if (setwishOrder != null) {
 
-		if(wishsMap==null){
+				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
+			}
+
+			setFee = this.processSet(
+					WishConstants.wishorder_paymethod_together, request);
+
+		} else if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_shoppingCartOnly) {
+
+			setFee = this
+					.processSet(
+							WishConstants.wishorder_paymethod_shoppingCartOnly,
+							request);
+
+		} else {
+			WishOrder setwishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			if (setwishOrder != null) {
+
+				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
+			}
+			setFee = this.processSet(
+					WishConstants.wishorder_paymethod_wishListOnly, request);
+
+		}
+
+		shoppingCart.setPayMethod(wishOrder.getPayMethod());
+
+		List<OrderDetail> setOrderDetailList = orderDetailService
+				.getOrderDetailFromWishList(user.getWishlistId());
+		shoppingCart.setOrderDetailForWishList(setOrderDetailList);
+		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
+				setOrderDetailList, user.getWishlistId());
+
+		shoppingCart.setWishListJson(wishListJson);
+
+		List<OrderDetail> orderDetailList = orderDetailService
+				.getResourcesByWishOrderIdForShoppingCart(Integer
+						.parseInt(wishOrderId));
+
+		if (wishsMap == null) {
 			this.initialWishMap();
 		}
-		
-		BigDecimal grossFee=BigDecimal.ZERO;
-		BigDecimal netFee=BigDecimal.ZERO;
-		
-		
-		
-		if(orderDetailList!=null&&orderDetailList.size()>0){
-			
-			Iterator iterator=	orderDetailList.iterator();
-			while(iterator.hasNext()){
-				OrderDetail  orderDetail=	(OrderDetail) iterator.next();
-				
-				orderDetail.setWishName(wishsMap.get(orderDetail.getWishId()).getWishName());
-				grossFee=grossFee.add(orderDetail.getPrice().multiply(new BigDecimal(orderDetail.getCount())));
-			}
-			
-		}
-		
-		
-		shoppingCart.setGrossFee(grossFee);
 
-		shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee));
-		
-		shoppingCart.setOrderDetailList(orderDetailList);
-		
-		
-		
+		BigDecimal grossFee = BigDecimal.ZERO;
+
+		if (orderDetailList != null && orderDetailList.size() > 0) {
+
+			Iterator iterator = orderDetailList.iterator();
+			while (iterator.hasNext()) {
+				OrderDetail orderDetail = (OrderDetail) iterator.next();
+
+				orderDetail.setWishName(wishsMap.get(orderDetail.getWishId())
+						.getWishName());
+				grossFee = grossFee.add(orderDetail.getPrice().multiply(
+						new BigDecimal(orderDetail.getCount())));
+			}
+
+		}
+
+		shoppingCart.setGrossFee(grossFee.add(setFee));
+
+		shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee)
+				.add(setFee));
+
+		if (shoppingCart.getWishListJson() == null
+				|| shoppingCart.getWishListJson().getAmount().intValue() == 0) {
+			// 没有选择套餐
+			shoppingCart
+					.setPayMethod(WishConstants.wishorder_paymethod_shoppingCartOnly);
+		} else if (shoppingCart.getOrderDetailForCartList() == null
+				|| shoppingCart.getOrderDetailForCartList().size() == 0) {
+			// 没有直接选择
+			shoppingCart
+					.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
+		}
+		shoppingCart.setSetFee(setFee);
+		shoppingCart.setOrderDetailForCartList(orderDetailList);
+
 		ExpressBean bean = new ExpressBean();
 
 		bean.setExpressMethod(info.getDeliveryMethod());
@@ -466,35 +757,37 @@ public class ShoppingCartController {
 
 			bean.setExpressTitle(this.express_method_standard_title);
 			bean.setExpressDescription(this.express_method_standard_description);
-			
-		
+
 		} else {
 
 			bean.setExpressTitle(this.express_method_express_title);
 			bean.setExpressDescription(this.express_method_express_description);
 		}
 
-		
-		if(info.getProvince().equals("1")){
-			
+		if (info.getProvince().equals("1")) {
+
 			bean.setProvince(this.province_JS);
-		}else if(info.getProvince().equals("2")){
+		} else if (info.getProvince().equals("2")) {
 			bean.setProvince(this.province_SH);
-		}else{
+		} else {
 			bean.setProvince(this.province_ZJ);
 		}
 		bean.setExpressInfo(info);
-		
+
 		shoppingCart.setExpressBean(bean);
 
+		wishOrder.setPrice(shoppingCart.getGrossFee());
+
+		wishOrderService.updateResource(wishOrder);
 		return shoppingCart;
 
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByCart", method = RequestMethod.GET)
 	@Transactional(propagation = Propagation.REQUIRED)
-	public Integer generateOrderByCart(HttpServletRequest request) throws Exception {
+	public Integer generateOrderByCart(HttpServletRequest request)
+			throws Exception {
 		Cart cart = null;
 		WishOrder order = new WishOrder();
 		User user = (User) request.getSession().getAttribute("user");
@@ -507,8 +800,10 @@ public class ShoppingCartController {
 		order.setCreatedDate(new Date());
 		order.setUpdatedDate(new Date());
 		order.setSourceId(WishConstants.order_source_direct);
-
-		List<CartDetail> cartList = cartDetailService.getSelectedCartDetailsByCartId(cart.getCartId());
+		order.setPayMethod(WishConstants.wishorder_paymethod_together);
+		order.setStatusId(WishConstants.wishlist_status_init);
+		List<CartDetail> cartList = cartDetailService
+				.getSelectedCartDetailsByCartId(cart.getCartId());
 
 		try {
 			wishOrderService.addResource(order);
@@ -520,11 +815,16 @@ public class ShoppingCartController {
 				orderdetail.setCount(cartDetail.getCount());
 				orderdetail.setOrderId(order.getWishOrderId());
 				orderdetail.setOriginalPrice(cartDetail.getOriginalPrice());
+				orderdetail.setWishListId(user.getWishlistId());
+				orderdetail.setSourceId(WishConstants.order_source_direct);
 				orderdetail.setPrice(cartDetail.getPrice());
 				orderdetail.setCreatedDate(new Date());
 				orderdetail.setUpdatedDate(new Date());
-				totalPrice = totalPrice.add(cartDetail.getPrice().multiply(new BigDecimal(cartDetail.getCount())));
-				originalTotalPrice = originalTotalPrice.add(cartDetail.getOriginalPrice().multiply(new BigDecimal(cartDetail.getCount())));
+				totalPrice = totalPrice.add(cartDetail.getPrice().multiply(
+						new BigDecimal(cartDetail.getCount())));
+				originalTotalPrice = originalTotalPrice.add(cartDetail
+						.getOriginalPrice().multiply(
+								new BigDecimal(cartDetail.getCount())));
 				orderDetailService.addResource(orderdetail);
 				cartDetailService.deleteResource(cartDetail.getCartDetailId());
 			}
@@ -541,7 +841,8 @@ public class ShoppingCartController {
 
 		Cart cart = cartService.getResource(cartId);
 
-		List<CartDetail> cartDetailList = cartDetailService.getResourceByCartId(cart.getCartId());
+		List<CartDetail> cartDetailList = cartDetailService
+				.getResourceByCartId(cart.getCartId());
 
 		BigDecimal price = BigDecimal.ZERO;
 		BigDecimal originalPirce = BigDecimal.ZERO;
@@ -556,13 +857,14 @@ public class ShoppingCartController {
 
 				if (detail.getPrice() != null) {
 
-					price = price.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
+					price = price.add(detail.getPrice().multiply(
+							new BigDecimal(detail.getCount())));
 				}
 
 				if (detail.getOriginalPrice() != null) {
 
-					originalPirce = originalPirce
-							.add(detail.getOriginalPrice().multiply(new BigDecimal(detail.getCount())));
+					originalPirce = originalPirce.add(detail.getOriginalPrice()
+							.multiply(new BigDecimal(detail.getCount())));
 
 				}
 
@@ -586,41 +888,44 @@ public class ShoppingCartController {
 		User user = (User) session.getAttribute("user");
 		Integer cartId = user.getCartId();
 		ShoppingCart shoppingCart = new ShoppingCart();
-		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(cartId);
+		List<CartDetail> cartDetails = cartDetailService
+				.getResourceByCartId(cartId);
 
-		List<CartlistJson> cartlistJsonList=new ArrayList<CartlistJson>();
-		
+		List<CartlistJson> cartlistJsonList = new ArrayList<CartlistJson>();
+
 		Integer allSelected = 0;
 		Integer count = 0;
 		BigDecimal orderTotalCost = BigDecimal.ZERO;
 		List<Integer> selectedCartDetailIdList = new ArrayList<Integer>();
 		Iterator iterator = cartDetails.iterator();
-		if(wishsMap==null){
-		this.initialWishMap();
+		if (wishsMap == null) {
+			this.initialWishMap();
 		}
 		while (iterator.hasNext()) {
 			CartDetail detail = (CartDetail) iterator.next();
-			
-			CartlistJson cartlistJson=new CartlistJson();
-			
+
+			CartlistJson cartlistJson = new CartlistJson();
+
 			cartlistJson.setCartDetailId(detail.getCartDetailId());
 			cartlistJson.setAmount(detail.getCount());
 			cartlistJson.setCartId(cartId);
-			cartlistJson.setImageUrl(wishsMap.get(detail.getWishId()).getImgUrl());
+			cartlistJson.setImageUrl(wishsMap.get(detail.getWishId())
+					.getImgUrl());
 			cartlistJson.setPrice(detail.getPrice());
 			cartlistJson.setSelected(detail.getSelected());
 			cartlistJson.setWishId(detail.getWishId());
-			cartlistJson.setWishName(wishsMap.get(detail.getWishId()).getWishName());
+			cartlistJson.setWishName(wishsMap.get(detail.getWishId())
+					.getWishName());
 			cartlistJson.setSelectedPrice(detail.getSelectedPrice());
 			cartlistJsonList.add(cartlistJson);
-			
-			
 
-			if (detail.getSelected() != null && detail.getSelected().intValue() == 1) {
+			if (detail.getSelected() != null
+					&& detail.getSelected().intValue() == 1) {
 				count = count + detail.getCount();
 				selectedCartDetailIdList.add(detail.getCartDetailId());
 
-				orderTotalCost = orderTotalCost.add(detail.getPrice().multiply(new BigDecimal(detail.getCount())));
+				orderTotalCost = orderTotalCost.add(detail.getPrice().multiply(
+						new BigDecimal(detail.getCount())));
 			}
 		}
 
@@ -645,7 +950,8 @@ public class ShoppingCartController {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		List<CartDetail> cartDetails = cartDetailService.getResourceByCartId(user.getCartId());
+		List<CartDetail> cartDetails = cartDetailService
+				.getResourceByCartId(user.getCartId());
 
 		if (cartDetails != null) {
 			count = cartDetails.size();

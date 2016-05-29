@@ -13,8 +13,37 @@ public class WishListJson {
 	private Integer wishlistId;
 	private BigDecimal originalPrice;
 	private BigDecimal selectedPrice;
-	 
+	private Integer goodsAmount;
+	private Integer servicesAmount;
+	private  Integer level;
+	private String levelDesc;
 
+
+
+	public Integer getGoodsAmount() {
+		return goodsAmount;
+	}
+	public void setGoodsAmount(Integer goodsAmount) {
+		this.goodsAmount = goodsAmount;
+	}
+	public Integer getServicesAmount() {
+		return servicesAmount;
+	}
+	public void setServicesAmount(Integer servicesAmount) {
+		this.servicesAmount = servicesAmount;
+	}
+	public Integer getLevel() {
+		return level;
+	}
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+	public String getLevelDesc() {
+		return levelDesc;
+	}
+	public void setLevelDesc(String levelDesc) {
+		this.levelDesc = levelDesc;
+	}
 	public BigDecimal getSelectedPrice() {
 		return selectedPrice;
 	}

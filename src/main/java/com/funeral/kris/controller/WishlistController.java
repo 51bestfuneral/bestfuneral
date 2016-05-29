@@ -28,7 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.constants.WishConstants;
-import com.funeral.kris.init.AppContext;
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.CartDetail;
@@ -181,12 +180,16 @@ public class WishlistController {
 	@RequestMapping(value = "/generateOrderByWish", method = RequestMethod.POST)
 	public WishOrder generateOrderByWishlist(HttpServletRequest request) {
 		Wishlist wishlist = null;
+		//定制完成，数据转移到WishOrder和OrderDetail
 		WishOrder order = new WishOrder();
 		User user = (User) request.getSession().getAttribute("user");
 		wishlist = wishlistService.getResource(user.getWishlistId());
 		order.setUserId(user.getUsrId());
 		order.setPrice(wishlist.getPrice());
 		order.setOriginalPrice(wishlist.getOriginalPrice());
+		order.setSourceId(WishConstants.order_source_set);
+		order.setPayMethod(WishConstants.wishorder_paymethod_together);
+		order.setStatusId(WishConstants.wishlist_status_init);
 		wishOrderService.addResource(order);
 		List<WishlistDetail> wishdetailList = new ArrayList<WishlistDetail>();
 		wishdetailList = wishlistDetailService.getResourceByWishListId(user.getWishlistId());
@@ -198,13 +201,15 @@ public class WishlistController {
 			orderdetail.setOriginalPrice(wishlistDetail.getOriginalPrice());
 			orderdetail.setPrice(wishlistDetail.getPrice());
 			orderdetail.setWishId(wishlistDetail.getWishId());
+			orderdetail.setSourceId(WishConstants.order_source_set);
+			orderdetail.setWishListId(user.getWishlistId());
 			orderdetail.setCreatedDate(new Date());
 			orderdetail.setUpdatedDate(new Date());
 			orderDetailService.addResource(orderdetail);
 		}
 		return order;
 	}
-
+	@Deprecated
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByCart", method = RequestMethod.POST)
 	@Transactional(propagation=Propagation.REQUIRED) 
@@ -220,6 +225,7 @@ public class WishlistController {
 		order.setOriginalPrice(cart.getOriginalPrice());
 		order.setCreatedDate(new Date());
 		order.setUpdatedDate(new Date());
+		order.setSourceId(WishConstants.order_source_direct);
 		try {
 			wishOrderService.addResource(order);
 			for (CartlistJson cartJson: cartList) {

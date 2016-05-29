@@ -6,6 +6,7 @@ alter table t_wish_order add COLUMN source_id integer not null;
 alter table t_express_info add COLUMN wish_order_id integer NOT NULL;
 alter table t_order_detail add COLUMN wish_name VARCHAR(500) ;
 alter table t_order add COLUMN wish_order_id integer not null;
+alter table t_wish_order add COLUMN pay_method integer not null default 1;
 
 
 

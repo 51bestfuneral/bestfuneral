@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.Cart;
-import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
@@ -75,9 +75,30 @@ public class AlipayController {
 
 		User user = (User) session.getAttribute("user");
 		String wishOrderId = request.getParameter("wishOrderId");
+		
+		String setWishOrderId = request.getParameter("setWishOrderId");
+
+		
+		
+		
+		
+		
+		
 
 		WishOrder wishOrder = wishOrderService.getResource(Integer
 				.parseInt(wishOrderId));
+		
+		//要考虑是只支付购物车还是同时支付套餐
+		
+		
+		if(wishOrder.getPayMethod().intValue()==WishConstants.wishorder_paymethod_wishListOnly){
+			
+			wishOrder.setPayWishOrderId(Integer.parseInt(setWishOrderId));
+			
+			
+		}
+		
+		
 
 		Order order = orderService.getOrderByWishOrderId(Integer
 				.parseInt(wishOrderId));
@@ -126,7 +147,7 @@ throw new Exception(" ---");
 			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
-
+			order.setWishOrderId(Integer.parseInt(wishOrderId));
 			order.setUserId(user.getUsrId());
 			order.setPayableAmount(cost);
 			order.setStatusId(AlipayUtil.order_open);

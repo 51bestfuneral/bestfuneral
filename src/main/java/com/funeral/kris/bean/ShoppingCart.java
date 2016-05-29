@@ -5,9 +5,31 @@ import java.util.List;
 
 import com.funeral.kris.busModel.CartlistJson;
 import com.funeral.kris.busModel.ExpressBean;
+import com.funeral.kris.busModel.WishListJson;
 import com.funeral.kris.model.OrderDetail;
 
 public class ShoppingCart {
+	
+	private Integer setWishOrderId;
+
+	public Integer getSetWishOrderId() {
+		return setWishOrderId;
+	}
+
+	public void setSetWishOrderId(Integer setWishOrderId) {
+		this.setWishOrderId = setWishOrderId;
+	}
+
+	private WishListJson wishListJson;
+
+	
+	public WishListJson getWishListJson() {
+		return wishListJson;
+	}
+
+	public void setWishListJson(WishListJson wishListJson) {
+		this.wishListJson = wishListJson;
+	}
 
 	private ExpressBean expressBean;
 
@@ -21,6 +43,15 @@ public class ShoppingCart {
 
 	private Integer userId;
 	private Integer count;
+	private Integer payMethod;
+
+	public Integer getPayMethod() {
+		return payMethod;
+	}
+
+	public void setPayMethod(Integer payMethod) {
+		this.payMethod = payMethod;
+	}
 
 	public Integer getUserId() {
 		return userId;
@@ -81,16 +112,35 @@ public class ShoppingCart {
 	private BigDecimal grossFee;
 	private BigDecimal expressFee;
 	private BigDecimal netFee;
+	private BigDecimal setFee;
 
-	public List<OrderDetail> getOrderDetailList() {
-		return orderDetailList;
+	public BigDecimal getSetFee() {
+		return setFee;
 	}
 
-	public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-		this.orderDetailList = orderDetailList;
+	public void setSetFee(BigDecimal setFee) {
+		this.setFee = setFee;
 	}
+
+
 
 	
+	public List<OrderDetail> getOrderDetailForWishList() {
+		return orderDetailForWishList;
+	}
+
+	public void setOrderDetailForWishList(List<OrderDetail> orderDetailForWishList) {
+		this.orderDetailForWishList = orderDetailForWishList;
+	}
+
+	public List<OrderDetail> getOrderDetailForCartList() {
+		return orderDetailForCartList;
+	}
+
+	public void setOrderDetailForCartList(List<OrderDetail> orderDetailForCartList) {
+		this.orderDetailForCartList = orderDetailForCartList;
+	}
+
 	public List<CartlistJson> getCartlistJsonList() {
 		return cartlistJsonList;
 	}
@@ -101,8 +151,8 @@ public class ShoppingCart {
 
 	private List<Integer> selectedCartDetailIdList;
 	private List<CartlistJson> cartlistJsonList;
-
-	private List<OrderDetail> orderDetailList;
+	private List<OrderDetail> orderDetailForWishList;
+	private List<OrderDetail> orderDetailForCartList;
 	private Integer allSelected;
 
 }

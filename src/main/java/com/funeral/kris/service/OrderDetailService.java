@@ -14,5 +14,10 @@ public interface OrderDetailService {
 	public void deleteResource(int id);
 	public List<OrderDetail> getResources(HttpServletRequest request);
 	public List<OrderDetail> getResourcesByWishOrderId(int wishOrderId);
+	public List<OrderDetail> getResourcesByWishOrderIdForShoppingCart(int wishOrderId);
+
 	public void deleteResourceByOrderId(int id);
+	public List<OrderDetail> getOrderDetailFromWishList(int wishListId);
+
+	
 }
