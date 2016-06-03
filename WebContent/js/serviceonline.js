@@ -36,9 +36,8 @@ function showServiceOnLine() {
 		$(".floating_left", this).css({
 			'display' : 'block'
 		});
-		
-	},
-	function() {
+
+	}, function() {
 		$(this).css({
 			'background-color' : '#646577',
 			'border-bottom' : 'solid 1px #555666',
@@ -46,9 +45,8 @@ function showServiceOnLine() {
 		$(".floating_left", this).css({
 			'display' : 'none'
 		});
-		
-	}
-	);
+
+	});
 
 	$(".consult", parent.document).css({
 		'background-image' : 'url(/js/images/zxicon.png)'
@@ -62,8 +60,6 @@ function showServiceOnLine() {
 		'background-image' : 'url(/js/images/erweima.png)'
 	});
 
-	
-	
 	$(".floating_ck dd span", parent.document).css({
 		'color' : '#fff',
 		'display' : 'block',
@@ -87,19 +83,20 @@ function showServiceOnLine() {
 	});
 
 	$(".floating_left li img", parent.document).css({
-		'width':'20px','height':'20px'
+		'width' : '20px',
+		'height' : '20px'
 	});
-	
+
 	$(".floating_left a", parent.document).css({
-		'color':'#EEE',
-		'line-height':'30px'
+		'color' : '#EEE',
+		'line-height' : '30px'
 	});
-	
+
 	$(".floating_ewm", parent.document).css({
-		'height':'160px',
-		'top':'-40px'
+		'height' : '160px',
+		'top' : '-40px'
 	});
-	
+
 	$(".floating_ewm img", parent.document).css({
 		'display' : 'block',
 		'width' : '145px',
@@ -118,20 +115,20 @@ function showServiceOnLine() {
 		'font-size' : '18px',
 		'margin-top' : '5px'
 	});
+	$("#qq1", parent.document)
+			.click(
+					function() {
+						$("#qqIframe", parent.document)
+								.attr("src",
+										"tencent://message/?Menu=yes&uin=2432340482&site=qq&menu=yes");
+					});
+	$("#qq2", parent.document)
+			.click(
+					function() {
+						$("#qqIframe", parent.document)
+								.attr("src",
+										"tencent://message/?Menu=yes&uin=2750143174&site=qq&menu=yes");
+					});
 }
 
-$("#qq1", parent.document)
-		.click(
-				function() {
-					$("#qqIframe")
-							.attr("src",
-									"tencent://message/?Menu=yes&uin=2432340482&site=qq&menu=yes");
-				});
-$("#qq2", parent.document)
-		.click(
-				function() {
-					$("#qqIframe")
-							.attr("src",
-									"tencent://message/?Menu=yes&uin=2750143174&site=qq&menu=yes");
-				});
 showServiceOnLine();
