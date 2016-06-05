@@ -19,5 +19,7 @@ public interface WishlistService {
 	public List<Wishlist> getResources(Map<String, String> paramMap);
 	public List<Wishlist> getResources();
 	public List<WishOrder> getWishOrderByUserId(int userId);
+	public List<Wishlist> getWishListByUserId(int userId);
+
 
 }

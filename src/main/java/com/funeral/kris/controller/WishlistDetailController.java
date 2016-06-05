@@ -470,6 +470,14 @@ public class WishlistDetailController {
 	public List<WishOrderJson> listWishOrder(HttpServletRequest request) {
 		List<WishOrderJson> orderJsons = new ArrayList<WishOrderJson>();
 		User user = (User) request.getSession().getAttribute("user");
+
+		if(user==null){
+			
+			return orderJsons;
+		}
+		
+		System.out.println(this.getClass()+" ---- listWishOrder  user="+user);
+		
 		List<WishOrder> wishOrderList = wishOrderService
 				.getResourceByUserId(user.getUsrId());
 
@@ -917,8 +925,7 @@ public class WishlistDetailController {
 	}
 
 	private void initialWishMap() {
-		HttpServletRequest fakeRequest = null;
-		List<Wish> wishs = wishService.getResources(fakeRequest);
+		List<Wish> wishs = wishService.getResources();
 		wishsMap = new HashMap<Integer, Wish>();
 		for (Wish wish : wishs) {
 			wishsMap.put(wish.getWishId(), wish);

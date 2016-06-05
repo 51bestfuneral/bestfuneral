@@ -379,7 +379,10 @@ function getWishlistByLevelAfterChcek(level) {
 		type: 'get',
 		dataType:'json',
 		success:function(data){
+			
+			
 			generateWishlistByLevel(data[0].wishlistId, level);
+		
 		},
 		error: function(error) {
 		}

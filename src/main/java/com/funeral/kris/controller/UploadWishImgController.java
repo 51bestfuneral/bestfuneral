@@ -104,7 +104,7 @@ public class UploadWishImgController extends HttpServlet {
 						}
 						String path = saveDir + File.separatorChar + fileName;
 						
-						String loadPath="/funeral/pages/component/wish/images/"+fileName;
+						String loadPath="/funeral/js/images/"+fileName;
 
 						System.out.println(" actionTypes= " + actionTypes + " fileName= " + fileName+" loadPath="+loadPath);
 						

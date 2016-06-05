@@ -18,8 +18,6 @@
 <script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script src="/js/generalUsage.js"></script>
 <script type="text/javascript">
-	var length = location.search.length;
-var wishOrderId= location.search.substring(13, length);
 var setWishOrderId="";
 	
   var app = angular.module('productApp', []);
@@ -27,22 +25,23 @@ var setWishOrderId="";
 	
   app.controller('product', function($scope, $http) {
   	
-  	$scope.orderDetailForWishList;
+	    $scope.orderDetailForWishList=null;
   	
   	$scope.message="查看套餐详细信息";
 
   	$scope.displays="display:none";
   	
   	 $scope.shoppingCart;
-	   $http.get("/shoppingCartController/getShoppingCartForPayMentConfirm?wishOrderId="+wishOrderId).success(function(response) {
+	   $http.get("/shoppingCartController/getShoppingCartForPayMentConfirm").success(function(response) {
 	    $scope.shoppingCart = response;
+	    $scope.orderDetailForWishList=null;      
 	    
 	   
 	    $("#pay"+$scope.shoppingCart.payMethod).attr("checked",'checked');   
 	
 	
 	
-	    if($scope.shoppingCart.orderDetailForWishList==null||$scope.shoppingCart.orderDetailForWishList.length==0||$scope.shoppingCart.setFee==0)
+	    if($scope.shoppingCart.orderDetailForWishList==null||$scope.shoppingCart.orderDetailForWishList.length==0)
 	    {
 	    	
 	    		    $scope.display="display:none";
@@ -80,7 +79,7 @@ var setWishOrderId="";
 	}	 
   	 
   	 $scope.payMethod = function(payMethod){
-	 $http.get("/shoppingCartController/payMethod?wishOrderId="+wishOrderId+"&payMethod="+payMethod).success(function(response) {
+	 $http.get("/shoppingCartController/payMethod?payMethod="+payMethod).success(function(response) {
 	    $scope.newShoppingCart = response;
 	    
 	    $scope.shoppingCart.grossFee=response.grossFee;
@@ -93,32 +92,47 @@ var setWishOrderId="";
 		
 	}
   	 
+  	 
+  $scope.addExpress=function(){
+  	$http.get("/contactInfo/getUsingContacterByWishOrderId").success(function(response) {
+  		
+  		$scope.contact=response;
+  		
+  		$http.get("/expressController/add?contactId="+$scope.contact.contactId+"&deliveryMethod="+$scope.contact.expressMethod).success(function(response) {
+	          window.location.href='paymentMethod.html';          
+	    });	
+	   
+	    
+	    });
+  	}	 
+  	 
 	    
     });
 	
 	
-	$("#nextButton").click(function() {
-	    var datadata = JSON.stringify($scope.curUser);
-	    
-	  //  alert(" datadata = "+datadata);
-	    $http({
-            method: "POST",
-            url:"/expressController/add",
-            data: datadata,
-			headers: {
-                'Content-Type': 'application/json'
-            },
-			dataType:"json"
-        }).success(function(){
-        });
-	});
+//	$("#nextButton").click(function() {
+//	    var datadata = JSON.stringify($scope.curUser);
+//	    alert("datadata="+datadata);
+//	  //  alert(" datadata = "+datadata);
+//	    $http({
+//            method: "POST",
+//            url:"/expressController/add",
+//            data: datadata,
+//			headers: {
+//                'Content-Type': 'application/json'
+//            },
+//			dataType:"json"
+//        }).success(function(){
+//        	 window.location.href='paymentMethod.html?wishOrderId='+wishOrderId;
+//        });
+//	});
 	
 	
 </script>
 
 <body ng-app="productApp" ng-controller="product">
 <div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100%  SRC="/component/topBar.html?cat=product" frameborder = 0 height = "70px"></IFRAME>
 </div>
 <div class="container">
 <div id="paymentContain">
@@ -279,8 +293,8 @@ var setWishOrderId="";
 		    <div id="prevButton">
 			    <p>返回</p>
 			</div>
-		    <div id="nextButton">
-			    <p>下一步</p>
+		    <div id="nextButton" ng-click="addExpress()">
+			    <p>确认下单</p>
 			</div>
 		</div>
 	</div>
@@ -301,12 +315,10 @@ window.onload=function(){
     $(".singleConfirm:odd").css({
 	    'background': '#f7f7f7'
 	});
-	$("#prevButton").click(function () {
-	    window.location.href='paymentInfo.html?wishOrderId='+wishOrderId;
+	$("#prevButton").click(function () {      
+	    window.location.href='paymentInfo.html';
 	});
-	$("#nextButton").click(function () {
-	    window.location.href='paymentMethod.html?wishOrderId='+wishOrderId+"&setWishOrderId="+setWishOrderId;
-	});
+	
 };
 </script>
 </html>

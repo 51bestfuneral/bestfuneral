@@ -19,7 +19,7 @@
 <body ng-app="payment" ng-controller="pay">
 <div class="container">
 <div class="topBarDiv">
-<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=product" frameborder = 0 height = "65px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=product" frameborder = 0 height = "70px"></IFRAME>
 </div>
 <div class="container">
 <div id="paymentContain">
@@ -63,7 +63,7 @@
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
 			        <span class="radioDesc">网银支付</span>
 			        
-			         <form name="chinapnrpayment" action="/funeral/pages/chinapnrapi.jsp" method="post" target="_blank">
+			         <form name="chinapnrpayment" action="/pages/chinapnrapi.jsp" method="post" target="_blank">
 						<input type="hidden" id="chnTradeNo" name="OrdId"/>
 						<input type="hidden" id="chnTotalFee" name="OrdAmt" />
 						<input type="hidden" id="chnPhone" name="UsrMp"/>
@@ -116,7 +116,7 @@
 	<div id="footerContain">
 	    <div id="footer">
 		    <div id="prevButton">
-			    <p>返回</p>
+			    <p>返回购物车</p>
 			</div>
 		    <div id="nextButton" ng-click="pay()" >
 			    <p>下一步</p>
@@ -142,7 +142,7 @@ var wishOrderId= location.search.substring(13, length);
       var app = angular.module('payment', []);
       
      	app.controller('pay', function($scope, $http) {
-	    	$http.get("/alipay/createOrder?wishOrderId="+wishOrderId).success(function(response) {
+	    	$http.get("/alipay/createOrder").success(function(response) {
 	           
 	           $scope.order=response;   
 	           $("#tradeNo").val($scope.order.orderNo);
@@ -182,7 +182,7 @@ var wishOrderId= location.search.substring(13, length);
 
 window.onload=function(){
     $("#prevButton").click(function () {
-	    window.location.href='paymentConfirm.html?wishOrderId='+wishOrderId;
+	    window.location.href='shoppingCart.html';
 	});
 
 
