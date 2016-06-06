@@ -108,13 +108,6 @@ public class ExpressController {
 System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMethod+"  getContactName="+contactInfo.getContactName());
 		expressInfoService.addResource(expressInfo);
 		
-		// send email
-		Map<String,String> messageInfo = new HashMap<String,String>();
-		messageInfo.put("to", "li.yuan@ebaotech.com");
-		messageInfo.put("subject", "你有一笔新的订单");
-		messageInfo.put("content", "你有一笔新的订单(chelsea will provide the temp)");
-		mainService.send(messageInfo);
-		
 	}
 
 	@ResponseBody

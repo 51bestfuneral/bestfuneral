@@ -11,11 +11,11 @@ import com.funeral.kris.model.Email;
 @Transactional
 public class MailServiceImpl implements MailService{
 
-	private static final String MAIL_FROM = "li.yuan@365niannian.com";
+	private static final String MAIL_FROM = "service@365niannian.com";
 
-	private static final String USER_NAME = "li.yuan@365niannian.com";
+	private static final String USER_NAME = "service@365niannian.com";
 
-	private static final String PWD = "5h3n73fA";
+	private static final String PWD = "20041632lxx!";
 
 	public void send(Map<String, String> mailInfo) {
 		System.out.println("开始发送邮件...");
