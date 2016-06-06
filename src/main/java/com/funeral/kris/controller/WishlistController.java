@@ -207,8 +207,19 @@ public class WishlistController {
 			orderdetail.setUpdatedDate(new Date());
 			orderDetailService.addResource(orderdetail);
 		}
+		resetWishlist(wishlist);
 		return order;
 	}
+
+	private void resetWishlist(Wishlist wishlist) {
+		wishlist.setOriginalPirce(BigDecimal.ZERO);
+		wishlist.setPrice(BigDecimal.ZERO);
+		wishlist.setStatus(LoginConstants.WISHLISTSTATUS_INIT);
+		wishlist.setLevel(0);
+		wishlistDetailService.deleteAllResources("wishlist_id=" + wishlist.getWishlistId());
+		wishlistService.updateResource(wishlist);
+	}
+
 	@Deprecated
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByCart", method = RequestMethod.POST)

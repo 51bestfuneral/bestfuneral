@@ -48,7 +48,7 @@
 	    <p>已选择套餐</p>
 	</div>
 	<div class="taocanDiv">
-	    <p class="taocaoDiv">基础套餐</p>
+	    <p class="taocaoDiv" id="levelInfo">基础套餐</p>
 		<p class="priceDiv">￥<span id="totalPrice">0<span></p>
 	</div>
 	<div class="taocanDiv">
@@ -178,6 +178,20 @@ function updateWishList(nextTab) {
 		}
     });
 }
+function handleLevel(level) {
+	if (level === 1) {
+	    $("#levelInfo")[0].innerText = "基础套餐";
+	}
+	if (level === 2) {
+	    $("#levelInfo")[0].innerText = "精品套餐";
+	}
+	if (level === 3) {
+	    $("#levelInfo")[0].innerText = "豪华套餐";
+	}
+	if (level === 4) {
+	    $("#levelInfo")[0].innerText = "顶级套餐";
+	}
+}
 function getOrGenerateWishId() {
     $.ajax({
 		url: '/wishlist/list',
@@ -185,6 +199,7 @@ function getOrGenerateWishId() {
 		success:function(data){
 			wishlistId = data[0].wishlistId;
             level = data[0].level;
+            handleLevel(level);
             updatePrice(data[0].price, data[0].originalPrice - data[0].price);
 			updateWishList();
 		},

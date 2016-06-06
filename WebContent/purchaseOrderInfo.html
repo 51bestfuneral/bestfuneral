@@ -33,7 +33,7 @@
     </div>
 <div id="rightContentsMain">
     <div id="noContent" hidden>您还没有任何订单信息<button class="emptyBtn" id="purchaseBtn">去购买</button><button id="designBtn" class="emptyBtn">去定制</button></div>
-	<div class="rightContents" ng-repeat="order in orders" on-finish-render-filters>
+	<div class="rightContents" ng-repeat="order in orders| orderBy: 'wishOrderId': true" on-finish-render-filters>
 	    <div class="contentHeader clickable" id="{{order.wishOrderId}}">
 		    <p class="normalText">订单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span> 订单状态:<span ng-bind="order.statusDisception" class="orderNumber"></span></a></p>
 			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
