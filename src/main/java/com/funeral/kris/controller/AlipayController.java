@@ -135,7 +135,7 @@ throw new Exception(" ---");
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 			// send mail
-			Map<String, String> messageInfo = new HashMap<String, String>();
+			Map<String, String> messageInfo = new HashMap<String, String>(); 
 			messageInfo.put("to", "service@365niannian.com");
 			messageInfo.put("subject", "你有一笔新的订单");
 			messageInfo.put("content",
