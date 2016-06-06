@@ -107,7 +107,6 @@ public class ExpressController {
 
 System.out.println("-----  contactId="+contactId+"  deliveryMethod="+deliveryMethod+"  getContactName="+contactInfo.getContactName());
 		expressInfoService.addResource(expressInfo);
-		
 	}
 
 	@ResponseBody
