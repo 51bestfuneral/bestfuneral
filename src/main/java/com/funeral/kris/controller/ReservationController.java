@@ -41,6 +41,7 @@ public class ReservationController {
 			reservationJson.setCemeteryDesc(c.getCemeteryDesc());
 			reservationJson.setCemeteryId(c.getCemeteryId());
 			reservationJson.setCemeteryName(c.getCemeteryName());
+			reservationJson.setType(c.getType());
 			reservationJson.setFeature(c.getFeature());
 			reservationJson.setImgUrl(c.getDescImgUrl());
 			reservationJson.setUserId(user.getUsrId());
