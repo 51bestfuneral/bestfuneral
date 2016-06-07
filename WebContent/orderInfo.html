@@ -55,7 +55,6 @@
 					    <td>{{order.cemeteryName}}</td>
 						<td>{{order.address}}</td>
 						<td class="reservDate">{{order.reservDate}}</td>
-						<td>{{order.type}}</td>
 						<td><a class="digToDetail" href="/cemetery.html?id={{order.cemeteryId}}" ng-if="order.type=='1'">查看详情</a></td>
 						<td><a class="digToDetail" href="/temple.html?id={{order.cemeteryId}}" ng-if="order.type=='2'">查看详情</a></td>
 					</tr>
