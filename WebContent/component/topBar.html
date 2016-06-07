@@ -5,6 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link href="../js/Bootstrap/boot.css" rel="stylesheet">
 
+
 <style>
     body {
 	    margin: 0;
@@ -198,6 +199,7 @@
 </body>
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="/js/generalUsage.js"></script>
+<script src="/js/serviceonline.js"></script>
 <script type="text/javascript">
     var length = location.search.length,
 	type = location.search.substring(5, length);
@@ -558,7 +560,7 @@
 					right = 0;
 					
 				//	alert("parent="+parent+"  totalWidth= "+totalWidth+"  clientWidth="+clientWidth+"  right="+right);
-				parent.append("<div id='userSub' hidden></div><div id='userInfo' hidden><div class='singleNav' id='personalAcount'><p>个人账户</p></div><div class='singleNav' id='wishListNavi'><p>愿望清单</p></div><div class='singleNav' id='logout'><p>退出</p></div></div>");
+				parent.append("<div id='userSub' hidden></div><div id='userInfo' hidden><div class='singleNav' id='personalAcount'><p>个人账户</p></div><div class='singleNav' id='wishListNavi'><p>愿望清单</p></div><div class='singleNav' id='purchaseOrderInfoNavi'><p>订单信息</p></div><div class='singleNav' id='orderInfoNavi'><p>预约信息</p></div><div class='singleNav' id='logout'><p>退出</p></div></div>");
 				parent.find("#userInfo").css({
 					'width': '106px',
 					'position': 'absolute',
@@ -597,6 +599,12 @@
 				});
 				parent.find("#wishListNavi").click(function() {
 					window.parent.location.href='/userWishList.html';
+				});
+				parent.find("#purchaseOrderInfoNavi").click(function() {
+					window.parent.location.href='/purchaseOrderInfo.html';
+				});
+				parent.find("#orderInfoNavi").click(function() {
+					window.parent.location.href='/orderInfo.html';
 				});
 				parent.find("#logout").click(function() {
 					$.ajax({
