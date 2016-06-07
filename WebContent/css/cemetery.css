@@ -35,8 +35,9 @@ background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,
 	color: #ffffff;
 	margin: 0px;
 }
-#leftTop span {
-    color: #ff5274
+
+.headerLabel{
+	color: #ff5274
 }
 #centerText {
     width: 100%;

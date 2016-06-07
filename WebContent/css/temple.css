@@ -30,7 +30,7 @@
 	color: #ffffff;
 	margin: 0px;
 }
-#leftTop span {
+.headerLabel {
     color: #ff5274
 }
 #centerText {

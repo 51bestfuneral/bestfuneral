@@ -17,7 +17,7 @@
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME> 
 <div id="mainHeader"  style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
     <div id="leftTop">
-	    <p><span ><a href="cemeteryList.html">墓地信息</a></span>／{{cemeteryBean.cemeteryName}}</p>
+	    <p><span class="headerLabel"><a href="cemeteryList.html">墓地信息</a></span>／<span  ng-bind="cemeteryBean.cemeteryName"></span></p>
 	</div>
 	<div id="centerText">
         <h1 ng-bind="cemeteryBean.cemeteryName"></h1>
@@ -49,13 +49,13 @@
 		<div id="filterContent">
 			<div class="filterContent">
 			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
-				    <p id={{'g'+graveStyle.id}} ng-click="updatePrice('g',graveStyle.id)">{{graveStyle.description}}</p>
+				    <p id={{'g'+graveStyle.id}} ng-click="updatePrice('g',graveStyle.id)" ng-bind="graveStyle.description"></p>
 				</div>
 			
 			</div>
 			<div class="filterContent">
 			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
-				    <p id={{'e'+epigraphStyle.id}} ng-click="updatePrice('e',epigraphStyle.id)">{{epigraphStyle.style}}</p>
+				    <p id={{'e'+epigraphStyle.id}} ng-click="updatePrice('e',epigraphStyle.id)"  ng-bind="epigraphStyle.style"></p>
 				</div>
 				
 			</div>
@@ -66,7 +66,7 @@
 	</div>
 	<div id="reserver" ng-cloak  style={{display}} >
 		
-		<h3>{{cemeteryPrice.description}}:￥{{cemeteryPrice.price}}</h3>
+		<h3><span ng-bind="cemeteryPrice.description"></span>:￥<span ng-bind="cemeteryPrice.price"></span></h3>
 		<button class="reserverBtn" id="visitButton">在线预约</button>
 		<p>我们会帮您安排参观访问</p>
 
