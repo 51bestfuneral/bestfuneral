@@ -9,7 +9,7 @@ public interface ExpressInfoService {
 	
 	public void addResource(ExpressInfo expressInfo);
 	public void updateResource(ExpressInfo expressInfo);
-	public List<ExpressInfo> getByUserId(long userId);
+	public List<ExpressInfo> getByUserId(int userId);
 	public List<ExpressInfo> getUncompledExpressInfoByUserId(int userId,int statusId);
 	public ExpressInfo getResource(long id);
 	public ExpressInfo getUsingExpressInfo(int userId);
