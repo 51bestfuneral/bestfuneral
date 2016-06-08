@@ -15,7 +15,6 @@
 <script src="/js/sliderx.js"></script>
 <script src="/js/angular-1.4.0-rc.2/angular.js"></script>
 <link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
-<link href="/css/paymentFinal.css" rel="stylesheet">
 <script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script src="/js/generalUsage.js"></script>
 
@@ -86,5 +85,11 @@ app.controller('alipay', function($scope, $http) {
  
 
 });
+
+window.onload=function(){
+    $("#confirmedButton").click(function () {
+	    window.location.href="/mainPage.html";
+	});
+
 </script>
 </html>
