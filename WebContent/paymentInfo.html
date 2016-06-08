@@ -445,6 +445,7 @@ if(deliverMethod==null){
 	    // $scope.currentContacter.wishOrderId=wishOrderId;
 	    $scope.currentContacter.expressMethod=deliverMethod;
 		
+		
 	    var datadata = JSON.stringify($scope.currentContacter);
 	    //	alert("----datadata---"+datadata);
 
@@ -458,10 +459,10 @@ if(deliverMethod==null){
 			dataType:"json"
         }).success(function(){
         
-  
+   window.location.href='paymentConfirm.html'; 
+
           });
  
- window.location.href='paymentConfirm.html'; 
          });
 
 $("#deliveryMethod1").click(function () {

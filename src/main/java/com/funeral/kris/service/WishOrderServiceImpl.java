@@ -63,7 +63,7 @@ public class WishOrderServiceImpl implements WishOrderService {
 
 		List<WishOrder> wishOrderList = this.getResource();
 
-		if (wishOrderList == null) {
+		if (wishOrderList == null||wishOrderList.size()==0) {
 			System.out.println(this.getClass()
 					+ " getLatestOpenWishOrderForSet no pending wish list!");
 

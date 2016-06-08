@@ -326,9 +326,11 @@ app.controller('details', function($scope, $http) {
 			    	$(".saveToCart")[1].innerText = "已添加购物车";
     		    	window.frames[0].addCountOfShoppingCart(1);
     		    	cartDetailId = data[0].cartDetailId;
+    		   window.location.reload();
     				unmusk();
     			},
     			error: function(error) {
+    			window.location.reload();
     				unmusk();
     			}
     		});

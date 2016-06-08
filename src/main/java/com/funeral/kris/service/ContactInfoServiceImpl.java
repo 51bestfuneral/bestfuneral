@@ -54,7 +54,8 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
 		}
 
-		System.out.println("  ----- getByUserId  contactList  size=" + contactList.size());
+		System.out.println("  ----- getByUserId  contactList  size="
+				+ contactList.size());
 
 		return contactList;
 	}
@@ -78,7 +79,7 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
 		}
 
-		return new ContactInfo();
+		return null;
 
 	}
 
@@ -128,17 +129,44 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
 		Iterator iterator = contactInfoList.iterator();
 
-		while (contactInfoList != null && contactInfoList.size() > 0 && iterator.hasNext()) {
+		while (contactInfoList != null && contactInfoList.size() > 0
+				&& iterator.hasNext()) {
 
-			ContactInfo contact = (com.funeral.kris.model.ContactInfo) iterator.next();
+			ContactInfo contact = (com.funeral.kris.model.ContactInfo) iterator
+					.next();
 
 			if (contact.getUserId().intValue() == userId
-					&& contact.getStatusId().intValue() == ContactInfoController.IN_USE.intValue()) {
+					&& contact.getStatusId().intValue() == ContactInfoController.IN_USE
+							.intValue()) {
 				return contact;
 			}
 		}
 
 		return ContactInfo;
+
+	}
+
+	@Override
+	public ContactInfo getUsingContacterByWishOrderId(int wishOrderId) {
+
+		List<ContactInfo> list = this.getResources();
+
+		System.out.println("  ----- getByUserId  list=" + list.size());
+
+		Iterator<ContactInfo> iterator = list.iterator();
+
+		while (iterator.hasNext()) {
+
+			ContactInfo contactInfo = iterator.next();
+
+			if (contactInfo.getWishOrderId().intValue() == wishOrderId
+					&& contactInfo.getStatusId().intValue() == ContactInfoController.IN_USE) {
+				return contactInfo;
+			}
+
+		}
+
+		return null;
 
 	}
 

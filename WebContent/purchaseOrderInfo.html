@@ -127,11 +127,11 @@ app.controller('products', function($scope, $http) {
 	
 		$scope.goToPay = function(wishOrderId){
 	
+	 $http.get("/shoppingCartController/linkToPaymentInfo?wishOrderId="+wishOrderId).success(function(response) {
 	
-	
-		    window.location.href='/paymentInfo.html?wishOrderId='+ wishOrderId;
+		    window.location.href='/paymentInfo.html';
 		   
-		
+		});
 		
 	}
 	

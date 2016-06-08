@@ -15,7 +15,8 @@ public interface ContactInfoService {
 	public ContactInfo getUsingContacter(int userId);
 	public ContactInfo getContacterByWishOrderId(int wishOrderId);
 
-	
+	public ContactInfo getUsingContacterByWishOrderId(int wishOrderId);
+
 	
 	
 }
