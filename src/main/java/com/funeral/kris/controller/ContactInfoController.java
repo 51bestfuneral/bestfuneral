@@ -32,59 +32,61 @@ public class ContactInfoController {
 	@Autowired
 	private ExpressInfoService expressInfoService;
 
-	@ResponseBody
+	private ContactInfo getContactorByWishOrderId(Integer wishOrderId) {
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public void add(@RequestBody ContactInfo contactInfo,HttpServletRequest request) {
+		ContactInfo contactInfo = contactInfoService
+				.getContacterByWishOrderId(wishOrderId);
 
+		return contactInfo;
 
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+	}
 
-		System.out.println(" ----   add  contactInfo =" + contactInfo+" currentWishOrderId="+currentWishOrderId);
+	private ContactInfo updateContactInfo(ContactInfo contactInfo,
+			HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("user");
 
-		contactInfo.setWishOrderId(currentWishOrderId);
-		
-		int userId = contactInfo.getUserId();
+		int userId = user.getUsrId();
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
+		ContactInfo oldContactInfo = this
+				.getContactorByWishOrderId(currentWishOrderId);
+		if (oldContactInfo == null) {
+			contactInfo.setStatusId(IN_USE);
+			contactInfo.setUserId(userId);
+			contactInfo.setGender(3);
+			contactInfo.setWishOrderId(currentWishOrderId);
+			contactInfoService.addResource(contactInfo);
 
-		System.out.println("  ----   userId  = " + userId);
+		} else if (oldContactInfo != null
+				&& contactInfo.getContactId() != oldContactInfo.getContactId()) {
+			oldContactInfo.setUserId(userId);
 
-		List<ContactInfo> contactInfoList = contactInfoService.getByUserId(userId);
+			oldContactInfo.setStatusId(IN_RELEASED);
+			contactInfoService.updateResource(oldContactInfo);
+			contactInfo.setWishOrderId(currentWishOrderId);
+			contactInfo.setStatusId(IN_USE);
+			contactInfo.setUserId(userId);
+			contactInfoService.addResource(contactInfo);
+		} else {
 
-		if (contactInfoList != null) {
-
-			Iterator iterator = contactInfoList.iterator();
-
-			while (iterator.hasNext()) {
-				ContactInfo contact = (ContactInfo) iterator.next();
-
-				if (contact.getStatusId().intValue() == this.IN_USE.intValue()) {
-					contact.setStatusId(1);
-					contactInfoService.updateResource(contact);
-				}
-
-			}
+			contactInfo.setWishOrderId(currentWishOrderId);
+			contactInfo.setStatusId(IN_USE);
+			contactInfo.setUserId(userId);
+			contactInfoService.updateResource(contactInfo);
 
 		}
 
-		contactInfo.setStatusId(IN_USE);
-		contactInfo.setGender(3);
-		contactInfoService.addResource(contactInfo);
+		return contactInfo;
 
-		List<ExpressInfo> expressInfoList = expressInfoService.getByUserId(contactInfo.getUserId());
+	}
 
-		System.out.println("  expressInfoList  ------------------");
-		System.out.println("  expressInfoList  size=" + expressInfoList.size());
+	private ExpressInfo updateExpressInfo(ContactInfo contactInfo) {
 
-		if (expressInfoList != null && expressInfoList.size() > 0) {
+		ExpressInfo express = expressInfoService
+				.getExpressInfoByWishOrderId(contactInfo.getWishOrderId());
 
-			Iterator iterator = expressInfoList.iterator();
-			while (iterator.hasNext()) {
-
-				ExpressInfo express = (ExpressInfo) iterator.next();
-				expressInfoService.deleteResource(express.getExpressId());
-
-			}
-
+		if (express != null) {
+			expressInfoService.deleteResource(express.getExpressId());
 		}
 
 		ExpressInfo expressInfo = new ExpressInfo();
@@ -108,6 +110,23 @@ public class ContactInfoController {
 		expressInfo.setUserId(contactInfo.getUserId());
 
 		expressInfoService.addResource(expressInfo);
+		return expressInfo;
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public void add(@RequestBody ContactInfo contactInfo,
+			HttpServletRequest request) {
+
+		contactInfo = this.updateContactInfo(contactInfo, request);
+
+		System.out.println(this.getClass()
+				+ "  --------------------getContactId---"
+				+ contactInfo.getContactId() + "  getExpressMethod="
+				+ contactInfo.getExpressMethod());
+
+		this.updateExpressInfo(contactInfo);
 	}
 
 	@ResponseBody
@@ -120,7 +139,8 @@ public class ContactInfoController {
 
 		System.out.println("  ----   userId  = " + userId);
 
-		List<ContactInfo> contactInfoList = contactInfoService.getByUserId(user.getUsrId());
+		List<ContactInfo> contactInfoList = contactInfoService.getByUserId(user
+				.getUsrId());
 		return contactInfoList;
 	}
 
@@ -131,7 +151,8 @@ public class ContactInfoController {
 
 		System.out.println("  ----   contactId  = " + contactId);
 
-		ContactInfo contactInfo = contactInfoService.getResource(Integer.parseInt(contactId));
+		ContactInfo contactInfo = contactInfoService.getResource(Integer
+				.parseInt(contactId));
 		return contactInfo;
 	}
 
@@ -142,7 +163,8 @@ public class ContactInfoController {
 
 		System.out.println("  ----   contactId  = " + contactId);
 
-		ContactInfo contactInfo = contactInfoService.getResource(Integer.parseInt(contactId));
+		ContactInfo contactInfo = contactInfoService.getResource(Integer
+				.parseInt(contactId));
 		return contactInfo;
 	}
 
@@ -164,13 +186,16 @@ public class ContactInfoController {
 	@RequestMapping(value = "/getUsingContacterByWishOrderId", method = RequestMethod.GET, produces = "application/json")
 	public ContactInfo getUsingContacterByWishOrderId(HttpServletRequest request) {
 
-		
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
 
+		System.out
+				.println("  --getUsingContacterByWishOrderId--   currentWishOrderId  = "
+						+ currentWishOrderId);
 
-		System.out.println("  --getUsingContacterByWishOrderId--   currentWishOrderId  = " + currentWishOrderId);
+		ContactInfo ContactInfo = contactInfoService
+				.getUsingContacterByWishOrderId(currentWishOrderId);
 
-		ContactInfo ContactInfo = contactInfoService.getContacterByWishOrderId(currentWishOrderId);
 		return ContactInfo;
 
 	}

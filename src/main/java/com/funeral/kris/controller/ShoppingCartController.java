@@ -82,7 +82,7 @@ public class ShoppingCartController {
 	public Map<Integer, Wish> wishsMap = null;
 
 	private void initialWishMap() {
-//		HttpServletRequest fakeRequest = null;
+		// HttpServletRequest fakeRequest = null;
 		List<Wish> wishs = wishService.getResources();
 		wishsMap = new HashMap<Integer, Wish>();
 		for (Wish wish : wishs) {
@@ -139,6 +139,29 @@ public class ShoppingCartController {
 		return cartlistJsons;
 	}
 
+	
+	private BigDecimal getGrossFee(List<OrderDetail> orderDetailList){
+		
+		BigDecimal grossFee = BigDecimal.ZERO;
+
+		if (orderDetailList != null && orderDetailList.size() > 0) {
+
+			Iterator iterator = orderDetailList.iterator();
+			while (iterator.hasNext()) {
+				OrderDetail orderDetail = (OrderDetail) iterator.next();
+
+				orderDetail.setWishName(wishsMap.get(orderDetail.getWishId())
+						.getWishName());
+				grossFee = grossFee.add(orderDetail.getPrice().multiply(
+						new BigDecimal(orderDetail.getCount())));
+			}
+
+		}
+		return grossFee;
+		
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "/payMethod", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart payMethod(HttpServletRequest request) {
@@ -146,49 +169,48 @@ public class ShoppingCartController {
 
 		User user = (User) session.getAttribute("user");
 		// 更新应付费用
-//		String wishOrderId = request.getParameter("wishOrderId");
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+		// String wishOrderId = request.getParameter("wishOrderId");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
 
 		String payMethod = request.getParameter("payMethod");
 
+		// 获取当前的wish order id
+		
 		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
-
-		ShoppingCart shoppingCart = new ShoppingCart();
-		shoppingCart.setPayMethod(Integer.parseInt(payMethod));
-		wishOrder.setPayWishOrderId(currentWishOrderId);
+		
 		wishOrder.setPayMethod(Integer.parseInt(payMethod));
-		ExpressInfo info = expressInfoService
-				.getExpressInfoByWishOrderId(currentWishOrderId);
+		System.out.println(this.getClass()+" ----------------updateWishOrderPrice payMethod=  "+payMethod);
 
-		shoppingCart.setExpressFee(info.getExpressFee());
+		ShoppingCart shoppingCart=new ShoppingCart();
+		//设置最新的支付方式
+		shoppingCart.setPayMethod(Integer.parseInt(payMethod));
+		
+		// 获取快递信息及快递费
+		this.setExpressInfo(shoppingCart, currentWishOrderId);
+		//设置套餐信息包括套餐费
+		this.setSetInfo(wishOrder.getPayMethod().intValue(), request,
+				shoppingCart);
+        //设置直接选择的信息
+		this.setCartOrderInfo(user, currentWishOrderId, wishOrder
+				.getPayMethod().intValue(), shoppingCart);
+        
+		//设置订单的小计，总费用
+		this.updateWishOrderPrice(user, shoppingCart,  wishOrder);
 
-		BigDecimal setFee = this.processSet(Integer.parseInt(payMethod),
-				request);
+		Integer setWishOrderId = shoppingCart.getSetWishOrderId();
 
-		if (Integer.parseInt(payMethod) == WishConstants.wishorder_paymethod_wishListOnly) {
+		session.setAttribute("setWishOrderId", setWishOrderId);
 
-			WishOrder setwishOrder = wishOrderService
-					.getLatestOpenWishOrderForSet(user.getUsrId());
-			if (setwishOrder != null) {
+		return shoppingCart;
 
-				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
-			}
+	}
 
-			shoppingCart.setGrossFee(setFee);
-
-			wishOrder.setPrice(shoppingCart.getGrossFee());
-			wishOrder
-					.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
-			wishOrderService.updateResource(wishOrder);
-
-			shoppingCart.setNetFee(shoppingCart.getGrossFee().add(
-					shoppingCart.getExpressFee()));
-
-			return shoppingCart;
-		}
+	private ShoppingCart setCartOrderInfo(User user, int currentWishOrderId,
+			int payMethod, ShoppingCart shoppingCart) {
 
 		List<OrderDetail> orderDetailList = orderDetailService
-				.getResourcesByWishOrderId(currentWishOrderId);
+				.getResourcesByWishOrderIdForShoppingCart(currentWishOrderId);
 
 		if (wishsMap == null) {
 			this.initialWishMap();
@@ -209,16 +231,170 @@ public class ShoppingCartController {
 			}
 
 		}
+		shoppingCart.setOrderDetailForCartList(orderDetailList);
+		
+		shoppingCart.setGrossFee(grossFee);
 
-		if (Integer.parseInt(payMethod) == WishConstants.wishorder_paymethod_shoppingCartOnly) {
+		return shoppingCart;
+	}
+
+	private void setExpressInfo(ShoppingCart shoppingCart,
+			Integer currentWishOrderId) {
+
+		ExpressInfo info = expressInfoService
+				.getExpressInfoByWishOrderId(currentWishOrderId);
+
+		shoppingCart.setExpressFee(info.getExpressFee());
+
+		ExpressBean bean = new ExpressBean();
+
+		bean.setExpressMethod(info.getDeliveryMethod());
+
+		if (info.getDeliveryMethod().intValue() == 1) {
+			bean.setExpressTitle(this.express_method_saved_in_niannian_title);
+			bean.setExpressDescription(this.express_method_saved_in_niannian_description);
+		} else if (info.getDeliveryMethod().intValue() == 2) {
+
+			bean.setExpressTitle(this.express_method_standard_title);
+			bean.setExpressDescription(this.express_method_standard_description);
+
+		} else {
+
+			bean.setExpressTitle(this.express_method_express_title);
+			bean.setExpressDescription(this.express_method_express_description);
+		}
+
+		if (info.getProvince().equals("1")) {
+
+			bean.setProvince(this.province_JS);
+		} else if (info.getProvince().equals("2")) {
+			bean.setProvince(this.province_SH);
+		} else {
+			bean.setProvince(this.province_ZJ);
+		}
+		bean.setExpressInfo(info);
+
+		shoppingCart.setExpressBean(bean);
+
+	}
+
+	private void setPayMethod(ShoppingCart shoppingCart) {
+
+		boolean hasShoppingCart = shoppingCart.getOrderDetailForCartList() != null
+				&& shoppingCart.getOrderDetailForCartList().size() > 0;
+
+		boolean hasWishList = shoppingCart.getWishListJson() != null
+				&& shoppingCart.getWishListJson().getAmount().intValue() > 0;
+
+		System.out
+				.println(this.getClass()
+						+ "   ===============getShoppingCartForPayMentConfirm hasShoppingCart"
+						+ hasShoppingCart + " hasWishList=" + hasWishList);
+
+		if (hasShoppingCart && hasWishList) {
+			// 既有直接购买，又有pending的套餐
+			shoppingCart
+					.setPayMethod(WishConstants.wishorder_paymethod_together);
+
+		} else if (hasShoppingCart && !hasWishList) {
+			// 只有直接购买
+			shoppingCart
+					.setPayMethod(WishConstants.wishorder_paymethod_shoppingCartOnly);
+
+		} else {
+			// 只有套餐
+			shoppingCart
+					.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
+
+		}
+
+	}
+
+	private ShoppingCart setSetInfo(int payMethod, HttpServletRequest request,
+			ShoppingCart shoppingCart) {
+
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
+
+		
+		BigDecimal setCost = BigDecimal.ZERO;
+
+		WishOrder latestOpenWishOrder = wishOrderService
+				.getLatestOpenWishOrderForSet(user.getUsrId());
+
+		List<OrderDetail> setOrderDetailList = orderDetailService
+				.getOrderDetailFromWishList(user.getWishlistId());
+		
+		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
+				setOrderDetailList, user.getWishlistId());
+
+		setCost = this.getSetFee(latestOpenWishOrder);
+
+		shoppingCart.setOrderDetailForWishList(setOrderDetailList);
+		
+		shoppingCart.setSetFee(setCost);
+
+		shoppingCart.setWishListJson(wishListJson);
+
+		this.buildPayRelation(payMethod, currentWishOrderId,
+				latestOpenWishOrder);
+
+		return shoppingCart;
+
+	}
+
+	private BigDecimal getSetFee(WishOrder LatestOpenWishOrder) {
+		if (LatestOpenWishOrder == null) {
+
+			return BigDecimal.ZERO;
+		}
+
+		return LatestOpenWishOrder.getPrice();
+	}
+
+	private void updateWishOrderPrice(User user,ShoppingCart shoppingCart,
+			WishOrder wishOrder) {
+
+		BigDecimal grossFee = this.getGrossFee(shoppingCart.getOrderDetailForCartList());
+		
+		System.out.println(this.getClass()+" ----------------updateWishOrderPrice grossFee=  "+grossFee);
+		
+		BigDecimal setFee = shoppingCart.getSetFee();
+		
+		System.out.println(this.getClass()+" ----------------updateWishOrderPrice setFee=  "+setFee);
+
+		
+		if (shoppingCart.getPayMethod() == WishConstants.wishorder_paymethod_shoppingCartOnly) {
 			shoppingCart.setGrossFee(grossFee);
 			shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee));
 			wishOrder.setPrice(shoppingCart.getGrossFee());
 			wishOrder
 					.setPayMethod(WishConstants.wishorder_paymethod_shoppingCartOnly);
 			wishOrderService.updateResource(wishOrder);
-			return shoppingCart;
-		} else {
+		} else if(shoppingCart.getPayMethod() == WishConstants.wishorder_paymethod_wishListOnly){
+			
+
+			WishOrder setwishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			if (setwishOrder != null) {
+
+				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
+			}
+			shoppingCart.setGrossFee(setFee);
+			shoppingCart.setNetFee(shoppingCart.getExpressFee()
+					.add(setFee));
+			wishOrder.setPrice(shoppingCart.getGrossFee());
+			wishOrder.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
+			wishOrderService.updateResource(wishOrder);	
+			
+			
+		}
+		
+		
+		else
+		{
 			WishOrder setwishOrder = wishOrderService
 					.getLatestOpenWishOrderForSet(user.getUsrId());
 			if (setwishOrder != null) {
@@ -234,7 +410,35 @@ public class ShoppingCartController {
 			wishOrderService.updateResource(wishOrder);
 		}
 
-		return shoppingCart;
+		
+
+	}
+
+	private void buildPayRelation(int payMethod, Integer currentWishOrderId,
+			WishOrder LatestOpenWishOrder) {
+		
+		if(LatestOpenWishOrder==null){
+			
+			return ;
+		}
+
+		if (payMethod == WishConstants.wishorder_paymethod_shoppingCartOnly) {
+
+			LatestOpenWishOrder.setPayWishOrderId(null);
+
+			LatestOpenWishOrder.setStatusId(WishConstants.wishlist_status_init);
+
+			wishOrderService.updateResource(LatestOpenWishOrder);
+		} else {
+
+			LatestOpenWishOrder.setPayWishOrderId(currentWishOrderId);
+
+			LatestOpenWishOrder
+					.setStatusId(WishConstants.wishorder_status_pendingPay);
+
+			wishOrderService.updateResource(LatestOpenWishOrder);
+
+		}
 
 	}
 
@@ -270,7 +474,8 @@ public class ShoppingCartController {
 
 		List<OrderDetail> setOrderDetailList = orderDetailService
 				.getOrderDetailFromWishList(user.getWishlistId());
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
 
 		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
 				setOrderDetailList, user.getWishlistId());
@@ -678,6 +883,22 @@ public class ShoppingCartController {
 		return wishListJson;
 
 	}
+	@ResponseBody
+	@RequestMapping(value = "/linkToPaymentInfo", method = RequestMethod.GET)
+	@Transactional(propagation = Propagation.REQUIRED)
+	public int linkToPaymentInfo(HttpServletRequest request) throws Exception {
+		
+		String wishOrderId=request.getParameter("wishOrderId");
+		
+		HttpSession session = request.getSession(false);
+		session.setAttribute("currentWishOrderId",Integer.parseInt(wishOrderId));
+		
+		return Integer.parseInt(wishOrderId);
+		
+		
+	}
+	
+	
 
 	@ResponseBody
 	@RequestMapping(value = "/getShoppingCartForPayMentConfirm", method = RequestMethod.GET)
@@ -685,156 +906,29 @@ public class ShoppingCartController {
 	public ShoppingCart getShoppingCartForPayMentConfirm(
 			HttpServletRequest request) throws Exception {
 
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
-
-		
-//		String wishOrderId = request.getParameter("wishOrderId");
 		HttpSession session = request.getSession(false);
-
 		User user = (User) session.getAttribute("user");
 		ShoppingCart shoppingCart = new ShoppingCart();
 
-		ExpressInfo info = expressInfoService
-				.getExpressInfoByWishOrderId(currentWishOrderId);
-
-		shoppingCart.setExpressFee(info.getExpressFee());
-
+		// 获取当前的wish order id
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
+		
+		
 		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
-		BigDecimal setFee = BigDecimal.ZERO;
 
-		WishOrder setwishOrder = wishOrderService
-				.getLatestOpenWishOrderForSet(user.getUsrId());
-		if (setwishOrder != null) {
-
-			shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
-		}
-
-		setFee = this.processSet(wishOrder.getPayMethod().intValue(), request);
-
-		System.out
-				.println(this.getClass()
-						+ "   ===============getShoppingCartForPayMentConfirm getPayMethod"
-						+ wishOrder.getPayMethod() + " currentWishOrderId="
-						+ currentWishOrderId);
-
-		shoppingCart.setPayMethod(wishOrder.getPayMethod());
-
-		List<OrderDetail> setOrderDetailList = orderDetailService
-				.getOrderDetailFromWishList(user.getWishlistId());
-		shoppingCart.setOrderDetailForWishList(setOrderDetailList);
-		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
-				setOrderDetailList, user.getWishlistId());
-
-		shoppingCart.setWishListJson(wishListJson);
-
-		List<OrderDetail> orderDetailList = orderDetailService
-				.getResourcesByWishOrderIdForShoppingCart(currentWishOrderId);
-
-		if (wishsMap == null) {
-			this.initialWishMap();
-		}
-
-		BigDecimal grossFee = BigDecimal.ZERO;
-
-		if (orderDetailList != null && orderDetailList.size() > 0) {
-
-			Iterator iterator = orderDetailList.iterator();
-			while (iterator.hasNext()) {
-				OrderDetail orderDetail = (OrderDetail) iterator.next();
-
-				orderDetail.setWishName(wishsMap.get(orderDetail.getWishId())
-						.getWishName());
-				grossFee = grossFee.add(orderDetail.getPrice().multiply(
-						new BigDecimal(orderDetail.getCount())));
-			}
-
-		}
-
-		shoppingCart.setGrossFee(grossFee.add(setFee));
-
-
-		shoppingCart.setSetFee(setFee);
-		shoppingCart.setOrderDetailForCartList(orderDetailList);
-
-		boolean hasShoppingCart = shoppingCart.getOrderDetailForCartList() != null
-				&& shoppingCart.getOrderDetailForCartList().size() > 0;
-
-		boolean hasWishList = shoppingCart.getWishListJson() != null
-				&& shoppingCart.getWishListJson().getAmount().intValue() > 0;
-
-		System.out
-				.println(this.getClass()
-						+ "   ===============getShoppingCartForPayMentConfirm hasShoppingCart"
-						+ hasShoppingCart + " hasWishList=" + hasWishList);
-
-		if (hasShoppingCart && hasWishList) {
-			// 既有直接购买，又有pending的套餐
-			shoppingCart
-					.setPayMethod(WishConstants.wishorder_paymethod_together);
-
-		} else if (hasShoppingCart && !hasWishList) {
-			// 只有直接购买
-			shoppingCart
-					.setPayMethod(WishConstants.wishorder_paymethod_shoppingCartOnly);
-
-		} else {
-			// 只有套餐
-			shoppingCart
-					.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
-
-		}
-
-		ExpressBean bean = new ExpressBean();
-
-		bean.setExpressMethod(info.getDeliveryMethod());
-
-		if (info.getDeliveryMethod().intValue() == 1) {
-			bean.setExpressTitle(this.express_method_saved_in_niannian_title);
-			bean.setExpressDescription(this.express_method_saved_in_niannian_description);
-		} else if (info.getDeliveryMethod().intValue() == 2) {
-
-			bean.setExpressTitle(this.express_method_standard_title);
-			bean.setExpressDescription(this.express_method_standard_description);
-
-		} else {
-
-			bean.setExpressTitle(this.express_method_express_title);
-			bean.setExpressDescription(this.express_method_express_description);
-		}
-
-		if (info.getProvince().equals("1")) {
-
-			bean.setProvince(this.province_JS);
-		} else if (info.getProvince().equals("2")) {
-			bean.setProvince(this.province_SH);
-		} else {
-			bean.setProvince(this.province_ZJ);
-		}
-		bean.setExpressInfo(info);
-
-		shoppingCart.setExpressBean(bean);
-
-		//去除套餐费
-		if(shoppingCart.getPayMethod().intValue()==2){
-		wishOrder.setPrice(shoppingCart.getGrossFee().subtract(shoppingCart.getSetFee()));
-
-		}
-		
-		
-		if(shoppingCart.getPayMethod().intValue()!=2){
-			shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee)
-					.add(setFee));
-	}else{
-		
-		shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee)
-				);	
-	}
-		
-		
-		
-		wishOrder.setPayMethod(shoppingCart.getPayMethod());
-
-		wishOrderService.updateResource(wishOrder);
+		// 获取快递信息及快递费
+		this.setExpressInfo(shoppingCart, currentWishOrderId);
+		//设置套餐信息包括套餐费
+		this.setSetInfo(wishOrder.getPayMethod().intValue(), request,
+				shoppingCart);
+        //设置直接选择的信息
+		this.setCartOrderInfo(user, currentWishOrderId, wishOrder
+				.getPayMethod().intValue(), shoppingCart);
+        //设置最新的支付方式
+		this.setPayMethod(shoppingCart);
+		//设置订单的小计，总费用
+		this.updateWishOrderPrice(user, shoppingCart,  wishOrder);
 
 		Integer setWishOrderId = shoppingCart.getSetWishOrderId();
 
@@ -893,13 +987,19 @@ public class ShoppingCartController {
 			}
 			order.setPrice(totalPrice);
 			order.setOriginalPrice(originalTotalPrice);
+			
+			
+			request.getSession().setAttribute("currentWishOrderId", order.getWishOrderId());
+			System.out.println(this.getClass()+"------------------ generateOrderByCart currentWishOrderId="+order.getWishOrderId());
+			
 			wishOrderService.updateResource(order);
 		} catch (Exception e) {
 			throw e;
 		}
-		
-		request.getSession().setAttribute("currentWishOrderId", order.getWishOrderId());
-		
+
+		request.getSession().setAttribute("currentWishOrderId",
+				order.getWishOrderId());
+
 		return order.getWishOrderId();
 	}
 

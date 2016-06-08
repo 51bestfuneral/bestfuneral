@@ -156,7 +156,7 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 
 		}
 
-		return new ExpressInfo();
+		return null;
 
 	}
 
