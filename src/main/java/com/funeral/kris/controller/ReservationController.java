@@ -1,6 +1,9 @@
 package com.funeral.kris.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,11 +59,23 @@ public class ReservationController {
 
 	@ResponseBody
 	@RequestMapping(value="/add",method=RequestMethod.POST, produces = "application/json")
-	public int addServation(@RequestBody Reservation reservation, HttpServletRequest request) {
+	public int addServation(@RequestBody Reservation reservation, HttpServletRequest request) throws Exception {
 		User user = (User)request.getSession().getAttribute("user");
 		reservation.setUserId(user.getUsrId());
 		if (user == null) {
 			return 1;
+		}
+		if(reservation.getReservDte()==""){
+			return 3;
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");                
+		 Date reservateDate = sdf.parse(reservation.getReservDte());
+		 Calendar cal = Calendar.getInstance();
+		 cal.setTime(new Date());
+		 cal.add(Calendar.DATE, -1);
+		 Date now = cal.getTime();
+		if(reservateDate.before(now)){
+			return 4;
 		}
 		if (reservationService.getDuplicate(reservation)) {
 			return 2;

@@ -237,6 +237,12 @@ window.onload = function() {
 				else if (data === 2) {
 					alert("您已经预约过了");
 				}
+				else if(data ===3){
+					alert("请选择预约时间");
+				}
+				else if(data ===4){
+					alert("您选择的预约时间早于今天，请重新选择");
+				}
         		else {
         			alert("预约成功");
         			parent.removeSelf();
