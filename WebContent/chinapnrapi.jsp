@@ -66,7 +66,7 @@ System.out.println(" sParaTemp ="+sParaTemp);
 	//sParaTemp.put("show_url",  AlipayUtil.PAGE_URL + "/paymentFinal.html");
 	//sParaTemp.put("anti_phishing_key", anti_phishing_key);
 	//sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
-	String sHtmlText = ChinapnrService.buildRequest(sParaTemp,"get","确定");
+	String sHtmlText = ChinapnrService.buildRequest(sParaTemp,"get","确认");
 	out.println(sHtmlText);
 
 %>
