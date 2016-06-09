@@ -310,7 +310,7 @@
 				'width': '0px',
 				'height': '0px',
 				'position': 'absolute',
-				'right': right+5,
+				'right': right+20,
 				'top': top-12,
 				'overflow': 'hidden',
 				'border-left': '18px solid transparent',
@@ -335,8 +335,8 @@
 				'text-align': 'center',
 				'color': '#ffffff'
 			});
-			parent.find("#wishlistInfo").fadeIn();
-			parent.find("#wishlistSub").fadeIn();
+			parent.find("#wishlistInfo").show();
+			parent.find("#wishlistSub").show();
 			parent.find("#wishlistInfo").addClass("tempAdd");
 			parent.find("#wishlistInfo").mouseenter(function () {
 				$(this).addClass("tempAdd");
@@ -410,7 +410,7 @@
 				'width': '0px',
 				'height': '0px',
 				'position': 'absolute',
-				'right': right+40,
+				'right': right+60,
 				'top': top-12,
 				'overflow': 'hidden',
 				'border-left': '18px solid transparent',
@@ -444,7 +444,7 @@
                     'float': 'left',
                     'margin-right': '5px'
 			    });
-                parent.find("#navigateButton2").css({
+                parent.find("#navigateButton3").css({
 					'width': '67px',
 					'height': '26px',
 					'background': '#ed4b83',
@@ -458,8 +458,19 @@
 				parent.find("#navigateButton1").click(function() {
 					window.parent.location.href = "shoppingCart.html";
 				});
-				parent.find("#navigateButton2").click(function() {
+				parent.find("#navigateButton3").click(function() {
 					window.parent.location.href = "paymentInfo.html";
+					$.ajax({
+						url: '/shoppingCartController/generateOrderByCart',
+						type: 'GET',
+						contentType: "application/json; charset=UTF-8",
+						success:function(data){
+							window.location.href="paymentInfo.html";
+						},
+						error: function(error) {
+							window.location.href="paymentInfo.html";
+						}
+					});
 				});
             }
             parent.find(".navigateButton").find("p").css({
@@ -467,8 +478,8 @@
 				'text-align': 'center',
 				'color': '#ffffff'
 			});
-			parent.find("#shoppingInfo").fadeIn();
-			parent.find("#shoppingSub").fadeIn();
+			parent.find("#shoppingInfo").show();
+			parent.find("#shoppingSub").show();
 			parent.find("#shoppingInfo").addClass("tempAdd");
 			parent.find("#shoppingInfo").mouseenter(function () {
 				$(this).addClass("tempAdd");
@@ -631,8 +642,8 @@
 					'border-bottom': '20px solid #ffffff',
 					'z-index': 21
 				});
-				parent.find("#userInfo").fadeIn();
-				parent.find("#userSub").fadeIn();
+				parent.find("#userInfo").show();
+				parent.find("#userSub").show();
 				parent.find("#userInfo").addClass("tempAdd");
 				parent.find("#userInfo").mouseenter(function () {
 					$(this).addClass("tempAdd");

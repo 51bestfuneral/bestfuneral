@@ -55,7 +55,7 @@
 	overflow: auto;
 	float: left;
 	margin-right: 113px;
-	margin-bottom: 27px;
+	min-height: 300px;
 }
 .questionHeader {
     width: 20px;
