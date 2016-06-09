@@ -287,7 +287,14 @@ function floatAlertBar(content) {
 	},5000);
 }
 
-function popupWarningMessagePage(content, callback) {
+
+function clearWarningmusk () {
+	$(".jquery_addmask").remove();
+	$(".loginFrameCoat").remove();
+	$("#warningMsg").remove();
+}
+
+function popupWarningMessagePage(content, callback, headerContent) {
 	var screenHeight = document.documentElement.clientHeight,
 	    centerTop = (screenHeight-100)/2;
 		$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
@@ -299,7 +306,7 @@ function popupWarningMessagePage(content, callback) {
 				height: $(document).height(),
 				'background-color': 'rgba(0,0,0,.6)'
 			}).show();
-		$('<div id="loginFrameCoat" hidden><div id="warningMsg"><p class="warningHeader">提示信息</p><p>'+content+'</p><button class="linkButton confirm">確定</button><button class="linkButton cancel">取消</button></div></div>').appendTo(document.body).css({ 
+		$('<div id="loginFrameCoat" hidden><div id="warningMsg"><p class="warningHeader">'+headerContent+'</p><p>'+content+'<span style="font-size: 6px;" id="processingBtn" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span></p><button class="linkButton confirm">確定</button><button class="linkButton cancel">取消</button></div></div>').appendTo(document.body).css({ 
 			height: 'auto',
 			width: '100%',
 			top: centerTop+'px',
@@ -351,15 +358,17 @@ function popupWarningMessagePage(content, callback) {
 			'color': '#3c3c3c'
 		});
 		$("#warningMsg").find(".cancel").click(function() {
-			$(".jquery_addmask").remove();
-			$(".loginFrameCoat").remove();
-			$("#warningMsg").remove();
+			clearWarningmusk();
 		});
 		$("#warningMsg").find(".confirm").click(function() {
-			callback();
-			$(".jquery_addmask").remove();
-			$(".loginFrameCoat").remove();
-			$("#warningMsg").remove();
+			if (!$(this).hasClass("disabled")) {
+				$(this).addClass("disabled");
+				$("#processingBtn").show();
+				$(this).css({
+					'opacity':'0.6'
+				});
+				callback();
+			}
 		});
 		var box_left = ($(window).width()- $("#loginFrameCoat").width()) / 2;
 		for(var i=1; 4>=i; i++){
@@ -389,4 +398,3 @@ function verifySession(){
     });
 	
 }
-

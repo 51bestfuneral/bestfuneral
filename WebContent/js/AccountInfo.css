@@ -285,7 +285,7 @@
 	select {
 	    font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	}
-	.removeBtn {
+	.sideBtn {
 	    float: right;
         margin-top: -27px;
         margin-right: 5px;
