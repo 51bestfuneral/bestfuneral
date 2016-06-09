@@ -380,7 +380,7 @@ function verifySession(){
 		success:function(data){
 			if (data === 0) {
 				alert("用户已超时，请重新登录");
-				window.location.href = "/needLogIn.html";
+				window.location.href = "/needLogIn.html?returnUrl="+window.location.href;
 			}
     	},
 	    error: function(error) {
