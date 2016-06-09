@@ -81,8 +81,8 @@
         sParaTemp.put("seller_email", AlipayUtil.seller_email);
         sParaTemp.put("_input_charset", AlipayUtil.input_charset);
 		sParaTemp.put("payment_type", payment_type);
-		sParaTemp.put("notify_url", "http://121.42.182.117/notify_url.jsp");
-		sParaTemp.put("return_url", "http://121.42.182.117/paymentFinal.html");
+		sParaTemp.put("notify_url", AlipayUtil.Alipay_notify_url);
+		sParaTemp.put("return_url", AlipayUtil.RETURN_PAGE_URL);
 		sParaTemp.put("out_trade_no", tradeNo);
 		sParaTemp.put("subject", subject);
 		sParaTemp.put("total_fee", total_fee);

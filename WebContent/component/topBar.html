@@ -212,7 +212,7 @@
 	});
 	$("#design").on("click", function () {
 	    if (type !== 'design') {
-            window.parent.location.href='../funeralDesignPage.html';
+            window.parent.location.href='../designProposal.html';
 		}
 	});
 	$("#product").on("click", function () {
@@ -608,6 +608,7 @@
 							window.parent.location.reload();
 						},
 						error: function(error) {
+								window.parent.location.reload();  
 					    }
 					});
 				});

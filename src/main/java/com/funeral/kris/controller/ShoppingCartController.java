@@ -426,16 +426,12 @@ public class ShoppingCartController {
 
 			LatestOpenWishOrder.setPayWishOrderId(null);
 
-			LatestOpenWishOrder.setStatusId(WishConstants.wishlist_status_init);
-
 			wishOrderService.updateResource(LatestOpenWishOrder);
 		} else {
 
 			LatestOpenWishOrder.setPayWishOrderId(currentWishOrderId);
 
-			LatestOpenWishOrder
-					.setStatusId(WishConstants.wishorder_status_pendingPay);
-
+		
 			wishOrderService.updateResource(LatestOpenWishOrder);
 
 		}
@@ -466,7 +462,6 @@ public class ShoppingCartController {
 			// 告訴wishOrder，将要在哪个订单下支付，并且修改wishOrder状态
 			wishOrder.setPayWishOrderId(null);
 
-			wishOrder.setStatusId(WishConstants.wishlist_status_init);
 
 			wishOrderService.updateResource(wishOrder);
 
@@ -485,7 +480,7 @@ public class ShoppingCartController {
 		// 告訴wishOrder，将要在哪个订单下支付，并且修改wishOrder状态
 		wishOrder.setPayWishOrderId(currentWishOrderId);
 
-		wishOrder.setStatusId(WishConstants.wishorder_status_pendingPay);
+		wishOrder.setStatusId(WishConstants.wishlist_status_init);
 
 		wishOrderService.updateResource(wishOrder);
 
