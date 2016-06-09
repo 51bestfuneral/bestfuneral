@@ -134,6 +134,8 @@ public class ExpressController {
 			}
 		}
 
+		wishOrder.setStatusId(WishConstants.wishorder_status_pendingPay);
+		wishOrderService.updateResource(wishOrder);
 		// send email
 		Map<String, String> messageInfo = new HashMap<String, String>();
 		messageInfo.put("to", "li.yuan@ebaotech.com");

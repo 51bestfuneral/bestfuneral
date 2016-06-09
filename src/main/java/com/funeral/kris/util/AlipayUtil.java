@@ -20,12 +20,20 @@ public class AlipayUtil {
 	
 	public static String customer_url ="";
 	
-	public static final String HTTPS_VERIFY_URL = "https://mapi.alipay.com/gateway.do?service=notify_verify&";
+	public static  String HTTPS_VERIFY_URL = "https://mapi.alipay.com/gateway.do?service=notify_verify&";
 	
 	
-	public static final String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
+	public static  String ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?";
 	
-	public static final String PAGE_URL ="http://121.42.182.117/funeral/pages/paymentFinal.html";
+	public static  String web_app="http://365niannian.com";
+	
+	public static  String PAGE_URL =web_app +"/payment.html";
+	
+	public static  String RETURN_PAGE_URL =web_app +"/payment.html";
+
+	public static  String Alipay_notify_url =web_app +"/notify_url.jsp";
+
+	
 	
 	public static int order_open=1;
 

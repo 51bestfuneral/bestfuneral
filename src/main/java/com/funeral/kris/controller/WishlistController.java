@@ -189,7 +189,7 @@ public class WishlistController {
 		order.setOriginalPrice(wishlist.getOriginalPrice());
 		order.setSourceId(WishConstants.order_source_set);
 		order.setPayMethod(WishConstants.wishorder_paymethod_together);
-		order.setStatusId(WishConstants.wishlist_status_init);
+		order.setStatusId(WishConstants.wishorder_status_pendingPay);
 		wishOrderService.addResource(order);
 		List<WishlistDetail> wishdetailList = new ArrayList<WishlistDetail>();
 		wishdetailList = wishlistDetailService.getResourceByWishListId(user.getWishlistId());

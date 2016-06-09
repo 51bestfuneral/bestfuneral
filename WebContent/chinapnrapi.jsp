@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=gbk" language="java" import="java.util.*" errorPage="" %>
 <%@ page import="com.funeral.kris.service.*"%>
-<%@ page import="java.io.*,java.lang.*,java.sql.*,java.util.*,chinapnr.*,com.funeral.kris.util.ChinapnrUtil" %>
+<%@ page import="java.io.*,java.lang.*,java.sql.*,java.util.*,chinapnr.*,com.funeral.kris.util.*" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,8 +22,8 @@
     
     String 	CurCode			= "RMB";
     String 	Pid				= "";//request.getParameter("Pid").trim();
-    String 	RetUrl			= "http://www.365niannian.com/paymentFinal.html";
-    String 	BgRetUrl		= "http://www.365niannian.com/Buy_notify_url.jsp";
+    String 	RetUrl			= ChinapnrUtil.RETURN_PAGE_URL;
+    String 	BgRetUrl		= ChinapnrUtil.Chinapnr_Buy_notify_url;
     String 	MerPriv			= ChinapnrUtil.merPriv;
     String 	GateId			= ChinapnrUtil.gateId;
     String 	UsrMp			= request.getParameter("UsrMp").trim();
