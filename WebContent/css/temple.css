@@ -25,7 +25,7 @@
 	text-align: left;
 }
 #leftTop p{
-    font-size: 12px;
+    font-size: 16px;
 	line-height: 16px;
 	color: #ffffff;
 	margin: 0px;
@@ -41,7 +41,7 @@
 	margin-top: 130px;
 }
 
-.label {
+.keylabel {
     font-size: 20px;
 	line-height: 20px;
 	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
