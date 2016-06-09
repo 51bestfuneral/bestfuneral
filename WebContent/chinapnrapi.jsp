@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>濮瑰洣绮径鈺�瑓</title>
+<title></title>
 </head>
 <body>
 <%
@@ -22,8 +22,8 @@
     
     String 	CurCode			= "RMB";
     String 	Pid				= "";//request.getParameter("Pid").trim();
-    String 	RetUrl			= "http://121.42.182.117/paymentFinal.html";
-    String 	BgRetUrl		= "http://121.42.182.117/pages/Buy_notify_url.jsp";
+    String 	RetUrl			= "http://www.365niannian.com/paymentFinal.html";
+    String 	BgRetUrl		= "http://www.365niannian.com/Buy_notify_url.jsp";
     String 	MerPriv			= ChinapnrUtil.merPriv;
     String 	GateId			= ChinapnrUtil.gateId;
     String 	UsrMp			= request.getParameter("UsrMp").trim();
@@ -31,11 +31,10 @@
     String 	PayUsrId		= "";// request.getParameter("PayUsrId").trim();
 	String path =application.getRealPath("");
 	System.out.println(" -----path----"+path);
-	//缁涙儳绠�	String 	MerKeyFile	= path+"/pages/MerPrK873839.key";
+	String 	MerKeyFile	= path+"/pages/MerPrK873839.key";
 	System.out.println(OrdAmt);
 	String	MerData = Version + CmdId + MerId + OrdId + OrdAmt + CurCode + Pid + RetUrl + MerPriv + GateId + UsrMp + DivDetails + PayUsrId + BgRetUrl;	
-	
-SecureLinks sl=new SecureLink();
+	SecureLink sl=new SecureLink();
 	int ret=sl.SignMsg(MerId,MerKeyFile,MerData);
 
 	if (ret != 0) 
@@ -67,7 +66,7 @@ System.out.println(" sParaTemp ="+sParaTemp);
 	//sParaTemp.put("show_url",  AlipayUtil.PAGE_URL + "/paymentFinal.html");
 	//sParaTemp.put("anti_phishing_key", anti_phishing_key);
 	//sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
-	//闂勫棛鐦琤閸忋劎妯�	String sHtmlText = ChinapnrService.buildRequest(sParaTemp,"get","绾喛顓�);
+	String sHtmlText = ChinapnrService.buildRequest(sParaTemp,"get","确定");
 	out.println(sHtmlText);
 
 %>
