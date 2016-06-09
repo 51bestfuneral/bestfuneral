@@ -368,3 +368,25 @@ function popupWarningMessagePage(content, callback) {
 		}
 		window.onresize = resizeWarning;
 }
+
+function verifySession(){
+	
+	$.ajax({
+    	url: '/user/verifySession',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		dataType: 'json',
+		data: [],
+		success:function(data){
+			if (data === 0) {
+				alert("用户已超时，请重新登录");
+				window.location.href = "/needLogIn.html?returnUrl="+window.location.href;
+			}
+    	},
+	    error: function(error) {
+		    alert(error);
+	    }
+    });
+	
+}
+

@@ -25,12 +25,12 @@
 	text-align: left;
 }
 #leftTop p{
-    font-size: 12px;
+    font-size: 16px;
 	line-height: 16px;
 	color: #ffffff;
 	margin: 0px;
 }
-#leftTop span {
+.headerLabel {
     color: #ff5274
 }
 #centerText {
@@ -41,10 +41,10 @@
 	margin-top: 130px;
 }
 
-.label {
+.keylabel {
     font-size: 20px;
 	line-height: 20px;
-	font-family: "Microsoft Yahei";
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	font-weight: lighter;
 	padding: .4em .9em .4em;
 	margin-right: 5px;

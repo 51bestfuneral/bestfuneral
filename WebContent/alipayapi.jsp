@@ -37,10 +37,10 @@
 		String payment_type = "1";
 		//必填，不能修改
 		//服务器异步通知页面路径
-		String notify_url = AlipayUtil.PAGE_URL+"/notify_url.jsp";
+		String notify_url = "/notify_url.jsp";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数
 		//页面跳转同步通知页面路径
-		String return_url = "http://商户网关地址/create_direct_pay_by_user-JAVA-UTF-8/return_url.jsp";
+		String return_url = "/paymentFinal.html";
 		//需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
 		//商户订单号
 		//商户网站订单系统中唯一订单号，必填
@@ -48,7 +48,7 @@
 		String subject = request.getParameter("WIDsubject");
 		
 	String tradeNo = request.getParameter("WIDout_trade_no");
-		String wishOrderId = request.getParameter("awishOrderId");
+	String wishOrderId = request.getParameter("awishOrderId");
 
 
 		
@@ -66,11 +66,6 @@
         }else{
         	exter_invoke_ip= request.getHeader("x-forwarded-for");
         			}
-		
-		//客户端的IP地址
-		
-		//非局域网的外网IP地址，如：221.0.0.1
-		
 		
 		//////////////////////////////////////////////////////////////////////////////////
 		

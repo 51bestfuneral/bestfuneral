@@ -268,12 +268,11 @@ public class WishlistController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET, produces = "application/json")
 	public List<Wishlist> listOfWishlists(HttpServletRequest request) throws Exception {
 		User user = (User) request.getSession().getAttribute("user");
-		
-		System.out.println(this.getClass()+"  list   user.getUsrId()= "+user.getUsrId());
-		
+
+		if (user == null) {
+			return null;
+		}
 		List<Wishlist> wishlists = wishlistService.getWishListByUserId(user.getUsrId());
-		
-		System.out.println(this.getClass()+"  list   wishlists= "+wishlists);
 
 		return wishlists;
 	}

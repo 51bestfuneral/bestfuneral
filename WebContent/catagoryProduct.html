@@ -205,7 +205,6 @@ app.controller('catagory', function($scope, $http) {
 	$scope.cataDesc = cata.cataDesc;
 	$scope.catas = catas;
 	$scope.iconPic = cata.iconPic;
-	$("#productFrame").attr("src","component/productLine2.html"+productFilter);
 	$("body").on("click", ".filterIcon", function () {
 		var $this = $(this);
 		

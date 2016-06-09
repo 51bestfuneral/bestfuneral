@@ -31,9 +31,9 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	}
 
 	@Override
-	public List<ExpressInfo> getByUserId(long userId) {
+	public List<ExpressInfo> getByUserId(int userId) {
 
-		List<ExpressInfo> list = new ArrayList<ExpressInfo>();
+		List<ExpressInfo> list = expressInfoDAO.findListByUserId(userId);
 		Iterable<ExpressInfo> iter = expressInfoDAO.findAll();
 		if (iter == null) {
 
@@ -53,21 +53,12 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	@Override
 	public List<ExpressInfo> getUncompledExpressInfoByUserId(int userId, int statusId) {
 
-		List<ExpressInfo> list = new ArrayList<ExpressInfo>();
-		Iterable<ExpressInfo> iter = expressInfoDAO.findAll();
-		if (iter == null) {
-
-			return list;
-		}
-
-		Iterator<ExpressInfo> iterator = iter.iterator();
-		while (iterator.hasNext()) {
-			ExpressInfo expressInfo = iterator.next();
-			if (expressInfo.getUserId().intValue() == userId && expressInfo.getStatusId().intValue() == statusId)
-				list.add(expressInfo);
+		List<ExpressInfo> list= expressInfoDAO.findListByUserIdAndStatusId(userId, statusId);
+		if(list==null){
+			return new ArrayList<ExpressInfo>();
 		}
 		return list;
-
+		
 	}
 
 	@Override
@@ -90,26 +81,20 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	}
 
 	@Override
-	public ExpressInfo getUsingExpressInfo(int useId) {
+	public ExpressInfo getUsingExpressInfo(int userId) {
 
-		List<ExpressInfo> list = this.getResources();
+		List<ExpressInfo> list = expressInfoDAO.findListByUserIdAndStatusId(userId, 1);
 
 		if (list != null && list.size() > 0) {
 
 			Iterator iter = list.iterator();
 
 			while (iter.hasNext()) {
-
 				ExpressInfo info = (ExpressInfo) iter.next();
-				if (info.getUserId().intValue() == useId && info.getStatusId().intValue() == 1) {
-
-					if (info.getDeliveryMethod().intValue() != 3) {
-						info.setExpressFee(BigDecimal.ZERO);
-
-					}
-
-					return info;
+				if (info.getDeliveryMethod().intValue() != 3) {
+					info.setExpressFee(BigDecimal.ZERO);
 				}
+				return info;
 
 			}
 
@@ -133,25 +118,15 @@ public class ExpressInfoServiceImpl implements ExpressInfoService {
 	@Override
 	public ExpressInfo getExpressInfoByWishOrderId(int wishOrderId) {
 
-		List<ExpressInfo> list = this.getResources();
-
+		List<ExpressInfo> list = expressInfoDAO.findListByWishOrderId(wishOrderId);
 		if (list != null && list.size() > 0) {
-
 			Iterator iter = list.iterator();
-
 			while (iter.hasNext()) {
-
 				ExpressInfo info = (ExpressInfo) iter.next();
-				if (info.getWishOrderId().intValue() == wishOrderId) {
-
 					if (info.getDeliveryMethod().intValue() != 3) {
 						info.setExpressFee(BigDecimal.ZERO);
-
 					}
-
 					return info;
-				}
-
 			}
 
 		}

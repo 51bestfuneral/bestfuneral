@@ -131,4 +131,14 @@ public class UserController {
 	public List<User> listUsersByCemeteryRequest() {
 		return userService.getResourcesByRequestCemetery();
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/verifySession", method=RequestMethod.GET)
+	public Integer validateUserSession(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		if(session.getAttribute("user")!=null){
+			return 1;
+		}
+		return 0;
+	}
 }

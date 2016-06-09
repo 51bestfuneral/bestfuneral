@@ -52,10 +52,11 @@
 				</thead>
 				<tbody>
 				    <tr>
-					    <td>{{order.cemeteryName}}</td>
-						<td>{{order.address}}</td>
-						<td class="reservDate">{{order.reservDate}}</td>
-						<td><a class="digToDetail" href="/cemetery.html?id={{order.cemeteryId}}">查看详情</a></td>
+					    <td ng-bind="order.cemeteryName"></td>
+						<td ng-bind="order.address"></td>
+						<td class="reservDate" ng-bind="order.reservDate"></td>
+						<td ng-if="order.type=='1'"><a class="digToDetail" href="/cemetery.html?id={{order.cemeteryId}}" >查看详情</a></td>
+						<td ng-if="order.type=='2'"><a class="digToDetail" href="/temple.html?id={{order.cemeteryId}}">查看详情</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -64,8 +65,8 @@
 			 <div class="imageBox" style="background-image: url('{{order.imgUrl}}')">
 			</div>
 			<div class="cemeteryDescDiv">
-				<h3>{{order.cemeteryName}}</h3>
-				<span>{{order.feature}}</span>
+				<h3 ng-bind="order.cemeteryName"></h3>
+				<span ng-bind="order.feature"></span>
 			</div>
 	    </div>
 	</div>
@@ -88,8 +89,12 @@ app.directive('onFinishRenderFilters', function ($timeout) {
         }
     };
 });
+verifySession();
 app.controller('products', function($scope, $http) {
     $http.get("/reservation/list").success(function(response) {
+    	for (var i =0;i<response.length;i++) {
+    		response[i].feature = response[i].feature.replace(new RegExp(/(&nbsp)/g),'');
+    	}
         $scope.orders = response;
         if (response.length === 0) {
         	$("#noContent").show();

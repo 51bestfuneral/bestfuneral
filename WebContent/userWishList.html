@@ -14,7 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body onselectstart="return false" ng-app="productApp" ng-controller="products">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "68px"></IFRAME>
 <div id="accountInfoMain">
     <div id="leftTabs">
 	    <div class="singleTab">
@@ -98,12 +98,12 @@ app.directive('onFinishRenderFilters', function ($timeout) {
 });
 app.controller('products', function($scope, $http) {
     $http.get("/wishlistDetail/listWishlistDetail").success(function(response) {
-        $scope.orders = response;
         if (response.length === 0 ||　response[0].detailJson.length === 0) {
         	$("#noContent").show();
         }
         else {
         	$("#noContent").hide();
+        	$scope.orders = response;
         }
         unmusk();
     });

@@ -136,15 +136,15 @@ throw new Exception(" ---");
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 			// send mail
-			Map<String, String> messageInfo = new HashMap<String, String>();
-			messageInfo.put("to", "429105398@qq.com");
+			Map<String, String> messageInfo = new HashMap<String, String>(); 
+			messageInfo.put("to", "service@365niannian.com");
 			messageInfo.put("subject", "你有一笔新的订单");
 			messageInfo.put("content",
 					"你有一笔新的订单(chelsea will provide the temp)");
 			mailService.send(messageInfo);
 			// send SMS
 			Map<String, String> smsInfo = new HashMap<String, String>();
-			smsInfo.put("phone", "18762605155");
+			smsInfo.put("phone", "4001660030");
 			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {

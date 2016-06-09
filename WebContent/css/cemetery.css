@@ -30,13 +30,14 @@ background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,
 	text-align: left;
 }
 #leftTop p{
-    font-size: 12px;
+    font-size: 16px;
 	line-height: 16px;
 	color: #ffffff;
 	margin: 0px;
 }
-#leftTop span {
-    color: #ff5274
+
+.headerLabel{
+	color: #ff5274
 }
 #centerText {
     width: 100%;
@@ -48,13 +49,14 @@ background-image: radial-gradient(50% 116%, rgba(255,255,255,0.00) 0%, rgba(0,0,
 	font-size:40px;
 }
 
-.label {
+.keylabel {
     font-size: 20px;
 	line-height: 20px;
-	font-family: "Microsoft Yahei";
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	font-weight: lighter;
 	padding: .4em .9em .4em;
 	margin-right: 5px;
+	color: #ffffff;
 }
 #labelsArea {
     width: 100%;

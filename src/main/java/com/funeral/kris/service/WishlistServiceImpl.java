@@ -94,24 +94,12 @@ public class WishlistServiceImpl implements WishlistService {
 	@Override
 	public Wishlist getResourceByUserId(int userId) {
 
-		List<Wishlist> list = this.getResources();
-		if (list == null) {
+		List<Wishlist> list = WishlistDAO.findListByUserId(userId);
+		if (list == null||list.size()==0 ) {
 
 			return null;
 		}
-
-		Iterator iterator = list.iterator();
-		while (iterator.hasNext()) {
-
-			Wishlist wishlist = (Wishlist) iterator.next();
-
-			if (wishlist.getUserId().intValue() == userId) {
-
-				return wishlist;
-			}
-
-		}
-		return null;
+		return list.get(0);
 	}
 
 	@Override
