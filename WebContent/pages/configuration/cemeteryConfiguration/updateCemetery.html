@@ -55,7 +55,7 @@ id = location.search.substring(4, length);
 			})
 	
 	
-		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+		$http.get("/funeral/cemetery/list").success(function(response) {
 	       $scope.cemeterys = response;
 			})
 	

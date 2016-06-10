@@ -125,9 +125,12 @@ public class WishlistDetailController {
 	@ResponseBody
 	@RequestMapping(value = "/addSingleToWish", method = RequestMethod.POST)
 	public List<WishlistDetail> addingWishlistSingle(HttpServletRequest request) {
-
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		WishOrder wishOrder = wishOrderService
+				.getLatestOpenWishOrderForSet(user.getUsrId());
+		
 		List<WishlistDetail> successList = new ArrayList<WishlistDetail>();
-		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			return null;
 		}

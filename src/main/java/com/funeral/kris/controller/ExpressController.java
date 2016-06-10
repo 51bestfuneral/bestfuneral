@@ -83,8 +83,9 @@ public class ExpressController {
 			while (iterator.hasNext()) {
 
 				ExpressInfo express = (ExpressInfo) iterator.next();
+				if(expressInfoService.getResource(express.getExpressId())!=null){
 				expressInfoService.deleteResource(express.getExpressId());
-
+				}
 			}
 
 		}
