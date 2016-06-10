@@ -29,7 +29,7 @@ public class AlipayUtil {
 	
 	public static  String PAGE_URL =web_app +"/payment.html";
 	
-	public static  String RETURN_PAGE_URL =web_app +"/payment.html";
+	public static  String RETURN_PAGE_URL =web_app +"/paymentFinal.html";
 
 	public static  String Alipay_notify_url =web_app +"/notify_url.jsp";
 
