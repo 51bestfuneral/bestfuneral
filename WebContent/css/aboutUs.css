@@ -14,8 +14,8 @@ h4{
 }
 	
 #backgroundPic{
-width:670px;
-height:471px;
+width:900px;
+height:100%;
 position:relative; 
 left:0%; 
 right:0%;
@@ -26,7 +26,7 @@ margin:0 auto;
 	
 #borderDiv{
 width:1000px;
-height:580px;
+height:100%;
 position:relative; 
 left:0%; 
 right:0%;
@@ -72,7 +72,7 @@ text-align:center;
 	
 #sloganDetail{
  width: 73%;
-  text-align:center;
+  text-align:left;
   position:relative; 
   top:10%;
   left:15%; 
@@ -85,6 +85,7 @@ text-align:center;
   line-height: 1.7;
   color: #3a3a3a;
 }
+
 
 
 /* Company Introduction*/	
