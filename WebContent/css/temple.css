@@ -29,6 +29,7 @@
 	line-height: 16px;
 	color: #ffffff;
 	margin: 0px;
+	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 }
 .headerLabel {
     color: #ff5274
@@ -48,6 +49,7 @@
 	font-weight: lighter;
 	padding: .4em .9em .4em;
 	margin-right: 5px;
+	color: #ffffff;
 }
 #labelsArea {
     width: 100%;
