@@ -18,6 +18,8 @@ public interface OrderDetailService {
 
 	public void deleteResourceByOrderId(int id);
 	public List<OrderDetail> getOrderDetailFromWishList(int wishListId);
+	
+	public List<OrderDetail> getOrderListyWishOrderId(int wishOrderId) ;
 
 	
 }

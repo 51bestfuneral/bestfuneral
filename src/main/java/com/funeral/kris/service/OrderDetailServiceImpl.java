@@ -156,4 +156,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return list;
 
 	}
+	
+	public List<OrderDetail> getOrderListyWishOrderId(int wishOrderId) {
+		return OrderDetailDAO.findListByOrderId(wishOrderId);
+	}
 }

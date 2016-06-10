@@ -464,7 +464,7 @@ public class Wish {
 	@Column(name = "return_count")
 	private Integer returnCount;
 	@Column(name = "sales_volume")
-	private Integer salesVolume;
+	private Integer salesVolume = 0;
 
 	@Column(name = "selling_price")
 	private BigDecimal sellingPrice;

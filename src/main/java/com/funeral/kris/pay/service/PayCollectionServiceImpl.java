@@ -4,20 +4,32 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.EXPRESS;
 import com.funeral.kris.constants.WishConstants;
+import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
+import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.TFeeCollection;
+import com.funeral.kris.model.Wish;
 import com.funeral.kris.pay.dao.PayDAO;
 import com.funeral.kris.pay.dao.PayDAOImpl;
+import com.funeral.kris.service.OrderDetailService;
+import com.funeral.kris.service.WishService;
 import com.funeral.kris.util.AlipayUtil;
 
 public class PayCollectionServiceImpl implements PayCollectionService {
 
 	private static PayDAO dao=new PayDAOImpl();
 
+	@Autowired
+	private OrderDetailService orderDetailService;
+	
+	@Autowired
+	private WishService wishService;
 
 	@Override
 	public void initFeeCollection(String orderNo) {
@@ -139,7 +151,22 @@ public class PayCollectionServiceImpl implements PayCollectionService {
 		// 修改wish order 的状态，改为已支付
 		dao.updateWishOrderStatus(order.getWishOrderId(), WishConstants.wishorder_status_paied);
 
-
+		List<OrderDetail> orderDetailList = orderDetailService.getOrderListyWishOrderId(order.getWishOrderId());
+		if(orderDetailList!=null){
+		for(OrderDetail orderDetail :orderDetailList){
+			Wish wish =wishService.getResource(orderDetail.getWishId());
+			if(wish.getSalesVolume()==null){
+				wish.setSalesVolume(1);
+			}else{
+				wish.setSalesVolume(wish.getSalesVolume()+1);
+			}
+			if(wish.getHoldingCount()!=null
+					&&wish.getHoldingCount()>0){
+				wish.setHoldingCount(wish.getHoldingCount()-1);
+			}
+			wishService.updateResource(wish);
+		}
+		}
 		
 		
 		
