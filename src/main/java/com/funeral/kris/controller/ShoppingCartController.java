@@ -331,6 +331,10 @@ public class ShoppingCartController {
 				setOrderDetailList, user.getWishlistId());
 
 		setCost = this.getSetFee(latestOpenWishOrder);
+		
+		if(setCost.compareTo(BigDecimal.ZERO)==0){
+			setCost = wishListJson.getPrice();
+		}
 
 		shoppingCart.setOrderDetailForWishList(setOrderDetailList);
 		
@@ -849,7 +853,7 @@ public class ShoppingCartController {
 			price = price.add(detail.getPrice());
 
 		}
-
+		wishlist.setPrice(price);
 		wishListJson.setAmount(1);
 		wishListJson.setGoodsAmount(goodsAmount);
 		wishListJson.setServicesAmount(servicesAmount);
