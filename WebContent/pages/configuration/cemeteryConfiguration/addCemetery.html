@@ -190,7 +190,7 @@ ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;}
 	 app.controller('cemetery', function($scope, $http) {
 	
 	
-		$http.get("/funeral/cemetery/listAllCemeteries").success(function(response) {
+		$http.get("/funeral/cemetery/list").success(function(response) {
 	       $scope.cemeterys = response;
 			})
 	
