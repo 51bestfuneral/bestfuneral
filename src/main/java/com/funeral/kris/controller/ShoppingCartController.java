@@ -813,6 +813,7 @@ public class ShoppingCartController {
 
 		WishListJson wishListJson = new WishListJson();
 
+		
 		Wishlist wishlist = wishlistService.getResource(wishListId);
 
 		if (setOrderDetailList == null || setOrderDetailList.size() == 0) {
