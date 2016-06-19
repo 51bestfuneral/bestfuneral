@@ -2,6 +2,7 @@ package com.funeral.kris.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,12 @@ import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.EXPRESS;
 import com.funeral.kris.controller.ContactInfoController;
 import com.funeral.kris.dao.FeeCollectionDAO;
+import com.funeral.kris.init.ENV;
 import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
+import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.AlipayUtil;
@@ -35,7 +38,8 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 	private ExpressInfoService expressInfoService;
 	@Autowired
 	private ContactInfoService contactInfoService;
-	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private WishlistDetailService wishlistDetailService;
 	@Override
@@ -45,6 +49,10 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 		
 		
 		Order  order=	orderService.getResourceByOrderNo(orderNo);
+		
+		
+		User user=userService.getResource(order.getUserId());
+		
 
 		TFeeCollection feeCollection = this.loadPayableFeeCollectionByOrderNo(orderNo);
 
@@ -62,7 +70,8 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			feeCollection.setStatusId(COLLECTION.collection_init);
 			feeCollection.setSubject(orderNo);
 			feeCollection.setTradeStatus(COLLECTION.collection_trade_status_init);
-
+			feeCollection.setBuyerEmail(user.getEmail());
+			feeCollection.setBuyerId(user.getUsrId());
 			feeCollectionDAO.save(feeCollection);
 
 		} else {
@@ -76,9 +85,15 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			feeCollection.setStatusId(COLLECTION.collection_init);
 			feeCollection.setSubject(orderNo);
 			feeCollection.setTradeStatus(COLLECTION.collection_trade_status_init);
+			feeCollection.setBuyerEmail(user.getEmail());
+			feeCollection.setBuyerId(user.getUsrId());
 			feeCollectionDAO.save(feeCollection);
 
 		}
+		
+		
+
+		
 
 	}
 
@@ -108,8 +123,7 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 		feeCollection.setGmtPayment(params.get("gmt_payment"));
 		feeCollection.setSign(params.get("sign"));
 		feeCollection.setTradeStatus(COLLECTION.collection_trade_status_completed);
-		feeCollection.setBuyerEmail(params.get("buyer_email"));
-		feeCollection.setSellerEmail(params.get("seller_email"));
+
 		feeCollection.setQuantity(params.get("quantity"));
 		feeCollection.setSubject(params.get("out_trade_no"));
 //		feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));

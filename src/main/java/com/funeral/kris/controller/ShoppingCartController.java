@@ -325,7 +325,7 @@ public class ShoppingCartController {
 				.getLatestOpenWishOrderForSet(user.getUsrId());
 
 		List<OrderDetail> setOrderDetailList = orderDetailService
-				.getOrderDetailFromWishList(user.getWishlistId());
+				.getOrderDetailFromWishList(user.getWishlistId(), currentWishOrderId);
 		
 		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
 				setOrderDetailList, user.getWishlistId());
@@ -472,7 +472,7 @@ public class ShoppingCartController {
 		}
 
 		List<OrderDetail> setOrderDetailList = orderDetailService
-				.getOrderDetailFromWishList(user.getWishlistId());
+				.getOrderDetailFromWishList(user.getWishlistId(), wishOrder.getWishOrderId());
 		Integer currentWishOrderId = (Integer) request.getSession()
 				.getAttribute("currentWishOrderId");
 
@@ -893,6 +893,12 @@ public class ShoppingCartController {
 		HttpSession session = request.getSession(false);
 		session.setAttribute("currentWishOrderId",Integer.parseInt(wishOrderId));
 		
+		User user = (User) session.getAttribute("user");
+
+		Integer cartId = user.getCartId();
+		
+		 request.getSession().setAttribute(
+					"currentCartId",cartId);
 		return Integer.parseInt(wishOrderId);
 		
 		

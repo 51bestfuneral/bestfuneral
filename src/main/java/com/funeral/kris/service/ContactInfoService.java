@@ -13,6 +13,8 @@ public interface ContactInfoService {
 	public void deleteResource(int id);
 	public List<ContactInfo> getResources();
 	public ContactInfo getUsingContacter(int userId);
+	public ContactInfo getContacterFromUser(int userId);
+
 	public ContactInfo getContacterByWishOrderId(int wishOrderId);
 
 	public ContactInfo getUsingContacterByWishOrderId(int wishOrderId);

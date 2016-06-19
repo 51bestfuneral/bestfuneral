@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.funeral.kris.constants.WishConstants;
+import com.funeral.kris.init.ENV;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
@@ -55,8 +56,7 @@ public class AlipayController {
 	private CartService cartService;
 	@Autowired
 	private CartDetailService cartDetailService;
-	@Autowired
-	private MailService mailService;
+	
 
 	@Autowired
 	private SmsSenderService smsSenderService;
@@ -74,40 +74,31 @@ public class AlipayController {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
-//		String wishOrderId = request.getParameter("wishOrderId");
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+		// String wishOrderId = request.getParameter("wishOrderId");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
 
-		Integer setWishOrderId=(Integer) session.getAttribute("setWishOrderId");
-		
-//		String setWishOrderId = request.getParameter("setWishOrderId");
+		Integer setWishOrderId = (Integer) session
+				.getAttribute("setWishOrderId");
 
-		
-		
-		
-		
-		
-		
+		// String setWishOrderId = request.getParameter("setWishOrderId");
 
 		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
-		
-		//要考虑是只支付购物车还是同时支付套餐
-		
-		
-		if(wishOrder.getPayMethod().intValue()==WishConstants.wishorder_paymethod_wishListOnly){
-			
+
+		// 要考虑是只支付购物车还是同时支付套餐
+
+		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_wishListOnly) {
+
 			wishOrder.setPayWishOrderId(setWishOrderId);
-			
-			
+
 		}
-		
-		
 
 		Order order = orderService.getOrderByWishOrderId(currentWishOrderId);
 
 		if (order != null
 				&& order.getStatusId().intValue() == AlipayUtil.order_completed) {
 
-throw new Exception(" ---");
+			throw new Exception(" ---");
 
 		}
 
@@ -136,16 +127,6 @@ throw new Exception(" ---");
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 			// send mail
-			Map<String, String> messageInfo = new HashMap<String, String>(); 
-			messageInfo.put("to", "service@365niannian.com");
-			messageInfo.put("subject", "你有一笔新的订单");
-			messageInfo.put("content",
-					"你有一笔新的订单(chelsea will provide the temp)");
-			mailService.send(messageInfo);
-			// send SMS
-			Map<String, String> smsInfo = new HashMap<String, String>();
-			smsInfo.put("phone", "4001660030");
-			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
 			order.setWishOrderId(currentWishOrderId);
@@ -155,7 +136,15 @@ throw new Exception(" ---");
 			orderService.addResource(order);
 		}
 
+		//添加 订单相关 信息
+		wishOrder.setOrderId(order.getOrderId());
+		wishOrder.setOrderNo(order.getOrderNo());
+		wishOrderService.updateResource(wishOrder);
+		
+		
 		feeCollectionService.initFeeCollection(order.getOrderNo());
+
+		
 
 		return order;
 	}

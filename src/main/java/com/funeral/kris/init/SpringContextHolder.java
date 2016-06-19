@@ -1,7 +1,5 @@
 package com.funeral.kris.init;
 
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

@@ -25,7 +25,6 @@ import com.funeral.kris.busModel.WishListJson;
 import com.funeral.kris.busModel.WishOrderDetailJson;
 import com.funeral.kris.busModel.WishOrderJson;
 import com.funeral.kris.constants.WishConstants;
-import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.User;
@@ -34,9 +33,7 @@ import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.CartDetailService;
-import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.OrderDetailService;
-import com.funeral.kris.service.UserService;
 import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishlistDetailService;
@@ -372,7 +369,6 @@ public class WishlistDetailController {
 		User user = (User) request.getSession().getAttribute("user");
 		Integer cartId = user.getCartId();
 
-		List<CartlistJson> cartlistJsons = new ArrayList<CartlistJson>();
 		List<CartDetail> cartDetails = wishlistDetailService
 				.getResourceByCartId(cartId);
 		return cartDetails.size();
@@ -500,7 +496,9 @@ public class WishlistDetailController {
 			orderJson.setUserId(user.getUsrId());
 			orderJson.setWishOrderId(wishOrder.getWishOrderId());
 			orderJson.setStatusId(wishOrder.getStatusId());
-
+			orderJson.setOrderId(wishOrder.getOrderId());
+			orderJson.setOrderNo(wishOrder.getOrderNo());
+			
 			System.out.println(this.getClass() + " listWishOrder  getSatusId="
 					+ wishOrder.getStatusId());
 

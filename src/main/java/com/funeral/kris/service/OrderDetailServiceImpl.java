@@ -103,7 +103,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public List<OrderDetail> getOrderDetailFromWishList(int wishListId) {
+	public List<OrderDetail> getOrderDetailFromWishList(int wishListId,int wishOrderId) {
 		Iterable<OrderDetail> iterator = OrderDetailDAO.findAll();
 		if (this.wishsMap == null) {
 
@@ -120,7 +120,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 				OrderDetail detail = (OrderDetail) it.next();
 				
 				if (detail.getWishListId().intValue() == wishListId
-						&& detail.getSourceId().intValue() == WishConstants.wish_source_set) {
+						&& detail.getSourceId().intValue() == WishConstants.wish_source_set &&wishOrderId==detail.getOrderId()) {
 					detail.setWishName(wishsMap.get(detail.getWishId()).getWishName());	
 					
 					list.add(detail);
