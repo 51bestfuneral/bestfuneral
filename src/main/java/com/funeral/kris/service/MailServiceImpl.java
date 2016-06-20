@@ -26,6 +26,7 @@ public class MailServiceImpl implements MailService{
 		mail.addTo(mailInfo.get("to")); // 收件人邮箱
 		//mail.addCc(mailInfo.get("cc"));
 		//mail.addBcc(mailInfo.get("bcc"));
+		mail.setContent("text/html");
 		mail.setSubject(mailInfo.get("subject")); // 邮件主题
 		mail.setUser(USER_NAME); // 用户名
 		mail.setPassword(PWD); // 密码
