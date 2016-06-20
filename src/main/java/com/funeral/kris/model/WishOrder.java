@@ -59,7 +59,27 @@ public class WishOrder {
 	@Column(name = "status_id")
 	private Integer statusId;
 
+	@Column(name = "order_id")
+	private Integer orderId;
 	
+	public Integer getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(Integer orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	@Column(name = "order_no")
+	private String orderNo;
 
 	public Integer getStatusId() {
 		return statusId;

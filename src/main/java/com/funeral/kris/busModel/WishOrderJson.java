@@ -9,6 +9,21 @@ public class WishOrderJson {
      private Integer statusId;
      private String statusDisception;
      private String style;
+     private String orderNo;
+     public String getOrderNo() {
+		return orderNo;
+	}
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+	public Integer getOrderId() {
+		return OrderId;
+	}
+	public void setOrderId(Integer orderId) {
+		OrderId = orderId;
+	}
+	private Integer OrderId;
+
 
      public String getStyle() {
 		return style;

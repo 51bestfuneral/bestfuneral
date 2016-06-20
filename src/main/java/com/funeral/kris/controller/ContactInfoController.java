@@ -147,12 +147,42 @@ public class ContactInfoController {
 	@ResponseBody
 	@RequestMapping(value = "/listByContacterId", method = RequestMethod.GET, produces = "application/json")
 	public ContactInfo listByContacterId(HttpServletRequest request) {
+
 		String contactId = (String) request.getParameter("contactId");
 
 		System.out.println("  ----   contactId  = " + contactId);
 
 		ContactInfo contactInfo = contactInfoService.getResource(Integer
 				.parseInt(contactId));
+		return contactInfo;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/getContactorFromUser", method = RequestMethod.GET, produces = "application/json")
+	public ContactInfo getContactorFromUser(HttpServletRequest request) {
+
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+
+		ContactInfo contactInfo = contactInfoService.getContacterFromUser(user
+				.getUsrId());
+
+		if (contactInfo == null) {
+
+			contactInfo = new ContactInfo();
+
+			contactInfo.setCity(user.getDistrict());
+			contactInfo.setContactName(user.getName());
+			contactInfo.setIsUser(1);
+			contactInfo.setDetailAddress(user.getAddress());
+			contactInfo.setUserId(user.getUsrId());
+			contactInfo.setPhone(user.getPhone());
+			contactInfo.setBackupPhone(user.getContactorPhone());
+			contactInfo.setBackupName(user.getContactor());
+			contactInfo.setStatusId(1);
+			contactInfoService.addResource(contactInfo);
+
+		}
 		return contactInfo;
 	}
 
@@ -193,10 +223,36 @@ public class ContactInfoController {
 				.println("  --getUsingContacterByWishOrderId--   currentWishOrderId  = "
 						+ currentWishOrderId);
 
-		ContactInfo ContactInfo = contactInfoService
+		ContactInfo contactInfo = contactInfoService
 				.getUsingContacterByWishOrderId(currentWishOrderId);
+		HttpSession session = request.getSession(false);
+		User user = (User) session.getAttribute("user");
+		int userId = user.getUsrId();
+		if (contactInfo == null) {
+			contactInfo = contactInfoService.getContacterFromUser(userId);
+		}
+		
+		
+		if (contactInfo == null) {
 
-		return ContactInfo;
+			contactInfo = new ContactInfo();
+
+			contactInfo.setCity(user.getDistrict());
+			contactInfo.setContactName(user.getName());
+			contactInfo.setIsUser(1);
+			contactInfo.setDetailAddress(user.getAddress());
+			contactInfo.setUserId(user.getUsrId());
+			contactInfo.setPhone(user.getPhone());
+			contactInfo.setBackupPhone(user.getContactorPhone());
+			contactInfo.setBackupName(user.getContactor());
+			contactInfo.setStatusId(1);
+			contactInfo.setWishOrderId(currentWishOrderId);
+			contactInfo.setExpressMethod(1);
+			contactInfoService.addResource(contactInfo);
+
+		}
+
+		return contactInfo;
 
 	}
 

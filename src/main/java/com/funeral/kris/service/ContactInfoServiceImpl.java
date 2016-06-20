@@ -37,10 +37,7 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
 		List<ContactInfo> contactList = new ArrayList();
 
-		if (list == null) {
-			return contactList;
-		}
-
+		if(list!=null){
 		Iterator<ContactInfo> iterator = list.iterator();
 
 		while (iterator.hasNext()) {
@@ -56,6 +53,7 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
 		System.out.println("  ----- getByUserId  contactList  size="
 				+ contactList.size());
+		}
 
 		return contactList;
 	}
@@ -168,6 +166,29 @@ public class ContactInfoServiceImpl implements ContactInfoService {
 
 		return null;
 
+	}
+
+	@Override
+	public ContactInfo getContacterFromUser(int userId) {
+	
+		List<ContactInfo> list=this.getByUserId(userId);
+		
+		if(list!=null){
+			Iterator iterator=	list.iterator();
+			while(iterator.hasNext()){
+				ContactInfo contactInfo=	(ContactInfo) iterator.next();
+				
+				if(contactInfo.getIsUser()!=null&&contactInfo.getIsUser().intValue()==1){
+					return contactInfo;
+				}
+				
+			}
+			
+		}
+		return null;
+		
+		
+		
 	}
 
 }
