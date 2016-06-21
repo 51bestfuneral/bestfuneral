@@ -17,7 +17,7 @@
 <link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
 <script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script src="/js/generalUsage.js"></script>
-<body ng-app="PaymentApp" ng-controller="alipay">
+<body>
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=main" frameborder = 0 height = "68px"></IFRAME>
 </div>
@@ -75,20 +75,11 @@
 </div>
 </body>
 <script type="text/javascript">
-
-	
-var app = angular.module('PaymentApp', []);
-app.controller('alipay', function($scope, $http) {
-	
- 
- 
-
-});
-
 window.onload=function(){
     $("#confirmedButton").click(function () {
 	    window.location.href="/mainPage.html";
-	});
+	})
+};
 
 </script>
 </html>
