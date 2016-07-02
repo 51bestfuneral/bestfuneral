@@ -55,6 +55,8 @@
 		//必填
 		//付款金额
 		String total_fee = request.getParameter("WIDtotal_fee");
+		//total_fee="0.1";
+		
 		//必填
 		String body = request.getParameter("WIDbody");
 		//防钓鱼时间戳

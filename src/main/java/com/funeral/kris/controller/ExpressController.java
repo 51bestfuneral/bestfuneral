@@ -1,10 +1,8 @@
 package com.funeral.kris.controller;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +18,7 @@ import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.CartDetail;
 import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
+import com.funeral.kris.model.OrderDetail;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.service.CartDetailService;
@@ -27,6 +26,7 @@ import com.funeral.kris.service.ContactInfoService;
 import com.funeral.kris.service.ExpressInfoService;
 import com.funeral.kris.service.ExpressService;
 import com.funeral.kris.service.MailService;
+import com.funeral.kris.service.OrderDetailService;
 import com.funeral.kris.service.WishOrderService;
 
 @Controller
@@ -60,6 +60,8 @@ public class ExpressController {
 	private ExpressService expressService;
 	@Autowired
 	private CartDetailService cartDetailService;
+	@Autowired
+	private OrderDetailService orderDetailService;
 
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -76,8 +78,6 @@ public class ExpressController {
 		User user = (User) session.getAttribute("user");
 		List<ExpressInfo> expressInfoList = expressInfoService.getByUserId(user
 				.getUsrId());
-		
-		
 
 		if (expressInfoList != null && expressInfoList.size() > 0) {
 
@@ -85,8 +85,8 @@ public class ExpressController {
 			while (iterator.hasNext()) {
 
 				ExpressInfo express = (ExpressInfo) iterator.next();
-				if(expressInfoService.getResource(express.getExpressId())!=null){
-				expressInfoService.deleteResource(express.getExpressId());
+				if (expressInfoService.getResource(express.getExpressId()) != null) {
+					expressInfoService.deleteResource(express.getExpressId());
 				}
 			}
 
@@ -129,6 +129,9 @@ public class ExpressController {
 
 		WishOrder wishOrder = wishOrderService.getResource(contactInfo
 				.getWishOrderId());
+		
+		Integer currentWishOrderId=wishOrder.getWishOrderId();
+		
 		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_shoppingCartOnly
 				|| wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_together) { // 如果支付组合里面包含了支付购物车，则在此处清空购物车
 			for (CartDetail cartDetail : cartList) {
@@ -137,9 +140,58 @@ public class ExpressController {
 			}
 		}
 
+		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_together
+				|| wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_wishListOnly) {
+			// 需要把套餐下的 t_order_detail copy 一份，挂在直选的wish下面
+
+			// 拿到当前最新的套餐，copy一份 order detail，然后挂在当前的wish order下
+
+			WishOrder latestOpenWishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			if (latestOpenWishOrder != null) {
+
+				List<OrderDetail> list = orderDetailService
+						.getResourcesByWishOrderId(latestOpenWishOrder
+								.getWishOrderId());
+
+				if (list != null) {
+
+					Iterator iter = list.iterator();
+
+					while (iter.hasNext()) {
+						OrderDetail orderDetail = (com.funeral.kris.model.OrderDetail) iter
+								.next();
+
+						orderDetail.setSourceId(WishConstants.order_source_set);
+						orderDetail.setWishOrderId(wishOrder.getWishOrderId());
+						orderDetail.setOrderDetailId(null);
+						orderDetailService.addResource(orderDetail);
+					}
+
+				}
+//把套餐指向当前的订单
+				latestOpenWishOrder.setPayWishOrderId(currentWishOrderId);
+				wishOrderService.updateResource(latestOpenWishOrder);
+			}
+
+		} else if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_shoppingCartOnly) {
+			// 把 pay wish order id 置为自己
+			
+			WishOrder latestOpenWishOrder = wishOrderService
+					.getLatestOpenWishOrderForSet(user.getUsrId());
+			
+			if(latestOpenWishOrder!=null){
+				
+				latestOpenWishOrder.setPayWishOrderId(null);
+				wishOrderService.updateResource(latestOpenWishOrder);				
+			}
+
+		}
+		
+		wishOrder.setPayWishOrderId(wishOrder.getWishOrderId());
+
 		wishOrder.setStatusId(WishConstants.wishorder_status_pendingPay);
 		wishOrderService.updateResource(wishOrder);
-		
 
 	}
 
@@ -186,11 +238,13 @@ public class ExpressController {
 	@ResponseBody
 	@RequestMapping(value = "/getExpressInfoByWishOrderId", method = RequestMethod.GET, produces = "application/json")
 	public ExpressInfo getExpressInfoByWishOrderId(HttpServletRequest request) {
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
 
-//		String wishOrderId = request.getParameter("wishOrderId");
+		// String wishOrderId = request.getParameter("wishOrderId");
 
-		return expressInfoService.getExpressInfoByWishOrderId(currentWishOrderId);
+		return expressInfoService
+				.getExpressInfoByWishOrderId(currentWishOrderId);
 
 	}
 

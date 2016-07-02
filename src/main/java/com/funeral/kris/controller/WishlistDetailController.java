@@ -126,7 +126,7 @@ public class WishlistDetailController {
 		User user = (User) session.getAttribute("user");
 		WishOrder wishOrder = wishOrderService
 				.getLatestOpenWishOrderForSet(user.getUsrId());
-		
+
 		List<WishlistDetail> successList = new ArrayList<WishlistDetail>();
 		if (user == null) {
 			return null;
@@ -486,7 +486,8 @@ public class WishlistDetailController {
 		}
 		for (WishOrder wishOrder : wishOrderList) {
 
-			if (wishOrder.getStatusId().intValue() == WishConstants.wishlist_status_init) {
+			if (wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_init
+					|| wishOrder.getPayWishOrderId() == null) {
 
 				continue;
 			}
@@ -498,11 +499,11 @@ public class WishlistDetailController {
 			orderJson.setStatusId(wishOrder.getStatusId());
 			orderJson.setOrderId(wishOrder.getOrderId());
 			orderJson.setOrderNo(wishOrder.getOrderNo());
-			
+
 			System.out.println(this.getClass() + " listWishOrder  getSatusId="
 					+ wishOrder.getStatusId());
 
-			if (wishOrder.getStatusId().intValue() == WishConstants.wishlist_status_init
+			if (wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_init
 					|| wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_pendingPay) {
 				orderJson
 						.setStatusDisception(WishConstants.wishorder_status_disc_pendingPay);
@@ -525,27 +526,35 @@ public class WishlistDetailController {
 
 			}
 
-			List<OrderDetail> wishOrderDetailList = wishlistDetailService
-					.getWishOrderDetailByOrderId(wishOrder.getWishOrderId());
+			System.out.println(this.getClass()
+					+ "----------listWishOrder----  wishOrder =" + wishOrder);
+			System.out.println(this.getClass()
+					+ "----------listWishOrder----  getPayWishOrderId ="
+					+ wishOrder.getPayWishOrderId());
+
+			List<OrderDetail> wishOrderDetailList = orderDetailService
+					.getOrderDetailByPayWishOrderId(wishOrder.getWishOrderId()
+							);
 			BigDecimal totalPrice = BigDecimal.ZERO;
-			for (OrderDetail orderDetail : wishOrderDetailList) {
-				WishOrderDetailJson detailJson = new WishOrderDetailJson();
-				Wish wish = wishsMap.get(orderDetail.getWishId());
-				BigDecimal sumPrice = wish.getSellingPrice().multiply(
-						new BigDecimal(orderDetail.getCount()));
-				totalPrice = totalPrice.add(sumPrice);
-				detailJson.setCount(orderDetail.getCount());
-				detailJson.setOrderDetailId(orderDetail.getOrderDetailId());
-				detailJson.setOriginalPrice(wish.getXianenPrice());
-				detailJson.setPrice(wish.getSellingPrice());
-				detailJson.setSumPirce(sumPrice);
-				detailJson.setWishDesc(wish.getRemark());
-				detailJson.setWishName(wish.getWishName());
-				detailJson.setWishId(orderDetail.getWishId());
-				detailJson.setWishOrderId(orderDetail.getOrderDetailId());
-				detailJson.setImgUrl(wish.getImgUrl());
-				detailJsons.add(detailJson);
-			}
+			if (wishOrderDetailList != null)
+				for (OrderDetail orderDetail : wishOrderDetailList) {
+					WishOrderDetailJson detailJson = new WishOrderDetailJson();
+					Wish wish = wishsMap.get(orderDetail.getWishId());
+					BigDecimal sumPrice = wish.getSellingPrice().multiply(
+							new BigDecimal(orderDetail.getCount()));
+					totalPrice = totalPrice.add(sumPrice);
+					detailJson.setCount(orderDetail.getCount());
+					detailJson.setOrderDetailId(orderDetail.getOrderDetailId());
+					detailJson.setOriginalPrice(wish.getXianenPrice());
+					detailJson.setPrice(wish.getSellingPrice());
+					detailJson.setSumPirce(sumPrice);
+					detailJson.setWishDesc(wish.getRemark());
+					detailJson.setWishName(wish.getWishName());
+					detailJson.setWishId(orderDetail.getWishId());
+					detailJson.setWishOrderId(orderDetail.getOrderDetailId());
+					detailJson.setImgUrl(wish.getImgUrl());
+					detailJsons.add(detailJson);
+				}
 			orderJson.setTotalPrice(wishOrder.getPrice());
 			orderJson.setDetailJson(detailJsons);
 			orderJsons.add(orderJson);
@@ -558,10 +567,10 @@ public class WishlistDetailController {
 	public List<WishOrderJson> listWishlistDetail(HttpServletRequest request) {
 		List<WishOrderJson> orderJsons = new ArrayList<WishOrderJson>();
 		User user = (User) request.getSession().getAttribute("user");
-		if(user==null){
+		if (user == null) {
 			return null;
 		}
-		
+
 		Map<String, String> paras = new HashMap<String, String>();
 		paras.put("userId", String.valueOf(user.getUsrId()));
 		List<Wishlist> wishOrderList = wishlistService.getResources(paras);
@@ -603,7 +612,7 @@ public class WishlistDetailController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/removeWishOrder", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/removeWishOrder", method = RequestMethod.DELETE, produces = "application/json")
 	public Integer removeWishOrder(HttpServletRequest request) {
 		String orderId = request.getParameter("orderId");
 		wishOrderService.deleteResource(Integer.valueOf(orderId));
