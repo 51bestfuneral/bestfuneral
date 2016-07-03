@@ -13,7 +13,7 @@ public class PayCommonUtil {
 	 * 是否签名正确,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。
 	 * @return boolean
 	 */
-	public static boolean isTenpaySign(String characterEncoding, SortedMap<Object, Object> packageParams, String API_KEY) {
+	public static boolean isTenpaySign(String characterEncoding, SortedMap<String, String> packageParams, String API_KEY) {
 		StringBuffer sb = new StringBuffer();
 		Set es = packageParams.entrySet();
 		Iterator it = es.iterator();
