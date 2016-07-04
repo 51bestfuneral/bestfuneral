@@ -1,66 +1,71 @@
 package com.funeral.kris.service;
 
+import com.funeral.kris.dao.TCemeteryKeywordsDAO;
+import com.funeral.kris.model.TCemeteryKeywords;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.funeral.kris.dao.TCemeteryKeywordsDAO;
-import com.funeral.kris.model.TCemeteryKeywords;
-import com.funeral.kris.model.Wish;
-import com.funeral.kris.util.SqlHelper;
-
 @Service
 @Transactional
-public class CemeteryKeywordsServiceImpl implements CemeteryKeywordsService {
-	@Autowired
-	private TCemeteryKeywordsDAO cemeteryKeywordsDAO;
-	@Autowired
-	private EntityManager em;
+public class CemeteryKeywordsServiceImpl
+  implements CemeteryKeywordsService
+{
 
-	@Override
-	public void addResource(TCemeteryKeywords tCemeteryKeywords) {
-		cemeteryKeywordsDAO.save(tCemeteryKeywords);
+  @Autowired
+  private TCemeteryKeywordsDAO cemeteryKeywordsDAO;
 
-	}
+  public void addResource(TCemeteryKeywords tCemeteryKeywords)
+  {
+    this.cemeteryKeywordsDAO.save(tCemeteryKeywords);
+  }
 
-	@Override
-	public void updateResource(TCemeteryKeywords tCemeteryKeywords) {
-		cemeteryKeywordsDAO.save(tCemeteryKeywords);
+  public void updateResource(TCemeteryKeywords tCemeteryKeywords)
+  {
+    this.cemeteryKeywordsDAO.save(tCemeteryKeywords);
+  }
 
-	}
+  public TCemeteryKeywords getResource(int id)
+  {
+    return (TCemeteryKeywords)this.cemeteryKeywordsDAO.findOne(Integer.valueOf(id));
+  }
 
-	@Override
-	public TCemeteryKeywords getResource(int id) {
+  public void deleteResource(int id)
+  {
+    this.cemeteryKeywordsDAO.delete(Integer.valueOf(id));
+  }
 
-		return cemeteryKeywordsDAO.findOne(id);
-	}
+  public List<TCemeteryKeywords> getResources()
+  {
+    List keywordsList = new ArrayList();
+    Iterable keywordsIter = this.cemeteryKeywordsDAO.findAll();
+    Iterator iter = keywordsIter.iterator();
+    while (iter.hasNext()) {
+      TCemeteryKeywords keyword = (TCemeteryKeywords)iter.next();
+      keywordsList.add(keyword);
+    }
+    return keywordsList;
+  }
 
-	@Override
-	public void deleteResource(int id) {
-		cemeteryKeywordsDAO.delete(id);
+  public List<TCemeteryKeywords> findByCemeteryId(int id)
+  {
+    List list = new ArrayList();
+    List keywordsList = getResources();
 
-	}
+    Iterator iter = keywordsList.iterator();
+    while (iter.hasNext()) {
+      TCemeteryKeywords keyword = (TCemeteryKeywords)iter.next();
+      System.out.println("============= keywordsList.size() =" + keywordsList.size() + " keyword=" + keyword + " id=" + id + " getCemeteryId =" + keyword.getCemeteryId());
 
-	@Override
-	public List<TCemeteryKeywords> getResources(HttpServletRequest request) {
-		String a = null;
-		try {
-			a = SqlHelper.getSqlFromRequest("TCemeteryKeywords", request);
-		} catch (Exception e) {
+      if (keyword.getCemeteryId().intValue() == id) {
+        list.add(keyword);
+      }
+    }
 
-		}
-		Query query = em.createQuery(a);
-		List<TCemeteryKeywords> keywordsList = query.getResultList();
-		return keywordsList;
-
-	}
-
+    return list;
+  }
 }

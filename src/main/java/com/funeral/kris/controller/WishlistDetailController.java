@@ -487,7 +487,8 @@ public class WishlistDetailController {
 		for (WishOrder wishOrder : wishOrderList) {
 
 			if (wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_init
-					|| wishOrder.getPayWishOrderId() == null) {
+					|| (wishOrder.getPayWishOrderId() == null && wishOrder
+							.getSourceId().intValue() != WishConstants.order_source_set)) {
 
 				continue;
 			}
@@ -533,8 +534,7 @@ public class WishlistDetailController {
 					+ wishOrder.getPayWishOrderId());
 
 			List<OrderDetail> wishOrderDetailList = orderDetailService
-					.getOrderDetailByPayWishOrderId(wishOrder.getWishOrderId()
-							);
+					.getOrderDetailByPayWishOrderId(wishOrder.getWishOrderId());
 			BigDecimal totalPrice = BigDecimal.ZERO;
 			if (wishOrderDetailList != null)
 				for (OrderDetail orderDetail : wishOrderDetailList) {
