@@ -95,7 +95,15 @@
 					</form>
 				</div>
 			</div>
-			
+			<div class="singleMethod">
+			    <div class="methodTop">
+				   <img src="/js/images/weixin.png" ></img> 
+				</div>
+				<div class="methodBottom">
+				    <input type="radio" name="optionsRadios" id="optionsRadios3" value="3">
+			        <span class="radioDesc">微信支付</span>
+				</div>
+			</div>
 			
 			<div class="singleMethod" hidden>
 			    <div class="methodTop">
@@ -103,13 +111,15 @@
 					<img></img>
 				</div>
 				<div class="methodBottom">
-				    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option1">
+				    <input type="radio" name="optionsRadios" id="optionsRadios4" value="option1">
 			        <span class="radioDesc">货到付款</span>
 				</div>
 			</div>
 		</div>
 	
-			
+		<div id="qrDiv" style="text-align:center">
+		<img id="qrImg" style="width:300px;height:300px;"/>
+		</div>	
 			</div>
 		</div>
 	</div>
@@ -136,6 +146,34 @@
 </div>
 </body>
 <script type="text/javascript">	
+$("#qrDiv").hide(); 
+if($("input[name='optionsRadios']:checked").val()==3){
+	$("#qrDiv").show();
+}
+var intervalId = setInterval(checkPayment,5000);
+function checkPayment(){
+	var payType = $("input[name='optionsRadios']:checked").val();
+	  if(payType==3){
+	var orderNo = $("#tradeNo").val();
+	$.ajax({
+    	url: '/pay/checkOrderStatus?orderNo='+orderNo,
+    	type: 'POST',
+		contentType: "application/json; charset=UTF-8",
+		dataType:'json',
+		data: [],
+		success:function(data){
+			if(data==1){
+				window.location.href = "paymentFinal.html";
+				clearInterval(intervalId);
+			}
+    	},
+		error: function(error) {
+			alert(error);
+		}
+    });	
+	  }
+}
+
 function popupConfirmPage() {
 	var screenHeight = document.documentElement.clientHeight,
 	    centerTop = (screenHeight-407)/2;
@@ -198,6 +236,8 @@ var wishOrderId= location.search.substring(13, length);
 	           
 	           
 			});
+	    	
+	    	
 	    
 	    	$scope.pay = function(){ 
 	    		
@@ -215,7 +255,6 @@ var wishOrderId= location.search.substring(13, length);
 
 	   };
 	    
-     
   });
  	
 
@@ -227,6 +266,7 @@ window.onload=function(){
 
 	
 $("#optionsRadios1").click(function () {
+	$("#qrDiv").hide(); 
 $("#creditName").attr('disabled',false); 
 $("#creditNo").attr('disabled',false); 
 $("#creditExpiredDate").attr('disabled',false); 
@@ -237,6 +277,7 @@ $("#CVcode").attr('disabled',false);
 		
 	
 $("#optionsRadios2").click(function () {
+	$("#qrDiv").hide(); 
 $("#creditName").attr('disabled',true); 
 $("#creditNo").attr('disabled',true); 
 $("#creditExpiredDate").attr('disabled',true); 
@@ -244,7 +285,34 @@ $("#CVcode").attr('disabled',true);
 
 });
 
+$("#optionsRadios3").click(function () {
+	$("#qrDiv").show();
+	var orderNo = $("#tradeNo").val();
+	var price= $("#totalFee").val();
+	var desc=$("#subject").val();
+	$.ajax({
+    	url: '/pay/weixinPay?orderNo='+orderNo+'&price='+"10"+'&desc='+desc,
+    	type: 'POST',
+		contentType: "application/json; charset=UTF-8",
+		dataType:'json',
+		data: [],
+		success:function(data){
+			$("#qrImg").attr('src', data.codeUrl);
+    	},
+		error: function(error) {
+			//alert(error);
+		}
+    });	
+	});
+
+
+   
+
+	
 //$("#nextButton").hide();  	
 };
+
+
+	
 </script>
 </html>

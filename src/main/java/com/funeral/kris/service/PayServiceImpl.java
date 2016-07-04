@@ -7,19 +7,24 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.funeral.kris.util.HttpUtil;
 import com.funeral.kris.util.PayCommonUtil;
 import com.funeral.kris.util.PayConfigUtil;
 import com.funeral.kris.util.XMLUtil;
 
+@Service
+@Transactional
 public class PayServiceImpl implements PayService {
 
 	public String weixinPay(String orderNo,BigDecimal price,String desc) throws Exception {
 		// 账号信息
-        String appid = PayConfigUtil.APP_ID;  // appid
+        String appid = PayConfigUtil.WEIXIN_APP_ID;  // appid
         //String appsecret = PayConfigUtil.APP_SECRET; // appsecret
-        String mch_id = PayConfigUtil.MCH_ID; // 商业号
-        String key = PayConfigUtil.API_KEY; // key
+        String mch_id = PayConfigUtil.WEIXIN_MCH_ID; // 商业号
+        String key = PayConfigUtil.WEIXIN_API_KEY; // key
 
         String currTime = PayCommonUtil.getCurrTime();
         String strTime = currTime.substring(8, currTime.length());
@@ -28,9 +33,9 @@ public class PayServiceImpl implements PayService {
         
         
         // 获取发起电脑 ip
-        String spbill_create_ip = PayConfigUtil.CREATE_IP;
+        String spbill_create_ip = PayConfigUtil.WEIXIN_CREATE_IP;
         // 回调接口 
-        String notify_url = PayConfigUtil.NOTIFY_URL;
+        String notify_url = PayConfigUtil.WEIXIN_NOTIFY_URL;
         String trade_type = "NATIVE";
         
         SortedMap<Object,Object> packageParams = new TreeMap<Object,Object>();
@@ -50,7 +55,7 @@ public class PayServiceImpl implements PayService {
         String requestXML = PayCommonUtil.getRequestXml(packageParams);
         System.out.println(requestXML);
  
-        String resXml = HttpUtil.postData(PayConfigUtil.UFDODER_URL, requestXML);
+        String resXml = HttpUtil.postData(PayConfigUtil.WEIXIN_UFDODER_URL, requestXML);
 
         
         Map map = XMLUtil.doXMLParse(resXml);
@@ -67,9 +72,8 @@ public class PayServiceImpl implements PayService {
 		int widhtHeight = 300;
 		String EC_level = "L";
 		int margin = 0;
-		urlCode = UrlEncode(urlCode);
-		String QRfromGoogle = "http://chart.apis.google.com/chart?chs=" + widhtHeight + "x" + widhtHeight
-				+ "&cht=qr&chld=" + EC_level + "|" + margin + "&chl=" + urlCode;
+		//urlCode = UrlEncode(urlCode);
+		String QRfromGoogle = "http://qr.liantu.com/api.php?w=" + widhtHeight+"&text=" + urlCode ;
 
 		return QRfromGoogle;
 	}
