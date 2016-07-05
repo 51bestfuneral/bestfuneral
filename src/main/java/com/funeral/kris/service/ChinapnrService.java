@@ -1,34 +1,14 @@
 package com.funeral.kris.service;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.multipart.FilePartSource;
-import org.apache.commons.httpclient.methods.multipart.PartSource;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
 
 import com.funeral.kris.util.AlipayMD5;
 import com.funeral.kris.util.AlipayUtil;
 import com.funeral.kris.util.ChinapnrUtil;
-import com.funeral.kris.util.httpClient.HttpProtocolHandler;
-import com.funeral.kris.util.httpClient.HttpRequest;
-import com.funeral.kris.util.httpClient.HttpResponse;
-import com.funeral.kris.util.httpClient.HttpResultType;
 
 public class ChinapnrService {
 

@@ -1,30 +1,34 @@
 package com.funeral.kris.controller;
 
-import com.funeral.kris.bean.CemeteryBean;
-import com.funeral.kris.model.Cemetery;
-import com.funeral.kris.model.TCemeteryEpigraphStyle;
-import com.funeral.kris.model.TCemeteryGraveStyle;
-import com.funeral.kris.model.TCemeteryGraveZone;
-import com.funeral.kris.model.TCemeteryKeywords;
-import com.funeral.kris.service.CemeteryEpigraphStyleService;
-import com.funeral.kris.service.CemeteryGraveStyleService;
-import com.funeral.kris.service.CemeteryGraveZoneService;
-import com.funeral.kris.service.CemeteryKeywordsService;
-import com.funeral.kris.service.CemeteryService;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.bean.CemeteryBean;
+import com.funeral.kris.model.Cemetery;
+import com.funeral.kris.model.TCemeteryEpigraphStyle;
+import com.funeral.kris.model.TCemeteryGraveStyle;
+import com.funeral.kris.model.TCemeteryGraveZone;
+import com.funeral.kris.model.TCemeteryKeywords;
+import com.funeral.kris.model.TCemeteryPrice;
+import com.funeral.kris.service.CemeteryEpigraphStyleService;
+import com.funeral.kris.service.CemeteryGraveStyleService;
+import com.funeral.kris.service.CemeteryGraveZoneService;
+import com.funeral.kris.service.CemeteryKeywordsService;
+import com.funeral.kris.service.CemeteryService;
+import com.funeral.kris.service.CemeteryPriceService;
 @Controller
 @RequestMapping({"/cemetery"})
 public class CemeteryController
@@ -32,7 +36,8 @@ public class CemeteryController
 
   @Autowired
   private CemeteryService cemeteryService;
-
+  @Autowired
+	private CemeteryPriceService cemeteryPriceService;
   @Autowired
   private CemeteryEpigraphStyleService cemeteryEpigraphStyleService;
 
@@ -84,10 +89,55 @@ public class CemeteryController
     Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
     return cemetery;
   }
+  
+  
+  @ResponseBody
+	@RequestMapping(value = "/getCemeteryPriceBygraveStyleIdAndEpigraphStyleId", method = RequestMethod.GET, produces = "application/json")
+	public TCemeteryPrice getCemeteryPriceBygraveStyleIdAndEpigraphStyleId(HttpServletRequest request) {
+
+		int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
+		int graveStyleId = Integer.parseInt(request.getParameter("graveStyleId"));
+		int epigraphStyleId = Integer.parseInt(request.getParameter("epigraphStyleId"));
+
+		List<TCemeteryPrice> cemeteryPriceList = cemeteryPriceService.getCemeteryPriceListByCemeteryId(cemeteryId);
+
+		if (cemeteryPriceList == null || cemeteryPriceList.size() == 0) {
+			return null;
+		}
+
+		Iterator iterator = cemeteryPriceList.iterator();
+
+		while (iterator.hasNext()) {
+
+			TCemeteryPrice cemeteryPrice = (TCemeteryPrice) iterator.next();
+			if (cemeteryPrice.getEpigraphStyleId().intValue() == epigraphStyleId
+					&& cemeteryPrice.getGraveStyleId().intValue() == graveStyleId) {
+
+				return cemeteryPrice;
+			}
+
+		}
+
+		return null;
+	}
+
+  @ResponseBody
+	@RequestMapping(value = "/listCemeteryPrice", method = RequestMethod.GET, produces = "application/json")
+	public List<TCemeteryPrice> listCemeteryPrice(HttpServletRequest request) {
+
+		int cemeteryId = Integer.parseInt(request.getParameter("id"));
+
+		List<TCemeteryPrice> prices = cemeteryPriceService.getCemeteryPriceListByCemeteryId(cemeteryId);
+
+		return prices;
+	}
+
+  
+  
   @ResponseBody
   @RequestMapping(value={"/findOneCemetery"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
   public CemeteryBean findOneCemetery(HttpServletRequest request) {
-    int cemeteryId = Integer.parseInt(request.getParameter("id"));
+    int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
     Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
 
     List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService

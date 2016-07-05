@@ -25,8 +25,7 @@ public class ENV
     FileInputStream cfg = null;
     try {
       config = new Properties();
-      contextPath="D:/Tomcat 7.0/wtpwebapps/spring";
-      File temp = new File(contextPath+"/WEB-INF/classes/application.properties");
+      File temp = new File("/usr/local/tomcat/webapps/funeral/WEB-INF/classes/application.properties");
  
       cfg = new FileInputStream(temp);
       config.load(cfg);
