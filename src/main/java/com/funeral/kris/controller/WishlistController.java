@@ -1,12 +1,11 @@
+
 package com.funeral.kris.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import javax.persistence.EntityManager;
@@ -38,17 +37,23 @@ import com.funeral.kris.model.Wish;
 import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
+import com.funeral.kris.pay.dao.PayDAO;
+import com.funeral.kris.pay.dao.PayDAOImpl;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.OrderDetailService;
+import com.funeral.kris.service.OrderService;
+import com.funeral.kris.service.TSequenceService;
 import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
+import com.funeral.kris.util.AlipayUtil;
 
 @Controller
 @RequestMapping(value = "/wishlist")
 public class WishlistController {
+	private PayDAO payDao=new PayDAOImpl();
 
 	@Autowired
 	private WishlistService wishlistService;
@@ -64,9 +69,11 @@ public class WishlistController {
 	private OrderDetailService orderDetailService;
 	@Autowired
 	private EntityManager em;
-	
+	@Autowired
+	private OrderService orderService;
 	private List<TaoConfig> taoConfigs = new ArrayList<TaoConfig>();
-
+	@Autowired
+	private TSequenceService sequenceService;
 	@Autowired
 	private WishService wishService;
 	private Integer gender;
@@ -178,7 +185,7 @@ public class WishlistController {
 
 	@ResponseBody
 	@RequestMapping(value = "/generateOrderByWish", method = RequestMethod.POST)
-	public WishOrder generateOrderByWishlist(HttpServletRequest request) {
+	public WishOrder generateOrderByWishlist(HttpServletRequest request) throws Exception {
 		Wishlist wishlist = null;
 		//定制完成，数据转移到WishOrder和OrderDetail
 		WishOrder order = new WishOrder();
@@ -190,14 +197,32 @@ public class WishlistController {
 		order.setSourceId(WishConstants.order_source_set);
 		order.setPayMethod(WishConstants.wishorder_paymethod_together);
 		order.setStatusId(WishConstants.wishorder_status_pendingPay);
+
+//		List<WishOrder> wishOrderList = wishOrderService.getResourceByUserId(user.getUsrId());
+
+		int index = payDao.getSequence();
+		
+		String orderNo=AlipayUtil.generateTradeNo(user.getUsrId(), index);
+		order.setOrderNo(orderNo);
 		wishOrderService.addResource(order);
+		
+		System.out.println(this.getClass()+" ------------ generateOrderByWishlist order.getWishOrderId() "+order.getWishOrderId());
+		
+		
+		order =wishOrderService.getWishOrderByOrderNo(orderNo);
+		
+		if(order!=null){
+		order.setPayWishOrderId(order.getWishOrderId());
+		wishOrderService.addResource(order);
+		}
+		
 		List<WishlistDetail> wishdetailList = new ArrayList<WishlistDetail>();
 		wishdetailList = wishlistDetailService.getResourceByWishListId(user.getWishlistId());
 
 		for (WishlistDetail wishlistDetail: wishdetailList) {
 			OrderDetail orderdetail = new OrderDetail();
 			orderdetail.setCount(wishlistDetail.getCount());
-			orderdetail.setOrderId(order.getWishOrderId());
+			orderdetail.setWishOrderId(order.getWishOrderId());
 			orderdetail.setOriginalPrice(wishlistDetail.getOriginalPrice());
 			orderdetail.setPrice(wishlistDetail.getPrice());
 			orderdetail.setWishId(wishlistDetail.getWishId());
@@ -208,6 +233,7 @@ public class WishlistController {
 			orderDetailService.addResource(orderdetail);
 		}
 		resetWishlist(wishlist);
+		request.getSession().setAttribute("currentWishOrderId", order.getWishOrderId());
 		return order;
 	}
 
@@ -244,7 +270,7 @@ public class WishlistController {
 				OrderDetail orderdetail = new OrderDetail();
 				orderdetail.setWishId(cartDetail.getWishId());
 				orderdetail.setCount(cartDetail.getCount());
-				orderdetail.setOrderId(order.getWishOrderId());
+				orderdetail.setWishOrderId(order.getWishOrderId());
 				orderdetail.setOriginalPrice(cartDetail.getOriginalPrice());
 				orderdetail.setPrice(cartDetail.getPrice());
 				orderdetail.setCreatedDate(new Date());

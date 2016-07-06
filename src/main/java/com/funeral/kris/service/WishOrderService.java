@@ -13,6 +13,8 @@ public interface WishOrderService {
 	public WishOrder getLatestOpenWishOrderForSet(int userId);
 	public List<WishOrder> getResource();
 	public List<WishOrder> getResourceByUserId(int userId);
+	public List<WishOrder> getOpenWishOrderListByPayWishOrderId(int payWishOrderId);
+	public WishOrder getWishOrderByOrderNo(String orderNo);
 
 
 }

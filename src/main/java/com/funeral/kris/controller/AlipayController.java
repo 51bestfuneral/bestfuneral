@@ -4,7 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
@@ -17,20 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.model.Cart;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.WishOrder;
+import com.funeral.kris.pay.dao.PayDAO;
+import com.funeral.kris.pay.dao.PayDAOImpl;
 import com.funeral.kris.service.AlipayService;
 import com.funeral.kris.service.CartDetailService;
 import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.ExpressInfoService;
 import com.funeral.kris.service.FeeCollectionService;
-import com.funeral.kris.service.MailService;
 import com.funeral.kris.service.OrderService;
-import com.funeral.kris.service.SmsSenderService;
+import com.funeral.kris.service.TSequenceService;
 import com.funeral.kris.service.WishOrderService;
 import com.funeral.kris.service.WishlistDetailService;
 import com.funeral.kris.service.WishlistService;
@@ -41,6 +40,11 @@ import com.funeral.kris.util.AlipayUtil;
 public class AlipayController {
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private TSequenceService sequenceService;
+	
+	private PayDAO payDao=new PayDAOImpl();
+	
 	@Autowired
 	private WishlistService wishlistService;
 	@Autowired
@@ -55,12 +59,9 @@ public class AlipayController {
 	private CartService cartService;
 	@Autowired
 	private CartDetailService cartDetailService;
-	@Autowired
-	private MailService mailService;
+	
 
-	@Autowired
-	private SmsSenderService smsSenderService;
-
+	
 	@ResponseBody
 	@RequestMapping(value = "/confirmPay", method = RequestMethod.GET)
 	public int confirmPay(HttpServletRequest request) {
@@ -74,40 +75,46 @@ public class AlipayController {
 		HttpSession session = request.getSession(false);
 
 		User user = (User) session.getAttribute("user");
-//		String wishOrderId = request.getParameter("wishOrderId");
-		Integer currentWishOrderId= (Integer) request.getSession().getAttribute("currentWishOrderId");
+		// String wishOrderId = request.getParameter("wishOrderId");
+		Integer currentWishOrderId = (Integer) request.getSession()
+				.getAttribute("currentWishOrderId");
 
-		Integer setWishOrderId=(Integer) session.getAttribute("setWishOrderId");
-		
-//		String setWishOrderId = request.getParameter("setWishOrderId");
+//		Integer setWishOrderId = (Integer) session
+//				.getAttribute("setWishOrderId");
 
-		
-		
-		
-		
-		
-		
+		// String setWishOrderId = request.getParameter("setWishOrderId");
 
 		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
+
+		// 要考虑是只支付购物车还是同时支付套餐
+
 		
-		//要考虑是只支付购物车还是同时支付套餐
-		
-		
-		if(wishOrder.getPayMethod().intValue()==WishConstants.wishorder_paymethod_wishListOnly){
+//		//如果只支付套餐，那么把当前的订单的PayWishOrderId设置为setWishOrderId
+//		if (wishOrder.getPayMethod().intValue() == WishConstants.wishorder_paymethod_wishListOnly&&setWishOrderId!=null) {
+//
+//			wishOrder.setPayWishOrderId(setWishOrderId);
+//
+//		}else{
+//			
+//			if(setWishOrderId!=null){
+//				
+//				WishOrder setWishOrder = wishOrderService.getResource(setWishOrderId);
+//
+//				setWishOrder.setPayWishOrderId(currentWishOrderId);
+//				wishOrderService.updateResource(setWishOrder);
+//				
+//			}
 			
-			wishOrder.setPayWishOrderId(setWishOrderId);
 			
 			
-		}
-		
-		
+//		}
 
 		Order order = orderService.getOrderByWishOrderId(currentWishOrderId);
 
 		if (order != null
 				&& order.getStatusId().intValue() == AlipayUtil.order_completed) {
 
-throw new Exception(" ---");
+			throw new Exception(" ---");
 
 		}
 
@@ -120,9 +127,9 @@ throw new Exception(" ---");
 
 		cost = cost.add(expressInfo.getExpressFee());
 
-		List<Order> orderList = orderService.listOrderByUserId(user.getUsrId());
+//		List<WishOrder> wishOrderList = wishOrderService.getResourceByUserId(user.getUsrId());
 
-		int index = orderList.size() + 1;
+		int index = payDao.getSequence();
 
 		if (order == null) {
 			String orderNo = AlipayUtil.generateTradeNo(user.getUsrId(), index);
@@ -136,16 +143,6 @@ throw new Exception(" ---");
 			order.setStatusId(AlipayUtil.order_open);
 			orderService.addResource(order);
 			// send mail
-			Map<String, String> messageInfo = new HashMap<String, String>(); 
-			messageInfo.put("to", "service@365niannian.com");
-			messageInfo.put("subject", "你有一笔新的订单");
-			messageInfo.put("content",
-					"你有一笔新的订单(chelsea will provide the temp)");
-			mailService.send(messageInfo);
-			// send SMS
-			Map<String, String> smsInfo = new HashMap<String, String>();
-			smsInfo.put("phone", "4001660030");
-			smsSenderService.sendRemindSms(smsInfo);
 
 		} else {
 			order.setWishOrderId(currentWishOrderId);
@@ -155,7 +152,15 @@ throw new Exception(" ---");
 			orderService.addResource(order);
 		}
 
+		//添加 订单相关 信息
+		wishOrder.setOrderId(order.getOrderId());
+		wishOrder.setOrderNo(order.getOrderNo());
+		wishOrderService.updateResource(wishOrder);
+		
+		
 		feeCollectionService.initFeeCollection(order.getOrderNo());
+
+		
 
 		return order;
 	}

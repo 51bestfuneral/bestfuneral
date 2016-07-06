@@ -17,18 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.init.constants.LoginConstants;
 import com.funeral.kris.model.Cart;
-import com.funeral.kris.model.Cemetery;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.service.CartService;
 import com.funeral.kris.service.SmsSenderService;
+import com.funeral.kris.service.SmsSenderServiceImpl;
 import com.funeral.kris.service.UserService;
 import com.funeral.kris.service.WishlistService;
-import com.funeral.kris.util.MD5;
 
 @Controller
 @RequestMapping(value = "/sign")
@@ -43,9 +41,7 @@ public class SignController {
 	private CartService cartService;
 	@Autowired
 	private EntityManager em;
-
-	@Autowired
-	private SmsSenderService smsSenderService;
+    
 	@ResponseBody
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public void sign(HttpServletRequest request, @RequestBody User user) throws Exception {
@@ -182,10 +178,10 @@ public class SignController {
 		messageInfo.put("phone", phone);
 		messageInfo.put("code", vaildCode);
 		messageInfo.put("product", "念念");
-		int flag = smsSenderService.sendForPassword(messageInfo);
-		if(flag ==1){
-			return vaildCode;
-		}
+//		int flag = smsSenderService.sendForPassword(messageInfo);
+//		if(flag ==1){
+//			return vaildCode;
+//		}
 		return null;
 	}
 }

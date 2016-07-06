@@ -1,9 +1,11 @@
 package com.funeral.kris.util;
 
+import com.funeral.kris.init.ENV;
+
 
 public class ChinapnrUtil {
 	
-	//public static String pid = "";
+	
 	
 	public static String version ="10";
 	
@@ -13,7 +15,7 @@ public class ChinapnrUtil {
 	
 	public static String gateId="";
 	
-	public static  String web_app="http://365niannian.com";
+	public static  String web_app=ENV.getValue("web_app");
 
 	
 	public static  String PAGE_URL =web_app+"/funeral/pages";

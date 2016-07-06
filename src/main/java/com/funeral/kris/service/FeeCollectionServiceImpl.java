@@ -12,12 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.constants.COLLECTION;
 import com.funeral.kris.constants.EXPRESS;
+import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.controller.ContactInfoController;
 import com.funeral.kris.dao.FeeCollectionDAO;
 import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
+import com.funeral.kris.model.User;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.AlipayUtil;
@@ -35,18 +38,25 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 	private ExpressInfoService expressInfoService;
 	@Autowired
 	private ContactInfoService contactInfoService;
-	
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private WishlistDetailService wishlistDetailService;
+	@Autowired
+	private WishOrderService wishOrderService;
+
 	@Override
 	public void initFeeCollection(String orderNo) {
-		
-		System.out.println("----------------  orderNo="+orderNo+"   orderService="+orderService);
-		
-		
-		Order  order=	orderService.getResourceByOrderNo(orderNo);
 
-		TFeeCollection feeCollection = this.loadPayableFeeCollectionByOrderNo(orderNo);
+		System.out.println("----------------  orderNo=" + orderNo
+				+ "   orderService=" + orderService);
+
+		Order order = orderService.getResourceByOrderNo(orderNo);
+
+		User user = userService.getResource(order.getUserId());
+
+		TFeeCollection feeCollection = this
+				.loadPayableFeeCollectionByOrderNo(orderNo);
 
 		if (feeCollection == null) {
 
@@ -61,8 +71,10 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			feeCollection.setDescription(order.getSubject());
 			feeCollection.setStatusId(COLLECTION.collection_init);
 			feeCollection.setSubject(orderNo);
-			feeCollection.setTradeStatus(COLLECTION.collection_trade_status_init);
-
+			feeCollection
+					.setTradeStatus(COLLECTION.collection_trade_status_init);
+			feeCollection.setBuyerEmail(user.getEmail());
+			feeCollection.setBuyerId(user.getUsrId());
 			feeCollectionDAO.save(feeCollection);
 
 		} else {
@@ -75,23 +87,27 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 			feeCollection.setDescription(order.getSubject());
 			feeCollection.setStatusId(COLLECTION.collection_init);
 			feeCollection.setSubject(orderNo);
-			feeCollection.setTradeStatus(COLLECTION.collection_trade_status_init);
+			feeCollection
+					.setTradeStatus(COLLECTION.collection_trade_status_init);
+			feeCollection.setBuyerEmail(user.getEmail());
+			feeCollection.setBuyerId(user.getUsrId());
 			feeCollectionDAO.save(feeCollection);
 
 		}
 
 	}
-
+	@Deprecated
 	@Override
 	public int completeCollection(Map<String, String> params) {
 
 		String orderNo = params.get("out_trade_no");
 
-		TFeeCollection feeCollection = this.loadPayableFeeCollectionByOrderNo(orderNo);
-		
-		if(feeCollection==null){
-			
-			feeCollection=new TFeeCollection();
+		TFeeCollection feeCollection = this
+				.loadPayableFeeCollectionByOrderNo(orderNo);
+
+		if (feeCollection == null) {
+
+			feeCollection = new TFeeCollection();
 		}
 
 		feeCollection.setNotifyTime(params.get("notify_time"));
@@ -99,7 +115,7 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 		feeCollection.setNotifyType(params.get("notify_type"));
 		feeCollection.setOutTradeNo(params.get("trade_no"));
 		feeCollection.setSignType("MD5");
-//		feeCollection.setPayerId(Integer.parseInt(params.get("buyer_id")));
+		// feeCollection.setPayerId(Integer.parseInt(params.get("buyer_id")));
 		feeCollection.setSellerId(params.get("seller_id"));
 		feeCollection.setNotifyId(params.get("notify_id"));
 		feeCollection.setTradeNo(params.get("out_trade_no"));
@@ -107,77 +123,93 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 		feeCollection.setGmtCreate(params.get("gmt_create"));
 		feeCollection.setGmtPayment(params.get("gmt_payment"));
 		feeCollection.setSign(params.get("sign"));
-		feeCollection.setTradeStatus(COLLECTION.collection_trade_status_completed);
-		feeCollection.setBuyerEmail(params.get("buyer_email"));
-		feeCollection.setSellerEmail(params.get("seller_email"));
+		feeCollection
+				.setTradeStatus(COLLECTION.collection_trade_status_completed);
+
 		feeCollection.setQuantity(params.get("quantity"));
 		feeCollection.setSubject(params.get("out_trade_no"));
-//		feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));
+		// feeCollection.setDiscount(new BigDecimal(params.get("buyer_email")));
 		feeCollection.setUseCoupon(params.get("use_coupon"));
 		feeCollection.setIsTotalFeeAdjust(params.get("is_total_fee_adjust"));
 		feeCollectionDAO.save(feeCollection);
-		
-		
-		
-		
-		//修改wishlist
-		
-		int userId=Integer.parseInt(params.get("user_id"));
-		
-		Wishlist  wishlist =wishlistService.getResourceByUserId(userId);
-		
-		wishlist.setPrice(wishlist.getPrice().subtract(feeCollection.getAmount()));
-		
-		//wishlist.setOriginalPirce(BigDecimal.ZERO);
-		
-		wishlistService.updateResource(wishlist);
-		
-		//修改wishlist detail
-		
-		
-		List<WishlistDetail>  wishlistDetailList= wishlistDetailService.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
-		
-		
-		Iterator  wishlistDetailListIterator=     wishlistDetailList.iterator();
-		
-		while(wishlistDetailListIterator.hasNext()){
-			
-			WishlistDetail  detail=	(WishlistDetail) wishlistDetailListIterator.next();
-			
-			
-			wishlistDetailService.deleteResource(detail.getWishlistDetailId());
-			
-			
-		}
-		
-		
-		
-		//修改Order状态
-		
-		Order  order=	orderService.getResourceByOrderNo(orderNo);
 
+		// 修改wishlist
+
+		int userId = Integer.parseInt(params.get("user_id"));
+
+		Wishlist wishlist = wishlistService.getResourceByUserId(userId);
+
+		wishlist.setPrice(wishlist.getPrice().subtract(
+				feeCollection.getAmount()));
+
+		// wishlist.setOriginalPirce(BigDecimal.ZERO);
+
+		wishlistService.updateResource(wishlist);
+
+		// 修改wishlist detail
+
+		List<WishlistDetail> wishlistDetailList = wishlistDetailService
+				.getSelectedWishlistDetailByWishListId(wishlist.getWishlistId());
+
+		Iterator wishlistDetailListIterator = wishlistDetailList.iterator();
+
+		while (wishlistDetailListIterator.hasNext()) {
+
+			WishlistDetail detail = (WishlistDetail) wishlistDetailListIterator
+					.next();
+
+			wishlistDetailService.deleteResource(detail.getWishlistDetailId());
+
+		}
+
+		// 修改Order状态
+		Order order = orderService.getResourceByOrderNo(orderNo);
 		order.setStatusId(AlipayUtil.order_completed);
-		
-		//修改express 支付成功
-		
-		List<ExpressInfo>  expressInfoList=expressInfoService.getUncompledExpressInfoByUserId(userId, EXPRESS.express_status_init);
-		
-		ExpressInfo  currentExpress=expressInfoList.get(0);
-		
-		currentExpress.setStatusId(EXPRESS.express_status_paied);	
-		
+
+		// 修改wishOrder 信息, 拿到 pay wish order id =当前wish order
+		// id的记录，然后更新他们的字表，t_order_detail
+
+		Integer wishOrderId = order.getWishOrderId();
+
+		List<WishOrder> wishOrderList = wishOrderService
+				.getOpenWishOrderListByPayWishOrderId(wishOrderId);
+
+		if (wishOrderList != null) {
+
+			Iterator iterator = wishOrderList.iterator();
+
+			while (iterator.hasNext()) {
+
+				WishOrder wishOrder = (WishOrder) iterator.next();
+
+				wishOrder.setStatusId(WishConstants.wishorder_status_paied);
+
+				wishOrderService.updateResource(wishOrder);
+
+			}
+
+		}
+
+		// 修改express 支付成功
+
+		List<ExpressInfo> expressInfoList = expressInfoService
+				.getUncompledExpressInfoByUserId(userId,
+						EXPRESS.express_status_init);
+
+		ExpressInfo currentExpress = expressInfoList.get(0);
+
+		currentExpress.setStatusId(EXPRESS.express_status_paied);
+
 		expressInfoService.updateResource(currentExpress);
-		
-		//修改联系人
-		
-		ContactInfo  contactInfo=contactInfoService.getUsingContacter(userId);
-		
-		
-		
+
+		// 修改联系人
+
+		ContactInfo contactInfo = contactInfoService.getUsingContacter(userId);
+
 		contactInfo.setStatusId(ContactInfoController.IN_RELEASED);
-		
+
 		contactInfoService.updateResource(contactInfo);
-		
+
 		return feeCollection.getCollectionId();
 
 	}
@@ -246,7 +278,8 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 	@Override
 	public TFeeCollection loadPayableFeeCollectionByOrderNo(String orderNo) {
 
-		List<TFeeCollection> tFeeCollectionList = this.loadFeeCollectionByOrderNo(orderNo);
+		List<TFeeCollection> tFeeCollectionList = this
+				.loadFeeCollectionByOrderNo(orderNo);
 
 		if (tFeeCollectionList == null || tFeeCollectionList.size() == 0) {
 
@@ -261,8 +294,9 @@ public class FeeCollectionServiceImpl implements FeeCollectionService {
 
 				if (collection.getOrderNo().equals(orderNo)
 						&& collection.getStatusId().intValue() != COLLECTION.collection_pay_success
-						&& COLLECTION.collection_pay_expired != collection.getStatusId().intValue()) {
-					
+						&& COLLECTION.collection_pay_expired != collection
+								.getStatusId().intValue()) {
+
 					return collection;
 
 				}

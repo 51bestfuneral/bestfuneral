@@ -6,6 +6,7 @@ import com.funeral.kris.model.ContactInfo;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 
@@ -25,5 +26,9 @@ public void  updateExpressInfo(ExpressInfo expressInfo) throws Exception;
 public void releaseUsingContacter(int userId);
 public 	void  updateOrderStatus(String orderNo,int statusId)throws Exception	;	
 public void updateWishOrderStatus(int wishOrderId,int statusId) throws Exception;
+
+public List<WishOrder>  getOpenWishOrderListByPayWishOrderId(int payWishOrderId)throws Exception ;
+
+public  int getSequence() throws Exception;
 
 }

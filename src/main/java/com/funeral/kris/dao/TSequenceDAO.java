@@ -3,9 +3,9 @@ package com.funeral.kris.dao;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import com.funeral.kris.model.OrderDetail;
-
+import com.funeral.kris.model.TSequence;
 @Repository
-public interface  OrderDetailDAO extends PagingAndSortingRepository<OrderDetail, Integer> {
+public interface TSequenceDAO extends PagingAndSortingRepository<TSequence, Integer> {
 
 }
+

@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.funeral.kris.dao.LevelWishTypeDAO;
-import com.funeral.kris.dao.WishTypeDAO;
 import com.funeral.kris.model.LevelWishType;
 import com.funeral.kris.model.User;
 import com.funeral.kris.model.WishType;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.service.WishTypeService;
 import com.funeral.kris.service.WishlistDetailService;
-import com.funeral.kris.service.WishlistService;
 
 @Controller
 @RequestMapping(value="/wishType")

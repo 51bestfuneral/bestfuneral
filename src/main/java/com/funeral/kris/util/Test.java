@@ -1,5 +1,7 @@
 package com.funeral.kris.util;
 
+import com.funeral.kris.init.WebAppConfig;
+
 public class Test {
 	
 	
@@ -9,7 +11,10 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		new TestPush().test();
+		WebAppConfig conf=new WebAppConfig();
+		
+		conf.dataSource();
+		
 	}
 	
 

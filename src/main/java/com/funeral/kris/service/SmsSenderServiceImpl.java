@@ -4,16 +4,12 @@ package com.funeral.kris.service;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.AlibabaAliqinFcSmsNumSendRequest;
 import com.taobao.api.response.AlibabaAliqinFcSmsNumSendResponse;
 
-@Service
-@Transactional
+
 public class SmsSenderServiceImpl implements SmsSenderService{
 	
 	public static final String hostUrl = "http://gw.api.taobao.com/router/rest";

@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.funeral.kris.constants.WishConstants;
 import com.funeral.kris.dao.WishOrderDAO;
-import com.funeral.kris.model.TWishCategorySub;
 import com.funeral.kris.model.WishOrder;
-import com.funeral.kris.service.TWishCategorySubServiceImpl.SortByAge;
 import com.funeral.kris.util.SqlHelper;
 
 @Service
@@ -61,24 +59,31 @@ public class WishOrderServiceImpl implements WishOrderService {
 	@Override
 	public WishOrder getLatestOpenWishOrderForSet(int userId) {
 
+		
+//		public  static int wishorder_status_init=1;
+//		public  static int wishorder_status_pendingPay=2;
+//		public  static int wishorder_status_paied=3;
+//		public  static int wishorder_status_rejected=4;
+//		public  static int wishorder_status_closed=5;
+		
 		List<WishOrder> wishOrderList = this.getResource();
 
-		if (wishOrderList == null||wishOrderList.size()==0) {
-			System.out.println(this.getClass()
-					+ " getLatestOpenWishOrderForSet no pending wish list!");
+		if (wishOrderList == null || wishOrderList.size() == 0) {
+			System.out.println(this.getClass() + "  no pending wish list!");
 
 			return null;
 		}
 
-		List<WishOrder> subOrderList = new ArrayList();
+		List<WishOrder> subOrderList = new ArrayList<WishOrder>();
 
 		Iterator iterator = wishOrderList.iterator();
 
 		while (iterator.hasNext()) {
 			WishOrder wishOrder = (WishOrder) iterator.next();
 
-			if (wishOrder.getSourceId().intValue()==WishConstants.order_source_set&&wishOrder.getUserId().intValue() == userId
-					&& (wishOrder.getStatusId().intValue() == WishConstants.wishlist_status_init || wishOrder
+			if (wishOrder.getSourceId().intValue() == WishConstants.order_source_set
+					&& wishOrder.getUserId().intValue() == userId
+					&& (wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_init || wishOrder
 							.getStatusId().intValue() == WishConstants.wishorder_status_pendingPay)) {
 				subOrderList.add(wishOrder);
 			}
@@ -115,16 +120,23 @@ public class WishOrderServiceImpl implements WishOrderService {
 
 		Iterable iterable = WishOrderDAO.findAll();
 
+		System.out.println(this.getClass() + " getResource  iterable= "
+				+ iterable);
+
 		if (iterable == null) {
 			return null;
 		}
+
+		System.out.println(this.getClass() + " getResource  111= " + 111);
+
 		List<WishOrder> wishOrderList = new ArrayList<WishOrder>();
 
 		Iterator iterator = iterable.iterator();
 
 		while (iterator.hasNext()) {
-
-			wishOrderList.add((WishOrder) iterator.next());
+			WishOrder wishOrder = (com.funeral.kris.model.WishOrder) iterator
+					.next();
+			wishOrderList.add(wishOrder);
 		}
 
 		return wishOrderList;
@@ -132,24 +144,70 @@ public class WishOrderServiceImpl implements WishOrderService {
 
 	@Override
 	public List<WishOrder> getResourceByUserId(int userId) {
-		List<WishOrder> wishOrderList=     this.getResource();
-		List<WishOrder> subWishOrderList=new ArrayList<WishOrder>();
-		if(wishOrderList==null){
-			
+		List<WishOrder> wishOrderList = this.getResource();
+		List<WishOrder> subWishOrderList = new ArrayList<WishOrder>();
+		if (wishOrderList == null) {
+
 			return null;
 		}
-		
-		Iterator iterator=wishOrderList.iterator();
-		
-		while(iterator.hasNext()){
-			
-			WishOrder wishOrder=	(WishOrder) iterator.next();
-			if(wishOrder.getUserId().intValue()==userId){
-			subWishOrderList.add(wishOrder);
+
+		Iterator iterator = wishOrderList.iterator();
+
+		while (iterator.hasNext()) {
+
+			WishOrder wishOrder = (WishOrder) iterator.next();
+			if (wishOrder.getUserId().intValue() == userId) {
+				subWishOrderList.add(wishOrder);
 			}
 		}
-		
-		
+
 		return subWishOrderList;
+	}
+
+	@Override
+	public List<WishOrder> getOpenWishOrderListByPayWishOrderId(
+			int payWishOrderId) {
+
+		List<WishOrder> wishOrderList = this.getResource();
+
+		List<WishOrder> subWishOrderList = new ArrayList<WishOrder>();
+
+		if (wishOrderList != null) {
+
+			Iterator iterator = wishOrderList.iterator();
+
+			WishOrder wishOrder = (WishOrder) iterator.next();
+
+			if (payWishOrderId==wishOrder.getPayWishOrderId()&&(wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_pendingPay
+					|| wishOrder.getStatusId().intValue() == WishConstants.wishorder_status_init))
+				{subWishOrderList.add(wishOrder);}
+
+		}
+		return subWishOrderList;
+
+	}
+
+	@Override
+	public WishOrder getWishOrderByOrderNo(String orderNo) {
+		
+		
+		List<WishOrder>  wishOrderList=this.getResource();
+		
+		
+		if(wishOrderList!=null){
+			Iterator iterator=	wishOrderList.iterator();
+			
+			while(iterator.hasNext()){
+				
+				WishOrder wishOrder=		(WishOrder) iterator.next();
+				
+				if(orderNo.equals(wishOrder.getOrderNo())){
+					
+					return wishOrder;
+				}
+				
+			}
+		}
+		return null;
 	}
 }

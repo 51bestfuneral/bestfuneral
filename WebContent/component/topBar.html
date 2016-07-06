@@ -378,7 +378,7 @@
         	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton'><p>开始购物</p></div></div>");
         }
         else {
-        	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton' id='navigateButton1'><p>前去购物袋</p></div><div class='navigateButton' id='navigateButton3'><p>直接结算</p></div></div>");
+        	$(window.parent.document.body).append("<div id='shoppingSub' hidden></div><div id='shoppingInfo' hidden><h3>购物车(<span id='shoppingCartCount'>"+count+"</span>)</h3><div class='navigateButton' id='navigateButton1'><p>前去购物袋</p></div></div>");
 		    $("#shoppingCartIcon").find("img").attr("src", "../js/images/shopping-red@2x.png");
         }
 		$("#shoppingCartIcon").mouseenter(function () {
@@ -434,7 +434,7 @@
             }
             else {
                 parent.find("#navigateButton1").css({
-					'width': '93px',
+					'width': '186px',
 					'height': '26px',
 					'background': '#ed4b83',
 					'border-radius': '5px',
@@ -449,6 +449,7 @@
 					'height': '26px',
 					'background': '#ed4b83',
 					'border-radius': '5px',
+					'disabled':'true',
 					'z-index': 21,
 					'margin-top': '9px',
 					'cursor': 'pointer',

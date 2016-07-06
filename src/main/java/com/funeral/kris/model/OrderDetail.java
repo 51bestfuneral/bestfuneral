@@ -53,8 +53,20 @@ public class OrderDetail {
 	@Column(name="source_id")
 	private Integer sourceId;
 	
-	@Column(name="order_id")
-	private Integer orderId;
+	@Column(name="wish_order_id")
+	private Integer wishOrderId;
+
+	
+
+	
+
+	public Integer getWishOrderId() {
+		return wishOrderId;
+	}
+
+	public void setWishOrderId(Integer wishOrderId) {
+		this.wishOrderId = wishOrderId;
+	}
 
 	@Column(name="price")
 	private BigDecimal price;
@@ -127,11 +139,5 @@ public class OrderDetail {
 		this.updatedDate = updatedDate;
 	}
 
-	public Integer getOrderId() {
-		return orderId;
-	}
-
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
-	}
+	
 }
