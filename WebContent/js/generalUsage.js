@@ -292,11 +292,15 @@ function clearWarningmusk () {
 	$(".jquery_addmask").remove();
 	$(".loginFrameCoat").remove();
 	$("#warningMsg").remove();
+	$(".loadingShow").remove();
 }
 
-function popupWarningMessagePage(content, callback, headerContent) {
+function popupWarningMessagePage(content, callback, headerContent,
+		btn1, btn2, callback2) {
 	var screenHeight = document.documentElement.clientHeight,
-	    centerTop = (screenHeight-100)/2;
+	    centerTop = (screenHeight-100)/2,
+	    btnTxt1 = btn1 === undefined?'确定':btn1,
+	    btnTxt2 = btn2 === undefined?'取消':btn2;
 		$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
 				position: 'absolute',
 				top: '0px',
@@ -306,7 +310,7 @@ function popupWarningMessagePage(content, callback, headerContent) {
 				height: $(document).height(),
 				'background-color': 'rgba(0,0,0,.6)'
 			}).show();
-		$('<div id="loginFrameCoat" hidden><div id="warningMsg"><p class="warningHeader">'+headerContent+'</p><p>'+content+'<span style="font-size: 6px;" id="processingBtn" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span></p><button class="linkButton confirm">確定</button><button class="linkButton cancel">取消</button></div></div>').appendTo(document.body).css({ 
+		$('<div id="loginFrameCoat" hidden><div id="warningMsg"><span id="closeIcon"><i class="fa fa-times" aria-hidden="true"></i></span><p class="warningHeader">'+headerContent+'</p><p>'+content+'<span style="font-size: 6px;" id="processingBtn" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></span></p><button class="linkButton confirm">'+btnTxt1+'</button><button class="linkButton cancel">'+btnTxt2+'</button></div></div>').appendTo(document.body).css({ 
 			height: 'auto',
 			width: '100%',
 			top: centerTop+'px',
@@ -332,7 +336,6 @@ function popupWarningMessagePage(content, callback, headerContent) {
 		});
 		$("#warningMsg").find(".linkButton").css({
 		    'border': '1px solid #52a0e5',
-		    'width': '58px',
 		    'height': '28px',
 		    'line-height': '28px',
 		    'text-align': 'center',
@@ -357,12 +360,45 @@ function popupWarningMessagePage(content, callback, headerContent) {
 			'background': '#fff',
 			'color': '#3c3c3c'
 		});
-		$("#warningMsg").find(".cancel").click(function() {
+		$("#closeIcon").css({
+			'float': 'right',
+	        'color': '#ed4b83',
+	        'font-size': '20px',
+	        'margin-top': '-5px',
+	        'cursor': 'pointer'
+		});
+		$("#closeIcon").hover(function() {
+			$(this).css({
+				'background': '#ccc'
+			});
+		}, function() {
+			$(this).css({
+				'background': 'transparent'
+			});
+		});
+		$("#closeIcon").click(function() {
 			clearWarningmusk();
+		});
+		$("#warningMsg").find(".cancel").click(function() {
+
+			if (callback2) {
+
+				if (!$(this).hasClass("disabled")) {
+					$(".linkButton").addClass("disabled");
+					$("#processingBtn").show();
+					$(this).css({
+						'opacity':'0.6'
+					});
+					callback2();
+				}
+			}
+			else {
+				clearWarningmusk();
+			}
 		});
 		$("#warningMsg").find(".confirm").click(function() {
 			if (!$(this).hasClass("disabled")) {
-				$(this).addClass("disabled");
+				$(".linkButton").addClass("disabled");
 				$("#processingBtn").show();
 				$(this).css({
 					'opacity':'0.6'

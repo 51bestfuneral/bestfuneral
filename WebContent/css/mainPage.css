@@ -103,6 +103,7 @@ body {
 }
 #topHalfLevel h1 {
     padding-top: 200px;
+    font-weight: 100;
 	margin: 0;
 	color: white;
 	font-size: 50px;
