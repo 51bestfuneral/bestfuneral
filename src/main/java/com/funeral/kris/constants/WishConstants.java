@@ -23,7 +23,7 @@ public class WishConstants {
 	public  static int wish_feature_product=1;
 	public  static int wish_feature_service=2;
 	
-	public  static int wishlist_status_init=1;
+	public  static int wishorder_status_init=1;
 	public  static int wishorder_status_pendingPay=2;
 	public  static int wishorder_status_paied=3;
 	public  static int wishorder_status_rejected=4;

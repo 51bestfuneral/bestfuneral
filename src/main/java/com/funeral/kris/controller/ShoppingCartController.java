@@ -139,9 +139,8 @@ public class ShoppingCartController {
 		return cartlistJsons;
 	}
 
-	
-	private BigDecimal getGrossFee(List<OrderDetail> orderDetailList){
-		
+	private BigDecimal getGrossFee(List<OrderDetail> orderDetailList) {
+
 		BigDecimal grossFee = BigDecimal.ZERO;
 
 		if (orderDetailList != null && orderDetailList.size() > 0) {
@@ -158,10 +157,9 @@ public class ShoppingCartController {
 
 		}
 		return grossFee;
-		
+
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/payMethod", method = RequestMethod.GET, produces = "application/json")
 	public ShoppingCart payMethod(HttpServletRequest request) {
@@ -176,27 +174,29 @@ public class ShoppingCartController {
 		String payMethod = request.getParameter("payMethod");
 
 		// 获取当前的wish order id
-		
-		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
-		
-		wishOrder.setPayMethod(Integer.parseInt(payMethod));
-		System.out.println(this.getClass()+" ----------------updateWishOrderPrice payMethod=  "+payMethod);
 
-		ShoppingCart shoppingCart=new ShoppingCart();
-		//设置最新的支付方式
+		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
+
+		wishOrder.setPayMethod(Integer.parseInt(payMethod));
+		System.out.println(this.getClass()
+				+ " ----------------updateWishOrderPrice payMethod=  "
+				+ payMethod);
+
+		ShoppingCart shoppingCart = new ShoppingCart();
+		// 设置最新的支付方式
 		shoppingCart.setPayMethod(Integer.parseInt(payMethod));
-		
+
 		// 获取快递信息及快递费
 		this.setExpressInfo(shoppingCart, currentWishOrderId);
-		//设置套餐信息包括套餐费
+		// 设置套餐信息包括套餐费
 		this.setSetInfo(wishOrder.getPayMethod().intValue(), request,
 				shoppingCart);
-        //设置直接选择的信息
+		// 设置直接选择的信息
 		this.setCartOrderInfo(user, currentWishOrderId, wishOrder
 				.getPayMethod().intValue(), shoppingCart);
-        
-		//设置订单的小计，总费用
-		this.updateWishOrderPrice(user, shoppingCart,  wishOrder);
+
+		// 设置订单的小计，总费用
+		this.updateWishOrderPrice(user, shoppingCart, wishOrder);
 
 		Integer setWishOrderId = shoppingCart.getSetWishOrderId();
 
@@ -232,7 +232,7 @@ public class ShoppingCartController {
 
 		}
 		shoppingCart.setOrderDetailForCartList(orderDetailList);
-		
+
 		shoppingCart.setGrossFee(grossFee);
 
 		return shoppingCart;
@@ -283,8 +283,7 @@ public class ShoppingCartController {
 		boolean hasShoppingCart = shoppingCart.getOrderDetailForCartList() != null
 				&& shoppingCart.getOrderDetailForCartList().size() > 0;
 
-		boolean hasWishList = shoppingCart.getWishListJson() != null
-				&& shoppingCart.getWishListJson().getAmount().intValue() > 0;
+		boolean hasWishList = shoppingCart.getOrderDetailForWishList()!=null&&shoppingCart.getOrderDetailForWishList().size()>0;
 
 		System.out
 				.println(this.getClass()
@@ -318,35 +317,66 @@ public class ShoppingCartController {
 		Integer currentWishOrderId = (Integer) request.getSession()
 				.getAttribute("currentWishOrderId");
 
-		
 		BigDecimal setCost = BigDecimal.ZERO;
 
 		WishOrder latestOpenWishOrder = wishOrderService
 				.getLatestOpenWishOrderForSet(user.getUsrId());
 
-		List<OrderDetail> setOrderDetailList = orderDetailService
-				.getOrderDetailFromWishList(user.getWishlistId(), currentWishOrderId);
 		
-		WishListJson wishListJson = this.buildWishListJsonForPayMentConfirm(
-				setOrderDetailList, user.getWishlistId());
+		
+		
+		System.out
+				.println(this.getClass()
+						+ "----------- setSetInfo currentWishOrderId="
+						+ currentWishOrderId + " getWishlistId="
+						+ user.getWishlistId()+" getUsrId="+user.getUsrId()+"  latestOpenWishOrder="+latestOpenWishOrder);
+		
+		
+		
+		
+		if (latestOpenWishOrder != null) {
+			
+			System.out
+			.println(this.getClass()+"latestOpenWishOrder getWishOrderId "+latestOpenWishOrder.getWishOrderId());
+			
+			List<OrderDetail> setOrderDetailList = orderDetailService
+					.getOrderDetailForWishList(latestOpenWishOrder
+							.getWishOrderId());
+			WishListJson wishListJson = this
+					.buildWishListJsonForPayMentConfirm(setOrderDetailList,
+							user.getWishlistId());
+			setCost = this.getSetFee(latestOpenWishOrder);
 
-		setCost = this.getSetFee(latestOpenWishOrder);
-		
-		if(setCost.compareTo(BigDecimal.ZERO)==0){
-			setCost = wishListJson.getPrice();
+			if (setCost.compareTo(BigDecimal.ZERO) == 0) {
+				setCost = wishListJson.getPrice();
+			}
+
+			shoppingCart.setOrderDetailForWishList(setOrderDetailList);
+
+			shoppingCart.setSetFee(setCost);
+
+			shoppingCart.setWishListJson(wishListJson);
+
 		}
 
-		shoppingCart.setOrderDetailForWishList(setOrderDetailList);
 		
-		shoppingCart.setSetFee(setCost);
-
-		shoppingCart.setWishListJson(wishListJson);
-
+		System.out
+		.println(this.getClass()
+				+ "----------- setSetInfo currentWishOrderId="
+				+ currentWishOrderId + " getWishlistId="
+				+ user.getWishlistId()+" getUsrId="+user.getUsrId()+"  getOrderDetailForWishList="+shoppingCart.getOrderDetailForWishList());
+		
 		this.buildPayRelation(payMethod, currentWishOrderId,
 				latestOpenWishOrder);
 
 		return shoppingCart;
 
+	}
+
+	private List<OrderDetail> getOrderDetailFromWishListByOrderId(
+			long wishOrderId) {
+
+		return null;
 	}
 
 	private BigDecimal getSetFee(WishOrder LatestOpenWishOrder) {
@@ -358,18 +388,21 @@ public class ShoppingCartController {
 		return LatestOpenWishOrder.getPrice();
 	}
 
-	private void updateWishOrderPrice(User user,ShoppingCart shoppingCart,
+	private void updateWishOrderPrice(User user, ShoppingCart shoppingCart,
 			WishOrder wishOrder) {
 
-		BigDecimal grossFee = this.getGrossFee(shoppingCart.getOrderDetailForCartList());
-		
-		System.out.println(this.getClass()+" ----------------updateWishOrderPrice grossFee=  "+grossFee);
-		
-		BigDecimal setFee = shoppingCart.getSetFee();
-		
-		System.out.println(this.getClass()+" ----------------updateWishOrderPrice setFee=  "+setFee);
+		BigDecimal grossFee = this.getGrossFee(shoppingCart
+				.getOrderDetailForCartList());
 
-		
+		System.out.println(this.getClass()
+				+ " ----------------updateWishOrderPrice grossFee=  "
+				+ grossFee);
+
+		BigDecimal setFee = shoppingCart.getSetFee();
+
+		System.out.println(this.getClass()
+				+ " ----------------updateWishOrderPrice setFee=  " + setFee);
+
 		if (shoppingCart.getPayMethod() == WishConstants.wishorder_paymethod_shoppingCartOnly) {
 			shoppingCart.setGrossFee(grossFee);
 			shoppingCart.setNetFee(shoppingCart.getExpressFee().add(grossFee));
@@ -377,8 +410,7 @@ public class ShoppingCartController {
 			wishOrder
 					.setPayMethod(WishConstants.wishorder_paymethod_shoppingCartOnly);
 			wishOrderService.updateResource(wishOrder);
-		} else if(shoppingCart.getPayMethod() == WishConstants.wishorder_paymethod_wishListOnly){
-			
+		} else if (shoppingCart.getPayMethod() == WishConstants.wishorder_paymethod_wishListOnly) {
 
 			WishOrder setwishOrder = wishOrderService
 					.getLatestOpenWishOrderForSet(user.getUsrId());
@@ -387,18 +419,15 @@ public class ShoppingCartController {
 				shoppingCart.setSetWishOrderId(setwishOrder.getWishOrderId());
 			}
 			shoppingCart.setGrossFee(setFee);
-			shoppingCart.setNetFee(shoppingCart.getExpressFee()
-					.add(setFee));
+			shoppingCart.setNetFee(shoppingCart.getExpressFee().add(setFee));
 			wishOrder.setPrice(shoppingCart.getGrossFee());
-			wishOrder.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
-			wishOrderService.updateResource(wishOrder);	
-			
-			
+			wishOrder
+					.setPayMethod(WishConstants.wishorder_paymethod_wishListOnly);
+			wishOrderService.updateResource(wishOrder);
+
 		}
-		
-		
-		else
-		{
+
+		else {
 			WishOrder setwishOrder = wishOrderService
 					.getLatestOpenWishOrderForSet(user.getUsrId());
 			if (setwishOrder != null) {
@@ -414,16 +443,14 @@ public class ShoppingCartController {
 			wishOrderService.updateResource(wishOrder);
 		}
 
-		
-
 	}
 
 	private void buildPayRelation(int payMethod, Integer currentWishOrderId,
 			WishOrder LatestOpenWishOrder) {
-		
-		if(LatestOpenWishOrder==null){
-			
-			return ;
+
+		if (LatestOpenWishOrder == null) {
+
+			return;
 		}
 
 		if (payMethod == WishConstants.wishorder_paymethod_shoppingCartOnly) {
@@ -435,7 +462,6 @@ public class ShoppingCartController {
 
 			LatestOpenWishOrder.setPayWishOrderId(currentWishOrderId);
 
-		
 			wishOrderService.updateResource(LatestOpenWishOrder);
 
 		}
@@ -466,13 +492,12 @@ public class ShoppingCartController {
 			// 告訴wishOrder，将要在哪个订单下支付，并且修改wishOrder状态
 			wishOrder.setPayWishOrderId(null);
 
-
 			wishOrderService.updateResource(wishOrder);
 
 		}
 
 		List<OrderDetail> setOrderDetailList = orderDetailService
-				.getOrderDetailFromWishList(user.getWishlistId(), wishOrder.getWishOrderId());
+				.getOrderDetailForWishList(wishOrder.getWishOrderId());
 		Integer currentWishOrderId = (Integer) request.getSession()
 				.getAttribute("currentWishOrderId");
 
@@ -484,7 +509,7 @@ public class ShoppingCartController {
 		// 告訴wishOrder，将要在哪个订单下支付，并且修改wishOrder状态
 		wishOrder.setPayWishOrderId(currentWishOrderId);
 
-		wishOrder.setStatusId(WishConstants.wishlist_status_init);
+		wishOrder.setStatusId(WishConstants.wishorder_status_init);
 
 		wishOrderService.updateResource(wishOrder);
 
@@ -813,7 +838,6 @@ public class ShoppingCartController {
 
 		WishListJson wishListJson = new WishListJson();
 
-		
 		Wishlist wishlist = wishlistService.getResource(wishListId);
 
 		if (setOrderDetailList == null || setOrderDetailList.size() == 0) {
@@ -883,28 +907,30 @@ public class ShoppingCartController {
 		return wishListJson;
 
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/linkToPaymentInfo", method = RequestMethod.GET)
 	@Transactional(propagation = Propagation.REQUIRED)
 	public int linkToPaymentInfo(HttpServletRequest request) throws Exception {
+
+		String wishOrderId = request.getParameter("wishOrderId");
+
+		Integer currentWishOrderId =Integer.parseInt(wishOrderId);
 		
-		String wishOrderId=request.getParameter("wishOrderId");
+		 request.getSession().setAttribute("currentWishOrderId", currentWishOrderId);
 		
 		HttpSession session = request.getSession(false);
-		session.setAttribute("currentWishOrderId",Integer.parseInt(wishOrderId));
-		
+		session.setAttribute("currentWishOrderId",
+				Integer.parseInt(wishOrderId));
+
 		User user = (User) session.getAttribute("user");
 
 		Integer cartId = user.getCartId();
-		
-		 request.getSession().setAttribute(
-					"currentCartId",cartId);
+
+		request.getSession().setAttribute("currentCartId", cartId);
 		return Integer.parseInt(wishOrderId);
-		
-		
+
 	}
-	
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/getShoppingCartForPayMentConfirm", method = RequestMethod.GET)
@@ -920,21 +946,22 @@ public class ShoppingCartController {
 		Integer currentWishOrderId = (Integer) request.getSession()
 				.getAttribute("currentWishOrderId");
 		
-		
+		System.out.println(this.getClass()+"======getShoppingCartForPayMentConfirm=====currentWishOrderId="+currentWishOrderId);
+
 		WishOrder wishOrder = wishOrderService.getResource(currentWishOrderId);
 
 		// 获取快递信息及快递费
 		this.setExpressInfo(shoppingCart, currentWishOrderId);
-		//设置套餐信息包括套餐费
+		// 设置套餐信息包括套餐费
 		this.setSetInfo(wishOrder.getPayMethod().intValue(), request,
 				shoppingCart);
-        //设置直接选择的信息
+		// 设置直接选择的信息
 		this.setCartOrderInfo(user, currentWishOrderId, wishOrder
 				.getPayMethod().intValue(), shoppingCart);
-        //设置最新的支付方式
+		// 设置最新的支付方式
 		this.setPayMethod(shoppingCart);
-		//设置订单的小计，总费用
-		this.updateWishOrderPrice(user, shoppingCart,  wishOrder);
+		// 设置订单的小计，总费用
+		this.updateWishOrderPrice(user, shoppingCart, wishOrder);
 
 		Integer setWishOrderId = shoppingCart.getSetWishOrderId();
 
@@ -963,7 +990,7 @@ public class ShoppingCartController {
 		order.setUpdatedDate(new Date());
 		order.setSourceId(WishConstants.order_source_direct);
 		order.setPayMethod(WishConstants.wishorder_paymethod_together);
-		order.setStatusId(WishConstants.wishlist_status_init);
+		order.setStatusId(WishConstants.wishorder_status_init);
 		List<CartDetail> cartList = cartDetailService
 				.getSelectedCartDetailsByCartId(cart.getCartId());
 		request.getSession().setAttribute("currentCartId", cart.getCartId());
@@ -976,7 +1003,7 @@ public class ShoppingCartController {
 				OrderDetail orderdetail = new OrderDetail();
 				orderdetail.setWishId(cartDetail.getWishId());
 				orderdetail.setCount(cartDetail.getCount());
-				orderdetail.setOrderId(order.getWishOrderId());
+				orderdetail.setWishOrderId(order.getWishOrderId());
 				orderdetail.setOriginalPrice(cartDetail.getOriginalPrice());
 				orderdetail.setWishListId(user.getWishlistId());
 				orderdetail.setSourceId(WishConstants.order_source_direct);
@@ -993,11 +1020,14 @@ public class ShoppingCartController {
 			}
 			order.setPrice(totalPrice);
 			order.setOriginalPrice(originalTotalPrice);
-			
-			
-			request.getSession().setAttribute("currentWishOrderId", order.getWishOrderId());
-			System.out.println(this.getClass()+"------------------ generateOrderByCart currentWishOrderId="+order.getWishOrderId());
-			
+
+			request.getSession().setAttribute("currentWishOrderId",
+					order.getWishOrderId());
+			System.out
+					.println(this.getClass()
+							+ "------------------ generateOrderByCart currentWishOrderId="
+							+ order.getWishOrderId());
+
 			wishOrderService.updateResource(order);
 		} catch (Exception e) {
 			throw e;

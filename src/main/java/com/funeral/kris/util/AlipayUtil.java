@@ -41,6 +41,9 @@ public class AlipayUtil {
 	public static Map<String, Map> feeMap = new HashMap<String, Map>();
 
 	public static String generateTradeNo(int userId, int sequence) {
+		
+		
+		
 
 		System.out.println(AlipayUtil.class
 				+ "-------------------keler-------------web_app=" + web_app);

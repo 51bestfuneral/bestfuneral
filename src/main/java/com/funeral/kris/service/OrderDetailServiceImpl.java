@@ -38,7 +38,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	public Map<Integer, Wish> wishsMap = null;
 
 	private void initialWishMap() {
-		HttpServletRequest fakeRequest = null;
 		List<Wish> wishs = wishService.getResources();
 		wishsMap = new HashMap<Integer, Wish>();
 		for (Wish wish : wishs) {
@@ -64,7 +63,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	public void deleteResourceByOrderId(int id) {
-		String a = "delete from t_order_detail where order_id = " + id;
+		String a = "delete from t_order_detail where wish_order_id = " + id;
 		jdbcTemplate.execute(a);
 	}
 
@@ -93,7 +92,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 				OrderDetail detail = (OrderDetail) it.next();
 
-				if (detail.getOrderId().intValue() == wishOrderId) {
+				if (detail.getWishOrderId().intValue() == wishOrderId) {
 					list.add(detail);
 				}
 			}
@@ -103,7 +102,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	}
 
 	@Override
-	public List<OrderDetail> getOrderDetailFromWishList(int wishListId,int wishOrderId) {
+	public List<OrderDetail> getOrderDetailFromWishList(int wishListId,
+			int currentWishOrderId) {
 		Iterable<OrderDetail> iterator = OrderDetailDAO.findAll();
 		if (this.wishsMap == null) {
 
@@ -118,11 +118,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 			while (it.hasNext()) {
 
 				OrderDetail detail = (OrderDetail) it.next();
-				
+
 				if (detail.getWishListId().intValue() == wishListId
-						&& detail.getSourceId().intValue() == WishConstants.wish_source_set &&wishOrderId==detail.getOrderId()) {
-					detail.setWishName(wishsMap.get(detail.getWishId()).getWishName());	
-					
+						&& detail.getSourceId().intValue() == WishConstants.wish_source_set
+						&& currentWishOrderId == detail.getWishOrderId()) {
+					detail.setWishName(wishsMap.get(detail.getWishId())
+							.getWishName());
+
 					list.add(detail);
 				}
 			}
@@ -146,7 +148,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 				OrderDetail detail = (OrderDetail) it.next();
 
-				if (detail.getOrderId().intValue() == wishOrderId
+				if (detail.getWishOrderId().intValue() == wishOrderId
 						&& detail.getSourceId().intValue() == WishConstants.wish_source_direct) {
 					list.add(detail);
 				}
@@ -156,8 +158,87 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 		return list;
 
 	}
-	
-	public List<OrderDetail> getOrderListyWishOrderId(int wishOrderId) {
-		return OrderDetailDAO.findListByOrderId(wishOrderId);
+
+	@Override
+	public List<OrderDetail> getOrderDetailForWishList(int wishOrderId) {
+
+		Iterable<OrderDetail> iterator = OrderDetailDAO.findAll();
+		if (this.wishsMap == null) {
+
+			this.initialWishMap();
+		}
+
+		List<OrderDetail> list = new ArrayList<OrderDetail>();
+
+		if (iterator != null) {
+			Iterator it = iterator.iterator();
+
+			while (it.hasNext()) {
+
+				OrderDetail detail = (OrderDetail) it.next();
+
+				System.out.println(this.getClass()
+						+ " ----getOrderDetailForWishList---- getWishOrderId="
+						+ detail.getWishOrderId() + " getSourceId="
+						+ detail.getSourceId());
+
+				if (detail.getWishOrderId().intValue() == wishOrderId
+						&& detail.getSourceId().intValue() == WishConstants.wish_source_set) {
+					detail.setWishName(wishsMap.get(detail.getWishId())
+							.getWishName());
+
+					list.add(detail);
+				}
+			}
+		}
+
+		return list;
+
 	}
+
+	@Override
+	public List<OrderDetail> getOrderDetailByPayWishOrderId(int payWishOrderId) {
+
+		List<OrderDetail> allList = this.getResource();
+
+		List<OrderDetail> subList = new ArrayList<OrderDetail>();
+
+		if (allList != null) {
+
+			Iterator iterator = allList.iterator();
+
+			while (iterator.hasNext()) {
+
+				OrderDetail orderDetail = (OrderDetail) iterator.next();
+
+				if (orderDetail.getWishOrderId().intValue() == payWishOrderId) {
+					subList.add(orderDetail);
+
+				}
+
+			}
+
+		}
+
+		return subList;
+	}
+
+	@Override
+	public List<OrderDetail> getResource() {
+
+		List<OrderDetail> list = new ArrayList<OrderDetail>();
+
+		if (OrderDetailDAO.findAll() != null) {
+			Iterator iterator = OrderDetailDAO.findAll().iterator();
+			while (iterator.hasNext()) {
+				OrderDetail orderDetail = (OrderDetail) iterator.next();
+
+				list.add(orderDetail);
+			}
+
+		}
+
+		return list;
+	}
+
 }

@@ -54,16 +54,18 @@ public class OrderDetail {
 	private Integer sourceId;
 	
 	@Column(name="wish_order_id")
-	private Integer orderId;
+	private Integer wishOrderId;
 
 	
 
-	public Integer getOrderId() {
-		return orderId;
+	
+
+	public Integer getWishOrderId() {
+		return wishOrderId;
 	}
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setWishOrderId(Integer wishOrderId) {
+		this.wishOrderId = wishOrderId;
 	}
 
 	@Column(name="price")

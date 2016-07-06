@@ -14,6 +14,7 @@ import com.funeral.kris.controller.ContactInfoController;
 import com.funeral.kris.model.ExpressInfo;
 import com.funeral.kris.model.Order;
 import com.funeral.kris.model.TFeeCollection;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
 import com.funeral.kris.model.WishlistDetail;
 import com.funeral.kris.util.MySQL;
@@ -150,7 +151,7 @@ public class PayDAOImpl implements PayDAO {
 			st.setString(5, feeCollection.getSubject());
 			st.setString(6, feeCollection.getSubject());
 			st.setString(7, feeCollection.getTradeStatus());
-			st.setInt(8, feeCollection.getCollectionType());
+			st.setInt(8, 2);
 			st.setInt(9, feeCollection.getCollectionId());
 
 			st.executeUpdate();
@@ -228,7 +229,8 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public List<WishlistDetail> getSelectedWishlistDetailByWishListId(int wishlistId) {
+	public List<WishlistDetail> getSelectedWishlistDetailByWishListId(
+			int wishlistId) {
 
 		MySQL MySQL = new MySQL();
 
@@ -305,7 +307,8 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public List<ExpressInfo> getUncompledExpressInfoByUserId(int userId, int statusId) {
+	public List<ExpressInfo> getUncompledExpressInfoByUserId(int userId,
+			int statusId) {
 
 		MySQL MySQL = new MySQL();
 
@@ -347,7 +350,6 @@ public class PayDAOImpl implements PayDAO {
 	@Override
 	public void updateExpressInfo(ExpressInfo expressInfo) throws Exception {
 
-
 		MySQL MySQL = new MySQL();
 
 		Connection conn = MySQL.getConn();
@@ -365,11 +367,6 @@ public class PayDAOImpl implements PayDAO {
 			throw e;
 		}
 
-	
-		
-		
-		
-		
 	}
 
 	@Override
@@ -379,14 +376,13 @@ public class PayDAOImpl implements PayDAO {
 
 		Connection conn = MySQL.getConn();
 
-		String sql = " update t_contact_info set  status_id=?    where  user_id=?  and status_id="
-				+ ContactInfoController.IN_USE;
+		String sql = " update t_contact_info set  status_id=?    where  user_id=?  ";
 
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
 
 			st.setInt(1, ContactInfoController.IN_RELEASED);
-			st.setInt(1, userId);
+			st.setInt(2, userId);
 			st.executeUpdate();
 
 		} catch (SQLException e) {
@@ -397,13 +393,15 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public ExpressInfo getUncompledExpressInfoByWishOrderId(int wishOrderId, int statusId) throws Exception {
+	public ExpressInfo getUncompledExpressInfoByWishOrderId(int wishOrderId,
+			int statusId) throws Exception {
 
 		MySQL MySQL = new MySQL();
 
 		Connection conn = MySQL.getConn();
 
-		String sql = " select *  from t_express_info where  wish_order_id=? and status_id=" + statusId;
+		String sql = " select *  from t_express_info where  wish_order_id=? and status_id="
+				+ statusId;
 
 		try {
 			PreparedStatement st = conn.prepareStatement(sql);
@@ -432,8 +430,8 @@ public class PayDAOImpl implements PayDAO {
 	}
 
 	@Override
-	public void updateOrderStatus(String orderNo,int statusId)throws Exception {
-
+	public void updateOrderStatus(String orderNo, int statusId)
+			throws Exception {
 
 		MySQL MySQL = new MySQL();
 
@@ -453,13 +451,11 @@ public class PayDAOImpl implements PayDAO {
 
 		}
 
-			
 	}
 
 	@Override
-	public void updateWishOrderStatus(int wishOrderId,int statusId) throws Exception {
-
-
+	public void updateWishOrderStatus(int wishOrderId, int statusId)
+			throws Exception {
 
 		MySQL MySQL = new MySQL();
 
@@ -478,9 +474,92 @@ public class PayDAOImpl implements PayDAO {
 			throw e;
 		}
 
+	}
+
+	@Override
+	public List<WishOrder> getOpenWishOrderListByPayWishOrderId(
+			int payWishOrderId) throws Exception {
+
+		List<WishOrder> list = new ArrayList<WishOrder>();
+		MySQL MySQL = new MySQL();
+
+		Connection conn = MySQL.getConn();
+
+		String sql = " select * from t_wish_order s where s.pay_wish_order_id=? and s.status_id in (1,2)";
+
+		try {
+			PreparedStatement st = conn.prepareStatement(sql);
+
+			st.setInt(1, payWishOrderId);
+			ResultSet rs = st.executeQuery();
+
+			while (rs.next()) {
+
+				WishOrder wishOrder = new WishOrder();
+
+				wishOrder.setWishOrderId(rs.getInt("wish_order_id"));
+				wishOrder.setOrderId(rs.getInt("order_id"));
+				wishOrder.setUserId(rs.getInt("user_id"));
+				wishOrder.setOrderNo(rs.getString("order_no"));
+				wishOrder.setPayMethod(rs.getInt("pay_method"));
+				wishOrder.setPayWishOrderId(rs.getInt("pay_wish_order_id"));
+				wishOrder.setSourceId(rs.getInt("source_id"));
+				wishOrder.setPrice(rs.getBigDecimal("price"));
+				wishOrder.setOriginalPrice(rs.getBigDecimal("original_price"));
+				wishOrder.setStatusId(rs.getInt("status_id"));
+
+				list.add(wishOrder);
+			}
+
+		} catch (Exception e) {
+			throw e;
+		}
+
+		return list;
+
+	}
+
+	@Override
+	public synchronized  int getSequence() throws Exception {
+
+		MySQL MySQL = new MySQL();
+		PreparedStatement st=null;
+		Connection conn = MySQL.getConn();
+
+		String sql = " update t_sequence set  _id=_id+step ";
+
+		try {
+			st = conn.prepareStatement(sql);
+			st.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		}finally{
 			
-	
-		
+		st.close();
+		}
+		ResultSet rs=null;
+		sql = "select _id from t_sequence";
+
+		try {
+			 st = conn.prepareStatement(sql);
+
+			 rs = st.executeQuery();
+
+			if (rs.next()) {
+
+				return rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			throw e;
+		}finally{
+		rs.close();
+		st.close();
+		conn.close();
+		}
+
+		return 0;
 	}
 
 }
