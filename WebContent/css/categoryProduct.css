@@ -286,13 +286,21 @@
 		overflow: auto;
 	}
 	.sortItem {
-	    margin-right: 25px;
-		line-height: 25px;
+	    margin-right: 20px;
 		float: left;
 		padding-left: 6px;
 		padding-right: 6px;
 		color: #333;
 	}
+	.sortItem p{
+		float: left;
+		line-height: 25px;
+	}
+	.sortItem i {
+		float: right;
+		line-height: 25px;
+		margin-left: 2px;
+	} 
 	.sortItem:hover {
 	    background-color: #fe5098;
 		color: #fff;
@@ -383,13 +391,14 @@
 	}
 	#productGrid {
 		overflow: auto;
-		min-height: 200px;
+		min-height: 120px;
 	}
 	#loadingDiv {
 		width: 100%;
 		text-align: center;
-		padding-top: 20px;
+		overflow: hidden;
 	}
 	#loadingDiv i {
+		margin-top: 20px;
 		font-size: 80px;
 	}

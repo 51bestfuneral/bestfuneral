@@ -43,6 +43,14 @@ public class SqlHelper {
 					}
 				}
 			}
+
+			if (request.getParameter("orderBy") != null && !request.getParameter("orderBy").equals("")) {
+				completeSql = completeSql + " order by " + request.getParameter("orderBy");
+
+				if (request.getParameter("reverse") != null) {
+					completeSql = completeSql + " desc";
+				}
+			}
 		}
 		return completeSql;
 	}

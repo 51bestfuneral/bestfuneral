@@ -54,7 +54,10 @@ CREATE TABLE wishs (
   remark varchar(500),
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
-  show_in_front integer default 0
+  show_in_front integer default 0,
+  filter1 varchar(10),
+  filter2 varchar(10),
+  filter3 varchar(10)
   PRIMARY KEY (wish_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 

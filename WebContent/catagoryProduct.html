@@ -31,7 +31,12 @@ function findCata(cataName, catas) {
 }
 var length = location.search.length,
 type = location.search.substring(6, length),
-productFilter = "?generalCode="+type;
+productFilter = "?generalCode="+type,
+itemFilter1 = '',
+itemFilter2 = '',
+itemFilter3 = '',
+orderBy = '',
+reverse = '';
 var catas = [{
     cataId: 'II-JJ',
 	cataName: '骨灰盒',
@@ -133,8 +138,14 @@ cata = findCata(type, catas);
 					<p>您已选择:</p>
 				</div>
 				<div id="chosenItems">
-					<div class="chosenItem">
-						<span>所有</span><span class="removeItem">x</span>
+					<div class="chosenItem" hidden>
+						<span></span><span class="removeItem" id="itemFilter1">x</span>
+					</div>
+					<div class="chosenItem" hidden>
+						<span></span><span class="removeItem" id="itemFilter2">x</span>
+					</div>
+					<div class="chosenItem" hidden>
+						<span></span><span class="removeItem" id="itemFilter3">x</span>
 					</div>
 				</div>
 			</div>
@@ -143,14 +154,8 @@ cata = findCata(type, catas);
 				    <i class="fa fa-tags" aria-hidden="true" style="color: #fddc3e;"></i>
 					<p>新款推荐:</p>
 				</div>
-				<div class="optionItem">
-					<p>日系骨灰罐</p>
-				</div>
-				<div class="optionItem">
-					<p>经典骨灰罐</p>
-				</div>
-				<div class="optionItem">
-					<p>宠物骨灰罐</p>
+				<div class="optionItem" id='{{filter1.filterCode}}' ng-repeat="filter1 in filterGroup1">
+					<p ng-bind="filter1.filterName"></p>
 				</div>
 			</div>
 			<div class="normalBar">
@@ -158,11 +163,8 @@ cata = findCata(type, catas);
 				    <i class="fa fa-bars" aria-hidden="true" style="color: #7fc6d5;"></i>
 					<p>产品类型:</p>
 				</div>
-				<div class="optionItem">
-					<p>长款</p>
-				</div>
-				<div class="optionItem">
-					<p>小款</p>
+				<div class="optionItem" id='{{filter1.filterCode}}' ng-repeat="filter1 in filterGroup2">
+					<p ng-bind="filter1.filterName"></p>
 				</div>
 			</div>
 			<div class="normalBar">
@@ -170,26 +172,23 @@ cata = findCata(type, catas);
 				    <i class="fa fa-sitemap" aria-hidden="true" style="color: pink;"></i>
 					<p>适  用:</p>
 				</div>
-				<div class="optionItem">
-					<p>长辈</p>
-				</div>
-				<div class="optionItem">
-					<p>爱人</p>
-				</div>
-				<div class="optionItem">
-					<p>宠物</p>
+				<div class="optionItem" id='{{filter1.filterCode}}' ng-repeat="filter1 in filterGroup3" on-finish-render-filters1>
+					<p ng-bind="filter1.filterName"></p>
 				</div>
 			</div>
 		</div>
 		<div id="sortBar">
-			<div class="sortItem">
+			<div class="sortItem" id="wishName">
 				<p>综合</p>
+				<i class="fa fa-sort" aria-hidden="true" style="display: none;"></i>
 			</div>
-			<div class="sortItem">
+			<div class="sortItem" id="wishLevel">
 				<p>销量优先</p>
+				<i class="fa fa-sort" aria-hidden="true" style="display: none;"></i>
 			</div>
-			<div class="sortItem">
+			<div class="sortItem" id="sellingPrice">
 				<p>价格</p>
+				<i class="fa fa-sort" aria-hidden="true" style="display: none;"></i>
 			</div>
 		</div>
 		<div id="productGrid">
@@ -223,7 +222,8 @@ cata = findCata(type, catas);
 </body>
 <script type="text/javascript">
 var app = angular.module('catagoryApp', []),
-    cataFilter;
+    cataFilter,
+	queryedFilter;
 function muskPage() {
 	    $(this).css({
 			    opacity: 0.5
@@ -267,14 +267,59 @@ app.directive('onFinishRenderFilters', function ($timeout) {
         }
     };
 });
+app.directive('onFinishRenderFilters1', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished1');
+                });
+            }
+        }
+    };
+});
 app.controller('catagory', function($scope, $http) {
-    $http.get("/wish/list"+productFilter).success(function(response) {
-	    for (var i=1;i<=response.length;i++) {
-		    if (i%4 == 0) {
-			    response[i-1].positionClass = "rowlast";
+    var reloadProducts = function() {
+		var queryFilter = productFilter + itemFilter1 + itemFilter2 + itemFilter3 + orderBy + reverse;
+		
+		if (queryedFilter !== queryFilter) {
+		    queryedFilter = queryFilter;
+		    $("#loadingDiv").animate({
+				'height': '120px'
+			});
+			$http.get("/wish/list"+queryFilter).success(function(response) {
+				for (var i=1;i<=response.length;i++) {
+					if (i%4 == 0) {
+						response[i-1].positionClass = "rowlast";
+					}
+				}
+				$scope.itemLayouts = response;
+				$("#loadingDiv").animate({
+					'height': '0px'
+				});
+			});
+		}
+	}
+    reloadProducts();
+	$http.get("/filter/list"+productFilter).success(function(response) {
+	    var filterGroup1 = [],
+		    filterGroup2 = [],
+			filterGroup3 = [];
+		for (var i=0;i<response.length;i++) {
+			if (response[i].filterLevel === 1) {
+				filterGroup1.push(response[i]);
+			}
+			else if (response[i].filterLevel === 2) {
+			    filterGroup2.push(response[i]);
+			}
+			else if (response[i].filterLevel === 3) {
+			    filterGroup3.push(response[i]);
 			}
 		}
-	    $scope.itemLayouts = response;
+		$scope.filterGroup1 = filterGroup1;
+		$scope.filterGroup2 = filterGroup2;
+		$scope.filterGroup3 = filterGroup3;
 	});
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
 	    $(".productItem").click(function() {
@@ -308,26 +353,42 @@ app.controller('catagory', function($scope, $http) {
 		    var itemId = $(this).closest(".productItem")[0].id;
 			
 		});
-		$.ajax({
-    		url: '/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
-    		type: 'get',
-    		success:function(data){
-    			var response = data;
-    			for (var i=0;i<response.length;i++) {
-    			    if (response[i].wishId === wishInLocal.wishId) {
-    			    	$(".addToWishBtn").addClass("disableDiv");
-    			    	$(".addToWishBtn")[0].innerText = "已加入愿望单";
-    			    	$(".addToWishBtn")[1].innerText = "已加入愿望单";
-    			    	wishlistDetailId = response[i].wishDetailId;
-    			    }
-    			}
-    		},
-    		error: function(error) {
-    			var response = error;
-    			//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
-    		}
-    	});
-		$("#loadingDiv").hide();
+	});
+	$scope.$on('ngRepeatFinished1', function (ngRepeatFinishedEvent) {
+	    $("body").on("click", ".removeItem", function() {
+			if ($(this)[0].id === 'itemFilter1') {
+				itemFilter1 = '';
+			}
+			else if ($(this)[0].id === 'itemFilter2') {
+				itemFilter2 = '';
+			}
+			else {
+				itemFilter3 = '';
+			}
+			$(this).closest(".chosenItem").fadeOut();
+			reloadProducts();
+		});
+		$(".normalBar").each(function(idx) {
+			$(this).find(".optionItem").click(function() {
+				
+				if (idx === 0) {
+					itemFilter1 = "&filter1="+$(this)[0].id;
+					$("#itemFilter1").prev()[0].innerText = $(this).find("p")[0].innerText;
+					$("#itemFilter1").closest(".chosenItem").fadeIn();
+				}
+				else if (idx === 1) {
+					itemFilter2 = "&filter2="+$(this)[0].id;
+					$("#itemFilter2").prev()[0].innerText = $(this).find("p")[0].innerText;
+					$("#itemFilter2").closest(".chosenItem").fadeIn();
+				}
+				else {
+					itemFilter3 = "&filter3="+$(this)[0].id;
+					$("#itemFilter3").prev()[0].innerText = $(this).find("p")[0].innerText;
+					$("#itemFilter3").closest(".chosenItem").fadeIn();
+				}
+				reloadProducts();
+			});
+		});
 	});
 	$scope.cataName = cata.cataName;
 	$scope.cataDesc = cata.cataDesc;
@@ -342,6 +403,29 @@ app.controller('catagory', function($scope, $http) {
         else if (!$this.hasClass("selected")) {
 		    window.location.href='catagoryProduct.html?cata='+$this[0].id;
 		}
+	});
+	$(".sortItem").click(function() {
+	    $(".sortItem").find("i").hide();
+	    if ($(this).find("i").hasClass("fa-sort")) {
+		    $(this).find("i").removeClass("fa-sort");
+			$(this).find("i").addClass("fa-sort-asc");
+			$(this).find("i").show();
+			reverse = "";
+		}
+		else if ($(this).find("i").hasClass("fa-sort-desc")) {
+		    $(this).find("i").removeClass("fa-sort-desc");
+			$(this).find("i").addClass("fa-sort-asc");
+			$(this).find("i").show();
+			reverse = "";
+		}
+		else if ($(this).find("i").hasClass("fa-sort-asc")) {
+		    $(this).find("i").removeClass("fa-sort-asc");
+			$(this).find("i").addClass("fa-sort-desc");
+			$(this).find("i").show();
+			reverse = "&reverse=1";
+		}
+		orderBy = "&orderBy=" + $(this)[0].id;
+	    reloadProducts();
 	});
 });
 </script>
