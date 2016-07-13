@@ -175,7 +175,7 @@ public class WishlistController {
 		User user = (User) request.getSession().getAttribute("user");
 		gender = user.getGender();
 		Integer userId = user.getUsrId();
-		Integer wishlistId = Integer.valueOf(request.getParameter("wishlistId"));
+		Integer wishlistId = user.getWishlistId();
 		Integer level = Integer.valueOf(request.getParameter("level"));
 		generateTaoCanRule(level, user.getBirthday());
 		wishlist = generateWishList(userId, wishlistId, level);
@@ -299,8 +299,24 @@ public class WishlistController {
 			return null;
 		}
 		List<Wishlist> wishlists = wishlistService.getWishListByUserId(user.getUsrId());
+        return wishlists;
+	}
 
-		return wishlists;
+	@ResponseBody
+	@RequestMapping(value = "/checkWishlistEmpty", method = RequestMethod.GET, produces = "application/json")
+	public int listEmptyOfWishlists(HttpServletRequest request) throws Exception {
+		User user = (User) request.getSession().getAttribute("user");
+
+		if (user == null) {
+			return 0;
+		}
+        List<WishlistDetail> wishlistDetails = wishlistDetailService.getRecommendWishlistDetailByWishListId(user.getWishlistId());
+        if (wishlistDetails.size() > 0) {
+        	return 1;
+        }
+        else {
+        	return 0;
+        }
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

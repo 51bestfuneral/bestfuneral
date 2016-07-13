@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>念念--葬礼定制</title>
+<link href="/js/images/niannian.ico" rel="shortcut icon" />
 <meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
 <meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
 <link href="/css/designProposal.css" rel="stylesheet">
@@ -19,6 +20,7 @@
 <script src="/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
 <script src="/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <script src="/js/generalUsage.js"></script>
+<link rel="stylesheet" href="/js/Font-Awesome-4.4.0/css/font-awesome.min.css">
 </head>
 <link href="/js/personal.css" rel="stylesheet">
 <body>
@@ -358,8 +360,8 @@ $.ajax({
 	error: function(error) {
 	}
 });
-function generateWishlistByLevel(wishlistId, level) {
-    var paras = '&wishlistId='+wishlistId+'&level='+level;
+function generateWishlistByLevel(level) {
+    var paras = '&level='+level;
     $.ajax({
 		url: '/wishlist/add?'+paras,
 		data: [],
@@ -374,15 +376,24 @@ function generateWishlistByLevel(wishlistId, level) {
 }
 function getWishlistByLevelAfterChcek(level) {
     $.ajax({
-		url: '/wishlist/list',
+		url: '/wishlist/checkWishlistEmpty',
 		data: [],
 		type: 'get',
 		dataType:'json',
 		success:function(data){
-			
-			
-			generateWishlistByLevel(data[0].wishlistId, level);
-		
+			var callback = function() {
+				generateWishlistByLevel(level);
+			},
+			callback2 = function() {
+				window.location.href='/designProcess.html';
+			};
+			if(data === 1) {
+				popupWarningMessagePage("检测到您已经有一个正在定制的愿望清单，清空原来的重新定制还是继续上次定制？", callback, "提示信息",
+						"清空并重新定制", "继续上次定制", callback2);
+			}
+			else {
+				generateWishlistByLevel(level);
+			}
 		},
 		error: function(error) {
 		}

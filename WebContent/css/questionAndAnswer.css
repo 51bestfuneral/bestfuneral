@@ -57,6 +57,13 @@
 	margin-right: 113px;
 	min-height: 300px;
 }
+.singleQuestion2 {
+    width: 440px;
+	overflow: auto;
+	float: left;
+	margin-right: 113px;
+	min-height: 200px;
+}
 .questionHeader {
     width: 20px;
 	float: left;
