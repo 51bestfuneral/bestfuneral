@@ -191,10 +191,10 @@ cata = findCata(type, catas);
 				<i class="fa fa-sort" aria-hidden="true" style="display: none;"></i>
 			</div>
 		</div>
-		<div id="productGrid">
-		    <div id="loadingDiv">
-				<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
-			</div>
+		<div id="loadingDiv">
+			<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
+		</div>
+		<div id="productGrid" hidden>
 			<div class="productItem {{itemLayout.positionClass}}" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in itemLayouts" on-finish-render-filters>
 				<div class="imageDiv">
 					<img src="/js/images/{{itemLayout.imgUrl}}" class="image"></img>
@@ -223,7 +223,8 @@ cata = findCata(type, catas);
 <script type="text/javascript">
 var app = angular.module('catagoryApp', []),
     cataFilter,
-	queryedFilter;
+	queryedFilter,
+	wishlistId;
 function muskPage() {
 	    $(this).css({
 			    opacity: 0.5
@@ -280,10 +281,30 @@ app.directive('onFinishRenderFilters1', function ($timeout) {
     };
 });
 app.controller('catagory', function($scope, $http) {
+    var handleExists = function(target) {
+	    target.addClass("alreadyExist");
+		target.find("span")[0].innerText = "已加入愿望单";
+		target.find("i").removeClass("fa-heart-o");
+		target.find("i").removeClass("fa-spinner fa-pulse fa-3x fa-fw");
+		target.find("i").addClass("fa-heart");
+		target.find("i").css({
+		    'color': "#ed4b83"
+		});
+	};
+	var handleProcessing = function(target) {
+	    target.addClass("alreadyExist");
+		target.find("i").removeClass("fa-heart-o");
+		target.find("i").addClass("fa-spinner fa-pulse fa-3x fa-fw");
+	};
+	var handleFailed = function() {
+	    target.find("i").removeClass("fa-spinner fa-pulse fa-3x fa-fw");
+		target.find("i").addClass("fa-times");
+	}
     var reloadProducts = function() {
 		var queryFilter = productFilter + itemFilter1 + itemFilter2 + itemFilter3 + orderBy + reverse;
 		
 		if (queryedFilter !== queryFilter) {
+		    $("#productGrid").fadeOut();
 		    queryedFilter = queryFilter;
 		    $("#loadingDiv").animate({
 				'height': '120px'
@@ -295,9 +316,6 @@ app.controller('catagory', function($scope, $http) {
 					}
 				}
 				$scope.itemLayouts = response;
-				$("#loadingDiv").animate({
-					'height': '0px'
-				});
 			});
 		}
 	}
@@ -331,16 +349,21 @@ app.controller('catagory', function($scope, $http) {
 		});
 		$(".imageDivMask").hover(function() {
 			var target = $(this).closest(".productItem").find(".addToCart");
+			$(".addToCart").each(function() {
+			    if (!$(this).hasClass("stopFade")) {
+				    $(this).hide();
+				}
+			});
 			setTimeout(function() {
 				if (!target.hasClass("stopFade")) {
-					target.fadeIn(1);
+					target.show();
 				}
 			}, 1);
 		}, function() {
 			var target = $(this).closest(".productItem").find(".addToCart");
 			setTimeout(function() {
-				if (!target.hasClass("stopFade")) {
-					target.fadeOut(1);
+				if (!target.hasClass("stopFade") && !target.hasClass("alreadyExist")) {
+					target.hide();
 				}
 			}, 1);
 		});
@@ -349,9 +372,50 @@ app.controller('catagory', function($scope, $http) {
 		}, function() {
 			$(this).removeClass("stopFade");
 		});
-		$(".addToCart").click(function() {
-		    var itemId = $(this).closest(".productItem")[0].id;
-			
+		$http.get("/wishlist/list").success(function(data) {
+		    if (data.length > 0) {
+    	        wishlistId = data[0].wishlistId;
+				$http.get("/wishlistDetail/getAllWishList?wishlistId="+wishlistId).success(function(response) {
+			        for (var i=0;i<response.length;i++) {
+					    if ($("#"+response[i].wishId).length > 0) {
+					        handleExists($("#"+response[i].wishId).find(".addToCart"));
+						}
+					}
+					$("#loadingDiv").animate({
+						'height': '0px'
+					});
+					$("#productGrid").fadeIn();
+			    });
+    		}
+		});
+		$(".addToCart").click(function(event) {
+		    var itemId = $(this).closest(".productItem")[0].id,
+			    selfObject = $(this);
+			if (!$(this).hasClass("alreadyExist")) {
+			    handleProcessing(selfObject);
+			    if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+    		        $.ajax({
+						url: '/wishlistDetail/addSingleToWish?wishId='+itemId,
+						type: 'post',
+						contentType: "application/json; charset=UTF-8",
+						data: [],
+						dataType:'json',
+						success:function(data){
+							handleExists(selfObject);
+						},
+						error: function(error) {
+							handleFailed(selfObject);
+						}
+					});
+    	        }
+				else {
+				    window.parent.popupLogInPage();
+				}
+			}
+			event.stopPropagation();
+		});
+		$(".addToCart").mousedown(function(event) {
+		    event.stopPropagation();
 		});
 	});
 	$scope.$on('ngRepeatFinished1', function (ngRepeatFinishedEvent) {

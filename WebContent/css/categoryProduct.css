@@ -388,6 +388,7 @@
 	}
 	.addToCart i {
 		margin-right: 4px;
+		font-size: 14px;
 	}
 	#productGrid {
 		overflow: auto;
@@ -401,4 +402,7 @@
 	#loadingDiv i {
 		margin-top: 20px;
 		font-size: 80px;
+	}
+	.alreadyExist {
+		display: block!important;
 	}
