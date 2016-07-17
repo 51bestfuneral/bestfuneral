@@ -292,7 +292,7 @@ $("#optionsRadios3").click(function () {
 	var price= $("#totalFee").val();
 	var desc=$("#subject").val();
 	$.ajax({
-    	url: '/pay/weixinPay?orderNo='+orderNo+'&price='+"10"+'&desc='+desc,
+    	url: '/pay/weixinPay?orderNo='+orderNo+'&price='+price+'&desc='+desc,
     	type: 'POST',
 		contentType: "application/json; charset=UTF-8",
 		dataType:'json',
