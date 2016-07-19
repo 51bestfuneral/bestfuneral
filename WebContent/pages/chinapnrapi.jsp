@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>濮瑰洣绮径鈺�瑓</title>
+<title>汇付天下</title>
 </head>
 <%@ page import="java.io.*,java.lang.*,java.sql.*,java.util.*,chinapnr.*,com.funeral.kris.util.ChinapnrUtil" %>
 <body>
 <%
 	request.setCharacterEncoding("utf-8");
 	java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyyMMddHHmmss"); 
-	java.util.Date currentTime = new java.util.Date();//绾板瞼甯块梽鍡欘暠閸椼倕澧犵化鑽ょ埠閺冭泛缍嶉柎鍐挎嫹
+	java.util.Date currentTime = new java.util.Date();//缁炬澘鐬肩敮鍧楁⒔閸℃瑯鏆犻柛妞煎�曟晶鐘靛寲閼姐倗鍩犻柡鍐硾缂嶅秹鏌庨崘鎸庡
 	String OrdId = request.getParameter("OrdId").trim(); 
     String 	Version			= ChinapnrUtil.version;
     String 	CmdId			= "Buy";
@@ -20,7 +20,7 @@
     System.out.println(" OrdAmt ="+request.getParameter("OrdAmt"));
 
     
-    String 	OrdAmt			= request.getParameter("OrdAmt").trim();//娑撱倓缍呴弫锟�    
+    String 	OrdAmt			= request.getParameter("OrdAmt").trim();//濞戞挶鍊撶紞鍛村极閿燂拷    
     OrdAmt=new java.math.BigDecimal(OrdAmt).setScale(2, java.math.BigDecimal.ROUND_HALF_UP).toString();
     
     String 	CurCode			= "RMB";
@@ -70,7 +70,7 @@ System.out.println(" sParaTemp ="+sParaTemp);
 	//sParaTemp.put("show_url",  AlipayUtil.PAGE_URL + "/paymentFinal.html");
 	//sParaTemp.put("anti_phishing_key", anti_phishing_key);
 	//sParaTemp.put("exter_invoke_ip", exter_invoke_ip);
-	String sHtmlText = ChinapnrService.buildRequest(sParaTemp,"get","确认");
+	String sHtmlText = ChinapnrService.buildRequest(sParaTemp,"get","纭");
 	out.println(sHtmlText);
 
 %>

@@ -320,11 +320,7 @@ public class ShoppingCartController {
 		BigDecimal setCost = BigDecimal.ZERO;
 
 		WishOrder latestOpenWishOrder = wishOrderService
-				.getLatestOpenWishOrderForSet(user.getUsrId());
-
-		
-		
-		
+				.getLatestOpenWishOrderForSet(user.getUsrId());	
 		System.out
 				.println(this.getClass()
 						+ "----------- setSetInfo currentWishOrderId="

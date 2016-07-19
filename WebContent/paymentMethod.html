@@ -64,7 +64,7 @@
 				    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" checked>
 			        <span class="radioDesc">网银支付</span>
 			        
-			         <form name="chinapnrpayment" action="/chinapnrapi.jsp" method="post" target="_blank">
+			         <form name="chinapnrpayment" action="/funeral/pages/chinapnrapi.jsp" method="post" target="_blank">
 						<input type="hidden" id="chnTradeNo" name="OrdId"/>
 						<input type="hidden" id="chnTotalFee" name="OrdAmt" />
 						<input type="hidden" id="chnPhone" name="UsrMp"/>
@@ -306,8 +306,9 @@ $("#optionsRadios3").click(function () {
     });	
 	});
 
+$("#optionsRadios3").attr('disabled',true); 
 
-   
+  
 
 	
 //$("#nextButton").hide();  	

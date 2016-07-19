@@ -684,7 +684,7 @@ function uploadUnitImage()  {
 		
 		<tr ng-repeat="x in cemeterys">
 			<td>         <input type="radio" name="savedCemeterys" value={{x.cemeteryId}}   ng-click="changeCemetery(x.cemeteryId)"/>     <label >    {{x.cemeteryId}} </label></td>		
-		<td><a href={{'updateCemetery.html?id='+x.cemeteryId}}>{{x.cemeteryName}}</a></td>			
+		<td><a href={{'updateTemple.html?id='+x.cemeteryId}}>{{x.cemeteryName}}</a></td>			
 <td>{{x.price}}</td>	
 			
 			</tr>
