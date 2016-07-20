@@ -267,6 +267,7 @@ window.onload=function(){
 
 	
 $("#optionsRadios1").click(function () {
+	$("#nextButton").show(); 
 	$("#qrDiv").hide(); 
 $("#creditName").attr('disabled',false); 
 $("#creditNo").attr('disabled',false); 
@@ -278,6 +279,7 @@ $("#CVcode").attr('disabled',false);
 		
 	
 $("#optionsRadios2").click(function () {
+	$("#nextButton").show(); 
 	$("#qrDiv").hide(); 
 $("#creditName").attr('disabled',true); 
 $("#creditNo").attr('disabled',true); 
@@ -287,6 +289,7 @@ $("#CVcode").attr('disabled',true);
 });
 
 $("#optionsRadios3").click(function () {
+	$("#nextButton").hide(); 
 	$("#qrDiv").show();
 	var orderNo = $("#tradeNo").val();
 	var price= $("#totalFee").val();
@@ -305,10 +308,7 @@ $("#optionsRadios3").click(function () {
 		}
     });	
 	});
-
-$("#optionsRadios3").attr('disabled',true); 
-
-  
+ 
 
 	
 //$("#nextButton").hide();  	
