@@ -22,37 +22,27 @@
 		    <div id="photosWall">
 			    <div id="photoShow">
 				    <div id="photoShowArea">
-					    <div style="width: 540px; height: 389px; float: none; position: absolute; opacity: 1; z-index: 1;">
+					    <div style="width: 540px; height: 390px; float: none; position: absolute; opacity: 1; z-index: 1;">
 					        <img src="../js/images/{{wish.imgUrl}}" alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
 						</div>
+						<div style="width: 540px; height: 390px; float: none; position: absolute; opacity: 1; z-index: 1;">
+							<img src="../js/images/{{wish.imgUrl}}" alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+						</div>
+						<div style="width: 540px; height: 390px; float: none; position: absolute; opacity: 1; z-index: 1;">
+							<img src="../js/images/{{wish.imgUrl}}" alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+						</div>
 					</div>
-					<ul id="sliderPhote" hidden>
-					    <li>
-						    <div class="singleSlide" id="1">
-							    <img src="/js/images/adc126d6c50e9f775fe4e04ab08299a2_4_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
-							</div>
-						</li>
-						<li>
-						    <div class="singleSlide" id="2">
-							    <img src="/js/images/b3b17484baf612c2d868a0847972a6ce_0_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
-							</div>
-						</li>
-						<li>
-						    <div class="singleSlide" id="3">
-							    <img src="/js/images/b202dfa2144fd97be996123baa2634b2_1_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
-							</div>
-						</li>
-						<li>
-						    <div class="singleSlide" id="4">
-							    <img src="/js/images/afa514eb9eb5ebe33f4c939e0328c18b_2_m.jpg?imageMogr2/thumbnail/!690x294r/gravity/Center/crop/690x294/quality/95"></img>
-							</div>
-						</li>
-						<li>
-						    <div class="singleSlide" id="5">
-							    <img src="/js/images/b1a6e17c9ba6fe18cf2756d1c5d31573_3_m.jpg?imageMogr2/thumbnail/!126x86r/gravity/Center/crop/126x86/quality/95"></img>
-							</div>
-						</li>
-					</ul>
+					<div id="sliderPhoteGroup">
+                        <div class="sliderPhote" id="1">
+							<img src="../js/images/{{wish.imgUrl}}"></img>
+						</div>
+						<div class="sliderPhote" id="2">
+							<img src="../js/images/{{wish.imgUrl}}"></img>
+						</div>
+						<div class="sliderPhote" id="3">
+							<img src="../js/images/{{wish.imgUrl}}"></img>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -406,9 +396,9 @@ app.controller('details', function($scope, $http) {
 		    $("#emergencyContactInfo").fadeOut();
 		}
 	});
-	$(".singleSlide").click(function() {
+	$(".sliderPhote").click(function() {
 	    var id = parseInt($(this)[0].id);
-		$(".singleSlide").removeClass("selectedPic");
+		$(".sliderPhote").removeClass("selectedPic");
         $(this).addClass("selectedPic");
 	    $("#photoShowArea").find("div").css({'opacity': 0});
 		$($("#photoShowArea").find("div")[id-1]).css({'opacity': 1});

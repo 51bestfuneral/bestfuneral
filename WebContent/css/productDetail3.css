@@ -27,8 +27,8 @@
 		overflow: auto;
 	}
 	#topLeft {
-	    width: 690px;
-		margin-right: 65px;
+	    width: 695px;
+		margin-right: 60px;
 		float: left;
 	}
 	#topRight {
@@ -45,8 +45,25 @@
 	}
 	#photoShowArea {
 	    overflow: auto;
-		height: 389px;
-		padding-left: 75px;
+		float: left;
+	}
+	#sliderPhoteGroup {
+		float:right;
+		width:150px;
+	}
+	.sliderPhote {
+		width: 100%;
+		border: 5px solid transparent;
+		box-sizing: border-box;
+		height: 130px;
+		overflow: hidden;
+	}
+    .sliderPhote:hover {
+		border: 5px solid #ed4b83;
+    }
+	.sliderPhote img{
+		width: 100%;
+		height: 100%;
 	}
 	#photoShowArea img {
 	    width: 100%;
@@ -61,12 +78,6 @@
 	}
 	ul {
 	    list-style: none;
-	}
-	#sliderPhote {
-	    padding-top: 14px;
-		margin: 0px;
-		padding-left: 0px;
-		margin-left: -10px;
 	}
 	.singleSlide img{
 	    width: 126px;
@@ -84,12 +95,8 @@
 		cursor: pointer;
 		opacity: 0.5;
 	}
-	.singleSlide:hover {
-	    border: 2px solid #ed4b83;
-		opacity: 1;
-	}
 	.selectedPic {
-	    border: 2px solid #ed4b83;
+	    border: 5px solid #ed4b83;
 		opacity: 1;
 	}
 	#priceArea {
