@@ -43,17 +43,23 @@ var catas = [{
 	cataDesc: '繁花落尽君辞去历尽铅华归于斯',
 	cataPic: '/js/images/noun_187249_cc.png',
 	iconPic: '/js/images/box@2x.png',
-	textPic: '/js/images/111.png'
+	textPic: '/js/images/111.png',
+	filter1: '分类',
+    filter2: '材质',
+	filter3: '产地'
 }, {
     cataId: 'SS',
 	cataName: '寿衣',
 	cataDesc: '日暖犹记备衣衫阳关一出不觉寒',
 	cataPic: '/js/images/noun_178107_cc.png',
 	iconPic: '/js/images/clothes@2x.png',
-	textPic: '/js/images/112.png'
+	textPic: '/js/images/112.png',
+	filter1: '分类',
+	filter2: '材质',
+	filter3: '适用'
 }, {
     cataId: 'M-S-W',
-	cataName: '祭祀随葬',
+	cataName: '祭祀安居',
 	cataDesc: '升幡登坛祭几回情深思切忆相随',
 	cataPic: '/js/images/Mask + Rectangle 77.png',
 	iconPic: '/js/images/clothes copy@2x.png',
@@ -74,7 +80,7 @@ var catas = [{
 	textPic: '/js/images/115.png'
 }, {
     cataId: 'P-Q-R-U',
-	cataName: '套装产品',
+	cataName: '代订服务',
 	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 	cataPic: '/js/images/1452911054_inspiration_Vol.1-61.png',
 	iconPic: '/js/images/clothes copy 4@2x.png',
@@ -88,7 +94,9 @@ var catas = [{
 	textPic: '/js/images/otherText.png'
 }
 ];
+var cata, productElementFilter;
 cata = findCata(type, catas);
+productElementFilter = '?generalCode='+cata.cataName;
 </script>
 <body ng-app="catagoryApp" ng-controller="catagory">
 <div class="container">
@@ -149,31 +157,13 @@ cata = findCata(type, catas);
 					</div>
 				</div>
 			</div>
-			<div class="normalBar">
-				<div class="headerColumn" id="searchBar1">
-				    <i class="fa fa-tags" aria-hidden="true" style="color: #fddc3e;"></i>
-					<p>新款推荐:</p>
+			<div class="normalBar" ng-repeat="filterGroup in filterGroups" on-finish-render-filters1>
+				<div class="headerColumn" id="searchBar{{$index+1}}">
+				    <i class="{{filterGroup.groupIcon}}" aria-hidden="true" style="{{filterGroup.style}}"></i>
+					<p ng-bind="filterGroup.groupName">:</p>
 				</div>
-				<div class="optionItem" id='{{filter1.filterCode}}' ng-repeat="filter1 in filterGroup1">
-					<p ng-bind="filter1.filterName"></p>
-				</div>
-			</div>
-			<div class="normalBar">
-				<div class="headerColumn" id="searchBar2">
-				    <i class="fa fa-bars" aria-hidden="true" style="color: #7fc6d5;"></i>
-					<p>产品类型:</p>
-				</div>
-				<div class="optionItem" id='{{filter1.filterCode}}' ng-repeat="filter1 in filterGroup2">
-					<p ng-bind="filter1.filterName"></p>
-				</div>
-			</div>
-			<div class="normalBar">
-				<div class="headerColumn" id="searchBar3">
-				    <i class="fa fa-sitemap" aria-hidden="true" style="color: pink;"></i>
-					<p>适  用:</p>
-				</div>
-				<div class="optionItem" id='{{filter1.filterCode}}' ng-repeat="filter1 in filterGroup3" on-finish-render-filters1>
-					<p ng-bind="filter1.filterName"></p>
+				<div class="optionItem" id='{{filter.filterCode}}' ng-repeat="filter in filterGroup.filters track by $index">
+					<p ng-bind="filter.filterName"></p>
 				</div>
 			</div>
 		</div>
@@ -316,28 +306,58 @@ app.controller('catagory', function($scope, $http) {
 					}
 				}
 				$scope.itemLayouts = response;
+
+				if (response.length === 0) {
+					$("#loadingDiv").animate({
+						'height': '0px'
+					});
+					$("#productGrid").fadeIn();
+				}
 			});
 		}
 	}
     reloadProducts();
-	$http.get("/filter/list"+productFilter).success(function(response) {
-	    var filterGroup1 = [],
-		    filterGroup2 = [],
-			filterGroup3 = [];
+	$http.get("/filter/list"+productElementFilter).success(function(response) {
+	    var filterGroups = [],
+			filterGroup1 = {},
+			filterGroup2 = {},
+			filterGroup3 = {},
+			filters1 = [],
+		    filters2 = [],
+			filters3 = [];
 		for (var i=0;i<response.length;i++) {
 			if (response[i].filterLevel === 1) {
-				filterGroup1.push(response[i]);
+				filters1.push(response[i]);
 			}
 			else if (response[i].filterLevel === 2) {
-			    filterGroup2.push(response[i]);
+				filters2.push(response[i]);
 			}
 			else if (response[i].filterLevel === 3) {
-			    filterGroup3.push(response[i]);
+				filters3.push(response[i]);
 			}
 		}
-		$scope.filterGroup1 = filterGroup1;
-		$scope.filterGroup2 = filterGroup2;
-		$scope.filterGroup3 = filterGroup3;
+		if (filters1.length >0) {
+			filterGroup1.filters = filters1;
+			filterGroup1.groupName = cata.filter1?cata.filter1:'分类';
+			filterGroup1.groupIcon = 'fa fa-tags';
+			filterGroup1.style = 'color: #fddc3e;';
+			filterGroups.push(filterGroup1);
+		}
+		if (filters2.length >0) {
+			filterGroup2.filters = filters2;
+			filterGroup2.groupName = cata.filter2?cata.filter2:'分类';
+			filterGroup2.groupIcon = 'fa fa-bars';
+			filterGroup2.style = 'color: #7fc6d5;';
+			filterGroups.push(filterGroup2);
+		}
+		if (filters3.length >0) {
+			filterGroup3.filters = filters3;
+			filterGroup3.groupName = cata.filter3?cata.filter3:'分类';
+			filterGroup3.groupIcon = 'fa fa-sitemap';
+			filterGroup3.style = 'color: pink;';
+			filterGroups.push(filterGroup3);
+		}
+		$scope.filterGroups = filterGroups;
 	});
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
 	    $(".productItem").click(function() {
@@ -387,6 +407,12 @@ app.controller('catagory', function($scope, $http) {
 					$("#productGrid").fadeIn();
 			    });
     		}
+			else {
+				$("#loadingDiv").animate({
+					'height': '0px'
+				});
+				$("#productGrid").fadeIn();
+			}
 		});
 		$(".addToCart").click(function(event) {
 		    var itemId = $(this).closest(".productItem")[0].id,
