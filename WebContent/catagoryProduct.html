@@ -31,62 +31,61 @@ function findCata(cataName, catas) {
 }
 var length = location.search.length,
 type = location.search.substring(6, length),
-productFilter = "?generalCode="+type,
 itemFilter1 = '',
 itemFilter2 = '',
 itemFilter3 = '',
 orderBy = '',
 reverse = '';
 var catas = [{
-    cataId: 'II-JJ',
+    cataId: 'G',
 	cataName: '骨灰盒',
 	cataDesc: '繁花落尽君辞去历尽铅华归于斯',
 	cataPic: '/js/images/noun_187249_cc.png',
 	iconPic: '/js/images/box@2x.png',
 	textPic: '/js/images/111.png',
-	filter1: '分类',
-    filter2: '材质',
-	filter3: '产地'
+	filter1: '分类:',
+    filter2: '材质:',
+	filter3: '产地:'
 }, {
-    cataId: 'SS',
+    cataId: 'S',
 	cataName: '寿衣',
 	cataDesc: '日暖犹记备衣衫阳关一出不觉寒',
 	cataPic: '/js/images/noun_178107_cc.png',
 	iconPic: '/js/images/clothes@2x.png',
 	textPic: '/js/images/112.png',
-	filter1: '分类',
-	filter2: '材质',
-	filter3: '适用'
+	filter1: '分类:',
+	filter2: '材质:',
+	filter3: '适用:'
 }, {
-    cataId: 'M-S-W',
+    cataId: 'SI',
 	cataName: '祭祀安居',
 	cataDesc: '升幡登坛祭几回情深思切忆相随',
 	cataPic: '/js/images/Mask + Rectangle 77.png',
 	iconPic: '/js/images/clothes copy@2x.png',
 	textPic: '/js/images/113.png'
 }, {
-    cataId: 'G-H-L-T',
+    cataId: 'L',
 	cataName: '礼仪服务',
 	cataDesc: '殚精竭虑誓不悔浓情暖意拂心扉',
 	cataPic: '/js/images/Group.png',
 	iconPic: '/js/images/clothes copy 2@2x.png',
 	textPic: '/js/images/114.png'
 }, {
-    cataId: 'VV-O',
+    cataId: 'SAO',
 	cataName: '祭扫用品',
 	cataDesc: '冢荒碑残殇未歇洒酒折菊栖冥蝶',
 	cataPic: '/js/images/noun_193115_cc.png',
 	iconPic: '/js/images/clothes copy 3@2x.png',
 	textPic: '/js/images/115.png'
 }, {
-    cataId: 'P-Q-R-U',
+    cataId: 'D',
 	cataName: '代订服务',
 	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 	cataPic: '/js/images/1452911054_inspiration_Vol.1-61.png',
 	iconPic: '/js/images/clothes copy 4@2x.png',
 	textPic: '/js/images/1459802223_771171.png'
 }, {
-    cataId: 'NN-X-N',
+    cataId: 'Q',
 	cataName: '其他服务',
 	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
 	cataPic: '/js/images/noun_27116.png',
@@ -94,9 +93,10 @@ var catas = [{
 	textPic: '/js/images/otherText.png'
 }
 ];
-var cata, productElementFilter;
+var cata, productElementFilter, productFilter;
 cata = findCata(type, catas);
-productElementFilter = '?generalCode='+cata.cataName;
+productFilter = "?tab="+type
+productElementFilter = '?generalCode='+cata.cataId;
 </script>
 <body ng-app="catagoryApp" ng-controller="catagory">
 <div class="container">
@@ -160,7 +160,7 @@ productElementFilter = '?generalCode='+cata.cataName;
 			<div class="normalBar" ng-repeat="filterGroup in filterGroups" on-finish-render-filters1>
 				<div class="headerColumn" id="searchBar{{$index+1}}">
 				    <i class="{{filterGroup.groupIcon}}" aria-hidden="true" style="{{filterGroup.style}}"></i>
-					<p ng-bind="filterGroup.groupName">:</p>
+					<p ng-bind="filterGroup.groupName"></p>
 				</div>
 				<div class="optionItem" id='{{filter.filterCode}}' ng-repeat="filter in filterGroup.filters track by $index">
 					<p ng-bind="filter.filterName"></p>
@@ -338,21 +338,21 @@ app.controller('catagory', function($scope, $http) {
 		}
 		if (filters1.length >0) {
 			filterGroup1.filters = filters1;
-			filterGroup1.groupName = cata.filter1?cata.filter1:'分类';
+			filterGroup1.groupName = cata.filter1?cata.filter1:'分类:';
 			filterGroup1.groupIcon = 'fa fa-tags';
 			filterGroup1.style = 'color: #fddc3e;';
 			filterGroups.push(filterGroup1);
 		}
 		if (filters2.length >0) {
 			filterGroup2.filters = filters2;
-			filterGroup2.groupName = cata.filter2?cata.filter2:'分类';
+			filterGroup2.groupName = cata.filter2?cata.filter2:'分类:';
 			filterGroup2.groupIcon = 'fa fa-bars';
 			filterGroup2.style = 'color: #7fc6d5;';
 			filterGroups.push(filterGroup2);
 		}
 		if (filters3.length >0) {
 			filterGroup3.filters = filters3;
-			filterGroup3.groupName = cata.filter3?cata.filter3:'分类';
+			filterGroup3.groupName = cata.filter3?cata.filter3:'分类:';
 			filterGroup3.groupIcon = 'fa fa-sitemap';
 			filterGroup3.style = 'color: pink;';
 			filterGroups.push(filterGroup3);

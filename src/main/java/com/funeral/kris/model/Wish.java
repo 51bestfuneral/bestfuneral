@@ -545,6 +545,9 @@ public class Wish {
 	@Column(name = "filter3")
 	private String filter3;
 
+	@Column(name = "tab")
+	private String tab;
+	
 	public Integer getWishId() {
 		return wishId;
 	}
@@ -671,5 +674,13 @@ public class Wish {
 
 	public void setFilter3(String filter3) {
 		this.filter3 = filter3;
+	}
+
+	public String getTab() {
+		return tab;
+	}
+
+	public void setTab(String tab) {
+		this.tab = tab;
 	}
 }

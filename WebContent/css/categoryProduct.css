@@ -233,8 +233,9 @@
 	.headerColumn {
 	    text-align: right;
 		float: left;
-        width: 95px;
+        width: 65px;
 		line-height: 25px;
+		margin-right: 15px;
 	}
 	.headerColumn i {
 		float: left;

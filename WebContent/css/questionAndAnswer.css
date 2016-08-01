@@ -21,6 +21,7 @@
     width: 100%;
 	overflow: auto;
 	padding-left: 156px;
+	padding-bottom: 60px;
 }
 #imageDiv {
     width: 100%;

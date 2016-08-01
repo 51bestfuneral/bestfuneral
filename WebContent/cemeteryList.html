@@ -79,7 +79,6 @@
 <script type="text/javascript">
 	var app = angular.module('myApp', []),
 	    cemeteryListBean;
-	muskCurrentPage();
 	app.directive('onFinishRenderFilters', function ($timeout) {
 	    return {
 	        restrict: 'A',
@@ -93,7 +92,7 @@
 	    };
 	});
 	app.controller('cemetery', function($scope, $http) {
-	 	
+		muskCurrentPage();
 	 	$http.get("/cemetery/list").success(function(response) {
 	 		var cemeteryBeans = [],
 	 		    temples= [];

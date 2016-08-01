@@ -57,7 +57,8 @@ CREATE TABLE wishs (
   show_in_front integer default 0,
   filter1 varchar(10),
   filter2 varchar(10),
-  filter3 varchar(10)
+  filter3 varchar(10),
+  tab varchar(12)
   PRIMARY KEY (wish_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
