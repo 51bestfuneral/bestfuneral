@@ -50,7 +50,7 @@ body a:hover{
 	font-size:14px;
 	letter-spacing:1px;
 	text-decoration:none;
-	font-family: 'Roboto', sans-serif;
+  	font-family: Helvetica, Arial, "Hiragino Sans GB","STHeiti Light","Microsoft YaHei";
 	font-style:normal;
 }
 .logo-right ul li a:hover,.logo-right ul li.cap a{

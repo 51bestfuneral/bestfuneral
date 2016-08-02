@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head">
+<title>念念--付款成功</title>
+<link href="/js/images/niannian.ico" rel="shortcut icon" />
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<link href="/css/paymentFinal.css" rel="stylesheet">
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/js/generalUsage.js"></script>
+<body>
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=main" frameborder = 0 height = "68px"></IFRAME>
+</div>
+<div class="container">
+<div id="paymentContain">
+    <div id="infoContain">
+	    <div id="paymentStatus">
+		     <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar selected">
+			 </div>
+			 <div class="statusPointer selected">
+			 </div>
+		</div>
+		<div id="paymentStatusDesc">
+		     <div class="descDiv first">
+			     <p class="selected">送货信息</p>
+			 </div>
+			 <div class="descDiv second">
+			     <p class="selected">核对并确认</p>
+			 </div>
+			 <div class="descDiv">
+			     <p class="selected">支付方式</p>
+			 </div>
+			 <div class="descDiv last">
+			     <p class="selected">完成</p>
+			 </div>
+		</div>
+	</div>
+	<div id="confirmed">
+	    <span>&#10004;</span>
+	</div>
+	<h1 class="success">付款成功</h1>
+	<p class="soon">您的物品我们会尽快寄出，请注意查收</p>
+	<div id="confirmedButton">
+	    <span>回到首页</span>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
+<script type="text/javascript">
+window.onload=function(){
+    $("#confirmedButton").click(function () {
+	    window.location.href="/mainPage.html";
+	})
+};
+
+</script>
+</html>

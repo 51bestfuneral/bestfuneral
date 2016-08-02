@@ -1,0 +1,501 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<title>念念--支付信息</title>
+<link href="/js/images/niannian.ico" rel="shortcut icon" />
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+</head>
+<link href="/css/paymentInfo.css" rel="stylesheet">
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/js/generalUsage.js"></script>
+<body ng-app="contactInfo" ng-controller="contactInfoController">
+<div class="topBarDiv">
+<IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=main" frameborder = 0 height = "68px"></IFRAME>
+</div>
+<div class="container">
+<div id="paymentContain">
+    <div id="infoContain">
+	    <div id="paymentStatus">
+		     <div class="statusPointer selected">
+			 </div>
+			 <div class="statusBar">
+			 </div>
+			 <div class="statusPointer">
+			 </div>
+			 <div class="statusBar">
+			 </div>
+			 <div class="statusPointer">
+			 </div>
+			 <div class="statusBar">
+			 </div>
+			 <div class="statusPointer">
+			 </div>
+		</div>
+		<div id="paymentStatusDesc">
+		     <div class="descDiv first">
+			     <p class="selected">送货信息</p>
+			 </div>
+			 <div class="descDiv second">
+			     <p>核对并确认</p>
+			 </div>
+			 <div class="descDiv">
+			     <p>支付方式</p>
+			 </div>
+			 <div class="descDiv last">
+			     <p>完成</p>
+			 </div>
+		</div>
+		<div class= "fieldLine">	</div>
+		  
+		  
+		    <div class="shortField fieldInd">
+			    <div class="fieldDesc">
+				    <p>姓名<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input id="contactName"    style=" font-size: 19px;line-height: 19px;font-weight: bold;"     type="text" class="form-control"  ng-model="currentContacter.contactName"></input>
+				    <input type="hidden"  ng-model="currentContacter.userId"  vaule={{$scope.user.userId}}></input>
+
+				</div>
+			</div>
+		
+			
+			
+	
+				<div class="longField fieldInd lastField">
+			    <div class="fieldDesc">
+				    <p>从联系人中选择*</p>
+				</div>
+				<div class="fieldContent">
+				    <select class="form-control"   id="contacterSelect"  style=" font-size: 19px;line-height: 19px;font-weight: bold;" >
+				    	<option>请选择</option>
+						<option ng-repeat="contacter in contactInfos "  value={{contacter.contactId}}><p style="font-size:10px;">{{contacter.contactName+':'+contacter.city+':'+contacter.phone}}</p></option>
+					
+					</select>
+				</div>
+			</div>
+			
+			
+			
+			<div class="normalField fieldInd">
+			    <div class="fieldDesc">
+				    <p>手机号码<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input id="contactPhone" style=" font-size: 19px;line-height: 19px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" class="form-control"  ng-model="currentContacter.phone"  ></input>
+				</div>
+				<p class="subTitle">我们会确保你的隐私，谨慎使用您的手机号码</p>	
+			</div>
+			
+			
+			
+			<div class="normalField fieldInd">
+			    <div class="fieldDesc">
+				    <p>省份<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				  <select class="form-control"  style=" font-size: 19px;line-height: 19px;font-weight: bold;"  id="provinceSelect"  ng-model="currentContacter.province" value={{currentContacter.province}}>
+							<option>请选择</option>
+						<option value='1'  ><p  class="form-control">江苏省</p></option>
+					  <option value='2'  ><p  class="form-control">上海市</p></option>
+					  <option value='3'  ><p  class="form-control">浙江省</p></option>
+
+					</select>   
+				    
+				</div>
+				<p class="subTitle">我们会确保你的隐私，谨慎使用您的联系信息</p>	
+				
+			</div>
+			
+			
+			
+					<div class="shorterField fieldInd">
+			    <div class="fieldDesc">
+				    <p>城市<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input id="city" type="text" style=" font-size: 19px;line-height: 19px;font-weight: bold;"  class="form-control"  ng-model="currentContacter.city"></input>
+				</div>
+			</div>
+			
+			
+			<div class="longField fieldInd">
+			    <div class="fieldDesc">
+				    <p>详细地址<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input  id="address" type="text"  style=" font-size: 19px;line-height: 19px;font-weight: bold;" class="form-control" ng-model="currentContacter.detailAddress"></input>
+				</div>
+		
+			</div>
+			
+			
+			
+			
+			
+		
+				
+				
+			<div class="normalField fieldInd" >
+			    <div class="fieldDesc">
+				    
+				</div>
+				<div class="fieldContent">
+				   
+				</div>	
+					</div>
+		
+		
+			<div class="shorterField fieldInd">
+			    <div class="fieldDesc">
+				    <p>备用联系人姓名<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input  id="backupName" style=" font-size: 19px;line-height: 44px;font-weight: bold;"  type="text" class="form-control" ng-model="currentContacter.backupName"></input>
+				</div>	
+				<p class="subTitle">如果主要联系人已去世或者不方便联系</p>
+					</div>
+		
+					
+				<div class="normalField fieldInd">
+			    <div class="fieldDesc">
+				    <p>备用联系人电话<font size="3" color="red">*</font></p>
+				</div>
+				<div class="fieldContent">
+				    <input id="backupPhone" style=" font-size: 19px;line-height: 44px;font-weight: bold;"   onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" class="form-control" ng-model="currentContacter.backupPhone"></input>
+				</div>	
+				</div>
+					
+					
+					<div class="shorterField fieldInd lastField">
+			    <div class="fieldDesc">
+				    <p>&nbsp;</p>
+				</div>
+				 <div class="fieldContent">
+				    <p>&nbsp;</p>
+				</div>
+			
+			</div>
+			
+		</div>
+		<div class="shippingMethod">
+		    <h1>邮寄方式</h1>
+		</div>
+	<div class="shippingMethod">
+		    <p>推荐方式</p>
+			<input type="radio" name="deliveryMethod"  id="deliveryMethod1"  value="1" checked>
+			<span class="radioDesc">暂存在念念</span>
+			<span class="normalDesc"   style="font-size: 19px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">（我们会暂时替您保管，在需要的时候提供给您）</span>
+	    </div>
+		<div class="shippingMethod">
+		    <p>传统方式</p>
+			<input type="radio" name="deliveryMethod"  id="deliveryMethod2" value="2">
+			<span class="radioDesc">标准</span>
+			<span class="normalDesc" style="font-size: 19px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">(免邮费，2-3日送达)</span>
+			<input type="radio" name="deliveryMethod"  id="deliveryMethod3" value="3">
+			<span class="radioDesc">快递</span>
+			<span class="normalDesc" style="font-size: 19px;line-height: 1.5;color: #2e2e2e;font-weight: bold;">(快递费20元,1日内送达)</span>
+	    </div>
+	</div>
+	<div id="footerContain">
+	    <div id="footer">
+	    	
+	    	 <div id="prevButton">
+			    <p>上一步</p>
+			</div>
+		    <div id="nextButton">
+			    <p>下一步</p>
+			</div>
+		</div>
+	</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+<div class="coverDiv" hidden>
+<div class="titleDiv">
+<h1>物品详细信息</h1>
+</div>
+<IFRAME class="detailFrame" width=1165px marginwidth=0 marginheight=0 SRC="#" frameborder = 0></IFRAME>
+<div class="closeCoverDiv"><span class="glyphicon glyphicon-remove"></span></div>
+</div>
+</body>
+<script>
+var deliverMethod;;	
+	
+var app = angular.module('contactInfo', []);
+
+//var length = location.search.length;
+//var wishOrderId= location.search.substring(13, length);
+
+
+
+app.controller('contactInfoController', function($scope, $http) {
+$scope.currentContacter;
+$scope.currenctExpress;
+$scope.contactorId;
+$scope.user ;
+ $http.get("/login/getCurrentUser").success(function(response) {
+	  $scope.user = response;
+	  });
+
+
+
+	    	     $http.get("/contactInfo/getUsingContacterByWishOrderId").success(function(response) {
+	    $scope.currentContacter = response;
+	    });
+	   $http.get("/expressController/getExpressInfoByWishOrderId").success(function(response) {
+	    $scope.currenctExpress = response;
+	    	    var datadata = JSON.stringify($scope.currenctExpress);
+	    //	 alert("----currenctExpress---"+datadata+"  deliveryMethod= "+datadata.deliveryMethod);
+	    
+		deliverMethod=$scope.currenctExpress.deliveryMethod;	
+		
+	//	alert(" deliverMethod= "+deliverMethod);
+		
+	//	alert(" --1--  deliverMethod ="+deliverMethod+"    ===  deliveryMethod="+$scope.currenctExpress.deliveryMethod);
+			if(deliverMethod=='1'){
+	    		
+	    		$("#deliveryMethod1").attr("checked",'checked'); 
+	    		
+	    		}else if(deliverMethod=='2'){
+	    		$("#deliveryMethod2").attr("checked",'checked'); 
+
+	    			}else if(deliverMethod=='3'){
+	    				
+	   $("#deliveryMethod3").attr("checked",'checked'); 
+	
+	    				}else{
+	  $("#deliveryMethod1").attr("checked",'checked'); 
+deliverMethod=='1';
+	    					}
+		
+			//	alert(" --2--  deliverMethod ="+deliverMethod);
+
+		
+		
+		});
+	    
+	
+	
+    $http.get("/contactInfo/listByUserId").success(function(response) {
+	    $scope.contactInfos = response;
+	    
+	});
+
+$(document).ready(function(){ 
+$('#contacterSelect').change(function(){ 
+	
+	//alert(" -- value "+$(this).val());
+if($(this).val()=="请选择"){
+	
+	//alert("---1--");
+	  $http.get("/contactInfo/listByContacterId?contactId=0").success(function(response) {
+	    $scope.currentContacter = response; 
+	});
+	}else{
+		//alert("---2--");
+
+    $http.get("/contactInfo/listByContacterId?contactId="+$(this).val()).success(function(response) {
+	    $scope.currentContacter = response; 
+	    
+	      var datadata = JSON.stringify($scope.currentContacter);
+	  //  alert("----currentContacter---"+datadata);
+	});
+}
+}) 
+}) 
+
+function validatemobile(vid)
+    {
+    	
+ var mobile=document.getElementById(vid);
+    	
+        if(mobile.value.length==0)
+        {
+           alert('请输入手机号码！');
+           mobile.focus();
+           return false ;
+        }    
+        if(mobile.value.length!=11)
+        {
+            alert('请输入11位有效的手机号码！');
+            mobile.focus();
+            return false;
+        }
+       return true;       
+    }
+
+
+$("#nextButton").click(function () {
+	
+	
+
+
+
+if( $scope.currentContacter.contactName==null||$scope.currentContacter.contactName==""){
+	alert("请输入联系人姓名！");
+	var contactName = document.getElementById("contactName");
+  contactName.focus();
+	return;
+	}
+
+
+if( $scope.currentContacter.phone==null||$scope.currentContacter.phone==""){
+	alert("请输入联系人电话！");
+	var contactPhone = document.getElementById("contactPhone");
+  contactPhone.focus();
+	return;
+	}else{
+	 if(!validatemobile('contactPhone')){
+	 	var contactPhone = document.getElementById("contactPhone");
+  contactPhone.focus();
+	 	return;
+	 	}
+	 		var cPhone = document.getElementById("contactPhone");
+			var bPhone = document.getElementById("backupPhone");
+
+		if(cPhone.value==bPhone.value){
+			alert("联系人电话和备用联系人电话不能相同！");
+		contactPhone.focus();
+	 	return;
+			}
+		
+		
+	}
+		
+	if( $scope.currentContacter.province==null||$scope.currentContacter.province==""||$scope.currentContacter.province=="请选择"){
+	alert("请选择省份！");
+	var provinceSelect = document.getElementById("provinceSelect");
+  provinceSelect.focus();
+	return;
+	}
+	
+	if( $scope.currentContacter.city==null||$scope.currentContacter.city==""){
+	alert("请输入城市！");
+	var city = document.getElementById("city");
+  city.focus();
+	return;
+	}
+
+if( $scope.currentContacter.detailAddress==null||$scope.currentContacter.detailAddress==""){
+	alert("请输入详细地址！");
+	var address = document.getElementById("address");
+  address.focus();
+	return;
+	}else{
+		var address = document.getElementById("address");
+		
+		if(address.value.length<10){
+				alert("详细地址至少10个字！");
+
+			
+  address.focus();
+	return;
+	}
+		}
+
+if( $scope.currentContacter.backupName==null||$scope.currentContacter.backupName==""){
+	alert("请输入备用联系人姓名！");
+	var backupName = document.getElementById("backupName");
+  backupName.focus();
+	return;
+	}
+
+if( $scope.currentContacter.backupPhone==null||$scope.currentContacter.backupPhone==""){
+	alert("请输入备用联系人电话！");
+	var backupPhone = document.getElementById("backupPhone");
+  backupPhone.focus();
+	return;
+	}else{
+		
+	if(!validatemobile("backupPhone")){
+		
+			var backupPhone = document.getElementById("backupPhone");
+  backupPhone.focus();
+	 	return;
+		
+		}
+		
+			var cPhone = document.getElementById("contactPhone");
+			var bPhone = document.getElementById("backupPhone");
+
+		if(cPhone.value==bPhone.value){
+			alert("联系人电话和备用联系人电话不能相同！");
+			}
+		
+		
+		
+		}
+
+
+if(deliverMethod==null){
+	deliverMethod=1;
+	}
+
+     $scope.currentContacter.userId=$scope.user.usrId;
+	    // $scope.currentContacter.wishOrderId=wishOrderId;
+	    $scope.currentContacter.expressMethod=deliverMethod;
+		
+		
+	    var datadata = JSON.stringify($scope.currentContacter);
+	    //	alert("----datadata---"+datadata);
+
+		    $http({
+            method: "POST",
+            url:"/contactInfo/add",
+            data: datadata,
+			headers: {
+                'Content-Type': 'application/json'
+            },
+			dataType:"json"
+        }).success(function(){
+        
+   window.location.href='paymentConfirm.html'; 
+
+          });
+ 
+         });
+
+$("#deliveryMethod1").click(function () {
+	
+	deliverMethod="1";
+	});
+
+$("#deliveryMethod2").click(function () {
+	
+	deliverMethod="2";
+});
+$("#deliveryMethod3").click(function () {
+	
+	deliverMethod="3";
+	
+	
+	});
+
+});
+
+
+
+
+
+
+	
+	
+	
+window.onload=function(){
+
+	  $("#prevButton").click(function () {
+	    window.location.href='/shoppingCart.html';
+	});
+};
+</script>
+</html>

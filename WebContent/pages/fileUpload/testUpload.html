@@ -1,0 +1,101 @@
+<!DOCTYPE html>  
+<head>  
+<title>MyWebProject</title>  
+<meta charset="utf-8" />  
+<link type="text/css" href="/funeral/pages/fileUpload/css/jquery-ui-1.7.1.custom.css"  
+    rel="stylesheet" />  
+    <link type="text/css" href="./lib/css/ajaxfileupload.css"  
+    rel="stylesheet" />  
+<script src="/funeral/js/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="/funeral/pages/fileUpload/js/ajaxfileupload.js"></script>  
+<script type="text/javascript">  
+function ajaxFileUpload() {  
+    $.ajaxFileUpload({  
+        url : "./UploadFile",   //submit to UploadFileServlet  
+        secureuri : false,  
+        fileElementId : 'fileToUpload',  
+        dataType : 'text', //or json xml whatever you like~  
+        success : function(data, status) {  
+            $("#result").append(data);  
+        },  
+        error : function(data, status, e) {  
+            $("#result").append(data);  
+        }  
+    });  
+    return false;  
+}  
+
+
+
+
+
+function uploadUnitImage()  {  
+        showLoading("正在上传，请等待...");  
+        $.ajaxFileUpload  
+        (  
+            {  
+                url:'/funeral/upload.upload?action=uploadImage',//用于文件上传的服务器端请求地址
+                secureuri:false,//一般设置为false  
+                fileElementId: 'unitImageToUpload', //文件上传空间的id属性  
+                dataType: 'json',//返回值类型 一般设置为json  
+                success: function (data, status)  //服务器成功响应处理函数  
+                {  
+                	 alert("data =1");
+                },  
+                error: function (data, status, e)//服务器响应失败处理函数  
+                {  
+                	 alert("data =2");
+                }  
+                alert("data =3");
+            }  
+        )  
+}  
+</script>  
+</head>  
+  
+<body>  
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+    <!-- upload file -->  
+    <form name="form" action="/funeral/upload.upload?test=1" method="POST" enctype="multipart/form-data">  
+        <table class="tableForm">  
+            <thead>  
+                <tr>  
+                    <th>上传图片</th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr>  
+                    <td><input id="fileToUpload"  type="file" size="45"   
+                        name="fileToUpload"  class="input"></td>  
+                </tr>  
+            </tbody>  
+            <tfoot>  
+                <tr>  
+                    <td><button class="button" id="buttonUpload"  
+                            onclick="return uploadUnitImage();">Upload</button></td>  
+                </tr>  
+            </tfoot>  
+        </table>  
+        <div id="result" style="margin-left:200px"></div>  
+    </form>  
+</body>  
+</html>  

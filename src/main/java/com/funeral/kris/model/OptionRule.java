@@ -1,6 +1,7 @@
 package com.funeral.kris.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,8 +20,9 @@ public class OptionRule implements Serializable {
 	private String optionId;
 
 	@Id
+	@GeneratedValue
 	@Column(name="rule_id")
-	private String ruleId;
+	private Integer ruleId;
 	
 	@Column(name="rule_type")
 	private String ruleType;
@@ -30,6 +32,9 @@ public class OptionRule implements Serializable {
 
 	@Column(name="seq")
 	private Integer sequence;
+
+	@Column(name="level")
+	private Integer level;
 
 	@Column(name="createdate")
 	private Date createDate;
@@ -45,11 +50,11 @@ public class OptionRule implements Serializable {
 		this.optionId = optionId;
 	}
 
-	public String getRuleId() {
+	public Integer getRuleId() {
 		return ruleId;
 	}
 
-	public void setRuleId(String ruleId) {
+	public void setRuleId(Integer ruleId) {
 		this.ruleId = ruleId;
 	}
 
@@ -91,6 +96,14 @@ public class OptionRule implements Serializable {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
 	}
 
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>添加墓地</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="cemeteryRequest">
+<header>
+</header>
+
+
+
+<div id="requestList">
+	
+	<table border="0"  width="100%"> 
+		
+		<tr><td>墓地</td><td>用户</td><td>电话号码</td><td>预约时间</td></tr>
+		
+		<tr ng-repeat="x in cemeteryRequestList">
+			<td> {{x.requestCemetery}}</td>		
+	<td>{{x.userName}}</td>		
+<td>{{x.requestPhone}}</td>	
+<td>{{x.requestDate}}</td>	
+			
+			</tr>
+		
+		
+	</table>
+	
+	</div>
+
+
+
+
+	<style>
+		
+		
+	
+	
+	#requestList{
+	width:100%;
+	border:0px
+  background-color: rgba(162, 162, 162, 0.5);
+  position:relative; left:0%; right:0% ; top:50;
+	}
+
+#requestList _table{
+	
+	
+	 background-color: #d6d6d6;
+	
+	
+	
+	
+	}
+
+	
+
+	
+
+	</style>
+	
+<script type="text/javascript" src="/funeral/pages/html/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/funeral/pages/html/js/nav2.js"></script>
+<script src="/funeral/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+	
+	
+	<script>
+	var app = angular.module('myApp', []);
+ 
+	 app.controller('cemeteryRequest', function($scope, $http) {
+	
+	
+		$http.get("/funeral/user/listUsersByCemeteryRequest").success(function(response) {
+	       $scope.cemeteryRequestList = response;
+			})
+
+	});	
+	 	
+	 	
+	 	
+	
+		
+});
+	</script>
+
+</ul>
+</body>
+</html>

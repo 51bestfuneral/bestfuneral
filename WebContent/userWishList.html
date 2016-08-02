@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>念念--愿望清单</title>
+<link href="/js/images/niannian.ico" rel="shortcut icon" />
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具，已实现“殡葬服务价格透明化、互联网化、个性化”为己任。业务范围辐射上海及长三角地区，与多家墓地寺庙建立合作关系。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务, 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务" />
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script src="/js/idCheck.js"></script>
+<link rel="stylesheet" href="/js/Font-Awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/js/AccountInfo.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body onselectstart="return false" ng-app="productApp" ng-controller="products">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "68px"></IFRAME>
+<div id="accountInfoMain">
+    <div id="leftTabs">
+	    <div class="singleTab">
+		    <a href="AccountInfo.html"><p class="normalText">编辑个人资料</p></a>
+		</div>
+		<div class="singleTab">
+		    <a href="purchaseOrderInfo.html"><p class="normalText">您的订单</p></a>
+		</div>
+		<div class="singleTab">
+		    <a href="orderInfo.html"><p class="normalText">预约记录</p></a>
+		</div>
+		<div class="singleTab selectedTab">
+		    <p class="normalText">愿望清单</p>
+		</div>
+    </div>
+<div id="rightContentsMain">
+    <div id="noContent" hidden>您的愿望清单里还没有任何物品<button class="emptyBtn" id="purchaseBtn">去添加</button><button id="designBtn" class="emptyBtn">去定制</button></div>
+	<div class="rightContents" ng-repeat="order in orders">
+	    <div class="contentHeader clickable" id="{{order.wishOrderId}}">
+		    <p class="normalText">愿望清单信息 <a href="#" class="orderNumber">编号:<span ng-bind="order.wishOrderId"></span> 总价:￥<span ng-bind="order.totalPrice" class="totalPriceSpan"></span></a></p>
+			<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
+			<div class="sideBtn" id="{{$index}}"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+			<div class="sideBtn"><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></div>
+		</div>
+		<div class="containerClass" ng-repeat="detail in order.detailJson track by $index" on-finish-render-filters>
+			<div class="valuehiddenDiv">
+				<div class="contentValue clickableItem">
+					<table>
+						<thead>
+							<tr>
+								<th class="th1">商品名称</th>
+								<th class="th2">商品价格</th>
+								<th class="th2">数量</th>
+								<th class="th3">小计</th>
+								<th class="th3"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{detail.wishName}}</td>
+								<td>{{detail.price}}</td>
+								<td>{{detail.count}}</td>
+								<td>{{detail.sumPirce}}</td>
+								<td><a class="digToDetail" href="/productDetail3.html?id={{detail.wishId}}">查看详情</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="spreadIcon"><i class="fa fa-plus-square-o"></i></div>
+				</div>
+			</div>
+			<div class="detailhiddenDiv">
+				<div class="detailVeiw">
+					<div class="imageBox" style="background-image: url('/js/images/{{detail.imgUrl}}')">
+					</div>
+					<div class="cemeteryDescDiv">
+						<h3>{{detail.wishName}}</h3>
+						<span>{{detail.wishDesc}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script>
+var app = angular.module('productApp', []);
+muskCurrentPage();
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+app.controller('products', function($scope, $http) {
+    $http.get("/wishlistDetail/listWishlistDetail").success(function(response) {
+        if (response.length === 0 ||　response[0].detailJson.length === 0) {
+        	$("#noContent").show();
+        }
+        else {
+        	$("#noContent").hide();
+        	$scope.orders = response;
+        }
+        unmusk();
+    });
+	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+		$(".sideBtn").hover(function() {
+			if (!$(this).hasClass('disabled')) {
+			    $(this).css({
+				    'background': '#ccc'
+			    });
+			}
+		}, function() {
+			$(this).css({
+				'background': 'transparent'
+			});
+		});
+	    $($(".sideBtn")[0]).click(function(event) {
+	    	window.location.href = "designProcess.html";
+	        event.stopPropagation();
+	    });
+	    $($(".sideBtn")[1]).click(function(event) {
+	    	var callback = function() {
+	    		$.ajax({
+				    url: '/wishlist/generateOrderByWish',
+					type: 'POST',
+					contentType: "application/json; charset=UTF-8",
+					dataType:'json',
+					data: [],
+					success:function(data){
+						$http.get("/shoppingCartController/linkToPaymentInfo?wishOrderId="+data.wishOrderId).success(function(response) {
+						    window.location.href='/paymentInfo.html';
+						});
+						clearWarningmusk();
+				    },
+					error: function(error) {
+						//$("#messageSent")[0].value = '';
+					}
+				});
+	    	}
+	    	popupWarningMessagePage("之后愿望清单将被清空，你可以在您的订单里找到它", callback, "购买此愿望清单？");
+	        event.stopPropagation();
+	    });
+    });
+});
+</script>
+<script>
+    $("body").on("click", ".clickable", function() {
+	    var parentDiv = $(this).closest(".rightContents"),
+		    currentHeight = parentDiv.find(".valuehiddenDiv")[0].offsetHeight;
+
+	    if (currentHeight === 0) {
+		    changeToHeight = '95px';
+		    $(this).find(".spreadIcon").find("i").removeClass("fa-plus-square-o");
+		    $(this).find(".spreadIcon").find("i").addClass("fa-minus-square-o");
+		}
+		else {
+		    changeToHeight = '0px';
+		    $(this).find(".spreadIcon").find("i").removeClass("fa-minus-square-o");
+		    $(this).find(".spreadIcon").find("i").addClass("fa-plus-square-o");
+		    $(this).closest(".rightContents").find(".clickableItem").each(function() {
+		    	$(this).find(".spreadIcon").find("i").removeClass("fa-minus-square-o");
+			    $(this).find(".spreadIcon").find("i").addClass("fa-plus-square-o");
+		    });
+		}
+		parentDiv.find(".valuehiddenDiv").css({
+		    height: changeToHeight
+		});
+
+		if (changeToHeight === '0px') {
+		    parentDiv.find(".detailhiddenDiv").css({
+		        height: changeToHeight
+		    });
+		}
+	});
+    $("body").on("click",".clickableItem", function() {
+	    var parentDiv = $(this).closest(".containerClass"),
+		    hiddenDiv = parentDiv.find(".detailhiddenDiv"),
+			currentHeight = parentDiv.find(".detailhiddenDiv")[0].offsetHeight;
+
+	    if (currentHeight === 0) {
+		    changeToHeight = '300px';
+		    $(this).find(".spreadIcon").find("i").removeClass("fa-plus-square-o");
+		    $(this).find(".spreadIcon").find("i").addClass("fa-minus-square-o");
+		}
+		else {
+		    changeToHeight = '0px';
+		    $(this).find(".spreadIcon").find("i").removeClass("fa-minus-square-o");
+		    $(this).find(".spreadIcon").find("i").addClass("fa-plus-square-o");
+		}
+		parentDiv.find(".detailhiddenDiv").css({
+		    height: changeToHeight
+		});
+	});
+    $("#purchaseBtn").click(function() {
+    	window.parent.location.href = "/productAndService.html";
+    });
+    $("#designBtn").click(function() {
+    	window.parent.location.href = "/designProposal.html";
+    });
+</script>
+</html>

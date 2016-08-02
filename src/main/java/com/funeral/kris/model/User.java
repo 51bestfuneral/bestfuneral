@@ -1,16 +1,15 @@
 package com.funeral.kris.model;
 
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-
 @Entity
-@Table(name="users")
+@Table(name="t_user")
 public class User {
 	
 	@Id
@@ -22,7 +21,7 @@ public class User {
 	private String userName;
 	
 	@Column(name="user_type")
-	private String userType;
+	private Integer userType;
 	
 	@Column(name="user_ref")
 	private String userRef;
@@ -30,12 +29,79 @@ public class User {
 	@Column(name="e_mail")
 	private String email;
 	
+	@Column(name="age")
+	private Integer age;
+
 	@Column(name="address")
 	private String address;
 
+	@Column(name="work")
+	private String work;
+
+	@Column(name="district")
+	private String district;
+
+	@Column(name="for_self")
+	private Integer forSelf;
+
+	@Column(name="name")
+	private String name;
+
+	@Column(name="gender")
+	private Integer gender;
+	
+	@Column(name="birthday")
+	private String birthday;
+	
+	@Column(name="birth_place")
+	private String birthPlace;
+	
+	@Column(name="contactor")
+	private String contactor;
+	
+	@Column(name="contactor_mail")
+	private String contactorMail;
+	
+	@Column(name="contactor_phone")
+	private String contactorPhone;
+	
+	@Column(name="contactor_address")
+	private String contactorAddress;
+	
+	@Column(name="contactor_relate")
+	private String contactorRelate;
+	@Column(name="identifier")
+	private String identifier;
 	@Column(name="pwd")
 	private String password;
-	
+	@Column(name="request_date")
+	private String requestDate;
+	@Column(name="request_cemetery")
+	private String requestCemetery;
+	@Column(name="request_phone")
+	private String requestPhone;
+
+	@Column(name="wishlist_id")
+	private Integer wishlistId;
+
+	@Column(name="cart_id")
+	private Integer cartId;
+	public Integer getUserType() {
+		return userType;
+	}
+
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
+
+	public String getLastLoginIp() {
+		return lastLoginIp;
+	}
+
+	public void setLastLoginIp(String lastLoginIp) {
+		this.lastLoginIp = lastLoginIp;
+	}
+
 	@Column(name="phone")
 	private String phone;
 	
@@ -44,22 +110,52 @@ public class User {
 	
 	@Column(name="updateddate")
 	private Date updatedDate;
+	@Column(name="status")
+	private Integer status;
+	@Column(name="last_loginIp")
+	private String lastLoginIp;
+	@Column(name="last_loginTime")
+	private Date lastLoginTime;
+	@Column(name="invalid_loginTimes")
+	private Integer invalidLoginTimes;
 	
-	@Column(name="contactor")
-	private String contactor;
-
-	@Column(name="contactor_mail")
-	private String contactorMail;
 	
-	@Column(name="contactor_phone")
-	private String contactorPhone;
+	public Integer getStatus() {
+		return status;
+	}
 
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		System.out.print("chuan success lastLoginTime="+lastLoginTime);
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public Integer getInvalidLoginTimes() {
+		return invalidLoginTimes;
+	}
+
+	public void setInvalidLoginTimes(Integer invalidLoginTimes) {
+		
+		System.out.print("chuan success invalidLoginTimes="+invalidLoginTimes);
+
+		this.invalidLoginTimes = invalidLoginTimes;
+	}
+
+	
 	public Integer getUsrId() {
 		return usrId;
 	}
 
 	public void setUsrId(Integer usrId) {
-		System.out.print("chuan success");
 		this.usrId = usrId;
 	}
 
@@ -68,25 +164,17 @@ public class User {
 	}
 
 	public void setUserName(String userName) {
-		System.out.print("chuan success");
+		System.out.print("chuan success userName="+userName);
 		this.userName = userName;
 	}
 
-	public String getUserType() {
-		return userType;
-	}
-
-	public void setUserType(String userType) {
-		System.out.print("chuan success");
-		this.userType = userType;
-	}
-
+	
 	public String getUserRef() {
 		return userRef;
 	}
 
 	public void setUserRef(String userRef) {
-		System.out.print("chuan success");
+		System.out.print("chuan success userRef="+userRef);
 		this.userRef = userRef;
 	}
 
@@ -95,25 +183,19 @@ public class User {
 	}
 
 	public void setEmail(String email) {
-		System.out.print("chuan success");
 		this.email = email;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		System.out.print("chuan success");
-		this.address = address;
 	}
 
 	
 	public String getPassword() {
+		System.out.print("chuan getPassword password="+password);
+
 		return password;
 	}
 
 	public void setPassword(String password) {
+		System.out.print("chuan setPassword password="+password);
+
 		this.password = password;
 	}
 
@@ -141,6 +223,70 @@ public class User {
 		this.updatedDate = updatedDate;
 	}
 
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getWork() {
+		return work;
+	}
+
+	public void setWork(String work) {
+		this.work = work;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public Integer getForSelf() {
+		return forSelf;
+	}
+
+	public void setForSelf(Integer forSelf) {
+		this.forSelf = forSelf;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getBirthPlace() {
+		return birthPlace;
+	}
+
+	public void setBirthPlace(String birthPlace) {
+		this.birthPlace = birthPlace;
+	}
+
 	public String getContactor() {
 		return contactor;
 	}
@@ -165,4 +311,76 @@ public class User {
 		this.contactorPhone = contactorPhone;
 	}
 
+	public String getContactorAddress() {
+		return contactorAddress;
+	}
+
+	public void setContactorAddress(String contactorAddress) {
+		this.contactorAddress = contactorAddress;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContactorRelate() {
+		return contactorRelate;
+	}
+
+	public void setContactorRelate(String contactorRelate) {
+		this.contactorRelate = contactorRelate;
+	}
+
+	public String getRequestDate() {
+		return requestDate;
+	}
+
+	public void setRequestDate(String requestDate) {
+		this.requestDate = requestDate;
+	}
+
+	public String getRequestCemetery() {
+		return requestCemetery;
+	}
+
+	public void setRequestCemetery(String requestCemetery) {
+		this.requestCemetery = requestCemetery;
+	}
+
+	public String getRequestPhone() {
+		return requestPhone;
+	}
+
+	public void setRequestPhone(String requestPhone) {
+		this.requestPhone = requestPhone;
+	}
+
+	public Integer getWishlistId() {
+		return wishlistId;
+	}
+
+	public void setWishlistId(Integer wishlistId) {
+		this.wishlistId = wishlistId;
+	}
+
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
 }
+

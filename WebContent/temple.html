@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head id="head"><title>
+    寺庙
+	</title>
+	<link href="/js/images/niannian.ico" rel="shortcut icon" />
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="pragma" content="no-cache" /> 
+<meta http-equiv="content-style-type" content="text/css" />
+<meta http-equiv="content-script-type" content="text/javascript" /> 
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+<script src="/js/Bootstrap/boot.js"></script>
+<link href="/js/personal.css" rel="stylesheet">
+<script src="/js/generalUsage.js"></script>
+<link href="/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/css/temple.css" rel="stylesheet">
+</head>
+<script>
+	var length = location.search.length,
+id = location.search.substring(4, length),
+    cemeteryListBean = [];
+	
+	var app = angular.module('productApp', []);
+	app.filter('trustAsHtml', function($sce) {
+		  return function(html) {
+		    return $sce.trustAsHtml(html);
+		  };
+		});
+	 app.controller('cemetery', function($scope, $http) {
+	 	
+	 	$http.get("/cemetery/findOneCemetery?cemeteryId="+id).success(function(response) {
+	 		$scope.cemeteryBean=response;
+	 		cemeteryListBean.push(response);
+       	initMap(response.cemeteryName,response.address);
+  		
+  
+ }) 	
+ 	 		
+	});
+
+$("#titleIconDiv").on("click", function () {
+	    window.location.href='mainPage.html';
+});
+
+var zoomList =[{cemetery:'青龙古寺',zoom:17},{cemetery:'松隐禅寺',zoom:18}];
+
+
+
+
+
+function loadScript() {
+	 //var script = document.createElement("script"); //创建script标签
+	 //script.src = "http://api.map.baidu.com/api?v=1.2&callback=setMap"; //异步加载的关键
+	 //document.body.appendChild(script); //添加到页面
+	}
+function initMap(cemeteryName,cemeteryAddress){
+	cemeteryName=$.trim(cemeteryName);
+	cemeteryAddress =$.trim(cemeteryAddress);
+    createMap(cemeteryName);//创建地图
+    setMapEvent();//设置地图事件
+    addMapControl();//向地图添加控件
+	    	var options = {
+	    	        onSearchComplete: function(results){
+	    	        	if (local.getStatus() == BMAP_STATUS_SUCCESS){
+	    	                for (var i = 0; i < results.getCurrentNumPois(); i ++){
+	    	                	
+	    	 		 			var x =results.getPoi(i).point.lng;
+	    	 		 			var y =results.getPoi(i).point.lat;
+	    	 		 			resetCenterAndZoom(x,y,cemeteryName,cemeteryAddress);
+	    	 		 			addRemark(x,y,cemeteryName,cemeteryAddress);//向地图中添加文字标注
+	    	 					break;	
+	    	                 }
+	    	             }
+	    	      }
+	    	    };
+	    	var local = new BMap.LocalSearch(map, options);
+	    	local.search(cemeteryAddress);
+}
+
+//创建地图函数：
+function createMap(cemeteryName){
+    var map = new BMap.Map("cemeteryMapContext");//在百度地图容器中创建一个地图
+    var point ;
+    if(cemeteryName=="大云禅寺"){
+    	point= new BMap.Point(120.957254,30.780953);
+    }else{point= new BMap.Point(121.194109,31.369983);}//定义一个中心点坐标
+    map.centerAndZoom(point,15);//设定地图的中心点和坐标并将地图显示在地图容器中
+    window.map = map;//将map变量存储在全局 
+
+}
+
+//地图事件设置函数：
+function setMapEvent(){
+   // map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+    //map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+  //  map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+   // map.enableKeyboard();//启用键盘上下左右键移动地图
+}
+
+//地图控件添加函数：
+function addMapControl(){
+    //向地图中添加缩放控件
+var ctrl_nav = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+map.addControl(ctrl_nav);
+    //向地图中添加缩略图控件
+//var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+//map.addControl(ctrl_ove);
+    //向地图中添加比例尺控件
+var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+map.addControl(ctrl_sca);
+}
+
+//向地图中添加标注
+function addRemark(x,y,title,address){
+	var marker = new BMap.Marker(new BMap.Point(x,y));  // 创建标注
+    map.addOverlay(marker);
+}
+
+function resetCenterAndZoom(x,y,cemeteryName,address){
+	var displayAddress=address;
+	var index = address.indexOf('区');
+	if(index!=-1){
+		displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+	}else{
+		index=address.indexOf('县');
+		if(index!=-1){
+			displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+		}else{
+			index=address.indexOf('市');
+			if(index!=-1){
+				displayAddress = address.substring(0,index+1)+"<br>"+address.substring(index+1,address.length);
+			}
+		}
+	}
+	var displayName = cemeteryName;
+	if(displayName.length>6){
+		displayName = cemeteryName.substring(0,4)+"<br>"+cemeteryName.substring(4,cemeteryName.length);
+	}
+	var centerPoint = new BMap.Point(x,y);//定义一个中心点坐标
+	for(var i=0;i<zoomList.length;i++){
+		var json = zoomList[i];
+		 var cemetery= json.cemetery;
+		 if(cemetery==cemeteryName){
+			 
+		 	 var zoom = json.zoom;
+			 map.centerAndZoom(centerPoint,zoom);
+			 var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:centerPoint,offset:new BMap.Size(-800,200)});
+			 map.addOverlay(label);
+			 label.setStyle({borderColor:"#999"});
+			 return;
+		 }
+	}
+	map.centerAndZoom(centerPoint,18);
+	 var label = new BMap.Label("<div class='commentMap'><h1>"+displayName+"</h1><h2>"+displayAddress+"</h2></div>",{point:centerPoint,offset:new BMap.Size(-800,200)});
+	 map.addOverlay(label);
+	 label.setStyle({borderColor:"#999"});
+}
+</script>
+
+
+
+<body ng-app="productApp" ng-controller="cemetery">
+<div class="container">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "68px"></IFRAME>  
+
+<div id="mainHeader"   style={{"background: url("+cemeteryBean.descImgUrl+");"}} >
+    <div id="leftTop">
+     <p><span class="headerLabel"><a href="cemeteryList.html">墓地信息</a></span>／<span  ng-bind="cemeteryBean.cemeteryName"></span></p>
+	</div>
+	<div id="centerText">
+         <h1 ng-bind="cemeteryBean.cemeteryName"></h1>
+	    <h2 ng-bind="cemeteryBean.district"></h2>
+	</div>
+	<div id="labelsArea">
+		<span class="keylabel label-default"  ng-repeat="keyword in cemeteryBean.keywordsList" ng-bind="keyword.keyword"></span>
+		
+	</div>
+</div>
+
+<div id="cemeteryFilter">
+    <div id="filter">
+	<!--	<div id="filterCata">
+			<div class="filterCata">
+			    <p>墓穴</p>
+			</div>
+			<div class="filterCata">
+			    <p>碑文样式</p>
+			</div>
+			<div class="filterCata">
+			    <p>区域</p>
+			</div>-->
+		</div>
+		<div id="filterContent">
+			<div class="filterContent">
+			    <div ng-repeat="graveStyle in cemeteryBean.graveStyleList" >
+				    <p ng-bind="graveStyle.description"></p>
+				</div>
+			
+			</div>
+	<!--		<div class="filterContent">
+			    <div  ng-repeat="epigraphStyle in cemeteryBean.epigraphStyleList" >
+				    <p>{{epigraphStyle.style}}</p>
+				</div>
+				
+			</div>
+			<div class="locationContent">
+			    <div  ng-repeat="graveZone in cemeteryBean.graveZoneList">
+				    <p>{{graveZone.zone}}</p>
+				</div>-->
+			
+			</div>
+		</div>
+	</div>
+	<div id="reserver">
+	    <h1>莲位最低价格</h1>
+		<h2>￥<span ng-bind="cemeteryBean.price"></span>起</h2>
+		<button class="reserverBtn" id="visitButton">在线预约</button>
+		<p>我们会帮您安排参观访问</p>
+	</div>
+</div>
+<div id="features">
+    <div id="featureContent">
+	    <div id="singleFeature">
+		    <div id="mainFeature">
+			    <div class="leftFeatureImg" >
+			    	
+			    <img src={{cemeteryBean.descImgUrl}}   alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+				</div>
+				<div class="rightFeatureText">
+				    <h1>简介</h1>
+				    <p ng-bind-html="cemeteryBean.cemeteryDesc|trustAsHtml"></p>
+				</div>
+			</div>
+			<div id="locationFeature">
+			    <div class="leftlocationText">
+				     <h1>特色</h1>
+<p ng-bind-html="cemeteryBean.feature|trustAsHtml"></p>					</div>
+				<div class="rightlocationImg">
+					 <img src={{cemeteryBean.featureImgUrl}}  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+				</div>
+			</div>
+			<div id="equipmentFeature">
+			    <div class="leftEquipmentImg">
+			    	
+					 <img src={{cemeteryBean.locationImgUrl}}   alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			
+				</div>
+				<div class="rightEquipmentText">
+				    <h1>交通信息</h1>
+				   <p ng-bind-html="cemeteryBean.trafficInfo|trustAsHtml"></p>
+				</div>
+			</div>
+			
+		
+			
+		</div>
+	</div>
+</div>
+<div id="cemeteryMap">
+<div id="cemeteryMapContext">
+   </div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=300 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</div>
+</div>
+</body>
+<script>
+$(".reserverBtn").click(function() {
+	popupRequestPage();
+});
+</script>
+</html>

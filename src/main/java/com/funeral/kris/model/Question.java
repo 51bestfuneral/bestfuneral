@@ -14,7 +14,7 @@ public class Question {
 	
 	@Id
 	@Column(name="qusetion_id ")
-	private String questionId;
+	private Integer questionId;
 
 	@Column(name="sequence")
 	private Integer sequence;
@@ -31,11 +31,17 @@ public class Question {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getQuestionId() {
+	@Column(name="question_title")
+	private String questionTitle;
+
+	@Column(name="gender")
+	private Integer gender;
+
+	public Integer getQuestionId() {
 		return questionId;
 	}
 
-	public void setQuestionId(String questionId) {
+	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
 
@@ -81,5 +87,21 @@ public class Question {
 
 	public Integer getSequence() {
 		return sequence;
+	}
+
+	public String getQuestionTitle() {
+		return questionTitle;
+	}
+
+	public void setQuestionTitle(String questionTitle) {
+		this.questionTitle = questionTitle;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
 	}
 }

@@ -1,5 +1,6 @@
 package com.funeral.kris.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.funeral.kris.busModel.QuestionListJson;
+import com.funeral.kris.model.Option;
 import com.funeral.kris.model.Question;
+import com.funeral.kris.model.User;
+import com.funeral.kris.service.OptionService;
 import com.funeral.kris.service.QuestionService;
 
 @Controller
@@ -22,6 +27,8 @@ public class QuestionController {
 	
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private OptionService optionService;
 	
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public ModelAndView addQuestionPage() {
@@ -38,16 +45,53 @@ public class QuestionController {
 		
 		String message = "Question was successfully added.";
 		modelAndView.addObject("message", message);
-		
+
 		return modelAndView;
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/list",method=RequestMethod.GET, produces = "application/json")
-	public List<Question> listOfQuestions(HttpServletRequest request) {
+	public List<QuestionListJson> listOfQuestions(HttpServletRequest request) {
+		boolean genderControll = false;
+		Integer gender = null;
+		if (request.getSession().getAttribute("user") != null) {
+		    User user = (User)request.getSession().getAttribute("user");
+		    if (user != null) {
+		    	gender = user.getGender();
+		    	if (gender == null) {
+		    		genderControll = false;
+		    	}
+		    	else {
+		    	    genderControll = true;
+		    	}
+		    }
+		}
+		
+		if(gender==null){
+			
+			gender=1;
+		}
 		List<Question> questions = questionService.getResources(request);
-
-		return questions;
+        List<QuestionListJson> questionJsonList = new ArrayList<QuestionListJson>();
+        for (Question question : questions) {
+        	if (genderControll && question.getGender() != null && question.getGender() > 0) {
+        		if (gender.equals(0) && question.getGender().equals(2)){
+        			continue;
+        		}
+        		else if (gender.equals(1) && question.getGender().equals(1)) {
+        			continue;
+        		}
+        	}
+        	QuestionListJson questionJson = new QuestionListJson();
+            List<Option> options = optionService.getOptionListByQuestionId(question.getQuestionId().toString());
+            questionJson.setQuestionId(question.getQuestionId().toString());
+            questionJson.setQuestionContent(question.getQuestionContent());
+            questionJson.setOptionList(options);
+            questionJson.setQuestionTitle(question.getQuestionTitle());
+            questionJson.setOptionCount(options.size());
+            questionJsonList.add(questionJson);
+        }
+		return questionJsonList;
 	}
 
 	@ResponseBody

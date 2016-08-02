@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>念念--预约列表</title>
+<link href="/js/images/niannian.ico" rel="shortcut icon" />
+<meta name="description" content="念念网致力于打造智能葬礼产品和服务定制工具。念念主张“不要让你爱的人走的太匆忙”，鼓励充分尊重逝者意愿的提前定制，已实现“殡葬服务价格透明化、互联网化、个性化”为己任 。念念，也是中国最大的日系骨灰盒骨灰坛销售公司，最有特色的祭扫祭祀用品服务商。" /> 
+<meta name="keywords" content="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制" /> 
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script src="/js/idCheck.js"></script>
+<link rel="stylesheet" href="/js/Font-Awesome-4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/js/AccountInfo.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<style>
+</style>
+<body onselectstart="return false" ng-app="productApp" ng-controller="products">
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=main" frameborder = 0 height = "67px"></IFRAME>
+<div id="accountInfoMain">
+    <div id="leftTabs">
+	    <div class="singleTab">
+		    <a href="AccountInfo.html"><p class="normalText">编辑个人资料</p></a>
+		</div>
+		<div class="singleTab">
+		    <a href="purchaseOrderInfo.html"><p class="normalText">您的订单</p></a>
+		</div>
+		<div class="singleTab selectedTab">
+		    <p class="normalText">预约记录</p>
+		</div>
+		<div class="singleTab">
+		    <a href="userWishList.html"><p class="normalText">愿望清单</p></a>
+		</div>
+    </div>
+<div id="rightContentsMain">
+    <div id="noContent" hidden>您还没有任何预约信息<button class="emptyBtn">去预约</button></div>
+	<div class="rightContents" id="{{order.reservId}}" ng-repeat="order in orders | orderBy: 'reservDate': true" on-finish-render-filters>
+	    <div class="contentHeader">
+		    <p class="normalText">预约信息</p>
+		    <div class="sideBtn" id="{{$index}}"><i class="fa fa-trash" aria-hidden="true"></i></div>
+		    <div class="processIcon" hidden><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>
+		</div>
+		<div class="contentValue">
+		    <table>
+			    <thead>
+				    <tr>
+					    <th class="th2">预约墓地</th>
+						<th class="th1">墓地地址</th>
+						<th class="th3">预约时间</th>
+						<th class="th3"></th>
+					</tr>
+				</thead>
+				<tbody>
+				    <tr>
+					    <td ng-bind="order.cemeteryName"></td>
+						<td ng-bind="order.address"></td>
+						<td class="reservDate" ng-bind="order.reservDate"></td>
+						<td ng-if="order.type=='1'"><a class="digToDetail" href="/cemetery.html?id={{order.cemeteryId}}" >查看详情</a></td>
+						<td ng-if="order.type=='2'"><a class="digToDetail" href="/temple.html?id={{order.cemeteryId}}">查看详情</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="detailVeiw">
+			 <div class="imageBox" style="background-image: url('{{order.imgUrl}}')">
+			</div>
+			<div class="cemeteryDescDiv">
+				<h3 ng-bind="order.cemeteryName"></h3>
+				<span ng-bind="order.feature"></span>
+			</div>
+	    </div>
+	</div>
+</div>
+</div>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+</body>
+<script>
+var app = angular.module('productApp', []);
+muskCurrentPage();
+app.directive('onFinishRenderFilters', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attr) {
+            if (scope.$last === true) {
+                $timeout(function() {
+                    scope.$emit('ngRepeatFinished');
+                });
+            }
+        }
+    };
+});
+verifySession();
+app.controller('products', function($scope, $http) {
+    $http.get("/reservation/list").success(function(response) {
+    	for (var i =0;i<response.length;i++) {
+    		response[i].feature = response[i].feature.replace(new RegExp(/(&nbsp)/g),'');
+    	}
+        $scope.orders = response;
+        if (response.length === 0) {
+        	$("#noContent").show();
+        }
+        else {
+        	$("#noContent").hide();
+        }
+        unmusk();
+    });
+    $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+    	$(".sideBtn").hover(function() {
+			if (!$(this).hasClass('disabled')) {
+			    $(this).css({
+				    'background': '#ccc'
+			    });
+			}
+		}, function() {
+			$(this).css({
+				'background': 'transparent'
+			});
+		});
+	    $(".sideBtn").click(function(event) {
+	    	var reservId = $(this).closest(".rightContents")[0].id,
+	    	    index = $(this)[0].id;
+	    	if ($(this).hasClass("disabled")) {
+	    		return false;
+	    	}
+	    	var callback = function() {
+	    		$(this).addClass("disabled");
+		    	$(this).closest(".rightContents").find(".processIcon").show();
+		        $.ajax({
+					url: '../reservation/remove?reservId='+reservId,
+					type: 'delete',
+					dataType:'json',
+					success:function(data){
+						$(".rightContents").each(function() {
+							if ($(this)[0].id === reservId) {
+								$(this).remove();
+							}
+						});
+						if ($(".rightContents").length ===0) {
+							$("#noContent").fadeIn();
+						}
+						clearWarningmusk();
+						floatAlertBar('预约已经取消成功');
+					},
+					error: function(error) {
+					}
+				});
+	    	};
+	    	popupWarningMessagePage("確定要刪除嗎？", callback, "提示信息");
+	        event.stopPropagation();
+	    });
+	    $(".reservDate").each(function() {
+	    	var reservDate = $(this)[0].innerText,
+	    	    sysdate = new Date(),
+	    	    month = (sysdate.getMonth()+1) > 9? (sysdate.getMonth()+1):'0'+(sysdate.getMonth()+1),
+	    	    day = sysdate.getDate() > 9? sysdate.getDate():'0'+sysdate.getDate();
+	    	    sysdateStr = sysdate.getFullYear()+"-"+month+"-"+day;
+	    	
+	    	if (reservDate < sysdateStr) {
+	    		var parent = $(this).closest(".rightContents");
+	    		parent.css({'opacity': '0.6'});
+	    		parent.find(".contentHeader").find("p")[0].innerText = parent.find(".contentHeader").find("p")[0].innerText+"(已过期)";
+	    	}
+	    });
+    });
+    $(".emptyBtn").click(function() {
+    	window.parent.location.href = "/cemeteryList.html";
+    });
+});
+</script>
+</html>

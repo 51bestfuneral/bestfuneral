@@ -1,0 +1,19 @@
+dl,dd,dt{margin:0;padding:0;}
+a{ text-decoration:none;}
+
+.floating_ck{position:fixed;right:5px;top:30%;}
+.floating_ck dl dd{position:relative;width:80px;height:80px;background-color:#646577;border-bottom:solid 1px #555666;text-align:center;background-repeat:no-repeat;background-position:center 20%;cursor:pointer;}
+.floating_ck dl dd:hover{background-color:#ec4a82;border-bottom:solid 1px #ec4a82;}
+.floating_ck dl dd:hover .floating_left{display:block;}
+.consult,.words{background-image:url(../images/zxicon.png);}
+.quote{background-image:url(../images/kficon.png);}
+.qrcord{background-image:url(../images/erweima.png);}
+.floating_ck dd span{color:#fff;display:block;padding-top:54px;}
+.floating_left{position:absolute;left:-160px;top:0px;width:160px;height:80px;background-color:#646577;border-bottom:solid 1px #a40324;display:none;}
+.floating_left li{list-style-type:none;margin-top:5px;}
+.floating_left li img{width:20px;height:20px}
+.floating_left a{color:#EEE;line-height:30px;}
+.floating_ewm{height:160px;top:-40px;}
+.floating_ewm img{display:block;width:145px;height:145px;margin:auto;margin-top:7px;}
+.floating_left .qrcord_p01{color:#EEE;font-size:18px;line-height:20px;margin-top:15px;}
+.floating_left .qrcord_p02{color:#EEE;font-size:18px;margin-top:5px;}

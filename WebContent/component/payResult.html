@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="head">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>
+</title>
+</head>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/Bootstrap/boot.js"></script>
+<script src="/js/md5.js"></script>
+<link href="/js/Bootstrap/boot.css" rel="stylesheet">
+<link href="validation/details.css" rel="stylesheet" type="text/css" />
+<style>
+    body {
+	    text-align: center;
+	}
+	p {
+	    margin: 0px;
+	}
+	#loginMain {
+	   border: 8px solid gray;
+	    width: 400px;
+		height: 300px;
+		background-color: #ffffff;
+		border-radius: 8px;
+        box-shadow: 0px 4px 4px rgba(0,0,0,.1);
+	}
+	
+	#loginMain hr{
+	margin-left: 20px;
+	margin-right: 20px;
+	 height:20px;
+	 border:none;border-top:3px dotted #185598;
+	 size:50
+	}
+	#topPart {
+	    width: 100%;
+		overflow: auto;
+		padding-top: 15px;
+		padding-left: 10px;
+	}
+	#mainTitle {
+		width: 100%;
+		text-align: left;
+		
+	}
+	#mainTitle p {
+	    font-size: 16px;
+		font-weight: bold;
+	}
+	#closeArea {
+	    float: right;
+		overflow: auto;
+		margin-right: 21px;
+		margin-top: -25px;
+		cursor: pointer;
+	}
+	#closeArea:hover {
+	    background: #ff5274;
+		color: #ffffff;
+	}
+	#closeArea p {
+	    font-size: 16px;
+		font-weight: bold;
+	}
+	#inputArea {
+	    width: 302px;
+		overflow: auto;
+		text-align: center;
+		margin: 0px auto;
+	}
+	#inputArea .form-control{
+	    width: 100%;
+        height:	50.4px;
+		border: solid 1px #333333;
+		border-radius: 5px;
+        background-color: #ffffff;
+		margin-bottom: 10px;
+	}
+	#inputArea .form-control:focus {
+	    border: solid 1px #ff5274;
+	}
+	
+	#successSection{
+	width:40%;
+	height: 40%;
+	float:left;
+	border: solid 1px #333333;
+	border-radius: 5px;
+     background-color: #ffffff;
+     margin-left: 25px;
+	}
+	
+	#failedSection{
+	width:40%;
+	float:left;
+	height: 40%;
+	float:left;
+	border: solid 1px #333333;
+		border-radius: 5px;
+        background-color: #ffffff;
+         margin-left: 20px;
+	}
+	
+	.payResult{
+		 margin-top: 25px;
+	  font-size: 20px;
+	}
+	
+	#viewOrderInfo{
+	 margin-top: 10px;
+	}
+	
+	#changePayMethod{
+	 margin-top: 10px;
+	}
+
+	#changePayMethod .linkSpan {
+	    font-size: 14px;
+        line-height: 1.5;
+		cursor: pointer;
+		font-family: "Microsoft Yahei";
+	}
+	
+	#viewOrderInfo .linkSpan {
+	    font-size: 14px;
+        line-height: 1.5;
+		cursor: pointer;
+		font-family: "Microsoft Yahei";
+	}
+	#errorContent {
+	    width: 100%;
+        height:	30px;
+		background: #fef2f2;
+        border: 1px solid #ffb4a8;
+	}
+	#errorContent p {
+	    font-size: 8px;
+		text-align: center;
+		line-height: 30px;
+		margin: 0px;
+	}
+	#errorContentCoat {
+	    width: 100%;
+        height:	47px;
+		padding-top: 17px;
+	}
+	.ddetails-header {
+	    margin:0px auto;
+		left: auto;
+		float: none;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.checkcode {
+	    height: 40px;
+	}
+</style>
+
+<body ng-app="signController" ng-controller="sign">
+<div id="loginMain">
+    <div id="topPart">
+	    <div id="mainTitle">
+		    <p>付款确认</p>
+		</div>
+		<div id="closeArea">
+		    <p>X</p>
+		</div>
+	</div>
+	<hr/>	
+		<div id="successSection"> 
+		<div class="payResult">已完成支付</div>
+		<div id="viewOrderInfo"><span class="linkSpan">查看订单详情</span></div>
+		</div>
+		<div id="failedSection"><div class="payResult">支付遇到问题</div>
+		<div id="changePayMethod"><span class="linkSpan">修改支付方式</span></div></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+
+window.onload = function() {
+    $("#closeArea").click(function() {
+		$(".jquery_addmask",parent.document).fadeOut();
+    	$("#payConfirmFrameCoat",parent.document).fadeOut();
+    	$(".jquery_addmask",parent.document).remove();
+    	$("#payConfirmFrameCoat",parent.document).remove();
+	});
+	
+	$("#viewOrderInfo").click(function () {
+	    window.parent.location.href='/orderInfo.html';
+	});
+	
+	$("#changePayMethod").click(function () {
+		$(".jquery_addmask",parent.document).fadeOut();
+    	$("#payConfirmFrameCoat",parent.document).fadeOut();
+    	$(".jquery_addmask",parent.document).remove();
+    	$("#payConfirmFrameCoat",parent.document).remove();
+	});
+}
+</script>
+</html>

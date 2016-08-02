@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,10 +17,10 @@ public class Wishlist {
 	@Id
 	@GeneratedValue
 	@Column(name="wishlist_id")
-	private String wishlistId;
+	private Integer wishlistId;
 
 	@Column(name="price")
-	private Double price;
+	private BigDecimal price;
 	
 	@Column(name="ans_list_id")
 	private String ansListId;
@@ -28,10 +29,25 @@ public class Wishlist {
 	private String comment;
 
 	@Column(name="user_id")
-	private String userId;
+	private Integer userId;
 
 	@Column(name="status")
 	private String status;
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setOriginalPrice(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+
+	@Column(name="level")
+	private Integer level;
 	
 	@Column(name="createdate")
 	private Date createDate;
@@ -39,19 +55,22 @@ public class Wishlist {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
-	public String getWishlistId() {
+	@Column(name="original_price")
+	private BigDecimal originalPrice;
+
+	public Integer getWishlistId() {
 		return wishlistId;
 	}
 
-	public void setWishlistId(String wishlistId) {
+	public void setWishlistId(Integer wishlistId) {
 		this.wishlistId = wishlistId;
 	}
 
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
@@ -71,13 +90,7 @@ public class Wishlist {
 		this.comment = comment;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 
 	public Date getCreateDate() {
 		return createDate;
@@ -95,13 +108,28 @@ public class Wishlist {
 		this.updatedDate = updatedDate;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public BigDecimal getOriginalPrice() {
+		return originalPrice;
+	}
+
+	public void setOriginalPirce(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
+	}
 }
 

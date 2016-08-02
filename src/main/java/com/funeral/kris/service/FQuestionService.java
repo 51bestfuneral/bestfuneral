@@ -14,4 +14,8 @@ public interface FQuestionService {
 	public void deleteResource(long questionId);
 
 	public List<TFQuestion> getResources();
+	
+	public Long count();
+
+	
 }

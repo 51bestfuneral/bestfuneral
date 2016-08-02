@@ -17,11 +17,19 @@ import com.funeral.kris.model.TFQuestion;
 @Service
 @Transactional
 public class FQuestionServiceImpl implements FQuestionService {
+	
+	
+	
 
 	@Autowired
 	private TFQuestionDAO tFQuestionDAO;
 	@Resource
 	private JdbcTemplate jdbcTemplate;
+	
+	
+	
+	
+	
 
 	@Override
 	public void addResource(TFQuestion fQuestiion) {
@@ -83,6 +91,12 @@ public class FQuestionServiceImpl implements FQuestionService {
 
 		return tFQuestion;
 
+	}
+
+	@Override
+	public Long count() {
+		
+		return tFQuestionDAO.count();
 	}
 
 }

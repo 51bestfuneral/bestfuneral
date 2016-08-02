@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>添加问题</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body ng-app="myApp" ng-controller="reserveManager">
+<header>
+<ul id="nav">
+	<li><a href="signInPgae.html">问题管理</a></li>
+	<li><a href="signInPgae.html">客户管理</a></li>
+	<li><a href="signInPgae.html">产品管理</a></li>
+	<li><a href="signInPgae.html">服务管理</a></li>
+	<li><a href="signInPgae.html">墓地预约管理</a></li>
+</ul>
+</header>
+<script>
+	var serviceCategories;
+</script>
+
+
+<ul id="reserveList"   >
+
+
+
+
+
+<table border="1"  width="100%" > 
+	
+	
+	
+	
+	<tr> <td> <label >预约电话</label> </td>   <td>  <label >日期</label></td> 
+
+  <td> <label >墓地</label> </td> </tr>
+	
+	<tr   ng-repeat="reserve in reserveList">
+		
+		
+		<td  >  {{reserve.reservePhone}} </td><td  >  {{reserve.date}} </td>	<td  >  {{reserve.cemeteryName}} </td>
+			
+		
+</tr>	
+	
+	
+	
+</table>
+
+
+
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+	<style>
+		
+		
+
+
+	ul#reserveList{ width:100%;  background:rgba(162, 162, 162, 0.5); position:relative; left:0%; right:0%; text-align:center;} 
+  ul#reserveList li{display:inline; } 
+  ul#reserveList li a{display:inline-block; padding:0 20px;  text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#reserveList li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+
+		
+	ul#nav{ width:100%; height:60px; background:#ffffff; position:relative; left:0%; right:0%; text-align:center;} 
+  ul#nav li{display:inline; height:60px} 
+  ul#nav li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#000000; face: "STHeitiSC-Medium"; font-size:23px;} 
+  ul#nav li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  ul#nav index{display:inline; height:60px;text-align:left;float:left;} 
+ul#summary{ width:100%; height:353px; background:#ff7893; position:relative; left:0%; right:0%; text-align:center; top:30px;} 
+ul#summary  comments{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:60px;} 
+ul#summary  money{ color:#ffffff; face: "STHeitiSC-Medium"; font-size:48px;font-weight:bold;} 
+ul#summary  note{  color:#ffffff; face: "STHeitiSC-Medium"; font-size:20px;} 
+.nextButton{
+	  background-color: rgba(0, 0, 0, 0.58);
+		width : 70px;
+		height: 30.9px;
+		text-align:center;
+	  font-size: 23px;
+	  border-radius:10px 5px 5px 5px;
+   } 
+#blank{
+	height:100px;
+	width:1000px;
+	border:0px
+  position:relative;
+  left:100px;
+  top:700px;
+  text-align:center;
+	}
+#introduction{
+		height:354px;
+	width:100%;
+	border:0px
+	solid #767676;
+	background:url(../customizatonPages/assets/images/rectangle-702.png) 
+	no-repeat 0px 0px;
+	text-align:center;
+  position:relative; left:0%; right:0%;
+	}
+#item{
+	height:334px;
+	width:65%;
+	border:0px
+	solid #767676;
+  background-color: #ffffff;
+    position:relative;
+ left:18%;
+  text-align:center;
+  box-shadow: 10px 10px 50px #d6d6d6;
+	}
+ #item li{float:left; height:100px;list-style-type:none;} 
+ #item  p{font-family : STHeitiSC-Light;
+font-size: 35px;
+color : #3d4351;
+} 
+#item li p{font-family : STHeitiSC-Light;
+font-size: 15px;
+color : #3d4351; line-height:25px; text-align:center;
+} 
+#introduction p{	
+font-family : STHeitiSC-Light;
+font-size: 60px;
+color : #4b4b4b;
+	}
+#introduction p1{	
+font-family : STHeitiSC-Light;
+font-size: 35px;
+color : #4b4b4b;
+	}
+ul#box{
+	height:50px;
+  width:100%;	border:1px
+	solid #767676;
+	
+  text-align:center;
+   position:relative; 
+   left:0%; 
+   right:0%;
+	} 
+	ul#box li{display:inline; height:60px} 
+  ul#box li a{display:inline-block; padding:0 20px; height:60px; line-height:60px;text-decoration:none;
+  color:#5b5b5b; face: "STHeitiSC-Medium"; font-size:20px;} 
+ul#box li a:hover{background:#ebebeb}/*设置鼠标滑过或悬停时变化的背景颜色*/ 
+  #buttonStyle {
+  	position ：relative;
+  	height: 6900.9px;
+    display:inline;
+		margin:0px auto;
+		color: white;
+		cursor: pointer;
+	}
+	#buttonStyle:hover {
+	  background-color: #e6385a;
+		color: #428BCA;
+	}
+	#buttonStyle back {
+   position:absolute;
+   top:450px;
+   left:350px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	#buttonStyle skip {
+   position:absolute;
+   top:600px;
+   left:750px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+#buttonStyle next {
+   position:absolute;
+   top:600px;
+   left:950px;
+	  background-color: #ff5274;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 23px;
+		margin: 0px;
+		line-height: 82px;
+	}
+	.backButton{
+	position:absolute;
+   top:380px;
+   left:50px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 28px;
+		margin: 0px;
+		line-height: 82px;
+		} 
+	.skipButton{position:absolute;
+   top:380px;
+   left:550px;
+	  background-color: #d6d6d6;
+		width : 171px;
+		height: 69.9px;
+		text-align:center;
+	  font-size: 28px;
+		margin: 0px;
+		line-height: 82px;}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</style>
+	
+	
+	 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/nav2.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+	
+	
+	
+	<script>
+	var app = angular.module('myApp', []);
+ 
+	 app.controller('reserveManager', function($scope, $http) {
+	 	
+	 	$http.get("/funeral/fQuestion/list").success(function(response) {
+	       $scope.questions = response;
+			});
+	
+		
+});
+	</script>
+</body>
+</html>

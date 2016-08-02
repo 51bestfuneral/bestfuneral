@@ -8,4 +8,3 @@ CREATE TABLE t_service_category (
   PRIMARY KEY (cate_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
-insert into t_service_category values('3','您是否需要音乐?','您是否需要音乐?',NOW(),NOW());

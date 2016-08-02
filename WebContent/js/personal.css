@@ -22,7 +22,7 @@
 		line-height: 100px;
 	}
 	#myTab li {
-	    margin-left: 5%;
+	    margin-left: 6%;
 		width : 8%;
 		padding: 0;
 		border: 0;
@@ -63,7 +63,7 @@
 	    font-size: 44px;
 	}
 	.rightText p {
-	    font-size: 26px;
+	    font-size: 1.3vw;
 	}
 	.messageImg {
 	    width:100%;
@@ -83,10 +83,6 @@
 	.iconDiv {
 	    width: 25%;
 		float: left;
-	}
-	#whyChooseText {
-		position: absolute;
-		width:100%;
 	}
 	#textInImg {
 	    margin-top: 80px;
@@ -113,49 +109,86 @@
 	    margin-top: 140px;
 	}
 	#taocan {
-	    width: 50%;
+	    width: 1200px;
 		margin:0px auto;  
 		height:auto;
 		overflow:auto;
-		height: 250px;
+		height: 370px;
+		padding-left: 30px;
+		max-width:100%;
+		max-height:100%;
 	}
     .taocanIconDiv {
-	    width: 30%;
+	    width: 23%;
 		float: left;
 		box-shadow: 2px 3px 2px 2px rgba(0,0,0,.2);
 		margin: 10px;
 		margin-top: 40px;
-		height: 150px;
+		height: 270px;
 		cursor:pointer;
+		text-align:center;
+		overflow: hidden;
+		max-width:22%;
+	}
+	#taocanIconGood {
+	    background: #ED4B83;
+	    background-size: 20px 20px;
+	}
+	#taocanIconBetter {
+	    background-image: url(/js/images/PatternImage-good-min.jpg);
+	    background-size: 20px 20px;
+	}
+	#taocanIconBest {
+	    background-image: url(/js/images/PatternImage-better-min.jpg);
+	    background-size: 20px 20px;
+	}
+	#taocanIconBestBest {
+	    background-image: url(/js/images/PatternImage-most-min.jpg);
+	    background-size: 20px 20px;
 	}
 	.taocanIconDiv #h5 {
 	    font-size: 13px;
 	}
+	.IconBrand {
+		margin: 0px auto;
+		overflow: hidden;
+		background-image: url(/js/images/LogoWhite@2x-min.jpg);
+		background-size: 50% 100%;
+		margin-top: 40px;
+		max-width:50%;
+	}
+	
+
 	.header {
 	    padding-top : 50px;
+	   	text-align:center;	
+
 	}
 	.headerText {
-	    margin-top : 50px;
+	    margin-top : 20px;
 		font-size: 32px;
 	}
 	#nextStep {
 	    padding: 40px;
 		font-size: 28px;
 		margin: 0;
+			text-align:center;	
+		
 	}
 	#startButton {
 	    width : 300px;
 		height: 82px;
-		background-color: #ff5274;
+		background-color: #ED4B83;
 		box-shadow: 0px 4px 0px 0px #e6385a;
 		margin:0px auto;
 		color: white;
 		cursor: pointer;
+		text-align:center;	
+		
 	}
 	#startButton:hover {
-	    background-color: #B5AFAF;
-		color: #428BCA;
-		box-shadow: 0px 4px 0px 0px #B5AFAF;
+	    background-color: #ff496d;
+		box-shadow: 0px 4px 0px 0px #ff496d;
 	}
 	#startButton p {
 	    font-size: 48px;
@@ -165,9 +198,18 @@
 	#startText {
 	    padding: 20px;
 		font-size: 16px;
+		text-align:center;	
 	}
-	#footer p {
+	
+	#footerText{
+	text-align:center;	
+	
+	}
+	
+	#footerText p {
 	    font-size: 16px;
+	    	
+	    
 	}
 	a {
 	    text-decoration: underline;
@@ -193,6 +235,14 @@
 		border-radius: 34px;
 		overflow: hidden;
 		box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+		cursor: pointer;
+		transition:box-shadow 0.3s;
+	    -moz-transition:box-shadow 0.3s;
+        -webkit-transition:box-shadow 0.3s;
+        -o-transition:box-shadow 0.3s;
+	}
+	#titleIconDiv:hover {
+	    box-shadow: 0px 10px 20px 0px #ff5274;
 	}
 	.iconImg {
 	    margin-left: -5px;
@@ -211,6 +261,10 @@
 	}
 	#bottomMessage h3 {
 	    font-size: 38px;
+		color: #ffffff;
+	}
+	#bottomMessage h5 {
+		color: #ffffff;
 	}
 	#headerMessage img {
 	    width: 440px;
@@ -253,13 +307,17 @@
 	#endMessage {
 	    background-color: #eeeeee;
 	}
-	    body {
-        margin£º0px;
+	#endMessage p{
+	    margin: 0px;
+	}
+	body {
+        marginï¿½ï¿½0px;
     }
 	.topContent {
 	    width: 100%;
 		height:auto;
 		overflow:auto;
+		background: radial-gradient(#FFFFFF,#d7dce1);
 	}
 	#designTaocan {
 	    width: 85%;
@@ -273,15 +331,15 @@
 	    width: 100%;
 		margin:0px auto;
 		overflow:auto;
-		background-color: #ECE7E7;
+		background-color: #f7f7f7;
 		height:auto;
 		padding: 3%;
 	}
     .designTaocanIconDiv {
-	    width: 22%;
+	    width: 14%;
 		float: left;
-		margin-right: 3%;	
-		height: 120px;
+		margin-right: 2%;	
+		height: 100px;
 		background-color: #ECE7E7;
 		box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
 		transition:background 0.5s;
@@ -290,8 +348,11 @@
         -o-transition:background 0.5s;
 		border-radius: 10px;
 	}
+	.firstIconDiv {
+	    margin-left: 3%;
+	}
 	.designTaocanIconDiv h3 {
-	    line-height: 120px;
+	    line-height: 100px;
 		margin: 0;
 		cursor:pointer;
 	}
@@ -309,11 +370,13 @@
 		font-size: 20px;
 		margin-bottom: 0;
 		font-weight:bold;
+		color: #ffffff;
 	}
 	.iconChild h4 {
 	    margin-bottom: 0;
 		margin-top: 0;
 		font-size: 10px;
+		color: #ffffff;
 	}
     .iconChild p {
 	    margin-bottom: 0;
@@ -323,7 +386,7 @@
 		height : 100%;
 		cursor:pointer;
 		margin: 0px;
-		border-top :10px solid green;
+		border-top :0px solid green;
 	}
 	.barSelect {
 	    background: #B5AFAF;
@@ -331,11 +394,12 @@
 		box-shadow: none;
 	}
 	#headerMessage {
-	    padding-top: 40px;
+	    padding-top: 20px;
 	}
 	#headerMesText {
 	    line-height:100px;
 		margin: 0;
+		font-size: 48px;
 	}
 	.descRow {
 	    width: 100%;
@@ -347,7 +411,6 @@
 	    line-height: 100px;
 	}
 	.valueRow .headerLine {
-	    background-color: #BF1544;
 	}
 	.valueRow {
 	    width: 100%;
@@ -358,19 +421,79 @@
 	.valueRow .normalLine {
 	    background-color: #FBFBFB;
 	}
-	.headerLine {
+	.headerLineLeft {
 	    width: 100%;
 		height: 120px;
 		list-style-type:none;
 		padding: 0;
-		border-top: 1px solid #ECE7E7;
+		border: 0px solid #ECE7E7;
+		text-align:right;
 	}
-    .normalHeaderLine {
+	
+	.headerLineLeft p{
+	    font-family: STHeitiSC-Medium;
+        font-size: 36px;
+        color: #5d5d5d;
+	}
+	.headerLineRight {
+	    width: 100%;
+		height: 120px;
+		list-style-type:none;
+		padding: 0;
+		border: 0px solid #ECE7E7;
+		text-align:left;
+		}
+	
+	.headerLineRight p{
+	font-family: STHeitiSC-Medium;
+  font-size: 36px;
+  
+  color: #5d5d5d;
+  
+	}
+	
+	
+	
+    .normalHeaderLineLeft {
 	    width: 100%;
 		height: 100px;
 		list-style-type:none;
-		border-top: 1px solid #ECE7E7;
+		border-top: 1px solid #f7f7f7;
+		font-family: STHeitiSC-Medium;
+  font-size: 23px;
+  line-height: 23px;
+  color: #5d5d5d;
+  text-align:right;
+
 	}
+	
+	
+	  .normalHeaderLine {
+	    width: 100%;
+		height: 100px;
+		list-style-type:none;
+		border-top: 1px solid #f7f7f7;
+
+
+	}
+	
+	  .normalHeaderLineRight {
+	    width: 100%;
+		height: 100px;
+		list-style-type:none;
+		border-top: 1px solid #f7f7f7;
+			font-family: STHeitiSC-Medium;
+  font-size: 23px;
+  color: #5d5d5d;
+    line-height: 23px;
+
+    		text-align:left;
+
+	}
+	
+	
+	
+	
 	.normalLine {
 	    width: 100%;
 		height: 60px;
@@ -381,16 +504,42 @@
 	    line-height : 60px;
 		margin-bottom: 0;
 	}
+	
+	.normalLine2 {
+	    width: 100%;
+		height: 120px;
+		list-style-type:none;
+		border-top: 1px solid #ECE7E7;
+	}
+	.normalLine2 p {
+	    line-height : 120px;
+		margin-bottom: 0;
+	}
+	
+	.normalLine3 {
+	    width: 100%;
+		height: 180px;
+		list-style-type:none;
+		border-top: 1px solid #ECE7E7;
+	}
+	.normalLine3 p {
+	    line-height : 180px;
+		margin-bottom: 0;
+	}
+	
+	
 	.normalLineText {
 	    width : 100%;
 		padding: 0;
 		margin-top: 0;
 		height: 60px;
 		padding-top : 1px;
+			
+
 	}
 	.normalLineText p {
 	    margin: 0;
-		font-size: 1px;
+		font-size: 16px;
 	}
 	.tickImg {
 	    vertical-align: middle;
@@ -413,21 +562,145 @@
 	.designHeaderText {
 	    margin-top: 0;
 	}
-	.includeDiv {
+	.includeDiv1 {
 	    width: 15%;
 		overflow:auto;
 		height: auto;
 		float: left;
 		padding-bottom: 1%;
 		margin-top: 20px;
+	    border-top: 8px solid #f7f7f7;
 	}
-	.includeDataDiv {
+	.includeDiv2 {
+	    width: 15%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		padding-bottom: 1%;
+		margin-top: 20px;
+	    border-top: 8px solid #f7f7f7;
+	}
+	.includeDataDivBasic {
 	    width: 16%;
 		overflow:auto;
 		height: auto;
 		float: left;
 		margin-bottom: 1%;
 		margin-left : 1%;
-		margin-top: 20px;
+		margin-top: 28px;
 		cursor:pointer;
 	}
+	.headerLine {
+	    width: 100%;
+		height: 120px;
+		list-style-type:none;
+		padding: 0;
+		border: 0px solid #ECE7E7;
+		text-align:center;
+	}
+	.includeDataDivBasic .headerLine {
+		background: #F4548B;
+	}
+	.includeDataDivGood .headerLine {
+		background-image: url(/js/images/PatternImage-good-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	.includeDataDivBest .headerLine {
+		background-image: url(/js/images/PatternImage-most-min.jpg);
+	    background-size: 20px 20px;
+	}
+	.includeDataDivBetter .headerLine {
+		background-image: url(/js/images/PatternImage-better-min.jpg);
+	    background-size: 20px 20px;
+	}
+	#lockedTocanDiv .basic {
+		background: #F4548B;
+	}
+	#lockedTocanDiv .good {
+		background-image: url(/js/images/PatternImage-good-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	#lockedTocanDiv .better {
+		background-image: url(/js/images/PatternImage-better-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	#lockedTocanDiv .best {
+		background-image: url(/js/images/PatternImage-most-min.jpg);
+	    background-size: 20px 20px; 
+	}
+	#lockedTocanDiv .headerLine {
+	    width: 210px;
+	    height: 125px;
+	}
+	#lockedTocanDiv .taocanIconDivInRow {
+	    width: 16%;
+	    height: 125px;
+	    float: left;
+	    margin-left: 1%;
+	}
+	#lockedTocanDiv {
+	    position: fixed;
+	    top: 0px;
+	    box-shadow: 0px 10px 20px 0px rgba(0,0,0,.1);
+	    width: 100%;
+	    padding: 3%;
+	    padding-top: 0px;
+	    padding-bottom: 0px;
+	}
+	#lockedTocanDiv p {
+	    font-family: STHeitiSC-Medium;
+        font-size: 36px;
+        color: #5d5d5d;
+        line-height: 125px;
+        margin: 0px;
+	}
+	#compareLocked {
+	    float: left;
+	    width: 30%;
+	    height: 125px;
+	    background: #F7F7F7;
+	}
+	.includeDataDivGood {
+	    width: 16%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		margin-bottom: 1%;
+		margin-left : 1%;
+		margin-top: 28px;
+		cursor:pointer;
+	}
+	
+	.includeDataDivBetter {
+	    width: 16%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		margin-bottom: 1%;
+		margin-left : 1%;
+		margin-top: 28px;
+		cursor:pointer;
+	}
+	
+	.includeDataDivBest {
+	    width: 16%;
+		overflow:auto;
+		height: auto;
+		float: left;
+		margin-bottom: 1%;
+		margin-left : 1%;
+		margin-top: 28px;
+		cursor:pointer;
+	}
+		@media (min-width: 900px) {
+  .container {
+    width: 100%;
+	padding: 0px;
+	min-width: 1000px;
+  }
+}
+.topBarDiv {
+    box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+	height: 65px;
+	z-index: 100;
+}

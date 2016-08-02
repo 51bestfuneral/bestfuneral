@@ -14,7 +14,7 @@ public class TFQuestion {
 	@Id
 	@GeneratedValue
 	@Column(name = "qusetion_id")
-	private long qusetionId;
+	private Long questionId;
 
 	public int getOptionSize() {
 		return optionSize;
@@ -38,12 +38,13 @@ public class TFQuestion {
 	@Column(name = "option_form")
 	private int optionForm;
 
-	public long getQusetionId() {
-		return qusetionId;
+	
+	public Long getQuestionId() {
+		return questionId;
 	}
 
-	public void setQusetionId(long qusetionId) {
-		this.qusetionId = qusetionId;
+	public void setQuestionId(Long questionId) {
+		this.questionId = questionId;
 	}
 
 	public String getTitle() {

@@ -11,5 +11,5 @@ public interface CemeteryService {
 	public Cemetery getResource(int id);
 	public void deleteResource(int id);
 	public List<Cemetery> getResources();
-
+	public List<String> getAllCss();
 }

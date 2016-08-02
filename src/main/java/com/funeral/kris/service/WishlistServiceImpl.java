@@ -3,13 +3,24 @@ package com.funeral.kris.service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.funeral.kris.dao.WishOrderDAO;
 import com.funeral.kris.dao.WishlistDAO;
+import com.funeral.kris.dao.WishlistDetailDAO;
+import com.funeral.kris.model.Order;
+import com.funeral.kris.model.Wish;
+import com.funeral.kris.model.WishOrder;
 import com.funeral.kris.model.Wishlist;
+import com.funeral.kris.util.SqlHelper;
 
 @Service
 @Transactional
@@ -17,9 +28,14 @@ public class WishlistServiceImpl implements WishlistService {
 
 	@Autowired
 	private WishlistDAO WishlistDAO;
+	@Autowired
+	private WishOrderDAO wishOrderDAO;
+
+	@Autowired
+	private EntityManager em;
 
 	public void addResource(Wishlist wishlist) {
-		WishlistDAO.save(wishlist);		
+		WishlistDAO.save(wishlist);
 	}
 
 	public void updateResource(Wishlist wishlist) {
@@ -34,14 +50,75 @@ public class WishlistServiceImpl implements WishlistService {
 		WishlistDAO.delete(id);
 	}
 
-	public List<Wishlist> getResources() {
-		List<Wishlist> wishlistList = new ArrayList<Wishlist>();
-		Iterable<Wishlist> wishlistIter = WishlistDAO.findAll();
-		Iterator<Wishlist> iter = wishlistIter.iterator();
-		while(iter.hasNext()) {
-			Wishlist wishlist = iter.next();
-			wishlistList.add(wishlist);
+	public List<Wishlist> getResources(HttpServletRequest request) {
+		String a = null;
+		try {
+			a = SqlHelper.getSqlFromRequest("Wishlist", request);
+		} catch (Exception e) {
+
 		}
-		return wishlistList;
+		Query query = em.createQuery(a);
+		List<Wishlist> wishList = query.getResultList();
+		return wishList;
 	}
+
+	public List<Wishlist> getResources(Map<String, String> paramsMap) {
+		String a = null;
+		try {
+		    a = SqlHelper.getSqlFromMap("Wishlist", paramsMap);
+		}
+		catch (Exception e) {
+			
+		}
+		Query query = em.createQuery(a);
+		List<Wishlist> wishList = query.getResultList();
+		return wishList;
+	}
+
+	@Override
+	public List<Wishlist> getResources() {
+
+		Iterable<Wishlist> Iterator = WishlistDAO.findAll();
+		List<Wishlist> list = new ArrayList<Wishlist>();
+
+		Iterator<Wishlist> iter = Iterator.iterator();
+		while (iter.hasNext()) {
+			Wishlist wishlist = iter.next();
+			list.add(wishlist);
+		}
+
+		return list;
+
+	}
+
+	@Override
+	public Wishlist getResourceByUserId(int userId) {
+
+		List<Wishlist> list = WishlistDAO.findListByUserId(userId);
+		if (list == null||list.size()==0 ) {
+
+			return null;
+		}
+		return list.get(0);
+	}
+
+	@Override
+	public List<WishOrder> getWishOrderByUserId(int userId) {
+
+		String a = null;
+		a = "select p from WishOrder p where p.userId = " + userId;
+		Query query = em.createQuery(a);
+		List<WishOrder> wishList = query.getResultList();
+		return wishList;
+	}
+
+	@Override
+	public List<Wishlist> getWishListByUserId(int userId) {
+		String a = null;
+		a = "select p from Wishlist p where p.userId = " + userId;
+		Query query = em.createQuery(a);
+		List<Wishlist> wishList = query.getResultList();
+		return wishList;
+	}
+
 }

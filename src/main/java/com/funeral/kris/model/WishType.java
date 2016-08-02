@@ -21,6 +21,9 @@ public class WishType {
 
 	@Column(name="necessary")
 	private boolean necessary;
+
+	@Column(name="level")
+	private Integer level;
 	
 	@Column(name="createdate")
 	private Date createDate;
@@ -68,4 +71,11 @@ public class WishType {
 		this.updatedDate = updatedDate;
 	}
 
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
 }

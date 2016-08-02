@@ -7,5 +7,6 @@ CREATE TABLE answers (
   answer_desc  varchar(200),  
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
+  option_id integer,
   PRIMARY KEY (answer_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

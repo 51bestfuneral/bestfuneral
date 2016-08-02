@@ -6,5 +6,6 @@ CREATE TABLE options (
   sequence integer,  
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
+  img_url varchar(20),
   PRIMARY KEY (option_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

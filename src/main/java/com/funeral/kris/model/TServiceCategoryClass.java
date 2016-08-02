@@ -20,6 +20,17 @@ public class TServiceCategoryClass {
 		return Id;
 	}
 
+
+	public void setClassDis(String classDis) {
+		this.classDis = classDis;
+	}
+	@Column(name = "img_url_default")  
+	private String imgUrldefault;  
+
+	@Column(name = "img_url_selected")  
+	private String imgUrlSelected;  
+	
+	
 	public void setId(String id) {
 		Id = id;
 	}
@@ -123,6 +134,26 @@ public class TServiceCategoryClass {
 	public Date getUpdateDate() {
 		return updateDate;
 	}
+
+	public String getimgUrldefault() {
+		return imgUrldefault;
+	}
+
+
+	public void setimgUrldefault(String imgUrldefault) {
+		this.imgUrldefault = imgUrldefault;
+	}
+
+
+	public String getImgUrlSelected() {
+		return imgUrlSelected;
+	}
+
+
+	public void setImgUrlSelected(String imgUrlSelected) {
+		this.imgUrlSelected = imgUrlSelected;
+	}
+
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;

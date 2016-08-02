@@ -1,21 +1,88 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="head">
-<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>
-ÔáÀñ¶¨ÖÆ
-</title>
+<title>å¿µå¿µ--è‘¬ç¤¼å®šåˆ¶</title>
+<meta name="description" content="å¿µå¿µç½‘è‡´åŠ›äºæ‰“é€ æ™ºèƒ½è‘¬ç¤¼äº§å“å’ŒæœåŠ¡å®šåˆ¶å·¥å…·ï¼Œå·²å®ç°â€œæ®¡è‘¬æœåŠ¡ä»·æ ¼é€æ˜åŒ–ã€äº’è”ç½‘åŒ–ã€ä¸ªæ€§åŒ–â€ä¸ºå·±ä»»ã€‚ä¸šåŠ¡èŒƒå›´è¾å°„ä¸Šæµ·åŠé•¿ä¸‰è§’åœ°åŒºï¼Œä¸å¤šå®¶å¢“åœ°å¯ºåº™å»ºç«‹åˆä½œå…³ç³»ã€‚" />
+<link href="/pages/component/css/secondLevelMenu.css" rel="stylesheet">
+<link href="/js/personal.css" rel="stylesheet">
+<script src="/js/generalUsage.js"></script>
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="/js/sliderx.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/Bootstrap/boot.js"></script>
+<script src="/js/libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="/js/apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="/js/apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<script src="/js/generalUsage.js"></script>
 </head>
-<script src="../js/jquery-2.1.4.js"></script>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/sliderx.js"></script>
-<script src="../js/angular-1.4.0-rc.2/angular.js"></script>
-<script src="../js/Bootstrap/boot.js"></script>
-<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
-<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
-<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<style>
+.headerAddtion {
+    width: 100%;
+	height: 48px;
+	text-align: center;
+	box-shadow: 0px 2px 4px 0px rgba(162, 162, 162, 0.5);
+}
+.second_nav {
+	width: 100%;
+	background: #f2f2f2;
+    box-shadow: 0px 2px 4px 0px RGBA(162,162,162,0.5);
+    z-index: 200;
+}
+#subNavilink {
+    width: 555px;
+    margin: 0px auto;
+    overflow: auto;
+    height: 52px;
+}
+#subNavilink a {
+    font-weight: lighter;
+    font-size: 17px;
+    color: #5b5b5b;
+    text-decoration: none;
+    margin-right: 33px;
+    line-height: 50px;
+    margin-top: 0px;
+}
+.firstLink {
+    margin-left: 38px;
+}
+.submitArea {
+    width: 100%;
+	height: 106px;
+}
+.submitArea button {
+    background-color: #ff5274;
+	color: #ffffff;
+	border-radius: 5px;
+	width: 136px;
+	height: 44px;
+	border: 0px;
+	margin-top: 30px;
+	transition:background-color 0.3s;
+	-moz-transition:background-color0.3s;
+    -webkit-transition:background-color 0.3s;
+    -o-transition:background-color 0.3s;
+}
+.submitArea button:hover{
+    background-color: #B72844;
+}
+.submitArea button p {
+    margin: 0px;
+	font-size: 16px;
+}
+
+.unseleted{
+	pointer-events:none;
+	}
+#headerMessage h3 {
+    margin: 0px;
+    margin-bottom: 20px;
+}
+</style>
 <script type="text/javascript">
 var app = angular.module('myApp', []);
 function buildObject(level) {
@@ -38,251 +105,444 @@ function buildObject(level) {
     return levelOwnList;
 }
 app.controller('wishTypeLevels', function($scope, $http) {
-    $http.get("http://localhost:8080/funeral/wishType/list").success(function(response) {
-	    $scope.wishTypes = response;
+	
+	$http.get("/displayWishType/listWishCategory").success(function(response) {
+	    $scope.wishCates = response;
 	});
-	$http.get("http://localhost:8080/funeral/wishType/listLevel").success(function(response) {
-	    var level1 =[],
-		    level2 = [],
-			level3 = [],
-			level4 = [];
-		
-		level1 = response.level1.split(",");
-		level2 = response.level2.split(",");
-		level3 = response.level3.split(",");
-		level4 = response.level4.split(",");
-		$scope.level1 = buildObject(level1);
-		$scope.level2 = buildObject(level2);
-		$scope.level3 = buildObject(level3);
-		$scope.level4 = buildObject(level4);
+	
+	 $http.get("/displayWishType/listWishCategorySub").success(function(response) {
+	    $scope.cateSubs = response;
+	});
+	
+    $http.get("/wishType/list").success(function(response) {
+	    $scope.wishTypes = response;
 	});
 });
 </script>
-<link href="../js/personal.css" rel="stylesheet">
+<link href="/js/personal.css" rel="stylesheet">
 <body>
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "73px"></IFRAME>
+
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=design" frameborder = 0 height = "67px"></IFRAME>
+   	<div class="container">
+
+   	<div class="second_nav">
+		<div id="subNavilink">
+		 <link1><a href="/pagesDesignPage.html" class="firstLink">ä¸ºä»€ä¹ˆè¦å®šåˆ¶è‘¬ç¤¼</a>  </link1>
+		 <link2><a href="/pages/html/customizatonPages/howItWorks.html">æ€æ ·åœ¨å¿µå¿µå®šåˆ¶è‘¬ç¤¼      </a>  </link2>
+		 <link4><a href="/pages/designProposal.html" style="font-weight:900;">é€‰æ‹©å®šåˆ¶æ–¹æ¡ˆ</a>  </link4>
+		</div>  
+	</div>
+
 <div id="mainContent">
+   
     <div class="topContent">
+   
+   
     <div id="headerMessage">
-	    <h2 id="headerMesText">Ñ¡ÔñÊÊºÏÄúµÄ¶¨ÖÆ·½°¸</h2>
+	    <h2 id="headerMesText">é€‰æ‹©é€‚åˆæ‚¨çš„å®šåˆ¶æ–¹æ¡ˆ</h2>
+	    <h3>è¯·é€‰æ‹©ä¸‹é¢å‡ é¡¹æœåŠ¡ä¸­çš„ä¸€é¡¹æˆ–å¤šé¡¹ï¼Œæˆ‘ä»¬ä¼šä¸ºæ‚¨é€‰æ‹©åˆé€‚çš„æ–¹æ¡ˆ</h3>
 	</div>
+	<!--for tab-->
 	<div id="designTaocan">
-        <div class="designTaocanIconDiv">
-			<h3>°×ÊÂ¹Ü¼Ò</h3>
+        <div id="taocan1" class="designTaocanIconDiv firstIconDiv">
+			<h3>è‘¬ç¤¼ç­–åˆ’</h3>
 		</div>
-		<div class="designTaocanIconDiv">
-			<h3>°×ÊÂ¹Ü¼Ò</h3>
+		<div id="taocan2" class="designTaocanIconDiv">
+			<h3>ç²¾é€‰é²œèŠ±</h3>
 		</div>
-		<div class="designTaocanIconDiv">
-		    <h3>°×ÊÂ¹Ü¼Ò</h3>
+		<div  id="taocan3" class="designTaocanIconDiv">
+		    <h3>æ³•äº‹è¶…åº¦</h3>
 		</div>
-		<div class="designTaocanIconDiv">
-		    <h3>°×ÊÂ¹Ü¼Ò</h3>
+		<div id="taocan4" class="designTaocanIconDiv">
+		    <h3>è¿½æ‚¼ä¼š</h3>
+		</div>
+		<div id="taocan5" class="designTaocanIconDiv">
+		    <h3>å…¥æ®“å¸ˆ</h3>
+		</div>
+		<div id="taocan6" class="designTaocanIconDiv">
+		    <h3>ç§äººè®¢åˆ¶</h3>
 		</div>
 	</div>
-	</div>
-	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels">
-	    <div class= "includeDiv">
+    </div>
+    <div id="lockedTocanDiv" hidden>
+        <div id="compareLocked">
+            <p>æ¯”è¾ƒæ–¹æ¡ˆ</p>
+        </div>
+        <div class="taocanIconDivInRow basic">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">åŸºç¡€</h2>
+		        <h4>ï¿¥6500èµ·<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow good">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">ç²¾å“</h2>
+		        <h4>ï¿¥10500èµ·<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow better">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">è±ªå</h2>
+		        <h4>ï¿¥19500èµ·<h4>
+			</div>
+		</div>
+		<div class="taocanIconDivInRow best">
+			<div class="iconChild">
+			    <h2 class="designHeaderText">é¡¶çº§</h2>
+		        <h4>ï¿¥33000èµ·<h4>
+			</div>
+		</div>
+    </div>
+	<div id="compareForm" ng-app="myApp" ng-controller="wishTypeLevels" ng-cloak>
+	    <div class= "includeDiv1">
 	    <ul class="descRow">
-		    <li class="headerLine">
-			    <h2 class="doubleText">±È½Ï·½°¸</h2>
+		    <li class="headerLineLeft">
+			 <p>æ¯”è¾ƒ</p>
+			</li>
+		<li class="normalHeaderLineLeft">
+			    <p></p>
+			</li>
+				<li style="{{wishCate.style}}" ng-repeat="wishCate in wishCates">
+			    <p class="messageInRow" style="{{wishCate.fontStyle}}">{{wishCate.cateName}}</p>
 			</li>
 			<li class="normalHeaderLine">
-			    <p>¸Å¿ö</p>
-			</li>
-			<li class="normalLine">
-			    <p class="messageInRow">Á÷³Ì×ÉÑ¯</p>
+			    <p></p>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDiv">
-		<ul class="descRow">
-		    <li class="headerLine">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		  <div class= "includeDiv2">
+	    <ul class="descRow">
+		    <li class="headerLineRight">
+			   			 <p>æ–¹æ¡ˆ</p>
+
 			</li>
-			<li class="normalHeaderLine">
-			    <p>¸Å¿ö</p>
+			<li class="normalHeaderLineRight">
+			    <p></p>
 			</li>
-			<li class="normalLine">
-			    <p class="messageInRow">Á÷³Ì×ÉÑ¯</p>
+			
+				<li class="normalLine" ng-repeat="cateSub in cateSubs">
+			    <p class="messageInRow"  >{{cateSub.wishName	}}</p>
 			</li>
-			<li class="normalLine" ng-repeat="wishType in wishTypes">
-			    <p class="messageInRow">{{wishType.wishTypeDesc}}</p>
+		<li class="normalHeaderLine">
+			    <p></p>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+		<div id="basic" class= "includeDataDivBasic proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 				    <div class="iconChild">
-			            <h2 class="designHeaderText">»ù´¡</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">åŸºç¡€</h2>
+		                <h4>ï¿¥6500èµ·<h4>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×îÎª¾­¼ÃºÏËãµÄ·½°¸£¬<br/>±È½ÏµÍµÄ³É±¾¶¨ÖÆ×¨ÊôÔáÀñ¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€ä¸ºç»æµåˆç®—çš„æ–¹æ¡ˆ<br/>æ¯”è¾ƒä½çš„æˆæœ¬å®šåˆ¶ä¸“å±è‘¬ç¤¼</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
 			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg"></img>
+			    	   <img src="/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url01}}" class="tickImg"></img>
 				</div>
 			</li>
-			<li class="normalLine" ng-repeat="levelWish1 in level1">
-			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish1.hidden}}"></img>
+		
+		
+		
+			<li>
+			    <div class="submitArea">
+				    <button id="basicButton"><p>é€‰æ‹©æ­¤æ–¹æ¡ˆ</p></button>
 				</div>
 			</li>
+		
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div id="good" class= "includeDataDivGood proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">¾«Ñ¡</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">ç²¾å“</h3>
+		                <h4>ï¿¥10500èµ·<h5>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×îÊÜ»¶Ó­µÄ·½°¸£¬<br/>Áé»îµÄ°²ÅÅ¸÷ÏîÔáÀñÏ¸½Ú¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€å—æ¬¢è¿çš„æ–¹æ¡ˆ<br/>çµæ´»çš„å®‰æ’å„é¡¹è‘¬ç¤¼ç»†èŠ‚</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
-			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			    <img src="../js/images/tick.jpg" class="tickImg"></img>
-			</li>
-			<li class="normalLine" ng-repeat="levelWish2 in level2">
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
 			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish2.hidden}}"></img>
+				    <img src="/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url02}}" class="tickImg"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button id="goodButton"><p>é€‰æ‹©æ­¤æ–¹æ¡ˆ</p></button>
 				</div>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		
+		
+		
+		
+		
+		<div id="better" class= "includeDataDivBetter proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">ºÀ»ª</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">è±ªå</h3>
+		                <h4>ï¿¥19500èµ·<h5>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×î´óÆøµÄ·½°¸£¬<br/>ÎªÄú°®µÄÈË¾Ù°ì¸ß¹æ¸ñµÄÒÇÊ½¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€å¤§æ°”çš„æ–¹æ¡ˆï¼Œä¸º<br/>æ‚¨çˆ±çš„äººä¸¾åŠé«˜è§„æ ¼çš„ä»ªå¼</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
-			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			    <img src="../js/images/tick.jpg" class="tickImg"></img>
-			</li>
-			<li class="normalLine" ng-repeat="levelWish3 in level3">
+		<li class="normalLine"  ng-repeat="cateSub in cateSubs">
 			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish3.hidden}}"></img>
+				    <img src="/js/images/tick.jpg" class="fakeImg"></img>
+			        <img src="{{cateSub.url03}}" class="tickImg"></img>
+				</div>
+			</li>
+			<li>
+			    <div class="submitArea">
+				    <button id="betterButton"><p>é€‰æ‹©æ­¤æ–¹æ¡ˆ</p></button>
 				</div>
 			</li>
 		</ul>
 		</div>
-		<div class= "includeDataDiv">
+		<div id="best" class= "includeDataDivBest proposalBar">
 		<ul class="valueRow">
 		    <li class="headerLine">
 			    <div class="taocanIconDivInRow">
 			        <div class="iconChild">
-			            <h2 class="designHeaderText">¶¥¼¶</h3>
-		                <h4>£¤6288 - £¤16288<h5>
+			            <h2 class="designHeaderText">é¡¶çº§</h3>
+		                <h4>ï¿¥33000èµ·<h5>
 					</div>
 		        </div>
 			</li>
 			<li class="normalHeaderLine">
 			    <table class="normalLineText">
-¡¡¡¡                <tr>
-¡¡¡¡                    <td style="vertical-align:middle;">
-                            <p>×îÉİ³ŞµÄ·½°¸£¬<br/>¾Ù°ìÎŞÉÏ¹æ¸ñµÄÒÇÊ½¡£</p>
+ã€€ã€€                <tr>
+ã€€ã€€                    <td style="vertical-align:middle;">
+                            <p>æœ€å¥¢ä¾ˆçš„æ–¹æ¡ˆï¼Œ<br/>ä¸¾åŠæ— ä¸Šè§„æ ¼çš„ä»ªå¼</p>
                         </td>
-¡¡¡¡                </tr>
-¡¡¡¡            </table>
+ã€€ã€€                </tr>
+ã€€ã€€            </table>
 			</li>
-			<li class="normalLine">
-			    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			    <img src="../js/images/tick.jpg" class="tickImg"></img>
+			<li class="normalLine"  ng-repeat="cateSub in cateSubs">
+			    <div class="imgDiv">   <img src="/js/images/tick.jpg" class="fakeImg"></img>
+				  			        <img src="{{cateSub.url04}}" class="tickImg"></img>
+
+				</div>
 			</li>
-			<li class="normalLine" ng-repeat="levelWish4 in level4">
-			    <div class="imgDiv">
-				    <img src="../js/images/tick.jpg" class="fakeImg"></img>
-			        <img src="../js/images/tick.jpg" class="tickImg {{levelWish4.hidden}}"></img>
+			<li>
+			    <div class="submitArea">
+				    <button  id="bestButton" ><p>é€‰æ‹©æ­¤æ–¹æ¡ˆ</p></button>
 				</div>
 			</li>
 		</ul>
 		</div>
 	</div>
 </div>
-<div id="titleIconDiv">
-    <img src="../js/images/titleIcon.jpg" class="iconImg"></img>
 </div>
-<IFRAME NAME="content_frame" width=100% height=70 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
+<IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
 <script type="text/javascript">
-	$(".designTaocanIconDiv").hover(function () {
-        var $this = $(this);
-        $this.addClass("choose");
-	});
-	$(".designTaocanIconDiv").on("mouseleave", function () {
-        var $this = $(this);
-        $this.removeClass("choose");
-	});
-	$(".designTaocanIconDiv").on("click", function () {
-        var $this = $(this);
+$.ajax({
+	url: '/wishlist/list',
+	data: [],
+	type: 'get',
+	dataType:'json',
+	success:function(data){
+		if (data.length > 0) {
+			var level = data.level;
 
-        if ($this.hasClass("barSelect")) {
-            $this.removeClass("barSelect");
+			if (level === 1) {
+				
+			}
+            if (level === 2) {
+				
+			}
+            if (level === 3) {
+				
+			}
+             if (level === 3) {
+				
+			}
 		}
-		else {
-		    $this.addClass("barSelect");
+	},
+	error: function(error) {
+	}
+});
+function generateWishlistByLevel(wishlistId, level) {
+    var paras = '&wishlistId='+wishlistId+'&level='+level;
+    $.ajax({
+		url: '/wishlist/add?'+paras,
+		data: [],
+		type: 'post',
+		dataType:'json',
+		success:function(data){
+			window.location.href='/pages/designProcess.html';
+		},
+		error: function(error) {
 		}
 	});
-	$(".includeDataDiv").hover(function () {
-        var $this = $(this);
-        $this.addClass("choose");
-	});
-	$(".includeDataDiv").on("mouseleave", function () {
-        var $this = $(this);
-        $this.removeClass("choose");
-	});
-    $(".includeDataDiv").on("click", function () {
-        var $this = $(this);
-		
-		$(".includeDataDiv").removeClass("barSelect");
-		if ($this.hasClass("barSelect")) {
-            $this.removeClass("barSelect");
-		}
-		else {
-		    $this.addClass("barSelect");
+}
+function getWishlistByLevelAfterChcek(level) {
+    $.ajax({
+		url: '/wishlist/list',
+		data: [],
+		type: 'get',
+		dataType:'json',
+		success:function(data){
+			generateWishlistByLevel(data[0].wishlistId, level);
+		},
+		error: function(error) {
 		}
 	});
-	$("#titleIconDiv").on("click", function () {
-	    window.location.href='mainPage.html';
+}
+function getWishlistByLevel(level) {
+	muskCurrentPage();
+    $.ajax({
+		url: '/login/validateLogin',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+            var resultCode =data;
+
+			if (resultCode === "") {
+				unmusk();
+	            popupLogInPage();
+			}
+			else {
+				getWishlistByLevelAfterChcek(level);
+			}
+		},
+		error: function(error) {
+		}
 	});
+}
+function handleProposal() {
+	$(".proposalBar").removeClass("barSelect");
+	if ($("#taocan6").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose") && $("#taocan4").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose") && $("#taocan3").hasClass("choose")) {
+		$("#best").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan5").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan4").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan3").hasClass("choose") && $("#taocan2").hasClass("choose")) {
+		$("#better").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan3").hasClass("choose")) {
+		$("#good").addClass("barSelect");
+		return;
+	}
+	if ($("#taocan2").hasClass("choose") && $("#taocan1").hasClass("choose")) {
+		$("#good").addClass("barSelect");
+		return;
+	}
+	else {
+		$("#basic").addClass("barSelect");
+		return;
+	}
+}
+$(".designTaocanIconDiv").click(function() {
+	if ($(this).hasClass("choose")) {
+		$(this).removeClass("choose");
+	}
+	else {
+		$(this).addClass("choose");
+	}
+	handleProposal();
+});
+$("#basicButton").on("click", function () {
+    getWishlistByLevel(1);
+});
+$("#goodButton").on("click", function () {
+    getWishlistByLevel(2);
+});
+$("#betterButton").on("click", function () {
+	   
+            getWishlistByLevel(3);
+	
+	});
+$("#bestButton").on("click", function () {
+	   
+            getWishlistByLevel(4);
+	
+	});
+$(window).scroll(function(){
+	var topPosition = document.body.scrollTop;
+	if (topPosition > 600) {
+		$("#lockedTocanDiv").show();
+	}
+	else {
+		$("#lockedTocanDiv").hide();
+	}
+});
 </script>
 </html>

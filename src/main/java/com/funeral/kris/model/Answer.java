@@ -19,7 +19,7 @@ public class Answer {
 	private String answerId;
 
 	@Column(name="user_id")
-	private String userId;
+	private Integer userId;
 
 	@Column(name="ans_list_id")
 	private String ansListId;
@@ -36,6 +36,9 @@ public class Answer {
 	@Column(name="updateddate")
 	private Date updatedDate;
 
+	@Column(name="option_id")
+	private Integer optionId;
+
 	public String getAnswerId() {
 		return answerId;
 	}
@@ -44,11 +47,11 @@ public class Answer {
 		this.answerId = answerId;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -92,4 +95,11 @@ public class Answer {
 		this.updatedDate = updatedDate;
 	}
 
+	public Integer getOptionId() {
+		return optionId;
+	}
+
+	public void setOptionId(Integer optionId) {
+		this.optionId = optionId;
+	}
 }

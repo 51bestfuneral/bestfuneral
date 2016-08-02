@@ -1,0 +1,115 @@
+/* 
+  Style for devices-deatail, latest modified 2015-10-23 15:56
+  By Xu yihong
+*/
+body{
+	
+}
+h1,h2,ul,li,input{
+	
+}
+
+.label-header{
+	float:left;
+    width: 88px;
+	height: 42px;
+	padding-top: 8px;
+	border:0px solid #707070; 
+    position:relative; 
+    left:0%;  
+
+}
+
+
+.ddetails-header{
+	float:left;
+	
+  width: 180px;
+	height: 42px;
+	padding-top: 0px;
+	border:0px solid #707070; 
+		position:relative; 
+left:0%;  
+
+
+}
+.ddetails-con{
+	/*margin:114px auto;*/
+	margin: 0px auto;
+  width: 182px;
+	height: 42px;
+		border: 0px solid #008cff;
+		position:relative; 
+left:0%; 
+
+}
+.btn{
+	float: left;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	list-style: none;
+	vertical-align: middle;
+	
+	width: 150px;
+	height: 42px;
+	line-height: 42px;
+	background: #ff5274;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 16px;
+}
+/*check-code*/
+.checkcode{
+	float: left;
+	width: 182px;
+	height: 42px;
+	border: 0px solid #e9aa82;
+	border-radius: 3px;
+	background: #e9aa82;
+}
+.checkcode input{
+	float: left;
+	text-align: center;
+	width: 100px;
+	height: 40px;
+	padding: 0px;
+	color: #000;
+}
+.checkcode canvas{
+	float: right;
+	width: 70px;
+	height: 40px;
+	margin-left: 0px;
+	background: #e9aa82;
+	border: 0px solid red;
+
+}
+.btn-code{
+	margin-top: 10px;
+	display: block;
+	float: left;
+	width: 95px;
+	height: 42px;
+	margin-left: 20px;
+	background: #008cff;
+	color: #fff;
+	border-radius: 3px;
+}
+.btn-no{
+	background: none;
+	border: 2px solid #008cff;
+	border-radius: 3px;
+	color: #008cff;
+}
+.btn:hover{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+#code{
+	
+display: none;	
+	
+}

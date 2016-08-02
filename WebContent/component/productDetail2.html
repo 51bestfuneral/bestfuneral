@@ -1,0 +1,714 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script src="/js/jquery-2.1.4.js"></script>
+<script src="/js/jquery-ui.js"></script>
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.js"></script>
+<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<link href="/js/bootstrap-3.3.6-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script src="/js/angular-1.4.0-rc.2/angular.js"></script>
+<script src="/js/generalUsage.js"></script>
+<script src="/js/tinymce/tinymce.min.js"></script>
+<style>
+    body{
+    height:100%;
+    }
+    p {
+	    margin: 0px;
+	}
+    #productDetail {
+	    width: 1075px;
+	}
+	#productInfo {
+	    width: 100%;
+		height: 427px;
+	}
+	#productImg {
+	    width: 640px;
+		height: 100%;
+		float: left;
+	}
+	#productImg img {
+	    width: 100%;
+		height: 100%;
+	}
+	#productContent {
+	    width: 435px;
+		height: 100%;
+		float: left;
+		padding-left: 34px;
+		padding-top: 32px;
+		padding-right: 32px;
+	}
+	#priceArea {
+		text-align: left;
+		height: 64px;
+		border-bottom: 1px solid #ececec;
+		margin-left: -10px;
+	}
+	.mainPrice {
+	    overflow: auto;
+		float: left;
+		margin-right: 18px;
+		text-align: left;
+	}
+	.mainPrice h1 {
+	    font-size: 44px;
+        line-height: 63px;
+		margin: 0px;
+		color: #ff5274;
+	}
+	.priceContainer {
+	    float: left;
+		text-align: center;
+		padding-top: 10px;
+		margin-left: 10px;
+	}
+	.ptitle {
+	    font-size: 18px;
+		line-height: 25px;
+		letter-spacing: -0.2px;
+		color: #9b9b9b
+	}
+	.pnumber {
+	    font-size: 18px;
+		line-height: 20px;
+		letter-spacing: -0.2px;
+		color: #000000;
+	}
+	.buttonArea {
+	    width: 100%;
+		overflow: auto;
+		border-bottom: 1px solid #ececec;
+		padding-bottom: 12px;
+	}
+	.singleBtmArea {
+		overflow: auto;
+		margin-top: 12px;
+		float: left;
+		margin-right: 10px;
+	}
+	.singleBtmArea p {
+	    line-height: 25px;
+	    color: #ffffff;
+	    font-size: 20px;
+	}
+	.buttonDiv1 {
+	    height: 50px;
+	    background: #ff496d;
+	    border-radius: 5px;
+	    padding-top: 13px;
+	    padding-left: 15px;
+	    padding-right: 15px;
+	    cursor: pointer;
+	    opacity: 0.8;
+	}
+	.buttonDiv1:hover {
+	    opacity: 1;
+	}
+	.buttonDiv2 {
+	    height: 50px;
+	    background: #ffffff;
+	    border-radius: 5px;
+	    padding-top: 13px;
+	    padding-left: 7px;
+	    padding-right: 7px;
+	    border: 1px solid #ccc;
+	    cursor: pointer;
+	}
+	.buttonDiv2:hover {
+	    background: #ccc!important;;
+	}
+	.buttonDiv2 p {
+	    color: #000000;
+	}
+	.buttonDiv img {
+	    widht: 20px;
+	    height: 20px;
+	}
+	.buttonDiv div {
+	    float: left;
+	    margin-left: 2px;
+	}
+	.addToCart {
+	    width: 153px;
+		height: 100%;
+		border-radius: 4px;
+		border: none;
+		height: 30px;
+		background: #ff5274;
+		color: #ffffff;
+	}
+	.addToCart span {
+	    margin-right: 2px;
+	}
+	.addToWish {
+	    background: #ffffff!important;
+		color: #ff5274!important;
+		border: 1px solid #d7d7d7;
+	}
+	.subTitle {
+	    color: #5a5a5a!important;
+		font-size: 8px;
+		margin-top: -9px;
+	}
+	#provider {
+	    width: 100%;
+		overflow: auto;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #d7d7d7;
+	}
+	#provider p {
+	    line-height: 30px;
+	}
+	#providerIcon {
+	    width: 25px;
+		height: 32px;
+		float: left;
+		padding-top: 5px;
+	}
+	#providerInfo {
+	    width: 315px;
+		float: left;
+	}
+	#providerInfo p {
+	    line-height: 20px;
+	}
+	#productText {
+	    width: 100%;
+		overflow: auto;
+		padding-left: 74px;
+		padding-right: 74px;
+		padding-top: 58px;
+	}
+	.textTitle {
+	    overflow: auto;
+	}
+	.textIcon {
+	    float: left;
+		width: 20px;
+		height: 20px;
+		background: #ff5274;
+		border-radius: 10px;
+		text-align: center;
+		margin-top: 4px;
+	}
+	.textIcon span {
+	    line-height: 20px;
+		color: #ffffff;
+		font-size: 1px;
+	}
+	.textContent {
+	    float: left;
+		margin-left: 12px;
+		overflow: auto;
+		width: 864px;
+	}
+	.textContent h1 {
+	    font-size: 24px;
+		margin: 0px;
+		color: #ff5274;
+	}
+	.textContentFont {
+	    font-size: 16px;
+		line-height: 24px;
+		color: #000000;
+	}
+	.contentDiv {
+	    width: 100%;
+		padding-top: 35px;
+		padding-bottom: 35px;
+		margin-top: 15px;
+		border-top: 1px solid #d7d7d7;
+		overflow: auto;
+	}
+	.contentDiv img {
+	    width: 100%;
+		height: 528px;
+	}
+	.singleDetail {
+	    width: 50%;
+		float:left;
+		overflow: auto;
+		border: 1px solid #ececec;
+	}
+	.detailTitle {
+	    width: 24%;
+		overflow: auto;
+		float: left;
+		background: #f3f3f3;
+		padding-right: 16px;
+		text-align: right;
+	}
+	.detailTitle p{
+	    font-size: 12px;
+		letter-spacing: -0.2px;
+		line-height: 35px;
+		margin: 0px;
+		font-weight: bold;
+	}
+	.detailContent {
+	    width: 76%;
+		overflow: auto;
+		float: left;
+		padding-left: 16px;
+		text-align: left;
+		text-align: left;
+	}
+	.detailContent p{
+	    font-size: 12px;
+		letter-spacing: -0.2px;
+		line-height: 35px;
+		margin: 0px;
+	}
+	.singleComment {
+	    width: 100%;
+		margin: 0 auto;
+		padding: 25px;
+	}
+    .commentTitle {
+	    overflow: auto;
+	}
+	.userPicture {
+	    width: 50px;
+		height: 50px;
+		border-radius: 25px;
+		overflow: hidden;
+		float: left;
+	}
+	.userPicture img {
+	    width: 100%;
+		height: 100%;
+	}
+	.headerText {
+	    float: left;
+		padding-left: 25px;
+	}
+	.headerText h3 {
+	    margin: 0px;
+		font-size: 25px;
+        color: #6B6C71;
+	}
+	.headerText  p {
+	    margin: 0px;
+		color: #ccc;
+		margin-top: 5px;
+	}
+	.rating {
+	    float: right;
+	}
+	.rating span {
+	    font-size: 8px;
+		margin: 0px;
+		padding-top: 33px;
+		color: #DFDFDF;
+	}
+	.shine {
+	    color: #F8C320!important;
+	}
+	.commentContent {
+	    margin-top: 25px;
+		color: #6A6A72;
+		height: 100px;
+		line-height: 25px;
+	}
+	.commentFooter {
+	    margin-top: 30px;
+	}
+	.commentFooter a {
+	    float: left;
+		line-height: 34px;
+	}
+	.commentFooter div {
+	    float: right;
+	}
+	.yesbutton {
+	    background-color: #F5F5F5;
+		color: #C1C1C1;
+		border: none;
+	}
+	.nobutton {
+	    background-color: #DC2500;
+		color: #ffffff;
+		border: none;
+	}
+	#subTitleDiv {
+	    width: 100%;
+	    padding-top: 16px;
+	}
+	.disableDiv {
+	   opacity: 0.4;
+	   cursor: default!important;
+	}
+	.disableDiv:hover {
+	    opacity: 0.4;
+	}
+</style>
+<script type="text/javascript">
+var app = angular.module('productApp', []),
+    length = location.search.length,
+	type = location.search.substring(4, length),
+	wishInLocal,
+	wishlistId;
+window.parent.muskCurrentPage();
+app.controller('products', function($scope, $http) {
+	$http.get("/wish/list?wishId="+type).success(function(response) {
+	    $scope.wish = response[0];
+	    wishInLocal = response[0];
+	    window.parent.unmusk();
+	});
+	$http.get("/comment/list?wishId="+type).success(function(response) {
+	    $scope.comments = response;
+	});
+});
+function unmusk() {
+	$(".jquery_addmask").remove();
+	$(".loadingShow").remove();
+}
+function validateInWishList() {
+	$.ajax({
+		url: '/wishlist/list',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+	        var resultCode =data;
+			if (data.length > 0) {
+	            wishlistId = data[0].wishlistId;
+			}
+		    $.ajax({
+				url: '/wishlistDetail/getAllWishList?wishlistId='+wishlistId,
+				type: 'get',
+				success:function(data){
+					var response = data;
+					for (var i=0;i<response.length;i++) {
+					    if (response[i].wishId === wishInLocal.wishId) {
+					    	$($(".buttonDiv")[1]).addClass("disableDiv");
+					    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
+					    }
+					}
+				},
+				error: function(error) {
+					var response = error;
+					//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+				}
+			});
+		},
+		error: function(error) {
+		}
+	});
+}
+function validateInCart() {
+	$.ajax({
+		url: '/wishlist/listCart',
+		type: 'GET',
+		contentType: "application/json; charset=UTF-8",
+		success:function(data){
+	        var resultCode =data;
+	        if (data !== null) {
+			    $.ajax({
+					url: '/wishlistDetail/getAllCartList?cartId='+data.cartId,
+					type: 'get',
+					success:function(data){
+						var response = data;
+						for (var i=0;i<response.length;i++) {
+						    if (response[i].wishId === wishInLocal.wishId) {
+						    	$($(".buttonDiv")[0]).addClass("disableDiv");
+						    	$(".buttonDiv").find("p")[0].innerText = "已添加购物车";
+						    }
+						}
+					},
+					error: function(error) {
+						var response = error;
+						//$(".disableDiv").find("p")[0].innerText = "已加入愿望清单";
+					}
+				});
+	        }
+		},
+		error: function(error) {
+		}
+	});
+}
+function muskCurrentPage() {
+    $(this).css({
+	    opacity: 0.5
+	});
+	$('<div class="jquery_addmask"> </div>').appendTo(document.body).css({ 
+		position: 'absolute',
+		top: '0px',
+		left: '0px',
+		'z-index': 1000, 
+		width: $(document).width(), 
+		height: $(document).height(), 
+		'background-color': '#ccc', 
+		opacity: 0.5
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	var topLoading = (document.documentElement.clientHeight/2)-50;
+	$('<div class="loadingShow"><img src="/js/images/5-121204193R0-50.gif"></img></div>').appendTo(document.body).css({ 
+		position: 'fixed',
+		top: topLoading+'px',
+		left: '0px',
+		'z-index': 1001, 
+		width: $(document).width(), 
+		height: '100px',
+		'text-align': 'center'
+	}).fadeIn('slow', function(){ 
+// 淡入淡出效果 
+	    $(this).fadeTo('slow', 0.5); 
+	});
+	$(".loadingShow").show();
+}
+function addToWishlistAfterCheck(object) {
+	$.ajax({
+		url: '/wishlistDetail/addSingleToWish?'+'&wishId='+wishInLocal.wishId,
+		type: 'post',
+		contentType: "application/json; charset=UTF-8",
+		data: [],
+		dataType:'json',
+		success:function(data){
+			$($(".buttonDiv")[1]).addClass("disableDiv");
+	    	$(".buttonDiv").find("p")[1].innerText = "已加入愿望清单";
+			unmusk();
+		},
+		error: function(error) {
+			unmusk();
+		}
+	});
+}
+function addToCartAfterCheck(object) {
+		$.ajax({
+			url: '/wishlistDetail/addSingleToCart?'+'&wishId='+wishInLocal.wishId,
+			type: 'post',
+			contentType: "application/json; charset=UTF-8",
+			data: [],
+			dataType:'json',
+			success:function(data){
+				$($(".buttonDiv")[0]).addClass("disableDiv");
+		    	$(".buttonDiv").find("p")[0].innerText = "已加入购物车";
+		    	window.parent.frames[0].addCountOfShoppingCart();
+				unmusk();
+			},
+			error: function(error) {
+				unmusk();
+			}
+		});
+}
+function addToWishlist() {
+	muskCurrentPage();
+
+	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+		addToWishlistAfterCheck();
+	}
+	else {
+		window.parent.popupLogInPage();
+		unmusk();
+	}
+}
+function addToCartlist() {
+	muskCurrentPage();
+
+	if (wishlistId!== null && wishlistId!== undefined && wishlistId != "") {
+		addToCartAfterCheck();
+	}
+	else {
+		window.parent.popupLogInPage();
+		unmusk();
+	}
+}
+</script>
+<body ng-app="productApp" ng-controller="products" onselectstart="return false">
+<div id="productDetail">
+    <div id="productInfo">
+	    <div id="productImg">
+		    <img src="/js/images/{{wish.imgUrl}}"></img>
+		</div>
+		<div id="productContent">
+		    <h1 ng-bind="wish.wishName"></h1>
+			<div id="priceArea">
+			    <div class="mainPrice">
+				    <h1 ng-bind="wish.sellingPrice"></h1>
+				</div>
+			</div>
+			<div id="priceArea">
+				<div class="priceContainer">
+				    <p class="ptitle">市场价</p>
+					<p class="pnumber" ng-bind="'￥'+wish.xianenPrice.toFixed(0)"></p>
+				</div>
+				<div class="priceContainer">
+				    <p class="ptitle">您将节省</p>
+					<p class="pnumber" ng-bind="'￥'+(wish.xianenPrice.toFixed(0) - wish.sellingPrice.toFixed(0))"></p>
+				</div>
+				<div class="priceContainer">
+				    <p class="ptitle">折扣</p>
+					<p class="pnumber" ng-bind="'￥'+((wish.sellingPrice/wish.xianenPrice)*100).toFixed(0)+'%'"></p>
+				</div>
+			</div>
+			<div class="buttonArea">
+			    <div class="singleBtmArea">
+					<div class="buttonDiv1 buttonDiv">
+					    <div class="buttonImgDiv"><img src="/js/images/shopping_white.png"></img></div>
+					    <div class="buttonTextDiv"><p>添加到购物车</p></div>
+					</div>
+				</div>
+				<div class="singleBtmArea">
+					<div class="buttonDiv2 buttonDiv" id="addToWish">
+					    <div class="buttonImgDiv"><img src="/js/images/wishlist@2x.png"></img></div>
+					    <div class="buttonTextDiv"><p>加入愿望清单</p></div>
+					</div>
+				</div>
+			</div>
+			<div id="subTitleDiv">
+			</div>
+			<div id="provider">
+			    <p class="pnumber">服务提供</p>
+				<div id="servProvider">
+				    <div id="providerIcon">
+					    <span class="glyphicon glyphicon-user"></span>
+					</div>
+					<div id="providerInfo">
+					    <p class="ptitle">该服务将会由念念亲自打理。念念会在您完成购买之后跟您联系讨论服务细节</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="productText">
+	    <div class="textTitle">
+		    <div class="textIcon">
+			    <span class="glyphicon glyphicon-tags"></span>
+			</div>
+			<div class="textContent">
+			    <h1>服务描述</h1>
+				<div class="contentDiv">
+				    <p class="textContentFont" ng-bind="wish.remark"></p>
+				</div>
+			</div>
+		</div>
+		<div class="textTitle">
+		    <div class="textIcon">
+			    <span class="glyphicon glyphicon-info-sign"></span>
+			</div>
+			<div class="textContent">
+			    <h1>服务细节</h1>
+				<div class="contentDiv">
+				    <div class="singleDetail">
+					    <div class="detailTitle">
+						    <p>服务名称</p>
+						</div>
+						<div class="detailContent">
+						    <p ng-bind="wish.wishName"></p>
+						</div>
+					</div>
+					<div class="singleDetail">
+					    <div class="detailTitle">
+						    <p>服务提供商</p>
+						</div>
+						<div class="detailContent">
+						    <p>念念</p>
+						</div>
+					</div>
+					<div class="singleDetail">
+					    <div class="detailTitle">
+						    <p>服务分类</p>
+						</div>
+						<div class="detailContent">
+						    <p ng-bind="wish.subCategory"></p>
+						</div>
+					</div>
+					<div class="singleDetail">
+					    <div class="detailTitle">
+						    <p>服务时长</p>
+						</div>
+						<div class="detailContent">
+						    <p ng-bind="wish.salesChannel"></p>
+						</div>
+					</div>
+					<div class="singleDetail">
+					    <div class="detailTitle">
+						    <p>服务套系</p>
+						</div>
+						<div class="detailContent">
+						    <p ng-bind="wish.material"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="textTitle">
+		    <div class="textIcon">
+			    <span class="glyphicon glyphicon-picture"></span>
+			</div>
+			<div class="textContent">
+			    <h1>服务展示</h1>
+				<div class="contentDiv">
+				    <img src="/js/images/{{wish.imgUrl}}"></img>
+				</div>
+				<textarea>{{wish.model}}</textarea>
+			</div>
+		</div>
+		<div class="textTitle">
+		    <div class="textIcon">
+			    <span class="glyphicon glyphicon-comment"></span>
+			</div>
+			<div class="textContent">
+			    <h1>服务评论</h1>
+				<div class="contentDiv">
+				    <div id="comments">
+						<div class="singleComment" ng-repeat="comment in comments">
+							<p>产品使用感受</p>
+							<div class="commentTitle">
+								<div class="userPicture"><img src="/js/images/Confuse4.png"></img></div>
+								<div class="headerText">
+									<h3>Amazing Sound For The Price</h3>
+									<p>{{comment.userName}} {{comment.comment.createDate}}</p>
+								</div>
+								<div class="rating">
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star shine"></span>
+									<span class="glyphicon glyphicon-star"></span>
+								</div>
+							</div>
+							<div class="commentContent">
+								<p>{{comment.comment.comment}}</p>
+							</div>
+							<div class="commentFooter">
+								<a>Comment</a>
+								<div>
+									<span>was this helpful?</span>
+									<button class="btn btn-primary nobutton">No</button>
+									<button class="btn btn-primary yesbutton">Yes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+window.onload = function() {
+	validateInWishList();
+	validateInCart();
+	$(".buttonDiv").click(function() {
+		if (!$(this).hasClass("disableDiv")){
+			if ($(this)[0].id === "addToWish") {
+		        addToWishlist();
+			}
+			else {
+				addToCartlist();
+			}
+		}
+	});
+}
+</script>
+</html>
