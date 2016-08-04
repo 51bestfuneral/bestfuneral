@@ -1,8 +1,6 @@
 package com.funeral.kris.controller;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -370,16 +368,25 @@ public class CemeteryController
       list.add(bean);
     }
 
-    return list; } 
+    return list;
+  }
   @ResponseBody
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
-  public List<Cemetery> listOfCemeterys() {
-    ModelAndView modelAndView = new ModelAndView("list-of-cemeterys");
+  public Map<String, List<Cemetery>> listOfCemeterys() {
+    Map<String, List<Cemetery>> resultMap = new HashMap<String, List<Cemetery>>();
+    List<Cemetery> cemeteryList = cemeteryService.getResources();
 
-    List cemeterys = this.cemeteryService.getResources();
-    modelAndView.addObject("cemeterys", cemeterys);
-
-    return cemeterys;
+    for (Cemetery cemetery:cemeteryList) {
+      if (!resultMap.containsKey(cemetery.getDistrict())) {
+        List<Cemetery> list = new ArrayList<Cemetery>();
+        list.add(cemetery);
+        resultMap.put(cemetery.getDistrict(), list);
+      }
+      else {
+        resultMap.get(cemetery.getDistrict()).add(cemetery);
+      }
+    }
+    return resultMap;
   }
   @RequestMapping(value={"/edit/{id}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView editCemeteryPage(@PathVariable Integer id) {
