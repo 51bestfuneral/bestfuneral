@@ -4,6 +4,10 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.funeral.kris.util.PinyinUtil;
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -372,18 +376,23 @@ public class CemeteryController
   }
   @ResponseBody
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
-  public Map<String, List<Cemetery>> listOfCemeterys() {
-    Map<String, List<Cemetery>> resultMap = new HashMap<String, List<Cemetery>>();
+  public Map<String, List<CemeteryBean>> listOfCemeterys() {
+    Map<String, List<CemeteryBean>> resultMap = new HashMap<String, List<CemeteryBean>>();
     List<Cemetery> cemeteryList = cemeteryService.getResources();
 
     for (Cemetery cemetery:cemeteryList) {
+      CemeteryBean cemeteryBean = new CemeteryBean();
+      cemeteryBean.setAddress(cemetery.getAddress());
+      cemeteryBean.setCemeteryName(cemetery.getCemeteryName());
+      cemeteryBean.setDistrict(cemetery.getDistrict());
+      cemeteryBean.setPinyin(PinyinUtil.getHanyuPinyin(cemetery.getAddress()+cemetery.getCemeteryName()));
       if (!resultMap.containsKey(cemetery.getDistrict())) {
-        List<Cemetery> list = new ArrayList<Cemetery>();
-        list.add(cemetery);
+        List<CemeteryBean> list = new ArrayList<CemeteryBean>();
+        list.add(cemeteryBean);
         resultMap.put(cemetery.getDistrict(), list);
       }
       else {
-        resultMap.get(cemetery.getDistrict()).add(cemetery);
+        resultMap.get(cemetery.getDistrict()).add(cemeteryBean);
       }
     }
     return resultMap;

@@ -1,4 +1,6 @@
-
+body {
+	background-color: #edefed;
+}
 #mainHeader {
     width: 100%;
 	height: 402px;
@@ -16,8 +18,8 @@
 	margin: 0px auto;
 }
 #headerText h1 {
-    width: 725px;
-	font-size: 46px;
+    width: 645px;
+	font-size: 36px;
 	line-height: 1.2;
 	color: #ffffff;
 	font-weight: 100;
@@ -81,6 +83,7 @@
 	background: #ffffff;
 	border: 1px solid #c4c4c4;
 	border-radius: 4px;
+	z-index: 999;
 }
 #searchBlurDiv .stateBar {
 	width: 100%;
@@ -186,32 +189,28 @@
 	margin: 0px auto;
 	overflow: auto;
 }
-.doubleLeft {
-    width: 793px;
-	margin-right: 21px;
+.listContent h2 {
+	margin-top: 10px;
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-align: center;
 }
-.doubleRight {
-    width: 793px;
+.double {
+	width: 66.66667%;
 }
-.singleLeft {
-    width: 386px;
-	margin-right: 21px;
-}
-.singleMiddle {
-    width: 386px;
-	margin-right: 21px;
-}
-.singleRight {
-    width: 386px;
+.single {
+	width: 33.33333%;
 }
 .cemeteryDiv {
     margin-bottom: 21px;
 	height: 360px;
 	float: left;
-	background-color: #ffffff;
 	text-align: center;
 	cursor:pointer;
 	overflow: hidden;
+	box-sizing: border-box;
+	padding-left: 12px;
+	padding-right: 12px;
 }
 .cemeteryDiv img {
  max-width:793px;_width:expression(this.width > 793 ? "793px" : 100%);
@@ -244,4 +243,41 @@
     margin-top: -360px;
     background-color: rgba(0,0,0,.6);
     opacity: 0.6;
+}
+hr {
+	margin-top: 0px;
+}
+#viewAllButton {
+	width: 330px;
+	margin: 0px auto;
+	text-align: center;
+	height: 42px;
+	border: 1px solid;
+	border-radius: 2px;
+	background-color: #ffffff;
+}
+#viewAllButton span {
+	font-weight: bold;
+	line-height: 42px;
+	font-size: 18px;
+}
+@media (max-width: 1380px) {
+	.listContent {
+		width: 1080px;
+		margin: 0px auto;
+	}
+	.cemeteryDiv {
+		height: 300px;
+		margin-bottom: 24px;
+	}
+	.ceMuskDiv {
+		margin-top: -300px;
+	}
+	.double h1 {
+		margin-top: -165px;
+	}
+	.single h1 {
+		margin-top: -180px;
+		font-size: 30px;
+	}
 }

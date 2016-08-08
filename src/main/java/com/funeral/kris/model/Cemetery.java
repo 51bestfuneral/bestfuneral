@@ -21,50 +21,26 @@ public class Cemetery {
 	@Column(name = "cemetery_name")
 	private String cemeteryName;
 
-	public String getHeadImg() {
-		return headImg;
-	}
-	
-	
-
-	public void setHeadImg(String headImg) {
-		this.headImg = headImg;
-	}
-
 	@Column(name = "cemetery_desc")
 	private String cemeteryDesc;
 
 	@Column(name = "traffic_Info")
 	private String trafficInfo;
+
 	@Column(name = "head_img")
 	private String headImg;
 
 	@Column(name = "original_price")
 	private BigDecimal originalPrice;
 
-	public String getTrafficInfo() {
-		return trafficInfo;
-	}
+	@Column(name = "map_url")
+	private String mapUrl;
 
-	public void setTrafficInfo(String trafficInfo) {
-		this.trafficInfo = trafficInfo;
-	}
+	@Column(name = "createdate")
+	private Date createDate;
 
-	public String getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-
-	public String getFeature() {
-		return feature;
-	}
-
-	public void setFeature(String feature) {
-		this.feature = feature;
-	}
+	@Column(name = "updateddate")
+	private Date updatedDate;
 
 	@Column(name = "district")
 	private String district;
@@ -80,74 +56,18 @@ public class Cemetery {
 
 	@Column(name = "url")
 	private String url;
-	
-	public Integer getType() {
-		return type;
-	}
-
-
-
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
-	@Column(name = "type")
-	private Integer type;
-	
-	@Column(name = "desc_img_url")
-	private String descImgUrl;
-	
-	@Column(name = "feature_img_url")
-	private String featureImgUrl;
-	
-	public String getDescImgUrl() {
-		return descImgUrl;
-	}
-
-	public void setDescImgUrl(String descImgUrl) {
-		this.descImgUrl = descImgUrl;
-	}
-
-	public String getFeatureImgUrl() {
-		return featureImgUrl;
-	}
-
-	public void setFeatureImgUrl(String featureImgUrl) {
-		this.featureImgUrl = featureImgUrl;
-	}
-
-	public String getLocationImgUrl() {
-		return locationImgUrl;
-	}
-
-	public void setLocationImgUrl(String locationImgUrl) {
-		this.locationImgUrl = locationImgUrl;
-	}
 
 	@Column(name = "location_img_url")
 	private String locationImgUrl;
-	
-	public String getMapUrl() {
-		return mapUrl;
-	}
 
-	public void setMapUrl(String mapUrl) {
-		this.mapUrl = mapUrl;
-	}
+	@Column(name = "type")
+	private Integer type;
 
-	@Column(name = "map_url")
-	private String mapUrl;
+	@Column(name = "desc_img_url")
+	private String descImgUrl;
 
-	@Column(name = "createdate")
-	private Date createDate;
-
-	@Column(name = "updateddate")
-	private Date updatedDate;
-
-	
-	public String getCemeteryName() {
-		return cemeteryName;
-	}
+	@Column(name = "feature_img_url")
+	private String featureImgUrl;
 
 	public Integer getCemeteryId() {
 		return cemeteryId;
@@ -155,6 +75,10 @@ public class Cemetery {
 
 	public void setCemeteryId(Integer cemeteryId) {
 		this.cemeteryId = cemeteryId;
+	}
+
+	public String getCemeteryName() {
+		return cemeteryName;
 	}
 
 	public void setCemeteryName(String cemeteryName) {
@@ -169,28 +93,36 @@ public class Cemetery {
 		this.cemeteryDesc = cemeteryDesc;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getTrafficInfo() {
+		return trafficInfo;
 	}
 
-	public BigDecimal getPrice() {
-		return price;
+	public void setTrafficInfo(String trafficInfo) {
+		this.trafficInfo = trafficInfo;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public String getHeadImg() {
+		return headImg;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 
-	public String getUrl() {
-		return url;
+	public BigDecimal getOriginalPrice() {
+		return originalPrice;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setOriginalPrice(BigDecimal originalPrice) {
+		this.originalPrice = originalPrice;
+	}
+
+	public String getMapUrl() {
+		return mapUrl;
+	}
+
+	public void setMapUrl(String mapUrl) {
+		this.mapUrl = mapUrl;
 	}
 
 	public Date getCreateDate() {
@@ -209,11 +141,75 @@ public class Cemetery {
 		this.updatedDate = updatedDate;
 	}
 
-	public BigDecimal getOriginalPrice() {
-		return originalPrice;
+	public String getDistrict() {
+		return district;
 	}
 
-	public void setOriginalPrice(BigDecimal originalPrice) {
-		this.originalPrice = originalPrice;
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getFeature() {
+		return feature;
+	}
+
+	public void setFeature(String feature) {
+		this.feature = feature;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getLocationImgUrl() {
+		return locationImgUrl;
+	}
+
+	public void setLocationImgUrl(String locationImgUrl) {
+		this.locationImgUrl = locationImgUrl;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getDescImgUrl() {
+		return descImgUrl;
+	}
+
+	public void setDescImgUrl(String descImgUrl) {
+		this.descImgUrl = descImgUrl;
+	}
+
+	public String getFeatureImgUrl() {
+		return featureImgUrl;
+	}
+
+	public void setFeatureImgUrl(String featureImgUrl) {
+		this.featureImgUrl = featureImgUrl;
 	}
 }

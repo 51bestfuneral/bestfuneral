@@ -16,17 +16,20 @@ public class CemeteryBean {
 	private String district;
 	private String mapUrl;
 	private String cemeteryDesc;
-	public String getStyle() {
-		return style;
-	}
-	public void setStyle(String style) {
-		this.style = style;
-	}
 	private String descImgUrl;
 	private String featureImgUrl;
 	private String locationImgUrl;
 	private String style;
 	private Integer type;
+	private String feature;
+	private String TrafficInfo;
+	private String address;
+	private List<TCemeteryKeywords> keywordsList;
+	private List<TCemeteryGraveStyle> graveStyleList;
+	private List<TCemeteryGraveZone> graveZoneList;
+	private List<TCemeteryEpigraphStyle> epigraphStyleList;
+	private String css;
+	private String pinyin;
 
 	public String getDescImgUrl() {
 		return descImgUrl;
@@ -52,7 +55,6 @@ public class CemeteryBean {
 	public void setCss(String css) {
 		this.css = css;
 	}
-	private String css;
 	public Integer getCemeteryId() {
 		return cemeteryId;
 	}
@@ -137,14 +139,16 @@ public class CemeteryBean {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	private String feature;
-	
-	private String TrafficInfo;
-	private String address;
-	private List<TCemeteryKeywords> keywordsList;  
-	private List<TCemeteryGraveStyle> graveStyleList;  
-	private List<TCemeteryGraveZone> graveZoneList;  
-	private List<TCemeteryEpigraphStyle> epigraphStyleList;  
-
-
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
+	}
+	public String getPinyin() {
+		return pinyin;
+	}
+	public void setPinyin(String pinyin) {
+		this.pinyin = pinyin;
+	}
 }

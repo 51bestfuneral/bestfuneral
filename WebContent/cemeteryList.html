@@ -9,7 +9,6 @@
 <meta http-equiv="content-style-type" content="text/css" />
 <meta http-equiv="content-script-type" content="text/javascript" /> 
 </head>
-<link href="/css/cemeteryList.css" rel="stylesheet">
 <script src="../js/jquery-2.1.4.js"></script>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/sliderx.js"></script>
@@ -20,6 +19,7 @@
 <script src="/js/generalUsage.js"></script>
 <script src="../js/timepicker/js/moment-with-locales.js"></script>
 <script src="../js/timepicker/js/bootstrap-datetimepicker.js"></script>
+<link href="/css/cemeteryList.css" rel="stylesheet">
 <body ng-app="myApp" ng-controller="cemetery">
 <div class="topBarDiv">
 <IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="subBar">
-                <span>温馨提示，选择墓地或者寺庙，也可以直接输入</span>
+                <span>如果您不明确该选哪一个，点<a href="mainPage.html">这里</a>可以看到所有墓地/寺庙一览</span>
             </div>
         </div>
 		<div id="typeBlurDiv" hidden>
@@ -68,37 +68,72 @@
 		</div>
 	</div>
 </div>
-<div id="cemeteryList">
-    <div class="listTitle">
-	    <img src="../js/images/cemeteryList.png"></img>
-		<h1>墓园</h1>
-	</div>
+<hr id="cemeteryList">
 	<div class="listContent">
-	    <div  ng-click="gotoCemetery(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  cemeteryBeans"> 
-		 <img  src={{bean.descImgUrl}}  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+		<h2>根据价格作出最适合的选择</h2>
+	    <div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+		 <img  src="http://cdn.now.howstuffworks.com/media-content/TwuUAjsF-coins_chuckcross_eyeem_gettyimagesjpg-1210-680.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
 		  <div class="ceMuskDiv"></div>
-		  <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span> 
-		  <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district}}</h5></span>
+		  <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>经济实惠</h1></span>
+            <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>￥50000-￥60000</h5></span>
 		</div>
-		
-		
-		
-		
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="https://imgstore.storage.googleapis.com/uploads/user/wallpaper/4/ad5e869e58bb5aa74da89d3a75d07cc2.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>适中之选</h1></span>
+            <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>￥50000-￥60000</h5></span>
+		</div>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="http://mybrokencoin.com/wp-content/uploads/2016/03/Gold-Coin.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>精致奢华</h1></span>
+            <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>￥50000-￥60000</h5></span>
+		</div>
 	</div>
-	<div class="listTitle">
-	    <img src="../js/images/cemeteryList.png"/>
-		<h1>寺庙</h1>
-	</div>
-
+    <hr></hr>
+    <div id="viewAllButton">
+        <span>查看所有墓地</span>
+    </div>
 	<div class="listContent">
-	    <div  ng-click="gotoTemple(bean.cemeteryId)" id={{bean.cemeteryId}} class={{bean.css}}  ng-repeat=" bean in  temples" on-finish-render-filters>
-		 <img  src={{bean.descImgUrl}}  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
-		 <div class="ceMuskDiv"></div>
-		 <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>{{bean.cemeteryName}}</h1></span>
-		 <span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>{{bean.district}}</h5></span> 
+		<h2>也有各种特色作为选择</h2>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv double">
+			<img  src="http://images.forwallpaper.com/files/thumbs/preview/33/332251__apple-blossom-art_p.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>花团锦簇</h1></span>
 		</div>
-
-
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="/js/images/1459260543037_581ac42efc3450f1ce152f6c1b8c4c58-001.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>玫瑰园</h1></span>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>杨浦区</h5></span>
+		</div>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="http://img04.tooopen.com/images/20131119/sy_47915912127.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>佛光寺影</h1></span>
+		</div>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="http://pic.58pic.com/58pic/15/14/48/58B58PICybh_1024.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>海边景致</h1></span>
+		</div>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="http://img4.imgtn.bdimg.com/it/u=3900549520,2172561250&fm=21&gp=0.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>亭台楼阁</h1></span>
+		</div>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv single">
+			<img  src="/js/images/1459264773581_14.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>翠竹园</h1></span>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h5>杨浦区</h5></span>
+		</div>
+		<div  ng-click="gotoCemetery(bean.cemeteryId)" class="cemeteryDiv double">
+			<img  src="http://pic2.ooopic.com/12/84/23/95bOOOPIC6e.jpg"  alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
+			<div class="ceMuskDiv"></div>
+			<span style="position: relative; top: -100; left: 0; background-color:#ffffff;"><h1>淡雅竹园</h1></span>
+		</div>
+	</div>
 </div>
 <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="component/bottomBar.html" frameborder = 0></IFRAME>
 </div>
@@ -142,7 +177,8 @@
                     var hasValue = false;
                     $("#searchBlurDiv").fadeOut();
                     if (searchList[i].cemeteryName.indexOf($(this)[0].value) >= 0
-                            || searchList[i].address.indexOf($(this)[0].value) >= 0) {
+                            || searchList[i].address.indexOf($(this)[0].value) >= 0
+							|| searchList[i].pinyin.indexOf($(this)[0].value) >= 0) {
                         $scope.searchList.push(searchList[i]);
                         hasValue = true;
                     }
@@ -164,17 +200,6 @@
         $scope.gotoTemple= function(id){		
 		    window.location.href='temple.html?id='+id;
 		}
-        $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
-        	$(".cemeteryDiv").hover(function() {
-        		$(this).find(".ceMuskDiv").css({
-        			opacity: 0.1
-        		});
-        	}, function() {
-        		$(this).find(".ceMuskDiv").css({
-        			opacity: 0.6
-        		});
-        	});
-        });
 	});
 </script>
 <script>
@@ -205,5 +230,14 @@
             $("#searchBlurDiv").fadeOut();
         }
     });
+	$(".cemeteryDiv").hover(function() {
+		$(this).find(".ceMuskDiv").css({
+			opacity: 0.1
+		});
+	}, function() {
+		$(this).find(".ceMuskDiv").css({
+			opacity: 0.6
+		});
+	});
 </script>
 </html>

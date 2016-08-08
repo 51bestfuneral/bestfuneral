@@ -1,3 +1,9 @@
+@media (max-width: 1380px) {
+	.listContent {
+		width: 1080px;
+		margin: 0px auto;
+	}
+}
 #mainHeader {
     text-align: center;
 	width: 100%;
@@ -461,23 +467,11 @@ width: 100%;
 	background: #7E7E7E;
 	}
 	
-	.doubleLeft {
-    width: 714px;
-	margin-right: 42px;
+.double {
+    width: 66.66667%;
 }
-.doubleRight {
-    width: 714px;
-}
-.singleLeft {
-    width: 336px;
-	margin-right: 42px;
-}
-.singleMiddle {
-    width: 336px;
-	margin-right: 42px;
-}
-.singleRight {
-    width: 336px;
+.single {
+	width: 33.33333%;
 }
 .cemeteryDiv {
     margin-bottom: 42px;
@@ -487,12 +481,13 @@ width: 100%;
 	text-align: center;
 	cursor:pointer;
 	overflow: hidden;
+	padding-left: 16px;
+	padding-right: 16px;
 }
 .cemeteryDiv img {
  max-width:714px;_width:expression(this.width > 714 ? "714px" : 100%);
   height: 100%;
-  width: 100%; 
- 
+  width: 100%;
 }
 
 .cemeteryDiv p {
