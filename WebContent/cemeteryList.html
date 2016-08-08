@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="subBar">
-                <span>如果您不明确该选哪一个，点<a href="mainPage.html">这里</a>可以看到所有墓地/寺庙一览</span>
+                <span>如果您不明确该选哪一个，点<a href="catagoryCemetery.html">这里</a>可以看到所有墓地/寺庙一览</span>
             </div>
         </div>
 		<div id="typeBlurDiv" hidden>
@@ -156,7 +156,7 @@
 	app.controller('cemetery', function($scope, $http) {
 		muskCurrentPage();
         var searchList = [];
-	 	$http.get("/cemetery/list").success(function(response) {
+	 	$http.get("/cemetery/listByDistrict?valid=1").success(function(response) {
 			var resultMap = [];
 			for (var p in response) {
 				var result = {};
@@ -194,12 +194,8 @@
             }
         });
 	 	$scope.gotoCemetery = function(id){
-	 	    window.location.href='cemetery.html?id='+id;
-	 	} 	
- 	
-        $scope.gotoTemple= function(id){		
-		    window.location.href='temple.html?id='+id;
-		}
+	 	    window.location.href='catagoryCemetery.html';
+	 	}
 	});
 </script>
 <script>
@@ -238,6 +234,9 @@
 		$(this).find(".ceMuskDiv").css({
 			opacity: 0.6
 		});
+	});
+	$("#viewAllButton").click(function() {
+		window.location.href='catagoryCemetery.html';
 	});
 </script>
 </html>

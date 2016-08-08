@@ -213,6 +213,7 @@
 	}
 	#productToolBar {
 	    background-color: #fff;
+		margin-top: 30px;
 	}
 	#chosenBar {
 	    padding: 20px 40px 10px;

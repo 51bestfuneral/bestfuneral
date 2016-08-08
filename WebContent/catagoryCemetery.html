@@ -18,126 +18,9 @@
 <link rel="stylesheet" href="/js/Font-Awesome-4.4.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="/js/AccountInfo.css">
 </head>
-<script>
-function findCata(cataName, catas) {
-    for (i =0; i < catas.length; i++) {
-
-		if (catas[i].cataId === cataName) {
-		    catas[i].selected = 'selected';
-		    return catas[i];
-		}
-	}
-	
-}
-var length = location.search.length,
-type = location.search.substring(6, length),
-itemFilter1 = '',
-itemFilter2 = '',
-itemFilter3 = '',
-orderBy = '',
-reverse = '';
-var catas = [{
-    cataId: 'G',
-	cataName: '骨灰盒',
-	cataDesc: '繁花落尽君辞去历尽铅华归于斯',
-	cataPic: '/js/images/noun_187249_cc.png',
-	iconPic: '/js/images/box@2x.png',
-	textPic: '/js/images/111.png',
-	filter1: '分类:',
-    filter2: '材质:',
-	filter3: '产地:'
-}, {
-    cataId: 'S',
-	cataName: '寿衣',
-	cataDesc: '日暖犹记备衣衫阳关一出不觉寒',
-	cataPic: '/js/images/noun_178107_cc.png',
-	iconPic: '/js/images/clothes@2x.png',
-	textPic: '/js/images/112.png',
-	filter1: '分类:',
-	filter2: '材质:',
-	filter3: '适用:'
-}, {
-    cataId: 'SI',
-	cataName: '祭祀安居',
-	cataDesc: '升幡登坛祭几回情深思切忆相随',
-	cataPic: '/js/images/Mask + Rectangle 77.png',
-	iconPic: '/js/images/clothes copy@2x.png',
-	textPic: '/js/images/113.png'
-}, {
-    cataId: 'L',
-	cataName: '礼仪服务',
-	cataDesc: '殚精竭虑誓不悔浓情暖意拂心扉',
-	cataPic: '/js/images/Group.png',
-	iconPic: '/js/images/clothes copy 2@2x.png',
-	textPic: '/js/images/114.png'
-}, {
-    cataId: 'SAO',
-	cataName: '祭扫用品',
-	cataDesc: '冢荒碑残殇未歇洒酒折菊栖冥蝶',
-	cataPic: '/js/images/noun_193115_cc.png',
-	iconPic: '/js/images/clothes copy 3@2x.png',
-	textPic: '/js/images/115.png'
-}, {
-    cataId: 'D',
-	cataName: '代订服务',
-	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
-	cataPic: '/js/images/1452911054_inspiration_Vol.1-61.png',
-	iconPic: '/js/images/clothes copy 4@2x.png',
-	textPic: '/js/images/1459802223_771171.png'
-}, {
-    cataId: 'Q',
-	cataName: '其他服务',
-	cataDesc: '念念提供了最完整的产品类别和特色服务，这里需要一些介绍的文字这里需要一些介绍的文字',
-	cataPic: '/js/images/noun_27116.png',
-	iconPic: '/js/images/clothes copy 4@2x.png',
-	textPic: '/js/images/otherText.png'
-}
-];
-var cata, productElementFilter, productFilter;
-cata = findCata(type, catas);
-productFilter = "?tab="+type
-productElementFilter = '?generalCode='+cata.cataId;
-</script>
 <body ng-app="catagoryApp" ng-controller="catagory">
 <div class="container">
-<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=product" frameborder = 0 height = "67px"></IFRAME>
-<div>
-	<div id="filter">
-	    <div id="filterCoat">
-	    <div class="filterIcon firstIcon" id="mainPage">
-		    <div class="imageHalf">
-			    <img class="fakeImg"></img>
-			    <img src="/js/images/Layer_1.png" class="iconImg"></img>
-			</div>
-			<div class="textHalf">
-			    <p>首页</p>
-			</div>
-		</div>
-		<div class="filterIcon {{cata.selected}}" id="{{cata.cataId}}" ng-repeat="cata in catas"  ng-cloak>
-		    <div class="imageHalf">
-			   <img class="fakeImg"></img>
-			   <img src="{{cata.cataPic}}" alt="念念,念念网,葬礼定制,殡葬,上海殡葬,殡葬服务,上海墓地， 骨灰盒，骨灰坛，寿衣，日本骨灰盒，葬礼花费，佛事服务，私人定制，生前契约，葬礼保险,提前定制"></img>
-			</div>
-			<div class="textHalf" ng-cloak>
-			    <p>{{cata.cataName}}</p>
-			</div>
-		</div>
-		</div>
-	</div>
-	<div id="catagoryProduct" ng-cloak>
-	    <div id="topBarCoat">
-	        <img src="/js/images/Page1@2x.png"></img>
-		    <h1>{{cataName}}</h1>
-		    <img src="/js/images/Page 1Copy@2x.png"></img>
-		</div>
-		<div class="bottomLeft">
-		    <script>document.write('<img src="'+ cata.iconPic +'"></img>');</script>
-		</div>
-		<div class="bottomRight">
-		    <script>document.write('<img src="'+ cata.textPic +'"></img>');</script>
-		</div>
-	</div>
-</div>
+<IFRAME NAME="content_frame" width=100% SRC="component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME>
 <div class="frameMain">
 	<div class="productContainer">
 		<div id="productToolBar">
@@ -185,9 +68,9 @@ productElementFilter = '?generalCode='+cata.cataId;
 			<i class="fa fa-refresh fa-spin fa-3x fa-fw"></i>
 		</div>
 		<div id="productGrid" hidden>
-			<div class="productItem {{itemLayout.positionClass}}" id="{{itemLayout.wishId}}" ng-repeat="itemLayout in itemLayouts" on-finish-render-filters>
+			<div class="productItem {{itemLayout.positionClass}}" id="{{itemLayout.cemeteryId}}" ng-repeat="itemLayout in itemLayouts" on-finish-render-filters>
 				<div class="imageDiv">
-					<img src="/js/images/{{itemLayout.imgUrl}}" class="image"></img>
+					<img src="{{itemLayout.descImgUrl}}" class="image"></img>
 				</div>
 				<div class="imageDivMask">
 				</div>
@@ -196,11 +79,11 @@ productElementFilter = '?generalCode='+cata.cataId;
 				</div>
 				<div class="inforDiv">
 					<div class="productDesc">
-						<p ng-bind="itemLayout.wishName"></p>
+						<p ng-bind="itemLayout.cemeteryName"></p>
 					</div>
 					<div class="productPrice">
-						<p>￥<span ng-bind="itemLayout.sellingPrice.toFixed(0)" class="ourPrice">1000</span></p>
-						<p>市场价:￥<span ng-bind="itemLayout.xianenPrice.toFixed(0)" class="originalPrice">1200</span></p>
+						<p>￥<span ng-bind="itemLayout.sellingPrice.toFixed(0)" class="ourPrice"></span></p>
+						<p>市场价:￥<span ng-bind="itemLayout.xianenPrice.toFixed(0)" class="originalPrice"></span></p>
 					</div>
 				</div>
 			</div>
@@ -214,7 +97,14 @@ productElementFilter = '?generalCode='+cata.cataId;
 var app = angular.module('catagoryApp', []),
     cataFilter,
 	queryedFilter,
-	wishlistId;
+	wishlistId,
+	orderBy,
+	itemFilter1 = '',
+	itemFilter2 = '',
+	itemFilter3 = '',
+	orderBy = '',
+	reverse = '',
+	productElementFilter = '?generalCode=CE';
 app.directive('onFinishRenderFilters', function ($timeout) {
     return {
         restrict: 'A',
@@ -260,7 +150,7 @@ app.controller('catagory', function($scope, $http) {
 		target.find("i").addClass("fa-times");
 	}
     var reloadProducts = function() {
-		var queryFilter = productFilter + itemFilter1 + itemFilter2 + itemFilter3 + orderBy + reverse;
+		var queryFilter = "?valid=1"+itemFilter1 + itemFilter2 + itemFilter3 + orderBy + reverse;
 		
 		if (queryedFilter !== queryFilter) {
 		    $("#productGrid").fadeOut();
@@ -268,7 +158,7 @@ app.controller('catagory', function($scope, $http) {
 		    $("#loadingDiv").animate({
 				'height': '120px'
 			});
-			$http.get("/wish/list"+queryFilter).success(function(response) {
+			$http.get("/cemetery/list"+queryFilter).success(function(response) {
 				for (var i=1;i<=response.length;i++) {
 					if (i%4 == 0) {
 						response[i-1].positionClass = "rowlast";
@@ -307,21 +197,21 @@ app.controller('catagory', function($scope, $http) {
 		}
 		if (filters1.length >0) {
 			filterGroup1.filters = filters1;
-			filterGroup1.groupName = cata.filter1?cata.filter1:'分类:';
+			filterGroup1.groupName = '花费:';
 			filterGroup1.groupIcon = 'fa fa-tags';
 			filterGroup1.style = 'color: #fddc3e;';
 			filterGroups.push(filterGroup1);
 		}
 		if (filters2.length >0) {
 			filterGroup2.filters = filters2;
-			filterGroup2.groupName = cata.filter2?cata.filter2:'分类:';
+			filterGroup2.groupName = '地区:';
 			filterGroup2.groupIcon = 'fa fa-bars';
 			filterGroup2.style = 'color: #7fc6d5;';
 			filterGroups.push(filterGroup2);
 		}
 		if (filters3.length >0) {
 			filterGroup3.filters = filters3;
-			filterGroup3.groupName = cata.filter3?cata.filter3:'分类:';
+			filterGroup3.groupName = '特色:';
 			filterGroup3.groupIcon = 'fa fa-sitemap';
 			filterGroup3.style = 'color: pink;';
 			filterGroups.push(filterGroup3);
@@ -331,7 +221,7 @@ app.controller('catagory', function($scope, $http) {
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
 	    $(".productItem").click(function() {
 			$(this).removeClass("productWishShadow");
-			window.parent.location.href="/productDetail3.html?id="+$(this)[0].id;
+			window.parent.location.href="/cemetery.html?id="+$(this)[0].id;
 		});
 		$("body").on("mousedown",".productItem",function() {
 			$(this).addClass("productWishShadow");
@@ -449,10 +339,6 @@ app.controller('catagory', function($scope, $http) {
 			});
 		});
 	});
-	$scope.cataName = cata.cataName;
-	$scope.cataDesc = cata.cataDesc;
-	$scope.catas = catas;
-	$scope.iconPic = cata.iconPic;
 	$("body").on("click", ".filterIcon", function () {
 		var $this = $(this);
 		

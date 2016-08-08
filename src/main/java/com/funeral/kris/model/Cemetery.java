@@ -69,6 +69,18 @@ public class Cemetery {
 	@Column(name = "feature_img_url")
 	private String featureImgUrl;
 
+	@Column(name = "filter1")
+	private String filter1;
+
+	@Column(name = "filter2")
+	private String filter2;
+
+	@Column(name = "filter3")
+	private String filter3;
+
+	@Column(name = "valid")
+	private String valid;
+
 	public Integer getCemeteryId() {
 		return cemeteryId;
 	}
@@ -211,5 +223,37 @@ public class Cemetery {
 
 	public void setFeatureImgUrl(String featureImgUrl) {
 		this.featureImgUrl = featureImgUrl;
+	}
+
+	public String getFilter1() {
+		return filter1;
+	}
+
+	public void setFilter1(String filter1) {
+		this.filter1 = filter1;
+	}
+
+	public String getFilter2() {
+		return filter2;
+	}
+
+	public void setFilter2(String filter2) {
+		this.filter2 = filter2;
+	}
+
+	public String getFilter3() {
+		return filter3;
+	}
+
+	public void setFilter3(String filter3) {
+		this.filter3 = filter3;
+	}
+
+	public String getValid() {
+		return valid;
+	}
+
+	public void setValid(String valid) {
+		this.valid = valid;
 	}
 }

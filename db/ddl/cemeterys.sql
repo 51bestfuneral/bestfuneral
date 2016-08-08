@@ -17,5 +17,8 @@ CREATE TABLE cemeterys (
   location_img_url VARCHAR(200) DEFAULT NULL,
   createdate  datetime default NOW(),
   updateddate  datetime default  NOW(),
+  filter1 varchar(20),
+  filter2 varchar(20),
+  filter3 varchar(20),
   PRIMARY KEY (cemetery_id)  
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;

@@ -279,12 +279,10 @@ public class CemeteryController
   }
   @ResponseBody
   @RequestMapping(value={"/listAllCemeteries"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
-  public List<CemeteryBean> listAllCemeteries() {
+  public List<CemeteryBean> listAllCemeteries(HttpServletRequest request) {
     List list = new ArrayList();
 
-    List cemeteryList = this.cemeteryService.getResources();
-
-    List cssList = this.cemeteryService.getAllCss();
+    List cemeteryList = this.cemeteryService.getResources(request);
 
     Iterator iterator = cemeteryList.iterator();
 
@@ -316,9 +314,7 @@ public class CemeteryController
 
       bean.setTrafficInfo(cemetery.getTrafficInfo());
 
-      String css = (String)cssList.get(index++);
       bean.setDescImgUrl(cemetery.getDescImgUrl());
-      bean.setCss(css);
       String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
       bean.setStyle(style);
       list.add(bean);
@@ -328,11 +324,9 @@ public class CemeteryController
   }
   @ResponseBody
   @RequestMapping(value={"/listAllTemple"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
-  public List<CemeteryBean> listAllTemple() { List list = new ArrayList();
+  public List<CemeteryBean> listAllTemple(HttpServletRequest request) { List list = new ArrayList();
 
-    List cemeteryList = this.cemeteryService.getResources();
-
-    List cssList = this.cemeteryService.getAllCss();
+    List cemeteryList = this.cemeteryService.getResources(request);
 
     Iterator iterator = cemeteryList.iterator();
 
@@ -363,10 +357,7 @@ public class CemeteryController
       bean.setPrice(cemetery.getPrice());
 
       bean.setTrafficInfo(cemetery.getTrafficInfo());
-
-      String css = (String)cssList.get(index++);
       bean.setDescImgUrl(cemetery.getDescImgUrl());
-      bean.setCss(css);
       String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
       bean.setStyle(style);
       list.add(bean);
@@ -376,9 +367,15 @@ public class CemeteryController
   }
   @ResponseBody
   @RequestMapping(value={"/list"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
-  public Map<String, List<CemeteryBean>> listOfCemeterys() {
+  public List<Cemetery> listOfCemeterys(HttpServletRequest request) {
+    List<Cemetery> cemeteryList = cemeteryService.getResources(request);
+    return cemeteryList;
+  }
+  @ResponseBody
+  @RequestMapping(value={"/listByDistrict"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
+  public Map<String, List<CemeteryBean>> listByDistrict(HttpServletRequest request) {
     Map<String, List<CemeteryBean>> resultMap = new HashMap<String, List<CemeteryBean>>();
-    List<Cemetery> cemeteryList = cemeteryService.getResources();
+    List<Cemetery> cemeteryList = cemeteryService.getResources(request);
 
     for (Cemetery cemetery:cemeteryList) {
       CemeteryBean cemeteryBean = new CemeteryBean();
