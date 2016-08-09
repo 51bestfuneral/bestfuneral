@@ -5,9 +5,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 
 import com.funeral.kris.util.PinyinUtil;
-import net.sourceforge.pinyin4j.PinyinHelper;
-import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
-import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -52,13 +50,47 @@ public class CemeteryController
   @Autowired
   private CemeteryKeywordsService cemeteryKeywordsService;
 
-  @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
-  public ModelAndView addCemeteryPage()
+  @RequestMapping(value={"/{cemeteryId}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public ModelAndView getCemeteryPage(@PathVariable int cemeteryId)
   {
-    ModelAndView modelAndView = new ModelAndView("add-cemetery-form");
-    modelAndView.addObject("cemetery", new Cemetery());
+    ModelAndView modelAndView = new ModelAndView("cemetery");
+    Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
+    List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService
+            .findByCemeteryId(cemeteryId);
+    List cemeteryGraveStyleList = this.cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
+    List zoneList = this.cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
+    List keywordsList = this.cemeteryKeywordsService.findByCemeteryId(cemeteryId);
+    CemeteryBean bean = new CemeteryBean();
+    bean.setCemeteryId(Integer.valueOf(cemeteryId));
+    bean.setCemeteryName(cemetery.getCemeteryName());
+    bean.setAddress(cemetery.getAddress());
+    bean.setCemeteryDesc(cemetery.getCemeteryDesc());
+    bean.setDistrict(cemetery.getDistrict());
+    bean.setFeature(cemetery.getFeature());
+    bean.setMapUrl("/funeral/js/images/cemeteryMap.png");
+    bean.setPrice(cemetery.getPrice());
+    bean.setTrafficInfo(cemetery.getTrafficInfo());
+    bean.setEpigraphStyleList(cemeteryEpigraphStyleList);
+    bean.setGraveStyleList(cemeteryGraveStyleList);
+    bean.setGraveZoneList(zoneList);
+    bean.setDescImgUrl(cemetery.getDescImgUrl());
+    bean.setFeatureImgUrl(cemetery.getFeatureImgUrl());
+    bean.setLocationImgUrl(cemetery.getLocationImgUrl());
+    bean.setKeywordsList(keywordsList);
+    Gson g = new Gson();
+    String cjson = g.toJson(bean);
+    modelAndView.addObject("cemetery", cjson);
     return modelAndView;
   }
+
+  @RequestMapping(value={"/g/{filterId}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public ModelAndView getCemeteryQueryPage(@PathVariable String filterId)
+  {
+    ModelAndView modelAndView = new ModelAndView("catagoryCemetery");
+    modelAndView.addObject("filterId", filterId);
+    return modelAndView;
+  }
+
   @ResponseBody
   @RequestMapping(value={"/add"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
   public void addingCemetery(@RequestBody Cemetery cemetery) {
@@ -134,55 +166,6 @@ public class CemeteryController
 		return prices;
 	}
 
-  
-  
-  @ResponseBody
-  @RequestMapping(value={"/findOneCemetery"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
-  public CemeteryBean findOneCemetery(HttpServletRequest request) {
-    int cemeteryId = Integer.parseInt(request.getParameter("cemeteryId"));
-    Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
-
-    List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService
-      .findByCemeteryId(cemeteryId);
-    List cemeteryGraveStyleList = this.cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
-    List zoneList = this.cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
-
-    List keywordsList = this.cemeteryKeywordsService.findByCemeteryId(cemeteryId);
-
-    CemeteryBean bean = new CemeteryBean();
-
-    bean.setCemeteryId(Integer.valueOf(cemeteryId));
-
-    bean.setCemeteryName(cemetery.getCemeteryName());
-
-    bean.setAddress(cemetery.getAddress());
-
-    bean.setCemeteryDesc(cemetery.getCemeteryDesc());
-
-    bean.setDistrict(cemetery.getDistrict());
-
-    bean.setFeature(cemetery.getFeature());
-
-    bean.setMapUrl("/funeral/js/images/cemeteryMap.png");
-
-    bean.setPrice(cemetery.getPrice());
-
-    bean.setTrafficInfo(cemetery.getTrafficInfo());
-
-    bean.setEpigraphStyleList(cemeteryEpigraphStyleList);
-
-    bean.setGraveStyleList(cemeteryGraveStyleList);
-
-    bean.setGraveZoneList(zoneList);
-
-    bean.setDescImgUrl(cemetery.getDescImgUrl());
-    bean.setFeatureImgUrl(cemetery.getFeatureImgUrl());
-    bean.setLocationImgUrl(cemetery.getLocationImgUrl());
-
-    bean.setKeywordsList(keywordsList);
-
-    return bean;
-  }
   @ResponseBody
   @RequestMapping(value={"/listCemeteryKeywords"}, method={org.springframework.web.bind.annotation.RequestMethod.GET}, produces={"application/json"})
   public List<TCemeteryKeywords> listCemeteryKeywords(HttpServletRequest request) {

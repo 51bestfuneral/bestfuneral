@@ -309,21 +309,21 @@ app.controller('catagory', function($scope, $http) {
 			filterGroup1.filters = filters1;
 			filterGroup1.groupName = cata.filter1?cata.filter1:'分类:';
 			filterGroup1.groupIcon = 'fa fa-tags';
-			filterGroup1.style = 'color: #fddc3e;';
+			filterGroup1.style =  'color: #419cca';
 			filterGroups.push(filterGroup1);
 		}
 		if (filters2.length >0) {
 			filterGroup2.filters = filters2;
 			filterGroup2.groupName = cata.filter2?cata.filter2:'分类:';
 			filterGroup2.groupIcon = 'fa fa-bars';
-			filterGroup2.style = 'color: #7fc6d5;';
+			filterGroup2.style = 'color: #9fae37';
 			filterGroups.push(filterGroup2);
 		}
 		if (filters3.length >0) {
 			filterGroup3.filters = filters3;
 			filterGroup3.groupName = cata.filter3?cata.filter3:'分类:';
 			filterGroup3.groupIcon = 'fa fa-sitemap';
-			filterGroup3.style = 'color: pink;';
+			filterGroup3.style = 'color: #e44885';
 			filterGroups.push(filterGroup3);
 		}
 		$scope.filterGroups = filterGroups;
