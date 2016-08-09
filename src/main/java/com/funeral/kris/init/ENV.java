@@ -25,7 +25,7 @@ public class ENV
     FileInputStream cfg = null;
     try {
       config = new Properties();
-      File temp = new File("D:\\cca-bridge\\app\\bestfuneral\\target\\classes/application.properties");
+      File temp = new File("/usr/local/tomcat/webapps/funeral/WEB-INF/classes/application.properties");
  
       cfg = new FileInputStream(temp);
       config.load(cfg);
