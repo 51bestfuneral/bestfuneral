@@ -30,12 +30,7 @@
 	</div>
 </div>
 <div class="container">
-<!-- <div class="redline" id="redline1"></div>
-<div class="redline" id="redline2"></div>
-<div class="redline" id="redline3"></div>
-<div class="redline" id="redline4"></div>
-<div class="redline" id="redline5"></div>
-<div class="redline" id="redline6"></div> -->
+
 <div id="cemeteryFilter" ng-cloak>
     <div id="filter">
 		<div id="filterCata">
@@ -62,16 +57,17 @@
 			</div>
 		
 			
-			</div>
 		</div>
 	</div>
-	<div id="reserver" ng-cloak  style={{display}} >
-		
-		<h3><span ng-bind="cemeteryPrice.description"></span>:￥<span ng-bind="cemeteryPrice.price"></span></h3>
-		<button class="reserverBtn" id="visitButton">在线预约</button>
-		<p>我们会帮您安排参观访问</p>
+</div>
 
-	</div>
+<div id="reserver" ng-cloak  style={{display}} >
+	
+	<h3><span ng-bind="cemeteryPrice.description"></span>:￥<span ng-bind="cemeteryPrice.price"></span></h3>
+	<button class="reserverBtn" id="visitButton">在线预约</button>
+	<p>我们会帮您安排参观访问</p>
+
+</div>
 </div>
 <div id="features" ng-cloak>
     <div id="featureContent">
@@ -89,16 +85,15 @@
 			<div id="locationFeature">
 			    <div class="leftlocationText">
 				     <h1>特色</h1>
-<p ng-bind-html="cemeteryBean.feature|trustAsHtml"></p>				</div>
+					 <p ng-bind-html="cemeteryBean.feature|trustAsHtml"></p>				
+				</div>
 				<div class="rightlocationImg">
 					 <img src={{cemeteryBean.featureImgUrl}}></img>
 				</div>
 			</div>
 			<div id="equipmentFeature">
 			    <div class="leftEquipmentImg">
-			    	
 					 <img src={{cemeteryBean.locationImgUrl}}></img>
-			
 				</div>
 				<div class="rightEquipmentText">
 				    <h1>交通信息</h1>
