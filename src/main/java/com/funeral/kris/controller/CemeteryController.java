@@ -53,7 +53,7 @@ public class CemeteryController
   @RequestMapping(value={"/{cemeteryId}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView getCemeteryPage(@PathVariable int cemeteryId)
   {
-    ModelAndView modelAndView = new ModelAndView("cemetery");
+    ModelAndView modelAndView = new ModelAndView("cemetery.jsp");
     Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
     List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService
             .findByCemeteryId(cemeteryId);
@@ -86,7 +86,7 @@ public class CemeteryController
   @RequestMapping(value={"/g/{filterId}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView getCemeteryQueryPage(@PathVariable String filterId)
   {
-    ModelAndView modelAndView = new ModelAndView("catagoryCemetery");
+    ModelAndView modelAndView = new ModelAndView("catagoryCemetery.jsp");
     modelAndView.addObject("filterId", filterId);
     return modelAndView;
   }
