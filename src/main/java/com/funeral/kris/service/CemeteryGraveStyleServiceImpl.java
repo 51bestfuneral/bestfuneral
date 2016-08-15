@@ -55,22 +55,7 @@ public class CemeteryGraveStyleServiceImpl implements CemeteryGraveStyleService 
 	@Override
 	public List<TCemeteryGraveStyle> getByCemeteryId(int id) {
 
-		List<TCemeteryGraveStyle> list = new ArrayList<TCemeteryGraveStyle>();
-
-		List<TCemeteryGraveStyle> styleList =getResources();
-		
-		Iterator<TCemeteryGraveStyle> iter = styleList.iterator();
-		while(iter.hasNext()) {
-			TCemeteryGraveStyle style = iter.next();
-			if(style.getCemeteryId().intValue()==id){
-				list.add(style);
-			}
-		}
-		return list;
-		
-		
-		
-		
+		return cemeteryGraveStyleDAO.findByCemeteryId(id);
 	}
 
 }

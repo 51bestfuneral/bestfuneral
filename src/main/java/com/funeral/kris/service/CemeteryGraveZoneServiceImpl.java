@@ -53,20 +53,7 @@ public class CemeteryGraveZoneServiceImpl implements CemeteryGraveZoneService{
 
 	@Override
 	public List<TCemeteryGraveZone> findByCemeteryId(int id) {
-		
-		List<TCemeteryGraveZone> zoneList = getResources();
-		List<TCemeteryGraveZone> list = new ArrayList<TCemeteryGraveZone>();
 
-		Iterator<TCemeteryGraveZone> iter = zoneList.iterator();
-		while(iter.hasNext()) {
-			TCemeteryGraveZone style = iter.next();
-			if(style.getCemeteryId().intValue()==id){
-				list.add(style);
-			}
-		}
-		return list;
-		
-		
+		return cemeteryGraveZoneDAO.findByCemeteryId(id);
 	}
-
 }

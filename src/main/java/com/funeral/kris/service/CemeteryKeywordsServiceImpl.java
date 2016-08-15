@@ -53,19 +53,6 @@ public class CemeteryKeywordsServiceImpl
 
   public List<TCemeteryKeywords> findByCemeteryId(int id)
   {
-    List list = new ArrayList();
-    List keywordsList = getResources();
-
-    Iterator iter = keywordsList.iterator();
-    while (iter.hasNext()) {
-      TCemeteryKeywords keyword = (TCemeteryKeywords)iter.next();
-      System.out.println("============= keywordsList.size() =" + keywordsList.size() + " keyword=" + keyword + " id=" + id + " getCemeteryId =" + keyword.getCemeteryId());
-
-      if (keyword.getCemeteryId().intValue() == id) {
-        list.add(keyword);
-      }
-    }
-
-    return list;
+    return cemeteryKeywordsDAO.findByCemeteryId(id);
   }
 }

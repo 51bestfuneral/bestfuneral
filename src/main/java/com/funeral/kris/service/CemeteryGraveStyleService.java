@@ -12,7 +12,4 @@ public interface CemeteryGraveStyleService {
 	public void deleteResource(int id);
 	public List<TCemeteryGraveStyle> getResources();
 	public List<TCemeteryGraveStyle> getByCemeteryId(int id);
-	
-	
-	
 }

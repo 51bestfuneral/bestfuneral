@@ -53,7 +53,7 @@ public class CemeteryController
   @RequestMapping(value={"/{cemeteryId}"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
   public ModelAndView getCemeteryPage(@PathVariable int cemeteryId)
   {
-    ModelAndView modelAndView = new ModelAndView("cemetery.jsp");
+    ModelAndView modelAndView = new ModelAndView("cemeteryDetail.jsp");
     Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
     List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService
             .findByCemeteryId(cemeteryId);
@@ -67,12 +67,25 @@ public class CemeteryController
     bean.setCemeteryDesc(cemetery.getCemeteryDesc());
     bean.setDistrict(cemetery.getDistrict());
     bean.setFeature(cemetery.getFeature());
-    bean.setMapUrl("/funeral/js/images/cemeteryMap.png");
+    bean.setHeadImg(cemetery.getHeadImg());
     bean.setPrice(cemetery.getPrice());
-    bean.setTrafficInfo(cemetery.getTrafficInfo());
+    bean.setTrafficInfo(cemetery.getTrafficInfo().split("-"));
     bean.setEpigraphStyleList(cemeteryEpigraphStyleList);
     bean.setGraveStyleList(cemeteryGraveStyleList);
     bean.setGraveZoneList(zoneList);
+    bean.setFirm(cemetery.getFirm());
+    bean.setOpenTime(cemetery.getOpenTime());
+    bean.setCloseTime(cemetery.getCloseTime());
+    bean.setFund(cemetery.getFund());
+    bean.setLevel(cemetery.getLevel());
+    bean.setSize(cemetery.getSize());
+    bean.setStop(cemetery.getStop() == 1?"有":"无");
+    bean.setTextStyle(cemetery.getTextStyle());
+    bean.setViews(cemetery.getViews());
+    bean.setFamous(cemetery.getFamous());
+    bean.setSpecialService(cemetery.getSpecialService());
+    bean.setFreeService(cemetery.getFreeService().split("-"));
+    bean.setNotices(cemetery.getNotices().split("-"));
     bean.setDescImgUrl(cemetery.getDescImgUrl());
     bean.setFeatureImgUrl(cemetery.getFeatureImgUrl());
     bean.setLocationImgUrl(cemetery.getLocationImgUrl());
@@ -295,7 +308,7 @@ public class CemeteryController
 
       bean.setPrice(cemetery.getPrice());
 
-      bean.setTrafficInfo(cemetery.getTrafficInfo());
+      bean.setTrafficInfo(cemetery.getTrafficInfo().split("-"));
 
       bean.setDescImgUrl(cemetery.getDescImgUrl());
       String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
@@ -339,7 +352,7 @@ public class CemeteryController
 
       bean.setPrice(cemetery.getPrice());
 
-      bean.setTrafficInfo(cemetery.getTrafficInfo());
+      bean.setTrafficInfo(cemetery.getTrafficInfo().split("-"));
       bean.setDescImgUrl(cemetery.getDescImgUrl());
       String style = "background-image:url(" + cemetery.getDescImgUrl() + "); background-repeat:no-repeat;";
       bean.setStyle(style);

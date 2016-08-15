@@ -15,6 +15,7 @@ public class CemeteryBean {
 	private BigDecimal price;
 	private String district;
 	private String mapUrl;
+	private String headImg;
 	private String cemeteryDesc;
 	private String descImgUrl;
 	private String featureImgUrl;
@@ -22,7 +23,7 @@ public class CemeteryBean {
 	private String style;
 	private Integer type;
 	private String feature;
-	private String TrafficInfo;
+	private String[] TrafficInfo;
 	private String address;
 	private List<TCemeteryKeywords> keywordsList;
 	private List<TCemeteryGraveStyle> graveStyleList;
@@ -30,6 +31,19 @@ public class CemeteryBean {
 	private List<TCemeteryEpigraphStyle> epigraphStyleList;
 	private String css;
 	private String pinyin;
+	private String firm;
+	private String level;
+	private String size;
+	private String views;
+	private String stop;
+	private String famous;
+	private String textStyle;
+	private String openTime;
+	private String closeTime;
+	private String[] freeService;
+	private String specialService;
+	private String fund;
+	private String[] notices;
 
 	public String getDescImgUrl() {
 		return descImgUrl;
@@ -97,10 +111,10 @@ public class CemeteryBean {
 	public void setFeature(String feature) {
 		this.feature = feature;
 	}
-	public String getTrafficInfo() {
+	public String[] getTrafficInfo() {
 		return TrafficInfo;
 	}
-	public void setTrafficInfo(String trafficInfo) {
+	public void setTrafficInfo(String[] trafficInfo) {
 		TrafficInfo = trafficInfo;
 	}
 	public String getAddress() {
@@ -150,5 +164,116 @@ public class CemeteryBean {
 	}
 	public void setPinyin(String pinyin) {
 		this.pinyin = pinyin;
+	}
+	public String getFirm() {
+		return firm;
+	}
+
+	public void setFirm(String firm) {
+		this.firm = firm;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getViews() {
+		return views;
+	}
+
+	public void setViews(String views) {
+		this.views = views;
+	}
+
+	public String getStop() {
+		return stop;
+	}
+
+	public void setStop(String stop) {
+		this.stop = stop;
+	}
+
+	public String getFamous() {
+		return famous;
+	}
+
+	public void setFamous(String famous) {
+		this.famous = famous;
+	}
+
+	public String getTextStyle() {
+		return textStyle;
+	}
+
+	public void setTextStyle(String textStyle) {
+		this.textStyle = textStyle;
+	}
+
+	public String getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+
+	public String getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
+
+	public String[] getFreeService() {
+		return freeService;
+	}
+
+	public void setFreeService(String[] freeService) {
+		this.freeService = freeService;
+	}
+
+	public String getSpecialService() {
+		return specialService;
+	}
+
+	public void setSpecialService(String specialService) {
+		this.specialService = specialService;
+	}
+
+	public String getFund() {
+		return fund;
+	}
+
+	public void setFund(String fund) {
+		this.fund = fund;
+	}
+
+	public String[] getNotices() {
+		return notices;
+	}
+
+	public void setNotices(String[] notices) {
+		this.notices = notices;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 }

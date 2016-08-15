@@ -81,6 +81,45 @@ public class Cemetery {
 	@Column(name = "valid")
 	private String valid;
 
+	@Column(name = "firm")
+	private String firm;
+
+	@Column(name = "level")
+	private String level;
+
+	@Column(name = "size")
+	private String size;
+
+	@Column(name = "views")
+	private String views;
+
+	@Column(name = "stop")
+	private int stop;
+
+	@Column(name = "famous")
+	private String famous;
+
+	@Column(name = "text_styles")
+	private String textStyle;
+
+	@Column(name = "open_time")
+	private String openTime;
+
+	@Column(name = "close_time")
+	private String closeTime;
+
+	@Column(name = "free_service")
+	private String freeService;
+
+	@Column(name = "special_service")
+	private String specialService;
+
+	@Column(name = "fund")
+	private String fund;
+
+	@Column(name = "notices")
+	private String notices;
+
 	public Integer getCemeteryId() {
 		return cemeteryId;
 	}
@@ -256,4 +295,109 @@ public class Cemetery {
 	public void setValid(String valid) {
 		this.valid = valid;
 	}
+
+	public String getFirm() {
+		return firm;
+	}
+
+	public void setFirm(String firm) {
+		this.firm = firm;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public String getViews() {
+		return views;
+	}
+
+	public void setViews(String views) {
+		this.views = views;
+	}
+
+	public int getStop() {
+		return stop;
+	}
+
+	public void setStop(int stop) {
+		this.stop = stop;
+	}
+
+	public String getFamous() {
+		return famous;
+	}
+
+	public void setFamous(String famous) {
+		this.famous = famous;
+	}
+
+	public String getTextStyle() {
+		return textStyle;
+	}
+
+	public void setTextStyle(String textStyle) {
+		this.textStyle = textStyle;
+	}
+
+	public String getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+
+	public String getCloseTime() {
+		return closeTime;
+	}
+
+	public void setCloseTime(String closeTime) {
+		this.closeTime = closeTime;
+	}
+
+	public String getFreeService() {
+		return freeService;
+	}
+
+	public void setFreeService(String freeService) {
+		this.freeService = freeService;
+	}
+
+	public String getSpecialService() {
+		return specialService;
+	}
+
+	public void setSpecialService(String specialService) {
+		this.specialService = specialService;
+	}
+
+	public String getFund() {
+		return fund;
+	}
+
+	public void setFund(String fund) {
+		this.fund = fund;
+	}
+
+	public String getNotices() {
+		return notices;
+	}
+
+	public void setNotices(String notices) {
+		this.notices = notices;
+	}
+
 }
