@@ -23,6 +23,9 @@
 <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
 <script src="/js/baiduMap.js" charset="UTF-8"></script>
 <link href="/css/common.css" rel="stylesheet">
+<script src="/js/generalUsage.js"></script>
+<script src="../js/timepicker/js/moment-with-locales.js"></script>
+<script src="../js/timepicker/js/bootstrap-datetimepicker.js"></script>
 </head>
 <style>
 #mainImage {
@@ -254,6 +257,12 @@
 .inNavi {
 	border-color: #bbb;
 }
+.bootstrap-datetimepicker-widget {
+	width: 200px;
+}
+.bootstrap-datetimepicker-widget .table-condensed {
+	width: 100%;
+}
 </style>
 <body ng-app="productApp" ng-controller="cemetery" ng-init='initFunc(${cemetery})'>
     <IFRAME NAME="content_frame" width=100% SRC="/component/topBar.html?cat=cemetery" frameborder = 0 height = "67px"></IFRAME>
@@ -311,7 +320,7 @@
                                         <div class="row row-condensed space-2">
                                             <div class="col-md-12">
                                                 <label>参观日期</label>
-												<input type="text" placeholder="年-月-日"/>
+												<input type="text" placeholder="年-月-日" id="datetimepicker1"/>
 											</div>
 										</div>
 									</div>
@@ -323,7 +332,7 @@
 								<div class="row space-4">
 									<div class="col-md-12">
 										<label>联系人手机号码</label>
-										<input type="text" placeholder="输入手机号码"/>
+										<input type="text" placeholder="输入手机号码" id="phoneNumber"/>
 									</div>
 								</div>
 								<div class="space-2">
@@ -451,10 +460,15 @@
 							</div>
 							<div class="col-md-9">
 								<div class="row">
-									<div class="col-md-6" ng-repeat="service in cemetery.freeService">
-										<div>
-											<span ng-bind="service">咨询、电脑查询</span>
+									<div>
+										<div class="col-md-6" ng-repeat="service in cemetery.freeService">
+											<div>
+												<span ng-bind="service"></span>
+											</div>
 										</div>
+									</div>
+									<div class="col-md-12 space-2-top">
+										<span class="pinked">以上仅供参考，可能会有变动</span>
 									</div>
 								</div>
 							</div>
@@ -519,7 +533,7 @@
 									<span ng-bind="path"></span>
 								</div>
 								<div class="space-2 space-2-top">
-									<span>墓园内有停车场，车位500个，10元/小时，附近天虹商场也可停车  </span>
+									<span>墓园内有停车场，车位500个，10元/小时，附近商场也可停车  </span>
 								</div>
 								<div>
 									<span>好评率： <b>100%</b> </span>
@@ -595,11 +609,13 @@
 	</div>
     <IFRAME NAME="content_frame" width=100% height=246 marginwidth=0 marginheight=0 SRC="/component/bottomBar.html" frameborder = 0></IFRAME>
 </body>
-<script>
+<script charset="UTF-8">
 	var app = angular.module('productApp', []);
+	var cemeteryId;
 	app.controller('cemetery', function($scope, $http) {
 		$scope.initFunc = function(cemetery) {
 			$scope.cemetery = cemetery;
+			cemeteryId = cemetery.cemeteryId;
 			initMap(cemetery.cemeteryName,cemetery.address);
 			$http.get("/cemetery/list?district="+$scope.cemetery.district).success(function(response) {
 				$scope.referList = [];
@@ -618,7 +634,7 @@
 		var topPosition = document.body.scrollTop;
 		var startPosition = $("#middleContent").offset().top - 40;
 		if (topPosition > startPosition) {
-			$("#naviBar").show();
+			$("#naviBar").show();a
 		}
 		else {
 			$("#naviBar").hide();
@@ -651,19 +667,19 @@
 			$("#reTopbar").addClass("reTopbar-fixed");
 		}
 
-		if (topPosition >$("#referenceContent").offset().top) {
+		if (topPosition >=$("#referenceContent").offset().top-40) {
 			if (!$($(".singleNavi")[3]).hasClass("inNavi")) {
 				$(".singleNavi").removeClass("inNavi");
 				$($(".singleNavi")[3]).addClass("inNavi");
 			}
 		}
-		else if (topPosition >$("#addressContent").offset().top) {
+		else if (topPosition >=$("#addressContent").offset().top-40) {
 			if (!$($(".singleNavi")[2]).hasClass("inNavi")) {
 				$(".singleNavi").removeClass("inNavi");
 				$($(".singleNavi")[2]).addClass("inNavi");
 			}
 		}
-		else if (topPosition >$("#mainContent").offset().top) {
+		else if (topPosition >=$("#mainContent").offset().top -40) {
 			if (!$($(".singleNavi")[1]).hasClass("inNavi")) {
 				$(".singleNavi").removeClass("inNavi");
 				$($(".singleNavi")[1]).addClass("inNavi");
@@ -671,16 +687,33 @@
 		}
 	});
 	$($(".singleNavi")[0]).click(function() {
-        $("html,body").animate({scrollTop:$("#mainImage").offset().top},300);
+        $("html,body").animate({scrollTop:$("#mainImage").offset().top-40},300);
 	});
 	$($(".singleNavi")[1]).click(function() {
-		$("html,body").animate({scrollTop:$("#mainContent").offset().top},300);
+		$("html,body").animate({scrollTop:$("#mainContent").offset().top-40},300);
 	});
 	$($(".singleNavi")[2]).click(function() {
-		$("html,body").animate({scrollTop:$("#addressContent").offset().top},300);
+		$("html,body").animate({scrollTop:$("#addressContent").offset().top-40},300);
 	});
 	$($(".singleNavi")[3]).click(function() {
-		$("html,body").animate({scrollTop:$("#referenceContent").offset().top},300);
+		$("html,body").animate({scrollTop:$("#referenceContent").offset().top-40},300);
+	});
+	$('#datetimepicker1').datetimepicker({
+		format: "YYYY-MM-DD",
+		locale: "zh-cn"
+	});
+	$(".reserveBtn").click(function(e) {
+		if ($("#phoneNumber")[0].value === null || $("#phoneNumber")[0].value === '') {
+			$("#phoneNumber").focus();
+			e.stopPropagation();
+		}
+		else if ($("#datetimepicker1")[0].value === '') {
+			$("#datetimepicker1").focus();
+			e.stopPropagation();
+		}
+		else {
+			sendVistReuqest(cemeteryId, $("#datetimepicker1")[0].value, $("#phoneNumber")[0].value);
+		}
 	});
 </script>
 </html>

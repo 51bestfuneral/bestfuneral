@@ -14,8 +14,7 @@ body {
 	color: #ffffff;
 }
 #headerText {
-    width: 725px;
-	margin: 0px auto;
+    display: inline-block;
 }
 #headerText h1 {
     width: 645px;
@@ -188,6 +187,7 @@ body {
     width: 1200px;
 	margin: 0px auto;
 	overflow: auto;
+	padding-bottom: 40px;
 }
 .listContent h2 {
 	margin-top: 10px;
@@ -255,11 +255,22 @@ hr {
 	border: 1px solid;
 	border-radius: 2px;
 	background-color: #ffffff;
+	cursor: pointer;
+}
+#viewAllButton:hover {
+	background-color: #f5f5f5;
 }
 #viewAllButton span {
 	font-weight: bold;
 	line-height: 42px;
 	font-size: 18px;
+}
+.bootstrap-datetimepicker-widget {
+	left: 355px!important;
+	width: 200px;
+}
+.bootstrap-datetimepicker-widget .table-condensed {
+	width: 100%;
 }
 @media (max-width: 1380px) {
 	.listContent {

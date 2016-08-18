@@ -378,6 +378,7 @@ public class CemeteryController
       cemeteryBean.setAddress(cemetery.getAddress());
       cemeteryBean.setCemeteryName(cemetery.getCemeteryName());
       cemeteryBean.setDistrict(cemetery.getDistrict());
+      cemeteryBean.setCemeteryId(cemetery.getCemeteryId());
       cemeteryBean.setPinyin(PinyinUtil.getHanyuPinyin(cemetery.getAddress()+cemetery.getCemeteryName()));
       if (!resultMap.containsKey(cemetery.getDistrict())) {
         List<CemeteryBean> list = new ArrayList<CemeteryBean>();

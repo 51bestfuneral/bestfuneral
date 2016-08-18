@@ -222,7 +222,7 @@ app.controller('catagory', function($scope, $http) {
 	$scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
 	    $(".productItem").click(function() {
 			$(this).removeClass("productWishShadow");
-			window.parent.location.href="/cemetery/"+$(this)[0].id;
+			window.open("/cemetery/"+$(this)[0].id);
 		});
 		$("body").on("mousedown",".productItem",function() {
 			$(this).addClass("productWishShadow");

@@ -231,15 +231,21 @@ function popupchangePassWordPage() {
 		window.onresize = resizeLogin;
 }
 
-function floatAlertBar(content) {
+function floatAlertBar(content, type) {
+	var backgroundColor;
+	if (type === 'error') {
+		backgroundColor = '#ff5a5f';
+	}
+	else {
+		backgroundColor = '#bfeeb0';
+	}
 	$('<div class="alertBar"><i class="fa fa-check-circle"></i></span>&nbsp;'+ content +'&nbsp;<a href="/mainPage.html">回到首页</a>&nbsp;|&nbsp;<a href="/designProposal.html">开始定制</a><div class="floatRightClose"><i class="fa fa-times"></i></div></div>').appendTo(document.body).css({ 
 		position: 'fixed',
 		top: '0px',
 		'z-index': 1000, 
 		width: $(document).width(),
-		'background-color': '#ccc', 
 		padding: '15px',
-		'background-color': '#bfeeb0',
+		'background-color': backgroundColor,
 	    'font-size': '14px',
 	    'line-height': '1.43',
 	    'color': '#565a5c',
@@ -433,4 +439,36 @@ function verifySession(){
 	    }
     });
 	
+}
+
+function sendVistReuqest(cemeteryId, reservDte, phone) {
+	var reservation = {};
+
+	reservation.phoneNumber = phone;
+	reservation.cemeterId = parseInt(cemeteryId);
+	reservation.reservDte = reservDte;
+	$.ajax({
+		url: '/reservation/add',
+		type: 'POST',
+		contentType: "application/json; charset=UTF-8",
+		dataType: 'json',
+		data: JSON.stringify(reservation),
+		success:function(data){
+			if (data === 1) {
+				popupLogInPage();
+			}
+			else if (data === 2) {
+				floatAlertBar("您已经预约过了", 'error');
+			}
+			else if(data ===4){
+				floatAlertBar("您选择的预约时间早于今天，请重新选择", 'error');
+			}
+			else {
+				floatAlertBar("预约成功");
+			}
+		},
+		error: function(error) {
+			alert(error);
+		}
+	});
 }

@@ -61,13 +61,15 @@ public class ReservationController {
 	@RequestMapping(value="/add",method=RequestMethod.POST, produces = "application/json")
 	public int addServation(@RequestBody Reservation reservation, HttpServletRequest request) throws Exception {
 		User user = (User)request.getSession().getAttribute("user");
-		reservation.setUserId(user.getUsrId());
-		if (user == null) {
+
+		if (user == null || reservation.getReservDte() == "") {
 			return 1;
 		}
-		if(reservation.getReservDte()==""){
-			return 3;
+
+		if (reservation.getPhoneNumber() == null) {
+			reservation.setPhoneNumber(user.getPhone());
 		}
+		reservation.setUserId(user.getUsrId());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");                
 		 Date reservateDate = sdf.parse(reservation.getReservDte());
 		 Calendar cal = Calendar.getInstance();
