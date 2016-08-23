@@ -1,12 +1,10 @@
 package com.funeral.kris.bean;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.funeral.kris.model.TCemeteryEpigraphStyle;
-import com.funeral.kris.model.TCemeteryGraveStyle;
-import com.funeral.kris.model.TCemeteryGraveZone;
-import com.funeral.kris.model.TCemeteryKeywords;
+import com.funeral.kris.model.*;
 
 public class CemeteryBean {
 	
@@ -44,6 +42,8 @@ public class CemeteryBean {
 	private String specialService;
 	private String fund;
 	private String[] notices;
+	private List<Cemetery> otherCemeteries = new ArrayList<Cemetery>();
+	private List<CemeteryPriceBean> cemeteryPrices = new ArrayList<CemeteryPriceBean>();
 
 	public String getDescImgUrl() {
 		return descImgUrl;
@@ -275,5 +275,21 @@ public class CemeteryBean {
 
 	public void setHeadImg(String headImg) {
 		this.headImg = headImg;
+	}
+
+	public List<Cemetery> getOtherCemeteries() {
+		return otherCemeteries;
+	}
+
+	public void setOtherCemeteries(List<Cemetery> otherCemeteries) {
+		this.otherCemeteries = otherCemeteries;
+	}
+
+	public List<CemeteryPriceBean> getCemeteryPrices() {
+		return cemeteryPrices;
+	}
+
+	public void setCemeteryPrices(List<CemeteryPriceBean> cemeteryPrices) {
+		this.cemeteryPrices = cemeteryPrices;
 	}
 }

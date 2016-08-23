@@ -2,6 +2,7 @@ package com.funeral.kris.service;
 
 import java.util.List;
 
+import com.funeral.kris.bean.CemeteryPriceBean;
 import com.funeral.kris.model.Cemetery;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,4 +14,6 @@ public interface CemeteryService {
 	public Cemetery getResource(int id);
 	public void deleteResource(int id);
 	public List<Cemetery> getResources(HttpServletRequest request);
+	public List<Cemetery> getResourcesByDistrict(String district);
+	public List<CemeteryPriceBean> getCemeteryPrices(int cemeteryId);
 }

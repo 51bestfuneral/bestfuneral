@@ -55,12 +55,11 @@ public class CemeteryController
   {
     ModelAndView modelAndView = new ModelAndView("cemeteryDetail.jsp");
     Cemetery cemetery = this.cemeteryService.getResource(cemeteryId);
-    List cemeteryEpigraphStyleList = this.cemeteryEpigraphStyleService
-            .findByCemeteryId(cemeteryId);
-    List cemeteryGraveStyleList = this.cemeteryGraveStyleService.getByCemeteryId(cemeteryId);
     List zoneList = this.cemeteryGraveZoneService.findByCemeteryId(cemeteryId);
     List keywordsList = this.cemeteryKeywordsService.findByCemeteryId(cemeteryId);
     CemeteryBean bean = new CemeteryBean();
+    bean.setCemeteryPrices(cemeteryService.getCemeteryPrices(cemetery.getCemeteryId()));
+    bean.setOtherCemeteries(cemeteryService.getResourcesByDistrict(cemetery.getDistrict()));
     bean.setCemeteryId(Integer.valueOf(cemeteryId));
     bean.setCemeteryName(cemetery.getCemeteryName());
     bean.setAddress(cemetery.getAddress());
@@ -70,8 +69,6 @@ public class CemeteryController
     bean.setHeadImg(cemetery.getHeadImg());
     bean.setPrice(cemetery.getPrice());
     bean.setTrafficInfo(cemetery.getTrafficInfo().split("-"));
-    bean.setEpigraphStyleList(cemeteryEpigraphStyleList);
-    bean.setGraveStyleList(cemeteryGraveStyleList);
     bean.setGraveZoneList(zoneList);
     bean.setFirm(cemetery.getFirm());
     bean.setOpenTime(cemetery.getOpenTime());

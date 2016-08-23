@@ -403,10 +403,12 @@
 							</div>
 							<div class="col-md-9">
 								<div class="row">
-									<div class="col-md-6" ng-repeat="style in cemetery.graveStyleList">
+									<div class="col-md-6" ng-repeat="style in cemetery.cemeteryPrices">
 										<div>
 											<i class="fa fa-university" aria-hidden="true"></i>
-											<span ng-bind="style.description"></span>
+											<span ng-bind="style.graveStyle"></span>
+											<span ng-bind="style.epigraphStyle"></span>
+											<span ng-bind="style.price" class="pinked"></span>
 										</div>
 									</div>
 								</div>
@@ -415,21 +417,13 @@
 						<hr/>
 						<div class="row">
 							<div class="col-md-3">
-								<span>价格</span>
+								<span>园区</span>
 							</div>
 							<div class="col-md-9">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6" ng-repeat="style in cemetery.graveZoneList">
                                         <div>
-											<span>额外房客：<span style="font-weight: bold;">￥103 / 晚 每超出一人计</span></span>
-										</div>
-										<div>
-											<span>清洁费：<span style="font-weight: bold;">￥137</span></span>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div>
-											<span>退订政策：<span style="font-weight: bold;">灵活</span></span>
+											<span ng-bind="style.zone"></span>
 										</div>
 									</div>
 								</div>
@@ -617,14 +611,7 @@
 			$scope.cemetery = cemetery;
 			cemeteryId = cemetery.cemeteryId;
 			initMap(cemetery.cemeteryName,cemetery.address);
-			$http.get("/cemetery/list?district="+$scope.cemetery.district).success(function(response) {
-				$scope.referList = [];
-				for (var i=0;i<response.length;i++) {
-					if (response[i].cemeteryId !== $scope.cemetery.cemeteryId) {
-						$scope.referList.push(response[i]);
-					}
-				}
-			});
+			$scope.referList = cemetery.otherCemeteries;
 		}
 		$scope.naviToCemetery = function(id) {
 			window.open('/cemetery/'+id);
@@ -634,7 +621,7 @@
 		var topPosition = document.body.scrollTop;
 		var startPosition = $("#middleContent").offset().top - 40;
 		if (topPosition > startPosition) {
-			$("#naviBar").show();a
+			$("#naviBar").show();
 		}
 		else {
 			$("#naviBar").hide();
